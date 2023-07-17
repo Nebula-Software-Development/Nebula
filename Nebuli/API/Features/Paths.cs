@@ -1,14 +1,15 @@
-﻿using System.IO;
+﻿using NwPaths = PluginAPI.Helpers.Paths;
+using System.IO;
 
 namespace Nebuli.API.Features;
 
 public static class Paths
 {
-    public static DirectoryInfo MainDict { get; private set; }
+    public static DirectoryInfo MainDirectory { get; private set; }
     
-    public static DirectoryInfo PluginsDict { get; private set; }
+    public static DirectoryInfo PluginsDirectory { get; private set; }
 
-    public static DirectoryInfo DepsDict { get; private set; }
+    public static DirectoryInfo DependenciesDirectory { get; private set; }
     
     public static FileInfo Configs { get; private set; }
     
@@ -16,6 +17,6 @@ public static class Paths
 
     public static void LoadPaths()
     {
-        // Set the paths to the desired directories
+        MainDirectory = Directory.CreateDirectory(Path.Combine(NwPaths.SecretLab, "NeBuli"));
     }
 }
