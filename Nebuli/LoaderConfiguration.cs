@@ -17,5 +17,5 @@ public class LoaderConfiguration
     /// Determines if the Loader should load plugins where their major required version of Nebuli dosent match Nebulis current major version.
     /// </summary>
     [Description("Determines if the Loader should load plugins where their major required version of Nebuli dosent match Nebulis current major version.")]
-    public bool LoadoutDatedPlugins { get; set; } = false;
+    public bool LoadOutDatedPlugins { get; set; } = false;
 }
