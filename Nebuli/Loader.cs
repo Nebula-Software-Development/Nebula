@@ -16,10 +16,10 @@ public class Loader
     [PluginConfig]
     public static LoaderConfiguration Configuration;
     
-    [PluginEntryPoint("Nebuli Loader", "0.0.1", "Nebuli Plugin Framework", "Nebuli Team")]
+    [PluginEntryPoint("Nebuli Loader", "0, 0, 0", "Nebuli Plugin Framework", "Nebuli Team")]
     public void Load()
     {
-        Log.Info("Nebuli loading...");
+        Log.Info($"Nebuli version {NebuliInfo.NebuliVersion} loading...");
         Log.Debug("Loading file paths...");
         Paths.LoadPaths();
         Log.Info("Loading dependencies...");
