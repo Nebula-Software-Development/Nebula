@@ -46,6 +46,7 @@
     <Compile Include="API\Features\Paths.cs" />
     <Compile Include="API\Interfaces\IConfig.cs" />
     <Compile Include="API\Interfaces\IPlugin.cs" />
+    <Compile Include="Events\EventManager.cs" />
     <Compile Include="Loader.cs" />
     <Compile Include="LoaderConfiguration.cs" />
     <Compile Include="NebuliInfo.cs" />
@@ -57,9 +58,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Events\" />
-  </ItemGroup>
-  <ItemGroup>
     <PackageReference Include="Lib.Harmony" Version="2.2.2" />
     <PackageReference Include="Mono.Cecil" Version="0.11.3" />
     <PackageReference Include="MonoMod.RuntimeDetour" Version="20.11.5.1" />
@@ -67,6 +65,7 @@
     <PackageReference Include="Northwood.PluginAPI" Version="13.1.0" />
     <PackageReference Include="YamlDotNet" Version="11.0.1" />
     <Reference Include="Assembly-CSharp" HintPath="$(NEBULIREFERENCES)\Assembly-CSharp-Publicized.dll" Private="false" />
+    <Reference Include="NorthwoodLib" HintPath="$(NEBULIREFERENCES)\NorthwoodLib.dll" Private="false" />
     <Reference Include="UnityEngine" HintPath="$(NEBULIREFERENCES)\UnityEngine.dll" Private="false" />
     <Reference Include="UnityEngine.CoreModule" HintPath="$(NEBULIREFERENCES)\UnityEngine.CoreModule.dll" Private="false" />
   </ItemGroup>
