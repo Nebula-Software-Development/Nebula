@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using HarmonyLib;
 using Nebuli.API.Features;
+using NorthwoodLib.Pools;
 
 namespace Nebuli.Events;
 
