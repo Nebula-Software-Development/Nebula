@@ -15,12 +15,15 @@ public class Loader
 {
     private Harmony _harmony;
 
+    public static Dictionary<Assembly, IPlugin<IConfig>> RegistedAssemblys { get; set; }
+
     [PluginConfig]
     public static LoaderConfiguration Configuration;
     
     [PluginEntryPoint("Nebuli Loader", "0, 0, 0", "Nebuli Plugin Framework", "Nebuli Team")]
     public void Load()
     {
+        if (!Configuration.LoaderEnabled) return;
         Log.Info($"Nebuli Version {NebuliInfo.NebuliVersion} loading...", consoleColor: ConsoleColor.Red);
         Log.Debug("Loading file paths...");
         Paths.LoadPaths();
@@ -79,6 +82,7 @@ public class Loader
                     continue;
                 }
                 Log.Info($"Plugin {newPlugin.PluginName}, by {newPlugin.PluginAuthor}, Version : {newPlugin.NebulisVersion}, has been succesfully enabled!");
+                RegistedAssemblys.Add(loadPlugin, newPlugin);
                 newPlugin.OnEnabled();
             }
             catch(Exception e)
@@ -87,6 +91,7 @@ public class Loader
             }
         }
         Log.Info("Plugins loaded!");
+        Log.Info("Welcome to... \r\n███╗░░██╗███████╗██████╗░██╗░░░██╗██╗░░░░░██╗\r\n████╗░██║██╔════╝██╔══██╗██║░░░██║██║░░░░░██║\r\n██╔██╗██║█████╗░░██████╦╝██║░░░██║██║░░░░░██║\r\n██║╚████║██╔══╝░░██╔══██╗██║░░░██║██║░░░░░██║\r\n██║░╚███║███████╗██████╦╝╚██████╔╝███████╗██║\r\n╚═╝░░╚══╝╚══════╝╚═════╝░░╚═════╝░╚══════╝╚═╝");
     }
 
     private static IPlugin<IConfig> NewPlugin(Assembly assembly)
