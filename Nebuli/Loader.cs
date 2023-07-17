@@ -8,7 +8,7 @@ using PluginAPI.Core.Attributes;
 
 namespace Nebuli;
 
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
+#pragma warning disable CS1591
 public class Loader
 {
     private Harmony _harmony;
