@@ -5,6 +5,7 @@ using System.Reflection;
 using HarmonyLib;
 using Nebuli.API.Features;
 using PluginAPI.Core.Attributes;
+using PluginAPI.Events;
 using PluginAPILogger = PluginAPI.Core.Log;
 
 namespace Nebuli;
@@ -25,7 +26,8 @@ public class Loader
         Paths.LoadPaths();
         Log.Info("Loading dependencies...");
         LoadDependencies(Paths.DependenciesDirectory.GetFiles("*.dll"));
-        
+        Log.Info("Loading plugins...");
+        LoadPlugins(Paths.PluginsDirectory.GetFiles("*.dll"));
         _harmony = new("nebuli.patching.core");
         _harmony.PatchAll();
     }
@@ -43,12 +45,28 @@ public class Loader
         {
             try
             {
-                string assemblies = Assembly.Load(File.ReadAllBytes(file.FullName)).FullName;
-                Log.Info($"Dependency {assemblies} loaded.");
+                Assembly assembly = Assembly.Load(File.ReadAllBytes(file.FullName));
+                Log.Info($"Dependency {assembly.GetName().Name} loaded!");
             }
             catch (Exception e)
             {
-                Log.Error($"Failed to load dependency {file.Name}.\n{e}");
+                Log.Error($"Failed to load dependency {file.Name}. Full error : \n{e}");
+            }
+        }
+        Log.Info("Dependencies Loaded!");
+    }
+
+    private void LoadPlugins(IEnumerable<FileInfo> files)
+    {
+        foreach(FileInfo file in files)
+        {
+            try
+            {
+
+            }
+            catch(Exception e)
+            {
+                Log.Error($"Failed to load plugin {file.Name}. Full error : \n{e}");
             }
         }
     }
