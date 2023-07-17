@@ -12,4 +12,10 @@ public class LoaderConfiguration
     /// </summary>
     [Description("Determines if plugin debug logs show or not.")]
     public bool ShowDebugLogs { get; set; } = true;
+
+    /// <summary>
+    /// Determines if the Loader should load plugins where their major required version of Nebuli dosent match Nebulis current major version.
+    /// </summary>
+    [Description("Determines if the Loader should load plugins where their major required version of Nebuli dosent match Nebulis current major version.")]
+    public bool LoadoutDatedPlugins { get; set; } = false;
 }

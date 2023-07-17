@@ -22,8 +22,10 @@ public class Loader
         Log.Info($"Nebuli Version {NebuliInfo.NebuliVersion} loading...", consoleColor: ConsoleColor.Red);
         Log.Debug("Loading file paths...");
         Paths.LoadPaths();
+        Log.Warning($"Dependency path is {Paths.DependenciesDirectory}");
         Log.Info("Loading dependencies...");
         LoadDependencies(Paths.DependenciesDirectory.GetFiles("*.dll"));
+        Log.Warning($"Plugin path is {Paths.PluginsDirectory}");
         Log.Info("Loading plugins...");
         LoadPlugins(Paths.PluginsDirectory.GetFiles("*.dll"));
         _harmony = new("nebuli.patching.core");
@@ -58,7 +60,7 @@ public class Loader
                 Log.Error($"Failed to load dependency {file.Name}. Full error : \n{e}");
             }
         }
-        Log.Info("Dependencies Loaded!");
+        Log.Info("Dependencies loaded!");
     }
 
     private void LoadPlugins(IEnumerable<FileInfo> files)
@@ -74,5 +76,6 @@ public class Loader
                 Log.Error($"Failed to load plugin {file.Name}. Full error : \n{e}");
             }
         }
+        Log.Info("Plugins loaded!");
     }
 }

@@ -1,12 +1,41 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Nebuli.API.Interfaces
 {
     /// <summary>
-    /// The base class for creating plugins with.
+    /// The default plugin interface for Nebuli.
     /// </summary>
+    /// <typeparam name="TConfig">The plugins config.</typeparam>
+    public interface IPlugin<out TConfig> : IComparable<IPlugin<IConfig>> where TConfig : IConfig
+    {
+        /// <summary>
+        /// Gets the plugins name.
+        /// </summary>
+        string PluginName { get; }
+
+        /// <summary>
+        /// Gets the plugins current version.
+        /// </summary>
+        Version Version { get; }
+
+        /// <summary>
+        /// Gets the plugins current Nebulis version.
+        /// </summary>
+        Version NebulisVersion { get; }
+
+        /// <summary>
+        /// If true, skips checking if the plugins current Nebulis version lines up with the Nebulis version loading the plugin.
+        /// </summary>
+        bool SkipVersionCheck { get; }
+
+        /// <summary>
+        /// Called after loading the plugin succesfully.
+        /// </summary>
+        void OnEnabled();
+
+        /// <summary>
+        /// Called after disabling the plugin.
+        /// </summary>
+        void OnDisabled();
+    }
 }
