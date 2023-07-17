@@ -1,7 +1,6 @@
-﻿namespace NeBuli
-{
-    public class Class1
-    {
+﻿namespace Nebuli;
 
-    }
+public class Class1
+{
+    
 }
