@@ -15,13 +15,14 @@ public static class Log
     /// </summary>
     /// <param name="message">The message to send.</param>
     /// <param name="prefix">The prefix of the message.</param>
-    public static void Info(object message, string prefix = null)
+    /// <param name="consoleColor">The color of the text in the console.</param>
+    public static void Info(object message, string prefix = null, ConsoleColor consoleColor = ConsoleColor.Cyan)
     {
         prefix ??= Assembly.GetCallingAssembly().GetName().Name;
         if(prefix == "Nebuli")
-            ServerConsole.AddLog(PluginAPILogger.FormatText($"&7[&b&3Nebuli&B&7] {message}", "7"), ConsoleColor.Cyan);
+            ServerConsole.AddLog(PluginAPILogger.FormatText($"&7[&b&3Nebuli&B&7] {message}", "7"), consoleColor);
         else
-            ServerConsole.AddLog(PluginAPILogger.FormatText($"&7[&b&3Nebuli&B&7]  &7[&b&2{prefix}&B&7]&r  {message}", "7"), ConsoleColor.Cyan);
+            ServerConsole.AddLog(PluginAPILogger.FormatText($"&7[&b&3Nebuli&B&7]  &7[&b&2{prefix}&B&7]&r  {message}", "7"), consoleColor);
 
 
     }
@@ -31,7 +32,8 @@ public static class Log
     /// </summary>
     /// <param name="message">The message to send.</param>
     /// <param name="prefix">The prefix of the message.</param>
-    public static void Debug(object message, string prefix = null)
+    ///  <param name="consoleColor">The color of the text in the console.</param>
+    public static void Debug(object message, string prefix = null, ConsoleColor consoleColor = ConsoleColor.Green)
     {
         if (!Loader.Configuration.ShowDebugLogs)
         {
@@ -41,9 +43,9 @@ public static class Log
 
         prefix ??= Assembly.GetCallingAssembly().GetName().Name;
         if (prefix == "Nebuli")
-            ServerConsole.AddLog(PluginAPILogger.FormatText($"&7[&b&3Nebuli&B&7] {message}", "7"), ConsoleColor.Green);
+            ServerConsole.AddLog(PluginAPILogger.FormatText($"&7[&b&3Nebuli&B&7] {message}", "7"), consoleColor);
         else
-            ServerConsole.AddLog(PluginAPILogger.FormatText($"&7[&b&3Nebuli&B&7]  &7[&b&2{prefix}&B&7]&r  {message}", "7"), ConsoleColor.Green);
+            ServerConsole.AddLog(PluginAPILogger.FormatText($"&7[&b&3Nebuli&B&7]  &7[&b&2{prefix}&B&7]&r  {message}", "7"), consoleColor);
     }
 
     /// <summary>
@@ -51,14 +53,15 @@ public static class Log
     /// </summary>
     /// <param name="message">The message to send.</param>
     /// <param name="prefix">The prefix of the message.</param>
-    public static void Warning(object message, string prefix = null)
+    /// <param name="consoleColor">The color of the text in the console.</param>
+    public static void Warning(object message, string prefix = null, ConsoleColor consoleColor = ConsoleColor.Magenta)
     {
         prefix ??= Assembly.GetCallingAssembly().GetName().Name;
         prefix ??= Assembly.GetCallingAssembly().GetName().Name;
         if (prefix == "Nebuli")
-            ServerConsole.AddLog(PluginAPILogger.FormatText($"&7[&b&3Nebuli&B&7] {message}", "7"), ConsoleColor.Magenta);
+            ServerConsole.AddLog(PluginAPILogger.FormatText($"&7[&b&3Nebuli&B&7] {message}", "7"), consoleColor);
         else
-            ServerConsole.AddLog(PluginAPILogger.FormatText($"&7[&b&3Nebuli&B&7]  &7[&b&2{prefix}&B&7]&r  {message}", "7"), ConsoleColor.Magenta);
+            ServerConsole.AddLog(PluginAPILogger.FormatText($"&7[&b&3Nebuli&B&7]  &7[&b&2{prefix}&B&7]&r  {message}", "7"), consoleColor);
     }
 
     /// <summary>
@@ -66,13 +69,14 @@ public static class Log
     /// </summary>
     /// <param name="message">The message to send.</param>
     /// <param name="prefix">The prefix of the message.</param>
-    public static void Error(object message, string prefix = null)
+    /// <param name="consoleColor">The color of the text in the console.</param>
+    public static void Error(object message, string prefix = null, ConsoleColor consoleColor = ConsoleColor.Red)
     {
         prefix ??= Assembly.GetCallingAssembly().GetName().Name;
         prefix ??= Assembly.GetCallingAssembly().GetName().Name;
         if (prefix == "Nebuli")
-            ServerConsole.AddLog(PluginAPILogger.FormatText($"&7[&b&3Nebuli&B&7] {message}", "7"), ConsoleColor.Red);
+            ServerConsole.AddLog(PluginAPILogger.FormatText($"&7[&b&3Nebuli&B&7] {message}", "7"), consoleColor);
         else
-            ServerConsole.AddLog(PluginAPILogger.FormatText($"&7[&b&3Nebuli&B&7]  &7[&b&2{prefix}&B&7]&r  {message}", "7"), ConsoleColor.Red);
+            ServerConsole.AddLog(PluginAPILogger.FormatText($"&7[&b&3Nebuli&B&7]  &7[&b&2{prefix}&B&7]&r  {message}", "7"), consoleColor);
     }
 }

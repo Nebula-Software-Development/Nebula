@@ -19,7 +19,7 @@ public class Loader
     [PluginEntryPoint("Nebuli Loader", "0, 0, 0", "Nebuli Plugin Framework", "Nebuli Team")]
     public void Load()
     {
-        Log.Info($"Nebuli version {NebuliInfo.NebuliVersion} loading...");
+        Log.Info($"Nebuli Version {NebuliInfo.NebuliVersion} loading...", consoleColor: ConsoleColor.Red);
         Log.Debug("Loading file paths...");
         Paths.LoadPaths();
         Log.Info("Loading dependencies...");
