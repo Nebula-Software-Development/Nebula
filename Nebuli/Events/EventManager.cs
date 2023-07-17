@@ -6,6 +6,8 @@ using NorthwoodLib.Pools;
 
 namespace Nebuli.Events;
 
+
+#pragma warning disable CS1591
 public static class EventManager
 {
     public delegate void CustomEventHandler<in T>(T ev)
