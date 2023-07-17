@@ -7,7 +7,7 @@ public class Loader
 {
     private Harmony _harmony;
     
-    [PluginEntryPoint("NeBuli Loader", "0.0.1", "NeBuli Plugin Framework", "NeBuli Team")]
+    [PluginEntryPoint("Nebuli Loader", "0.0.1", "Nebuli Plugin Framework", "Nebuli Team")]
     public void Load()
     {
         _harmony = new("nebuli.patching.core");
