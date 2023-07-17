@@ -14,7 +14,6 @@ namespace Nebuli;
 public class Loader
 {
     private Harmony _harmony;
-    private LoaderConfiguration LoaderConfiguration;
 
     [PluginConfig]
     public static LoaderConfiguration Configuration;
@@ -22,7 +21,6 @@ public class Loader
     [PluginEntryPoint("Nebuli Loader", "0, 0, 0", "Nebuli Plugin Framework", "Nebuli Team")]
     public void Load()
     {
-        Configuration = new LoaderConfiguration();
         Log.Info($"Nebuli Version {NebuliInfo.NebuliVersion} loading...", consoleColor: ConsoleColor.Red);
         Log.Debug("Loading file paths...");
         Paths.LoadPaths();
@@ -73,11 +71,18 @@ public class Loader
         {
             try
             {
+                Log.Info("Debug1");
                 Assembly loadPlugin = Assembly.LoadFile(file.FullName);
+                Log.Info("Debug2");
                 IPlugin<IConfig> newPlugin = NewPlugin(loadPlugin);
+                Log.Info("Debug3");
+                Log.Info(newPlugin.NebulisVersion.Major);
+                Log.Info(NebuliInfo.NebuliVersion.Major);
                 if (newPlugin.NebulisVersion.Major != NebuliInfo.NebuliVersion.Major && !Configuration.LoadOutDatedPlugins || NebuliInfo.NebuliVersion.Major != newPlugin.NebulisVersion.Major && !Configuration.LoadOutDatedPlugins)
                 {
+                    Log.Info("Debug4");
                     Log.Warning($"{newPlugin.PluginName} is outdated and will not be loaded by Nebuli! (Plugin Version : {newPlugin.NebulisVersion}, Nebuli Version : {NebuliInfo.NebuliVersion})");
+                    Log.Info("Debug5");
                     continue;
                 }
                 Log.Info($"Plugin {newPlugin.PluginName}, by {newPlugin.PluginAuthor}, Version : {newPlugin.NebulisVersion} has been succesfully enabled!");
@@ -91,7 +96,7 @@ public class Loader
         Log.Info("Plugins loaded!");
     }
 
-    public static IPlugin<IConfig> NewPlugin(Assembly assembly)
+    private static IPlugin<IConfig> NewPlugin(Assembly assembly)
     {
         try
         {
@@ -100,22 +105,25 @@ public class Loader
                 if (!IsDerivedFromPlugin(type))
                     continue;
 
+                Log.Info($"Trying to create plugin instance for type: {type.Name}");
                 IPlugin<IConfig> plugin = CreatePluginInstance(type);
                 if (plugin != null)
                 {
+                    Log.Info($"Plugin instance created successfully for type: {type.Name}");
                     return plugin;
                 }
             }
 
+            Log.Warning($"No valid plugin instance found in assembly: {assembly.GetName().Name}");
             return null;
         }
-        catch(Exception e)
+        catch (Exception e)
         {
             Log.Error($"Failed loading {assembly.GetName().Name}! Full error : \n{e}");
             return null;
         }
-       
     }
+
     private static bool IsDerivedFromPlugin(Type type)
     {
         return typeof(IPlugin<IConfig>).IsAssignableFrom(type) && !type.IsAbstract && !type.IsInterface;
@@ -126,10 +134,20 @@ public class Loader
         ConstructorInfo constructor = type.GetConstructor(Type.EmptyTypes);
         if (constructor is not null)
         {
+            Log.Info($"Found constructor for type: {type.Name}");
             return constructor.Invoke(null) as IPlugin<IConfig>;
         }
 
         PropertyInfo pluginProperty = type.GetProperties(BindingFlags.Static | BindingFlags.NonPublic | BindingFlags.Public).FirstOrDefault(property => property.PropertyType == type);
+
+        if (pluginProperty != null)
+        {
+            Log.Info($"Found plugin property for type: {type.Name}");
+        }
+        else
+        {
+            Log.Warning($"No valid constructor or plugin property found for type: {type.Name}");
+        }
 
         return pluginProperty?.GetValue(null) as IPlugin<IConfig>;
     }

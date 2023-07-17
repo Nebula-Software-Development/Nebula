@@ -1,45 +1,57 @@
-﻿using System;
+﻿using Nebuli.API.Interfaces;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace Nebuli.API.Interfaces
+namespace Nebuli.API.Features
 {
     /// <summary>
-    /// The default plugin interface for Nebuli.
+    /// Represents a base class for plugins in the Nebuli framework.
     /// </summary>
-    /// <typeparam name="TConfig">The plugins config.</typeparam>
-    public interface IPlugin<out TConfig> where TConfig : IConfig
+    /// <typeparam name="TConfig">The configuration type for the plugin.</typeparam>
+    public abstract class Plugin<TConfig> : IPlugin<TConfig> where TConfig : IConfig, new()
     {
+
         /// <summary>
         /// Gets the plugins name.
         /// </summary>
-        string PluginName { get; }
+        public string PluginName { get; }
 
         /// <summary>
         /// Gets the plugin's author.
         /// </summary>
-        string PluginAuthor { get; }
+        public string PluginAuthor { get; }
         /// <summary>
         /// Gets the plugins current version.
         /// </summary>
-        Version Version { get; }
+        public Version Version { get; }
 
         /// <summary>
         /// Gets the plugins current Nebulis version.
         /// </summary>
-        Version NebulisVersion { get; }
+        public Version NebulisVersion { get; }
 
         /// <summary>
         /// If true, skips checking if the plugins current Nebulis version lines up with the Nebulis version loading the plugin.
         /// </summary>
-        bool SkipVersionCheck { get; }
+        public bool SkipVersionCheck { get; }
 
         /// <summary>
         /// Called after loading the plugin succesfully.
         /// </summary>
-        void OnEnabled();
+        public void OnEnabled()
+        {
+
+        }
 
         /// <summary>
         /// Called after disabling the plugin.
         /// </summary>
-        void OnDisabled();
+        public void OnDisabled()
+        {
+
+        }
     }
 }
