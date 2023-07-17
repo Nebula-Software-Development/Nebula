@@ -1,9 +1,10 @@
-﻿
-using System.ComponentModel;
+﻿using System.ComponentModel;
 
 namespace Nebuli.API.Interfaces;
 
-
+/// <summary>
+/// Default Interface for plugin configs.
+/// </summary>
 public interface IConfig
 {
     /// <summary>

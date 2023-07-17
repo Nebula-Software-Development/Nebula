@@ -8,6 +8,7 @@ using PluginAPI.Core.Attributes;
 
 namespace Nebuli;
 
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 public class Loader
 {
     private Harmony _harmony;
@@ -15,7 +16,7 @@ public class Loader
     [PluginConfig]
     public static LoaderConfiguration Configuration;
     
-    [PluginEntryPoint("NeBuli Loader", "0.0.1", "NeBuli Plugin Framework", "NeBuli Team")]
+    [PluginEntryPoint("Nebuli Loader", "0.0.1", "Nebuli Plugin Framework", "Nebuli Team")]
     public void Load()
     {
         Paths.LoadPaths();
