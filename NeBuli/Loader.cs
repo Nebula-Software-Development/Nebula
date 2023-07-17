@@ -71,21 +71,14 @@ public class Loader
         {
             try
             {
-                Log.Info("Debug1");
                 Assembly loadPlugin = Assembly.LoadFile(file.FullName);
-                Log.Info("Debug2");
                 IPlugin<IConfig> newPlugin = NewPlugin(loadPlugin);
-                Log.Info("Debug3");
-                Log.Info(newPlugin.NebulisVersion.Major);
-                Log.Info(NebuliInfo.NebuliVersion.Major);
                 if (newPlugin.NebulisVersion.Major != NebuliInfo.NebuliVersion.Major && !Configuration.LoadOutDatedPlugins || NebuliInfo.NebuliVersion.Major != newPlugin.NebulisVersion.Major && !Configuration.LoadOutDatedPlugins)
                 {
-                    Log.Info("Debug4");
                     Log.Warning($"{newPlugin.PluginName} is outdated and will not be loaded by Nebuli! (Plugin Version : {newPlugin.NebulisVersion}, Nebuli Version : {NebuliInfo.NebuliVersion})");
-                    Log.Info("Debug5");
                     continue;
                 }
-                Log.Info($"Plugin {newPlugin.PluginName}, by {newPlugin.PluginAuthor}, Version : {newPlugin.NebulisVersion} has been succesfully enabled!");
+                Log.Info($"Plugin {newPlugin.PluginName}, by {newPlugin.PluginAuthor}, Version : {newPlugin.NebulisVersion}, has been succesfully enabled!");
                 newPlugin.OnEnabled();
             }
             catch(Exception e)
@@ -105,11 +98,11 @@ public class Loader
                 if (!IsDerivedFromPlugin(type))
                     continue;
 
-                Log.Info($"Trying to create plugin instance for type: {type.Name}");
+                Log.Debug($"Trying to create plugin instance for type: {type.Name}");
                 IPlugin<IConfig> plugin = CreatePluginInstance(type);
                 if (plugin != null)
                 {
-                    Log.Info($"Plugin instance created successfully for type: {type.Name}");
+                    Log.Debug($"Plugin instance created successfully for type: {type.Name}");
                     return plugin;
                 }
             }
@@ -134,7 +127,7 @@ public class Loader
         ConstructorInfo constructor = type.GetConstructor(Type.EmptyTypes);
         if (constructor is not null)
         {
-            Log.Info($"Found constructor for type: {type.Name}");
+            Log.Debug($"Found constructor for type: {type.Name}");
             return constructor.Invoke(null) as IPlugin<IConfig>;
         }
 
@@ -142,7 +135,7 @@ public class Loader
 
         if (pluginProperty != null)
         {
-            Log.Info($"Found plugin property for type: {type.Name}");
+            Log.Debug($"Found plugin property for type: {type.Name}");
         }
         else
         {

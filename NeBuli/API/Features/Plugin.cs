@@ -17,31 +17,31 @@ namespace Nebuli.API.Features
         /// <summary>
         /// Gets the plugins name.
         /// </summary>
-        public string PluginName { get; }
+        public virtual string PluginName { get; }
 
         /// <summary>
         /// Gets the plugin's author.
         /// </summary>
-        public string PluginAuthor { get; }
+        public virtual string PluginAuthor { get; }
         /// <summary>
         /// Gets the plugins current version.
         /// </summary>
-        public Version Version { get; }
+        public virtual Version Version { get; }
 
         /// <summary>
         /// Gets the plugins current Nebulis version.
         /// </summary>
-        public Version NebulisVersion { get; }
+        public virtual Version NebulisVersion { get; }
 
         /// <summary>
         /// If true, skips checking if the plugins current Nebulis version lines up with the Nebulis version loading the plugin.
         /// </summary>
-        public bool SkipVersionCheck { get; }
+        public virtual bool SkipVersionCheck { get; }
 
         /// <summary>
         /// Called after loading the plugin succesfully.
         /// </summary>
-        public void OnEnabled()
+        public virtual void OnEnabled()
         {
 
         }
@@ -49,7 +49,7 @@ namespace Nebuli.API.Features
         /// <summary>
         /// Called after disabling the plugin.
         /// </summary>
-        public void OnDisabled()
+        public virtual void OnDisabled()
         {
 
         }
