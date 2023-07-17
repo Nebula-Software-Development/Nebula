@@ -14,6 +14,10 @@ namespace Nebuli.API.Interfaces
         string PluginName { get; }
 
         /// <summary>
+        /// Gets the plugin's author.
+        /// </summary>
+        string PluginAuthor { get; }
+        /// <summary>
         /// Gets the plugins current version.
         /// </summary>
         Version Version { get; }
@@ -27,6 +31,11 @@ namespace Nebuli.API.Interfaces
         /// If true, skips checking if the plugins current Nebulis version lines up with the Nebulis version loading the plugin.
         /// </summary>
         bool SkipVersionCheck { get; }
+
+        /// <summary>
+        /// Gets the plugins configuration file.
+        /// </summary>
+        TConfig Config { get; }
 
         /// <summary>
         /// Called after loading the plugin succesfully.
