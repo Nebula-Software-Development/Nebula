@@ -38,6 +38,8 @@ namespace Nebuli.API.Features
         /// </summary>
         public virtual bool SkipVersionCheck { get; }
 
+        TConfig IPlugin<TConfig>.Config => new();
+
         /// <summary>
         /// Called after loading the plugin succesfully.
         /// </summary>
@@ -53,5 +55,6 @@ namespace Nebuli.API.Features
         {
 
         }
+
     }
 }

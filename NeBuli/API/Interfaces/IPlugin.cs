@@ -41,5 +41,10 @@ namespace Nebuli.API.Interfaces
         /// Called after disabling the plugin.
         /// </summary>
         void OnDisabled();
+
+        /// <summary>
+        /// The plugins config.
+        /// </summary>
+        TConfig Config { get; }
     }
 }
