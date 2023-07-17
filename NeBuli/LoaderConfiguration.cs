@@ -8,6 +8,11 @@ namespace Nebuli;
 public class LoaderConfiguration
 {
     /// <summary>
+    /// Determines if the Loader is enabled or not.
+    /// </summary>
+    [Description("Determines if Loader is enabled or not.")]
+    public bool LoaderEnabled { get; set; } = true;
+    /// <summary>
     /// Determines if the Loader's debug logs should be shown or not.
     /// </summary>
     [Description("Determines if plugin debug logs show or not.")]

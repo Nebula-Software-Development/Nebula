@@ -35,9 +35,9 @@ public static class Log
     ///  <param name="consoleColor">The color of the text in the console.</param>
     public static void Debug(object message, string prefix = null, ConsoleColor consoleColor = ConsoleColor.Green)
     {
-        if (!Loader.Configuration.ShowDebugLogs)
+        
+        if (!Loader.RegistedAssemblys[Assembly.GetCallingAssembly()].Config.Debug)
         {
-            PluginAPILogger.Info("Debug logs are disabled in the Loader Configuration", Assembly.GetCallingAssembly().GetName().Name);
             return;
         }
 
