@@ -18,6 +18,7 @@ public class Loader
     [PluginEntryPoint("NeBuli Loader", "0.0.1", "NeBuli Plugin Framework", "NeBuli Team")]
     public void Load()
     {
+        // TODO: This will not work until the Paths class is finished
         LoadDependencies(Paths.DepsDict.GetFiles("*.dll"));
         
         _harmony = new("nebuli.patching.core");
@@ -36,6 +37,8 @@ public class Loader
         foreach (FileInfo file in files)
         {
             string assemblies = Assembly.Load(File.ReadAllBytes(file.FullName)).FullName;
+            
+            // TODO: FINISH THIS
         }
     }
 }
