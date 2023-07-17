@@ -5,6 +5,7 @@ using System.Reflection;
 using HarmonyLib;
 using Nebuli.API.Features;
 using PluginAPI.Core.Attributes;
+using PluginAPILogger = PluginAPI.Core.Log;
 
 namespace Nebuli;
 
@@ -19,8 +20,10 @@ public class Loader
     [PluginEntryPoint("Nebuli Loader", "0.0.1", "Nebuli Plugin Framework", "Nebuli Team")]
     public void Load()
     {
+        Log.Info("Nebuli loading...");
+        Log.Info("Loading paths...");
         Paths.LoadPaths();
-        
+        Log.Info("Loading dependencies...");
         LoadDependencies(Paths.DependenciesDirectory.GetFiles("*.dll"));
         
         _harmony = new("nebuli.patching.core");

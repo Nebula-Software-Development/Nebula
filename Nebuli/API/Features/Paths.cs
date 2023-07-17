@@ -1,6 +1,5 @@
 ﻿using NwPaths = PluginAPI.Helpers.Paths;
 using System.IO;
-using System;
 
 namespace Nebuli.API.Features;
 
@@ -39,11 +38,14 @@ public static class Paths
     /// </summary>
     public static FileInfo Permissions { get; private set; }
 
+    /// <summary>
+    /// 
+    /// </summary>
     public static void LoadPaths()
     {
         MainDirectory = Directory.CreateDirectory(Path.Combine(NwPaths.SecretLab, "Nebuli"));
         PluginsDirectory = MainDirectory.CreateSubdirectory("Plugins");
-        PluginConfigDirectory = PluginConfigDirectory.CreateSubdirectory("PluginConfigs");
+        PluginConfigDirectory = MainDirectory.CreateSubdirectory("PluginConfigs");
         DependenciesDirectory = PluginsDirectory.CreateSubdirectory("Dependencies");
         Configs = new FileInfo(Path.Combine(MainDirectory.FullName, "Configuration.yml"));
         Permissions = new FileInfo(Path.Combine(MainDirectory.FullName, "Permissions.yml"));

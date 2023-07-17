@@ -64,6 +64,9 @@
     <PackageReference Include="MonoMod.Utils" Version="20.11.5.1" />
     <PackageReference Include="Northwood.PluginAPI" Version="13.1.0" />
     <PackageReference Include="YamlDotNet" Version="11.0.1" />
+    <Reference Include="Assembly-CSharp" HintPath="$(NEBULIREFERENCES)\Assembly-CSharp-Publicized.dll" Private="false" />
+    <Reference Include="UnityEngine" HintPath="$(NEBULIREFERENCES)\UnityEngine.dll" Private="false" />
+    <Reference Include="UnityEngine.CoreModule" HintPath="$(NEBULIREFERENCES)\UnityEngine.CoreModule.dll" Private="false" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Properties\Settings.settings">
