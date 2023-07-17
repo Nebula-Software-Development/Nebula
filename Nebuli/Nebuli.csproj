@@ -46,6 +46,7 @@
     <Compile Include="API\Features\Paths.cs" />
     <Compile Include="API\Interfaces\IConfig.cs" />
     <Compile Include="API\Interfaces\IPlugin.cs" />
+    <Compile Include="Events\EventManager.cs" />
     <Compile Include="Loader.cs" />
     <Compile Include="LoaderConfiguration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -66,6 +67,7 @@
     <PackageReference Include="Northwood.PluginAPI" Version="13.1.0" />
     <PackageReference Include="YamlDotNet" Version="11.0.1" />
     <Reference Include="Assembly-CSharp" HintPath="$(NEBULIREFERENCES)\Assembly-CSharp-Publicized.dll" Private="false" />
+    <Reference Include="NorthwoodLib" HintPath="$(NEBULIREFERENCES)\NorthwoodLib.dll" Private="false" />
     <Reference Include="UnityEngine" HintPath="$(NEBULIREFERENCES)\UnityEngine.dll" Private="false" />
     <Reference Include="UnityEngine.CoreModule" HintPath="$(NEBULIREFERENCES)\UnityEngine.CoreModule.dll" Private="false" />
   </ItemGroup>
