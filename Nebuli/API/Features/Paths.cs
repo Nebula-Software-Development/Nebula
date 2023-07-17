@@ -17,6 +17,6 @@ public static class Paths
 
     public static void LoadPaths()
     {
-        MainDirectory = Directory.CreateDirectory(Path.Combine(NwPaths.SecretLab, "NeBuli"));
+        MainDirectory = Directory.CreateDirectory(Path.Combine(NwPaths.SecretLab, "Nebuli"));
     }
 }
