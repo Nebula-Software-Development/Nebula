@@ -57,7 +57,6 @@ public static class Log
     public static void Warning(object message, string prefix = null, ConsoleColor consoleColor = ConsoleColor.Magenta)
     {
         prefix ??= Assembly.GetCallingAssembly().GetName().Name;
-        prefix ??= Assembly.GetCallingAssembly().GetName().Name;
         if (prefix == "Nebuli")
             ServerConsole.AddLog(PluginAPILogger.FormatText($"&7[&b&3Nebuli&B&7] {message}", "7"), consoleColor);
         else
@@ -72,7 +71,6 @@ public static class Log
     /// <param name="consoleColor">The color of the text in the console.</param>
     public static void Error(object message, string prefix = null, ConsoleColor consoleColor = ConsoleColor.Red)
     {
-        prefix ??= Assembly.GetCallingAssembly().GetName().Name;
         prefix ??= Assembly.GetCallingAssembly().GetName().Name;
         if (prefix == "Nebuli")
             ServerConsole.AddLog(PluginAPILogger.FormatText($"&7[&b&3Nebuli&B&7] {message}", "7"), consoleColor);
