@@ -100,7 +100,7 @@ public class Loader
             }
         }
         Log.Info("Plugins loaded!");
-        Log.Info("Welcome to... \r\n███╗░░██╗███████╗██████╗░██╗░░░██╗██╗░░░░░██╗\r\n████╗░██║██╔════╝██╔══██╗██║░░░██║██║░░░░░██║\r\n██╔██╗██║█████╗░░██████╦╝██║░░░██║██║░░░░░██║\r\n██║╚████║██╔══╝░░██╔══██╗██║░░░██║██║░░░░░██║\r\n██║░╚███║███████╗██████╦╝╚██████╔╝███████╗██║\r\n╚═╝░░╚══╝╚══════╝╚═════╝░░╚═════╝░╚══════╝╚═╝");
+        Log.Info(Configuration.StartupMessage);
     }
 
     private static IPlugin<IConfig> NewPlugin(Assembly assembly)

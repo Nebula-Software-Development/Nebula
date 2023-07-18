@@ -30,4 +30,10 @@ public class LoaderConfiguration
     /// </summary>
     [Description("Determines if the Loader should load plugins where their major required version of Nebuli dosent match Nebulis current major version.")]
     public bool LoadOutDatedPlugins { get; set; } = false;
+
+    /// <summary>
+    /// The startup message that the framework will display after initializing.
+    /// </summary>
+    [Description("The startup message that the framework will display in the console after initializing")]
+    public string StartupMessage { get; set; } = "Welcome to... \r\n███╗░░██╗███████╗██████╗░██╗░░░██╗██╗░░░░░██╗\r\n████╗░██║██╔════╝██╔══██╗██║░░░██║██║░░░░░██║\r\n██╔██╗██║█████╗░░██████╦╝██║░░░██║██║░░░░░██║\r\n██║╚████║██╔══╝░░██╔══██╗██║░░░██║██║░░░░░██║\r\n██║░╚███║███████╗██████╦╝╚██████╔╝███████╗██║\r\n╚═╝░░╚══╝╚══════╝╚═════╝░░╚═════╝░╚══════╝╚═╝";
 }
