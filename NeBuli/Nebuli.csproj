@@ -63,6 +63,7 @@
     <Compile Include="Events\EventArguments\IDamageEvent.cs" />
     <Compile Include="Events\EventArguments\IPlayerEvent.cs" />
     <Compile Include="Events\EventArguments\Player\PlayerBannedEventArgs.cs" />
+    <Compile Include="Events\EventArguments\Player\PlayerDyingEventArgs.cs" />
     <Compile Include="Events\EventArguments\Player\PlayerHurtEventArgs.cs" />
     <Compile Include="Events\EventArguments\Player\PlayerJoinEventArgs.cs" />
     <Compile Include="Events\EventArguments\Player\PlayerLeaveEventArgs.cs" />
