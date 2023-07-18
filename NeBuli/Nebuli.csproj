@@ -57,11 +57,15 @@
     <Compile Include="API\Features\Plugin.cs" />
     <Compile Include="API\Interfaces\IConfig.cs" />
     <Compile Include="API\Interfaces\IPlugin.cs" />
+    <Compile Include="Events\EventArguments\ICancellableEvent.cs" />
+    <Compile Include="Events\EventArguments\IDamageEvent.cs" />
     <Compile Include="Events\EventArguments\IPlayerEvent.cs" />
+    <Compile Include="Events\EventArguments\Player\PlayerHurtEventArgs.cs" />
     <Compile Include="Events\EventArguments\Player\PlayerJoinEventArgs.cs" />
     <Compile Include="Events\EventArguments\Player\PlayerLeaveEventArgs.cs" />
     <Compile Include="Events\EventManager.cs" />
     <Compile Include="Events\Handlers\PlayerHandlers.cs" />
+    <Compile Include="Events\Patches\Player\HurtPlayer.cs" />
     <Compile Include="Events\Patches\Player\LeavingServer.cs" />
     <Compile Include="Events\Patches\Player\VerificationCompleted.cs" />
     <Compile Include="Loader.cs" />
