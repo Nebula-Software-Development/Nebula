@@ -1,7 +1,6 @@
 ﻿using PluginAPILogger = PluginAPI.Core.Log;
 using System.Reflection;
 using System;
-using PluginAPI.Enums;
 
 namespace Nebuli.API.Features;
 
