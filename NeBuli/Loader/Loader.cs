@@ -11,6 +11,7 @@ using PluginAPI.Core.Attributes;
 using PluginAPI.Enums;
 using YamlDotNet.Core;
 using YamlDotNet.Serialization;
+using YamlDotNet.Serialization.NamingConventions;
 
 namespace Nebuli;
 
@@ -88,8 +89,8 @@ public class Loader
     private void LoadPlugins(IEnumerable<FileInfo> files)
     {
 
-        var serializer = new SerializerBuilder().Build();
-        var deserializer = new DeserializerBuilder().Build();
+        var serializer = new SerializerBuilder().WithNamingConvention(UnderscoredNamingConvention.Instance).Build();
+        var deserializer = new DeserializerBuilder().WithNamingConvention(UnderscoredNamingConvention.Instance).Build();
 
         foreach(FileInfo file in files)
         {
