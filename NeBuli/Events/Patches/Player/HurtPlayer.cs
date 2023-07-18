@@ -39,7 +39,7 @@ public class HurtPlayer
         index = newInstructions.FindIndex(i =>
             i.opcode == OpCodes.Newobj && i.OperandIs(GetDeclaredConstructors(typeof(PlayerDyingEvent))[0])) - 6;
         
-        newInstructions.InsertRange(index, new CodeInstruction[]
+        newInstructions.InsertRange(index, new[]
         {
             new CodeInstruction(OpCodes.Ldloc_3).MoveLabelsFrom(newInstructions[index]),
             new(OpCodes.Ldarg_0),
