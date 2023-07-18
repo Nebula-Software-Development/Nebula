@@ -10,5 +10,8 @@ public class PlayerJoinEventArgs : EventArgs, IPlayerEvent
         Player = new NebuliPlayer(serverRoles._hub);
     }
     
+    /// <summary>
+    /// The player calling the event.
+    /// </summary>
     public NebuliPlayer Player { get; }
 }

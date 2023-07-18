@@ -43,64 +43,106 @@ public class NebuliPlayer
     
     public string RawUserId { get; private set; }
 
+    /// <summary>
+    /// Gets or sets whether or not the player has bypass or not.
+    /// </summary>
     public bool IsBypassEnabled
     {
         get => ReferenceHub.serverRoles.BypassMode;
         set => ReferenceHub.serverRoles.BypassMode = value;
     }
 
+    /// <summary>
+    /// Gets or sets the players current position.
+    /// </summary>
     public Vector3 Position
     {
         get => Transform.position;
         set => ReferenceHub.TryOverridePosition(value, Vector3.zero);
     }
 
+    /// <summary>
+    /// Gets or sets the players current rotation.
+    /// </summary>
     public Vector3 Rotation
     {
         get => Transform.eulerAngles;
         set => ReferenceHub.TryOverridePosition(Position, value);
     }
     
+    /// <summary>
+    /// Gets or sets the players current <see cref="RecyclablePlayerId"/>
+    /// </summary>
     public int Id
     {
         get => ReferenceHub.PlayerId;
         set => ReferenceHub.Network_playerId = new RecyclablePlayerId(value);
     }
     
+    /// <summary>
+    /// Gets or sets the players current UserId.
+    /// </summary>
     public string UserId
     {
         get => ReferenceHub.characterClassManager.UserId;
         set => ReferenceHub.characterClassManager.UserId = value;
     }
     
+    /// <summary>
+    /// Gets or sets the players current SyncedUserId.
+    /// </summary>
     public string SyncedUserId
     {
         get => ReferenceHub.characterClassManager.SyncedUserId;
         set => ReferenceHub.characterClassManager.NetworkSyncedUserId = value;
     }
 
+    /// <summary>
+    /// Gets the players NetId.
+    /// </summary>
     public uint NetId => ReferenceHub.networkIdentity.netId;
     
+    /// <summary>
+    /// Gets or sets the players health.
+    /// </summary>
     public float Health
     {
         get => ReferenceHub.playerStats.GetModule<HealthStat>().CurValue;
         set => ReferenceHub.playerStats.GetModule<HealthStat>().CurValue = value;
     }
 
+    /// <summary>
+    /// Gets the players maximum possible health value.
+    /// </summary>
     public float MaxHealth => ReferenceHub.playerStats.GetModule<HealthStat>().MaxValue;
 
+    /// <summary>
+    /// Gets the players minimum possible health value.
+    /// </summary>
     public float MinHealth => ReferenceHub.playerStats.GetModule<HealthStat>().MinValue;
     
+    /// <summary>
+    /// Gets or sets the players current HumeShield value.
+    /// </summary>
     public float HumeShield
     {
         get => ReferenceHub.playerStats.GetModule<HumeShieldStat>().CurValue;
         set => ReferenceHub.playerStats.GetModule<HumeShieldStat>().CurValue = value;
     }
     
+    /// <summary>
+    /// Gets the players maximum HumeShield value.
+    /// </summary>
     public float MaxHumeShield => ReferenceHub.playerStats.GetModule<HumeShieldStat>().MaxValue;
 
+    /// <summary>
+    /// Gets the players minimum HumeShield value.
+    /// </summary>
     public float MinHumeShield => ReferenceHub.playerStats.GetModule<HumeShieldStat>().MinValue;
     
+    /// <summary>
+    /// Gets the players HumeShieldRegeneration value.
+    /// </summary>
     public float HumeShieldRegeneration
     {
         get
@@ -112,74 +154,122 @@ public class NebuliPlayer
         }
     }
     
+    /// <summary>
+    /// Gets or sets if the player is in Overwatch.
+    /// </summary>
     public bool IsOverwatchEnabled
     {
         get => ReferenceHub.serverRoles.IsInOverwatch;
         set => ReferenceHub.serverRoles.IsInOverwatch = value;
     }
     
+    /// <summary>
+    /// Gets or sets the players usergroups.
+    /// </summary>
     public UserGroup Group
     {
         get => ReferenceHub.serverRoles.Group;
         set => ReferenceHub.serverRoles.SetGroup(value, false);
     }
 
+    /// <summary>
+    /// Gets or sets the players rank color.
+    /// </summary>
     public string RankColor
     {
         get => ReferenceHub.serverRoles._myColor;
         set => ReferenceHub.serverRoles.SetColor(value);
     }
     
+    /// <summary>
+    /// Gets or sets the players rank name.
+    /// </summary>
     public string RankName
     {
         get => ReferenceHub.serverRoles._myText;
         set => ReferenceHub.serverRoles.SetText(value);
     }
 
+    /// <summary>
+    /// Gets or sets whether the player has DoNotTrack enabled or not.
+    /// </summary>
     public bool DoNotTrack
     {
         get => ReferenceHub.serverRoles.DoNotTrack;
         set => ReferenceHub.serverRoles.DoNotTrack = value;
     }
     
+    /// <summary>
+    /// Gets or sets a value if god mode is enabled or not.
+    /// </summary>
     public bool IsGodmodeEnabled
     {
         get => ReferenceHub.characterClassManager.GodMode;
         set => ReferenceHub.characterClassManager.GodMode = value;
     }
     
+    /// <summary>
+    /// Gets a boolean determining if the player is a Northwood Studios staff member.
+    /// </summary>
     public bool IsNorthWoodStaff => ReferenceHub.serverRoles.Staff;
 
+    /// <summary>
+    /// Gets a boolean determining if the player is a Global Moderator.
+    /// </summary>
     public bool IsGlobalModerator => ReferenceHub.serverRoles.RaEverywhere;
     
+    /// <summary>
+    /// Gets or sets the players custom info string.
+    /// </summary>
     public string CustomInfo
     {
         get => ReferenceHub.nicknameSync._customPlayerInfoString;
         set => ReferenceHub.nicknameSync.Network_customPlayerInfoString = value;
     }
 
+    /// <summary>
+    /// Gets or sets the players display nickname.
+    /// </summary>
     public string DisplayNickname
     {
         get => ReferenceHub.nicknameSync.DisplayName;
         set => ReferenceHub.nicknameSync.Network_displayName = value;
     }
 
+    /// <summary>
+    /// Gets or sets the players real nickname.
+    /// </summary>
     public string RealNickname
     {
         get => ReferenceHub.nicknameSync._myNickSync;
         set => ReferenceHub.nicknameSync._myNickSync = value;
     }
 
+    /// <summary>
+    /// Gets the players IP adress.
+    /// </summary>
     public string Address => ReferenceHub.connectionToClient.address;
     
+    /// <summary>
+    /// Gets the players global badge.
+    /// </summary>
     public string GlobalBadge => ReferenceHub.serverRoles.GlobalBadge;
 
+    /// <summary>
+    /// Gets or sets the players permissions.
+    /// </summary>
     public ulong Permissions
     {
         get => ReferenceHub.serverRoles.Permissions;
         set => ReferenceHub.serverRoles.Permissions = value;
     }
     
+    /// <summary>
+    /// Trys to get a <see cref="NebuliPlayer"/> with the provided Referencehub.
+    /// </summary>
+    /// <param name="hub">The players referencehub.</param>
+    /// <param name="player">The player that will be returned, if found.</param>
+    /// <returns>The <see cref="NebuliPlayer"/>, otherwise null.</returns>
     public static bool TryGet(ReferenceHub hub, out NebuliPlayer player)
     {
         if (hub is not null && Dictionary.TryGetValue(hub, out NebuliPlayer value))
@@ -192,11 +282,17 @@ public class NebuliPlayer
         return false;
     }
 
-    public static bool TryGet(GameObject go, out NebuliPlayer player)
+    /// <summary>
+    /// Trys to get a <see cref="NebuliPlayer"/> with the provided GameObject.
+    /// </summary>
+    /// <param name="gameobject">The players GameObject.</param>
+    /// <param name="player">The player that will be returned, if found.</param>
+    /// <returns>The <see cref="NebuliPlayer"/>, otherwise null.</returns>
+    public static bool TryGet(GameObject gameobject, out NebuliPlayer player)
     {
         foreach (var ply in Collection)
         {
-            if (ply.GameObject != go)
+            if (ply.GameObject != gameobject)
                 continue;
 
             player = ply;
