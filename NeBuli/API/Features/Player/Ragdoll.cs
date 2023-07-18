@@ -19,7 +19,7 @@ public class Ragdoll
     /// <summary>
     /// Gets the <see cref="BasicRagdoll"/> that this class is wrapping.
     /// </summary>
-    public BasicRagdoll Base { get; private set; }
+    public BasicRagdoll Base { get; }
 
     /// <summary>
     /// Gets the RagdollData from the <see cref="BasicRagdoll"/>.
