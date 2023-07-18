@@ -73,10 +73,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Lib.Harmony">
-      <Version>2.3.0-prerelease.2</Version>
-    </PackageReference>
+    <PackageReference Include="Lib.Harmony" Version="2.2.2" />
     <PackageReference Include="Mono.Cecil" Version="0.11.3" />
+    <PackageReference Include="MonoMod.Backports" Version="1.0.0" />
     <PackageReference Include="MonoMod.RuntimeDetour" Version="20.11.5.1" />
     <PackageReference Include="MonoMod.Utils" Version="20.11.5.1" />
     <PackageReference Include="Northwood.PluginAPI" Version="13.1.0" />
