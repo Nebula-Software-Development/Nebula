@@ -41,7 +41,7 @@ public class HurtPlayer
         
         newInstructions.InsertRange(index, new CodeInstruction[]
         {
-            new CodeInstruction(OpCodes.Ldloc_2).MoveLabelsFrom(newInstructions[index]),
+            new CodeInstruction(OpCodes.Ldloc_3).MoveLabelsFrom(newInstructions[index]),
             new(OpCodes.Ldarg_0),
             new(OpCodes.Ldfld, Field(typeof(PlayerStats), nameof(PlayerStats._hub))),
             new(OpCodes.Ldarg_1),
