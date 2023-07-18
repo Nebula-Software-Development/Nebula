@@ -8,6 +8,9 @@ namespace Nebuli.API.Features.Map;
 
 public class Generator
 {
+    /// <summary>
+    /// Gets the <see cref="Scp079Generator"/> and <see cref="Generator"/> dictionary.
+    /// </summary>
     public static readonly Dictionary<Scp079Generator, Generator> Dictionary = new();
     
     internal Generator(Scp079Generator generator)
@@ -34,7 +37,7 @@ public class Generator
     public float DropdownSpeed => Base.DropdownSpeed;
 
     /// <summary>
-    /// Gets or sets whether or not the generator is ready to be activated.
+    /// Gets whether or not the generator is ready to be activated.
     /// </summary>
     public bool IsReady => Base.ActivationReady;
 

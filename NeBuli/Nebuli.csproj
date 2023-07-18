@@ -35,6 +35,9 @@
     <WarningLevel>4</WarningLevel>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>false</SignAssembly>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Assembly-CSharp" HintPath="$(NEBULIREFERENCES)\Assembly-CSharp-Publicized.dll" Private="false" />
     <Reference Include="CommandSystem.Core" HintPath="$(NEBULIREFERENCES)\CommandSystem.Core.dll" Private="false" />

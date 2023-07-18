@@ -14,10 +14,19 @@ public class PlayerDyingEventArgs : EventArgs, IDamageEvent, ICancellableEvent
         IsCancelled = false;
     }
 
+    /// <summary>
+    /// Gets the attacker of the target.
+    /// </summary>
     public NebuliPlayer Attacker { get; }
 
+    /// <summary>
+    /// The player thats dying.
+    /// </summary>
     public NebuliPlayer Target { get; }
 
+    /// <summary>
+    /// The <see cref="PlayerStatsSystem.DamageHandlerBase"/> of the event.
+    /// </summary>
     public DamageHandlerBase DamageHandlerBase { get; }
 
     public bool IsCancelled { get; set; }
