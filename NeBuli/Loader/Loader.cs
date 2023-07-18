@@ -7,40 +7,52 @@ using HarmonyLib;
 using Nebuli.API.Features;
 using Nebuli.API.Interfaces;
 using PluginAPI.Core.Attributes;
+using PluginAPI.Enums;
+using YamlDotNet.Core;
+using YamlDotNet.Serialization;
 
 namespace Nebuli;
 
 #pragma warning disable CS1591
+
 public class Loader
 {
     private Harmony _harmony;
-
-    public static Dictionary<Assembly, IPlugin<IConfig>> RegistedAssemblys { get; set; }
-
     [PluginConfig]
     public static LoaderConfiguration Configuration;
     
     [PluginEntryPoint("Nebuli Loader", "0, 0, 0", "Nebuli Plugin Framework", "Nebuli Team")]
-    public void Load()
+    [PluginPriority(LoadPriority.Highest)]
+    public void FrameworkLoader()
     {
-        if (!Configuration.LoaderEnabled) return;
+        
+        if (!Configuration.LoaderEnabled)
+        {
+            Log.Info("Nebuli Loader is disabled, Nebuli will not load");
+            return;
+        }
         Log.Info($"Nebuli Version {NebuliInfo.NebuliVersion} loading...", consoleColor: ConsoleColor.Red);
         Log.Debug("Loading file paths...");
         Paths.LoadPaths();
-        Log.Warning($"Dependency path is {Paths.DependenciesDirectory}");
+        Log.Debug($"Dependency path is {Paths.DependenciesDirectory}");
         Log.Info("Loading dependencies...");
         LoadDependencies(Paths.DependenciesDirectory.GetFiles("*.dll"));
-        Log.Warning($"Plugin path is {Paths.PluginsDirectory}");
+        Log.Debug($"Plugin path is {Paths.PluginsDirectory}");
         Log.Info("Loading plugins...");
         LoadPlugins(Paths.PluginsDirectory.GetFiles("*.dll"));
-        _harmony = new("nebuli.patching.core");
         try
         {
-            _harmony.PatchAll();
+            if (Configuration.PatchEvents)
+            {
+                _harmony = new("nebuli.patching.core");
+                _harmony.PatchAll();
+            }
+            else
+                Log.Info("Event patching is disabled, Events will not work");
         }
         catch (Exception e)
         {
-            Log.Error($"A error has occured when patching! Full error : \n{e}");
+            Log.Error($"A error has occured when patching! Full error: \n{e}");
         }
     }
 
@@ -70,6 +82,10 @@ public class Loader
 
     private void LoadPlugins(IEnumerable<FileInfo> files)
     {
+
+        var serializer = new SerializerBuilder().Build();
+        var deserializer = new DeserializerBuilder().Build();
+
         foreach(FileInfo file in files)
         {
             try
@@ -81,8 +97,32 @@ public class Loader
                     Log.Warning($"{newPlugin.PluginName} is outdated and will not be loaded by Nebuli! (Plugin Version : {newPlugin.NebulisVersion}, Nebuli Version : {NebuliInfo.NebuliVersion})");
                     continue;
                 }
+                IConfig config = null;
+                string configPath = Path.Combine(Paths.PluginConfigDirectory.FullName, newPlugin.PluginName + "_Config.yml");
+                try
+                {
+                    if (!File.Exists(configPath))
+                    {
+                        Log.Warning($"{newPlugin.PluginName} does not have configs! Generating...");
+                        config = newPlugin.Config;
+                        Log.Debug("Serializing new config and writing it to the path...");
+                        File.WriteAllText(configPath, serializer.Serialize(config));
+                    }
+                    else
+                    {
+                        Log.Debug($"Deserializing {newPlugin.PluginName} config at {configPath}...");
+                        config = (IConfig)deserializer.Deserialize(File.ReadAllText(configPath), newPlugin.Config.GetType());
+                    }
+                }         
+                catch(YamlException yame)
+                {
+                    Log.Error($"Error while loading {newPlugin.PluginName} configs! Full Error --> \n{yame}");
+                }
+                if (!config.IsEnabled)
+                {
+                    return;
+                }
                 Log.Info($"Plugin {newPlugin.PluginName}, by {newPlugin.PluginAuthor}, Version : {newPlugin.NebulisVersion}, has been succesfully enabled!");
-                RegistedAssemblys.Add(loadPlugin, newPlugin);
                 newPlugin.OnEnabled();
             }
             catch(Exception e)
@@ -91,7 +131,7 @@ public class Loader
             }
         }
         Log.Info("Plugins loaded!");
-        Log.Info("Welcome to... \r\n███╗░░██╗███████╗██████╗░██╗░░░██╗██╗░░░░░██╗\r\n████╗░██║██╔════╝██╔══██╗██║░░░██║██║░░░░░██║\r\n██╔██╗██║█████╗░░██████╦╝██║░░░██║██║░░░░░██║\r\n██║╚████║██╔══╝░░██╔══██╗██║░░░██║██║░░░░░██║\r\n██║░╚███║███████╗██████╦╝╚██████╔╝███████╗██║\r\n╚═╝░░╚══╝╚══════╝╚═════╝░░╚═════╝░╚══════╝╚═╝");
+        Log.Info(Configuration.StartupMessage);
     }
 
     private static IPlugin<IConfig> NewPlugin(Assembly assembly)
@@ -148,5 +188,48 @@ public class Loader
         }
 
         return pluginProperty?.GetValue(null) as IPlugin<IConfig>;
+    }
+
+    public void CheckforUpdates()
+    {
+       /* if (!Configuration.AutoUpdate)  /////TODO, UNFINISHED AND WILL NOT WORK
+            return;
+
+        Log.Info("Checking for Nebuli updates...", "Updater", ConsoleColor.DarkBlue);
+
+        using HttpClient client = new();
+        try
+        {
+            string apiUrl = $"";
+            client.DefaultRequestHeaders.Add("NebuliAutoUpdater", "Nebuli");
+            var response = await client.GetAsync(apiUrl);
+
+            if (response.IsSuccessStatusCode)
+            {
+                string json = await response.Content.ReadAsStringAsync();
+                dynamic releaseData = JsonConvert.DeserializeObject(json);
+
+                string latestVersion = releaseData.tag_name;
+                if (Version.TryParse(latestVersion, out var latestVersionParsed) && latestVersionParsed > NebuliInfo.NebuliVersion)
+                {
+                    Log.Info($"A new version of Nebuli is available: {latestVersion}");
+                }
+                else
+                {
+                    Log.Info("Nebuli is up-to-date!");
+                }
+            }
+            else
+            {
+                Log.Error($"Failed to check for updates. Response status code: \n{response.StatusCode}", "Updater");
+                return;
+            }
+        }
+        catch (HttpRequestException ex)
+        {
+            Log.Error($"Failed to check for updates. Exception: \n{ex.Message}", "Updater");
+            return;
+        }
+       */
     }
 }

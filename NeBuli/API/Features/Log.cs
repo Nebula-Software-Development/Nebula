@@ -1,7 +1,6 @@
 ﻿using PluginAPILogger = PluginAPI.Core.Log;
 using System.Reflection;
 using System;
-using PluginAPI.Enums;
 
 namespace Nebuli.API.Features;
 
@@ -22,7 +21,7 @@ public static class Log
         if(prefix == "Nebuli")
             ServerConsole.AddLog(PluginAPILogger.FormatText($"&7[&b&3Nebuli&B&7] {message}", "7"), consoleColor);
         else
-            ServerConsole.AddLog(PluginAPILogger.FormatText($"&7[&b&3Nebuli&B&7]  &7[&b&2{prefix}&B&7]&r  {message}", "7"), consoleColor);
+            ServerConsole.AddLog(PluginAPILogger.FormatText($"&7[&b&3Nebuli Info&B&7] &7[&b&2{prefix}&B&7]&r {message}", "7"), consoleColor);
 
 
     }
@@ -45,7 +44,7 @@ public static class Log
         if (prefix == "Nebuli")
             ServerConsole.AddLog(PluginAPILogger.FormatText($"&7[&b&3Nebuli&B&7] {message}", "7"), consoleColor);
         else
-            ServerConsole.AddLog(PluginAPILogger.FormatText($"&7[&b&3Nebuli&B&7]  &7[&b&2{prefix}&B&7]&r  {message}", "7"), consoleColor);
+            ServerConsole.AddLog(PluginAPILogger.FormatText($"&7[&b&3Nebuli Debug&B&7] &7[&b&2{prefix}&B&7]&r {message}", "7"), consoleColor);
     }
 
     /// <summary>
@@ -57,11 +56,10 @@ public static class Log
     public static void Warning(object message, string prefix = null, ConsoleColor consoleColor = ConsoleColor.Magenta)
     {
         prefix ??= Assembly.GetCallingAssembly().GetName().Name;
-        prefix ??= Assembly.GetCallingAssembly().GetName().Name;
         if (prefix == "Nebuli")
             ServerConsole.AddLog(PluginAPILogger.FormatText($"&7[&b&3Nebuli&B&7] {message}", "7"), consoleColor);
         else
-            ServerConsole.AddLog(PluginAPILogger.FormatText($"&7[&b&3Nebuli&B&7]  &7[&b&2{prefix}&B&7]&r  {message}", "7"), consoleColor);
+            ServerConsole.AddLog(PluginAPILogger.FormatText($"&7[&b&3Nebuli Warn&B&7] &7[&b&2{prefix}&B&7]&r {message}", "7"), consoleColor);
     }
 
     /// <summary>
@@ -73,10 +71,9 @@ public static class Log
     public static void Error(object message, string prefix = null, ConsoleColor consoleColor = ConsoleColor.Red)
     {
         prefix ??= Assembly.GetCallingAssembly().GetName().Name;
-        prefix ??= Assembly.GetCallingAssembly().GetName().Name;
         if (prefix == "Nebuli")
             ServerConsole.AddLog(PluginAPILogger.FormatText($"&7[&b&3Nebuli&B&7] {message}", "7"), consoleColor);
         else
-            ServerConsole.AddLog(PluginAPILogger.FormatText($"&7[&b&3Nebuli&B&7]  &7[&b&2{prefix}&B&7]&r  {message}", "7"), consoleColor);
+            ServerConsole.AddLog(PluginAPILogger.FormatText($"&7[&b&3Nebuli Error&B&7] &7[&b&2{prefix}&B&7]&r {message}", "7"), consoleColor);
     }
 }

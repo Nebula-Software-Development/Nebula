@@ -4,6 +4,7 @@ using HarmonyLib;
 using Nebuli.Events.EventArguments.Player;
 using Nebuli.Events.Handlers;
 using NorthwoodLib.Pools;
+using static HarmonyLib.AccessTools;
 
 namespace Nebuli.Events.Patches.Player;
 
@@ -20,13 +21,15 @@ public class VerificationCompleted
         
         newInstructions.InsertRange(index, new CodeInstruction[]
         {
-            new (OpCodes.Ldarg_0),
-            new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(ServerRoles), nameof(ServerRoles.isLocalPlayer))),
-            new (OpCodes.Brtrue_S, retLabel),
-            new (OpCodes.Ldarg_0),
-            new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(PlayerJoinEventArgs))[0]),
-            new (OpCodes.Call, AccessTools.Method(typeof(PlayerHandlers), nameof(PlayerHandlers.OnJoin))),
+            new(OpCodes.Ldarg_0),
+            new(OpCodes.Callvirt, PropertyGetter(typeof(ServerRoles), nameof(ServerRoles.isLocalPlayer))),
+            new(OpCodes.Brtrue_S, retLabel),
+            new(OpCodes.Ldarg_0),
+            new(OpCodes.Newobj, GetDeclaredConstructors(typeof(PlayerJoinEventArgs))[0]),
+            new(OpCodes.Call, Method(typeof(PlayerHandlers), nameof(PlayerHandlers.OnJoin))),
         });
+        
+        newInstructions[newInstructions.Count - 1].labels.Add(retLabel);
         
         foreach (CodeInstruction instruction in newInstructions)
             yield return instruction;
