@@ -62,11 +62,13 @@
     <Compile Include="Events\EventArguments\ICancellableEvent.cs" />
     <Compile Include="Events\EventArguments\IDamageEvent.cs" />
     <Compile Include="Events\EventArguments\IPlayerEvent.cs" />
+    <Compile Include="Events\EventArguments\Player\PlayerBannedEventArgs.cs" />
     <Compile Include="Events\EventArguments\Player\PlayerHurtEventArgs.cs" />
     <Compile Include="Events\EventArguments\Player\PlayerJoinEventArgs.cs" />
     <Compile Include="Events\EventArguments\Player\PlayerLeaveEventArgs.cs" />
     <Compile Include="Events\EventManager.cs" />
     <Compile Include="Events\Handlers\PlayerHandlers.cs" />
+    <Compile Include="Events\Patches\Player\BannedPlayer.cs" />
     <Compile Include="Events\Patches\Player\HurtPlayer.cs" />
     <Compile Include="Events\Patches\Player\LeavingServer.cs" />
     <Compile Include="Events\Patches\Player\VerificationCompleted.cs" />
@@ -104,7 +106,9 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Enum\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
          Other similar extension points exist, see Microsoft.Common.targets.

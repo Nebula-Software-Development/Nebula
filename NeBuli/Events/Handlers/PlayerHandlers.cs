@@ -16,4 +16,5 @@ public static class PlayerHandlers
     internal static void OnLeave(PlayerLeaveEventArgs ev) => Leave.CallEvent(ev);
     
     internal static void OnHurt(PlayerHurtEventArgs ev) => Hurt.CallEvent(ev);
+
 }
