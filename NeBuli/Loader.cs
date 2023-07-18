@@ -16,7 +16,6 @@ namespace Nebuli;
 public class Loader
 {
     private Harmony _harmony;
-    public static Dictionary<Assembly, IPlugin<IConfig>> RegistedAssemblys { get; set; }
     [PluginConfig]
     public static LoaderConfiguration Configuration;
     
@@ -93,7 +92,6 @@ public class Loader
                     continue;
                 }
                 Log.Info($"Plugin {newPlugin.PluginName}, by {newPlugin.PluginAuthor}, Version : {newPlugin.NebulisVersion}, has been succesfully enabled!");
-                RegistedAssemblys.Add(loadPlugin, newPlugin);
                 newPlugin.OnEnabled();
             }
             catch(Exception e)
