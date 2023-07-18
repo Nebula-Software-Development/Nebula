@@ -1,12 +1,15 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using CommandSystem;
 using CustomPlayerEffects;
+using Footprinting;
 using Hints;
 using Mirror;
 using PlayerRoles;
 using PlayerRoles.FirstPersonControl;
 using PlayerStatsSystem;
 using PluginAPI.Core;
+using RemoteAdmin;
 using UnityEngine;
 using VoiceChat;
 
@@ -64,6 +67,10 @@ public class NebuliPlayer
     /// The players RawUserId.
     /// </summary>
     public string RawUserId { get; private set; }
+    
+    public Footprint Footprint => new(ReferenceHub);
+
+    public PlayerCommandSender Sender => ReferenceHub.queryProcessor._sender;
 
     /// <summary>
     /// Gets or sets whether or not the player has bypass or not.
@@ -373,6 +380,21 @@ public class NebuliPlayer
         return false;
     }
 
+    public static bool TryGet(ICommandSender sender, out NebuliPlayer player)
+    {
+        foreach (NebuliPlayer ply in Collection)
+        {
+            if (ply.Sender != sender)
+                continue;
+
+            player = ply;
+            return true;
+        }
+
+        player = null;
+        return false;
+    }
+
     /// <summary>
     /// Gets a NebuliPlayer instance based on a ReferenceHub.
     /// </summary>
@@ -432,6 +454,10 @@ public class NebuliPlayer
     {
         return TryGet(netId, out NebuliPlayer player) ? player : null;
     }
+    
+    public static NebuliPlayer Get(ICommandSender sender) => TryGet(sender, out NebuliPlayer player) ? player : null;
+    
+    public static NebuliPlayer Get(Footprint footprint) => Get(footprint.Hub);
 
     /// <summary>
     /// Kills the player with a custom reason.
