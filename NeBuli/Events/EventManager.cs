@@ -40,12 +40,14 @@ public static class EventManager
     {
         SceneManager.sceneUnloaded += OnSceneUnLoaded;
         RagdollManager.OnRagdollSpawned += OnRagdollSpawned;
+        RagdollManager.OnRagdollRemoved += OnRagdollDeSpawned;
     }
 
     internal static void UnRegisterBaseEvents()
     {
         SceneManager.sceneUnloaded -= OnSceneUnLoaded;
         RagdollManager.OnRagdollSpawned -= OnRagdollSpawned;
+        RagdollManager.OnRagdollRemoved -= OnRagdollDeSpawned;
     }
 
     private static void OnRagdollSpawned(BasicRagdoll basicRagdoll)
@@ -54,6 +56,12 @@ public static class EventManager
             return;
 
         Ragdoll.Dictionary.Add(basicRagdoll, new Ragdoll(basicRagdoll));
+    }
+
+    private static void OnRagdollDeSpawned(BasicRagdoll basicRagdoll)
+    {
+        if(Ragdoll.Dictionary.ContainsKey(basicRagdoll))
+            Ragdoll.Dictionary.Remove(basicRagdoll);
     }
 
     private static void OnSceneUnLoaded(Scene scene)

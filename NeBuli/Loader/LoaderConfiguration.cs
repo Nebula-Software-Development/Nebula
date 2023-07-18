@@ -3,7 +3,7 @@
 namespace Nebuli;
 
 /// <summary>
-/// 
+///
 /// </summary>
 public class LoaderConfiguration
 {
@@ -12,13 +12,13 @@ public class LoaderConfiguration
     /// </summary>
     [Description("Determines if Loader is enabled or not.")]
     public bool LoaderEnabled { get; set; } = true;
-    
+
     /// <summary>
-    /// Determines if the Events should be patched or not (Disabling this will cause the events to not be working).
+    /// Determines if the Events should be patched or not (Disabling this will cause the events to be unfunctional).
     /// </summary>
-    [Description("Determines if the Events should be patched or not (Disabling this will cause the events to not be working).")]
+    [Description("Determines if the Events should be patched or not (Disabling this will cause the events to be unfunctional).")]
     public bool PatchEvents { get; set; } = true;
-    
+
     /// <summary>
     /// Determines if the Loader's debug logs should be shown or not.
     /// </summary>
