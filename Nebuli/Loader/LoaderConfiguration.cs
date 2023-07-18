@@ -14,9 +14,9 @@ public class LoaderConfiguration
     public bool LoaderEnabled { get; set; } = true;
 
     /// <summary>
-    /// Determines if the Events should be patched or not (Disabling this will cause the events to not be working).
+    /// Determines if the Events should be patched or not (Disabling this will cause the events to be unfunctional).
     /// </summary>
-    [Description("Determines if the Events should be patched or not (Disabling this will cause the events to not be working).")]
+    [Description("Determines if the Events should be patched or not (Disabling this will cause the events to be unfunctional).")]
     public bool PatchEvents { get; set; } = true;
 
     /// <summary>
