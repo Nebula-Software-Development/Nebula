@@ -7,22 +7,24 @@ using HarmonyLib;
 using Nebuli.API.Features;
 using Nebuli.API.Interfaces;
 using PluginAPI.Core.Attributes;
+using PluginAPI.Enums;
 
 namespace Nebuli;
 
 #pragma warning disable CS1591
+
 public class Loader
 {
     private Harmony _harmony;
-
     public static Dictionary<Assembly, IPlugin<IConfig>> RegistedAssemblys { get; set; }
-
     [PluginConfig]
     public static LoaderConfiguration Configuration;
     
     [PluginEntryPoint("Nebuli Loader", "0, 0, 0", "Nebuli Plugin Framework", "Nebuli Team")]
+    [PluginPriority(LoadPriority.Highest)]
     public void Load()
     {
+        
         if (!Configuration.LoaderEnabled)
         {
             Log.Info("Nebuli Loader is disabled, Nebuli will not load");
