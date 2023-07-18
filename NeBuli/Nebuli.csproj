@@ -54,6 +54,7 @@
     <Compile Include="API\Features\Log.cs" />
     <Compile Include="API\Features\Paths.cs" />
     <Compile Include="API\Features\Player\NebuliPlayer.cs" />
+    <Compile Include="API\Features\Plugin.cs" />
     <Compile Include="API\Interfaces\IConfig.cs" />
     <Compile Include="API\Interfaces\IPlugin.cs" />
     <Compile Include="Events\EventArguments\IPlayerEvent.cs" />

@@ -6,15 +6,22 @@ using Mirror;
 using PlayerRoles;
 using PlayerRoles.FirstPersonControl;
 using PlayerStatsSystem;
+using PluginAPI.Core;
 using UnityEngine;
 using VoiceChat;
 
 namespace Nebuli.API.Features.Player;
 
+/// <summary>
+/// Represents a player in the Nebuli plugin.
+/// </summary>
 public class NebuliPlayer
 {
-    public static readonly Dictionary<ReferenceHub, NebuliPlayer> Dictionary = new ();
-    
+    /// <summary>
+    /// Gets the dictionary that maps ReferenceHub to NebuliPlayer instances.
+    /// </summary>
+    public static readonly Dictionary<ReferenceHub, NebuliPlayer> Dictionary = new();
+
     internal NebuliPlayer(ReferenceHub hub)
     {
         ReferenceHub = hub;
@@ -30,9 +37,13 @@ public class NebuliPlayer
     }
     
     public static IEnumerable<NebuliPlayer> Collection => Dictionary.Values;
-    
+    /// <summary>
+    /// Gets a list of all the player's on the server.
+    /// </summary>
     public static List<NebuliPlayer> List => Collection.ToList();
-   
+   /// <summary>
+   /// The player count of the server.
+   /// </summary>
     public static int PlayerCount => Dictionary.Count;
     /// <summary>
     /// The player's ReferenceHub.
@@ -514,7 +525,7 @@ public class NebuliPlayer
     /// <summary>
     /// Shows the player's name tag.
     /// </summary>
-    /// <param name="global">Whether to show the name tag to all players (SCP-079). (Optional)</param>
+    /// <param name="global">Whether to show the name tag globally.</param>
     public void ShowTag(bool global = false)
     {
         ReferenceHub.characterClassManager.UserCode_CmdRequestShowTag__Boolean(global);
@@ -535,7 +546,7 @@ public class NebuliPlayer
     /// <param name="time">The duration of the hint in seconds. (Optional)</param>
     public void ShowHint(string content, int time = 5)
     {
-        ShowHint(new TextHint(content, new HintParameter[] { new StringHintParameter(string.Empty) }, null, 2));
+        ShowHint(new TextHint(content, new HintParameter[] { new StringHintParameter(string.Empty) }, null, time));
     }
 
     /// <summary>
@@ -583,7 +594,7 @@ public class NebuliPlayer
     /// </summary>
     /// <param name="reason">The reason for the kick.</param>
     /// <returns>True if the kick was successful; otherwise, false.</returns>
-    public bool Kick(string reason)
+    public bool Kick(string reason = null)
     {
         return BanPlayer.KickUser(ReferenceHub, reason);
     }
@@ -658,7 +669,26 @@ public class NebuliPlayer
     {
         return PermissionsHandler.IsPermitted(Permissions, permissions);
     }
-
+    /// <summary>
+    /// Sends a broadcast to the player.
+    /// </summary>
+    /// <param name="message">The message that will be shown.</param>
+    /// <param name="duration">The duration of the broadcast.</param>
+    /// <param name="broadcastFlags">The <see cref="Broadcast.BroadcastFlags"/> of the broadcast.</param>
+    /// <param name="clearCurrent">Determines if the players current broadcasts should be cleared.</param>
+    public void Broadcast(string message, ushort duration = 5, Broadcast.BroadcastFlags broadcastFlags = global::Broadcast.BroadcastFlags.Normal, bool clearCurrent = true)
+    {
+        if (clearCurrent) ClearBroadcasts();
+        Server.Broadcast.TargetAddElement(ReferenceHub.connectionToClient, message, duration, broadcastFlags);
+    }
+    /// <summary>
+    /// Clears all of the player's current broadcasts.
+    /// </summary>
+    public void ClearBroadcasts()
+    {
+        Server.Broadcast.TargetClearElements(ReferenceHub.connectionToClient);
+    }
+   
     /// <summary>
     /// Parses the UserId to extract the RawUserId without the discriminator.
     /// </summary>
