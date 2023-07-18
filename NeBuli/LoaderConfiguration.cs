@@ -12,6 +12,12 @@ public class LoaderConfiguration
     /// </summary>
     [Description("Determines if Loader is enabled or not.")]
     public bool LoaderEnabled { get; set; } = true;
+    
+    /// <summary>
+    /// Determines if the Events should be patched or not (Disabling this will cause the events to not be working).
+    /// </summary>
+    public bool PatchEvents { get; set; } = true;
+    
     /// <summary>
     /// Determines if the Loader's debug logs should be shown or not.
     /// </summary>

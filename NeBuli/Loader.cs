@@ -23,7 +23,11 @@ public class Loader
     [PluginEntryPoint("Nebuli Loader", "0, 0, 0", "Nebuli Plugin Framework", "Nebuli Team")]
     public void Load()
     {
-        if (!Configuration.LoaderEnabled) return;
+        if (!Configuration.LoaderEnabled)
+        {
+            Log.Info("Nebuli Loader is disabled, Nebuli will not load");
+            return;
+        }
         Log.Info($"Nebuli Version {NebuliInfo.NebuliVersion} loading...", consoleColor: ConsoleColor.Red);
         Log.Debug("Loading file paths...");
         Paths.LoadPaths();
@@ -33,14 +37,19 @@ public class Loader
         Log.Debug($"Plugin path is {Paths.PluginsDirectory}");
         Log.Info("Loading plugins...");
         LoadPlugins(Paths.PluginsDirectory.GetFiles("*.dll"));
-        _harmony = new("nebuli.patching.core");
         try
         {
-            _harmony.PatchAll();
+            if (Configuration.PatchEvents)
+            {
+                _harmony = new("nebuli.patching.core");
+                _harmony.PatchAll();
+            }
+            else
+                Log.Info("Event patching is disabled, Events will not work");
         }
         catch (Exception e)
         {
-            Log.Error($"A error has occured when patching! Full error : \n{e}");
+            Log.Error($"A error has occured when patching! Full error: \n{e}");
         }
     }
 

@@ -21,12 +21,12 @@ public class VerificationCompleted
         
         newInstructions.InsertRange(index, new CodeInstruction[]
         {
-            new (OpCodes.Ldarg_0),
-            new (OpCodes.Callvirt, PropertyGetter(typeof(ServerRoles), nameof(ServerRoles.isLocalPlayer))),
-            new (OpCodes.Brtrue_S, retLabel),
-            new (OpCodes.Ldarg_0),
-            new (OpCodes.Newobj, GetDeclaredConstructors(typeof(PlayerJoinEventArgs))[0]),
-            new (OpCodes.Call, Method(typeof(PlayerHandlers), nameof(PlayerHandlers.OnJoin))),
+            new(OpCodes.Ldarg_0),
+            new(OpCodes.Callvirt, PropertyGetter(typeof(ServerRoles), nameof(ServerRoles.isLocalPlayer))),
+            new(OpCodes.Brtrue_S, retLabel),
+            new(OpCodes.Ldarg_0),
+            new(OpCodes.Newobj, GetDeclaredConstructors(typeof(PlayerJoinEventArgs))[0]),
+            new(OpCodes.Call, Method(typeof(PlayerHandlers), nameof(PlayerHandlers.OnJoin))),
         });
         
         foreach (CodeInstruction instruction in newInstructions)

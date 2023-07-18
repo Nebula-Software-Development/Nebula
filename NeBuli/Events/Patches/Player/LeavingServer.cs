@@ -18,9 +18,9 @@ public class LeavingServer
         
         newInstructions.InsertRange(0, new CodeInstruction[]
         {
-            new (OpCodes.Ldarg_1),
-            new (OpCodes.Newobj, GetDeclaredConstructors(typeof(PlayerLeaveEventArgs))[0]),
-            new (OpCodes.Call, Method(typeof(PlayerHandlers), nameof(PlayerHandlers.OnLeave))),
+            new(OpCodes.Ldarg_1),
+            new(OpCodes.Newobj, GetDeclaredConstructors(typeof(PlayerLeaveEventArgs))[0]),
+            new(OpCodes.Call, Method(typeof(PlayerHandlers), nameof(PlayerHandlers.OnLeave))),
         });
 
         foreach (CodeInstruction instruction in newInstructions)
