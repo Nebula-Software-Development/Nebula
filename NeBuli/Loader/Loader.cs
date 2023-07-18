@@ -105,17 +105,22 @@ public class Loader
                     {
                         Log.Warning($"{newPlugin.PluginName} does not have configs! Generating...");
                         config = newPlugin.Config;
-
+                        Log.Debug("Serializing new config and writing it to the path...");
                         File.WriteAllText(configPath, serializer.Serialize(config));
                     }
                     else
                     {
+                        Log.Debug($"Deserializing {newPlugin.PluginName} config at {configPath}...");
                         config = (IConfig)deserializer.Deserialize(File.ReadAllText(configPath), newPlugin.Config.GetType());
                     }
-                }
+                }         
                 catch(YamlException yame)
                 {
                     Log.Error($"Error while loading {newPlugin.PluginName} configs! Full Error --> \n{yame}");
+                }
+                if (!config.IsEnabled)
+                {
+                    return;
                 }
                 Log.Info($"Plugin {newPlugin.PluginName}, by {newPlugin.PluginAuthor}, Version : {newPlugin.NebulisVersion}, has been succesfully enabled!");
                 newPlugin.OnEnabled();
