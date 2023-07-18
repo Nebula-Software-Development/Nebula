@@ -4,6 +4,7 @@ using HarmonyLib;
 using Nebuli.Events.EventArguments.Player;
 using Nebuli.Events.Handlers;
 using NorthwoodLib.Pools;
+using static HarmonyLib.AccessTools;
 
 namespace Nebuli.Events.Patches.Player;
 
@@ -18,8 +19,8 @@ public class LeavingServer
         newInstructions.InsertRange(0, new CodeInstruction[]
         {
             new (OpCodes.Ldarg_1),
-            new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(PlayerLeaveEventArgs))[0]),
-            new (OpCodes.Call, AccessTools.Method(typeof(PlayerHandlers), nameof(PlayerHandlers.OnLeave))),
+            new (OpCodes.Newobj, GetDeclaredConstructors(typeof(PlayerLeaveEventArgs))[0]),
+            new (OpCodes.Call, Method(typeof(PlayerHandlers), nameof(PlayerHandlers.OnLeave))),
         });
 
         foreach (CodeInstruction instruction in newInstructions)
