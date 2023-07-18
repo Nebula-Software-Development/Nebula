@@ -20,10 +20,10 @@ public class HurtPlayer
         
         Label retLabel = generator.DefineLabel();
 
-        int index = newInstructions.FindLastIndex(i =>
-            i.opcode == OpCodes.Newobj && i.OperandIs(GetDeclaredConstructors(typeof(PlayerDamageEvent))[0])) + 5;
+        int index = newInstructions.FindIndex(i =>
+            i.opcode == OpCodes.Newobj && i.OperandIs(GetDeclaredConstructors(typeof(PlayerDamageEvent))[0])) - 6;
         
-        newInstructions.InsertRange(index, new CodeInstruction[]
+        newInstructions.InsertRange(index, new[]
         {
             new CodeInstruction(OpCodes.Ldloc_2).MoveLabelsFrom(newInstructions[index]),
             new(OpCodes.Ldarg_0),
@@ -33,6 +33,22 @@ public class HurtPlayer
             new(OpCodes.Dup),
             new(OpCodes.Call, Method(typeof(PlayerHandlers), nameof(PlayerHandlers.OnHurt))),
             new(OpCodes.Callvirt, PropertyGetter(typeof(PlayerHurtEventArgs), nameof(PlayerHurtEventArgs.IsCancelled))),
+            new(OpCodes.Brtrue_S, retLabel)
+        });
+
+        index = newInstructions.FindIndex(i =>
+            i.opcode == OpCodes.Newobj && i.OperandIs(GetDeclaredConstructors(typeof(PlayerDyingEvent))[0])) - 6;
+        
+        newInstructions.InsertRange(index, new CodeInstruction[]
+        {
+            new CodeInstruction(OpCodes.Ldloc_2).MoveLabelsFrom(newInstructions[index]),
+            new(OpCodes.Ldarg_0),
+            new(OpCodes.Ldfld, Field(typeof(PlayerStats), nameof(PlayerStats._hub))),
+            new(OpCodes.Ldarg_1),
+            new(OpCodes.Newobj, GetDeclaredConstructors(typeof(PlayerDyingEventArgs))[0]),
+            new(OpCodes.Dup),
+            new(OpCodes.Call, Method(typeof(PlayerHandlers), nameof(PlayerHandlers.OnDying))),
+            new(OpCodes.Callvirt, PropertyGetter(typeof(PlayerDyingEventArgs), nameof(PlayerDyingEventArgs.IsCancelled))),
             new(OpCodes.Brtrue_S, retLabel)
         });
 
