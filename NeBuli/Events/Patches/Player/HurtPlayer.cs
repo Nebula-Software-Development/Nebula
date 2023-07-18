@@ -20,12 +20,13 @@ public class HurtPlayer
         
         Label retLabel = generator.DefineLabel();
 
-        int index = newInstructions.FindIndex(i =>
-            i.opcode == OpCodes.Newobj && i.OperandIs(GetDeclaredConstructors(typeof(PlayerDamageEvent))[0])) + 4;
+        int index = newInstructions.FindLastIndex(i =>
+            i.opcode == OpCodes.Newobj && i.OperandIs(GetDeclaredConstructors(typeof(PlayerDamageEvent))[0])) + 5;
         
         newInstructions.InsertRange(index, new CodeInstruction[]
         {
-            new(OpCodes.Ldloc_2),
+            new CodeInstruction(OpCodes.Ldloc_2).MoveLabelsFrom(newInstructions[index]),
+            new(OpCodes.Ldarg_0),
             new(OpCodes.Ldfld, Field(typeof(PlayerStats), nameof(PlayerStats._hub))),
             new(OpCodes.Ldarg_1),
             new(OpCodes.Newobj, GetDeclaredConstructors(typeof(PlayerHurtEventArgs))[0]),
