@@ -5,6 +5,8 @@ using NorthwoodLib.Pools;
 using PlayerRoles.Ragdolls;
 using System;
 using System.Collections.Generic;
+using MapGeneration;
+using Nebuli.API.Features.Map;
 using UnityEngine.SceneManagement;
 
 namespace Nebuli.Events;
@@ -41,6 +43,7 @@ public static class EventManager
         SceneManager.sceneUnloaded += OnSceneUnLoaded;
         RagdollManager.OnRagdollSpawned += OnRagdollSpawned;
         RagdollManager.OnRagdollRemoved += OnRagdollDeSpawned;
+        SeedSynchronizer.OnMapGenerated += OnMapGenerated;
     }
 
     internal static void UnRegisterBaseEvents()
@@ -48,6 +51,7 @@ public static class EventManager
         SceneManager.sceneUnloaded -= OnSceneUnLoaded;
         RagdollManager.OnRagdollSpawned -= OnRagdollSpawned;
         RagdollManager.OnRagdollRemoved -= OnRagdollDeSpawned;
+        SeedSynchronizer.OnMapGenerated -= OnMapGenerated;
     }
 
     private static void OnRagdollSpawned(BasicRagdoll basicRagdoll)
@@ -60,7 +64,7 @@ public static class EventManager
 
     private static void OnRagdollDeSpawned(BasicRagdoll basicRagdoll)
     {
-        if(Ragdoll.Dictionary.ContainsKey(basicRagdoll))
+        if (Ragdoll.Dictionary.ContainsKey(basicRagdoll))
             Ragdoll.Dictionary.Remove(basicRagdoll);
     }
 
@@ -71,6 +75,14 @@ public static class EventManager
 
         NebuliPlayer.Dictionary.Clear();
         Ragdoll.Dictionary.Clear();
+        Generator.Dictionary.Clear();
+        Room.Dictionary.Clear();
+    }
+
+    private static void OnMapGenerated()
+    {
+        foreach (var room in RoomIdentifier.AllRoomIdentifiers)
+            Room.Get(room);
     }
 
     // Method from CursedMod: Allow us to check if the instructions of X Transpiler has changed or not
