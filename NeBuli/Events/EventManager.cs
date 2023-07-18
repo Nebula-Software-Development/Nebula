@@ -6,8 +6,10 @@ using PlayerRoles.Ragdolls;
 using System;
 using System.Collections.Generic;
 using MapGeneration;
+using MapGeneration.Distributors;
 using Nebuli.API.Features.Map;
 using UnityEngine.SceneManagement;
+using Object = UnityEngine.Object;
 
 namespace Nebuli.Events;
 
@@ -83,6 +85,9 @@ public static class EventManager
     {
         foreach (var room in RoomIdentifier.AllRoomIdentifiers)
             Room.Get(room);
+
+        foreach (var gen in Object.FindObjectsOfType<Scp079Generator>())
+            Generator.Get(gen);
     }
 
     // Method from CursedMod: Allow us to check if the instructions of X Transpiler has changed or not
