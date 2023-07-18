@@ -57,6 +57,7 @@
   <ItemGroup>
     <Compile Include="API\Features\Log.cs" />
     <Compile Include="API\Features\Map\Generator.cs" />
+    <Compile Include="API\Features\Map\Room.cs" />
     <Compile Include="API\Features\Paths.cs" />
     <Compile Include="API\Features\Player\NebuliPlayer.cs" />
     <Compile Include="API\Features\Plugin.cs" />
