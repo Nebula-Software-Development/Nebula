@@ -29,6 +29,8 @@ public class VerificationCompleted
             new(OpCodes.Call, Method(typeof(PlayerHandlers), nameof(PlayerHandlers.OnJoin))),
         });
         
+        newInstructions[newInstructions.Count - 1].labels.Add(retLabel);
+        
         foreach (CodeInstruction instruction in newInstructions)
             yield return instruction;
         
