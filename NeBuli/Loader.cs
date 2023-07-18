@@ -8,6 +8,7 @@ using Nebuli.API.Features;
 using Nebuli.API.Interfaces;
 using PluginAPI.Core.Attributes;
 using PluginAPI.Enums;
+using YamlDotNet.Serialization;
 
 namespace Nebuli;
 
@@ -80,6 +81,10 @@ public class Loader
 
     private void LoadPlugins(IEnumerable<FileInfo> files)
     {
+
+        Serializer serializer = new();
+        Deserializer deserializer = new();
+
         foreach(FileInfo file in files)
         {
             try
@@ -91,6 +96,21 @@ public class Loader
                     Log.Warning($"{newPlugin.PluginName} is outdated and will not be loaded by Nebuli! (Plugin Version : {newPlugin.NebulisVersion}, Nebuli Version : {NebuliInfo.NebuliVersion})");
                     continue;
                 }
+
+                IConfig config = null;
+                string configPath = Path.Combine(Paths.PluginConfigDirectory.FullName, newPlugin.PluginName + "_Config");
+
+                if (!File.Exists(configPath))
+                {
+                    Log.Warning($"{newPlugin.PluginName} does not have configs! Generating...");
+                    config = newPlugin.Config;
+                    File.WriteAllText(configPath, serializer.Serialize(config));
+                }
+                else
+                {
+                    config = deserializer.Deserialize<IConfig>(configPath);       
+                }
+
                 Log.Info($"Plugin {newPlugin.PluginName}, by {newPlugin.PluginAuthor}, Version : {newPlugin.NebulisVersion}, has been succesfully enabled!");
                 newPlugin.OnEnabled();
             }
