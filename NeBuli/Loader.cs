@@ -158,4 +158,9 @@ public class Loader
 
         return pluginProperty?.GetValue(null) as IPlugin<IConfig>;
     }
+
+    private static void RegiserFrameworkEvents()
+    {
+
+    }
 }

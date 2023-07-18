@@ -1,4 +1,5 @@
 ﻿using Nebuli.Events.EventArguments.Player;
+using PlayerRoles.Ragdolls;
 
 namespace Nebuli.Events.Handlers;
 
