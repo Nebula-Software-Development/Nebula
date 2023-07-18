@@ -1,5 +1,5 @@
-﻿using System;
-using Nebuli.API.Features.Player;
+﻿using Nebuli.API.Features.Player;
+using System;
 
 namespace Nebuli.Events.EventArguments.Player;
 
@@ -9,7 +9,7 @@ public class PlayerJoinEventArgs : EventArgs, IPlayerEvent
     {
         Player = new NebuliPlayer(serverRoles._hub);
     }
-    
+
     /// <summary>
     /// The player calling the event.
     /// </summary>

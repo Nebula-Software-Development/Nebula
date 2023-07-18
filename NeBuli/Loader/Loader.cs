@@ -1,14 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Reflection;
-using HarmonyLib;
+﻿using HarmonyLib;
 using Nebuli.API.Features;
 using Nebuli.API.Interfaces;
 using Nebuli.Events;
 using PluginAPI.Core.Attributes;
 using PluginAPI.Enums;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Reflection;
 using YamlDotNet.Core;
 using YamlDotNet.Serialization;
 using YamlDotNet.Serialization.NamingConventions;
@@ -20,9 +20,10 @@ namespace Nebuli;
 public class Loader
 {
     private Harmony _harmony;
+
     [PluginConfig]
     public static LoaderConfiguration Configuration;
-    
+
     [PluginEntryPoint("Nebuli Loader", "0, 0, 0", "Nebuli Plugin Framework", "Nebuli Team")]
     [PluginPriority(LoadPriority.Highest)]
     public void FrameworkLoader()
@@ -41,9 +42,9 @@ public class Loader
         Log.Debug($"Plugin path is {Paths.PluginsDirectory}");
         Log.Info("Loading plugins...");
         LoadPlugins(Paths.PluginsDirectory.GetFiles("*.dll"));
-        
+
         EventManager.RegisterBaseEvents();
-        
+
         try
         {
             if (Configuration.PatchEvents)
@@ -65,10 +66,10 @@ public class Loader
     {
         _harmony.UnpatchAll(_harmony.Id);
         _harmony = null;
-        
+
         EventManager.UnRegisterBaseEvents();
     }
-    
+
     private void LoadDependencies(IEnumerable<FileInfo> files)
     {
         foreach (FileInfo file in files)
@@ -88,11 +89,10 @@ public class Loader
 
     private void LoadPlugins(IEnumerable<FileInfo> files)
     {
-
         var serializer = new SerializerBuilder().WithNamingConvention(UnderscoredNamingConvention.Instance).Build();
         var deserializer = new DeserializerBuilder().WithNamingConvention(UnderscoredNamingConvention.Instance).Build();
 
-        foreach(FileInfo file in files)
+        foreach (FileInfo file in files)
         {
             try
             {
@@ -119,8 +119,8 @@ public class Loader
                         Log.Debug($"Deserializing {newPlugin.PluginName} config at {configPath}...");
                         config = (IConfig)deserializer.Deserialize(File.ReadAllText(configPath), newPlugin.Config.GetType());
                     }
-                }         
-                catch(YamlException yame)
+                }
+                catch (YamlException yame)
                 {
                     Log.Error($"Error while loading {newPlugin.PluginName} configs! Full Error --> \n{yame}");
                 }
@@ -131,7 +131,7 @@ public class Loader
                 Log.Info($"Plugin {newPlugin.PluginName}, by {newPlugin.PluginAuthor}, Version : {newPlugin.NebulisVersion}, has been succesfully enabled!");
                 newPlugin.OnEnabled();
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 Log.Error($"Failed to load plugin {file.Name}. Full error : \n{e}");
             }
@@ -198,44 +198,44 @@ public class Loader
 
     public void CheckforUpdates()
     {
-       /* if (!Configuration.AutoUpdate)  /////TODO, UNFINISHED AND WILL NOT WORK
-            return;
+        /* if (!Configuration.AutoUpdate)  /////TODO, UNFINISHED AND WILL NOT WORK
+             return;
 
-        Log.Info("Checking for Nebuli updates...", "Updater", ConsoleColor.DarkBlue);
+         Log.Info("Checking for Nebuli updates...", "Updater", ConsoleColor.DarkBlue);
 
-        using HttpClient client = new();
-        try
-        {
-            string apiUrl = $"";
-            client.DefaultRequestHeaders.Add("NebuliAutoUpdater", "Nebuli");
-            var response = await client.GetAsync(apiUrl);
+         using HttpClient client = new();
+         try
+         {
+             string apiUrl = $"";
+             client.DefaultRequestHeaders.Add("NebuliAutoUpdater", "Nebuli");
+             var response = await client.GetAsync(apiUrl);
 
-            if (response.IsSuccessStatusCode)
-            {
-                string json = await response.Content.ReadAsStringAsync();
-                dynamic releaseData = JsonConvert.DeserializeObject(json);
+             if (response.IsSuccessStatusCode)
+             {
+                 string json = await response.Content.ReadAsStringAsync();
+                 dynamic releaseData = JsonConvert.DeserializeObject(json);
 
-                string latestVersion = releaseData.tag_name;
-                if (Version.TryParse(latestVersion, out var latestVersionParsed) && latestVersionParsed > NebuliInfo.NebuliVersion)
-                {
-                    Log.Info($"A new version of Nebuli is available: {latestVersion}");
-                }
-                else
-                {
-                    Log.Info("Nebuli is up-to-date!");
-                }
-            }
-            else
-            {
-                Log.Error($"Failed to check for updates. Response status code: \n{response.StatusCode}", "Updater");
-                return;
-            }
-        }
-        catch (HttpRequestException ex)
-        {
-            Log.Error($"Failed to check for updates. Exception: \n{ex.Message}", "Updater");
-            return;
-        }
-       */
+                 string latestVersion = releaseData.tag_name;
+                 if (Version.TryParse(latestVersion, out var latestVersionParsed) && latestVersionParsed > NebuliInfo.NebuliVersion)
+                 {
+                     Log.Info($"A new version of Nebuli is available: {latestVersion}");
+                 }
+                 else
+                 {
+                     Log.Info("Nebuli is up-to-date!");
+                 }
+             }
+             else
+             {
+                 Log.Error($"Failed to check for updates. Response status code: \n{response.StatusCode}", "Updater");
+                 return;
+             }
+         }
+         catch (HttpRequestException ex)
+         {
+             Log.Error($"Failed to check for updates. Exception: \n{ex.Message}", "Updater");
+             return;
+         }
+        */
     }
 }

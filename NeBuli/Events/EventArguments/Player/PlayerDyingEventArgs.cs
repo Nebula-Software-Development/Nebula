@@ -1,6 +1,6 @@
-using System;
 using Nebuli.API.Features.Player;
 using PlayerStatsSystem;
+using System;
 
 namespace Nebuli.Events.EventArguments.Player;
 
@@ -13,11 +13,11 @@ public class PlayerDyingEventArgs : EventArgs, IDamageEvent, ICancellableEvent
         DamageHandlerBase = dmgB;
         IsCancelled = false;
     }
-    
+
     public NebuliPlayer Attacker { get; }
 
     public NebuliPlayer Target { get; }
-    
+
     public DamageHandlerBase DamageHandlerBase { get; }
 
     public bool IsCancelled { get; set; }

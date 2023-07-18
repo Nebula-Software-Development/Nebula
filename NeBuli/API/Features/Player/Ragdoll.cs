@@ -12,7 +12,7 @@ namespace Nebuli.API.Features.Player;
 public class Ragdoll
 {
     /// <summary>
-    /// Gets a Dictionary of <see cref="BasicRagdoll"/>, and their wrapper class <see cref="Ragdoll"/>. 
+    /// Gets a Dictionary of <see cref="BasicRagdoll"/>, and their wrapper class <see cref="Ragdoll"/>.
     /// </summary>
     public static readonly Dictionary<BasicRagdoll, Ragdoll> Dictionary = new();
 
@@ -36,9 +36,9 @@ public class Ragdoll
         Base = basicRagdoll;
         Dictionary.Add(basicRagdoll, this);
     }
-    
+
     public static IEnumerable<Ragdoll> Collection => Dictionary.Values;
-    
+
     /// <summary>
     /// Gets a list of all the ragdolls on the server.
     /// </summary>
@@ -58,7 +58,7 @@ public class Ragdoll
     public bool IsFrozen
     {
         get => Base._frozen;
-        set => Base._frozen = value; 
+        set => Base._frozen = value;
     }
 
     /// <summary>
@@ -73,7 +73,7 @@ public class Ragdoll
     /// Gets the ragdolls GameObject.
     /// </summary>
     public GameObject GameObject
-    { 
+    {
         get => Base.gameObject;
     }
 
@@ -129,7 +129,7 @@ public class Ragdoll
         get => Base.NetworkInfo.StartRotation;
         set => new RagdollData(ReferenceHub, DamageHandlerBase, RoleTypeId, StartPosition, value, RagdollName, CreationTime);
     }
-    
+
     /// <summary>
     /// Get or set the creation time of the ragdoll
     /// </summary>
@@ -138,7 +138,7 @@ public class Ragdoll
         get => Base.NetworkInfo.CreationTime;
         set => new RagdollData(ReferenceHub, DamageHandlerBase, RoleTypeId, StartPosition, RagdollRotation, RagdollName, value);
     }
-    
+
     public static Ragdoll Get(BasicRagdoll ragdollBase)
     {
         if (Dictionary.TryGetValue(ragdollBase, out Ragdoll ragdoll))

@@ -17,6 +17,7 @@ public interface IPlugin<out TConfig> where TConfig : IConfig
     /// Gets the plugin's author.
     /// </summary>
     string PluginAuthor { get; }
+
     /// <summary>
     /// Gets the plugins current version.
     /// </summary>

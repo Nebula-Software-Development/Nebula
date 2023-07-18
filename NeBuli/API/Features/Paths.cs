@@ -1,5 +1,5 @@
-﻿using NwPaths = PluginAPI.Helpers.Paths;
-using System.IO;
+﻿using System.IO;
+using NwPaths = PluginAPI.Helpers.Paths;
 
 namespace Nebuli.API.Features;
 
@@ -9,10 +9,10 @@ namespace Nebuli.API.Features;
 public static class Paths
 {
     /// <summary>
-    /// The main directory for the framework. 
+    /// The main directory for the framework.
     /// </summary>
     public static DirectoryInfo MainDirectory { get; private set; }
-    
+
     /// <summary>
     /// The plugin directory for the framework.
     /// </summary>
@@ -27,19 +27,19 @@ public static class Paths
     /// The config directory for the plugins.
     /// </summary>
     public static DirectoryInfo PluginConfigDirectory { get; private set; }
-    
+
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public static FileInfo Configs { get; private set; }
-    
+
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public static FileInfo Permissions { get; private set; }
 
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public static void LoadPaths()
     {
