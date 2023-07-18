@@ -1,9 +1,5 @@
 ﻿using Nebuli.API.Interfaces;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Nebuli.API.Features;
 
@@ -22,6 +18,7 @@ public abstract class Plugin<TConfig> : IPlugin<TConfig> where TConfig : IConfig
     /// Gets the plugin's author.
     /// </summary>
     public virtual string PluginAuthor { get; }
+
     /// <summary>
     /// Gets the plugins current version.
     /// </summary>
@@ -44,7 +41,6 @@ public abstract class Plugin<TConfig> : IPlugin<TConfig> where TConfig : IConfig
     /// </summary>
     public virtual void OnEnabled()
     {
-
     }
 
     /// <summary>
@@ -52,6 +48,5 @@ public abstract class Plugin<TConfig> : IPlugin<TConfig> where TConfig : IConfig
     /// </summary>
     public virtual void OnDisabled()
     {
-
     }
 }

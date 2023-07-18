@@ -1,12 +1,15 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using CommandSystem;
 using CustomPlayerEffects;
+using Footprinting;
 using Hints;
 using Mirror;
 using PlayerRoles;
 using PlayerRoles.FirstPersonControl;
 using PlayerStatsSystem;
 using PluginAPI.Core;
+using RemoteAdmin;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using VoiceChat;
 
@@ -30,21 +33,24 @@ public class NebuliPlayer
 
         if (hub == ReferenceHub.HostHub)
             return;
-        
+
         Create();
-        
+
         Dictionary.Add(hub, this);
     }
-    
+
     public static IEnumerable<NebuliPlayer> Collection => Dictionary.Values;
+
     /// <summary>
     /// Gets a list of all the player's on the server.
     /// </summary>
     public static List<NebuliPlayer> List => Collection.ToList();
-   /// <summary>
-   /// The player count of the server.
-   /// </summary>
+
+    /// <summary>
+    /// The player count of the server.
+    /// </summary>
     public static int PlayerCount => Dictionary.Count;
+
     /// <summary>
     /// The player's ReferenceHub.
     /// </summary>
@@ -64,6 +70,10 @@ public class NebuliPlayer
     /// The players RawUserId.
     /// </summary>
     public string RawUserId { get; private set; }
+
+    public Footprint Footprint => new(ReferenceHub);
+
+    public PlayerCommandSender Sender => ReferenceHub.queryProcessor._sender;
 
     /// <summary>
     /// Gets or sets whether or not the player has bypass or not.
@@ -91,7 +101,7 @@ public class NebuliPlayer
         get => Transform.eulerAngles;
         set => ReferenceHub.TryOverridePosition(Position, value);
     }
-    
+
     /// <summary>
     /// Gets or sets the players current <see cref="RecyclablePlayerId"/>
     /// </summary>
@@ -100,7 +110,7 @@ public class NebuliPlayer
         get => ReferenceHub.PlayerId;
         set => ReferenceHub.Network_playerId = new RecyclablePlayerId(value);
     }
-    
+
     /// <summary>
     /// Gets or sets the players current UserId.
     /// </summary>
@@ -109,7 +119,7 @@ public class NebuliPlayer
         get => ReferenceHub.characterClassManager.UserId;
         set => ReferenceHub.characterClassManager.UserId = value;
     }
-    
+
     /// <summary>
     /// Gets or sets the players current SyncedUserId.
     /// </summary>
@@ -123,7 +133,7 @@ public class NebuliPlayer
     /// Gets the players NetId.
     /// </summary>
     public uint NetId => ReferenceHub.networkIdentity.netId;
-    
+
     /// <summary>
     /// Gets or sets the players health.
     /// </summary>
@@ -142,7 +152,7 @@ public class NebuliPlayer
     /// Gets the players minimum possible health value.
     /// </summary>
     public float MinHealth => ReferenceHub.playerStats.GetModule<HealthStat>().MinValue;
-    
+
     /// <summary>
     /// Gets or sets the players current HumeShield value.
     /// </summary>
@@ -151,7 +161,7 @@ public class NebuliPlayer
         get => ReferenceHub.playerStats.GetModule<HumeShieldStat>().CurValue;
         set => ReferenceHub.playerStats.GetModule<HumeShieldStat>().CurValue = value;
     }
-    
+
     /// <summary>
     /// Gets the players maximum HumeShield value.
     /// </summary>
@@ -161,7 +171,7 @@ public class NebuliPlayer
     /// Gets the players minimum HumeShield value.
     /// </summary>
     public float MinHumeShield => ReferenceHub.playerStats.GetModule<HumeShieldStat>().MinValue;
-    
+
     /// <summary>
     /// Gets the players HumeShieldRegeneration value.
     /// </summary>
@@ -175,7 +185,7 @@ public class NebuliPlayer
             return 0;
         }
     }
-    
+
     /// <summary>
     /// Gets or sets if the player is in Overwatch.
     /// </summary>
@@ -184,7 +194,7 @@ public class NebuliPlayer
         get => ReferenceHub.serverRoles.IsInOverwatch;
         set => ReferenceHub.serverRoles.IsInOverwatch = value;
     }
-    
+
     /// <summary>
     /// Gets or sets the players usergroups.
     /// </summary>
@@ -202,7 +212,7 @@ public class NebuliPlayer
         get => ReferenceHub.serverRoles._myColor;
         set => ReferenceHub.serverRoles.SetColor(value);
     }
-    
+
     /// <summary>
     /// Gets or sets the players rank name.
     /// </summary>
@@ -220,7 +230,7 @@ public class NebuliPlayer
         get => ReferenceHub.serverRoles.DoNotTrack;
         set => ReferenceHub.serverRoles.DoNotTrack = value;
     }
-    
+
     /// <summary>
     /// Gets or sets a value if god mode is enabled or not.
     /// </summary>
@@ -229,7 +239,7 @@ public class NebuliPlayer
         get => ReferenceHub.characterClassManager.GodMode;
         set => ReferenceHub.characterClassManager.GodMode = value;
     }
-    
+
     /// <summary>
     /// Gets a boolean determining if the player is a Northwood Studios staff member.
     /// </summary>
@@ -239,7 +249,7 @@ public class NebuliPlayer
     /// Gets a boolean determining if the player is a Global Moderator.
     /// </summary>
     public bool IsGlobalModerator => ReferenceHub.serverRoles.RaEverywhere;
-    
+
     /// <summary>
     /// Gets or sets the players custom info string.
     /// </summary>
@@ -271,7 +281,7 @@ public class NebuliPlayer
     /// Gets the players IP adress.
     /// </summary>
     public string Address => ReferenceHub.connectionToClient.address;
-    
+
     /// <summary>
     /// Gets the players global badge.
     /// </summary>
@@ -324,6 +334,7 @@ public class NebuliPlayer
         player = null;
         return false;
     }
+
     /// <summary>
     /// Trys to get a <see cref="NebuliPlayer"/> with the provided MonoBehavior component.
     /// </summary>
@@ -368,6 +379,21 @@ public class NebuliPlayer
     {
         if (ReferenceHub.TryGetHubNetID(netId, out ReferenceHub hub))
             return TryGet(hub, out player);
+
+        player = null;
+        return false;
+    }
+
+    public static bool TryGet(ICommandSender sender, out NebuliPlayer player)
+    {
+        foreach (NebuliPlayer ply in Collection)
+        {
+            if (ply.Sender != sender)
+                continue;
+
+            player = ply;
+            return true;
+        }
 
         player = null;
         return false;
@@ -432,6 +458,10 @@ public class NebuliPlayer
     {
         return TryGet(netId, out NebuliPlayer player) ? player : null;
     }
+
+    public static NebuliPlayer Get(ICommandSender sender) => TryGet(sender, out NebuliPlayer player) ? player : null;
+
+    public static NebuliPlayer Get(Footprint footprint) => Get(footprint.Hub);
 
     /// <summary>
     /// Kills the player with a custom reason.
@@ -669,6 +699,7 @@ public class NebuliPlayer
     {
         return PermissionsHandler.IsPermitted(Permissions, permissions);
     }
+
     /// <summary>
     /// Sends a broadcast to the player.
     /// </summary>
@@ -681,6 +712,7 @@ public class NebuliPlayer
         if (clearCurrent) ClearBroadcasts();
         Server.Broadcast.TargetAddElement(ReferenceHub.connectionToClient, message, duration, broadcastFlags);
     }
+
     /// <summary>
     /// Clears all of the player's current broadcasts.
     /// </summary>
@@ -688,7 +720,7 @@ public class NebuliPlayer
     {
         Server.Broadcast.TargetClearElements(ReferenceHub.connectionToClient);
     }
-   
+
     /// <summary>
     /// Parses the UserId to extract the RawUserId without the discriminator.
     /// </summary>
@@ -704,5 +736,4 @@ public class NebuliPlayer
 
         RawUserId = UserId.Substring(0, index);
     }
-
 }
