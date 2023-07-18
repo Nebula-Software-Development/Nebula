@@ -1,10 +1,9 @@
 ﻿using System;
 
 #pragma warning disable CS1591 
-namespace Nebuli
+namespace Nebuli;
+
+public static class NebuliInfo
 {
-    public static class NebuliInfo
-    {
-        public static readonly Version NebuliVersion = new(0, 0, 1);
-    }
+    public static readonly Version NebuliVersion = new(0, 0, 1);
 }
