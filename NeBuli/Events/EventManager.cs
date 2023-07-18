@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using HarmonyLib;
 using Nebuli.API.Features;
+using Nebuli.API.Features.Player;
 using NorthwoodLib.Pools;
+using PlayerRoles.Ragdolls;
+using UnityEngine.SceneManagement;
 
 namespace Nebuli.Events;
-
 
 #pragma warning disable CS1591
 public static class EventManager
@@ -31,6 +33,35 @@ public static class EventManager
                 throw;
             }
         }
+    }
+
+    internal static void RegisterBaseEvents()
+    {
+        SceneManager.sceneUnloaded += OnSceneUnLoaded;
+        RagdollManager.OnRagdollSpawned += OnRagdollSpawned;
+    }
+
+    internal static void UnRegisterBaseEvents()
+    {
+        SceneManager.sceneUnloaded -= OnSceneUnLoaded;
+        RagdollManager.OnRagdollSpawned -= OnRagdollSpawned;
+    }
+
+    private static void OnRagdollSpawned(BasicRagdoll basicRagdoll)
+    {
+        if (Ragdoll.Dictionary.ContainsKey(basicRagdoll))
+            return;
+        
+        Ragdoll.Dictionary.Add(basicRagdoll, new Ragdoll(basicRagdoll));
+    }
+
+    private static void OnSceneUnLoaded(Scene scene)
+    {
+        if (scene.name != "Facility")
+            return;
+        
+        NebuliPlayer.Dictionary.Clear();
+        Ragdoll.Dictionary.Clear();
     }
 
     // Method from CursedMod: Allow us to check if the instructions of X Transpiler has changed or not

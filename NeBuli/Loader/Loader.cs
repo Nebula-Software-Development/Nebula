@@ -6,6 +6,7 @@ using System.Reflection;
 using HarmonyLib;
 using Nebuli.API.Features;
 using Nebuli.API.Interfaces;
+using Nebuli.Events;
 using PluginAPI.Core.Attributes;
 using PluginAPI.Enums;
 using YamlDotNet.Core;
@@ -25,7 +26,6 @@ public class Loader
     [PluginPriority(LoadPriority.Highest)]
     public void FrameworkLoader()
     {
-        
         if (!Configuration.LoaderEnabled)
         {
             Log.Info("Nebuli Loader is disabled, Nebuli will not load");
@@ -40,6 +40,9 @@ public class Loader
         Log.Debug($"Plugin path is {Paths.PluginsDirectory}");
         Log.Info("Loading plugins...");
         LoadPlugins(Paths.PluginsDirectory.GetFiles("*.dll"));
+        
+        EventManager.RegisterBaseEvents();
+        
         try
         {
             if (Configuration.PatchEvents)
@@ -61,6 +64,8 @@ public class Loader
     {
         _harmony.UnpatchAll(_harmony.Id);
         _harmony = null;
+        
+        EventManager.UnRegisterBaseEvents();
     }
     
     private void LoadDependencies(IEnumerable<FileInfo> files)
