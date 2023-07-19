@@ -13,7 +13,6 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using VoiceChat;
-using Server = PluginAPI.Core.Server;
 
 namespace Nebuli.API.Features.Player;
 
@@ -47,6 +46,17 @@ public class NebuliPlayer
     /// Gets a list of all the player's on the server.
     /// </summary>
     public static List<NebuliPlayer> List => Collection.ToList();
+
+    /// <summary>
+    /// Gets a list of all online staff.
+    /// </summary>
+    public static List<NebuliPlayer> OnlineStaff
+    {
+        get
+        {
+            return List.Where(ply => HasAnyPermission(ply)).ToList();
+        }
+    }
 
     /// <summary>
     /// The player count of the server.
@@ -763,5 +773,20 @@ public class NebuliPlayer
         }
 
         RawUserId = UserId.Substring(0, index);
+    }
+
+    /// <summary>
+    /// Checks if the player has any permission in <see cref="PlayerPermissions"/>.
+    /// </summary>
+    /// <param name="player">The player to check.</param>
+    /// <returns></returns>
+    public static bool HasAnyPermission(NebuliPlayer player)
+    {
+        foreach (var perm in PermissionsHandler.PermissionCodes)
+        {
+            if (player.HasPermission(perm.Key))
+                return true;
+        }
+        return false;
     }
 }
