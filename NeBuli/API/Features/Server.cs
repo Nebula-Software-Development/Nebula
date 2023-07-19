@@ -93,7 +93,7 @@ namespace Nebuli.API.Features
         /// <summary>
         /// Gets the server's port.
         /// </summary>
-        public static ushort ServerPort => ServerConsole.PortToReport;
+        public static ushort ServerPort => ServerStatic.ServerPort;
 
         /// <summary>
         /// Gets the server's IP address.
@@ -146,6 +146,39 @@ namespace Nebuli.API.Features
             {
                 Broadcast.TargetClearElements(ply.ReferenceHub.connectionToClient);
             }
+        }
+
+        /// <summary>
+        /// Gets or sets if IdleMode is enabled.
+        /// </summary>
+        public static bool IdleModeEnabled
+        {
+            get => IdleMode.IdleModeEnabled;
+            set => IdleMode.IdleModeEnabled = value;
+        }
+
+        /// <summary>
+        /// Gets or sets the IdleMode server tick rate.
+        /// </summary>
+        public static short IdleModeTickRate
+        {
+            get => IdleMode.IdleModeTickrate;
+            set => IdleMode.IdleModeTickrate = value;
+        }
+
+        /// <summary>
+        /// Gets or sets the ServerTicketRate.
+        /// </summary>
+        public static short ServerTicketRate
+        {
+            get => ServerStatic.ServerTickrate;
+            set => ServerStatic.ServerTickrate = value;
+        }
+
+        public static ServerStatic.NextRoundAction NextRoundAction
+        {
+            get => ServerStatic.StopNextRound;
+            set => ServerStatic.StopNextRound = value;
         }
     }
 }
