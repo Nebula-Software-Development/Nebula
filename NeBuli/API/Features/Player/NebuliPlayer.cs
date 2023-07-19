@@ -32,7 +32,7 @@ public class NebuliPlayer
         GameObject = ReferenceHub.gameObject;
         Transform = ReferenceHub.transform;
 
-        if (hub == ReferenceHub.HostHub)
+        if (hub == ReferenceHub.HostHub && Server.NebuliHost is not null)
             return;
 
         Create();

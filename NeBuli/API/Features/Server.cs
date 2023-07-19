@@ -1,4 +1,5 @@
-﻿using CustomPlayerEffects;
+﻿using CommandSystem;
+using CustomPlayerEffects;
 using GameCore;
 using Mirror;
 using Nebuli.API.Features.Player;
@@ -13,6 +14,12 @@ namespace Nebuli.API.Features;
 /// </summary>
 public static class Server
 {
+
+    /// <summary>
+    /// Gets the servers <see cref="NebuliPlayer"/> Host.
+    /// </summary>
+    public static NebuliPlayer NebuliHost { get; internal set; }
+
     /// <summary>
     /// Gets or sets whether friendly fire is on or not.
     /// </summary>
@@ -83,8 +90,11 @@ public static class Server
     /// </summary>
     /// <param name="command">The command to send.</param>
     /// <param name="sender">The player sending the command.</param>
-    public static void RunServerCommand(string command, NebuliPlayer sender = null) => ServerConsole.EnterCommand(command, sender.Sender);
-
+    public static void RunServerCommand(string command, NebuliPlayer sender = null)
+    {
+        sender ??= NebuliHost;
+        ServerConsole.EnterCommand(command, sender.Sender);
+    }
     /// <summary>
     /// Gets the <see cref="Broadcast.Broadcast"/> singleton.
     /// </summary>

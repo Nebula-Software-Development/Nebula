@@ -91,6 +91,9 @@ public static class EventManager
             Generator.Get(gen);
         foreach (DoorVariant door in Object.FindObjectsOfType<DoorVariant>())
             Door.Get(door);
+
+        NebuliPlayer nebuliHost = new NebuliPlayer(ReferenceHub.HostHub);
+        Server.NebuliHost = nebuliHost;
     }
 
     // Method from CursedMod: Allow us to check if the instructions of X Transpiler has changed or not
