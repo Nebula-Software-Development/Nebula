@@ -8,6 +8,9 @@ using UnityEngine;
 
 namespace Nebuli.API.Features.Map
 {
+    /// <summary>
+    /// Allows easier use of doors by wrapping the <see cref="DoorVariant"/> class.
+    /// </summary>
     public class Door
     {
         public static readonly Dictionary<DoorVariant, Door> Dictionary = new();
@@ -85,6 +88,25 @@ namespace Nebuli.API.Features.Map
         public static Door Get(DoorVariant doorVariant)
         {
             return Dictionary.TryGetValue(doorVariant, out Door door) ? door : new Door(doorVariant);
+        }
+
+        /// <summary>
+        /// Locks a door.
+        /// </summary>
+        /// <param name="doorLockReason">The <see cref="DoorLockReason"/> of the lock.</param>
+        public void LockDoor(DoorLockReason doorLockReason = DoorLockReason.AdminCommand)
+        {
+            if (IsOpened) IsOpened = false;
+            Base.NetworkActiveLocks = (ushort)doorLockReason;
+            DoorEvents.TriggerAction(Base, DoorAction.Locked, null);
+        }
+
+        /// <summary>
+        /// Unlocks a door.
+        /// </summary>
+        public void UnLockDoor()
+        {
+            Base.NetworkActiveLocks = 0;
         }
     }
 }

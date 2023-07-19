@@ -733,6 +733,9 @@ public class NebuliPlayer
         get => Room.Get(Position);
     }
 
+    /// <summary>
+    /// Gets the players current zone.
+    /// </summary>
     public FacilityZone CurrentZone
     {
         get => Room.Get(Position).Zone;
