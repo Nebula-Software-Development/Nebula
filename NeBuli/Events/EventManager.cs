@@ -1,16 +1,16 @@
 ﻿using HarmonyLib;
+using Interactables.Interobjects.DoorUtils;
+using MapGeneration;
+using MapGeneration.Distributors;
 using Nebuli.API.Features;
+using Nebuli.API.Features.Map;
 using Nebuli.API.Features.Player;
 using NorthwoodLib.Pools;
 using PlayerRoles.Ragdolls;
 using System;
 using System.Collections.Generic;
-using MapGeneration;
-using MapGeneration.Distributors;
-using Nebuli.API.Features.Map;
 using UnityEngine.SceneManagement;
 using Object = UnityEngine.Object;
-using Interactables.Interobjects.DoorUtils;
 
 namespace Nebuli.Events;
 
@@ -86,10 +86,10 @@ public static class EventManager
     private static void OnMapGenerated()
     {
         foreach (RoomIdentifier room in RoomIdentifier.AllRoomIdentifiers)
-            Room.Get(room); 
+            Room.Get(room);
         foreach (Scp079Generator gen in Object.FindObjectsOfType<Scp079Generator>())
             Generator.Get(gen);
-        foreach(DoorVariant door in Object.FindObjectsOfType<DoorVariant>())
+        foreach (DoorVariant door in Object.FindObjectsOfType<DoorVariant>())
             Door.Get(door);
     }
 

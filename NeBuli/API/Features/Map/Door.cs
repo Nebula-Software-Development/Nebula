@@ -12,6 +12,7 @@ namespace Nebuli.API.Features.Map
     public class Door
     {
         public static readonly Dictionary<DoorVariant, Door> Dictionary = new();
+
         internal Door(DoorVariant door)
         {
             Base = door;
@@ -25,6 +26,7 @@ namespace Nebuli.API.Features.Map
         /// Gets a list of all the current doors on the server.
         /// </summary>
         public static List<Door> List => Collection.ToList();
+
         /// <summary>
         /// Gets the doors base.
         /// </summary>
@@ -75,7 +77,7 @@ namespace Nebuli.API.Features.Map
         /// </summary>
         public ushort ActiveLocks
         {
-            get => Base.ActiveLocks; 
+            get => Base.ActiveLocks;
             set => Base.ActiveLocks = value;
         }
 

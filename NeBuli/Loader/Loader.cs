@@ -1,5 +1,4 @@
 ﻿using HarmonyLib;
-using LiteNetLib.Utils;
 using Nebuli.API.Features;
 using Nebuli.API.Interfaces;
 using Nebuli.Events;
@@ -32,8 +31,6 @@ public class Loader
     [PluginPriority(LoadPriority.Highest)]
     public void FrameworkLoader()
     {
-       
-
         if (!Configuration.LoaderEnabled)
         {
             Log.Info("Nebuli Loader is disabled, Nebuli will not load");
@@ -186,8 +183,6 @@ public class Loader
             Log.Debug($"Found plugin property for type: {type.Name}");
         else
             Log.Warning($"No valid constructor or plugin property found for type: {type.Name}");
-
-
 
         return pluginProperty?.GetValue(null) as IPlugin<IConfig>;
     }
