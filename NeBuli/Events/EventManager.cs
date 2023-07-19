@@ -1,5 +1,8 @@
 ﻿using HarmonyLib;
 using Interactables.Interobjects.DoorUtils;
+using InventorySystem;
+using InventorySystem.Items;
+using InventorySystem.Items.Pickups;
 using MapGeneration;
 using MapGeneration.Distributors;
 using Nebuli.API.Features;
@@ -7,8 +10,11 @@ using Nebuli.API.Features.Map;
 using Nebuli.API.Features.Player;
 using NorthwoodLib.Pools;
 using PlayerRoles.Ragdolls;
+using PluginAPI.Core.Attributes;
+using PluginAPI.Events;
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 using Object = UnityEngine.Object;
 
@@ -47,6 +53,8 @@ public static class EventManager
         RagdollManager.OnRagdollSpawned += OnRagdollSpawned;
         RagdollManager.OnRagdollRemoved += OnRagdollDeSpawned;
         SeedSynchronizer.OnMapGenerated += OnMapGenerated;
+        ItemPickupBase.OnPickupAdded += OnPickupAdded;
+        ItemPickupBase.OnPickupDestroyed += OnPickupRemoved;
     }
 
     internal static void UnRegisterBaseEvents()
@@ -55,6 +63,8 @@ public static class EventManager
         RagdollManager.OnRagdollSpawned -= OnRagdollSpawned;
         RagdollManager.OnRagdollRemoved -= OnRagdollDeSpawned;
         SeedSynchronizer.OnMapGenerated -= OnMapGenerated;
+        ItemPickupBase.OnPickupAdded -= OnPickupAdded;
+        ItemPickupBase.OnPickupDestroyed -= OnPickupRemoved;
     }
 
     private static void OnRagdollSpawned(BasicRagdoll basicRagdoll)
@@ -81,6 +91,8 @@ public static class EventManager
         Generator.Dictionary.Clear();
         Room.Dictionary.Clear();
         Door.Dictionary.Clear();
+        Pickup.Dictionary.Clear();
+        Item.Dictionary.Clear();
     }
 
     private static void OnMapGenerated()
@@ -91,9 +103,17 @@ public static class EventManager
             Generator.Get(gen);
         foreach (DoorVariant door in Object.FindObjectsOfType<DoorVariant>())
             Door.Get(door);
-
-        NebuliPlayer nebuliHost = new NebuliPlayer(ReferenceHub.HostHub);
+        NebuliPlayer nebuliHost = new(ReferenceHub.HostHub);
         Server.NebuliHost = nebuliHost;
+    }
+
+    private static void OnPickupAdded(ItemPickupBase itemPickupBase)
+    {
+        Pickup.PickupGet(itemPickupBase);
+    }
+    private static void OnPickupRemoved(ItemPickupBase itemPickupBase)
+    {
+        Pickup.Dictionary.Remove(itemPickupBase);
     }
 
     // Method from CursedMod: Allow us to check if the instructions of X Transpiler has changed or not

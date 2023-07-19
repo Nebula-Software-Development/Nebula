@@ -130,7 +130,11 @@ public static class Server
     public static string ServerName
     {
         get => ServerConsole._serverName;
-        set => ServerConsole._serverName = value;
+        set
+        {
+            ServerConsole._serverName = value;
+            ServerConsole.ReloadServerName();
+        }
     }
 
     /// <summary>

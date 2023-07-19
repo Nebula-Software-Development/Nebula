@@ -83,8 +83,14 @@ public class NebuliPlayer
     /// </summary>
     public string RawUserId { get; private set; }
 
+    /// <summary>
+    /// Gets the <see cref="NebuliPlayer"/> footprint.
+    /// </summary>
     public Footprint Footprint => new(ReferenceHub);
 
+    /// <summary>
+    /// Gets the <see cref="NebuliPlayer"/> <see cref="PlayerCommandSender"/>.
+    /// </summary>
     public PlayerCommandSender Sender => ReferenceHub.queryProcessor._sender;
 
     /// <summary>

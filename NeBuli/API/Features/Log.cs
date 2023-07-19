@@ -28,11 +28,11 @@ public static class Log
     public static void Debug(object message, string prefix = null, ConsoleColor consoleColor = ConsoleColor.Green)
     {
         Assembly callingAssembly = Assembly.GetCallingAssembly();
-        if (prefix == "Nebuli" && Loader.Configuration.ShowDebugLogs)
+        if (prefix == "Nebuli" && Loader.Loader.Configuration.ShowDebugLogs)
         {
             AddLog(FormatLogMessage("Debug", message, prefix, callingAssembly), consoleColor);
         }
-        else if (!Loader._plugins.TryGetValue(callingAssembly, out var plugin) || !plugin.Debug)
+        else if (!Loader.Loader._plugins.TryGetValue(callingAssembly, out var plugin) || !plugin.Debug)
         {
             return;
         }

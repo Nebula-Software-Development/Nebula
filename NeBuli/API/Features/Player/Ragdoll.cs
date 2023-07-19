@@ -105,15 +105,16 @@ public class Ragdoll
     }
 
     /// <summary>
-    /// Get or set the <see cref="PlayerStatsSystem.DamageHandlerBase"/> of the ragdoll.
+    /// Get or sets the <see cref="PlayerStatsSystem.DamageHandlerBase"/> of the ragdoll.
     /// </summary>
     public DamageHandlerBase DamageHandlerBase
     {
         get => Base.NetworkInfo.Handler;
+        set => new RagdollData(ReferenceHub, value, RoleTypeId, StartPosition, RagdollRotation, RagdollName, CreationTime);
     }
 
     /// <summary>
-    /// Get or set the Nickname of the ragdoll.
+    /// Get or sest the Nickname of the ragdoll.
     /// </summary>
     public string RagdollName
     {
@@ -122,7 +123,7 @@ public class Ragdoll
     }
 
     /// <summary>
-    /// Get or set the ragdolls start rotation.
+    /// Get or sets the ragdolls start rotation.
     /// </summary>
     public Quaternion RagdollRotation
     {
@@ -131,7 +132,7 @@ public class Ragdoll
     }
 
     /// <summary>
-    /// Get or set the creation time of the ragdoll
+    /// Get or sets the creation time of the ragdoll
     /// </summary>
     public double CreationTime
     {
