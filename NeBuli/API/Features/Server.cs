@@ -8,6 +8,9 @@ using static Broadcast;
 
 namespace Nebuli.API.Features
 {
+    /// <summary>
+    /// Makes accessing server variables easier.
+    /// </summary>
     public static class Server
     {
         /// <summary>

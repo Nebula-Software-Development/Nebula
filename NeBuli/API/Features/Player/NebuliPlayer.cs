@@ -461,8 +461,18 @@ public class NebuliPlayer
         return TryGet(netId, out NebuliPlayer player) ? player : null;
     }
 
+    /// <summary>
+    /// Gets a <see cref="NebuliPlayer"/> with the <see cref="ICommandSender"/>.
+    /// </summary>
+    /// <param name="sender">The <see cref="ICommandSender"/> to get the <see cref="NebuliPlayer"/> with.</param>
+    /// <returns></returns>
     public static NebuliPlayer Get(ICommandSender sender) => TryGet(sender, out NebuliPlayer player) ? player : null;
 
+    /// <summary>
+    /// Gets a <see cref="NebuliPlayer"/> with the specified <see cref="Footprinting.Footprint"/>.
+    /// </summary>
+    /// <param name="footprint">The <see cref="Footprinting.Footprint"/> to use to find the <see cref="NebuliPlayer"/>.</param>
+    /// <returns></returns>
     public static NebuliPlayer Get(Footprint footprint) => Get(footprint.Hub);
 
     /// <summary>
@@ -555,7 +565,7 @@ public class NebuliPlayer
     }
 
     /// <summary>
-    /// Shows the player's name tag.
+    /// Shows the player's tag.
     /// </summary>
     /// <param name="global">Whether to show the name tag globally.</param>
     public void ShowTag(bool global = false)
@@ -564,7 +574,7 @@ public class NebuliPlayer
     }
 
     /// <summary>
-    /// Hides the player's name tag.
+    /// Hides the player's tag.
     /// </summary>
     public void HideTag()
     {
@@ -575,7 +585,7 @@ public class NebuliPlayer
     /// Shows a hint to the player with the specified content and duration.
     /// </summary>
     /// <param name="content">The content of the hint.</param>
-    /// <param name="time">The duration of the hint in seconds. (Optional)</param>
+    /// <param name="time">The duration of the hint in seconds.</param>
     public void ShowHint(string content, int time = 5)
     {
         ShowHint(new TextHint(content, new HintParameter[] { new StringHintParameter(string.Empty) }, null, time));

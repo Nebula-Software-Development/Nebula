@@ -1,5 +1,8 @@
 ﻿namespace Nebuli.API.Features
 {
+    /// <summary>
+    /// Allows easier control of the Alphawarhead by using the <see cref="AlphaWarheadController"/>.
+    /// </summary>
     public static class AlphaWarhead
     {
         /// <summary>
