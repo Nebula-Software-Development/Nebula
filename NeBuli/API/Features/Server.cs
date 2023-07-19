@@ -175,6 +175,9 @@ namespace Nebuli.API.Features
             set => ServerStatic.ServerTickrate = value;
         }
 
+        /// <summary>
+        /// Gets or sets the <see cref="ServerStatic.NextRoundAction"/>.
+        /// </summary>
         public static ServerStatic.NextRoundAction NextRoundAction
         {
             get => ServerStatic.StopNextRound;
