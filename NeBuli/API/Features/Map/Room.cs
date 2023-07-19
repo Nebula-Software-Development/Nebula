@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using MapGeneration;
+using Nebuli.Enum;
 using UnityEngine;
 
 namespace Nebuli.API.Features.Map;
@@ -14,6 +15,7 @@ public class Room
         Base = identifier;
         
         Dictionary.Add(identifier, this);
+        
     }
     
     public RoomIdentifier Base { get; }
@@ -34,7 +36,7 @@ public class Room
     public Transform Transform => Base.transform;
     
     public RoomName Name => Base.Name;
-    
+
     public FacilityZone Zone => Base.Zone;
     
     public Vector3 GetGlobalPoint(Vector3 localPoint) => Transform.TransformPoint(localPoint);
@@ -44,5 +46,10 @@ public class Room
     public static Room Get(RoomIdentifier identifier)
     {
         return Dictionary.TryGetValue(identifier, out var room) ? room : new Room(identifier);
+    }
+
+    public static Room Get(Vector3 position)
+    {
+        return RoomIdUtils.RoomAtPositionRaycasts(position, true) is RoomIdentifier roomIdentifier ? Get(roomIdentifier) : null;
     }
 }

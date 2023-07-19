@@ -10,6 +10,7 @@ using MapGeneration.Distributors;
 using Nebuli.API.Features.Map;
 using UnityEngine.SceneManagement;
 using Object = UnityEngine.Object;
+using Interactables.Interobjects.DoorUtils;
 
 namespace Nebuli.Events;
 
@@ -79,15 +80,17 @@ public static class EventManager
         Ragdoll.Dictionary.Clear();
         Generator.Dictionary.Clear();
         Room.Dictionary.Clear();
+        Door.Dictionary.Clear();
     }
 
     private static void OnMapGenerated()
     {
-        foreach (var room in RoomIdentifier.AllRoomIdentifiers)
+        foreach (RoomIdentifier room in RoomIdentifier.AllRoomIdentifiers)
             Room.Get(room);
-
-        foreach (var gen in Object.FindObjectsOfType<Scp079Generator>())
+        foreach (Scp079Generator gen in Object.FindObjectsOfType<Scp079Generator>())
             Generator.Get(gen);
+        foreach(DoorVariant door in Object.FindObjectsOfType<DoorVariant>())
+            Door.Get(door);
     }
 
     // Method from CursedMod: Allow us to check if the instructions of X Transpiler has changed or not
