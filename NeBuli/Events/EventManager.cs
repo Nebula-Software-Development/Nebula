@@ -1,13 +1,14 @@
 ﻿using HarmonyLib;
+using Interactables.Interobjects.DoorUtils;
+using MapGeneration;
+using MapGeneration.Distributors;
 using Nebuli.API.Features;
+using Nebuli.API.Features.Map;
 using Nebuli.API.Features.Player;
 using NorthwoodLib.Pools;
 using PlayerRoles.Ragdolls;
 using System;
 using System.Collections.Generic;
-using MapGeneration;
-using MapGeneration.Distributors;
-using Nebuli.API.Features.Map;
 using UnityEngine.SceneManagement;
 using Object = UnityEngine.Object;
 
@@ -79,15 +80,20 @@ public static class EventManager
         Ragdoll.Dictionary.Clear();
         Generator.Dictionary.Clear();
         Room.Dictionary.Clear();
+        Door.Dictionary.Clear();
     }
 
     private static void OnMapGenerated()
     {
-        foreach (var room in RoomIdentifier.AllRoomIdentifiers)
+        foreach (RoomIdentifier room in RoomIdentifier.AllRoomIdentifiers)
             Room.Get(room);
-
-        foreach (var gen in Object.FindObjectsOfType<Scp079Generator>())
+        foreach (Scp079Generator gen in Object.FindObjectsOfType<Scp079Generator>())
             Generator.Get(gen);
+        foreach (DoorVariant door in Object.FindObjectsOfType<DoorVariant>())
+            Door.Get(door);
+
+        NebuliPlayer nebuliHost = new NebuliPlayer(ReferenceHub.HostHub);
+        Server.NebuliHost = nebuliHost;
     }
 
     // Method from CursedMod: Allow us to check if the instructions of X Transpiler has changed or not

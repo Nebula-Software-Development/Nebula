@@ -2,11 +2,12 @@
 using CustomPlayerEffects;
 using Footprinting;
 using Hints;
+using MapGeneration;
 using Mirror;
+using Nebuli.API.Features.Map;
 using PlayerRoles;
 using PlayerRoles.FirstPersonControl;
 using PlayerStatsSystem;
-using PluginAPI.Core;
 using RemoteAdmin;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,7 +32,7 @@ public class NebuliPlayer
         GameObject = ReferenceHub.gameObject;
         Transform = ReferenceHub.transform;
 
-        if (hub == ReferenceHub.HostHub)
+        if (hub == ReferenceHub.HostHub && Server.NebuliHost is not null)
             return;
 
         Create();
@@ -45,6 +46,17 @@ public class NebuliPlayer
     /// Gets a list of all the player's on the server.
     /// </summary>
     public static List<NebuliPlayer> List => Collection.ToList();
+
+    /// <summary>
+    /// Gets a list of all online staff.
+    /// </summary>
+    public static List<NebuliPlayer> OnlineStaff
+    {
+        get
+        {
+            return List.Where(ply => HasAnyPermission(ply)).ToList();
+        }
+    }
 
     /// <summary>
     /// The player count of the server.
@@ -459,8 +471,18 @@ public class NebuliPlayer
         return TryGet(netId, out NebuliPlayer player) ? player : null;
     }
 
+    /// <summary>
+    /// Gets a <see cref="NebuliPlayer"/> with the <see cref="ICommandSender"/>.
+    /// </summary>
+    /// <param name="sender">The <see cref="ICommandSender"/> to get the <see cref="NebuliPlayer"/> with.</param>
+    /// <returns></returns>
     public static NebuliPlayer Get(ICommandSender sender) => TryGet(sender, out NebuliPlayer player) ? player : null;
 
+    /// <summary>
+    /// Gets a <see cref="NebuliPlayer"/> with the specified <see cref="Footprinting.Footprint"/>.
+    /// </summary>
+    /// <param name="footprint">The <see cref="Footprinting.Footprint"/> to use to find the <see cref="NebuliPlayer"/>.</param>
+    /// <returns></returns>
     public static NebuliPlayer Get(Footprint footprint) => Get(footprint.Hub);
 
     /// <summary>
@@ -553,7 +575,7 @@ public class NebuliPlayer
     }
 
     /// <summary>
-    /// Shows the player's name tag.
+    /// Shows the player's tag.
     /// </summary>
     /// <param name="global">Whether to show the name tag globally.</param>
     public void ShowTag(bool global = false)
@@ -562,7 +584,7 @@ public class NebuliPlayer
     }
 
     /// <summary>
-    /// Hides the player's name tag.
+    /// Hides the player's tag.
     /// </summary>
     public void HideTag()
     {
@@ -573,7 +595,7 @@ public class NebuliPlayer
     /// Shows a hint to the player with the specified content and duration.
     /// </summary>
     /// <param name="content">The content of the hint.</param>
-    /// <param name="time">The duration of the hint in seconds. (Optional)</param>
+    /// <param name="time">The duration of the hint in seconds.</param>
     public void ShowHint(string content, int time = 5)
     {
         ShowHint(new TextHint(content, new HintParameter[] { new StringHintParameter(string.Empty) }, null, time));
@@ -722,6 +744,22 @@ public class NebuliPlayer
     }
 
     /// <summary>
+    /// Gets the players current room.
+    /// </summary>
+    public Room CurrentRoom
+    {
+        get => Room.Get(Position);
+    }
+
+    /// <summary>
+    /// Gets the players current zone.
+    /// </summary>
+    public FacilityZone CurrentZone
+    {
+        get => Room.Get(Position).Zone;
+    }
+
+    /// <summary>
     /// Parses the UserId to extract the RawUserId without the discriminator.
     /// </summary>
     private void Create()
@@ -735,5 +773,20 @@ public class NebuliPlayer
         }
 
         RawUserId = UserId.Substring(0, index);
+    }
+
+    /// <summary>
+    /// Checks if the player has any permission in <see cref="PlayerPermissions"/>.
+    /// </summary>
+    /// <param name="player">The player to check.</param>
+    /// <returns></returns>
+    public static bool HasAnyPermission(NebuliPlayer player)
+    {
+        foreach (var perm in PermissionsHandler.PermissionCodes)
+        {
+            if (player.HasPermission(perm.Key))
+                return true;
+        }
+        return false;
     }
 }

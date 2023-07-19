@@ -29,5 +29,8 @@ public class PlayerDyingEventArgs : EventArgs, IDamageEvent, ICancellableEvent
     /// </summary>
     public DamageHandlerBase DamageHandlerBase { get; }
 
+    /// <summary>
+    /// If the event is cancelled or not.
+    /// </summary>
     public bool IsCancelled { get; set; }
 }
