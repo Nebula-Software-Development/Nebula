@@ -86,7 +86,7 @@ public static class EventManager
     private static void OnMapGenerated()
     {
         foreach (RoomIdentifier room in RoomIdentifier.AllRoomIdentifiers)
-            Room.Get(room);
+            Room.Get(room); 
         foreach (Scp079Generator gen in Object.FindObjectsOfType<Scp079Generator>())
             Generator.Get(gen);
         foreach(DoorVariant door in Object.FindObjectsOfType<DoorVariant>())

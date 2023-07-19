@@ -1,7 +1,5 @@
 ﻿using Interactables.Interobjects.DoorUtils;
 using MapGeneration;
-using Nebuli.Enum;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -18,6 +16,7 @@ namespace Nebuli.API.Features.Map
         {
             Base = door;
             Dictionary.Add(door, this);
+            ///TODO: Get door type/name
         }
 
         public static IEnumerable<Door> Collection => Dictionary.Values;
@@ -25,7 +24,7 @@ namespace Nebuli.API.Features.Map
         /// <summary>
         /// Gets a list of all the current doors on the server.
         /// </summary>
-        public static List<Door> Doors => Collection.ToList();
+        public static List<Door> List => Collection.ToList();
         /// <summary>
         /// Gets the doors base.
         /// </summary>

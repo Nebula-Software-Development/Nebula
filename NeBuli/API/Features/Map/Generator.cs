@@ -1,8 +1,8 @@
-using System.Collections.Generic;
-using System.Linq;
 using MapGeneration.Distributors;
 using Nebuli.API.Features.Player;
 using Nebuli.Enum;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Nebuli.API.Features.Map;
 
@@ -12,20 +12,20 @@ public class Generator
     /// Gets the <see cref="Scp079Generator"/> and <see cref="Generator"/> dictionary.
     /// </summary>
     public static readonly Dictionary<Scp079Generator, Generator> Dictionary = new();
-    
+
     internal Generator(Scp079Generator generator)
     {
         Base = generator;
         Dictionary.Add(generator, this);
     }
-    
+
     /// <summary>
     /// Gets the <see cref="Scp079Generator"/> base.
     /// </summary>
     public Scp079Generator Base { get; }
-    
+
     public static IEnumerable<Generator> Collection => Dictionary.Values;
-    
+
     /// <summary>
     /// Gets a list of all the generators on the server.
     /// </summary>
@@ -67,7 +67,7 @@ public class Generator
         get => Base.IsUnlocked;
         set => Base.IsUnlocked = value;
     }
-    
+
     /// <summary>
     /// Gets or sets whether or not the generator is engaged.
     /// </summary>
@@ -76,7 +76,7 @@ public class Generator
         get => Base.Engaged;
         set => Base.Engaged = value;
     }
-    
+
     /// <summary>
     /// Gets the current <see cref="Enum.GeneratorState"/>
     /// </summary>
@@ -89,7 +89,7 @@ public class Generator
     /// Gets the generators remaining time.
     /// </summary>
     public int RemainingTime => Base.RemainingTime;
-    
+
     /// <summary>
     /// Gets a Nebuli <see cref="Generator"/> using <see cref="Scp079Generator"/>.
     /// </summary>
@@ -106,8 +106,9 @@ public class Generator
     /// <param name="player">The player that will interact.</param>
     /// <param name="colliderId">The collider ID.</param>
     public void Interact(NebuliPlayer player, byte colliderId) => Base.ServerInteract(player.ReferenceHub, colliderId);
-    
+
     public void HasFlag(byte flags, Scp079Generator.GeneratorFlags flag) => Base.HasFlag(flags, flag);
+
     public void HasFlag(byte flags, GeneratorState flag) => Base.HasFlag(flags, (Scp079Generator.GeneratorFlags)flag);
 
     /// <summary>

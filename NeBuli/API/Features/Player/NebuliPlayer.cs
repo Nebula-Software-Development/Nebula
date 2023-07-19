@@ -5,7 +5,6 @@ using Hints;
 using MapGeneration;
 using Mirror;
 using Nebuli.API.Features.Map;
-using Nebuli.Enum;
 using PlayerRoles;
 using PlayerRoles.FirstPersonControl;
 using PlayerStatsSystem;
@@ -39,8 +38,7 @@ public class NebuliPlayer
 
         Create();
 
-        Dictionary.Add(hub, this);      
-
+        Dictionary.Add(hub, this);
     }
 
     public static IEnumerable<NebuliPlayer> Collection => Dictionary.Values;

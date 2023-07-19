@@ -2,76 +2,52 @@
 using System.Reflection;
 using PluginAPILogger = PluginAPI.Core.Log;
 
-namespace Nebuli.API.Features;
-
-/// <summary>
-/// Class for handling logs.
-/// </summary>
-public static class Log
+namespace Nebuli.API.Features
 {
-    /// <summary>
-    /// Sends a message to the console.
-    /// </summary>
-    /// <param name="message">The message to send.</param>
-    /// <param name="prefix">The prefix of the message.</param>
-    /// <param name="consoleColor">The color of the text in the console.</param>
-    public static void Info(object message, string prefix = null, ConsoleColor consoleColor = ConsoleColor.Cyan)
+    public static class Log
     {
-        prefix ??= Assembly.GetCallingAssembly().GetName().Name;
-        if (prefix == "Nebuli")
-            ServerConsole.AddLog(PluginAPILogger.FormatText($"&7[&b&3Nebuli&B&7] {message}", "7"), consoleColor);
-        else
-            ServerConsole.AddLog(PluginAPILogger.FormatText($"&7[&b&3Nebuli Info&B&7] &7[&b&2{prefix}&B&7]&r {message}", "7"), consoleColor);
-    }
-
-    /// <summary>
-    /// Sends a debug message to the console.
-    /// </summary>
-    /// <param name="message">The message to send.</param>
-    /// <param name="prefix">The prefix of the message.</param>
-    ///  <param name="consoleColor">The color of the text in the console.</param>
-    public static void Debug(object message, string prefix = null, ConsoleColor consoleColor = ConsoleColor.Green)
-    {
-        if (!Loader.Configuration.ShowDebugLogs)
+        private static void AddLog(string message, ConsoleColor consoleColor)
         {
-            PluginAPILogger.Info("Debug logs are disabled in the Loader Configuration", Assembly.GetCallingAssembly().GetName().Name);
-            return;
+            ServerConsole.AddLog(PluginAPILogger.FormatText(message, "7"), consoleColor);
         }
 
-        prefix ??= Assembly.GetCallingAssembly().GetName().Name;
-        if (prefix == "Nebuli")
-            ServerConsole.AddLog(PluginAPILogger.FormatText($"&7[&b&3Nebuli&B&7] {message}", "7"), consoleColor);
-        else
-            ServerConsole.AddLog(PluginAPILogger.FormatText($"&7[&b&3Nebuli Debug&B&7] &7[&b&2{prefix}&B&7]&r {message}", "7"), consoleColor);
-    }
+        private static string FormatLogMessage(string messageType, object message, string prefix = null, Assembly callingAssembly = null)
+        {
+            callingAssembly ??= Assembly.GetCallingAssembly();
+            prefix ??= callingAssembly.GetName().Name;
+            string formattedMessage = callingAssembly.GetName().Name == "Nebuli" ? $"&7[&b&3Nebuli&B&7] {message}" : $"&7[&b&3Nebuli | {messageType}&B&7] &7[&b&2{prefix}&B&7]&r {message}";
 
-    /// <summary>
-    /// Sends a warning message to the console.
-    /// </summary>
-    /// <param name="message">The message to send.</param>
-    /// <param name="prefix">The prefix of the message.</param>
-    /// <param name="consoleColor">The color of the text in the console.</param>
-    public static void Warning(object message, string prefix = null, ConsoleColor consoleColor = ConsoleColor.Magenta)
-    {
-        prefix ??= Assembly.GetCallingAssembly().GetName().Name;
-        if (prefix == "Nebuli")
-            ServerConsole.AddLog(PluginAPILogger.FormatText($"&7[&b&3Nebuli&B&7] {message}", "7"), consoleColor);
-        else
-            ServerConsole.AddLog(PluginAPILogger.FormatText($"&7[&b&3Nebuli Warn&B&7] &7[&b&2{prefix}&B&7]&r {message}", "7"), consoleColor);
-    }
+            return formattedMessage;
+        }
 
-    /// <summary>
-    /// Sends a error message to the console.
-    /// </summary>
-    /// <param name="message">The message to send.</param>
-    /// <param name="prefix">The prefix of the message.</param>
-    /// <param name="consoleColor">The color of the text in the console.</param>
-    public static void Error(object message, string prefix = null, ConsoleColor consoleColor = ConsoleColor.Red)
-    {
-        prefix ??= Assembly.GetCallingAssembly().GetName().Name;
-        if (prefix == "Nebuli")
-            ServerConsole.AddLog(PluginAPILogger.FormatText($"&7[&b&3Nebuli&B&7] {message}", "7"), consoleColor);
-        else
-            ServerConsole.AddLog(PluginAPILogger.FormatText($"&7[&b&3Nebuli Error&B&7] &7[&b&2{prefix}&B&7]&r {message}", "7"), consoleColor);
+        public static void Info(object message, string prefix = null, ConsoleColor consoleColor = ConsoleColor.Cyan)
+        {
+            AddLog(FormatLogMessage("Info", message, prefix, Assembly.GetCallingAssembly()), consoleColor);
+        }
+
+        public static void Debug(object message, string prefix = null, ConsoleColor consoleColor = ConsoleColor.Green)
+        {
+            Assembly callingAssembly = Assembly.GetCallingAssembly();
+            if (prefix == "Nebuli" && Loader.Configuration.ShowDebugLogs)
+            {
+                AddLog(FormatLogMessage("Debug", message, prefix, callingAssembly), consoleColor);
+            }
+            else if (!Loader._plugins.TryGetValue(callingAssembly, out var plugin) || !plugin.Debug)
+            {
+                return;
+            }
+
+            AddLog(FormatLogMessage("Debug", message, prefix, callingAssembly), consoleColor);
+        }
+
+        public static void Warning(object message, string prefix = null, ConsoleColor consoleColor = ConsoleColor.Magenta)
+        {
+            AddLog(FormatLogMessage("Warn", message, prefix, Assembly.GetCallingAssembly()), consoleColor);
+        }
+
+        public static void Error(object message, string prefix = null, ConsoleColor consoleColor = ConsoleColor.Red)
+        {
+            AddLog(FormatLogMessage("Error", message, prefix, Assembly.GetCallingAssembly()), consoleColor);
+        }
     }
 }
