@@ -8,12 +8,12 @@ using Nebuli.API.Features.Map;
 using PlayerRoles;
 using PlayerRoles.FirstPersonControl;
 using PlayerStatsSystem;
-using PluginAPI.Core;
 using RemoteAdmin;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using VoiceChat;
+using Server = PluginAPI.Core.Server;
 
 namespace Nebuli.API.Features.Player;
 
