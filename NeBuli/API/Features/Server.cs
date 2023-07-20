@@ -1,5 +1,4 @@
-﻿using CommandSystem;
-using CustomPlayerEffects;
+﻿using CustomPlayerEffects;
 using GameCore;
 using Mirror;
 using Nebuli.API.Features.Player;
@@ -14,7 +13,6 @@ namespace Nebuli.API.Features;
 /// </summary>
 public static class Server
 {
-
     /// <summary>
     /// Gets the servers <see cref="NebuliPlayer"/> Host.
     /// </summary>
@@ -25,15 +23,15 @@ public static class Server
     /// </summary>
     public static bool FriendlyFire
     {
-        get => ServerConsole.FriendlyFire;          
+        get => ServerConsole.FriendlyFire;
         set
         {
             ServerConsole.FriendlyFire = value;
             ServerConfigSynchronizer.Singleton.RefreshMainBools();
             PlayerStatsSystem.AttackerDamageHandler.RefreshConfigs();
         }
-        
     }
+
     /// <summary>
     /// Gets if LateJoin is enabled
     /// </summary>
@@ -58,7 +56,7 @@ public static class Server
     /// </summary>
     public static bool HeavilyModded
     {
-        get => CustomNetworkManager.HeavilyModded; 
+        get => CustomNetworkManager.HeavilyModded;
         set => CustomNetworkManager.HeavilyModded = value;
     }
 
@@ -78,8 +76,8 @@ public static class Server
     {
         get => SpawnProtected.IsProtectionEnabled;
         set => SpawnProtected.IsProtectionEnabled = value;
-    }    
-    
+    }
+
     /// <summary>
     /// Shuts the server down completely.
     /// </summary>
@@ -95,6 +93,7 @@ public static class Server
         sender ??= NebuliHost;
         ServerConsole.EnterCommand(command, sender.Sender);
     }
+
     /// <summary>
     /// Gets the <see cref="Broadcast.Broadcast"/> singleton.
     /// </summary>
@@ -145,7 +144,7 @@ public static class Server
     /// <param name="broadcastFlags">The <see cref="BroadcastFlags"/> to show.</param>
     public static void BroadcastAll(string message, ushort duration = 5, BroadcastFlags broadcastFlags = BroadcastFlags.Normal)
     {
-        foreach(NebuliPlayer ply in NebuliPlayer.List)
+        foreach (NebuliPlayer ply in NebuliPlayer.List)
         {
             Broadcast.TargetAddElement(ply.ReferenceHub.connectionToClient, message, duration, broadcastFlags);
         }
@@ -156,7 +155,7 @@ public static class Server
     /// </summary>
     public static void ClearAllBroadcasts()
     {
-        foreach(NebuliPlayer ply in NebuliPlayer.List)
+        foreach (NebuliPlayer ply in NebuliPlayer.List)
         {
             Broadcast.TargetClearElements(ply.ReferenceHub.connectionToClient);
         }

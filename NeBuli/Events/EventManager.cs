@@ -107,24 +107,21 @@ public static class EventManager
 
     private static void OnPickupAdded(ItemPickupBase itemPickupBase)
     {
-        Log.Info($"Added pickup wrapper for {itemPickupBase.name}");
         Pickup.PickupGet(itemPickupBase);
     }
+
     private static void OnPickupRemoved(ItemPickupBase itemPickupBase)
     {
-        Log.Info($"Removed pickup wrapper for {itemPickupBase.name}");
         if (Pickup.Dictionary.ContainsKey(itemPickupBase)) Pickup.Dictionary.Remove(itemPickupBase);
     }
 
     private static void OnItemAdded(ReferenceHub hub, ItemBase ibase, ItemPickupBase ipbase)
     {
-        Log.Info($"Added item wrapper for {ibase.name}");
         Item.ItemGet(ibase);
     }
 
     private static void OnItemRemoved(ReferenceHub hub, ItemBase ibase, ItemPickupBase ipbase)
     {
-        Log.Info($"Removed item wrapper for {ibase.name}");
         if (Item.Dictionary.ContainsKey(ibase)) Item.Dictionary.Remove(ibase);
     }
 

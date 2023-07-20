@@ -12,9 +12,9 @@ using PlayerStatsSystem;
 using RemoteAdmin;
 using System.Collections.Generic;
 using System.Linq;
-using System.Xml.Schema;
 using UnityEngine;
 using VoiceChat;
+using Item = Nebuli.API.Features.Item.Item;
 
 namespace Nebuli.API.Features.Player;
 
@@ -786,11 +786,12 @@ public class NebuliPlayer
     /// <summary>
     /// Gets or sets the current item held by the player. WILL BE NULL IF THE PLAYERS CURRENT ITEM IS NONE.
     /// </summary>
-    public Item CurrentItem
+    public Item.Item CurrentItem
     {
-        get => Item.ItemGet(ReferenceHub.inventory.CurItem.SerialNumber);
+        get => Item.Item.ItemGet(ReferenceHub.inventory.CurItem.SerialNumber);
         set => ReferenceHub.inventory.CurInstance = value.Base;
     }
+
     /// <summary>
     /// Gets the players <see cref="InventorySystem.Inventory"/>.
     /// </summary>
