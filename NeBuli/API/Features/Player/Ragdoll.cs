@@ -114,7 +114,7 @@ public class Ragdoll
     }
 
     /// <summary>
-    /// Get or sest the Nickname of the ragdoll.
+    /// Get or sets the Nickname of the ragdoll.
     /// </summary>
     public string RagdollName
     {
