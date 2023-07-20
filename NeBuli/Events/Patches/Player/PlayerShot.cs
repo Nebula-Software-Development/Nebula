@@ -12,10 +12,10 @@ namespace Nebuli.Events.Patches.Player
     [HarmonyPatch(typeof(SingleBulletHitreg), nameof(SingleBulletHitreg.ServerPerformShot))]
     public class PlayerShot
     {
-        [HarmonyPatch]
+        [HarmonyTranspiler]
         private static IEnumerable<CodeInstruction> OnShot(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
         {
-            List<CodeInstruction> newInstructions = EventManager.CheckPatchInstructions<PlayerShot>(1, instructions);
+            List<CodeInstruction> newInstructions = EventManager.CheckPatchInstructions<PlayerShot>(58, instructions);
 
             Label retLabel = generator.DefineLabel();
 
