@@ -52,6 +52,7 @@ public static class EventManager
         ItemPickupBase.OnPickupDestroyed += OnPickupRemoved;
         InventorySystem.InventoryExtensions.OnItemAdded += OnItemAdded;
         InventorySystem.InventoryExtensions.OnItemRemoved += OnItemRemoved;
+        CharacterClassManager.OnRoundStarted += Handlers.ServerHandler.OnRoundStart;
     }
 
     internal static void UnRegisterBaseEvents()

@@ -1,4 +1,5 @@
-﻿using PlayerRoles;
+﻿using LightContainmentZoneDecontamination;
+using PlayerRoles;
 
 namespace Nebuli.API.Features;
 

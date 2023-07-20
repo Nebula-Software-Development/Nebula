@@ -56,6 +56,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="API\Features\AlphaWarhead.cs" />
+    <Compile Include="API\Features\Decontamination.cs" />
     <Compile Include="API\Features\Item\FirearmPickup.cs" />
     <Compile Include="API\Features\Item\Item.cs" />
     <Compile Include="API\Features\Log.cs" />
@@ -82,8 +83,10 @@
     <Compile Include="Events\EventArguments\Player\PlayerJoinEventArgs.cs" />
     <Compile Include="Events\EventArguments\Player\PlayerLeaveEventArgs.cs" />
     <Compile Include="Events\EventArguments\Player\PlayerShotEventArgs.cs" />
+    <Compile Include="Events\EventArguments\Server\RoundStartedEvent.cs" />
     <Compile Include="Events\EventManager.cs" />
     <Compile Include="Events\Handlers\PlayerHandlers.cs" />
+    <Compile Include="Events\Handlers\ServerHandler.cs" />
     <Compile Include="Events\Patches\Player\BannedPlayer.cs" />
     <Compile Include="Events\Patches\Player\HurtPlayer.cs" />
     <Compile Include="Events\Patches\Player\LeavingServer.cs" />
@@ -123,7 +126,9 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Events\Patches\Warhead\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
          Other similar extension points exist, see Microsoft.Common.targets.
