@@ -11,24 +11,24 @@ namespace Nebuli.API.Features.Item
     /// <summary>
     /// Represents a wrapper class for FirearmPickupBase.
     /// </summary>
-    public class FirearmPickup
+    public class FirearmPickup : Pickup
     {
         /// <summary>
         /// Gets the collection of <see cref="FirearmPickupBase"/> and their wrapper class <see cref="FirearmPickup"/>.
         /// </summary>
-        public static Dictionary<FirearmPickupBase, FirearmPickup> Dictionary = new();
+        public static new Dictionary<FirearmPickupBase, FirearmPickup> Dictionary = new();
 
         /// <summary>
         /// Gets the FirearmPickup base.
         /// </summary>
-        public FirearmPickupBase Base;
+        public new FirearmPickupBase Base;
 
         /// <summary>
         /// Gets the PickupSyncInfo of the FirearmPickup.
         /// </summary>
-        public PickupSyncInfo Info => Base.Info;
+        public new PickupSyncInfo Info => Base.Info;
 
-        internal FirearmPickup(ItemPickupBase pickupBase)
+        public FirearmPickup(FirearmPickupBase pickupBase) : base(pickupBase)
         {
             Base = pickupBase;
             Dictionary.Add(Base, this);
@@ -37,12 +37,12 @@ namespace Nebuli.API.Features.Item
         /// <summary>
         /// Gets a collection of all the current FirearmPickups.
         /// </summary>
-        public static IEnumerable<FirearmPickup> Collection = Dictionary.Values;
+        public static new IEnumerable<FirearmPickup> Collection = Dictionary.Values;
 
         /// <summary>
         /// Gets a list of all the current FirearmPickups.
         /// </summary>
-        public static List<FirearmPickup> List = Collection.ToList();
+        public static new List<FirearmPickup> List = Collection.ToList();
 
         /// <summary>
         /// Gets the Transform of the FirearmPickup.
@@ -57,12 +57,12 @@ namespace Nebuli.API.Features.Item
         /// <summary>
         /// Gets the GameObject of the FirearmPickup.
         /// </summary>
-        public GameObject GameObject => Base.gameObject;
+        public new GameObject GameObject => Base.gameObject;
 
         /// <summary>
         /// Gets or sets the PickupPhysicsModule of the FirearmPickup.
         /// </summary>
-        public PickupPhysicsModule PhysicsModule
+        public new PickupPhysicsModule PhysicsModule
         {
             get => Base.PhysicsModule;
             set => Base.PhysicsModule = value;
@@ -89,7 +89,7 @@ namespace Nebuli.API.Features.Item
         /// <summary>
         /// Gets or sets a value indicating whether the FirearmPickup is in use or not.
         /// </summary>
-        public bool InUse
+        public new bool InUse
         {
             get => Info.InUse;
             set => Base.Info.InUse = value;
@@ -98,7 +98,7 @@ namespace Nebuli.API.Features.Item
         /// <summary>
         /// Gets or sets the serial number of the FirearmPickup.
         /// </summary>
-        public ushort Serial
+        public new ushort Serial
         {
             get => Info.Serial;
             set => Base.Info.Serial = value;
@@ -107,7 +107,7 @@ namespace Nebuli.API.Features.Item
         /// <summary>
         /// Gets or sets a value indicating whether the FirearmPickup is locked or not.
         /// </summary>
-        public bool Locked
+        public new bool Locked
         {
             get => Info.Locked;
             set => Base.Info.Locked = value;
@@ -125,17 +125,17 @@ namespace Nebuli.API.Features.Item
         /// <summary>
         /// Gets the previous owner's Footprint of the FirearmPickup.
         /// </summary>
-        public Footprint PreviousOwnerFootPrint => Base.PreviousOwner;
+        public new Footprint PreviousOwnerFootPrint => Base.PreviousOwner;
 
         /// <summary>
         /// Gets the ItemType of the FirearmPickup.
         /// </summary>
-        public ItemType ItemType => Base.NetworkInfo.ItemId;
+        public new ItemType ItemType => Base.NetworkInfo.ItemId;
 
         /// <summary>
         /// Gets or sets the position of the FirearmPickup.
         /// </summary>
-        public Vector3 Position
+        public new Vector3 Position
         {
             get => Base.Position;
             set => Base.Position = value;
@@ -144,7 +144,7 @@ namespace Nebuli.API.Features.Item
         /// <summary>
         /// Gets or sets the rotation of the FirearmPickup.
         /// </summary>
-        public Quaternion Rotation
+        public new Quaternion Rotation
         {
             get => Base.Rotation;
             set => Base.Rotation = value;

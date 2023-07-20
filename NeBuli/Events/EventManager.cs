@@ -5,6 +5,7 @@ using InventorySystem.Items.Pickups;
 using MapGeneration;
 using MapGeneration.Distributors;
 using Nebuli.API.Features;
+using Nebuli.API.Features.Item;
 using Nebuli.API.Features.Map;
 using Nebuli.API.Features.Player;
 using NorthwoodLib.Pools;

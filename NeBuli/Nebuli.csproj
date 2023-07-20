@@ -67,6 +67,7 @@
     <Compile Include="API\Features\Player\NebuliPlayer.cs" />
     <Compile Include="API\Features\Plugin.cs" />
     <Compile Include="API\Features\Player\Ragdoll.cs" />
+    <Compile Include="API\Features\Round.cs" />
     <Compile Include="API\Features\Server.cs" />
     <Compile Include="API\Interfaces\IConfig.cs" />
     <Compile Include="API\Interfaces\IPlugin.cs" />

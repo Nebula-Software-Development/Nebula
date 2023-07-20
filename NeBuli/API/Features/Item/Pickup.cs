@@ -1,5 +1,15 @@
 ﻿using Footprinting;
+using InventorySystem.Items.Armor;
+using InventorySystem.Items.Firearms;
+using InventorySystem.Items.Firearms.Ammo;
+using InventorySystem.Items.Keycards;
+using InventorySystem.Items.MicroHID;
 using InventorySystem.Items.Pickups;
+using InventorySystem.Items.Radio;
+using InventorySystem.Items.ThrowableProjectiles;
+using InventorySystem.Items.Usables.Scp1576;
+using InventorySystem.Items.Usables.Scp244;
+using InventorySystem.Items.Usables.Scp330;
 using Mirror;
 using Nebuli.API.Features.Player;
 using System.Collections.Generic;
@@ -203,8 +213,13 @@ public class Pickup
         return;
     }
 
-    public void PickupType(ItemPickupBase itemPickupBase)
+    internal Pickup PickupType(ItemPickupBase itemPickupBase)
     {
+        return itemPickupBase switch
+        {
+            InventorySystem.Items.Firearms.FirearmPickup firearmPickup => new FirearmPickup(firearmPickup),
+            _ => null,
+        };
 
     }
 }
