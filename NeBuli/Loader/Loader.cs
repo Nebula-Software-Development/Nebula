@@ -13,7 +13,7 @@ using YamlDotNet.Core;
 using YamlDotNet.Serialization;
 using YamlDotNet.Serialization.NamingConventions;
 
-namespace Nebuli;
+namespace Nebuli.Loader;
 
 #pragma warning disable CS1591
 
@@ -36,6 +36,7 @@ public class Loader
             Log.Info("Nebuli Loader is disabled, Nebuli will not load");
             return;
         }
+
         Log.Info($"Nebuli Version {NebuliInfo.NebuliVersion} loading...", consoleColor: ConsoleColor.Red);
         Log.Debug("Loading file paths...");
         Paths.LoadPaths();

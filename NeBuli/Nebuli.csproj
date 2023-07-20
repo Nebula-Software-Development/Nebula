@@ -56,14 +56,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="API\Features\AlphaWarhead.cs" />
+    <Compile Include="API\Features\Item\FirearmPickup.cs" />
+    <Compile Include="API\Features\Item\Item.cs" />
     <Compile Include="API\Features\Log.cs" />
     <Compile Include="API\Features\Map\Door.cs" />
     <Compile Include="API\Features\Map\Generator.cs" />
     <Compile Include="API\Features\Map\Room.cs" />
     <Compile Include="API\Features\Paths.cs" />
+    <Compile Include="API\Features\Item\Pickup.cs" />
     <Compile Include="API\Features\Player\NebuliPlayer.cs" />
     <Compile Include="API\Features\Plugin.cs" />
     <Compile Include="API\Features\Player\Ragdoll.cs" />
+    <Compile Include="API\Features\Round.cs" />
     <Compile Include="API\Features\Server.cs" />
     <Compile Include="API\Interfaces\IConfig.cs" />
     <Compile Include="API\Interfaces\IPlugin.cs" />

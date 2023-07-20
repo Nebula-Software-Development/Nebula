@@ -1,8 +1,11 @@
 ﻿using HarmonyLib;
 using Interactables.Interobjects.DoorUtils;
+using InventorySystem.Items;
+using InventorySystem.Items.Pickups;
 using MapGeneration;
 using MapGeneration.Distributors;
 using Nebuli.API.Features;
+using Nebuli.API.Features.Item;
 using Nebuli.API.Features.Map;
 using Nebuli.API.Features.Player;
 using NorthwoodLib.Pools;
@@ -19,10 +22,9 @@ namespace Nebuli.Events;
 public static class EventManager
 {
     public delegate void CustomEventHandler<in T>(T ev)
-        where T : EventArgs;
+            where T : EventArgs;
 
-    public static void CallEvent<T>(this CustomEventHandler<T> eventHandler, T args)
-        where T : EventArgs
+    public static void CallEvent<T>(this CustomEventHandler<T> eventHandler, T args) where T : EventArgs
     {
         if (eventHandler is null)
             return;
@@ -35,8 +37,7 @@ public static class EventManager
             }
             catch (Exception e)
             {
-                Log.Error("An error occurred while handling the event " + eventHandler.Method.Name + $"\n{e}");
-                throw;
+                Log.Error("An error occurred while handling the event " + eventHandler.Method.Name + $"\n{e}", "EVENT ERROR");
             }
         }
     }
@@ -47,6 +48,10 @@ public static class EventManager
         RagdollManager.OnRagdollSpawned += OnRagdollSpawned;
         RagdollManager.OnRagdollRemoved += OnRagdollDeSpawned;
         SeedSynchronizer.OnMapGenerated += OnMapGenerated;
+        ItemPickupBase.OnPickupAdded += OnPickupAdded;
+        ItemPickupBase.OnPickupDestroyed += OnPickupRemoved;
+        InventorySystem.InventoryExtensions.OnItemAdded += OnItemAdded;
+        InventorySystem.InventoryExtensions.OnItemRemoved += OnItemRemoved;
     }
 
     internal static void UnRegisterBaseEvents()
@@ -55,6 +60,10 @@ public static class EventManager
         RagdollManager.OnRagdollSpawned -= OnRagdollSpawned;
         RagdollManager.OnRagdollRemoved -= OnRagdollDeSpawned;
         SeedSynchronizer.OnMapGenerated -= OnMapGenerated;
+        ItemPickupBase.OnPickupAdded -= OnPickupAdded;
+        ItemPickupBase.OnPickupDestroyed -= OnPickupRemoved;
+        InventorySystem.InventoryExtensions.OnItemAdded -= OnItemAdded;
+        InventorySystem.InventoryExtensions.OnItemRemoved -= OnItemRemoved;
     }
 
     private static void OnRagdollSpawned(BasicRagdoll basicRagdoll)
@@ -81,6 +90,8 @@ public static class EventManager
         Generator.Dictionary.Clear();
         Room.Dictionary.Clear();
         Door.Dictionary.Clear();
+        Pickup.Dictionary.Clear();
+        Item.Dictionary.Clear();
     }
 
     private static void OnMapGenerated()
@@ -91,9 +102,28 @@ public static class EventManager
             Generator.Get(gen);
         foreach (DoorVariant door in Object.FindObjectsOfType<DoorVariant>())
             Door.Get(door);
-
-        NebuliPlayer nebuliHost = new NebuliPlayer(ReferenceHub.HostHub);
+        NebuliPlayer nebuliHost = new(ReferenceHub.HostHub);
         Server.NebuliHost = nebuliHost;
+    }
+
+    private static void OnPickupAdded(ItemPickupBase itemPickupBase)
+    {
+        Pickup.PickupGet(itemPickupBase);
+    }
+
+    private static void OnPickupRemoved(ItemPickupBase itemPickupBase)
+    {
+        if (Pickup.Dictionary.ContainsKey(itemPickupBase)) Pickup.Dictionary.Remove(itemPickupBase);
+    }
+
+    private static void OnItemAdded(ReferenceHub hub, ItemBase ibase, ItemPickupBase ipbase)
+    {
+        Item.ItemGet(ibase);
+    }
+
+    private static void OnItemRemoved(ReferenceHub hub, ItemBase ibase, ItemPickupBase ipbase)
+    {
+        if (Item.Dictionary.ContainsKey(ibase)) Item.Dictionary.Remove(ibase);
     }
 
     // Method from CursedMod: Allow us to check if the instructions of X Transpiler has changed or not

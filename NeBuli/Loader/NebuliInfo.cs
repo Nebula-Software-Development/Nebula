@@ -2,7 +2,7 @@
 
 #pragma warning disable CS1591
 
-namespace Nebuli;
+namespace Nebuli.Loader;
 
 public static class NebuliInfo
 {

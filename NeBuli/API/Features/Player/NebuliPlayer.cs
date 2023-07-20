@@ -2,6 +2,7 @@
 using CustomPlayerEffects;
 using Footprinting;
 using Hints;
+using InventorySystem;
 using MapGeneration;
 using Mirror;
 using Nebuli.API.Features.Map;
@@ -13,6 +14,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using VoiceChat;
+using Item = Nebuli.API.Features.Item.Item;
 
 namespace Nebuli.API.Features.Player;
 
@@ -83,8 +85,14 @@ public class NebuliPlayer
     /// </summary>
     public string RawUserId { get; private set; }
 
+    /// <summary>
+    /// Gets the <see cref="NebuliPlayer"/> footprint.
+    /// </summary>
     public Footprint Footprint => new(ReferenceHub);
 
+    /// <summary>
+    /// Gets the <see cref="NebuliPlayer"/> <see cref="PlayerCommandSender"/>.
+    /// </summary>
     public PlayerCommandSender Sender => ReferenceHub.queryProcessor._sender;
 
     /// <summary>
@@ -774,6 +782,20 @@ public class NebuliPlayer
 
         RawUserId = UserId.Substring(0, index);
     }
+
+    /// <summary>
+    /// Gets or sets the current item held by the player. WILL BE NULL IF THE PLAYERS CURRENT ITEM IS NONE.
+    /// </summary>
+    public Item.Item CurrentItem
+    {
+        get => Item.Item.ItemGet(ReferenceHub.inventory.CurItem.SerialNumber);
+        set => ReferenceHub.inventory.CurInstance = value.Base;
+    }
+
+    /// <summary>
+    /// Gets the players <see cref="InventorySystem.Inventory"/>.
+    /// </summary>
+    public Inventory Inventory => ReferenceHub.inventory;
 
     /// <summary>
     /// Checks if the player has any permission in <see cref="PlayerPermissions"/>.
