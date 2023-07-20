@@ -1,7 +1,13 @@
-﻿using InventorySystem.Items;
+﻿using InventorySystem;
+using InventorySystem.Items;
+using InventorySystem.Items.Firearms.Attachments;
+using InventorySystem.Items.Firearms;
+using InventorySystem.Items.Firearms.Attachments.Components;
 using Nebuli.API.Features.Player;
+using PluginAPI.Core.Items;
 using System.Collections.Generic;
 using System.Linq;
+using HarmonyLib;
 
 namespace Nebuli.API.Features
 {
@@ -34,6 +40,12 @@ namespace Nebuli.API.Features
         }
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="Item"/> class with the specified item type and owner.
+        /// </summary>
+        /// <param name="newItemType">The type of the new item.</param>
+        public Item(ItemType newItemType) => Server.NebuliHost.ReferenceHub.inventory.CreateItemInstance(new(newItemType, 0), false);
+
+        /// <summary>
         /// Gets a collection of all the current Items.
         /// </summary>
         public static IEnumerable<Item> Collection => Dictionary.Values;
@@ -53,11 +65,15 @@ namespace Nebuli.API.Features
         }
 
         /// <summary>
+        /// Gets the Item name.
+        /// </summary>
+        public string Name => Base.name;
+        /// <summary>
         /// Gets or sets the Item's category.
         /// </summary>
         public ItemCategory ItemCategory
         {
-            get => Base.Category; 
+            get => Base.Category;
             set => Base.Category = value;
         }
 
@@ -66,7 +82,7 @@ namespace Nebuli.API.Features
         /// </summary>
         public ItemDescriptionType ItemDescriptionType
         {
-            get => Base.DescriptionType; 
+            get => Base.DescriptionType;
             set => Base.DescriptionType = value;
         }
 
@@ -75,7 +91,7 @@ namespace Nebuli.API.Features
         /// </summary>
         public ItemType ItemType
         {
-            get => Base.ItemTypeId; 
+            get => Base.ItemTypeId;
             set => Base.ItemTypeId = value;
         }
 
@@ -84,7 +100,7 @@ namespace Nebuli.API.Features
         /// </summary>
         public ItemTierFlags ItemTierFlags
         {
-            get => Base.TierFlags; 
+            get => Base.TierFlags;
             set => Base.TierFlags = value;
         }
 
@@ -99,10 +115,48 @@ namespace Nebuli.API.Features
         public bool CanHostler => Base.CanHolster();
 
         /// <summary>
+        /// Creates a new instance of the <see cref="Item"/> class with the specified item type and owner.
+        /// </summary>
+        /// <param name="itemType">The type of the new item.</param>
+        public static void Create(ItemType itemType)
+        {
+            Server.NebuliHost.ReferenceHub.inventory.CreateItemInstance(new(itemType, 0), false);
+        }
+
+        /// <summary>
+        /// Creates a item and gives it to the specified player.
+        /// </summary>
+        /// <param name="itemType">The ItemType to give. </param>>
+        /// <param name="owner">The owner of the </param>
+        /// <param name="attachments">The attachments on the weapon.</param>
+        public static void CreateAndGive(ItemType itemType, NebuliPlayer owner, Attachment[] attachments = null)
+        {
+            ItemBase item = owner.Inventory.ServerAddItem(itemType);
+            if (item is Firearm firearm)
+            {
+                FirearmStatusFlags flags = FirearmStatusFlags.MagazineInserted;
+                if (attachments is not null)
+                {
+                    firearm.Attachments.AddRangeToArray(attachments);
+                }
+                firearm.Status = new FirearmStatus(firearm.AmmoManagerModule.MaxAmmo, flags, firearm.GetCurrentAttachmentsCode());
+            }
+        }
+    
+
+        /// <summary>
         /// Tries to get a <see cref="Item"/> with a <see cref="ItemBase"/>. If one cannot be found, it is created.
         /// </summary>
         /// <param name="itemBase">The <see cref="ItemBase"/> to find the <see cref="Item"/> with.</param>
         /// <returns></returns>
         public static Item ItemGet(ItemBase itemBase) => Dictionary.TryGetValue(itemBase, out var item) ? item : new Item(itemBase);
+
+        /// <summary>
+        /// Gets an <see cref="Item"/> with the specified serial number.
+        /// </summary>
+        /// <param name="serialNumber">The serial number of the item to find.</param>
+        /// <returns>The <see cref="Item"/> with the specified serial number if found; otherwise, null.</returns>
+        public static Item ItemGet(ushort serialNumber) => Dictionary.Values.FirstOrDefault(item => item.Serial == serialNumber);
+
     }
 }

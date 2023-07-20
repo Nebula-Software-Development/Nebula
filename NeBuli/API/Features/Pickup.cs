@@ -162,8 +162,11 @@ namespace Nebuli.API.Features
         /// <summary>
         /// Destroys the pickup.
         /// </summary>
-        public void Destroy() => Base.DestroySelf();
-
+        public void Destroy()
+        {
+            Dictionary.Remove(Base);
+            Base.DestroySelf();
+        }
 
         /// <summary>
         /// Tries to get a <see cref="Pickup"/> with a <see cref="ItemPickupBase"/>. If one cannot be found, it is created.

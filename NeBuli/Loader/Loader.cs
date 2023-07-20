@@ -70,7 +70,7 @@ public class Loader
     {
         _harmony.UnpatchAll(_harmony.Id);
         _harmony = null;
-        
+
         EventManager.UnRegisterBaseEvents();
     }
 

@@ -18,7 +18,7 @@ public static class Server
     /// <summary>
     /// Gets the servers <see cref="NebuliPlayer"/> Host.
     /// </summary>
-    public static NebuliPlayer NebuliHost { get; internal set; }
+    public static NebuliPlayer NebuliHost { get; internal set; } = null;
 
     /// <summary>
     /// Gets or sets whether friendly fire is on or not.

@@ -1,6 +1,5 @@
 ﻿using HarmonyLib;
 using Interactables.Interobjects.DoorUtils;
-using InventorySystem;
 using InventorySystem.Items;
 using InventorySystem.Items.Pickups;
 using MapGeneration;
@@ -10,11 +9,8 @@ using Nebuli.API.Features.Map;
 using Nebuli.API.Features.Player;
 using NorthwoodLib.Pools;
 using PlayerRoles.Ragdolls;
-using PluginAPI.Core.Attributes;
-using PluginAPI.Events;
 using System;
 using System.Collections.Generic;
-using UnityEngine;
 using UnityEngine.SceneManagement;
 using Object = UnityEngine.Object;
 
@@ -25,10 +21,9 @@ namespace Nebuli.Events;
 public static class EventManager
 {
     public delegate void CustomEventHandler<in T>(T ev)
-        where T : EventArgs;
+            where T : EventArgs;
 
-    public static void CallEvent<T>(this CustomEventHandler<T> eventHandler, T args)
-        where T : EventArgs
+    public static void CallEvent<T>(this CustomEventHandler<T> eventHandler, T args) where T : EventArgs
     {
         if (eventHandler is null)
             return;
@@ -41,8 +36,7 @@ public static class EventManager
             }
             catch (Exception e)
             {
-                Log.Error("An error occurred while handling the event " + eventHandler.Method.Name + $"\n{e}");
-                throw;
+                Log.Error("An error occurred while handling the event " + eventHandler.Method.Name + $"\n{e}", "EVENT ERROR");
             }
         }
     }
@@ -55,6 +49,8 @@ public static class EventManager
         SeedSynchronizer.OnMapGenerated += OnMapGenerated;
         ItemPickupBase.OnPickupAdded += OnPickupAdded;
         ItemPickupBase.OnPickupDestroyed += OnPickupRemoved;
+        InventorySystem.InventoryExtensions.OnItemAdded += OnItemAdded;
+        InventorySystem.InventoryExtensions.OnItemRemoved += OnItemRemoved;
     }
 
     internal static void UnRegisterBaseEvents()
@@ -65,6 +61,8 @@ public static class EventManager
         SeedSynchronizer.OnMapGenerated -= OnMapGenerated;
         ItemPickupBase.OnPickupAdded -= OnPickupAdded;
         ItemPickupBase.OnPickupDestroyed -= OnPickupRemoved;
+        InventorySystem.InventoryExtensions.OnItemAdded -= OnItemAdded;
+        InventorySystem.InventoryExtensions.OnItemRemoved -= OnItemRemoved;
     }
 
     private static void OnRagdollSpawned(BasicRagdoll basicRagdoll)
@@ -109,11 +107,25 @@ public static class EventManager
 
     private static void OnPickupAdded(ItemPickupBase itemPickupBase)
     {
+        Log.Info($"Added pickup wrapper for {itemPickupBase.name}");
         Pickup.PickupGet(itemPickupBase);
     }
     private static void OnPickupRemoved(ItemPickupBase itemPickupBase)
     {
-        Pickup.Dictionary.Remove(itemPickupBase);
+        Log.Info($"Removed pickup wrapper for {itemPickupBase.name}");
+        if (Pickup.Dictionary.ContainsKey(itemPickupBase)) Pickup.Dictionary.Remove(itemPickupBase);
+    }
+
+    private static void OnItemAdded(ReferenceHub hub, ItemBase ibase, ItemPickupBase ipbase)
+    {
+        Log.Info($"Added item wrapper for {ibase.name}");
+        Item.ItemGet(ibase);
+    }
+
+    private static void OnItemRemoved(ReferenceHub hub, ItemBase ibase, ItemPickupBase ipbase)
+    {
+        Log.Info($"Removed item wrapper for {ibase.name}");
+        if (Item.Dictionary.ContainsKey(ibase)) Item.Dictionary.Remove(ibase);
     }
 
     // Method from CursedMod: Allow us to check if the instructions of X Transpiler has changed or not
