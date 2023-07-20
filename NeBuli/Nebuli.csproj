@@ -84,6 +84,7 @@
     <Compile Include="Events\EventArguments\Player\PlayerLeaveEventArgs.cs" />
     <Compile Include="Events\EventArguments\Player\PlayerShotEventArgs.cs" />
     <Compile Include="Events\EventArguments\Server\RoundStartedEvent.cs" />
+    <Compile Include="Events\EventArguments\Server\WarheadDetonatedEventArgs.cs" />
     <Compile Include="Events\EventManager.cs" />
     <Compile Include="Events\Handlers\PlayerHandlers.cs" />
     <Compile Include="Events\Handlers\ServerHandler.cs" />
@@ -92,6 +93,7 @@
     <Compile Include="Events\Patches\Player\LeavingServer.cs" />
     <Compile Include="Events\Patches\Player\PlayerShot.cs" />
     <Compile Include="Events\Patches\Player\VerificationCompleted.cs" />
+    <Compile Include="Events\Patches\Warhead\WarheadDetonatedPatch.cs" />
     <Compile Include="Loader\Loader.cs" />
     <Compile Include="Loader\LoaderConfiguration.cs" />
     <Compile Include="Loader\NebuliInfo.cs" />
@@ -126,9 +128,7 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Events\Patches\Warhead\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
          Other similar extension points exist, see Microsoft.Common.targets.
