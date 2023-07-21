@@ -34,8 +34,9 @@ public abstract class Plugin<TConfig> : IPlugin<TConfig> where TConfig : IConfig
     /// </summary>
     public virtual bool SkipVersionCheck { get; }
 
-    TConfig IPlugin<TConfig>.Config => new();
+    internal TConfig Config { get; private set; } = new();
 
+    TConfig IPlugin<TConfig>.Config => Config;
     /// <summary>
     /// Called after loading the plugin succesfully.
     /// </summary>
@@ -48,5 +49,14 @@ public abstract class Plugin<TConfig> : IPlugin<TConfig> where TConfig : IConfig
     /// </summary>
     public virtual void OnDisabled()
     {
+    }
+
+    /// <summary>
+    /// Reloads the config.
+    /// </summary>
+    /// <param name="config">The new config to set to.</param>
+    void IPlugin<TConfig>.ReloadConfig(IConfig config)
+    {
+         Config = (TConfig)config;
     }
 }

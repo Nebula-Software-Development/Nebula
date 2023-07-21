@@ -77,6 +77,7 @@
     <Compile Include="Events\EventArguments\ICancellableEvent.cs" />
     <Compile Include="Events\EventArguments\IDamageEvent.cs" />
     <Compile Include="Events\EventArguments\IPlayerEvent.cs" />
+    <Compile Include="Events\EventArguments\Player\PlayerRoleChangeEventArgs.cs" />
     <Compile Include="Events\EventArguments\Player\PlayerBannedEventArgs.cs" />
     <Compile Include="Events\EventArguments\Player\PlayerDyingEventArgs.cs" />
     <Compile Include="Events\EventArguments\Player\PlayerHurtEventArgs.cs" />
@@ -92,6 +93,7 @@
     <Compile Include="Events\Patches\Player\HurtPlayer.cs" />
     <Compile Include="Events\Patches\Player\LeavingServer.cs" />
     <Compile Include="Events\Patches\Player\PlayerShot.cs" />
+    <Compile Include="Events\Patches\Player\RoleChange.cs" />
     <Compile Include="Events\Patches\Player\VerificationCompleted.cs" />
     <Compile Include="Events\Patches\Warhead\WarheadDetonatedPatch.cs" />
     <Compile Include="Loader\Loader.cs" />

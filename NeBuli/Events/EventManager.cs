@@ -8,6 +8,7 @@ using Nebuli.API.Features;
 using Nebuli.API.Features.Item;
 using Nebuli.API.Features.Map;
 using Nebuli.API.Features.Player;
+using Nebuli.API.Interfaces;
 using NorthwoodLib.Pools;
 using PlayerRoles.Ragdolls;
 using System;
@@ -85,7 +86,7 @@ public static class EventManager
     {
         if (scene.name != "Facility")
             return;
-
+        Loader.Loader.EDisablePlugins();
         NebuliPlayer.Dictionary.Clear();
         Ragdoll.Dictionary.Clear();
         Generator.Dictionary.Clear();
