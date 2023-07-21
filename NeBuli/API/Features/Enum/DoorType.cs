@@ -1,15 +1,14 @@
-﻿namespace Nebuli.Enum
-{
-    public enum DoorType
-    {
-        /// <summary>
-        /// A unknown door.
-        /// </summary>
-        Unknown = 0,
+﻿namespace Nebuli.API.Features.Enum;
 
-        /// <summary>
-        /// SCP-914's containment door.
-        /// </summary>
-        SCP914,
-    }
+public enum DoorType
+{
+    /// <summary>
+    /// A unknown door.
+    /// </summary>
+    Unknown = 0,
+
+    /// <summary>
+    /// SCP-914's containment door.
+    /// </summary>
+    SCP914,
 }
