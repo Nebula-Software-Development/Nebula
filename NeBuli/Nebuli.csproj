@@ -72,8 +72,8 @@
     <Compile Include="API\Features\Server.cs" />
     <Compile Include="API\Interfaces\IConfig.cs" />
     <Compile Include="API\Interfaces\IPlugin.cs" />
-    <Compile Include="Enum\DoorType.cs" />
-    <Compile Include="Enum\GeneratorState.cs" />
+    <Compile Include="API\Features\Enum\DoorType.cs" />
+    <Compile Include="API\Features\Enum\GeneratorState.cs" />
     <Compile Include="Events\EventArguments\ICancellableEvent.cs" />
     <Compile Include="Events\EventArguments\IDamageEvent.cs" />
     <Compile Include="Events\EventArguments\IPlayerEvent.cs" />
