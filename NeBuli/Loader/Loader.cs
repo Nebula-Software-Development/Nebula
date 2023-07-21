@@ -1,6 +1,5 @@
 ﻿using CommandSystem.Commands.Shared;
 using HarmonyLib;
-using LiteNetLib.Utils;
 using Nebuli.API.Features;
 using Nebuli.API.Interfaces;
 using Nebuli.Events;
@@ -11,7 +10,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using UnityEngine;
 using YamlDotNet.Core;
 using YamlDotNet.Serialization;
 using YamlDotNet.Serialization.NamingConventions;
@@ -226,6 +224,7 @@ public class Loader
                 Log.Warning($"{plugin.PluginName} does not have configs! Generating...");
                 Log.Debug("Serializing new config and writing it to the path...");
                 File.WriteAllText(configPath, serializer.Serialize(plugin.Config));
+                configPaths.Add(plugin.Config, configPath);
                 return plugin.Config;
             }
             else

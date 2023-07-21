@@ -50,6 +50,7 @@
     <Reference Include="System.Xml" />
     <Reference Include="UnityEngine.AnimationModule" HintPath="$(NEBULIREFERENCES)\UnityEngine.AnimationModule.dll" Private="false" />
     <Reference Include="Mirror" HintPath="$(NEBULIREFERENCES)\Mirror.dll" Private="false" />
+	<Reference Include="Pooling" HintPath="$(NEBULIREFERENCES)\Pooling.dll" Private="false" />
     <Reference Include="UnityEngine.AudioModule" HintPath="$(NEBULIREFERENCES)\UnityEngine.AudioModule.dll" Private="false" />
     <Reference Include="UnityEngine.CoreModule" HintPath="$(NEBULIREFERENCES)\UnityEngine.CoreModule.dll" Private="false" />
     <Reference Include="UnityEngine.PhysicsModule" HintPath="$(NEBULIREFERENCES)\UnityEngine.PhysicsModule.dll" Private="false" />
@@ -68,6 +69,7 @@
     <Compile Include="API\Features\Player\NebuliPlayer.cs" />
     <Compile Include="API\Features\Plugin.cs" />
     <Compile Include="API\Features\Player\Ragdoll.cs" />
+    <Compile Include="API\Features\Roles\Role.cs" />
     <Compile Include="API\Features\Round.cs" />
     <Compile Include="API\Features\Server.cs" />
     <Compile Include="API\Interfaces\IConfig.cs" />
@@ -130,9 +132,7 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="API\Features\Roles\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
          Other similar extension points exist, see Microsoft.Common.targets.
