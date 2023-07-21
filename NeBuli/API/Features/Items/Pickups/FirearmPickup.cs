@@ -6,7 +6,7 @@ using System.Linq;
 using UnityEngine;
 using FirearmPickupBase = InventorySystem.Items.Firearms.FirearmPickup;
 
-namespace Nebuli.API.Features.Item;
+namespace Nebuli.API.Features.Items.Pickups;
 
 /// <summary>
 /// Represents a wrapper class for FirearmPickupBase.

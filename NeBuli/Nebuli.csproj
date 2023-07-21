@@ -57,14 +57,14 @@
   <ItemGroup>
     <Compile Include="API\Features\AlphaWarhead.cs" />
     <Compile Include="API\Features\Decontamination.cs" />
-    <Compile Include="API\Features\Item\FirearmPickup.cs" />
-    <Compile Include="API\Features\Item\Item.cs" />
+    <Compile Include="API\Features\Items\Pickups\FirearmPickup.cs" />
+    <Compile Include="API\Features\Items\Item.cs" />
     <Compile Include="API\Features\Log.cs" />
     <Compile Include="API\Features\Map\Door.cs" />
     <Compile Include="API\Features\Map\Generator.cs" />
     <Compile Include="API\Features\Map\Room.cs" />
     <Compile Include="API\Features\Paths.cs" />
-    <Compile Include="API\Features\Item\Pickup.cs" />
+    <Compile Include="API\Features\Items\Pickups\Pickup.cs" />
     <Compile Include="API\Features\Player\NebuliPlayer.cs" />
     <Compile Include="API\Features\Plugin.cs" />
     <Compile Include="API\Features\Player\Ragdoll.cs" />
@@ -130,7 +130,9 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="API\Features\Roles\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
          Other similar extension points exist, see Microsoft.Common.targets.

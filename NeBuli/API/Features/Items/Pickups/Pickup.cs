@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-namespace Nebuli.API.Features.Item;
+namespace Nebuli.API.Features.Items.Pickups;
 
 /// <summary>
 /// Wrapper class for handling <see cref="ItemPickupBase"/>.
