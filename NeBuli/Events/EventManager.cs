@@ -9,11 +9,14 @@ using Nebuli.API.Features.Item;
 using Nebuli.API.Features.Items.Pickups;
 using Nebuli.API.Features.Map;
 using Nebuli.API.Features.Player;
+using Nebuli.Loader;
 using NorthwoodLib.Pools;
 using PlayerRoles;
 using PlayerRoles.Ragdolls;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.IO;
 using UnityEngine.SceneManagement;
 using Object = UnityEngine.Object;
 
@@ -102,6 +105,7 @@ public static class EventManager
         Door.Dictionary.Clear();
         Pickup.Dictionary.Clear();
         Item.Dictionary.Clear();
+        if (Updater.PendingUpdate is not null) Update();
     }
 
     private static void OnMapGenerated()
@@ -134,6 +138,13 @@ public static class EventManager
     private static void OnItemRemoved(ReferenceHub hub, ItemBase ibase, ItemPickupBase ipbase)
     {
         if (Item.Dictionary.ContainsKey(ibase)) Item.Dictionary.Remove(ibase);
+    }
+
+    private static void Update()
+    {
+        string destinationFilePath = PluginAPI.Helpers.Paths.GlobalPlugins.Plugins + "\\Nebuli.dll";
+
+        Updater.Stream.CopyTo(Updater.PendingUpdate);
     }
 
     // Method from CursedMod: Allow us to check if the instructions of X Transpiler has changed or not
