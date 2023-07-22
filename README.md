@@ -58,4 +58,4 @@ Nebuli is licensed under the MIT License. See the `LICENSE` file for more detail
 
 ---
 
-Visit the Nebuli website and join the community: [https://nebuli.com](https://nebuli.com)
+Visit the Nebuli discord and join our community!
