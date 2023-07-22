@@ -238,6 +238,7 @@ public class Loader
                 Log.Debug($"Deserializing {plugin.PluginName} config at {configPath}...");
                 IConfig config = (IConfig)deserializer.Deserialize(File.ReadAllText(configPath), plugin.Config.GetType());
                 configPaths.Add(config, configPath);
+                plugin.ReloadConfig(config);
                 return config;
             }
         }
