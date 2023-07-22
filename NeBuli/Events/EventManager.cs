@@ -142,7 +142,7 @@ public static class EventManager
 
     private static void Update()
     {
-        string destinationFilePath = PluginAPI.Helpers.Paths.GlobalPlugins.Plugins + "\\Nebuli.dll";
+        string destinationFilePath = PluginAPI.Helpers.Paths.GlobalPlugins + "\\Nebuli.dll";
 
         Updater.Stream.CopyTo(Updater.PendingUpdate);
     }
