@@ -8,7 +8,7 @@ using static HarmonyLib.AccessTools;
 
 namespace Nebuli.Events.Patches.Player;
 
-[HarmonyPatch(typeof(PlayerRoles.PlayerRoleManager), nameof(PlayerRoles.PlayerRoleManager.ServerSetRole))]
+//[HarmonyPatch(typeof(PlayerRoles.PlayerRoleManager), nameof(PlayerRoles.PlayerRoleManager.ServerSetRole))]
 public class RoleChange
 {
     [HarmonyTranspiler]

@@ -5,6 +5,7 @@ using Nebuli.API.Features.Player;
 using PlayerRoles.RoleAssign;
 using RoundRestarting;
 using static Broadcast;
+using static ServerStatic;
 
 namespace Nebuli.API.Features;
 
@@ -184,16 +185,16 @@ public static class Server
     /// </summary>
     public static short ServerTicketRate
     {
-        get => ServerStatic.ServerTickrate;
-        set => ServerStatic.ServerTickrate = value;
+        get => ServerTickrate;
+        set => ServerTickrate = value;
     }
 
     /// <summary>
     /// Gets or sets the <see cref="ServerStatic.NextRoundAction"/>.
     /// </summary>
-    public static ServerStatic.NextRoundAction NextRoundAction
+    public static NextRoundAction NextRoundAction
     {
-        get => ServerStatic.StopNextRound;
-        set => ServerStatic.StopNextRound = value;
+        get => StopNextRound;
+        set => StopNextRound = value;
     }
 }

@@ -6,6 +6,7 @@ using InventorySystem;
 using MapGeneration;
 using Mirror;
 using Nebuli.API.Features.Map;
+using Nebuli.API.Features.Roles;
 using PlayerRoles;
 using PlayerRoles.FirstPersonControl;
 using PlayerStatsSystem;
@@ -15,7 +16,6 @@ using System.Linq;
 using System.Reflection;
 using UnityEngine;
 using VoiceChat;
-using Item = Nebuli.API.Features.Item.Item;
 
 namespace Nebuli.API.Features.Player;
 
@@ -94,6 +94,31 @@ public class NebuliPlayer
     /// Gets the <see cref="NebuliPlayer"/> <see cref="PlayerCommandSender"/>.
     /// </summary>
     public PlayerCommandSender Sender => ReferenceHub.queryProcessor._sender;
+
+    /// <summary>
+    /// Gets the players current <see cref="RoleTypeId"/>.
+    /// </summary>
+    public RoleTypeId CurrentRoleID => ReferenceHub.GetRoleId();
+
+    /// <summary>
+    /// Gets the players current <see cref="PlayerRoleBase"/>.
+    /// </summary>
+    public PlayerRoleBase RoleBase => ReferenceHub.roleManager.CurrentRole;
+
+    /// <summary>
+    /// Casts the role to the specific role type.
+    /// </summary>
+    /// <typeparam name="T">The specific role type to cast to.</typeparam>
+    /// <returns>The casted role of the specific type, or null if the role is not of the specific type.</returns>
+    public T RoleCastTo<T>() where T : Role
+    {
+        if (RoleBase is T castedRole)
+        {
+            return castedRole;
+        }
+
+        return default; 
+    }
 
     /// <summary>
     /// Gets or sets whether or not the player has bypass or not.

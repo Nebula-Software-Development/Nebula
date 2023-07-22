@@ -2,6 +2,8 @@
 
 public enum DoorType
 {
+    //TO:DO door type lmao
+
     /// <summary>
     /// A unknown door.
     /// </summary>
