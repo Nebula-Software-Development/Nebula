@@ -2,8 +2,6 @@
 using PlayerRoles;
 using PlayerRoles.FirstPersonControl.Spawnpoints;
 using PlayerRoles.Voice;
-using System.Data;
-using UnityEngine;
 
 namespace Nebuli.API.Features.Roles;
 

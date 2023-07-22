@@ -140,14 +140,13 @@ public class NebuliPlayer
         get => ReferenceHub.PlayerId;
         set
         {
-            if(RecyclablePlayerId.FreeIds.Contains(value))
+            if (RecyclablePlayerId.FreeIds.Contains(value))
                 ReferenceHub.Network_playerId = new RecyclablePlayerId(value);
             else
             {
                 Log.Warning($"{Assembly.GetCallingAssembly().GetName().Name} tried to set a PlayerId to a ID that was already taken!");
                 return;
             }
-
         }
     }
 
