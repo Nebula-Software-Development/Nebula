@@ -36,7 +36,7 @@ namespace Nebuli.Loader
             try
             {
                 using HttpClient client = CreateHttpClient();
-                string latestReleaseUrl = "https://api.github.com/repos/NotIntense/Nebuli/releases/latest";
+                string latestReleaseUrl = "https://api.github.com/repos/Nebuli-Team/Nebuli/releases/latest";
                 string responseBody = await client.GetStringAsync(latestReleaseUrl);
 
                 GitHubRelease latestRelease = JsonConvert.DeserializeObject<GitHubRelease>(responseBody);
@@ -45,8 +45,6 @@ namespace Nebuli.Loader
                     Log.Error("Failed to get the latest release information from GitHub.", "Updater");
                     return;
                 }
-
-                // Get the download URL of the DLL from the latest release
                 string dllDownloadUrl = GetDllDownloadUrl(latestRelease.AssetsUrl, client);
                 if (dllDownloadUrl == null)
                 {
@@ -54,7 +52,9 @@ namespace Nebuli.Loader
                     return;
                 }
 
-                if(Version.Parse(latestRelease.TagName) > NebuliInfo.NebuliVersion)
+                string latestVersion = latestRelease.TagName.Replace("-alpha", "");
+
+                if (Version.Parse(latestVersion) > NebuliInfo.NebuliVersion)
                 {
                     Log.Info($"A new Nebuli version, ({latestRelease.TagName}), is available on GitHub. Installing...", "Updater");
                     Update(client, dllDownloadUrl);
