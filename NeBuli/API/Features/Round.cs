@@ -1,5 +1,4 @@
-﻿using LightContainmentZoneDecontamination;
-using PlayerRoles;
+﻿using PlayerRoles;
 
 namespace Nebuli.API.Features;
 
@@ -102,4 +101,3 @@ public static class Round
     /// </summary>
     public static int NumberOfSurvivingSCPs => RoundSummary.SurvivingSCPs;
 }
-

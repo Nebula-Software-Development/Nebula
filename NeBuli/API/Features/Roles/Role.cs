@@ -1,5 +1,6 @@
 ﻿using Nebuli.API.Features.Player;
 using PlayerRoles;
+using PlayerRoles.PlayableScps.Scp939;
 using UnityEngine;
 
 namespace Nebuli.API.Features.Roles;
@@ -18,6 +19,11 @@ public abstract class Role
     /// Gets the owner of the <see cref="PlayerRoleBase"/>.
     /// </summary>
     public NebuliPlayer Owner { get; }
+
+    /// <summary>
+    /// Gets the roles position.
+    /// </summary>
+    public Vector3 Position => Owner.Position;
 
     /// <summary>
     /// Gets the <see cref="PlayerRoleBase"/>.
@@ -78,6 +84,11 @@ public abstract class Role
     public Color Color => Base.RoleColor;
 
     /// <summary>
+    /// Gets the roles GameObject.
+    /// </summary>
+    public GameObject GameObject => Base.gameObject;
+
+    /// <summary>
     /// Sets the owner of this role to a new role.
     /// </summary>
     /// <param name="newRole">The new role to set.</param>
@@ -93,12 +104,11 @@ public abstract class Role
     /// <returns>The created Role instance.</returns>
     public static Role CreateNew(PlayerRoleBase role)
     {
-        switch (role)
+        return role switch
         {
-            case HumanRole human:
-                return new HumanPlayerRole(human);
-            default:
-                return null;
-        }
+            HumanRole human => new HumanPlayerRole(human),
+            Scp939Role scp939 => new SCP939PlayerRole(scp939),
+            _ => null,
+        };
     }
 }

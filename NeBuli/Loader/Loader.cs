@@ -30,7 +30,7 @@ public class Loader
     private static Dictionary<IPlugin<IConfig>, IConfig> PluginConfig = new();
 
     private static Dictionary<IConfig, string> configPaths = new();
- 
+
     [PluginConfig]
     public static LoaderConfiguration Configuration;
 
@@ -155,7 +155,7 @@ public class Loader
             CustomNetworkManager.Modded = true;
             BuildInfoCommand.ModDescription = $"Framework : Nebuli\n Framework Version : {NebuliInfo.NebuliVersion}\n Copyright : Copyright (c) 2023 Nebuli Team";
         }
-        
+
         Log.Info(Configuration.StartupMessage);
     }
 
@@ -233,7 +233,6 @@ public class Loader
                 IConfig config = (IConfig)deserializer.Deserialize(File.ReadAllText(configPath), plugin.Config.GetType());
                 configPaths.Add(config, configPath);
                 return config;
-                    
             }
         }
         catch (YamlException yame)
@@ -241,7 +240,7 @@ public class Loader
             Log.Error($"A YamlException occured while loading {plugin.PluginName} configs! Full Error --> \n{yame}");
             return null;
         }
-        catch(Exception e)
+        catch (Exception e)
         {
             Log.Error($"Error while loading {plugin.PluginName} configs! Full Error --> \n{e}");
             return null;
@@ -269,7 +268,7 @@ public class Loader
 
     private static void DisablePlugins()
     {
-        foreach(IPlugin<IConfig> plugin in PluginConfig.Keys)
+        foreach (IPlugin<IConfig> plugin in PluginConfig.Keys)
         {
             plugin.OnDisabled();
         }

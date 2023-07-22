@@ -71,6 +71,7 @@
     <Compile Include="API\Features\Player\Ragdoll.cs" />
     <Compile Include="API\Features\Roles\HumanPlayerRole.cs" />
     <Compile Include="API\Features\Roles\Role.cs" />
+    <Compile Include="API\Features\Roles\SCP939PlayerRole.cs" />
     <Compile Include="API\Features\Round.cs" />
     <Compile Include="API\Features\Server.cs" />
     <Compile Include="API\Interfaces\IConfig.cs" />

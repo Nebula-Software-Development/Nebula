@@ -17,7 +17,7 @@ public class Door
     {
         Base = door;
         Dictionary.Add(door, this);
-        ///TODO: Get door type/name
+        //TODO: Get door type/name
     }
 
     public static IEnumerable<Door> Collection => Dictionary.Values;

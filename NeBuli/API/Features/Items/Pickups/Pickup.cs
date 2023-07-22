@@ -1,5 +1,4 @@
 ﻿using Footprinting;
-using InventorySystem.Items.Firearms;
 using InventorySystem.Items.Pickups;
 using Mirror;
 using Nebuli.API.Features.Player;

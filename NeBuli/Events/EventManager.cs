@@ -9,7 +9,6 @@ using Nebuli.API.Features.Item;
 using Nebuli.API.Features.Items.Pickups;
 using Nebuli.API.Features.Map;
 using Nebuli.API.Features.Player;
-using Nebuli.API.Interfaces;
 using NorthwoodLib.Pools;
 using PlayerRoles;
 using PlayerRoles.Ragdolls;

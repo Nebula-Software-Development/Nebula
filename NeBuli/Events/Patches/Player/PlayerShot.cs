@@ -31,7 +31,7 @@ public class PlayerShot
             new(OpCodes.Callvirt, PropertyGetter(typeof(PlayerShotEventArgs), nameof(PlayerShotEventArgs.IsCancelled))),
             new(OpCodes.Brtrue_S, retLabel)
         });
-        
+
         newInstructions[newInstructions.Count - 1].labels.Add(retLabel);
 
         foreach (CodeInstruction instruction in newInstructions)

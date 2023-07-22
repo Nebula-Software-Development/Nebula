@@ -10,6 +10,7 @@ public static class Decontamination
     /// Gets if <see cref="LightContainmentZoneDecontamination.DecontaminationController"/> is currently decontaminating.
     /// </summary>
     public static bool IsDecontaminating => Controller.IsDecontaminating;
+
     /// <summary>
     /// Disables the elevators.
     /// </summary>

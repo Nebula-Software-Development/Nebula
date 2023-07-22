@@ -16,7 +16,7 @@ public class FirearmPickup : Pickup
     /// <summary>
     /// Gets the collection of <see cref="FirearmPickupBase"/> and their wrapper class <see cref="FirearmPickup"/>.
     /// </summary>
-    public static new Dictionary<FirearmPickupBase, FirearmPickup> Dictionary = new();
+    public new static Dictionary<FirearmPickupBase, FirearmPickup> Dictionary = new();
 
     /// <summary>
     /// Gets the FirearmPickup base.
@@ -37,12 +37,12 @@ public class FirearmPickup : Pickup
     /// <summary>
     /// Gets a collection of all the current FirearmPickups.
     /// </summary>
-    public static new IEnumerable<FirearmPickup> Collection = Dictionary.Values;
+    public new static IEnumerable<FirearmPickup> Collection = Dictionary.Values;
 
     /// <summary>
     /// Gets a list of all the current FirearmPickups.
     /// </summary>
-    public static new List<FirearmPickup> List = Collection.ToList();
+    public new static List<FirearmPickup> List = Collection.ToList();
 
     /// <summary>
     /// Gets the Transform of the FirearmPickup.
@@ -150,4 +150,3 @@ public class FirearmPickup : Pickup
         set => Base.Rotation = value;
     }
 }
-

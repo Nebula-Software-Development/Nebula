@@ -8,7 +8,6 @@ public class PlayerRoleChangeEventArgs : EventArgs, IPlayerEvent
 {
     public PlayerRoleChangeEventArgs(ReferenceHub ply, RoleTypeId newRole, RoleChangeReason roleChangeReason, RoleSpawnFlags roleSpawnFlags = RoleSpawnFlags.All)
     {
-
     }
 
     /// <summary>

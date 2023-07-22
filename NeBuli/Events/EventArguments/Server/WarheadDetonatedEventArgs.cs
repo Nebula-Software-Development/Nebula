@@ -6,7 +6,6 @@ namespace Nebuli.Events.EventArguments.Server
     {
         public WarheadDetonatedEventArgs()
         {
-
         }
     }
 }

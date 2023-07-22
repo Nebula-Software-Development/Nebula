@@ -37,6 +37,7 @@ public abstract class Plugin<TConfig> : IPlugin<TConfig> where TConfig : IConfig
     internal TConfig Config { get; private set; } = new();
 
     TConfig IPlugin<TConfig>.Config => Config;
+
     /// <summary>
     /// Called after loading the plugin succesfully.
     /// </summary>
@@ -57,6 +58,6 @@ public abstract class Plugin<TConfig> : IPlugin<TConfig> where TConfig : IConfig
     /// <param name="config">The new config to set to.</param>
     void IPlugin<TConfig>.ReloadConfig(IConfig config)
     {
-         Config = (TConfig)config;
+        Config = (TConfig)config;
     }
 }

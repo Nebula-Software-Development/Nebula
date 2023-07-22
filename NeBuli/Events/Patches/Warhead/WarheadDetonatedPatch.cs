@@ -3,7 +3,6 @@ using Nebuli.Events.EventArguments.Server;
 using Nebuli.Events.Handlers;
 using NorthwoodLib.Pools;
 using System.Collections.Generic;
-using System.Reflection;
 using System.Reflection.Emit;
 using static HarmonyLib.AccessTools;
 
@@ -17,7 +16,6 @@ public class WarheadDetonatedPatch
     {
         List<CodeInstruction> newInstructions = EventManager.CheckPatchInstructions<WarheadDetonatedPatch>(184, instructions);
 
-
         newInstructions.InsertRange(0, new CodeInstruction[]
         {
             new(OpCodes.Newobj, GetDeclaredConstructors(typeof(WarheadDetonatedEventArgs))[0]),
@@ -29,4 +27,3 @@ public class WarheadDetonatedPatch
         ListPool<CodeInstruction>.Shared.Return(newInstructions);
     }
 }
-
