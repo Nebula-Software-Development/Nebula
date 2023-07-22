@@ -33,6 +33,7 @@ public class Ragdoll
 
     internal Ragdoll(BasicRagdoll basicRagdoll)
     {
+        if (basicRagdoll.NetworkInfo.OwnerHub is null) return;
         Base = basicRagdoll;
         Dictionary.Add(basicRagdoll, this);
     }
@@ -139,6 +140,11 @@ public class Ragdoll
         get => Base.NetworkInfo.CreationTime;
         set => new RagdollData(ReferenceHub, DamageHandlerBase, RoleTypeId, StartPosition, RagdollRotation, RagdollName, value);
     }
+
+    /// <summary>
+    /// Gets the existence time of the ragdoll
+    /// </summary>
+    public double ExistenceTime => Base.NetworkInfo.ExistenceTime;
 
     public static Ragdoll Get(BasicRagdoll ragdollBase)
     {
