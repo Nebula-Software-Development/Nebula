@@ -11,7 +11,7 @@ public abstract class Role
         if (roleBase.TryGetOwner(out ReferenceHub hub))
             Owner = NebuliPlayer.TryGet(hub, out NebuliPlayer ply) ? ply : null;
         Base = roleBase;
-        Log.Info(roleBase);
+        Owner.CurrentRole = this;
     }
 
     /// <summary>

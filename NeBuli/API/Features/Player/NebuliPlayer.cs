@@ -103,22 +103,7 @@ public class NebuliPlayer
     /// <summary>
     /// Gets the players current <see cref="PlayerRoleBase"/>.
     /// </summary>
-    public PlayerRoleBase RoleBase => ReferenceHub.roleManager.CurrentRole;
-
-    /// <summary>
-    /// Casts the role to the specific role type.
-    /// </summary>
-    /// <typeparam name="T">The specific role type to cast to.</typeparam>
-    /// <returns>The casted role of the specific type, or null if the role is not of the specific type.</returns>
-    public T RoleCastTo<T>() where T : Role
-    {
-        if (RoleBase is T castedRole)
-        {
-            return castedRole;
-        }
-
-        return default; 
-    }
+    public Role CurrentRole { get; internal set; }
 
     /// <summary>
     /// Gets or sets whether or not the player has bypass or not.

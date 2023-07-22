@@ -11,7 +11,6 @@ public class HumanPlayerRole : Role
 {
     internal HumanPlayerRole(HumanRole role) : base(role)
     {
-        Log.Info("new human role");
         Base = role;
         Ragdoll = Ragdoll.Get(Base.Ragdoll);
     }
