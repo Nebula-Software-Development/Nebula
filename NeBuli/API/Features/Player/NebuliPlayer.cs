@@ -6,15 +6,16 @@ using InventorySystem;
 using MapGeneration;
 using Mirror;
 using Nebuli.API.Features.Map;
+using Nebuli.API.Features.Roles;
 using PlayerRoles;
 using PlayerRoles.FirstPersonControl;
 using PlayerStatsSystem;
 using RemoteAdmin;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using UnityEngine;
 using VoiceChat;
-using Item = Nebuli.API.Features.Item.Item;
 
 namespace Nebuli.API.Features.Player;
 
@@ -38,7 +39,6 @@ public class NebuliPlayer
             return;
 
         Create();
-
         Dictionary.Add(hub, this);
     }
 
@@ -96,6 +96,16 @@ public class NebuliPlayer
     public PlayerCommandSender Sender => ReferenceHub.queryProcessor._sender;
 
     /// <summary>
+    /// Gets the players current <see cref="RoleTypeId"/>.
+    /// </summary>
+    public RoleTypeId CurrentRoleID => ReferenceHub.GetRoleId();
+
+    /// <summary>
+    /// Gets the players current <see cref="PlayerRoleBase"/>.
+    /// </summary>
+    public Role CurrentRole { get; internal set; }
+
+    /// <summary>
     /// Gets or sets whether or not the player has bypass or not.
     /// </summary>
     public bool IsBypassEnabled
@@ -128,7 +138,16 @@ public class NebuliPlayer
     public int Id
     {
         get => ReferenceHub.PlayerId;
-        set => ReferenceHub.Network_playerId = new RecyclablePlayerId(value);
+        set
+        {
+            if (RecyclablePlayerId.FreeIds.Contains(value))
+                ReferenceHub.Network_playerId = new RecyclablePlayerId(value);
+            else
+            {
+                Log.Warning($"{Assembly.GetCallingAssembly().GetName().Name} tried to set a PlayerId to a ID that was already taken!");
+                return;
+            }
+        }
     }
 
     /// <summary>

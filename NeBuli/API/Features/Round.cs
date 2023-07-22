@@ -101,4 +101,3 @@ public static class Round
     /// </summary>
     public static int NumberOfSurvivingSCPs => RoundSummary.SurvivingSCPs;
 }
-

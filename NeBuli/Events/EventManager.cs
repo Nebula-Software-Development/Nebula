@@ -6,9 +6,11 @@ using MapGeneration;
 using MapGeneration.Distributors;
 using Nebuli.API.Features;
 using Nebuli.API.Features.Item;
+using Nebuli.API.Features.Items.Pickups;
 using Nebuli.API.Features.Map;
 using Nebuli.API.Features.Player;
 using NorthwoodLib.Pools;
+using PlayerRoles;
 using PlayerRoles.Ragdolls;
 using System;
 using System.Collections.Generic;
@@ -52,6 +54,8 @@ public static class EventManager
         ItemPickupBase.OnPickupDestroyed += OnPickupRemoved;
         InventorySystem.InventoryExtensions.OnItemAdded += OnItemAdded;
         InventorySystem.InventoryExtensions.OnItemRemoved += OnItemRemoved;
+        CharacterClassManager.OnRoundStarted += Handlers.ServerHandler.OnRoundStart;
+        PlayerRoleManager.OnRoleChanged += RoleChange;
     }
 
     internal static void UnRegisterBaseEvents()
@@ -64,6 +68,12 @@ public static class EventManager
         ItemPickupBase.OnPickupDestroyed -= OnPickupRemoved;
         InventorySystem.InventoryExtensions.OnItemAdded -= OnItemAdded;
         InventorySystem.InventoryExtensions.OnItemRemoved -= OnItemRemoved;
+        PlayerRoleManager.OnRoleChanged -= RoleChange;
+    }
+
+    private static void RoleChange(ReferenceHub userHub, PlayerRoleBase prevRole, PlayerRoleBase newRole)
+    {
+        API.Features.Roles.Role newrole = API.Features.Roles.Role.CreateNew(newRole);
     }
 
     private static void OnRagdollSpawned(BasicRagdoll basicRagdoll)
@@ -84,7 +94,7 @@ public static class EventManager
     {
         if (scene.name != "Facility")
             return;
-
+        Loader.Loader.EDisablePlugins();
         NebuliPlayer.Dictionary.Clear();
         Ragdoll.Dictionary.Clear();
         Generator.Dictionary.Clear();

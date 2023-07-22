@@ -36,4 +36,10 @@ public class LoaderConfiguration
     /// </summary>
     [Description("The startup message that the framework will display in the console after initializing")]
     public string StartupMessage { get; set; } = "Welcome to... \r\n███╗░░██╗███████╗██████╗░██╗░░░██╗██╗░░░░░██╗\r\n████╗░██║██╔════╝██╔══██╗██║░░░██║██║░░░░░██║\r\n██╔██╗██║█████╗░░██████╦╝██║░░░██║██║░░░░░██║\r\n██║╚████║██╔══╝░░██╔══██╗██║░░░██║██║░░░░░██║\r\n██║░╚███║███████╗██████╦╝╚██████╔╝███████╗██║\r\n╚═╝░░╚══╝╚══════╝╚═════╝░░╚═════╝░╚══════╝╚═╝";
+
+    /// <summary>
+    /// If Nebuli should automatically check for updates.
+    /// </summary>
+    [Description("If Nebuli should automatically check for updates.")]
+    public bool ShouldCheckForUpdates { get; set; } = true;
 }

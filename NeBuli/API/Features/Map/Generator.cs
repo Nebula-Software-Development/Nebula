@@ -1,6 +1,6 @@
 using MapGeneration.Distributors;
+using Nebuli.API.Features.Enum;
 using Nebuli.API.Features.Player;
-using Nebuli.Enum;
 using System.Collections.Generic;
 using System.Linq;
 

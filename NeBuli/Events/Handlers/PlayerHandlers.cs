@@ -14,6 +14,10 @@ public static class PlayerHandlers
 
     public static event EventManager.CustomEventHandler<PlayerBannedEventArgs> Banned;
 
+    public static event EventManager.CustomEventHandler<PlayerShotEventArgs> Shot;
+
+    public static event EventManager.CustomEventHandler<PlayerRoleChangeEventArgs> RoleChange;
+
     internal static void OnJoin(PlayerJoinEventArgs ev) => Join.CallEvent(ev);
 
     internal static void OnLeave(PlayerLeaveEventArgs ev) => Leave.CallEvent(ev);
@@ -23,4 +27,8 @@ public static class PlayerHandlers
     internal static void OnDying(PlayerDyingEventArgs ev) => Dying.CallEvent(ev);
 
     internal static void OnBanned(PlayerBannedEventArgs ev) => Banned.CallEvent(ev);
+
+    internal static void OnShot(PlayerShotEventArgs ev) => Shot.CallEvent(ev);
+
+    internal static void OnRoleChange(PlayerRoleChangeEventArgs ev) => RoleChange.CallEvent(ev);
 }

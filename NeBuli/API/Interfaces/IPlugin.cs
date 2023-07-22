@@ -47,4 +47,9 @@ public interface IPlugin<out TConfig> where TConfig : IConfig
     /// The plugins config.
     /// </summary>
     TConfig Config { get; }
+
+    /// <summary>
+    /// Reloads the plugin's config.
+    /// </summary>
+    internal void ReloadConfig(IConfig config);
 }
