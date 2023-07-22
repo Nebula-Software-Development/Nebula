@@ -36,7 +36,7 @@ namespace Nebuli.Loader
             try
             {
                 using HttpClient client = CreateHttpClient();
-                string latestReleaseUrl = "https://api.github.com/repos/Nebuli-Team/Nebuli/releases/latest\r\n";
+                string latestReleaseUrl = "https://api.github.com/repos/Nebuli-Team/Nebuli/releases/latest";
                 string responseBody = await client.GetStringAsync(latestReleaseUrl);
 
                 GitHubRelease latestRelease = JsonConvert.DeserializeObject<GitHubRelease>(responseBody);
