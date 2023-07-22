@@ -32,7 +32,7 @@ Follow these steps to get started with Nebuli:
 
 To create plugins for Nebuli, follow these steps:
 
-1. **Create a New Project:** Start by creating a new project using your preferred .NET language (C#, VB.NET, etc.).
+1. **Create a New Project:** Start by creating a new project using the .NET framework, version 4.8.
 
 2. **Add Nebuli Reference:** Add a reference to the Nebuli library in your project.
 
