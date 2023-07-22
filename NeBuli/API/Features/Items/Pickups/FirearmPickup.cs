@@ -28,7 +28,7 @@ public class FirearmPickup : Pickup
     /// </summary>
     public new PickupSyncInfo Info => Base.Info;
 
-    public FirearmPickup(FirearmPickupBase pickupBase) : base(pickupBase)
+    internal FirearmPickup(FirearmPickupBase pickupBase) : base(pickupBase)
     {
         Base = pickupBase;
         Dictionary.Add(Base, this);
@@ -53,11 +53,6 @@ public class FirearmPickup : Pickup
     /// Gets the Rigidbody of the FirearmPickup.
     /// </summary>
     public Rigidbody Rigidbody => Base.Rb;
-
-    /// <summary>
-    /// Gets the GameObject of the FirearmPickup.
-    /// </summary>
-    public new GameObject GameObject => Base.gameObject;
 
     /// <summary>
     /// Gets or sets the PickupPhysicsModule of the FirearmPickup.
@@ -105,15 +100,6 @@ public class FirearmPickup : Pickup
     }
 
     /// <summary>
-    /// Gets or sets a value indicating whether the FirearmPickup is locked or not.
-    /// </summary>
-    public new bool Locked
-    {
-        get => Info.Locked;
-        set => Base.Info.Locked = value;
-    }
-
-    /// <summary>
     /// Gets or sets the amount of ammo for the FirearmPickup.
     /// </summary>
     public byte Ammo
@@ -123,30 +109,8 @@ public class FirearmPickup : Pickup
     }
 
     /// <summary>
-    /// Gets the previous owner's Footprint of the FirearmPickup.
-    /// </summary>
-    public new Footprint PreviousOwnerFootPrint => Base.PreviousOwner;
-
-    /// <summary>
     /// Gets the ItemType of the FirearmPickup.
     /// </summary>
     public new ItemType ItemType => Base.NetworkInfo.ItemId;
 
-    /// <summary>
-    /// Gets or sets the position of the FirearmPickup.
-    /// </summary>
-    public new Vector3 Position
-    {
-        get => Base.Position;
-        set => Base.Position = value;
-    }
-
-    /// <summary>
-    /// Gets or sets the rotation of the FirearmPickup.
-    /// </summary>
-    public new Quaternion Rotation
-    {
-        get => Base.Rotation;
-        set => Base.Rotation = value;
-    }
 }

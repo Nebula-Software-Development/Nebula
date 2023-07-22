@@ -1,13 +1,13 @@
 ﻿using Nebuli.API.Features.Player;
 using PlayerRoles;
-using PlayerRoles.PlayableScps.Scp939;
-using PlayerRoles.PlayableScps.HumeShield;
 using PlayerRoles.FirstPersonControl;
-using UnityEngine;
 using PlayerRoles.FirstPersonControl.Spawnpoints;
-using PlayerRoles.Voice;
+using PlayerRoles.PlayableScps.HumeShield;
+using PlayerRoles.PlayableScps.Scp939;
 using PlayerRoles.PlayableScps.Scp939.Mimicry;
 using PlayerRoles.PlayableScps.Scp939.Ripples;
+using PlayerRoles.Voice;
+using UnityEngine;
 
 namespace Nebuli.API.Features.Roles
 {
@@ -27,7 +27,7 @@ namespace Nebuli.API.Features.Roles
         /// <summary>
         /// Gets the roles ragdoll.
         /// </summary>
-        public Ragdoll Ragdoll { get; }   
+        public Ragdoll Ragdoll { get; }
 
         /// <summary>
         /// Gets the roles <see cref="PlayerRoles.RoleTypeId"/>.
@@ -129,7 +129,6 @@ namespace Nebuli.API.Features.Roles
         /// </summary>
         public MimicryRecorder MimicryRecorder { get; }
 
-
         /// <summary>
         /// Gets if SCP-939 is focused.
         /// </summary>
@@ -172,7 +171,7 @@ namespace Nebuli.API.Features.Roles
         public void SaveRecording(NebuliPlayer player) => MimicryRecorder.SaveRecording(player.ReferenceHub);
 
         /// <summary>
-        /// Removes all recordings of the specified player.
+        /// Removes all recordings of the specified referencehub.
         /// </summary>
         /// <param name="hub">The referencehub to remove all recordings for.</param>
         public void RemoveRecordingOfPlayer(ReferenceHub hub) => MimicryRecorder.RemoveRecordingsOfPlayer(hub);

@@ -50,6 +50,8 @@ public class Loader
 
         Log.Debug($"Dependency path is {Paths.DependenciesDirectory}");
 
+        if (Configuration.ShouldCheckForUpdates) Updater.CheckForUpdates();
+
         LoadDependencies(Paths.DependenciesDirectory.GetFiles("*.dll"));
 
         Log.Debug($"Plugin path is {Paths.PluginsDirectory}");

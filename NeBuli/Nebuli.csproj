@@ -103,6 +103,7 @@
     <Compile Include="Loader\Loader.cs" />
     <Compile Include="Loader\LoaderConfiguration.cs" />
     <Compile Include="Loader\NebuliInfo.cs" />
+    <Compile Include="Loader\Updater.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -123,6 +124,12 @@
       <Version>13.0.3</Version>
     </PackageReference>
     <PackageReference Include="Northwood.PluginAPI" Version="13.1.0" />
+    <PackageReference Include="Octokit">
+      <Version>7.0.1</Version>
+    </PackageReference>
+    <PackageReference Include="System.Net.Http.Formatting.Extension">
+      <Version>5.2.3</Version>
+    </PackageReference>
     <PackageReference Include="YamlDotNet" Version="11.0.1" />
   </ItemGroup>
   <ItemGroup>

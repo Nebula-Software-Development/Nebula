@@ -201,4 +201,14 @@ public class Pickup
         Spawned = false;
         return;
     }
+
+    internal static Pickup GetPickup(ItemPickupBase ItemBase)
+    {
+        return ItemBase switch
+        {
+            InventorySystem.Items.Firearms.FirearmPickup firearm => new FirearmPickup(firearm),
+            _ => null,
+        };
+    }
+   
 }
