@@ -147,4 +147,9 @@ public class Ragdoll
 
         return new Ragdoll(ragdollBase);
     }
+
+    /// <summary>
+    /// Destroys the ragdoll.
+    /// </summary>
+    public void Destroy() => Object.Destroy(GameObject);
 }

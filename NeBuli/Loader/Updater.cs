@@ -1,14 +1,22 @@
 ﻿using System;
 using System.IO;
 using System.Net.Http;
+using System.Reflection;
+using System.Security.AccessControl;
+using System.Security.Principal;
 using System.Threading.Tasks;
 using Nebuli.API.Features;
 using Newtonsoft.Json;
+using PluginAPI.Helpers;
+using RoundRestarting;
 
 namespace Nebuli.Loader
 {
     public class Updater
     {
+        internal static FileStream PendingUpdate = null;
+        internal static Stream Stream = null;
+
         public void CheckForUpdates()
         {
             Log.Info("Checking for updates...", "Updater");
@@ -19,7 +27,7 @@ namespace Nebuli.Loader
         {
             HttpClient client = new HttpClient();
             client.Timeout = TimeSpan.FromSeconds(480);
-            client.DefaultRequestHeaders.Add("User-Agent", $"NebuliUpdater (https://github.com/NotIntense/Nebuli, {NebuliInfo.NebuliVersion})");
+            client.DefaultRequestHeaders.Add("User-Agent", $"NebuliUpdater (https://github.com/NotIntense/Nebuli,{NebuliInfo.NebuliVersion})");
             return client;
         }
 
@@ -96,15 +104,17 @@ namespace Nebuli.Loader
                     Log.Info("Downloaded!");
                     using (Stream installerStream = installer.Content.ReadAsStreamAsync().ConfigureAwait(false).GetAwaiter().GetResult())
                     {
-                        string destinationFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "update.dll");
+                        string destinationFilePath = PluginAPI.Helpers.Paths.GlobalPlugins.Plugins + "\\Nebuli.dll";                   
 
-                        using (FileStream fs = new FileStream(destinationFilePath, FileMode.Create, FileAccess.Write, FileShare.None))
+                        using (FileStream fs = new(destinationFilePath, FileMode.Create, FileAccess.Write, FileShare.None))
                         {
                             installerStream.CopyTo(fs);
+                            Log.Info("Auto-update complete! It will be installed once the server restarts!");
+                            PendingUpdate = fs;
                         }
+
                     }
 
-                    Log.Info("Auto-update complete, restarting server...");
                 }
             }
             catch (Exception ex)
@@ -114,7 +124,7 @@ namespace Nebuli.Loader
             }
         }
 
-        // Your GitHubRelease and GitHubAsset classes here
+
         private class GitHubRelease
         {
             [JsonProperty("tag_name")]
