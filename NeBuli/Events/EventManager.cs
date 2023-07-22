@@ -16,7 +16,9 @@ using PlayerRoles.Ragdolls;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.IO;
+using System.Runtime.InteropServices;
 using UnityEngine.SceneManagement;
 using Object = UnityEngine.Object;
 
@@ -142,10 +144,45 @@ public static class EventManager
 
     private static void Update()
     {
-        string destinationFilePath = PluginAPI.Helpers.Paths.GlobalPlugins + "\\Nebuli.dll";
+        string destinationFilePath = Path.Combine(PluginAPI.Helpers.Paths.GlobalPlugins.Plugins, "Nebuli.dll");
+
+        if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+        {
+            SetLinuxFilePermissions(destinationFilePath, Environment.UserName, "755");
+        }
 
         Updater.Stream.CopyTo(Updater.PendingUpdate);
     }
+
+    private static void SetLinuxFilePermissions(string filePath, string usernameOrGroup, string permissions)
+    {
+        ProcessStartInfo psi = new ProcessStartInfo
+        {
+            FileName = "chmod",
+            Arguments = $"{permissions} {filePath}",
+            RedirectStandardOutput = true,
+            UseShellExecute = false
+        };
+
+        using (Process process = Process.Start(psi))
+        {
+            process.WaitForExit();
+        }
+
+        ProcessStartInfo chownPsi = new ProcessStartInfo
+        {
+            FileName = "chown",
+            Arguments = $"{usernameOrGroup}:{usernameOrGroup} {filePath}",
+            RedirectStandardOutput = true,
+            UseShellExecute = false
+        };
+
+        using (Process chownProcess = Process.Start(chownPsi))
+        {
+            chownProcess.WaitForExit();
+        }
+    }
+
 
     // Method from CursedMod: Allow us to check if the instructions of X Transpiler has changed or not
     public static List<CodeInstruction> CheckPatchInstructions<T>(int originalCodes, IEnumerable<CodeInstruction> instructions)
