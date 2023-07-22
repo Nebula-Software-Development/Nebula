@@ -50,7 +50,11 @@ public class Loader
 
         Log.Debug($"Dependency path is {Paths.DependenciesDirectory}");
 
-        if (Configuration.ShouldCheckForUpdates) Updater.CheckForUpdates();
+        if (Configuration.ShouldCheckForUpdates)
+        {
+            Updater updater = new();
+            updater.CheckForUpdates();
+        }
 
         LoadDependencies(Paths.DependenciesDirectory.GetFiles("*.dll"));
 
