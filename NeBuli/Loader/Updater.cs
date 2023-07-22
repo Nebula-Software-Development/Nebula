@@ -104,13 +104,13 @@ namespace Nebuli.Loader
                     Log.Info("Downloaded!");
                     using (Stream installerStream = installer.Content.ReadAsStreamAsync().ConfigureAwait(false).GetAwaiter().GetResult())
                     {
-                        string destinationFilePath = PluginAPI.Helpers.Paths.GlobalPlugins.Plugins + "\\Nebuli.dll";                   
+                        string destinationFilePath = Path.Combine(PluginAPI.Helpers.Paths.GlobalPlugins.Plugins, "Nebuli.dll");
 
                         using (FileStream fs = new(destinationFilePath, FileMode.Create, FileAccess.Write, FileShare.None))
                         {
+                            PendingUpdate = fs;
                             installerStream.CopyTo(fs);
                             Log.Info("Auto-update complete! It will be installed once the server restarts!");
-                            PendingUpdate = fs;
                         }
 
                     }
