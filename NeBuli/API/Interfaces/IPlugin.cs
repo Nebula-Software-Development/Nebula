@@ -1,6 +1,7 @@
-﻿using System;
+﻿using Nebuli.API.Interfaces;
+using System;
 
-namespace Nebuli.API.Interfaces;
+namespace Nebuli.API.Features;
 
 /// <summary>
 /// The default plugin interface for Nebuli.
@@ -51,5 +52,5 @@ public interface IPlugin<out TConfig> where TConfig : IConfig
     /// <summary>
     /// Reloads the plugin's config.
     /// </summary>
-    internal void ReloadConfig(IConfig config);
+    void ReloadConfig(IConfig config);
 }

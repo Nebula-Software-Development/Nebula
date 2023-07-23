@@ -1,4 +1,5 @@
-﻿using Nebuli.API.Interfaces;
+﻿using Nebuli.API.Features;
+using Nebuli.API.Interfaces;
 using System;
 
 namespace Nebuli.API.Features;
@@ -12,31 +13,32 @@ public abstract class Plugin<TConfig> : IPlugin<TConfig> where TConfig : IConfig
     /// <summary>
     /// Gets the plugins name.
     /// </summary>
-    public virtual string PluginName { get; }
+    public abstract string PluginName { get; }
 
     /// <summary>
     /// Gets the plugin's author.
     /// </summary>
-    public virtual string PluginAuthor { get; }
+    public abstract string PluginAuthor { get; }
 
     /// <summary>
     /// Gets the plugins current version.
     /// </summary>
-    public virtual Version Version { get; }
+    public abstract Version Version { get; }
 
     /// <summary>
     /// Gets the plugins current Nebulis version.
     /// </summary>
-    public virtual Version NebulisVersion { get; }
+    public abstract Version NebulisVersion { get; }
 
     /// <summary>
     /// If true, skips checking if the plugins current Nebulis version lines up with the Nebulis version loading the plugin.
     /// </summary>
-    public virtual bool SkipVersionCheck { get; }
+    public abstract bool SkipVersionCheck { get; }
 
-    internal TConfig Config { get; private set; } = new();
-
-    TConfig IPlugin<TConfig>.Config => Config;
+    /// <summary>
+    /// The plugins config.
+    /// </summary>
+    public TConfig Config { get; internal set; } = new TConfig();
 
     /// <summary>
     /// Called after loading the plugin succesfully.
@@ -53,10 +55,9 @@ public abstract class Plugin<TConfig> : IPlugin<TConfig> where TConfig : IConfig
     }
 
     /// <summary>
-    /// Reloads the config.
+    /// Reloads the plugin's config.
     /// </summary>
-    /// <param name="config">The new config to set to.</param>
-    void IPlugin<TConfig>.ReloadConfig(IConfig config)
+    public void ReloadConfig(IConfig config)
     {
         Config = (TConfig)config;
     }
