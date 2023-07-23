@@ -17,7 +17,7 @@ public abstract class Role
     }
 
     /// <summary>
-    /// Gets the owner of the <see cref="PlayerRoleBase"/>.
+    /// Gets the owner of this <see cref="PlayerRoleBase"/>.
     /// </summary>
     public NebuliPlayer Owner { get; }
 
