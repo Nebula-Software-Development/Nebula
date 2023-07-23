@@ -129,7 +129,7 @@ public class Loader
                 Assembly loadPlugin = Assembly.Load(assemblyBytes);
                 IPlugin<IConfig> newPlugin = NewPlugin(loadPlugin);
 
-                if (newPlugin.NebulisVersion.Major < NebuliInfo.NebuliVersion.Major && !Configuration.LoadOutDatedPlugins || newPlugin.NebulisVersion.Major > NebuliInfo.NebuliVersion.Major && !Configuration.LoadOutDatedPlugins)
+                if (newPlugin.NebulisVersion.Major < NebuliInfo.NebuliVersion.Major && !Configuration.LoadOutDatedPlugins && !newPlugin.SkipVersionCheck || newPlugin.NebulisVersion.Major > NebuliInfo.NebuliVersion.Major && !Configuration.LoadOutDatedPlugins && !newPlugin.SkipVersionCheck)
                 {
                     Log.Warning($"{newPlugin.PluginName} is outdated and will not be loaded by Nebuli! (Plugin Version : {newPlugin.NebulisVersion}, Nebuli Version : {NebuliInfo.NebuliVersion})");
                     continue;

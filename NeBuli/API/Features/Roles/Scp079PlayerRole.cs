@@ -18,7 +18,7 @@ namespace Nebuli.API.Features.Roles
         internal Scp079PlayerRole(Scp079Role role) : base(role)
         {
             Base = role;
-            SetupSubroutines();          
+            SetupSubroutines();    
         }
 
         /// <summary>
@@ -35,8 +35,12 @@ namespace Nebuli.API.Features.Roles
         /// Forces SCP-079 to lose singal for the specified duration.
         /// </summary>
         /// <param name="duration">The duration of the signal loss.</param>
-        public void LoseSignal(float duration) => AbilityBase.LostSignalHandler.ServerLoseSignal(duration);
-
+        public void LoseSignal(float duration)
+        {
+            LostSignalHandler.ServerLoseSignal(duration);
+            LostSignalHandler.ServerSendRpc(true);
+        }
+        
         /// <summary>
         /// Gets the roles <see cref="PlayerRoles.RoleTypeId"/>.
         /// </summary>
@@ -110,19 +114,9 @@ namespace Nebuli.API.Features.Roles
         public Scp079BlackoutZoneAbility BlackoutZoneAbility { get; internal set; }
 
         /// <summary>
-        /// Gets the SCP-079 DoorAbility.
-        /// </summary>
-        public Scp079DoorAbility Scp079DoorAbility { get; internal set; }
-
-        /// <summary>
         /// Gets the SCP-079 LostSignalHandler.
         /// </summary>
         public Scp079LostSignalHandler LostSignalHandler { get; internal set; }
-
-        /// <summary>
-        /// Gets the SCP-079 DoorLockChanger.
-        /// </summary>
-        public Scp079DoorLockChanger DoorLockChanger { get; internal set; }
 
         /// <summary>
         /// Gets the SCP-079 TierManager.
@@ -147,7 +141,7 @@ namespace Nebuli.API.Features.Roles
         /// <summary>
         /// Gets the SCP-079 PingAbility.
         /// </summary>
-        public Scp079PingAbility Scp079PingAbility { get; internal set; }
+        public Scp079PingAbility PingAbility { get; internal set; }
 
         /// <summary>
         /// Gets the SCP-079 TeslaAbility.
@@ -158,37 +152,37 @@ namespace Nebuli.API.Features.Roles
         {
             try
             {
-                if (ManagerModule.TryGetSubroutine(out Scp079DoorLockChanger scp079DoorLockChanger))
-                    DoorLockChanger = scp079DoorLockChanger;
+                ManagerModule = Base.SubroutineModule;
 
-                if (ManagerModule.TryGetSubroutine(out Scp079AuxManager scp079AuxManager))
-                    AuxManager = scp079AuxManager;
-
-                if (ManagerModule.TryGetSubroutine(out Scp079TierManager scp079TierManager))
+                Scp079AuxManager scp079AuxManager;
+                if (ManagerModule.TryGetSubroutine(out scp079AuxManager))
+                   AuxManager = scp079AuxManager;
+                Scp079TierManager scp079TierManager;
+                if (ManagerModule.TryGetSubroutine(out scp079TierManager))
                     TierManager = scp079TierManager;
-
-                if (ManagerModule.TryGetSubroutine(out Scp079RewardManager scp079RewardManager))
+                Scp079RewardManager scp079RewardManager;
+                if (ManagerModule.TryGetSubroutine(out scp079RewardManager))
                     RewardManager = scp079RewardManager;
-
-                if (ManagerModule.TryGetSubroutine(out Scp079LockdownRoomAbility scp079LockdownRoomAbility))
+                Scp079LockdownRoomAbility scp079LockdownRoomAbility;
+                if (ManagerModule.TryGetSubroutine(out scp079LockdownRoomAbility))
                     LockdownRoomAbility = scp079LockdownRoomAbility;
-
-                if (ManagerModule.TryGetSubroutine(out Scp079BlackoutRoomAbility scp079BlackoutRoomAbility))
+                Scp079BlackoutRoomAbility scp079BlackoutRoomAbility;
+                if (ManagerModule.TryGetSubroutine(out scp079BlackoutRoomAbility))
                     BlackoutRoomAbility = scp079BlackoutRoomAbility;
-
-                if (ManagerModule.TryGetSubroutine(out Scp079BlackoutZoneAbility scp079BlackoutZoneAbility))
+                Scp079BlackoutZoneAbility scp079BlackoutZoneAbility;
+                if (ManagerModule.TryGetSubroutine(out scp079BlackoutZoneAbility))
                     BlackoutZoneAbility = scp079BlackoutZoneAbility;
-
-                if (ManagerModule.TryGetSubroutine(out Scp079LostSignalHandler scp079LostSignalHandler))
+                Scp079LostSignalHandler scp079LostSignalHandler;
+                if (ManagerModule.TryGetSubroutine(out scp079LostSignalHandler))
                     LostSignalHandler = scp079LostSignalHandler;
-
-                if (ManagerModule.TryGetSubroutine(out Scp079CurrentCameraSync scp079CameraSync))
-                    CurrentCameraSync = scp079CameraSync;
-
-                if (ManagerModule.TryGetSubroutine(out Scp079PingAbility scp079PingAbility))
-                    Scp079PingAbility = scp079PingAbility;
-
-                if (ManagerModule.TryGetSubroutine(out Scp079TeslaAbility scp079TeslaAbility))
+                Scp079CurrentCameraSync cameraSync;
+                if (ManagerModule.TryGetSubroutine(out cameraSync))
+                    CurrentCameraSync = cameraSync;
+                Scp079PingAbility scp079PingAbility;
+                if (ManagerModule.TryGetSubroutine(out scp079PingAbility))
+                    PingAbility = scp079PingAbility;
+                Scp079TeslaAbility scp079TeslaAbility;
+                if (ManagerModule.TryGetSubroutine(out scp079TeslaAbility))
                     TeslaAbility = scp079TeslaAbility;
             }
             catch (Exception e)

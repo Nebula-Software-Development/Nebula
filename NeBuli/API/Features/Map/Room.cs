@@ -12,10 +12,12 @@ public class Room
     internal Room(RoomIdentifier identifier)
     {
         Base = identifier;
-
         Dictionary.Add(identifier, this);
     }
 
+    /// <summary>
+    /// Gets the rooms base.
+    /// </summary>
     public RoomIdentifier Base { get; }
 
     public static IEnumerable<Room> Collection => Dictionary.Values;
