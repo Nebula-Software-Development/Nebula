@@ -4,15 +4,13 @@ Nebuli is an extensible and feature-rich plugin framework designed for SCP:SL se
 
 ## Key Features
 
-- **Lightweight and Efficient:** Nebuli is designed to be lightweight and efficient, ensuring minimal performance impact on your game server.
+- **Lightweight and Efficient:** Nebuli is designed to be lightweight and efficient, ensuring minimal performance impact on your SL server.
 
 - **Plugin Management and Loading:** Easily manage and load plugins with Nebuli's intuitive plugin management system.
 
 - **Event Handling and Customization:** Nebuli's powerful event system allows developers to customize and extend game server behavior with ease.
 
 - **Easy Configuration System:** Configure and customize plugins using Nebuli's simple yet powerful configuration system.
-
-- **Active Community and Support:** Nebuli has a vibrant community of plugin developers and server owners, offering support and sharing their creations.
 
 ## Getting Started
 
