@@ -95,7 +95,7 @@ public abstract class Role
     /// <param name="newRole">The new role to set.</param>
     /// <param name="reason">The reason for the role change.</param>
     /// <param name="roleSpawnFlags">The roles spawn flags.</param>
-    public void SetNewRole(RoleTypeId newRole, RoleChangeReason reason, RoleSpawnFlags roleSpawnFlags)
+    public void SetNewRole(RoleTypeId newRole, RoleChangeReason reason = RoleChangeReason.RemoteAdmin, RoleSpawnFlags roleSpawnFlags = RoleSpawnFlags.All)
         => Owner.ReferenceHub.roleManager.ServerSetRole(newRole, reason, roleSpawnFlags);
 
     /// <summary>

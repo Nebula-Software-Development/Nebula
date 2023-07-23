@@ -803,12 +803,27 @@ public class NebuliPlayer
     }
 
     /// <summary>
+    /// Gets the players <see cref="PlayerRoles.Team"/>.
+    /// </summary>
+    public Team Team => CurrentRole.Team;
+
+    /// <summary>
+    /// Gets if the player is alive or not.
+    /// </summary>
+    public bool IsAlive => CurrentRole.IsAlive;
+
+    /// <summary>
+    /// Gets if the player is dead or not.
+    /// </summary>
+    public bool IsDead => CurrentRole.IsDead;
+
+    /// <summary>
     /// Gets or sets the current item held by the player. WILL BE NULL IF THE PLAYERS CURRENT ITEM IS NONE.
     /// </summary>
     public Item.Item CurrentItem
     {
-        get => Item.Item.ItemGet(ReferenceHub.inventory.CurItem.SerialNumber);
-        set => ReferenceHub.inventory.CurInstance = value.Base;
+        get => Item.Item.ItemGet(Inventory.CurItem.SerialNumber);
+        set => Inventory.CurInstance = value.Base;
     }
 
     /// <summary>
