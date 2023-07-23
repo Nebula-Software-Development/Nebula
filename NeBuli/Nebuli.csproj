@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Nebuli</RootNamespace>
     <AssemblyName>Nebuli</AssemblyName>
-	<TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <LangVersion>10</LangVersion>
   </PropertyGroup>
@@ -71,7 +71,8 @@
     <Compile Include="API\Features\Player\Ragdoll.cs" />
     <Compile Include="API\Features\Roles\HumanPlayerRole.cs" />
     <Compile Include="API\Features\Roles\Role.cs" />
-    <Compile Include="API\Features\Roles\SCP939PlayerRole.cs" />
+    <Compile Include="API\Features\Roles\Scp079PlayerRole.cs" />
+    <Compile Include="API\Features\Roles\Scp939PlayerRole.cs" />
     <Compile Include="API\Features\Round.cs" />
     <Compile Include="API\Features\Server.cs" />
     <Compile Include="API\Interfaces\IConfig.cs" />

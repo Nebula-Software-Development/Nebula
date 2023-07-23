@@ -6,17 +6,20 @@ using PlayerRoles.PlayableScps.HumeShield;
 using PlayerRoles.PlayableScps.Scp939;
 using PlayerRoles.PlayableScps.Scp939.Mimicry;
 using PlayerRoles.PlayableScps.Scp939.Ripples;
+using PlayerRoles.PlayableScps.Subroutines;
 using PlayerRoles.Voice;
+using System;
 using UnityEngine;
 
 namespace Nebuli.API.Features.Roles
 {
-    public class SCP939PlayerRole : Role
+    public class Scp939PlayerRole : Role
     {
-        internal SCP939PlayerRole(Scp939Role role) : base(role)
+        internal Scp939PlayerRole(Scp939Role role) : base(role)
         {
             Base = role;
             Ragdoll = Ragdoll.Get(Base.Ragdoll);
+            SetupSubroutines();
         }
 
         /// <summary>
@@ -80,54 +83,64 @@ namespace Nebuli.API.Features.Roles
         public PlayerRoles.Spectating.SpectatableModuleBase SpectatableModuleBase => Base.SpectatorModule;
 
         /// <summary>
+        /// Gets the roles <see cref="SubroutineManagerModule"/>.
+        /// </summary>
+        public SubroutineManagerModule ManagerModule { get; internal set; }
+
+        /// <summary>
+        /// Gets the roles <see cref="HumeShieldModuleBase"/>.
+        /// </summary>
+        public HumeShieldModuleBase HumeShieldModule { get; internal set; }
+
+        /// <summary>
         /// Gets the roles <see cref="VoiceModuleBase"/>.
         /// </summary>
-        public VoiceModuleBase VoiceModule => Base.VoiceModule;
+        public VoiceModuleBase VoiceModule { get; }
 
         /// <summary>
         /// Gets SCP-939's claw ability.
         /// </summary>
-        public Scp939ClawAbility ClawAbility { get; }
+        public Scp939ClawAbility ClawAbility { get; internal set; }
 
         /// <summary>
         /// Gets SCP-939's focus ability.
         /// </summary>
-        public Scp939FocusAbility FocusAbility { get; }
+        public Scp939FocusAbility FocusAbility { get; internal set; }
 
         /// <summary>
         /// Gets SCP-939's lunge ability.
         /// </summary>
-        public Scp939LungeAbility LungeAbility { get; }
+        public Scp939LungeAbility LungeAbility { get; internal set; }
 
         /// <summary>
         /// Gets SCP-939's mimic point controller.
         /// </summary>
-        public MimicPointController MimicPointController { get; }
+        public MimicPointController MimicPointController { get; internal set; }
 
         /// <summary>
         /// Gets SCP-939's amnestic cloud ability.
         /// </summary>
-        public Scp939AmnesticCloudAbility AmnesticCloudAbility { get; }
+        public Scp939AmnesticCloudAbility AmnesticCloudAbility { get; internal set; }
 
         /// <summary>
         /// Gets SCP-939's environmental mimicry ability.
         /// </summary>
-        public EnvironmentalMimicry EnvironmentalMimicry { get; }
+        public EnvironmentalMimicry EnvironmentalMimicry { get; internal set; }
 
         /// <summary>
         /// Gets SCP-939's footstep ripple trigger.
         /// </summary>
-        public FootstepRippleTrigger FootstepRippleTrigger { get; }
+        public FootstepRippleTrigger FootstepRippleTrigger { get; internal set; }
 
         /// <summary>
         /// Gets SCP-939's firearm ripple trigger.
         /// </summary>
-        public FirearmRippleTrigger FirearmRippleTrigger { get; }
+        public FirearmRippleTrigger FirearmRippleTrigger { get; internal set; }
 
         /// <summary>
         /// Gets SCP-939's mimicry recorder.
         /// </summary>
-        public MimicryRecorder MimicryRecorder { get; }
+        public MimicryRecorder MimicryRecorder { get; internal set; }
 
         /// <summary>
         /// Gets if SCP-939 is focused.
@@ -181,5 +194,52 @@ namespace Nebuli.API.Features.Roles
         /// </summary>
         /// <param name="player">The player to remove all recordings for.</param>
         public void RemoveRecordingOfPlayer(NebuliPlayer player) => MimicryRecorder.RemoveRecordingsOfPlayer(player.ReferenceHub);
+
+
+        internal void SetupSubroutines()
+        {
+            try
+            {
+                ManagerModule = Base.SubroutineModule;
+                HumeShieldModule = Base.HumeShieldModule;
+
+                Scp939ClawAbility sp939ClawAbility;
+                if (ManagerModule.TryGetSubroutine(out sp939ClawAbility))
+                    ClawAbility = sp939ClawAbility;
+
+                Scp939FocusAbility scp939FocusAbility;
+                if (ManagerModule.TryGetSubroutine(out scp939FocusAbility))
+                    FocusAbility = scp939FocusAbility;
+
+                Scp939LungeAbility scp939LungeAbility;
+                if (ManagerModule.TryGetSubroutine(out scp939LungeAbility))
+                    LungeAbility = scp939LungeAbility;
+
+                Scp939AmnesticCloudAbility scp939AmnesticCloudAbility;
+                if (ManagerModule.TryGetSubroutine(out scp939AmnesticCloudAbility))
+                    AmnesticCloudAbility = scp939AmnesticCloudAbility;
+
+                EnvironmentalMimicry environmentalMimicry;
+                if (ManagerModule.TryGetSubroutine(out environmentalMimicry))
+                    EnvironmentalMimicry = environmentalMimicry;
+
+                MimicryRecorder mimicryRecorder;
+                if (ManagerModule.TryGetSubroutine(out mimicryRecorder))
+                    MimicryRecorder = mimicryRecorder;
+
+                FootstepRippleTrigger footstepRippleTrigger;
+                if (ManagerModule.TryGetSubroutine(out footstepRippleTrigger))
+                    FootstepRippleTrigger = footstepRippleTrigger;
+
+                FirearmRippleTrigger firearmRippleTrigger;
+                if (ManagerModule.TryGetSubroutine(out firearmRippleTrigger))
+                    FirearmRippleTrigger = firearmRippleTrigger;
+            }
+            catch (Exception e)
+            {
+                Log.Error("An error occurred setting up SCP-939 subroutines! Full error --> \n" + e);
+            }
+        }
+
     }
 }
