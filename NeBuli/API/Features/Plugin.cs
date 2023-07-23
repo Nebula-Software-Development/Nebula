@@ -1,5 +1,4 @@
-﻿using Nebuli.API.Features;
-using Nebuli.API.Interfaces;
+﻿using Nebuli.API.Interfaces;
 using System;
 
 namespace Nebuli.API.Features;

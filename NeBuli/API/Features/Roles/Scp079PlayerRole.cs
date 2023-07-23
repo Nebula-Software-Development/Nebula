@@ -15,10 +15,11 @@ namespace Nebuli.API.Features.Roles
         /// Gets the <see cref="Scp079Role"/> base.
         /// </summary>
         public new Scp079Role Base { get; }
+
         internal Scp079PlayerRole(Scp079Role role) : base(role)
         {
             Base = role;
-            SetupSubroutines();    
+            SetupSubroutines();
         }
 
         /// <summary>
@@ -40,7 +41,7 @@ namespace Nebuli.API.Features.Roles
             LostSignalHandler.ServerLoseSignal(duration);
             LostSignalHandler.ServerSendRpc(true);
         }
-        
+
         /// <summary>
         /// Gets the roles <see cref="PlayerRoles.RoleTypeId"/>.
         /// </summary>
@@ -156,7 +157,7 @@ namespace Nebuli.API.Features.Roles
 
                 Scp079AuxManager scp079AuxManager;
                 if (ManagerModule.TryGetSubroutine(out scp079AuxManager))
-                   AuxManager = scp079AuxManager;
+                    AuxManager = scp079AuxManager;
                 Scp079TierManager scp079TierManager;
                 if (ManagerModule.TryGetSubroutine(out scp079TierManager))
                     TierManager = scp079TierManager;
@@ -190,9 +191,5 @@ namespace Nebuli.API.Features.Roles
                 Log.Error("An error occurred setting up SCP-079 subroutines! Full error --> \n" + e);
             }
         }
-
-
     }
-
-
 }

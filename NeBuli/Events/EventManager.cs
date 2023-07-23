@@ -15,7 +15,6 @@ using PlayerRoles;
 using PlayerRoles.Ragdolls;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Runtime.InteropServices;
@@ -182,7 +181,6 @@ public static class EventManager
             chownProcess.WaitForExit();
         }
     }
-
 
     // Method from CursedMod: Allow us to check if the instructions of X Transpiler has changed or not
     public static List<CodeInstruction> CheckPatchInstructions<T>(int originalCodes, IEnumerable<CodeInstruction> instructions)

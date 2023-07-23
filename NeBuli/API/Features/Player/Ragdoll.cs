@@ -146,6 +146,11 @@ public class Ragdoll
     /// </summary>
     public double ExistenceTime => Base.NetworkInfo.ExistenceTime;
 
+    /// <summary>
+    /// Gets or creates a new ragdoll with the specified <see cref="BasicRagdoll"/>.
+    /// </summary>
+    /// <param name="ragdollBase">The <see cref="BasicRagdoll"/> to use to look.</param>
+    /// <returns></returns>
     public static Ragdoll Get(BasicRagdoll ragdollBase)
     {
         if (Dictionary.TryGetValue(ragdollBase, out Ragdoll ragdoll))

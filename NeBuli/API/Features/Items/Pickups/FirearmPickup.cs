@@ -1,5 +1,4 @@
-﻿using Footprinting;
-using InventorySystem.Items.Firearms;
+﻿using InventorySystem.Items.Firearms;
 using InventorySystem.Items.Pickups;
 using System.Collections.Generic;
 using System.Linq;
@@ -112,5 +111,4 @@ public class FirearmPickup : Pickup
     /// Gets the ItemType of the FirearmPickup.
     /// </summary>
     public new ItemType ItemType => Base.NetworkInfo.ItemId;
-
 }

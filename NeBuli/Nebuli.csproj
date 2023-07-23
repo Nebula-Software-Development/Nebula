@@ -38,6 +38,9 @@
   <PropertyGroup>
     <SignAssembly>false</SignAssembly>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Loader\Icon\140282733.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Assembly-CSharp" HintPath="$(NEBULIREFERENCES)\Assembly-CSharp-Publicized.dll" Private="false" />
     <Reference Include="CommandSystem.Core" HintPath="$(NEBULIREFERENCES)\CommandSystem.Core.dll" Private="false" />
@@ -72,6 +75,7 @@
     <Compile Include="API\Features\Roles\HumanPlayerRole.cs" />
     <Compile Include="API\Features\Roles\Role.cs" />
     <Compile Include="API\Features\Roles\Scp079PlayerRole.cs" />
+    <Compile Include="API\Features\Roles\Scp096PlayerRole.cs" />
     <Compile Include="API\Features\Roles\Scp939PlayerRole.cs" />
     <Compile Include="API\Features\Round.cs" />
     <Compile Include="API\Features\Server.cs" />
@@ -141,6 +145,9 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Loader\Icon\140282733.ico" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

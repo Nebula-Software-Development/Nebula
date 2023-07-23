@@ -1,14 +1,9 @@
-﻿using System;
+﻿using Nebuli.API.Features;
+using Newtonsoft.Json;
+using System;
 using System.IO;
 using System.Net.Http;
-using System.Reflection;
-using System.Security.AccessControl;
-using System.Security.Principal;
 using System.Threading.Tasks;
-using Nebuli.API.Features;
-using Newtonsoft.Json;
-using PluginAPI.Helpers;
-using RoundRestarting;
 
 namespace Nebuli.Loader
 {
@@ -64,7 +59,6 @@ namespace Nebuli.Loader
                     Log.Info("Nebuli is up-to-date!");
                     return;
                 }
-
             }
             catch (Exception ex)
             {
@@ -112,9 +106,7 @@ namespace Nebuli.Loader
                             installerStream.CopyTo(fs);
                             Log.Info("Auto-update complete! It will be installed once the server restarts!");
                         }
-
                     }
-
                 }
             }
             catch (Exception ex)
@@ -123,7 +115,6 @@ namespace Nebuli.Loader
                 Log.Error(ex);
             }
         }
-
 
         private class GitHubRelease
         {
@@ -144,4 +135,3 @@ namespace Nebuli.Loader
         }
     }
 }
-
