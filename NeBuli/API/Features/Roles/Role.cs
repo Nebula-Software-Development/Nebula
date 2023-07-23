@@ -2,6 +2,7 @@
 using PlayerRoles;
 using PlayerRoles.PlayableScps.Scp939;
 using UnityEngine;
+using PlayerRoles.PlayableScps.Scp079;
 
 namespace Nebuli.API.Features.Roles;
 
@@ -107,7 +108,8 @@ public abstract class Role
         return role switch
         {
             HumanRole human => new HumanPlayerRole(human),
-            Scp939Role scp939 => new SCP939PlayerRole(scp939),
+            Scp939Role scp939 => new Scp939PlayerRole(scp939),
+            Scp079Role scp079 => new Scp079PlayerRole(scp079),
             _ => null,
         };
     }
