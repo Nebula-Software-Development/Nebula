@@ -10,7 +10,7 @@ namespace Nebuli.API.Features.Map
 {
     public static class Utilites
     {
-        private static TantrumEnvironmentalHazard tantrumPrefab;
+        private static TantrumEnvironmentalHazard tantrumPrefab = null;
 
         //Credit to EXILED for method of spawning SCP-173 tantrums
         public static TantrumEnvironmentalHazard TantrumPrefab
