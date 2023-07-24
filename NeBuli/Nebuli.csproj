@@ -78,6 +78,7 @@
     <Compile Include="API\Features\Roles\Role.cs" />
     <Compile Include="API\Features\Roles\Scp079PlayerRole.cs" />
     <Compile Include="API\Features\Roles\Scp096PlayerRole.cs" />
+    <Compile Include="API\Features\Roles\Scp173PlayerRole.cs" />
     <Compile Include="API\Features\Roles\Scp939PlayerRole.cs" />
     <Compile Include="API\Features\Round.cs" />
     <Compile Include="API\Features\Server.cs" />

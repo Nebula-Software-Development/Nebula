@@ -2,6 +2,7 @@
 using PlayerRoles;
 using PlayerRoles.PlayableScps.Scp079;
 using PlayerRoles.PlayableScps.Scp096;
+using PlayerRoles.PlayableScps.Scp173;
 using PlayerRoles.PlayableScps.Scp939;
 using UnityEngine;
 
@@ -97,7 +98,7 @@ public abstract class Role
     /// <param name="reason">The reason for the role change.</param>
     /// <param name="roleSpawnFlags">The roles spawn flags.</param>
     public void SetNewRole(RoleTypeId newRole, RoleChangeReason reason = RoleChangeReason.RemoteAdmin, RoleSpawnFlags roleSpawnFlags = RoleSpawnFlags.All)
-        => Owner.ReferenceHub.roleManager.ServerSetRole(newRole, reason, roleSpawnFlags);
+        => Owner.SetRole(newRole, reason, roleSpawnFlags);
 
     internal static Role CreateNew(PlayerRoleBase role)
     {
@@ -107,6 +108,7 @@ public abstract class Role
             Scp939Role scp939 => new Scp939PlayerRole(scp939),
             Scp079Role scp079 => new Scp079PlayerRole(scp079),
             Scp096Role scp096 => new Scp096PlayerRole(scp096),
+            Scp173Role scp173 => new Scp173PlayerRole(scp173),
             _ => null,
         }; ;
     }
