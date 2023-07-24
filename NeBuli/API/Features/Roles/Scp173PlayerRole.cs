@@ -9,7 +9,7 @@ using UnityEngine;
 
 namespace Nebuli.API.Features.Roles
 {
-    public class Scp173PlayerRole : Role
+    public class Scp173PlayerRole : FpcRoleBase
     {
         /// <summary>
         /// Gets the <see cref="Scp173Role"/> base.

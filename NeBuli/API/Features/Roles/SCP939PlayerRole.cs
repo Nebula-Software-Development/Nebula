@@ -13,12 +13,11 @@ using UnityEngine;
 
 namespace Nebuli.API.Features.Roles
 {
-    public class Scp939PlayerRole : Role
+    public class Scp939PlayerRole : FpcRoleBase
     {
         internal Scp939PlayerRole(Scp939Role role) : base(role)
         {
             Base = role;
-            Ragdoll = Ragdoll.Get(Base.Ragdoll);
             SetupSubroutines();
         }
 
@@ -28,19 +27,9 @@ namespace Nebuli.API.Features.Roles
         public new Scp939Role Base { get; }
 
         /// <summary>
-        /// Gets the roles ragdoll.
-        /// </summary>
-        public Ragdoll Ragdoll { get; }
-
-        /// <summary>
         /// Gets the roles <see cref="PlayerRoles.RoleTypeId"/>.
         /// </summary>
         public override RoleTypeId RoleTypeId => Base.RoleTypeId;
-
-        /// <summary>
-        /// Gets if the role is in the darkness.
-        /// </summary>
-        public bool InDarkness => Base.InDarkness;
 
         /// <summary>
         /// Gets the role's <see cref="HumeShieldModuleBase"/>.
@@ -58,31 +47,6 @@ namespace Nebuli.API.Features.Roles
         public Vector3 CameraPosition => Base.CameraPosition;
 
         /// <summary>
-        /// Gets the roles max health.
-        /// </summary>
-        public float MaxHealth => Base.MaxHealth;
-
-        /// <summary>
-        /// Gets if the role is AFK.
-        /// </summary>
-        public bool IsAFK => Base.IsAFK;
-
-        /// <summary>
-        /// Re-shows the players start screen.
-        /// </summary>
-        public void ShowStartScreen() => Base.ShowStartScreen();
-
-        /// <summary>
-        /// Gets the roles <see cref="ISpawnpointHandler"/>.
-        /// </summary>
-        public ISpawnpointHandler SpawnpointHandler => Base.SpawnpointHandler;
-
-        /// <summary>
-        /// Gets the roles Spectator module.
-        /// </summary>
-        public PlayerRoles.Spectating.SpectatableModuleBase SpectatableModuleBase => Base.SpectatorModule;
-
-        /// <summary>
         /// Gets the roles <see cref="SubroutineManagerModule"/>.
         /// </summary>
         public SubroutineManagerModule ManagerModule { get; internal set; }
@@ -91,11 +55,6 @@ namespace Nebuli.API.Features.Roles
         /// Gets the roles <see cref="HumeShieldModuleBase"/>.
         /// </summary>
         public HumeShieldModuleBase HumeShieldModule { get; internal set; }
-
-        /// <summary>
-        /// Gets the roles <see cref="VoiceModuleBase"/>.
-        /// </summary>
-        public VoiceModuleBase VoiceModule { get; }
 
         /// <summary>
         /// Gets SCP-939's claw ability.

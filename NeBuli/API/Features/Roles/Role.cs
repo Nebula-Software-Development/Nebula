@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace Nebuli.API.Features.Roles;
 
-public abstract class Role
+public abstract class Role : FpcRoleBase
 {
     protected Role(PlayerRoleBase roleBase)
     {
