@@ -5,7 +5,7 @@ using InventorySystem.Items.Pickups;
 using MapGeneration;
 using MapGeneration.Distributors;
 using Nebuli.API.Features;
-using Nebuli.API.Features.Item;
+using Nebuli.API.Features.Items;
 using Nebuli.API.Features.Items.Pickups;
 using Nebuli.API.Features.Map;
 using Nebuli.API.Features.Player;
@@ -15,7 +15,6 @@ using PlayerRoles;
 using PlayerRoles.Ragdolls;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Runtime.InteropServices;
@@ -78,7 +77,7 @@ public static class EventManager
 
     private static void RoleChange(ReferenceHub userHub, PlayerRoleBase prevRole, PlayerRoleBase newRole)
     {
-        API.Features.Roles.Role newrole = API.Features.Roles.Role.CreateNew(newRole);
+        API.Features.Roles.Role.CreateNew(newRole);
     }
 
     private static void OnRagdollSpawned(BasicRagdoll basicRagdoll)
@@ -182,7 +181,6 @@ public static class EventManager
             chownProcess.WaitForExit();
         }
     }
-
 
     // Method from CursedMod: Allow us to check if the instructions of X Transpiler has changed or not
     public static List<CodeInstruction> CheckPatchInstructions<T>(int originalCodes, IEnumerable<CodeInstruction> instructions)

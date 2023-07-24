@@ -2,6 +2,7 @@
 using PlayerRoles;
 using PlayerRoles.FirstPersonControl.Spawnpoints;
 using PlayerRoles.Voice;
+using Respawning;
 
 namespace Nebuli.API.Features.Roles;
 
@@ -52,4 +53,9 @@ public class HumanPlayerRole : Role
     /// Gets the roles RoleTypeId.
     /// </summary>
     public override RoleTypeId RoleTypeId => Base.RoleTypeId;
+
+    /// <summary>
+    /// Gets the roles assigned <see cref="SpawnableTeamType"/>.
+    /// </summary>
+    public SpawnableTeamType AssingedSpawnAbleTeam => Base.AssignedSpawnableTeam;
 }

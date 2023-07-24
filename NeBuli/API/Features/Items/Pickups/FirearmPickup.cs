@@ -1,5 +1,4 @@
-﻿using Footprinting;
-using InventorySystem.Items.Firearms;
+﻿using InventorySystem.Items.Firearms;
 using InventorySystem.Items.Pickups;
 using System.Collections.Generic;
 using System.Linq;
@@ -55,15 +54,6 @@ public class FirearmPickup : Pickup
     public Rigidbody Rigidbody => Base.Rb;
 
     /// <summary>
-    /// Gets or sets the PickupPhysicsModule of the FirearmPickup.
-    /// </summary>
-    public new PickupPhysicsModule PhysicsModule
-    {
-        get => Base.PhysicsModule;
-        set => Base.PhysicsModule = value;
-    }
-
-    /// <summary>
     /// Gets or sets a value indicating whether the FirearmPickup is distributed or not.
     /// </summary>
     public bool Distributed
@@ -82,24 +72,6 @@ public class FirearmPickup : Pickup
     }
 
     /// <summary>
-    /// Gets or sets a value indicating whether the FirearmPickup is in use or not.
-    /// </summary>
-    public new bool InUse
-    {
-        get => Info.InUse;
-        set => Base.Info.InUse = value;
-    }
-
-    /// <summary>
-    /// Gets or sets the serial number of the FirearmPickup.
-    /// </summary>
-    public new ushort Serial
-    {
-        get => Info.Serial;
-        set => Base.Info.Serial = value;
-    }
-
-    /// <summary>
     /// Gets or sets the amount of ammo for the FirearmPickup.
     /// </summary>
     public byte Ammo
@@ -112,5 +84,4 @@ public class FirearmPickup : Pickup
     /// Gets the ItemType of the FirearmPickup.
     /// </summary>
     public new ItemType ItemType => Base.NetworkInfo.ItemId;
-
 }

@@ -18,12 +18,12 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
+    <OutputPath>..\..\..\..\..\..\..\obj\bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <DocumentationFile>bin\Debug\Nebuli.xml</DocumentationFile>
+    <DocumentationFile>..\..\..\..\..\..\..\obj\bin\Debug\Nebuli.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -37,6 +37,9 @@
   </PropertyGroup>
   <PropertyGroup>
     <SignAssembly>false</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Loader\Icon\140282733.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Assembly-CSharp" HintPath="$(NEBULIREFERENCES)\Assembly-CSharp-Publicized.dll" Private="false" />
@@ -58,20 +61,25 @@
   <ItemGroup>
     <Compile Include="API\Features\AlphaWarhead.cs" />
     <Compile Include="API\Features\Decontamination.cs" />
+    <Compile Include="API\Features\Enum\MenuType.cs" />
+    <Compile Include="API\Features\Items\Firearm.cs" />
     <Compile Include="API\Features\Items\Pickups\FirearmPickup.cs" />
     <Compile Include="API\Features\Items\Item.cs" />
     <Compile Include="API\Features\Log.cs" />
     <Compile Include="API\Features\Map\Door.cs" />
     <Compile Include="API\Features\Map\Generator.cs" />
     <Compile Include="API\Features\Map\Room.cs" />
+    <Compile Include="API\Features\Map\Utilites.cs" />
     <Compile Include="API\Features\Paths.cs" />
     <Compile Include="API\Features\Items\Pickups\Pickup.cs" />
     <Compile Include="API\Features\Player\NebuliPlayer.cs" />
     <Compile Include="API\Features\Plugin.cs" />
-    <Compile Include="API\Features\Player\Ragdoll.cs" />
+    <Compile Include="API\Features\Ragdoll.cs" />
     <Compile Include="API\Features\Roles\HumanPlayerRole.cs" />
     <Compile Include="API\Features\Roles\Role.cs" />
     <Compile Include="API\Features\Roles\Scp079PlayerRole.cs" />
+    <Compile Include="API\Features\Roles\Scp096PlayerRole.cs" />
+    <Compile Include="API\Features\Roles\Scp173PlayerRole.cs" />
     <Compile Include="API\Features\Roles\Scp939PlayerRole.cs" />
     <Compile Include="API\Features\Round.cs" />
     <Compile Include="API\Features\Server.cs" />
@@ -141,6 +149,9 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Loader\Icon\140282733.ico" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

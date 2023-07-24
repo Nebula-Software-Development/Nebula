@@ -5,11 +5,14 @@ using Hints;
 using InventorySystem;
 using MapGeneration;
 using Mirror;
+using Nebuli.API.Features.Enum;
+using Nebuli.API.Features.Items;
 using Nebuli.API.Features.Map;
 using Nebuli.API.Features.Roles;
 using PlayerRoles;
 using PlayerRoles.FirstPersonControl;
 using PlayerStatsSystem;
+using RelativePositioning;
 using RemoteAdmin;
 using System.Collections.Generic;
 using System.Linq;
@@ -98,7 +101,12 @@ public class NebuliPlayer
     /// <summary>
     /// Gets the players current <see cref="RoleTypeId"/>.
     /// </summary>
-    public RoleTypeId CurrentRoleID => ReferenceHub.GetRoleId();
+    public RoleTypeId CurrentRoleType => ReferenceHub.GetRoleId();
+
+    /// <summary>
+    /// Gets the players current faction
+    /// </summary>
+    public Faction Faction => CurrentRoleType.GetFaction();
 
     /// <summary>
     /// Gets the players current <see cref="PlayerRoleBase"/>.
@@ -122,6 +130,11 @@ public class NebuliPlayer
         get => Transform.position;
         set => ReferenceHub.TryOverridePosition(value, Vector3.zero);
     }
+
+    /// <summary>
+    /// Gets the players RelativePosition.
+    /// </summary>
+    public RelativePosition RelativePosition => new(Position);
 
     /// <summary>
     /// Gets or sets the players current rotation.
@@ -423,6 +436,12 @@ public class NebuliPlayer
         return false;
     }
 
+    /// <summary>
+    /// Tries to get a NebuliPlayer instance based on their <see cref="ICommandSender"/>.
+    /// </summary>
+    /// <param name="sender">The <see cref="ICommandSender"/> of the player.</param>
+    /// <param name="player">When this method returns, contains the NebuliPlayer instance if found; otherwise, null.</param>
+    /// <returns>True if the NebuliPlayer instance was found; otherwise, false.</returns>
     public static bool TryGet(ICommandSender sender, out NebuliPlayer player)
     {
         foreach (NebuliPlayer ply in Collection)
@@ -820,9 +839,9 @@ public class NebuliPlayer
     /// <summary>
     /// Gets or sets the current item held by the player. WILL BE NULL IF THE PLAYERS CURRENT ITEM IS NONE.
     /// </summary>
-    public Item.Item CurrentItem
+    public Item CurrentItem
     {
-        get => Item.Item.ItemGet(Inventory.CurItem.SerialNumber);
+        get => Item.ItemGet(Inventory.CurItem.SerialNumber);
         set => Inventory.CurInstance = value.Base;
     }
 
@@ -844,5 +863,36 @@ public class NebuliPlayer
                 return true;
         }
         return false;
+    }
+
+    /// <summary>
+    /// Forces a menu scene to open on the player.
+    /// </summary>
+    /// <param name="menu">The <see cref="MenuType"/> to send.</param>
+    public void OpenMenu(MenuType menu)
+    {
+        var menutype = "";
+
+        switch (menu)
+        {
+            case MenuType.Menu:
+                menutype = "NewMainMenu";
+                break;
+
+            case MenuType.OldFastMenu:
+                menutype = "FastMenu";
+                break;
+
+            case MenuType.OldMenu:
+                menutype = "MainMenuRemastered";
+                break;
+        }
+
+        ReferenceHub.connectionToClient.Send(new SceneMessage
+        {
+            sceneName = menutype,
+            sceneOperation = SceneOperation.Normal,
+            customHandling = false
+        });
     }
 }

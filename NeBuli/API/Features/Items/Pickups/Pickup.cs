@@ -210,5 +210,4 @@ public class Pickup
             _ => null,
         };
     }
-   
 }

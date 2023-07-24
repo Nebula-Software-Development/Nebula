@@ -125,8 +125,7 @@ public class Loader
         {
             try
             {
-                byte[] assemblyBytes = File.ReadAllBytes(file.FullName);
-                Assembly loadPlugin = Assembly.Load(assemblyBytes);
+                Assembly loadPlugin = Assembly.Load(File.ReadAllBytes(file.FullName));
                 IPlugin<IConfig> newPlugin = NewPlugin(loadPlugin);
 
                 if (newPlugin.NebulisVersion.Major < NebuliInfo.NebuliVersion.Major && !Configuration.LoadOutDatedPlugins && !newPlugin.SkipVersionCheck || newPlugin.NebulisVersion.Major > NebuliInfo.NebuliVersion.Major && !Configuration.LoadOutDatedPlugins && !newPlugin.SkipVersionCheck)

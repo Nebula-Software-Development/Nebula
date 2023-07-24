@@ -195,7 +195,6 @@ namespace Nebuli.API.Features.Roles
         /// <param name="player">The player to remove all recordings for.</param>
         public void RemoveRecordingOfPlayer(NebuliPlayer player) => MimicryRecorder.RemoveRecordingsOfPlayer(player.ReferenceHub);
 
-
         internal void SetupSubroutines()
         {
             try
@@ -240,6 +239,5 @@ namespace Nebuli.API.Features.Roles
                 Log.Error("An error occurred setting up SCP-939 subroutines! Full error --> \n" + e);
             }
         }
-
     }
 }

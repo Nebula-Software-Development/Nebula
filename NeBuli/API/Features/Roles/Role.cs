@@ -1,8 +1,10 @@
 ﻿using Nebuli.API.Features.Player;
 using PlayerRoles;
+using PlayerRoles.PlayableScps.Scp079;
+using PlayerRoles.PlayableScps.Scp096;
+using PlayerRoles.PlayableScps.Scp173;
 using PlayerRoles.PlayableScps.Scp939;
 using UnityEngine;
-using PlayerRoles.PlayableScps.Scp079;
 
 namespace Nebuli.API.Features.Roles;
 
@@ -17,7 +19,7 @@ public abstract class Role
     }
 
     /// <summary>
-    /// Gets the owner of the <see cref="PlayerRoleBase"/>.
+    /// Gets the owner of this <see cref="PlayerRoleBase"/>.
     /// </summary>
     public NebuliPlayer Owner { get; }
 
@@ -96,21 +98,18 @@ public abstract class Role
     /// <param name="reason">The reason for the role change.</param>
     /// <param name="roleSpawnFlags">The roles spawn flags.</param>
     public void SetNewRole(RoleTypeId newRole, RoleChangeReason reason = RoleChangeReason.RemoteAdmin, RoleSpawnFlags roleSpawnFlags = RoleSpawnFlags.All)
-        => Owner.ReferenceHub.roleManager.ServerSetRole(newRole, reason, roleSpawnFlags);
+        => Owner.SetRole(newRole, reason, roleSpawnFlags);
 
-    /// <summary>
-    /// Creates a new role based on the given PlayerRoleBase instance.
-    /// </summary>
-    /// <param name="role">The PlayerRoleBase instance to create the role from.</param>
-    /// <returns>The created Role instance.</returns>
-    public static Role CreateNew(PlayerRoleBase role)
+    internal static Role CreateNew(PlayerRoleBase role)
     {
         return role switch
         {
             HumanRole human => new HumanPlayerRole(human),
             Scp939Role scp939 => new Scp939PlayerRole(scp939),
             Scp079Role scp079 => new Scp079PlayerRole(scp079),
+            Scp096Role scp096 => new Scp096PlayerRole(scp096),
+            Scp173Role scp173 => new Scp173PlayerRole(scp173),
             _ => null,
-        };
+        }; ;
     }
 }

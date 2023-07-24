@@ -3,8 +3,9 @@ using PlayerStatsSystem;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using Nebuli.API.Features.Player;
 
-namespace Nebuli.API.Features.Player;
+namespace Nebuli.API.Features;
 
 /// <summary>
 /// Allows easier use of in-game ragdolls by wrapping the <see cref="BasicRagdoll"/> class.
@@ -146,6 +147,11 @@ public class Ragdoll
     /// </summary>
     public double ExistenceTime => Base.NetworkInfo.ExistenceTime;
 
+    /// <summary>
+    /// Gets or creates a new ragdoll with the specified <see cref="BasicRagdoll"/>.
+    /// </summary>
+    /// <param name="ragdollBase">The <see cref="BasicRagdoll"/> to use to look.</param>
+    /// <returns></returns>
     public static Ragdoll Get(BasicRagdoll ragdollBase)
     {
         if (Dictionary.TryGetValue(ragdollBase, out Ragdoll ragdoll))
