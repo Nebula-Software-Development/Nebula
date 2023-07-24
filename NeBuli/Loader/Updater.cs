@@ -51,7 +51,7 @@ namespace Nebuli.Loader
 
                 if (Version.Parse(latestVersion) > NebuliInfo.NebuliVersion)
                 {
-                    Log.Info($"A new Nebuli version, ({latestRelease.TagName}), is available on GitHub. Installing...", "Updater");
+                    Log.Info($"A new Nebuli version, ({latestRelease.TagName}), is available on GitHub. Preparing download...", "Updater");
                     Update(client, dllDownloadUrl);
                 }
                 else
@@ -92,7 +92,7 @@ namespace Nebuli.Loader
         {
             try
             {
-                Log.Info("Downloading new update...");
+                Log.Info("Prepare complete! Downloading new update...");
                 using (HttpResponseMessage installer = client.GetAsync(dllDownloadUrl).ConfigureAwait(false).GetAwaiter().GetResult())
                 {
                     Log.Info("Downloaded!");
