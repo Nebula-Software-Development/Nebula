@@ -1,7 +1,4 @@
-﻿using Nebuli.API.Features.Player;
-using PlayerRoles;
-using PlayerRoles.FirstPersonControl.Spawnpoints;
-using PlayerRoles.Voice;
+﻿using PlayerRoles;
 using Respawning;
 
 namespace Nebuli.API.Features.Roles;
@@ -27,4 +24,9 @@ public class HumanPlayerRole : FpcRoleBase
     /// Gets the roles assigned <see cref="SpawnableTeamType"/>.
     /// </summary>
     public SpawnableTeamType AssingedSpawnAbleTeam => Base.AssignedSpawnableTeam;
+
+    /// <summary>
+    /// Gets if the role uses unit names.
+    /// </summary>
+    public bool UsesUnitName => Base.UsesUnitNames;
 }
