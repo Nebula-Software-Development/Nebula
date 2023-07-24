@@ -1,5 +1,6 @@
 ﻿using PlayerRoles;
 using PlayerRoles.FirstPersonControl;
+using PlayerRoles.FirstPersonControl.Spawnpoints;
 using PlayerRoles.Voice;
 
 namespace Nebuli.API.Features.Roles
@@ -60,6 +61,21 @@ namespace Nebuli.API.Features.Roles
         /// Gets the RoleTypeId of the role.
         /// </summary>
         public override RoleTypeId RoleTypeId => Base.RoleTypeId;
+
+        ///<summary>
+        /// Gets the role's SpectatableModuleBase.
+        /// </summary>
+        public PlayerRoles.Spectating.SpectatableModuleBase SpectatableModuleBase => Base.SpectatorModule;
+
+        /// <summary>
+        /// Gets the roles <see cref="ISpawnpointHandler"/>.
+        /// </summary>
+        public ISpawnpointHandler SpawnpointHandler => Base.SpawnpointHandler;
+
+        /// <summary>
+        /// Re-shows the players start screen.
+        /// </summary>
+        public void ShowStartScreen() => Base.ShowStartScreen();
 
     }
 }

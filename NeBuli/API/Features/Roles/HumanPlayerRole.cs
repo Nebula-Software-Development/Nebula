@@ -18,7 +18,6 @@ public class HumanPlayerRole : FpcRoleBase
     /// </summary>
     public new HumanRole Base { get; }
 
-
     /// <summary>
     /// Gets the roles RoleTypeId.
     /// </summary>

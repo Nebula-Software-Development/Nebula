@@ -21,25 +21,11 @@ namespace Nebuli.API.Features.Roles
             SetupSubroutines();
         }
 
-        /// <summary>
-        /// Gets the role's <see cref="VoiceModuleBase"/>.
-        /// </summary>
-        public VoiceModuleBase VoiceModule => Base.VoiceModule;
-
-        /// <summary>
-        /// Gets the role's SpectatableModuleBase.
-        /// </summary>
-        public PlayerRoles.Spectating.SpectatableModuleBase SpectatableModuleBase => Base.SpectatorModule;
-
+ 
         /// <summary>
         /// Gets the roles <see cref="PlayerRoles.RoleTypeId"/>.
         /// </summary>
         public override RoleTypeId RoleTypeId => Base.RoleTypeId;
-
-        /// <summary>
-        /// Gets if the role is in the darkness.
-        /// </summary>
-        public bool InDarkness => Base.InDarkness;
 
         /// <summary>
         /// Gets the role's <see cref="HumeShieldModuleBase"/>.
@@ -55,16 +41,6 @@ namespace Nebuli.API.Features.Roles
         /// Gets the roles camera position.
         /// </summary>
         public Vector3 CameraPosition => Base.CameraPosition;
-
-        /// <summary>
-        /// Gets the roles max health.
-        /// </summary>
-        public float MaxHealth => Base.MaxHealth;
-
-        /// <summary>
-        /// Gets if the role is AFK.
-        /// </summary>
-        public bool IsAFK => Base.IsAFK;
 
         /// <summary>
         /// Gets the roles <see cref="SubroutineManagerModule"/>.
