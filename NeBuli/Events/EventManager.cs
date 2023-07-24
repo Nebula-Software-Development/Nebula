@@ -117,6 +117,8 @@ public static class EventManager
             Generator.Get(gen);
         foreach (DoorVariant door in Object.FindObjectsOfType<DoorVariant>())
             Door.Get(door);
+        foreach (global::TeslaGate teslaGate in Object.FindObjectsOfType<TeslaGate>())
+            NebuliTeslaGate.Get(teslaGate);
         NebuliPlayer nebuliHost = new(ReferenceHub.HostHub);
         Server.NebuliHost = nebuliHost;
     }

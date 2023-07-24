@@ -11,7 +11,7 @@ using UnityEngine;
 
 namespace Nebuli.API.Features.Roles
 {
-    public class Scp096PlayerRole : Role
+    public class Scp096PlayerRole : FpcRoleBase
     {
         /// <summary>
         /// Gets the roles <see cref="Scp096Role"/> base.
@@ -21,7 +21,6 @@ namespace Nebuli.API.Features.Roles
         public Scp096PlayerRole(Scp096Role role) : base(role)
         {
             Base = role;
-            Ragdoll = Ragdoll.Get(Base.Ragdoll);
             SetupSubroutines();
         }
 
@@ -105,11 +104,6 @@ namespace Nebuli.API.Features.Roles
         public void ForceEndRage(bool clearTime) => RageManager.ServerEndEnrage(clearTime);
 
         /// <summary>
-        /// Gets a value indicating whether the role is AFK.
-        /// </summary>
-        public bool IsAFK => Base.IsAFK;
-
-        /// <summary>
         /// Returns a boolean value indicating if the current role's <see cref="Scp096AbilityState"/> matches the provided <see cref="Scp096AbilityState"/>.
         /// </summary>
         /// <param name="abilityState">The ability state to check against.</param>
@@ -124,26 +118,6 @@ namespace Nebuli.API.Features.Roles
         public bool RageStateIs(Scp096RageState rageState) => Base.IsRageState(rageState);
 
         /// <summary>
-        /// Shows the start screen for SCP-096.
-        /// </summary>
-        public void ShowStartScreen() => Base.ShowStartScreen();
-
-        /// <summary>
-        /// Gets the role's <see cref="VoiceModuleBase"/>.
-        /// </summary>
-        public VoiceModuleBase VoiceModule => Base.VoiceModule;
-
-        /// <summary>
-        /// Gets the role's SpectatableModuleBase.
-        /// </summary>
-        public PlayerRoles.Spectating.SpectatableModuleBase SpectatableModuleBase => Base.SpectatorModule;
-
-        /// <summary>
-        /// Gets the role's <see cref="ISpawnpointHandler"/>.
-        /// </summary>
-        public ISpawnpointHandler SpawnpointHandler => Base.SpawnpointHandler;
-
-        /// <summary>
         /// Gets the role's <see cref="FirstPersonMovementModule"/>.
         /// </summary>
         public FirstPersonMovementModule FpcModule => Base.FpcModule;
@@ -152,16 +126,6 @@ namespace Nebuli.API.Features.Roles
         /// Gets the role's camera position.
         /// </summary>
         public Vector3 CameraPosition => Base.CameraPosition;
-
-        /// <summary>
-        /// Gets a value indicating whether the role is in darkness.
-        /// </summary>
-        public bool InDarkness => Base.InDarkness;
-
-        /// <summary>
-        /// Gets the role's ragdoll.
-        /// </summary>
-        public Ragdoll Ragdoll { get; }
 
         /// <summary>
         /// Resets SCP-096's ability state.

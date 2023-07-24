@@ -20,6 +20,9 @@ public class Room
     /// </summary>
     public RoomIdentifier Base { get; }
 
+    /// <summary>
+    /// Gets a collection of all the rooms.
+    /// </summary>
     public static IEnumerable<Room> Collection => Dictionary.Values;
 
     /// <summary>
