@@ -79,12 +79,15 @@
     <Compile Include="API\Features\Ragdoll.cs" />
     <Compile Include="API\Features\Roles\FpcRoleBase.cs" />
     <Compile Include="API\Features\Roles\HumanPlayerRole.cs" />
+    <Compile Include="API\Features\Roles\OverwatchPlayerRole.cs" />
     <Compile Include="API\Features\Roles\Role.cs" />
+    <Compile Include="API\Features\Roles\Scp049PlayerRole.cs" />
     <Compile Include="API\Features\Roles\Scp079PlayerRole.cs" />
     <Compile Include="API\Features\Roles\Scp096PlayerRole.cs" />
     <Compile Include="API\Features\Roles\Scp106PlayerRole.cs" />
     <Compile Include="API\Features\Roles\Scp173PlayerRole.cs" />
     <Compile Include="API\Features\Roles\Scp939PlayerRole.cs" />
+    <Compile Include="API\Features\Roles\SpectatorPlayerRole.cs" />
     <Compile Include="API\Features\Round.cs" />
     <Compile Include="API\Features\Server.cs" />
     <Compile Include="API\Interfaces\IConfig.cs" />

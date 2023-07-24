@@ -133,5 +133,10 @@ namespace Nebuli.API.Features.Map
         /// </summary>
         /// <param name="gate"></param>
         public static void TriggerTeslaGate(NebuliTeslaGate gate) => gate.Trigger();
+
+        /// <summary>
+        /// Force triggers the specified tesla gate.
+        /// </summary>
+        public static void ForceTriggerTeslaGate(NebuliTeslaGate gate) => gate.ForceTrigger();
     }
 }
