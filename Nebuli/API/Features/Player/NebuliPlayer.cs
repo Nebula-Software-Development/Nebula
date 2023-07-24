@@ -101,7 +101,12 @@ public class NebuliPlayer
     /// <summary>
     /// Gets the players current <see cref="RoleTypeId"/>.
     /// </summary>
-    public RoleTypeId CurrentRoleID => ReferenceHub.GetRoleId();
+    public RoleTypeId CurrentRoleType => ReferenceHub.GetRoleId();
+
+    /// <summary>
+    /// Gets the players current faction
+    /// </summary>
+    public Faction Faction => CurrentRoleType.GetFaction();
 
     /// <summary>
     /// Gets the players current <see cref="PlayerRoleBase"/>.
