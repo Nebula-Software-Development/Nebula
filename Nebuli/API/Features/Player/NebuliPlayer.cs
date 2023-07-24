@@ -5,11 +5,14 @@ using Hints;
 using InventorySystem;
 using MapGeneration;
 using Mirror;
+using Nebuli.API.Features.Enum;
+using Nebuli.API.Features.Items;
 using Nebuli.API.Features.Map;
 using Nebuli.API.Features.Roles;
 using PlayerRoles;
 using PlayerRoles.FirstPersonControl;
 using PlayerStatsSystem;
+using RelativePositioning;
 using RemoteAdmin;
 using System.Collections.Generic;
 using System.Linq;
@@ -122,6 +125,11 @@ public class NebuliPlayer
         get => Transform.position;
         set => ReferenceHub.TryOverridePosition(value, Vector3.zero);
     }
+
+    /// <summary>
+    /// Gets the players RelativePosition.
+    /// </summary>
+    public RelativePosition RelativePosition => new(Position);
 
     /// <summary>
     /// Gets or sets the players current rotation.
@@ -820,9 +828,9 @@ public class NebuliPlayer
     /// <summary>
     /// Gets or sets the current item held by the player. WILL BE NULL IF THE PLAYERS CURRENT ITEM IS NONE.
     /// </summary>
-    public Item.Item CurrentItem
+    public Item CurrentItem
     {
-        get => Item.Item.ItemGet(Inventory.CurItem.SerialNumber);
+        get => Item.ItemGet(Inventory.CurItem.SerialNumber);
         set => Inventory.CurInstance = value.Base;
     }
 
@@ -844,5 +852,36 @@ public class NebuliPlayer
                 return true;
         }
         return false;
+    }
+
+    /// <summary>
+    /// Forces a menu scene to open on the player.
+    /// </summary>
+    /// <param name="menu">The <see cref="MenuType"/> to send.</param>
+    public void OpenMenu(MenuType menu)
+    {
+        var menutype = "";
+
+        switch (menu)
+        {
+            case MenuType.Menu:
+                menutype = "NewMainMenu";
+                break;
+
+            case MenuType.OldFastMenu:
+                menutype = "FastMenu";
+                break;
+
+            case MenuType.OldMenu:
+                menutype = "MainMenuRemastered";
+                break;
+        }
+
+        ReferenceHub.connectionToClient.Send(new SceneMessage
+        {
+            sceneName = menutype,
+            sceneOperation = SceneOperation.Normal,
+            customHandling = false
+        });
     }
 }
