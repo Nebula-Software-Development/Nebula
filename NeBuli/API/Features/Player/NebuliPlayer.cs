@@ -23,7 +23,7 @@ using VoiceChat;
 namespace Nebuli.API.Features.Player;
 
 /// <summary>
-/// Represents a player in the Nebuli plugin.
+/// Represents a player in the Nebuli framework.
 /// </summary>
 public class NebuliPlayer
 {

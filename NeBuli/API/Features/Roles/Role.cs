@@ -2,6 +2,7 @@
 using PlayerRoles;
 using PlayerRoles.PlayableScps.Scp079;
 using PlayerRoles.PlayableScps.Scp096;
+using PlayerRoles.PlayableScps.Scp106;
 using PlayerRoles.PlayableScps.Scp173;
 using PlayerRoles.PlayableScps.Scp939;
 using UnityEngine;
@@ -109,6 +110,7 @@ public abstract class Role
             Scp079Role scp079 => new Scp079PlayerRole(scp079),
             Scp096Role scp096 => new Scp096PlayerRole(scp096),
             Scp173Role scp173 => new Scp173PlayerRole(scp173),
+            Scp106Role scp106 => new Scp106PlayerRole(scp106),
             _ => null,
         }; ;
     }

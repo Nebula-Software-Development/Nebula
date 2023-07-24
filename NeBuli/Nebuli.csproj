@@ -43,6 +43,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Assembly-CSharp" HintPath="$(NEBULIREFERENCES)\Assembly-CSharp-Publicized.dll" Private="false" />
+    <Reference Include="Assembly-CSharp-Firstpass" HintPath="$(NEBULIREFERENCES)\Assembly-CSharp-Firstpass.dll" Private="false" />
     <Reference Include="CommandSystem.Core" HintPath="$(NEBULIREFERENCES)\CommandSystem.Core.dll" Private="false" />
     <Reference Include="Mirror" HintPath="$(NEBULIREFERENCES)\Mirror-Publicized.dll" Private="false" />
     <Reference Include="NorthwoodLib" HintPath="$(NEBULIREFERENCES)\NorthwoodLib.dll" Private="false" />
@@ -69,6 +70,7 @@
     <Compile Include="API\Features\Map\Door.cs" />
     <Compile Include="API\Features\Map\Generator.cs" />
     <Compile Include="API\Features\Map\Room.cs" />
+    <Compile Include="API\Features\Map\NebuliTeslaGate.cs" />
     <Compile Include="API\Features\Map\Utilites.cs" />
     <Compile Include="API\Features\Paths.cs" />
     <Compile Include="API\Features\Items\Pickups\Pickup.cs" />
@@ -80,6 +82,7 @@
     <Compile Include="API\Features\Roles\Role.cs" />
     <Compile Include="API\Features\Roles\Scp079PlayerRole.cs" />
     <Compile Include="API\Features\Roles\Scp096PlayerRole.cs" />
+    <Compile Include="API\Features\Roles\Scp106PlayerRole.cs" />
     <Compile Include="API\Features\Roles\Scp173PlayerRole.cs" />
     <Compile Include="API\Features\Roles\Scp939PlayerRole.cs" />
     <Compile Include="API\Features\Round.cs" />
