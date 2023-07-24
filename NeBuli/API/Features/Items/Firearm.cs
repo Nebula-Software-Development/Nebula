@@ -60,11 +60,11 @@ public class Firearm : Item
     /// </summary>
     public void Shoot()
     {
-        InventorySystem.Items.Firearms.Firearm firearm = Owner.Inventory._curInstance as InventorySystem.Items.Firearms.Firearm;
-        if (firearm == null)
-            return;
         if (Owner == null)
             return;
+        InventorySystem.Items.Firearms.Firearm firearm = Owner.Inventory._curInstance as InventorySystem.Items.Firearms.Firearm;
+        if (firearm == null)
+            return;       
 
         ShotMessage message = new()
         {
@@ -97,6 +97,8 @@ public class Firearm : Item
     /// </summary>
     public void Reload()
     {
+        if (Owner == null)
+            return;
         InventorySystem.Items.Firearms.Firearm firearm = Owner.Inventory._curInstance as InventorySystem.Items.Firearms.Firearm;
         if (firearm == null)
             return;
@@ -110,10 +112,10 @@ public class Firearm : Item
     /// </summary>
     public void ToggleFlashlight()
     {
+        if (Owner == null)
+            return;
         InventorySystem.Items.Firearms.Firearm firearm = Owner.Inventory._curInstance as InventorySystem.Items.Firearms.Firearm;
         if (firearm == null)
-            return;
-        if (Owner == null)
             return;
 
         RequestMessage message = new(Serial, RequestType.ToggleFlashlight);
@@ -125,6 +127,8 @@ public class Firearm : Item
     /// </summary>
     public void Unload()
     {
+        if (Owner == null)
+            return;
         InventorySystem.Items.Firearms.Firearm firearm = Owner.Inventory._curInstance as InventorySystem.Items.Firearms.Firearm;
         if (firearm == null)
             return;
@@ -139,6 +143,8 @@ public class Firearm : Item
     /// <param name="shouldADS">True to aim down sight, false to stop aiming down sight.</param>
     public void SetAimDownSight(bool shouldADS)
     {
+        if (Owner == null)
+            return;
         InventorySystem.Items.Firearms.Firearm firearm = Owner.Inventory._curInstance as InventorySystem.Items.Firearms.Firearm;
         if (firearm == null)
             return;

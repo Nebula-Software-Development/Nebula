@@ -20,7 +20,7 @@ public static class Round
     /// <summary>
     /// Gets if the round is active.
     /// </summary>
-    public static bool RoundActive => RoundSummary.singleton._summaryActive;
+    public static bool RoundActive => !RoundSummary.singleton._roundEnded;
 
     /// <summary>
     /// Gets if the round has ended.
