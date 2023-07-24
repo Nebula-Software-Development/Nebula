@@ -3,8 +3,9 @@ using PlayerStatsSystem;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using Nebuli.API.Features.Player;
 
-namespace Nebuli.API.Features.Player;
+namespace Nebuli.API.Features;
 
 /// <summary>
 /// Allows easier use of in-game ragdolls by wrapping the <see cref="BasicRagdoll"/> class.

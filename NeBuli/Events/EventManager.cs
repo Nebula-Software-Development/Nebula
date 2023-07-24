@@ -5,7 +5,7 @@ using InventorySystem.Items.Pickups;
 using MapGeneration;
 using MapGeneration.Distributors;
 using Nebuli.API.Features;
-using Nebuli.API.Features.Item;
+using Nebuli.API.Features.Items;
 using Nebuli.API.Features.Items.Pickups;
 using Nebuli.API.Features.Map;
 using Nebuli.API.Features.Player;
@@ -77,7 +77,7 @@ public static class EventManager
 
     private static void RoleChange(ReferenceHub userHub, PlayerRoleBase prevRole, PlayerRoleBase newRole)
     {
-        API.Features.Roles.Role newrole = API.Features.Roles.Role.CreateNew(newRole);
+        API.Features.Roles.Role.CreateNew(newRole);
     }
 
     private static void OnRagdollSpawned(BasicRagdoll basicRagdoll)

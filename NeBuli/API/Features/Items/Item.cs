@@ -8,7 +8,7 @@ using Nebuli.API.Features.Player;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Nebuli.API.Features.Item;
+namespace Nebuli.API.Features.Items;
 
 public class Item
 {
@@ -115,6 +115,11 @@ public class Item
     public bool CanHostler => Base.CanHolster();
 
     /// <summary>
+    /// Drops the item.
+    /// </summary>
+    public void DropItem() => Base.ServerDropItem();
+
+    /// <summary>
     /// Creates a new instance of the <see cref="Item"/> class with the specified item type and owner.
     /// </summary>
     /// <param name="itemType">The type of the new item.</param>
@@ -132,7 +137,7 @@ public class Item
     public static void CreateAndGive(ItemType itemType, NebuliPlayer owner, Attachment[] attachments = null)
     {
         ItemBase item = owner.Inventory.ServerAddItem(itemType);
-        if (item is Firearm firearm)
+        if (item is InventorySystem.Items.Firearms.Firearm firearm)
         {
             FirearmStatusFlags flags = FirearmStatusFlags.MagazineInserted;
             if (attachments is not null)
@@ -156,4 +161,13 @@ public class Item
     /// <param name="serialNumber">The serial number of the item to find.</param>
     /// <returns>The <see cref="Item"/> with the specified serial number if found; otherwise, null.</returns>
     public static Item ItemGet(ushort serialNumber) => Dictionary.Values.FirstOrDefault(item => item.Serial == serialNumber);
+
+    internal static Item GetPickup(ItemBase itemBase)
+    {
+        return itemBase switch
+        {
+            InventorySystem.Items.Firearms.Firearm firearm => new Firearm(firearm),
+            _ => null,
+        };
+    }
 }

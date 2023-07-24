@@ -1,22 +1,23 @@
-﻿using PlayerRoles;
-using PlayerRoles.PlayableScps.Scp096;
-using System;
-using PlayerRoles.PlayableScps.Subroutines;
-using PlayerRoles.PlayableScps.HumeShield;
-using PlayerRoles.Voice;
-using PlayerRoles.FirstPersonControl.Spawnpoints;
+﻿using Nebuli.API.Features.Player;
+using PlayerRoles;
 using PlayerRoles.FirstPersonControl;
+using PlayerRoles.FirstPersonControl.Spawnpoints;
+using PlayerRoles.PlayableScps.HumeShield;
+using PlayerRoles.PlayableScps.Scp096;
+using PlayerRoles.PlayableScps.Subroutines;
+using PlayerRoles.Voice;
+using System;
 using UnityEngine;
-using Nebuli.API.Features.Player;
 
 namespace Nebuli.API.Features.Roles
 {
     public class Scp096PlayerRole : Role
     {
-        /// <summary> 
+        /// <summary>
         /// Gets the roles <see cref="Scp096Role"/> base.
         /// </summary>
         public new Scp096Role Base { get; }
+
         public Scp096PlayerRole(Scp096Role role) : base(role)
         {
             Base = role;
@@ -208,11 +209,11 @@ namespace Nebuli.API.Features.Roles
                 if (ManagerModule.TryGetSubroutine(out rageManager))
                     RageManager = rageManager;
                 Scp096StateController controller;
-                if(ManagerModule.TryGetSubroutine(out controller))
+                if (ManagerModule.TryGetSubroutine(out controller))
                     StateController = controller;
                 Scp096PrygateAbility prygateAbility;
-                if(ManagerModule.TryGetSubroutine(out prygateAbility))
-                    PrygateAbility = prygateAbility;               
+                if (ManagerModule.TryGetSubroutine(out prygateAbility))
+                    PrygateAbility = prygateAbility;
             }
             catch (Exception e)
             {

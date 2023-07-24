@@ -41,7 +41,7 @@ public static class Server
     /// <summary>
     /// Gets the late join time.
     /// </summary>
-    public static float LateJoinTime => ConfigFile.ServerConfig.GetFloat(RoleAssigner.LateJoinKey, 0f);
+    public static float LateJoinTime => ConfigFile.ServerConfig.GetFloat(RoleAssigner.LateJoinKey);
 
     /// <summary>
     /// Gets or sets the max player count of the server.

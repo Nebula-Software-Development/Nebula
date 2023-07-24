@@ -1,5 +1,4 @@
-﻿using InventorySystem.Items.Firearms;
-using Nebuli.API.Features.Item;
+﻿using Nebuli.API.Features.Items;
 using Nebuli.API.Features.Player;
 using System;
 
@@ -7,7 +6,7 @@ namespace Nebuli.Events.EventArguments.Player;
 
 public class PlayerShotEventArgs : EventArgs, IPlayerEvent, ICancellableEvent
 {
-    public PlayerShotEventArgs(ReferenceHub player, Firearm firearm)
+    public PlayerShotEventArgs(ReferenceHub player, InventorySystem.Items.Firearms.Firearm firearm)
     {
         Player = NebuliPlayer.Get(player);
         Firearm = firearm;
@@ -18,7 +17,7 @@ public class PlayerShotEventArgs : EventArgs, IPlayerEvent, ICancellableEvent
     /// <summary>
     /// Gets the <see cref="InventorySystem.Items.Firearms.Firearm"/> base.
     /// </summary>
-    public Firearm Firearm { get; }
+    public InventorySystem.Items.Firearms.Firearm Firearm { get; }
 
     /// <summary>
     /// Gets or sets if the event is cancelled or not.
@@ -31,7 +30,7 @@ public class PlayerShotEventArgs : EventArgs, IPlayerEvent, ICancellableEvent
     public NebuliPlayer Player { get; }
 
     /// <summary>
-    /// Gets the <see cref="API.Features.Item.Item"/> wrapper class for this item.
+    /// Gets the <see cref="Item"/> wrapper class for this item.
     /// </summary>
     public Item Item { get; }
 }
