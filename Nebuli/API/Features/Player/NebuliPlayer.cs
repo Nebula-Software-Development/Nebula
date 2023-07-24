@@ -431,6 +431,12 @@ public class NebuliPlayer
         return false;
     }
 
+    /// <summary>
+    /// Tries to get a NebuliPlayer instance based on their <see cref="ICommandSender"/>.
+    /// </summary>
+    /// <param name="sender">The <see cref="ICommandSender"/> of the player.</param>
+    /// <param name="player">When this method returns, contains the NebuliPlayer instance if found; otherwise, null.</param>
+    /// <returns>True if the NebuliPlayer instance was found; otherwise, false.</returns>
     public static bool TryGet(ICommandSender sender, out NebuliPlayer player)
     {
         foreach (NebuliPlayer ply in Collection)
