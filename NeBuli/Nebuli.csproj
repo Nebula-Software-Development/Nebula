@@ -69,6 +69,7 @@
     <Compile Include="API\Features\Map\Door.cs" />
     <Compile Include="API\Features\Map\Generator.cs" />
     <Compile Include="API\Features\Map\Room.cs" />
+    <Compile Include="API\Features\Map\Utilites.cs" />
     <Compile Include="API\Features\Paths.cs" />
     <Compile Include="API\Features\Items\Pickups\Pickup.cs" />
     <Compile Include="API\Features\Player\NebuliPlayer.cs" />
