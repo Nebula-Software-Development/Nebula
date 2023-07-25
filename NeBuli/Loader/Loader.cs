@@ -22,6 +22,7 @@ public class Loader
 {
     private Harmony _harmony;
     private int pluginCount;
+    private static bool _loaded = false;
 
     internal static void EDisablePlugins() => DisablePlugins();
 
@@ -43,6 +44,9 @@ public class Loader
             Log.Info("Nebuli Loader is disabled, Nebuli will not load");
             return;
         }
+
+        if (_loaded) return;
+        else _loaded = true;
 
         Log.Info($"Nebuli Version {NebuliInfo.NebuliVersion} loading...", consoleColor: ConsoleColor.Red);
 
