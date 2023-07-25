@@ -162,7 +162,7 @@ public class Loader
         if (pluginCount > 0)
         {
             CustomNetworkManager.Modded = true;
-            BuildInfoCommand.ModDescription = $"Framework : Nebuli\n Framework Version : {NebuliInfo.NebuliVersion}\n Copyright : Copyright (c) 2023 Nebuli Team";
+            BuildInfoCommand.ModDescription = $"Framework : Nebuli\nFramework Version : {NebuliInfo.NebuliVersion}\nCopyright : Copyright (c) 2023 Nebuli Team";
         }
 
         Log.Info(Configuration.StartupMessage);

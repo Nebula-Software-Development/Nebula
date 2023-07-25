@@ -27,7 +27,7 @@ public class RoleChange
             new CodeInstruction(OpCodes.Ldarg_1),
             new CodeInstruction(OpCodes.Ldarg_2),
             new CodeInstruction(OpCodes.Ldarg_3),
-            new CodeInstruction(OpCodes.Newobj, GetDeclaredConstructors(typeof(PlayerRoleChangeEventArgs))[0]),
+            new CodeInstruction(OpCodes.Newobj, GetDeclaredConstructors(typeof(PlayerRoleChange))[0]),
         });
 
         foreach (CodeInstruction instruction in newInstructions)

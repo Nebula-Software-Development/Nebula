@@ -4,9 +4,9 @@ using System;
 
 namespace Nebuli.Events.EventArguments.Player;
 
-public class PlayerLeaveEventArgs : EventArgs, IPlayerEvent
+public class PlayerLeave : EventArgs, IPlayerEvent
 {
-    public PlayerLeaveEventArgs(NetworkConnection conn)
+    public PlayerLeave(NetworkConnection conn)
     {
         Player = NebuliPlayer.Get(conn.identity);
     }

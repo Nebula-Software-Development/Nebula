@@ -4,9 +4,9 @@ using System;
 
 namespace Nebuli.Events.EventArguments.Player;
 
-public class PlayerDyingEventArgs : EventArgs, IDamageEvent, ICancellableEvent
+public class PlayerHurt : EventArgs, IDamageEvent, ICancellableEvent
 {
-    public PlayerDyingEventArgs(AttackerDamageHandler attacker, ReferenceHub target, DamageHandlerBase dmgB)
+    public PlayerHurt(AttackerDamageHandler attacker, ReferenceHub target, DamageHandlerBase dmgB)
     {
         Attacker = NebuliPlayer.Get(attacker.Attacker.Hub);
         Target = NebuliPlayer.Get(target);
@@ -15,17 +15,17 @@ public class PlayerDyingEventArgs : EventArgs, IDamageEvent, ICancellableEvent
     }
 
     /// <summary>
-    /// Gets the attacker of the target.
+    /// The attacker of the target.
     /// </summary>
     public NebuliPlayer Attacker { get; }
 
     /// <summary>
-    /// The player thats dying.
+    /// The player being attacked.
     /// </summary>
     public NebuliPlayer Target { get; }
 
     /// <summary>
-    /// The <see cref="PlayerStatsSystem.DamageHandlerBase"/> of the event.
+    /// The <see cref="PlayerStatsSystem.DamageHandlerBase"/> of the player being attacked.
     /// </summary>
     public DamageHandlerBase DamageHandlerBase { get; }
 

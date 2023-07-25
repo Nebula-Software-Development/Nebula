@@ -5,9 +5,9 @@ using System;
 
 namespace Nebuli.Events.EventArguments.Player;
 
-public class PlayerBannedEventArgs : EventArgs, IPlayerEvent, ICancellableEvent
+public class PlayerBanned : EventArgs, IPlayerEvent, ICancellableEvent
 {
-    public PlayerBannedEventArgs(Footprint target, ICommandSender issuer, string reason, long duration)
+    public PlayerBanned(Footprint target, ICommandSender issuer, string reason, long duration)
     {
         Player = NebuliPlayer.Get(target.Hub);
         Issuer = NebuliPlayer.Get(issuer);

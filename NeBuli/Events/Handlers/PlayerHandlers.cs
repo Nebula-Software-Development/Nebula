@@ -4,31 +4,35 @@ namespace Nebuli.Events.Handlers;
 
 public static class PlayerHandlers
 {
-    public static event EventManager.CustomEventHandler<PlayerJoinEventArgs> Join;
+    public static event EventManager.CustomEventHandler<PlayerJoin> Join;
 
-    public static event EventManager.CustomEventHandler<PlayerLeaveEventArgs> Leave;
+    public static event EventManager.CustomEventHandler<PlayerLeave> Leave;
 
-    public static event EventManager.CustomEventHandler<PlayerHurtEventArgs> Hurt;
+    public static event EventManager.CustomEventHandler<PlayerHurt> Hurt;
 
-    public static event EventManager.CustomEventHandler<PlayerDyingEventArgs> Dying;
+    public static event EventManager.CustomEventHandler<PlayerDying> Dying;
 
-    public static event EventManager.CustomEventHandler<PlayerBannedEventArgs> Banned;
+    public static event EventManager.CustomEventHandler<PlayerBanned> Banned;
 
     public static event EventManager.CustomEventHandler<PlayerShotEventArgs> Shot;
 
-    public static event EventManager.CustomEventHandler<PlayerRoleChangeEventArgs> RoleChange;
+    public static event EventManager.CustomEventHandler<PlayerRoleChange> RoleChange;
 
-    internal static void OnJoin(PlayerJoinEventArgs ev) => Join.CallEvent(ev);
+    public static event EventManager.CustomEventHandler<PlayerTriggeringTesla> TriggeringTesla;
 
-    internal static void OnLeave(PlayerLeaveEventArgs ev) => Leave.CallEvent(ev);
+    internal static void OnJoin(PlayerJoin ev) => Join.CallEvent(ev);
 
-    internal static void OnHurt(PlayerHurtEventArgs ev) => Hurt.CallEvent(ev);
+    internal static void OnLeave(PlayerLeave ev) => Leave.CallEvent(ev);
 
-    internal static void OnDying(PlayerDyingEventArgs ev) => Dying.CallEvent(ev);
+    internal static void OnHurt(PlayerHurt ev) => Hurt.CallEvent(ev);
 
-    internal static void OnBanned(PlayerBannedEventArgs ev) => Banned.CallEvent(ev);
+    internal static void OnDying(PlayerDying ev) => Dying.CallEvent(ev);
+
+    internal static void OnBanned(PlayerBanned ev) => Banned.CallEvent(ev);
 
     internal static void OnShot(PlayerShotEventArgs ev) => Shot.CallEvent(ev);
 
-    internal static void OnRoleChange(PlayerRoleChangeEventArgs ev) => RoleChange.CallEvent(ev);
+    internal static void OnRoleChange(PlayerRoleChange ev) => RoleChange.CallEvent(ev);
+
+    internal static void OnTriggerTesla(PlayerTriggeringTesla ev) => TriggeringTesla.CallEvent(ev);
 }
