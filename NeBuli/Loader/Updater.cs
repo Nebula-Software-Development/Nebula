@@ -1,9 +1,11 @@
-﻿using Nebuli.API.Features;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
+using PluginAPI.Loader;
 using System;
 using System.IO;
+using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Log = Nebuli.API.Features.Log;
 
 namespace Nebuli.Loader
 {
@@ -11,16 +13,18 @@ namespace Nebuli.Loader
     {
         internal static FileStream PendingUpdate = null;
         internal static Stream Stream = null;
+        internal string NeubliPath;
 
         public void CheckForUpdates()
         {
             Log.Info("Checking for updates...", "Updater");
+            NeubliPath = FindNebuliPath();
             Task.Run(CheckForUpdatesAsync);
         }
 
         private HttpClient CreateHttpClient()
         {
-            HttpClient client = new HttpClient();
+            HttpClient client = new();
             client.Timeout = TimeSpan.FromSeconds(480);
             client.DefaultRequestHeaders.Add("User-Agent", $"NebuliUpdater (https://github.com/NotIntense/Nebuli,{NebuliInfo.NebuliVersion})");
             return client;
@@ -98,9 +102,7 @@ namespace Nebuli.Loader
                     Log.Info("Downloaded!");
                     using (Stream installerStream = installer.Content.ReadAsStreamAsync().ConfigureAwait(false).GetAwaiter().GetResult())
                     {
-                        string destinationFilePath = Path.Combine(PluginAPI.Helpers.Paths.GlobalPlugins.Plugins, "Nebuli.dll");
-
-                        using (FileStream fs = new(destinationFilePath, FileMode.Create, FileAccess.Write, FileShare.None))
+                        using (FileStream fs = new(NeubliPath, FileMode.Create, FileAccess.Write, FileShare.None))
                         {
                             PendingUpdate = fs;
                             installerStream.CopyTo(fs);
@@ -132,6 +134,14 @@ namespace Nebuli.Loader
 
             [JsonProperty("browser_download_url")]
             public string BrowserDownloadUrl { get; set; }
+        }
+        public static string FindNebuliPath()
+        {
+            var nebuliPlugin = AssemblyLoader.Plugins
+                .SelectMany(assemblyEntry => assemblyEntry.Value)
+                .FirstOrDefault(pluginEntry => pluginEntry.Value.PluginName == "Nebuli Loader");
+
+            return nebuliPlugin.Value.PluginFilePath;
         }
     }
 }
