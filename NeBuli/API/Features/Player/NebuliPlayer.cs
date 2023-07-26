@@ -32,7 +32,7 @@ public class NebuliPlayer
     /// </summary>
     public static readonly Dictionary<ReferenceHub, NebuliPlayer> Dictionary = new();
 
-    public NebuliPlayer(ReferenceHub hub)
+    internal NebuliPlayer(ReferenceHub hub)
     {
         ReferenceHub = hub;
         GameObject = ReferenceHub.gameObject;
@@ -45,7 +45,7 @@ public class NebuliPlayer
         Dictionary.Add(hub, this);
     }
 
-    public NebuliPlayer(GameObject gameObject)
+    internal NebuliPlayer(GameObject gameObject)
     {
         ReferenceHub = ReferenceHub.GetHub(gameObject);
         GameObject = ReferenceHub.gameObject;
@@ -89,11 +89,8 @@ public class NebuliPlayer
     /// <summary>
     /// Gets or sets if the player is a NPC.
     /// </summary>
-    public bool IsNPC
-    {
-        get => IsNPC;
-        set => IsNPC = value;
-    }
+    public bool IsNPC { get; set; }
+
 
     /// <summary>
     /// The player's GameObject.
@@ -832,6 +829,11 @@ public class NebuliPlayer
     /// </summary>
     private void Create()
     {
+        if (UserId is null)
+        {
+            RawUserId = $"NebuliUserId-{PlayerCount}";
+            return;
+        }
         int index = UserId.LastIndexOf('@');
 
         if (index == -1)

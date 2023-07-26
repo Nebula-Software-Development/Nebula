@@ -7,7 +7,7 @@ using static HarmonyLib.AccessTools;
 
 namespace Nebuli.Events.Patches.Player;
 
-[HarmonyPatch(typeof(TeslaGateController), nameof(TeslaGateController.FixedUpdate))]
+//[HarmonyPatch(typeof(TeslaGateController), nameof(TeslaGateController.FixedUpdate))]
 public class TriggeringTesla
 {
     [HarmonyTranspiler]
