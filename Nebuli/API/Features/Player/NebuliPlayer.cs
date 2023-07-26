@@ -3,6 +3,7 @@ using CustomPlayerEffects;
 using Footprinting;
 using Hints;
 using InventorySystem;
+using InventorySystem.Items;
 using MapGeneration;
 using Mirror;
 using Nebuli.API.Features.Enum;
@@ -861,14 +862,34 @@ public class NebuliPlayer
     public bool IsDead => CurrentRole.IsDead;
 
     /// <summary>
-    /// Gets or sets the current item held by the player. WILL BE NULL IF THE PLAYERS CURRENT ITEM IS NONE.
+    /// Gets or sets the current item held by the player.
     /// </summary>
     public Item CurrentItem
     {
         get => Item.ItemGet(Inventory.CurItem.SerialNumber);
-        set => Inventory.CurInstance = value.Base;
+        set
+        {
+            Inventory.ServerSelectItem(value.Serial);
+            Inventory.UserCode_CmdSelectItem__UInt16(value.Serial);
+        }
     }
 
+    /// <summary>
+    /// Adds ammo to the players inventory.
+    /// </summary>
+    /// <param name="ammoType">The type of ammo to add.</param>
+    /// <param name="amount">The ammount of ammo to add.</param>
+    public void AddAmmo(ItemType ammoType, int amount) => Inventory.ServerAddAmmo(ammoType, amount);
+
+    /// <summary>
+    /// Adds a item to the players inventory.
+    /// </summary>
+    /// <param name="item">The item to add.</param>
+    public Item AddItem(ItemType item)
+    {
+        return Item.ItemGet(Inventory.ServerAddItem(item));
+    }
+    
     /// <summary>
     /// Gets the players <see cref="InventorySystem.Inventory"/>.
     /// </summary>
