@@ -87,9 +87,14 @@ public class Loader
     [PluginUnload]
     public void UnLoad()
     {
+        foreach (IPlugin<IConfig> plugin in PluginConfig.Keys)
+        {
+            plugin.OnDisabled();
+        }
+
         _harmony.UnpatchAll(_harmony.Id);
         _harmony = null;
-
+        
         EventManager.UnRegisterBaseEvents();
     }
 
