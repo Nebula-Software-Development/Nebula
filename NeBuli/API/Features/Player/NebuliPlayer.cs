@@ -32,7 +32,7 @@ public class NebuliPlayer
     /// </summary>
     public static readonly Dictionary<ReferenceHub, NebuliPlayer> Dictionary = new();
 
-    internal NebuliPlayer(ReferenceHub hub)
+    public NebuliPlayer(ReferenceHub hub)
     {
         ReferenceHub = hub;
         GameObject = ReferenceHub.gameObject;
@@ -43,6 +43,19 @@ public class NebuliPlayer
 
         Create();
         Dictionary.Add(hub, this);
+    }
+
+    public NebuliPlayer(GameObject gameObject)
+    {
+        ReferenceHub = ReferenceHub.GetHub(gameObject);
+        GameObject = ReferenceHub.gameObject;
+        Transform = ReferenceHub.transform;
+
+        if (ReferenceHub == ReferenceHub.HostHub && Server.NebuliHost is not null)
+            return;
+
+        Create();
+        Dictionary.Add(ReferenceHub, this);
     }
 
     public static IEnumerable<NebuliPlayer> Collection => Dictionary.Values;
@@ -72,6 +85,15 @@ public class NebuliPlayer
     /// The player's ReferenceHub.
     /// </summary>
     public ReferenceHub ReferenceHub { get; }
+
+    /// <summary>
+    /// Gets or sets if the player is a NPC.
+    /// </summary>
+    public bool IsNPC
+    {
+        get => IsNPC;
+        set => IsNPC = value;
+    }
 
     /// <summary>
     /// The player's GameObject.

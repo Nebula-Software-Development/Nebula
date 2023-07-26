@@ -75,6 +75,7 @@
     <Compile Include="API\Features\Paths.cs" />
     <Compile Include="API\Features\Items\Pickups\Pickup.cs" />
     <Compile Include="API\Features\Player\NebuliPlayer.cs" />
+    <Compile Include="API\Features\Player\NebuliNpc.cs" />
     <Compile Include="API\Features\Plugin.cs" />
     <Compile Include="API\Features\Ragdoll.cs" />
     <Compile Include="API\Features\Roles\FpcRoleBase.cs" />
@@ -94,6 +95,7 @@
     <Compile Include="API\Interfaces\IPlugin.cs" />
     <Compile Include="API\Features\Enum\DoorType.cs" />
     <Compile Include="API\Features\Enum\GeneratorState.cs" />
+    <Compile Include="API\Internal\FakeConnection.cs" />
     <Compile Include="Events\EventArguments\ICancellableEvent.cs" />
     <Compile Include="Events\EventArguments\IDamageEvent.cs" />
     <Compile Include="Events\EventArguments\IPlayerEvent.cs" />
