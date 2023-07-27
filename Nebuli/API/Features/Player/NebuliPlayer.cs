@@ -38,6 +38,8 @@ public class NebuliPlayer
         ReferenceHub = hub;
         GameObject = ReferenceHub.gameObject;
         Transform = ReferenceHub.transform;
+        CustomHintManager = GameObject.AddComponent<CustomHintManager>();
+        CustomHintManager.player = this;
 
         if (hub == ReferenceHub.HostHub && Server.NebuliHost is not null)
             return;
@@ -51,6 +53,8 @@ public class NebuliPlayer
         ReferenceHub = ReferenceHub.GetHub(gameObject);
         GameObject = ReferenceHub.gameObject;
         Transform = ReferenceHub.transform;
+        CustomHintManager = GameObject.AddComponent<CustomHintManager>();
+        CustomHintManager.player = this;
 
         if (ReferenceHub == ReferenceHub.HostHub && Server.NebuliHost is not null)
             return;
@@ -686,6 +690,11 @@ public class NebuliPlayer
     {
         ReferenceHub.roleManager.ServerSetRole(role, reason, flags);
     }
+
+    /// <summary>
+    /// Gets the players <see cref="Features.CustomHintManager"/>.
+    /// </summary>
+    public CustomHintManager CustomHintManager { get; }
 
     /// <summary>
     /// Adds a component of the specified type to the player's GameObject.
