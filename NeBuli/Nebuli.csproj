@@ -61,6 +61,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="API\Features\AlphaWarhead.cs" />
+    <Compile Include="API\Features\CustomHintManager.cs" />
     <Compile Include="API\Features\Decontamination.cs" />
     <Compile Include="API\Features\Enum\MenuType.cs" />
     <Compile Include="API\Features\Items\Firearm.cs" />
@@ -95,7 +96,9 @@
     <Compile Include="API\Interfaces\IPlugin.cs" />
     <Compile Include="API\Features\Enum\DoorType.cs" />
     <Compile Include="API\Features\Enum\GeneratorState.cs" />
+    <Compile Include="API\Internal\CustomHint.cs" />
     <Compile Include="API\Internal\FakeConnection.cs" />
+    <Compile Include="API\Internal\NebuliPatches\HintPatch.cs" />
     <Compile Include="Events\EventArguments\ICancellableEvent.cs" />
     <Compile Include="Events\EventArguments\IDamageEvent.cs" />
     <Compile Include="Events\EventArguments\IPlayerEvent.cs" />
