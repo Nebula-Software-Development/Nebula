@@ -169,6 +169,9 @@ public class Item
             InventorySystem.Items.Firearms.Firearm firearm => new Firearm(firearm),
             InventorySystem.Items.Keycards.KeycardItem keycard => new Keycard(keycard),
             InventorySystem.Items.Coin.Coin coin => new Coin(coin),
+            InventorySystem.Items.Armor.BodyArmor armor => new BodyArmor(armor),
+            InventorySystem.Items.Flashlight.FlashlightItem flashlight => new Flashlight(flashlight),
+            InventorySystem.Items.MicroHID.MicroHIDItem microHID => new
             _ => null,
         };
     }

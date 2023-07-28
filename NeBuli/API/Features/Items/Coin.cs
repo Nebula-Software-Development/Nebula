@@ -1,6 +1,4 @@
-﻿
-
-namespace Nebuli.API.Features.Items;
+﻿namespace Nebuli.API.Features.Items;
 
 public class Coin : Item
 {
