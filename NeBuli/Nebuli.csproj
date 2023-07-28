@@ -68,11 +68,16 @@
     <Compile Include="API\Features\Items\Coin.cs" />
     <Compile Include="API\Features\Items\Firearm.cs" />
     <Compile Include="API\Features\Items\Flashlight.cs" />
+    <Compile Include="API\Features\Items\Jailbird.cs" />
     <Compile Include="API\Features\Items\Keycard.cs" />
     <Compile Include="API\Features\Items\MicroHID.cs" />
     <Compile Include="API\Features\Items\Pickups\FirearmPickup.cs" />
     <Compile Include="API\Features\Items\Item.cs" />
     <Compile Include="API\Features\Items\Pickups\KeycardPickup.cs" />
+    <Compile Include="API\Features\Items\Radio.cs" />
+    <Compile Include="API\Features\Items\Usables\Adrenaline.cs" />
+    <Compile Include="API\Features\Items\Usables\Medkit.cs" />
+    <Compile Include="API\Features\Items\Usables\Painkillers.cs" />
     <Compile Include="API\Features\Log.cs" />
     <Compile Include="API\Features\Map\Door.cs" />
     <Compile Include="API\Features\Map\Generator.cs" />

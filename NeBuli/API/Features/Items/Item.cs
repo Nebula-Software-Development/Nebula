@@ -4,6 +4,7 @@ using InventorySystem.Items;
 using InventorySystem.Items.Firearms;
 using InventorySystem.Items.Firearms.Attachments;
 using InventorySystem.Items.Firearms.Attachments.Components;
+using InventorySystem.Items.Usables;
 using Nebuli.API.Features.Player;
 using System.Collections.Generic;
 using System.Linq;
@@ -171,7 +172,12 @@ public class Item
             InventorySystem.Items.Coin.Coin coin => new Coin(coin),
             InventorySystem.Items.Armor.BodyArmor armor => new BodyArmor(armor),
             InventorySystem.Items.Flashlight.FlashlightItem flashlight => new Flashlight(flashlight),
-            InventorySystem.Items.MicroHID.MicroHIDItem microHID => new
+            InventorySystem.Items.MicroHID.MicroHIDItem microHID => new MicroHID(microHID),
+            InventorySystem.Items.Radio.RadioItem radio => new Radio(radio),
+            InventorySystem.Items.Jailbird.JailbirdItem jailbird => new Jailbird(jailbird),
+            Adrenaline adreniline => new Usables.Adrenaline(adreniline),
+            Medkit medkit => new Usables.Medkit(medkit),
+            Painkillers painkillers => new Usables.Painkillers(painkillers),
             _ => null,
         };
     }
