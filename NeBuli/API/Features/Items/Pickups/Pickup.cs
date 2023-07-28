@@ -207,6 +207,7 @@ public class Pickup
         return ItemBase switch
         {
             InventorySystem.Items.Firearms.FirearmPickup firearm => new FirearmPickup(firearm),
+            InventorySystem.Items.Keycards.KeycardPickup keycard => new KeycardPickup(keycard),
             _ => null,
         };
     }

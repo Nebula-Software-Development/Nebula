@@ -122,6 +122,7 @@ public static class Server
     {
         ushort portValue = port ?? ServerPort;
         NetworkServer.SendToAll(new RoundRestartMessage(roundRestartType, offset, portValue, reconnectPlayers, extendedReconnectionPeriod));
+        RoundRestart.InitiateRoundRestart();
     }
 
     /// <summary>

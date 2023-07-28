@@ -51,7 +51,7 @@ public class CustomHintManager : MonoBehaviour
 
             if (!HintDisplay.SuppressedReceivers.Contains(player.ReferenceHub.connectionToClient))
             {
-                player.ReferenceHub.connectionToClient.Send(new HintMessage(new TextHint("sus")));
+                player.ReferenceHub.connectionToClient.Send(new HintMessage(new TextHint(hintMessage.ToString())));
             }
         }
         catch (Exception e)

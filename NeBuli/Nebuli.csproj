@@ -64,9 +64,12 @@
     <Compile Include="API\Features\CustomHintManager.cs" />
     <Compile Include="API\Features\Decontamination.cs" />
     <Compile Include="API\Features\Enum\MenuType.cs" />
+    <Compile Include="API\Features\Items\Coin.cs" />
     <Compile Include="API\Features\Items\Firearm.cs" />
+    <Compile Include="API\Features\Items\Keycard.cs" />
     <Compile Include="API\Features\Items\Pickups\FirearmPickup.cs" />
     <Compile Include="API\Features\Items\Item.cs" />
+    <Compile Include="API\Features\Items\Pickups\KeycardPickup.cs" />
     <Compile Include="API\Features\Log.cs" />
     <Compile Include="API\Features\Map\Door.cs" />
     <Compile Include="API\Features\Map\Generator.cs" />

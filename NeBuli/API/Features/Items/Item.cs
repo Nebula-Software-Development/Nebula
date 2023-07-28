@@ -167,6 +167,8 @@ public class Item
         return itemBase switch
         {
             InventorySystem.Items.Firearms.Firearm firearm => new Firearm(firearm),
+            InventorySystem.Items.Keycards.KeycardItem keycard => new Keycard(keycard),
+            InventorySystem.Items.Coin.Coin coin => new Coin(coin),
             _ => null,
         };
     }
