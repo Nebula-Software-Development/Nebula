@@ -1,9 +1,6 @@
 ﻿using Nebuli.API.Features.Player;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Nebuli.API.Features.Map;
 
 namespace Nebuli.Events.EventArguments.Player
 {
@@ -12,6 +9,7 @@ namespace Nebuli.Events.EventArguments.Player
         public PlayerTriggeringTesla(ReferenceHub player, TeslaGate teslaGate, bool inIdleRange, bool isTriggerable)
         {
             Player = NebuliPlayer.Get(player);
+            TeslaGate = NebuliTeslaGate.Get(teslaGate);
             IsCancelled = false;
             IsInIdleRange = inIdleRange;
             IsTriggerable = isTriggerable;
@@ -19,6 +17,8 @@ namespace Nebuli.Events.EventArguments.Player
         public bool IsCancelled { get; set; }
 
         public NebuliPlayer Player { get; }
+        
+        public NebuliTeslaGate TeslaGate { get; }
 
         public bool IsInIdleRange { get; set; }
 
