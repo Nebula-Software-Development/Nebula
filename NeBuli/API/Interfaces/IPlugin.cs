@@ -7,7 +7,7 @@ namespace Nebuli.API.Features;
 /// The default plugin interface for Nebuli.
 /// </summary>
 /// <typeparam name="TConfig">The plugins config.</typeparam>
-public interface IPlugin<out TConfig> where TConfig : IConfig
+public interface IPlugin<out TConfig> where TConfig : IConfiguration
 {
     /// <summary>
     /// Gets the plugins name.
@@ -52,5 +52,5 @@ public interface IPlugin<out TConfig> where TConfig : IConfig
     /// <summary>
     /// Reloads the plugin's config.
     /// </summary>
-    void ReloadConfig(IConfig config);
+    void ReloadConfig(IConfiguration config);
 }

@@ -6,5 +6,5 @@ namespace Nebuli.Loader;
 
 public static class NebuliInfo
 {
-    public static readonly Version NebuliVersion = new(1, 0, 7);
+    public static readonly Version NebuliVersion = new(1, 0, 8);
 }
