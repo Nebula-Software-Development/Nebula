@@ -11,8 +11,8 @@ namespace Nebuli.Events.EventArguments.Player
             Player = NebuliPlayer.Get(player);
             TeslaGate = NebuliTeslaGate.Get(teslaGate);
             IsCancelled = false;
-            IsInIdleRange = inIdleRange;
-            IsTriggerable = isTriggerable;
+            IsInIdleRange = teslaGate.IsInIdleRange(player);
+            IsTriggerable = NebuliTeslaGate.Get(teslaGate).InHurtRange(NebuliPlayer.Get(player));
         }
         public bool IsCancelled { get; set; }
 

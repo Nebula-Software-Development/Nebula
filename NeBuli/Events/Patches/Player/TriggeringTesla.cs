@@ -2,6 +2,7 @@
 using System.Reflection.Emit;
 using HarmonyLib;
 using Nebuli.API.Features.Map;
+using Nebuli.API.Features.Player;
 using Nebuli.Events.EventArguments.Player;
 using Nebuli.Events.Handlers;
 using NorthwoodLib.Pools;
@@ -17,7 +18,7 @@ public class TriggeringTesla
     {
         List<CodeInstruction> newInstructions = EventManager.CheckPatchInstructions<TriggeringTesla>(101, instructions);
 
-        int index = newInstructions.FindIndex(instruction => instruction.Calls(AccessTools.PropertyGetter(typeof(ReferenceHub), nameof(ReferenceHub.AllHubs))));
+        int index = newInstructions.FindIndex(instruction => instruction.Calls(PropertyGetter(typeof(ReferenceHub), nameof(ReferenceHub.AllHubs))));
         
         newInstructions.RemoveRange(index, newInstructions.FindIndex(i => i.opcode == OpCodes.Endfinally) + 1 - index);
 
@@ -37,16 +38,25 @@ public class TriggeringTesla
 
     private static void ProcessEvent(TeslaGate teslaGate, ref bool inIdleRange, ref bool isTriggerable)
     {
-        var args = new PlayerTriggeringTesla(NebuliTeslaGate.Get(teslaGate).NearestPlayer.ReferenceHub, teslaGate, inIdleRange, isTriggerable);
-        PlayerHandlers.OnTriggerTesla(args);
+        foreach (NebuliPlayer player in NebuliPlayer.List)
+        {
+            if (player is not null && teslaGate.IsInIdleRange(player.ReferenceHub))
+            {
+                PlayerTriggeringTesla args = new(player.ReferenceHub, teslaGate, inIdleRange, isTriggerable);
 
-        if (args.IsCancelled)
-            return;
-        
-        if (args.IsTriggerable && !isTriggerable)
-            isTriggerable = args.IsTriggerable;
+                PlayerHandlers.OnTriggerTesla(args);
 
-        if (args.IsInIdleRange && !inIdleRange)
-            inIdleRange = args.IsInIdleRange;
+                if (args.IsCancelled)
+                {
+                    isTriggerable = false;
+                    inIdleRange = false;
+                    break;
+                }
+
+                isTriggerable = args.IsTriggerable;
+                inIdleRange = args.IsInIdleRange;
+            }
+        }
     }
+
 }
