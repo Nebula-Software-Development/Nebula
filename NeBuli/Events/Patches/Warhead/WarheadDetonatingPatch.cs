@@ -1,6 +1,4 @@
 ﻿using HarmonyLib;
-using InventorySystem.Items.Firearms.Modules;
-using Nebuli.Events.EventArguments.Player;
 using Nebuli.Events.EventArguments.Server;
 using Nebuli.Events.Handlers;
 using NorthwoodLib.Pools;

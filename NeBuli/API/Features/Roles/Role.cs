@@ -1,6 +1,5 @@
 ﻿using Nebuli.API.Features.Player;
 using PlayerRoles;
-using PlayerRoles.PlayableScps.Scp049.Zombies;
 using PlayerRoles.PlayableScps.Scp049;
 using PlayerRoles.PlayableScps.Scp079;
 using PlayerRoles.PlayableScps.Scp096;
