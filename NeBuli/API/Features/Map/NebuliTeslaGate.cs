@@ -98,6 +98,22 @@ namespace Nebuli.API.Features.Map
         }
 
         /// <summary>
+        /// Gets if the specified player is in hurting range of the tesla gate.
+        /// </summary>
+        /// <param name="player">The player to check.</param>
+        /// <returns>True if in hurting range, otherwise false.</returns>
+        public bool InHurtRange(NebuliPlayer player)
+        {
+            if (player == null)
+                return false;
+
+            float distanceSquared = (Position - player.Position).sqrMagnitude;
+            float hurtRangeSquared = Base.sizeOfTrigger * 2.2f;
+
+            return distanceSquared <= hurtRangeSquared;
+        }
+
+        /// <summary>
         /// Gets the nearest player to the tesla gate.
         /// </summary>
         public NebuliPlayer NearestPlayer

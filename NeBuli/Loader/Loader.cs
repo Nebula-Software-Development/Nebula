@@ -26,11 +26,11 @@ public class Loader
 
     internal static void EDisablePlugins() => DisablePlugins();
 
-    internal static Dictionary<Assembly, IConfig> _plugins = new();
+    internal static Dictionary<Assembly, IConfiguration> _plugins = new();
 
-    private static Dictionary<IPlugin<IConfig>, IConfig> PluginConfig = new();
+    private static Dictionary<IPlugin<IConfiguration>, IConfiguration> PluginConfig = new();
 
-    private static Dictionary<IConfig, string> configPaths = new();
+    private static Dictionary<IConfiguration, string> configPaths = new();
 
     [PluginConfig]
     public static LoaderConfiguration Configuration;
@@ -87,7 +87,7 @@ public class Loader
     [PluginUnload]
     public void UnLoad()
     {
-        foreach (IPlugin<IConfig> plugin in PluginConfig.Keys)
+        foreach (IPlugin<IConfiguration> plugin in PluginConfig.Keys)
         {
             plugin.OnDisabled();
         }
@@ -135,7 +135,7 @@ public class Loader
             try
             {
                 Assembly loadPlugin = Assembly.Load(File.ReadAllBytes(file.FullName));
-                IPlugin<IConfig> newPlugin = NewPlugin(loadPlugin);
+                IPlugin<IConfiguration> newPlugin = NewPlugin(loadPlugin);
 
                 if (newPlugin.NebulisVersion.Major < NebuliInfo.NebuliVersion.Major && !Configuration.LoadOutDatedPlugins && !newPlugin.SkipVersionCheck || newPlugin.NebulisVersion.Major > NebuliInfo.NebuliVersion.Major && !Configuration.LoadOutDatedPlugins && !newPlugin.SkipVersionCheck)
                 {
@@ -143,7 +143,7 @@ public class Loader
                     continue;
                 }
 
-                IConfig config = SetupPluginConfig(newPlugin, serializer, deserializer);
+                IConfiguration config = SetupPluginConfig(newPlugin, serializer, deserializer);
 
                 if (!config.IsEnabled)
                 {
@@ -173,7 +173,7 @@ public class Loader
         Log.Info(Configuration.StartupMessage);
     }
 
-    private static IPlugin<IConfig> NewPlugin(Assembly assembly)
+    private static IPlugin<IConfiguration> NewPlugin(Assembly assembly)
     {
         try
         {
@@ -183,7 +183,7 @@ public class Loader
                     continue;
 
                 Log.Debug($"Trying to create plugin instance for type: {type.Name}");
-                IPlugin<IConfig> plugin = CreatePluginInstance(type);
+                IPlugin<IConfiguration> plugin = CreatePluginInstance(type);
                 if (plugin is not null)
                 {
                     Log.Debug($"Plugin instance created successfully for type: {type.Name}");
@@ -203,16 +203,16 @@ public class Loader
 
     private static bool IsDerivedFromPlugin(Type type)
     {
-        return typeof(IPlugin<IConfig>).IsAssignableFrom(type) && !type.IsAbstract && !type.IsInterface;
+        return typeof(IPlugin<IConfiguration>).IsAssignableFrom(type) && !type.IsAbstract && !type.IsInterface;
     }
 
-    private static IPlugin<IConfig> CreatePluginInstance(Type type)
+    private static IPlugin<IConfiguration> CreatePluginInstance(Type type)
     {
         ConstructorInfo constructor = type.GetConstructor(Type.EmptyTypes);
         if (constructor is not null)
         {
             Log.Debug($"Found constructor for type: {type.Name}");
-            return constructor.Invoke(null) as IPlugin<IConfig>;
+            return constructor.Invoke(null) as IPlugin<IConfiguration>;
         }
 
         PropertyInfo pluginProperty = type.GetProperties(BindingFlags.Static | BindingFlags.NonPublic | BindingFlags.Public).FirstOrDefault(property => property.PropertyType == type);
@@ -225,10 +225,10 @@ public class Loader
             return null;
         }
 
-        return pluginProperty?.GetValue(null) as IPlugin<IConfig>;
+        return pluginProperty?.GetValue(null) as IPlugin<IConfiguration>;
     }
 
-    private static IConfig SetupPluginConfig(IPlugin<IConfig> plugin, ISerializer serializer, IDeserializer deserializer)
+    private static IConfiguration SetupPluginConfig(IPlugin<IConfiguration> plugin, ISerializer serializer, IDeserializer deserializer)
     {
         string configPath = Path.Combine(Paths.PluginConfigDirectory.FullName, plugin.PluginName + "_Config.yml");
         try
@@ -244,7 +244,7 @@ public class Loader
             else
             {
                 Log.Debug($"Deserializing {plugin.PluginName} config at {configPath}...");
-                IConfig config = (IConfig)deserializer.Deserialize(File.ReadAllText(configPath), plugin.Config.GetType());
+                IConfiguration config = (IConfiguration)deserializer.Deserialize(File.ReadAllText(configPath), plugin.Config.GetType());
                 configPaths.Add(config, configPath);
                 plugin.ReloadConfig(config);
                 return config;
@@ -267,11 +267,11 @@ public class Loader
         IDeserializer deserializer = new DeserializerBuilder().WithNamingConvention(UnderscoredNamingConvention.Instance).Build();
         Log.Info("Reloading plugin configs...");
 
-        foreach (IPlugin<IConfig> plugin in PluginConfig.Keys)
+        foreach (IPlugin<IConfiguration> plugin in PluginConfig.Keys)
         {
             try
             {
-                plugin.ReloadConfig((IConfig)deserializer.Deserialize(File.ReadAllText(configPaths[plugin.Config]), plugin.Config.GetType()));
+                plugin.ReloadConfig((IConfiguration)deserializer.Deserialize(File.ReadAllText(configPaths[plugin.Config]), plugin.Config.GetType()));
                 PluginConfig[plugin] = plugin.Config;
             }
             catch (Exception e)
@@ -283,7 +283,7 @@ public class Loader
 
     private static void DisablePlugins()
     {
-        foreach (IPlugin<IConfig> plugin in PluginConfig.Keys)
+        foreach (IPlugin<IConfiguration> plugin in PluginConfig.Keys)
         {
             plugin.OnDisabled();
         }

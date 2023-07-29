@@ -5,7 +5,7 @@ namespace Nebuli.API.Interfaces;
 /// <summary>
 /// Default Interface for plugin configs.
 /// </summary>
-public interface IConfig
+public interface IConfiguration
 {
     /// <summary>
     /// Determines if the plugin is enabled or not.

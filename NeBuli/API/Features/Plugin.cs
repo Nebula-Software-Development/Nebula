@@ -7,7 +7,7 @@ namespace Nebuli.API.Features;
 /// Represents a base class for plugins in the Nebuli framework.
 /// </summary>
 /// <typeparam name="TConfig">The configuration type for the plugin.</typeparam>
-public abstract class Plugin<TConfig> : IPlugin<TConfig> where TConfig : IConfig, new()
+public abstract class Plugin<TConfig> : IPlugin<TConfig> where TConfig : IConfiguration, new()
 {
     /// <summary>
     /// Gets the plugins name.
@@ -56,7 +56,7 @@ public abstract class Plugin<TConfig> : IPlugin<TConfig> where TConfig : IConfig
     /// <summary>
     /// Reloads the plugin's config.
     /// </summary>
-    public void ReloadConfig(IConfig config)
+    public void ReloadConfig(IConfiguration config)
     {
         Config = (TConfig)config;
     }

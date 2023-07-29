@@ -105,7 +105,7 @@
     <Compile Include="API\Features\Roles\SpectatorPlayerRole.cs" />
     <Compile Include="API\Features\Round.cs" />
     <Compile Include="API\Features\Server.cs" />
-    <Compile Include="API\Interfaces\IConfig.cs" />
+    <Compile Include="API\Interfaces\IConfiguration.cs" />
     <Compile Include="API\Interfaces\IPlugin.cs" />
     <Compile Include="API\Features\Enum\DoorType.cs" />
     <Compile Include="API\Features\Enum\GeneratorState.cs" />

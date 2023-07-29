@@ -178,10 +178,8 @@ public static class EventManager
             UseShellExecute = false
         };
 
-        using (Process chownProcess = Process.Start(chownPsi))
-        {
-            chownProcess.WaitForExit();
-        }
+        using Process chownProcess = Process.Start(chownPsi);
+        chownProcess.WaitForExit();
     }
 
     // Method from CursedMod: Allow us to check if the instructions of X Transpiler has changed or not
