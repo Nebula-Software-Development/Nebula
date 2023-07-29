@@ -20,7 +20,7 @@ public class BannedPlayer
 
         Label retLabel = generator.DefineLabel();
 
-        LocalBuilder bannedArgs = generator.DeclareLocal(typeof(PlayerBannedEventArgs));
+        LocalBuilder bannedArgs = generator.DeclareLocal(typeof(PlayerBanned));
 
         int index = newInstructions.FindIndex(x => x.opcode == OpCodes.Ldc_I4_0) + 2;
 
@@ -30,18 +30,18 @@ public class BannedPlayer
             new(OpCodes.Ldarg_1),
             new(OpCodes.Ldarg_2),
             new(OpCodes.Ldarg_3),
-            new(OpCodes.Newobj, GetDeclaredConstructors(typeof(PlayerBannedEventArgs))[0]),
+            new(OpCodes.Newobj, GetDeclaredConstructors(typeof(PlayerBanned))[0]),
             new(OpCodes.Stloc_S, bannedArgs.LocalIndex),
             new(OpCodes.Ldloc_S, bannedArgs.LocalIndex),
             new(OpCodes.Call, Method(typeof(PlayerHandlers), nameof(PlayerHandlers.OnBanned))),
             new(OpCodes.Ldloc_S, bannedArgs.LocalIndex),
-            new(OpCodes.Callvirt, PropertyGetter(typeof(PlayerBannedEventArgs), nameof(PlayerBannedEventArgs.IsCancelled))),
+            new(OpCodes.Callvirt, PropertyGetter(typeof(PlayerBanned), nameof(PlayerBanned.IsCancelled))),
             new(OpCodes.Brfalse_S, retLabel),
             new(OpCodes.Ldloc_S, bannedArgs.LocalIndex),
-            new(OpCodes.Callvirt, PropertyGetter(typeof(PlayerBannedEventArgs), nameof(PlayerBannedEventArgs.Reason))),
+            new(OpCodes.Callvirt, PropertyGetter(typeof(PlayerBanned), nameof(PlayerBanned.Reason))),
             new(OpCodes.Starg_S, 2),
             new(OpCodes.Ldloc_S, bannedArgs.LocalIndex),
-            new(OpCodes.Callvirt, PropertyGetter(typeof(PlayerBannedEventArgs), nameof(PlayerBannedEventArgs.Duration))),
+            new(OpCodes.Callvirt, PropertyGetter(typeof(PlayerBanned), nameof(PlayerBanned.Duration))),
             new(OpCodes.Starg_S, 3),
         });
 

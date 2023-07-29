@@ -3,6 +3,7 @@ using CustomPlayerEffects;
 using Footprinting;
 using Hints;
 using InventorySystem;
+using InventorySystem.Items;
 using MapGeneration;
 using Mirror;
 using Nebuli.API.Features.Enum;
@@ -37,12 +38,29 @@ public class NebuliPlayer
         ReferenceHub = hub;
         GameObject = ReferenceHub.gameObject;
         Transform = ReferenceHub.transform;
+        CustomHintManager = GameObject.AddComponent<CustomHintManager>();
+        CustomHintManager.player = this;
 
         if (hub == ReferenceHub.HostHub && Server.NebuliHost is not null)
             return;
 
         Create();
         Dictionary.Add(hub, this);
+    }
+
+    internal NebuliPlayer(GameObject gameObject)
+    {
+        ReferenceHub = ReferenceHub.GetHub(gameObject);
+        GameObject = ReferenceHub.gameObject;
+        Transform = ReferenceHub.transform;
+        CustomHintManager = GameObject.AddComponent<CustomHintManager>();
+        CustomHintManager.player = this;
+
+        if (ReferenceHub == ReferenceHub.HostHub && Server.NebuliHost is not null)
+            return;
+
+        Create();
+        Dictionary.Add(ReferenceHub, this);
     }
 
     public static IEnumerable<NebuliPlayer> Collection => Dictionary.Values;
@@ -72,6 +90,12 @@ public class NebuliPlayer
     /// The player's ReferenceHub.
     /// </summary>
     public ReferenceHub ReferenceHub { get; }
+
+    /// <summary>
+    /// Gets or sets if the player is a NPC.
+    /// </summary>
+    public bool IsNPC { get; set; }
+
 
     /// <summary>
     /// The player's GameObject.
@@ -668,6 +692,11 @@ public class NebuliPlayer
     }
 
     /// <summary>
+    /// Gets the players <see cref="Features.CustomHintManager"/>.
+    /// </summary>
+    public CustomHintManager CustomHintManager { get; }
+
+    /// <summary>
     /// Adds a component of the specified type to the player's GameObject.
     /// </summary>
     /// <typeparam name="T">The type of the component to add.</typeparam>
@@ -810,6 +839,11 @@ public class NebuliPlayer
     /// </summary>
     private void Create()
     {
+        if (UserId is null)
+        {
+            RawUserId = $"NebuliUserId-{PlayerCount}";
+            return;
+        }
         int index = UserId.LastIndexOf('@');
 
         if (index == -1)
@@ -837,14 +871,34 @@ public class NebuliPlayer
     public bool IsDead => CurrentRole.IsDead;
 
     /// <summary>
-    /// Gets or sets the current item held by the player. WILL BE NULL IF THE PLAYERS CURRENT ITEM IS NONE.
+    /// Gets or sets the current item held by the player.
     /// </summary>
     public Item CurrentItem
     {
         get => Item.ItemGet(Inventory.CurItem.SerialNumber);
-        set => Inventory.CurInstance = value.Base;
+        set
+        {
+            Inventory.ServerSelectItem(value.Serial);
+            Inventory.UserCode_CmdSelectItem__UInt16(value.Serial);
+        }
     }
 
+    /// <summary>
+    /// Adds ammo to the players inventory.
+    /// </summary>
+    /// <param name="ammoType">The type of ammo to add.</param>
+    /// <param name="amount">The ammount of ammo to add.</param>
+    public void AddAmmo(ItemType ammoType, int amount) => Inventory.ServerAddAmmo(ammoType, amount);
+
+    /// <summary>
+    /// Adds a item to the players inventory.
+    /// </summary>
+    /// <param name="item">The item to add.</param>
+    public Item AddItem(ItemType item)
+    {
+        return Item.ItemGet(Inventory.ServerAddItem(item));
+    }
+    
     /// <summary>
     /// Gets the players <see cref="InventorySystem.Inventory"/>.
     /// </summary>

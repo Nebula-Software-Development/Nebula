@@ -29,10 +29,10 @@ public class HurtPlayer
             new(OpCodes.Ldarg_0),
             new(OpCodes.Ldfld, Field(typeof(PlayerStats), nameof(PlayerStats._hub))),
             new(OpCodes.Ldarg_1),
-            new(OpCodes.Newobj, GetDeclaredConstructors(typeof(PlayerHurtEventArgs))[0]),
+            new(OpCodes.Newobj, GetDeclaredConstructors(typeof(PlayerHurt))[0]),
             new(OpCodes.Dup),
             new(OpCodes.Call, Method(typeof(PlayerHandlers), nameof(PlayerHandlers.OnHurt))),
-            new(OpCodes.Callvirt, PropertyGetter(typeof(PlayerHurtEventArgs), nameof(PlayerHurtEventArgs.IsCancelled))),
+            new(OpCodes.Callvirt, PropertyGetter(typeof(PlayerHurt), nameof(PlayerHurt.IsCancelled))),
             new(OpCodes.Brtrue_S, retLabel)
         });
 
@@ -45,10 +45,10 @@ public class HurtPlayer
             new(OpCodes.Ldarg_0),
             new(OpCodes.Ldfld, Field(typeof(PlayerStats), nameof(PlayerStats._hub))),
             new(OpCodes.Ldarg_1),
-            new(OpCodes.Newobj, GetDeclaredConstructors(typeof(PlayerDyingEventArgs))[0]),
+            new(OpCodes.Newobj, GetDeclaredConstructors(typeof(PlayerDying))[0]),
             new(OpCodes.Dup),
             new(OpCodes.Call, Method(typeof(PlayerHandlers), nameof(PlayerHandlers.OnDying))),
-            new(OpCodes.Callvirt, PropertyGetter(typeof(PlayerDyingEventArgs), nameof(PlayerDyingEventArgs.IsCancelled))),
+            new(OpCodes.Callvirt, PropertyGetter(typeof(PlayerDying), nameof(PlayerDying.IsCancelled))),
             new(OpCodes.Brtrue_S, retLabel)
         });
 

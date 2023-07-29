@@ -87,9 +87,14 @@ public class Loader
     [PluginUnload]
     public void UnLoad()
     {
+        foreach (IPlugin<IConfig> plugin in PluginConfig.Keys)
+        {
+            plugin.OnDisabled();
+        }
+
         _harmony.UnpatchAll(_harmony.Id);
         _harmony = null;
-
+        
         EventManager.UnRegisterBaseEvents();
     }
 
@@ -162,7 +167,7 @@ public class Loader
         if (pluginCount > 0)
         {
             CustomNetworkManager.Modded = true;
-            BuildInfoCommand.ModDescription = $"Framework : Nebuli\n Framework Version : {NebuliInfo.NebuliVersion}\n Copyright : Copyright (c) 2023 Nebuli Team";
+            BuildInfoCommand.ModDescription = $"Framework : Nebuli\nFramework Version : {NebuliInfo.NebuliVersion}\nCopyright : Copyright (c) 2023 Nebuli Team";
         }
 
         Log.Info(Configuration.StartupMessage);

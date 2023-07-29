@@ -6,10 +6,10 @@ namespace Nebuli.Events.Handlers
     {
         public static EventManager.CustomEventHandler<RoundStartedEvent> RoundStart;
 
-        public static EventManager.CustomEventHandler<WarheadDetonatedEventArgs> WarheadDetonated;
+        public static EventManager.CustomEventHandler<WarheadDetonating> WarheadDetonated;
 
         internal static void OnRoundStart() => RoundStart.CallEvent(null);
 
-        internal static void OnWarheadDetonated(WarheadDetonatedEventArgs ev) => WarheadDetonated.CallEvent(ev);
+        internal static void OnWarheadDetonated(WarheadDetonating ev) => WarheadDetonated.CallEvent(ev);
     }
 }

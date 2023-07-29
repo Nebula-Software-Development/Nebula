@@ -25,7 +25,7 @@ public class VerificationCompleted
             new(OpCodes.Callvirt, PropertyGetter(typeof(ServerRoles), nameof(ServerRoles.isLocalPlayer))),
             new(OpCodes.Brtrue_S, retLabel),
             new(OpCodes.Ldarg_0),
-            new(OpCodes.Newobj, GetDeclaredConstructors(typeof(PlayerJoinEventArgs))[0]),
+            new(OpCodes.Newobj, GetDeclaredConstructors(typeof(PlayerJoin))[0]),
             new(OpCodes.Call, Method(typeof(PlayerHandlers), nameof(PlayerHandlers.OnJoin))),
         });
 
