@@ -67,6 +67,18 @@ public class Pickup
     }
 
     /// <summary>
+    /// Sets the search time needed to pick this item up by the specified player.
+    /// </summary>
+    /// <param name="player">The player to set it to.</param>
+    public void SearchTime(NebuliPlayer player) => Base.SearchTimeForPlayer(player.ReferenceHub);
+
+    /// <summary>
+    /// Sets the search time needed to pick this item up by the specified ReferenceHub.
+    /// </summary>
+    /// <param name="hub">The ReferenceHub to set it to.</param>
+    public void SearchTime(ReferenceHub hub) => Base.SearchTimeForPlayer(hub);
+
+    /// <summary>
     /// Gets the pickups ItemType.
     /// </summary>
     public ItemType ItemType => Base.Info.ItemId;
@@ -208,6 +220,8 @@ public class Pickup
         {
             InventorySystem.Items.Firearms.FirearmPickup firearm => new FirearmPickup(firearm),
             InventorySystem.Items.Keycards.KeycardPickup keycard => new KeycardPickup(keycard),
+            InventorySystem.Items.Armor.BodyArmorPickup armorPickup => new ArmorPickup(armorPickup),
+            InventorySystem.Items.Jailbird.JailbirdPickup jailbirdPickup => new JailbirdPickup(jailbirdPickup),
             _ => null,
         };
     }
