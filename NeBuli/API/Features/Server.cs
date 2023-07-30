@@ -17,7 +17,7 @@ public static class Server
     /// <summary>
     /// Gets the servers <see cref="NebuliPlayer"/> Host.
     /// </summary>
-    public static ReferenceHub HostHub { get; } = ReferenceHub.HostHub;
+    public static ReferenceHub HostHub { get; internal set; } = null;
 
     /// <summary>
     /// Gets or sets whether friendly fire is on or not.
