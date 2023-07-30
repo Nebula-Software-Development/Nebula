@@ -28,18 +28,16 @@ jobs:
     # Install NuGet CLI
     - name: Setup NuGet CLI
       run: |
-        nuget_version=latest
-        nuget_tool=nuget.exe
-        nuget_url="https://dist.nuget.org/win-x86-commandline/${nuget_version}/${nuget_tool}"
-        nuget_destination="${HOME}/bin/${nuget_tool}"
-        curl -Lsfo "${nuget_destination}" "${nuget_url}"
-        chmod +x "${nuget_destination}"
-        echo "NuGet CLI installed to ${nuget_destination}"
+        $url = "https://dist.nuget.org/win-x86-commandline/latest/nuget.exe"
+        $nuget_destination = "${HOME}/bin/nuget.exe"
+        Invoke-WebRequest -Uri $url -OutFile $nuget_destination
+        echo "NuGet CLI installed to $nuget_destination"
 
     # Create the NuGet package
     - name: Create NuGet package
       run: |
-        nuget pack Nebuli/Nebuli.csproj -Prop Configuration=Release -OutputDirectory ${{ env.NuGetDirectory }}
+        $nuget_path = "${HOME}/bin/nuget.exe"
+        & $nuget_path pack Nebuli/Nebuli.csproj -Prop Configuration=Release -OutputDirectory ${{ env.NuGetDirectory }}
         echo "NuGet package created."
 
     # Publish the NuGet package as an artifact
@@ -56,13 +54,10 @@ jobs:
     steps:
     - name: Setup NuGet CLI
       run: |
-        nuget_version=latest
-        nuget_tool=nuget.exe
-        nuget_url="https://dist.nuget.org/win-x86-commandline/${nuget_version}/${nuget_tool}"
-        nuget_destination="${HOME}/bin/${nuget_tool}"
-        curl -Lsfo "${nuget_destination}" "${nuget_url}"
-        chmod +x "${nuget_destination}"
-        echo "NuGet CLI installed to ${nuget_destination}"
+        $url = "https://dist.nuget.org/win-x86-commandline/latest/nuget.exe"
+        $nuget_destination = "${HOME}/bin/nuget.exe"
+        Invoke-WebRequest -Uri $url -OutFile $nuget_destination
+        echo "NuGet CLI installed to $nuget_destination"
 
     # Download the NuGet package created in the previous job
     - uses: actions/download-artifact@v3
@@ -73,7 +68,9 @@ jobs:
     # Validate the NuGet package
     # You can replace "YourPackageName" with the actual package name if needed
     - name: Validate package
-      run: nuget validate ${{ env.NuGetDirectory }}/*.nupkg
+      run: |
+        $nuget_path = "${HOME}/bin/nuget.exe"
+        & $nuget_path validate ${{ env.NuGetDirectory }}/*.nupkg
 
   run_test:
     runs-on: ubuntu-latest
@@ -99,6 +96,7 @@ jobs:
     # If you retry a failed workflow, already published packages will be skipped without error.
     - name: Publish NuGet package
       run: |
+        $nuget_path = "${HOME}/bin/nuget.exe"
         foreach($file in (Get-ChildItem "${{ env.NuGetDirectory }}" -Recurse -Include *.nupkg)) {
-            nuget push $file -ApiKey "${{ secrets.NUGET_APIKEY }}" -Source https://api.nuget.org/v3/index.json -SkipDuplicate
+            & $nuget_path push $file -ApiKey "${{ secrets.NUGET_APIKEY }}" -Source https://api.nuget.org/v3/index.json -SkipDuplicate
         }
