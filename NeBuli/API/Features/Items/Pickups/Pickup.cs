@@ -18,7 +18,7 @@ public class Pickup
     /// </summary>
     public static Dictionary<ItemPickupBase, Pickup> Dictionary = new();
 
-    private bool Spawned = false;
+    public bool Spawned { get; private set; }
 
     /// <summary>
     /// Gets the <see cref="ItemPickupBase"/>.
