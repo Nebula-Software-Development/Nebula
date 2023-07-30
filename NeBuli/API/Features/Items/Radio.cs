@@ -23,7 +23,7 @@ public class Radio : Item
     public byte BatteryPercent => Base.BatteryPercent;
 
     /// <summary>
-    /// Gets if the radio is useable.
+    /// Gets if the radio is usable.
     /// </summary>
     public bool IsUsable => Base.IsUsable;
 
