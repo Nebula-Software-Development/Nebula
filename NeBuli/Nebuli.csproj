@@ -76,6 +76,8 @@
     <Compile Include="API\Features\Items\Item.cs" />
     <Compile Include="API\Features\Items\Pickups\JailbirdPickup.cs" />
     <Compile Include="API\Features\Items\Pickups\KeycardPickup.cs" />
+    <Compile Include="API\Features\Items\Pickups\MicroHIDPickup.cs" />
+    <Compile Include="API\Features\Items\Pickups\RadioPickup.cs" />
     <Compile Include="API\Features\Items\Radio.cs" />
     <Compile Include="API\Features\Items\Usables\Adrenaline.cs" />
     <Compile Include="API\Features\Items\Usables\Medkit.cs" />

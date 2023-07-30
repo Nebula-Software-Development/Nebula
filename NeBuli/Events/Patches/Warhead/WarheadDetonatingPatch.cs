@@ -1,4 +1,5 @@
-﻿using HarmonyLib;
+﻿using Footprinting;
+using HarmonyLib;
 using Nebuli.Events.EventArguments.Server;
 using Nebuli.Events.Handlers;
 using NorthwoodLib.Pools;
@@ -8,7 +9,7 @@ using static HarmonyLib.AccessTools;
 
 namespace Nebuli.Events.Patches.Warhead;
 
-//[HarmonyPatch(typeof(AlphaWarheadController), nameof(AlphaWarheadController.Detonate))]
+[HarmonyPatch(typeof(AlphaWarheadController), nameof(AlphaWarheadController.Detonate))]
 public class WarheadDetonatingPatch
 {
     [HarmonyTranspiler]
@@ -20,8 +21,9 @@ public class WarheadDetonatingPatch
 
         newInstructions.InsertRange(0, new CodeInstruction[]
         {
-            new(OpCodes.Ldarg_0),
-            new(OpCodes.Callvirt, PropertyGetter(typeof(AlphaWarheadController), nameof(AlphaWarheadController.WarheadTriggeredby))),
+            new(OpCodes.Callvirt, PropertyGetter(typeof(AlphaWarheadController), nameof(AlphaWarheadController.Singleton))),
+            new(OpCodes.Ldfld, Field(typeof(AlphaWarheadController), nameof(AlphaWarheadController._triggeringPlayer))),
+            new(OpCodes.Ldfld, Field(typeof(Footprint), nameof(Footprint.Hub))),
             new(OpCodes.Newobj, GetDeclaredConstructors(typeof(WarheadDetonating))[0]),
             new(OpCodes.Dup),
             new(OpCodes.Call, Method(typeof(ServerHandler), nameof(ServerHandler.OnWarheadDetonated))),

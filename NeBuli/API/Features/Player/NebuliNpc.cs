@@ -130,7 +130,6 @@ public class NebuliNpc : NebuliPlayer
         {
             rotation = Quaternion.LookRotation(rotation * Vector3.forward, Vector3.up);
         }
-
         float outfHorizontal = rotation.eulerAngles.y;
         float outfVertical = -rotation.eulerAngles.x;
 

@@ -17,8 +17,11 @@ public class Pickup
     /// A Dictionary of <see cref="ItemPickupBase"/>, and their wrapper class <see cref="Pickup"/>.
     /// </summary>
     public static Dictionary<ItemPickupBase, Pickup> Dictionary = new();
-
-    private bool Spawned = false;
+    
+    /// <summary>
+    /// Gets if the pickup is spawned or not.
+    /// </summary>
+    public bool Spawned { get; private set; }
 
     /// <summary>
     /// Gets the <see cref="ItemPickupBase"/>.
@@ -222,6 +225,8 @@ public class Pickup
             InventorySystem.Items.Keycards.KeycardPickup keycard => new KeycardPickup(keycard),
             InventorySystem.Items.Armor.BodyArmorPickup armorPickup => new ArmorPickup(armorPickup),
             InventorySystem.Items.Jailbird.JailbirdPickup jailbirdPickup => new JailbirdPickup(jailbirdPickup),
+            InventorySystem.Items.MicroHID.MicroHIDPickup microHID => new MicroHIDPickup(microHID),
+            InventorySystem.Items.Radio.RadioPickup radio => new RadioPickup(radio),
             _ => null,
         };
     }
