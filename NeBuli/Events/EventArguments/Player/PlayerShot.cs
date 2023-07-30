@@ -9,15 +9,15 @@ public class PlayerShotEventArgs : EventArgs, IPlayerEvent, ICancellableEvent
     public PlayerShotEventArgs(ReferenceHub player, InventorySystem.Items.Firearms.Firearm firearm)
     {
         Player = NebuliPlayer.Get(player);
-        Firearm = firearm;
+        Firearm = (Firearm)Item.GetPickup(firearm);
         IsCancelled = false;
         Item = Item.ItemGet(firearm);
     }
 
     /// <summary>
-    /// Gets the <see cref="InventorySystem.Items.Firearms.Firearm"/> base.
+    /// Gets the <see cref="API.Features.Items.Firearm"/> base.
     /// </summary>
-    public InventorySystem.Items.Firearms.Firearm Firearm { get; }
+    public Firearm Firearm  { get; }
 
     /// <summary>
     /// Gets or sets if the event is cancelled or not.
