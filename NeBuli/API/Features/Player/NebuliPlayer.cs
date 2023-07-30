@@ -41,9 +41,6 @@ public class NebuliPlayer
         CustomHintManager = GameObject.AddComponent<CustomHintManager>();
         CustomHintManager.player = this;
 
-        if (hub == ReferenceHub.HostHub && Server.NebuliHost is not null)
-            return;
-
         Create();
         Dictionary.Add(hub, this);
     }
@@ -55,9 +52,6 @@ public class NebuliPlayer
         Transform = ReferenceHub.transform;
         CustomHintManager = GameObject.AddComponent<CustomHintManager>();
         CustomHintManager.player = this;
-
-        if (ReferenceHub == ReferenceHub.HostHub && Server.NebuliHost is not null)
-            return;
 
         Create();
         Dictionary.Add(ReferenceHub, this);

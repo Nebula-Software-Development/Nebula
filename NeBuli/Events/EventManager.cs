@@ -119,8 +119,7 @@ public static class EventManager
             Door.Get(door);
         foreach (global::TeslaGate teslaGate in Object.FindObjectsOfType<TeslaGate>())
             NebuliTeslaGate.Get(teslaGate);
-        NebuliPlayer nebuliHost = new(ReferenceHub.HostHub);
-        Server.NebuliHost = nebuliHost;
+        Server.HostHub = ReferenceHub.HostHub;
     }
 
     private static void OnPickupAdded(ItemPickupBase itemPickupBase)

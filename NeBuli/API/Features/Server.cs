@@ -17,7 +17,7 @@ public static class Server
     /// <summary>
     /// Gets the servers <see cref="NebuliPlayer"/> Host.
     /// </summary>
-    public static NebuliPlayer NebuliHost { get; internal set; } = null;
+    public static ReferenceHub HostHub { get; internal set; } = null;
 
     /// <summary>
     /// Gets or sets whether friendly fire is on or not.
@@ -89,10 +89,10 @@ public static class Server
     /// </summary>
     /// <param name="command">The command to send.</param>
     /// <param name="sender">The player sending the command.</param>
-    public static void RunServerCommand(string command, NebuliPlayer sender = null)
+    public static void RunServerCommand(string command, ReferenceHub sender = null)
     {
-        sender ??= NebuliHost;
-        ServerConsole.EnterCommand(command, sender.Sender);
+        sender ??= HostHub;
+        ServerConsole.EnterCommand(command, sender.queryProcessor._sender);
     }
 
     /// <summary>

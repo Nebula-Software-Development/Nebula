@@ -43,7 +43,7 @@ public class Item
     /// Initializes a new instance of the <see cref="Item"/> class with the specified item type and owner.
     /// </summary>
     /// <param name="newItemType">The type of the new item.</param>
-    public Item(ItemType newItemType) => Server.NebuliHost.ReferenceHub.inventory.CreateItemInstance(new(newItemType, 0), false);
+    public Item(ItemType newItemType) => Server.HostHub.inventory.CreateItemInstance(new(newItemType, 0), false);
 
     /// <summary>
     /// Gets a collection of all the current Items.
@@ -126,7 +126,7 @@ public class Item
     /// <param name="itemType">The type of the new item.</param>
     public static void Create(ItemType itemType)
     {
-        Server.NebuliHost.ReferenceHub.inventory.CreateItemInstance(new(itemType, 0), false);
+        Server.HostHub.inventory.CreateItemInstance(new(itemType, 0), false);
     }
 
     /// <summary>

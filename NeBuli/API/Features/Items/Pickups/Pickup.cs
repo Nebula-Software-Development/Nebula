@@ -166,7 +166,6 @@ public class Pickup
     /// <param name="oldOwner">The previous owner of the pickup. If null, the server's host player will be the previous owner.</param>
     public static void SpawnPickup(Pickup pickup, Vector3 position, Quaternion rotation, NebuliPlayer oldOwner = null)
     {
-        oldOwner ??= Server.NebuliHost;
         pickup.Position = position;
         pickup.Rotation = rotation;
         pickup.PreviousOwner = oldOwner;

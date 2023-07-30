@@ -29,7 +29,7 @@ public class CustomHintManager : MonoBehaviour
     {
         try
         {
-            if (player == null || player.ReferenceHub == null || player.ReferenceHub == Server.NebuliHost.ReferenceHub || !NetworkServer.active)
+            if (player == null || player.ReferenceHub == null || player.ReferenceHub == Server.HostHub || !NetworkServer.active)
                 return;
 
             hintMessage.Clear();

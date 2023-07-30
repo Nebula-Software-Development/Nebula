@@ -10,7 +10,7 @@ public static class Round
     /// <summary>
     /// Gets if the round has started or not.
     /// </summary>
-    public static bool RoundStarted => Server.NebuliHost.ReferenceHub.characterClassManager.RoundStarted;
+    public static bool RoundStarted => Server.HostHub.characterClassManager.RoundStarted;
 
     /// <summary>
     /// Forces the round to start if not already.
