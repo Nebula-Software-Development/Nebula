@@ -15,7 +15,7 @@ namespace Nebuli.API.Features;
 public static class Server
 {
     /// <summary>
-    /// Gets the servers <see cref="NebuliPlayer"/> Host.
+    /// Gets the servers <see cref="ReferenceHub"/> Host.
     /// </summary>
     public static ReferenceHub HostHub { get; } = ReferenceHub.HostHub;
 
