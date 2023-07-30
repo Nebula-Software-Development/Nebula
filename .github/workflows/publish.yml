@@ -1,5 +1,3 @@
-﻿# yaml-language-server: $schema=https://json.schemastore.org/github-workflow.json
-
 name: publish
 on:
   workflow_dispatch: # Allow running the workflow manually from the GitHub UI
@@ -16,11 +14,11 @@ on:
 env:
   DOTNET_SKIP_FIRST_TIME_EXPERIENCE: 1
   DOTNET_NOLOGO: true
-  NuGetDirectory: ${{ github.workspace}}/nuget
+  NuGetDirectory: ${{ github.workspace }}/nuget
 
 defaults:
   run:
-    shell: pwsh
+    shell: bash # Use 'bash' as the default shell
 
 jobs:
   create_nuget:
@@ -63,11 +61,8 @@ jobs:
         run: dotnet tool update Meziantou.Framework.NuGetPackageValidation.Tool --global
 
       # Validate metadata and content of the NuGet package
-      # https://www.nuget.org/packages/Meziantou.Framework.NuGetPackageValidation.Tool#readme-body-tab
-      # If some rules are not applicable, you can disable them
-      # using the --excluded-rules or --excluded-rule-ids option
       - name: Validate package
-        run: meziantou.validate-nuget-package (Get-ChildItem "${{ env.NuGetDirectory }}/*.nupkg")
+        run: meziantou.validate-nuget-package ${{ env.NuGetDirectory }}/*.nupkg
 
   run_test:
     runs-on: ubuntu-latest
@@ -101,6 +96,5 @@ jobs:
       # If you retry a failed workflow, already published packages will be skipped without error.
       - name: Publish NuGet package
         run: |
-          foreach($file in (Get-ChildItem "${{ env.NuGetDirectory }}" -Recurse -Include *.nupkg)) {
-              dotnet nuget push $file --api-key "${{ secrets.NUGET_APIKEY }}" --source https://api.nuget.org/v3/index.json --skip-duplicate
-          }
+          foreach file in ${{ env.NuGetDirectory }}/*.nupkg; do
+              dotnet nuget push $file --api-key "${{ secrets.NUGET_API
