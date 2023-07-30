@@ -1,17 +1,4 @@
-name: publish
-on:
-  workflow_dispatch: null
-  push:
-    branches:
-      - main
-  pull_request:
-    branches:
-      - "*"
-  release:
-    types:
-      - published
-env:
-﻿# yaml-language-server: $schema=https://json.schemastore.org/github-workflow.json
+# yaml-language-server: $schema=https://json.schemastore.org/github-workflow.json
 
 name: publish
 on:
