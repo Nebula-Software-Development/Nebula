@@ -13,6 +13,16 @@
     <FileAlignment>512</FileAlignment>
     <LangVersion>10</LangVersion>
   </PropertyGroup>
+  <PropertyGroup>
+    <!-- Package metadata -->
+    <PackageId>nebuli.nuget.package</PackageId>
+    <Version>1.0.0</Version>
+    <Description>Nebuli - A Powerful Plugin Framework for SCP : Secret Laboratory servers. Nebuli is an extensible and feature-rich plugin framework designed for game servers.</Description>
+    <Authors>Nebuli Team</Authors>
+    <PackageProjectUrl>https://github.com/Nebuli-Team/Nebuli</PackageProjectUrl>
+    <PackageLicenseUrl>https://github.com/Nebuli-Team/Nebuli/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageIcon>Icon\140282733.ico</PackageIcon>
+  </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
@@ -151,6 +161,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Lib.Harmony" Version="2.2.2" />
+    <PackageReference Include="Lib.Harmony" Version="2.2.2" />
     <PackageReference Include="Microsoft.CSharp">
       <Version>4.7.0</Version>
     </PackageReference>
@@ -162,6 +173,12 @@
       <Version>13.0.3</Version>
     </PackageReference>
     <PackageReference Include="Northwood.PluginAPI" Version="13.1.0" />
+    <PackageReference Include="NuGet.PackageManagement">
+      <Version>6.6.1</Version>
+    </PackageReference>
+    <PackageReference Include="NuGet.Packaging">
+      <Version>6.6.1</Version>
+    </PackageReference>
     <PackageReference Include="Octokit">
       <Version>7.0.1</Version>
     </PackageReference>
@@ -174,6 +191,7 @@
     <None Include="..\.editorconfig">
       <Link>.editorconfig</Link>
     </None>
+    <None Include=".github\workflows\publish.yml" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
