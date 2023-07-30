@@ -22,6 +22,8 @@
     <PackageProjectUrl>https://github.com/Nebuli-Team/Nebuli</PackageProjectUrl>
     <PackageLicenseUrl>https://github.com/Nebuli-Team/Nebuli/blob/master/LICENSE</PackageLicenseUrl>
     <PackageIcon>Icon\140282733.ico</PackageIcon>
+    <EnablePackageValidation>true</EnablePackageValidation>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
