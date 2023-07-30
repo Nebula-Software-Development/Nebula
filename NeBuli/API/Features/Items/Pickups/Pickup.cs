@@ -17,7 +17,10 @@ public class Pickup
     /// A Dictionary of <see cref="ItemPickupBase"/>, and their wrapper class <see cref="Pickup"/>.
     /// </summary>
     public static Dictionary<ItemPickupBase, Pickup> Dictionary = new();
-
+    
+    /// <summary>
+    /// Gets if the pickup is spawned or not.
+    /// </summary>
     public bool Spawned { get; private set; }
 
     /// <summary>
