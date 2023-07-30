@@ -125,6 +125,7 @@
     <Compile Include="Events\EventArguments\Player\PlayerLeave.cs" />
     <Compile Include="Events\EventArguments\Player\PlayerShot.cs" />
     <Compile Include="Events\EventArguments\Player\PlayerTriggeringTesla.cs" />
+    <Compile Include="Events\EventArguments\SCPs\Scp173\Scp173Blink.cs" />
     <Compile Include="Events\EventArguments\SCPs\Scp939\Scp939Attack.cs" />
     <Compile Include="Events\EventArguments\SCPs\Scp939\Scp939CancelCloudPlacement.cs" />
     <Compile Include="Events\EventArguments\SCPs\Scp939\Scp939PlaceCloud.cs" />
@@ -140,6 +141,7 @@
     <Compile Include="Events\EventArguments\Server\WarheadDetonating.cs" />
     <Compile Include="Events\EventManager.cs" />
     <Compile Include="Events\Handlers\PlayerHandlers.cs" />
+    <Compile Include="Events\Handlers\Scp173Handlers.cs" />
     <Compile Include="Events\Handlers\Scp939Handlers.cs" />
     <Compile Include="Events\Handlers\ServerHandler.cs" />
     <Compile Include="Events\Patches\Player\BannedPlayer.cs" />
@@ -151,6 +153,7 @@
     <Compile Include="Events\Patches\Player\VerificationCompleted.cs" />
     <Compile Include="Events\Patches\SCPs\CancelCloudPlacement.cs" />
     <Compile Include="Events\Patches\SCPs\DogAttack.cs" />
+    <Compile Include="Events\Patches\SCPs\PeanutBlink.cs" />
     <Compile Include="Events\Patches\SCPs\PlaceCloud.cs" />
     <Compile Include="Events\Patches\SCPs\PlaceMimicPoint.cs" />
     <Compile Include="Events\Patches\SCPs\PlayMimicrySound.cs" />
