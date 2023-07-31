@@ -1,48 +1,43 @@
-name: Nebuli Nuget
+name: .NET
 
 on:
-  release:
-    types: [published]
-  workflow_dispatch:
+  push:
+    branches: [ "master", "dev", "dev2" ]
+  pull_request:
+    branches: [ "master", "dev", "dev2" ]
 
 env:
   DEPOT_DOWNLOADER_VERSION: 2.4.7 
-  NEBULI_REFERENCES: D:\a\Nebuli\Nebuli\Nebuli\ExternalLibs
-  NEBULI_APP_ID: 996560
+  SL_REFERENCES: D:\a\NwPluginAPI\SCPSL_REFERENCES\SCPSL_Data\Managed
+  UNITY_REFERENCES: D:\a\NwPluginAPI\SCPSL_REFERENCES\SCPSL_Data\Managed
 
 jobs:
   build:
     runs-on: windows-latest
-
     steps:
-      - name: Checkout Code
-        uses: actions/checkout@v2
-
-      - name: Setup .NET Core SDK
-        uses: actions/setup-dotnet@v1.7.2
-
+      - uses: actions/checkout@v3
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v2
+        with:
+          dotnet-version: 7.0.x
       - name: Download depot downloader
         shell: pwsh
         run: |
-          New-Item -ItemType Directory -Force -Path D:\a\Nebuli
-          New-Item -ItemType Directory -Force -Path D:\a\Nebuli\DepotDownloader
-          Invoke-WebRequest -Uri "https://github.com/SteamRE/DepotDownloader/releases/download/DepotDownloader_${{ env.DEPOT_DOWNLOADER_VERSION }}/depotdownloader-${{ env.DEPOT_DOWNLOADER_VERSION }}.zip" -OutFile "D:\a\Nebuli\depotdownloader.zip"
-          Expand-Archive -Path D:\a\Nebuli\depotdownloader.zip -PassThru -DestinationPath D:\a\Nebuli/DepotDownloader
-
-      - name: Download Nebuli references
+          New-Item -ItemType Directory -Force -Path D:\a\NwPluginAPI
+          New-Item -ItemType Directory -Force -Path D:\a\NwPluginAPI\DepotDownloader
+          Invoke-WebRequest -Uri "https://github.com/SteamRE/DepotDownloader/releases/download/DepotDownloader_${{ env.DEPOT_DOWNLOADER_VERSION }}/depotdownloader-${{ env.DEPOT_DOWNLOADER_VERSION }}.zip" -OutFile "D:\a\NwPluginAPI\depotdownloader.zip"
+          Expand-Archive -Path D:\a\NwPluginAPI\depotdownloader.zip -PassThru -DestinationPath D:\a\NwPluginAPI\DepotDownloader
+      - name: Download SCPSL references.
         shell: pwsh
         run: |
-          New-Item -ItemType Directory -Force -Path ${{ env.NEBULI_REFERENCES }}
-          Start-Process -NoNewWindow -Wait -FilePath "D:\a\Nebuli\DepotDownloader\DepotDownloader.exe" -WorkingDirectory "D:\a\Nebuli\DepotDownloader" -ArgumentList "-app ${{ env.NEBULI_APP_ID }}",'-beta nightly','-betapassword ${{ secrets.NIGHTLYPASSWORD }}','-dir ${{ env.NEBULI_REFERENCES }}','-filelist "${{ github.workspace }}\download-files.txt"'
-
-      - name: Build Project
-        run: dotnet build Nebuli\Nebuli.csproj -c Release
-
-      - name: Pack NuGet
-        run: nuget pack Nebuli\Nebuli.csproj -Prop Configuration=Release -IncludeReferencedProjects
-
-      - name: Upload Artifact
-        uses: actions/upload-artifact@v2
-        with:
-          name: nuget-package
-          path: '*.nupkg'
+          New-Item -ItemType Directory -Force -Path D:\a\NwPluginAPI\SCPSL_REFERENCES
+          Start-Process -NoNewWindow -Wait -FilePath "D:\a\NwPluginAPI\DepotDownloader\DepotDownloader.exe" -WorkingDirectory "D:\a\NwPluginAPI\DepotDownloader" -ArgumentList '-app 996560','-beta nightly','-betapassword ${{ secrets.NIGHTLYPASSWORD }}','-dir D:\a\NwPluginAPI\SCPSL_REFERENCES','-filelist "${{ github.workspace }}\download-files.txt"'
+      - name: Restore dependencies
+        run: dotnet restore
+      - name: Build
+        run: dotnet build --no-restore --configuration Release
+      - name: Upload
+        uses: actions/upload-artifact@v3
+        with: 
+          name: PluginAPI
+          path: ${{ github.workspace }}/NwPluginAPI/bin/Release/net48/PluginAPI.dll
