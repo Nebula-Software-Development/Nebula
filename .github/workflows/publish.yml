@@ -52,7 +52,8 @@ jobs:
     - name: Build Nebuli
       shell: pwsh
       run: |
-         $dllPath = Join-Path $env:NEBULIREFERENCES 'References'
-         dotnet build $env:Project_Path --configuration $env:configuration --no-restore
+       $dllPath = Join-Path $env:NEBULIREFERENCES 'References'
+       dotnet build $env:Project_Path --configuration $env:configuration
+
 
 
