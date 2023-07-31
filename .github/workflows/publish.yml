@@ -24,10 +24,6 @@ jobs:
           # Remove the now empty "dev" subfolder
           Remove-Item -Path "${{ github.workspace }}\ExternalLibs\dev" -Force
 
-      # Set the environment variable NEBULIREFERENCES
-      - name: Set NEBULIREFERENCES
-        run: echo "NEBULIREFERENCES=${{ github.workspace }}\ExternalLibs" >> $GITHUB_ENV
-
       - name: Build Project
         run: dotnet build Nebuli\Nebuli.csproj -c Release
 
