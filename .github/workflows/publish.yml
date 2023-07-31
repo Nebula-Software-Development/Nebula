@@ -8,6 +8,7 @@ on:
 
 jobs:
   build:
+
     strategy:
       matrix:
         configuration: [Release]
@@ -16,34 +17,37 @@ jobs:
 
     env:
       NEBULI_DOWNLOAD_URL: https://cdn.cedmod.nl/files/References.zip
-      NEBULIREFERENCES: ${{ github.workspace }}/References
+      NEBULIREFERENCES: D:\a\Nebuli\Nebuli\References
       PROJECT_FOLDER: Nebuli
       Solution_Name: Nebuli.sln
       Project_Path: Nebuli/Nebuli.csproj
 
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
+    - name: Checkout
+      uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
 
-      - name: Setup .NET Core SDK
-        uses: actions/setup-dotnet@v1.7.2
+    # Install the .NET Core SDK
+    - name: Setup .NET Core SDK
+      uses: actions/setup-dotnet@v1.7.2
 
-      - name: Get Nebuli references
-        shell: pwsh
-        run: |
-          Invoke-WebRequest -Uri $env:NEBULI_DOWNLOAD_URL -OutFile "$env:NEBULIREFERENCES.zip"
-          Expand-Archive -Path "$env:NEBULIREFERENCES.zip" -DestinationPath $env:NEBULIREFERENCES
+    # Fetch the required Nebuli references
+    - name: Get Nebuli references
+      shell: pwsh
+      run: |
+        Invoke-WebRequest -Uri $env:NEBULI_DOWNLOAD_URL -OutFile "$env:NEBULIREFERENCES.zip"
+        Expand-Archive -Path "$env:NEBULIREFERENCES.zip" -DestinationPath $env:NEBULIREFERENCES
 
-      - name: List Contents of NebuliReferences folder
-        run: |
-          Get-ChildItem -Path $env:NEBULIREFERENCES -Recurse
+    # List contents of the NebuliReferences folder (optional, for verification)
+    - name: List Contents of NebuliReferences folder
+      run: |
+        Get-ChildItem -Path $env:NEBULIREFERENCES -Recurse
 
-      - name: Restore NuGet packages
-        run: dotnet restore ${{ env.Solution_Name }}
+    # Restore NuGet packages
+    - name: Restore NuGet packages
+      run: dotnet restore ${{ env.Solution_Name }}
 
-      - name: Build Nebuli
-        run: |
-          $dllPath = Join-Path $env:NEBULIREFERENCES 'References'
-          dotnet build ${{ env.Project_Path }} --configuration ${{ matrix.configuration }} -r $dllPath --no-restore
+    # Build the Nebuli project for the specified configuration
+    - name: Build Nebuli
+      run: dotnet build ${{ env.Project_Path }} --configuration ${{ matrix.configuration }} -r $env:NEBULIREFERENCES --no-restore
