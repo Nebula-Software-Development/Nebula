@@ -22,12 +22,6 @@ jobs:
        Solution_Name: Nebuli.sln
        Solution_Path: D:\a\Nebuli\Nebuli\Nebuli\Nebuli.sln
        Project_Path: Nebuli/Nebuli.csproj
-
-    inputs:
-      version:
-        description: 'The version of the NuGet package'
-        required: true
-
     steps:
     - name: Checkout
       uses: actions/checkout@v3
