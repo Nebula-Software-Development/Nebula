@@ -9,7 +9,7 @@ env:
   NEBULI_DOWNLOAD_URL: https://cdn.cedmod.nl/files/References.zip
   NEBULI_REFERENCES_PATH: ${{ github.workspace }}/NebuliReferences
   NEBULIREFERENCES: D:\a\Nebuli\Nebuli\Nebuli\NebuliReferences
-
+  PackageFile: ''
 
 jobs:
   push:
@@ -26,7 +26,7 @@ jobs:
       shell: pwsh
       run: |
         echo "Nebuli References Path: $env:NEBULI_REFERENCES_PATH"
-        Invoke-WebRequest -Uri $env:NEBULI_DOWNLOAD_URL -OutFile "$env:NEBULIREFERENCES.zip"
+        Invoke-WebRequest -Uri $env:NEBULI_DOWNLOAD_URL -OutFile "$env:NEBULI_REFERENCES_PATH.zip"
         Expand-Archive -Path "$env:NEBULI_REFERENCES_PATH.zip" -DestinationPath "$env:NEBULI_REFERENCES_PATH"
 
     - name: List Contents of NebuliReferences folder
@@ -37,10 +37,16 @@ jobs:
       run: dotnet restore
 
     - name: Build
-      run: dotnet build Nebuli/Nebuli.csproj --configuration Release -r $env:NEBULI_REFERENCES_PATH --no-restore
+      run: dotnet build Nebuli/Nebuli.csproj --configuration Release --no-restore
 
     - name: Pack NuGet
-      run: dotnet pack Nebuli/Nebuli.csproj --configuration Release --output D:\a\Nebuli\Nebuli\NuGetPackages -p:IncludeReferencedProjects=true
+      run: dotnet pack Nebuli/Nebuli.csproj --configuration Release --output ${{ github.workspace }}/NuGetPackages -p:IncludeReferencedProjects=true
+
+    - name: Set Package File Path
+      run: |
+        $packageFile = Get-ChildItem -Path "${{ github.workspace }}/NuGetPackages" -Recurse -Filter "*.nupkg" | Select-Object -Last 1 -ExpandProperty FullName
+        echo "Package File: $packageFile"
+        echo "::set-env name=PackageFile::$packageFile"
 
     - name: Push NuGet
       shell: pwsh
