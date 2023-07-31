@@ -77,7 +77,8 @@ jobs:
       run: |
         $Version = (Get-Content Nebuli/Nebuli/Loader/NebuliInfo.cs | Select-String 'public static readonly Version NebuliVersion = new(.*);').Matches[0].Groups[1].Value
         echo "Nebuli Version: $Version"
-        echo "::set-output name=version::$Version"  # Set the output for later use  
+        echo "::set-output name=version::$Version"  # Set the output for later use
+  
     # Pack the project and generate the NuGet package using the version obtained from the script
     - name: Pack the project
       shell: pwsh
@@ -104,6 +105,4 @@ jobs:
     - name: Push NuGet
       if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/') || github.event_name == 'workflow_dispatch'
       shell: pwsh
-      run: nuget push ${{ steps.set_package_file.outputs.package_file }} -ApiKey ${{ secrets
-
-
+      run: nuget push ${{ steps.set_package_file.outputs.package_file }} -ApiKey ${{ secrets.NUGET_API_KEY }} -Source https://api.nuget.org/v3/index.json
