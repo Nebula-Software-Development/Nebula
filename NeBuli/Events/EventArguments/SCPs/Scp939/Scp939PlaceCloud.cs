@@ -11,7 +11,13 @@ public class Scp939PlaceCloud : EventArgs, IPlayerEvent, ICancellableEvent
         IsCancelled = false;
     }
     
+    /// <summary>
+    /// The player placing the cloud.
+    /// </summary>
     public NebuliPlayer Player { get; }
 
+    /// <summary>
+    /// Gets or sets if the event is cancelled.
+    /// </summary>
     public bool IsCancelled { get; set; }
 }

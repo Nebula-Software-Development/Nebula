@@ -10,8 +10,14 @@ public class Scp939RemoveMimicPoint : EventArgs, IPlayerEvent, ICancellableEvent
         Player = NebuliPlayer.Get(player);
         IsCancelled = false;
     }
-    
+
+    /// <summary>
+    /// Gets the player removing the mimic point.
+    /// </summary>
     public NebuliPlayer Player { get; }
 
+    /// <summary>
+    /// Gets or sets if the event is cancelled.
+    /// </summary>
     public bool IsCancelled { get; set; }
 }

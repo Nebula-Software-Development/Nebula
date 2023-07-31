@@ -12,9 +12,18 @@ public class Scp939ToggleFocus : EventArgs, IPlayerEvent, ICancellableEvent
         IsCancelled = false;
     }
     
+    /// <summary>
+    /// Gets the player toggeling focus mode.
+    /// </summary>
     public NebuliPlayer Player { get; }
     
+    /// <summary>
+    /// Gets or sets if the event is cancelled.
+    /// </summary>
     public bool IsCancelled { get; set; }
     
+    /// <summary>
+    /// Gets or sets the state.
+    /// </summary>
     public bool State { get; set; }
 }

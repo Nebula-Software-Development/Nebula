@@ -10,5 +10,8 @@ public class Scp939CancelCloudPlacement : EventArgs, IPlayerEvent
         Player = NebuliPlayer.Get(player);
     }
     
+    /// <summary>
+    /// The player canceling the cloud placement.
+    /// </summary>
     public NebuliPlayer Player { get; }
 }

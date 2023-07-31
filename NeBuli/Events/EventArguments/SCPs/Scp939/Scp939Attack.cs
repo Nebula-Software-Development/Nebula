@@ -11,7 +11,14 @@ public class Scp939Attack : EventArgs, IDamageEvent
         Target = NebuliPlayer.Get(netId); // Note: The Player can be null if the attacker attacks a window or something else that is not a player.
     }
     
+    /// <summary>
+    /// Gets the attacking player, SCP-939
+    /// </summary>
     public NebuliPlayer Attacker { get; }
 
+    /// <summary>
+    /// Gets the player being attacked. 
+    /// NOTE: The Player can be null if the attacker attacks a window or something else that is not a player.
+    /// </summary>
     public NebuliPlayer Target { get; }
 }

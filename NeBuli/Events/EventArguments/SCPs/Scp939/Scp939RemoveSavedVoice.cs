@@ -12,9 +12,18 @@ public class Scp939RemoveSavedVoice : EventArgs, IPlayerEvent, ICancellableEvent
         IsCancelled = false;
     }
     
+    /// <summary>
+    /// Gets the player removing the saved voice.
+    /// </summary>
     public NebuliPlayer Player { get; }
     
+    /// <summary>
+    /// Gets the voices owner.
+    /// </summary>
     public NebuliPlayer Target { get; }
 
+    /// <summary>
+    /// Gets or sets if the event is cancelled.
+    /// </summary>
     public bool IsCancelled { get; set; }
 }

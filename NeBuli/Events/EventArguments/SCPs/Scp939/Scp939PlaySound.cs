@@ -12,9 +12,18 @@ public class Scp939PlaySound : EventArgs, IPlayerEvent, ICancellableEvent
         IsCancelled = false;
     }
     
+    /// <summary>
+    /// The player playing the sound.
+    /// </summary>
     public NebuliPlayer Player { get; }
 
+    /// <summary>
+    /// Gets or sets if the event is cancelled
+    /// </summary>
     public bool IsCancelled { get; set; }
     
+    /// <summary>
+    /// The sound option to be played
+    /// </summary>
     public byte SoundOption { get; }
 }

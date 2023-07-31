@@ -11,7 +11,13 @@ public class Scp939PlaceMimicPoint : EventArgs, IPlayerEvent, ICancellableEvent
         IsCancelled = false;
     }
     
+    /// <summary>
+    /// Gets the player placing the mimic point.
+    /// </summary>
     public NebuliPlayer Player { get; }
 
+    /// <summary>
+    /// Gets or sets if the event is cancelled.
+    /// </summary>
     public bool IsCancelled { get; set; }
 }
