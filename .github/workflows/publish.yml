@@ -27,7 +27,10 @@ jobs:
       uses: actions/checkout@v3
       with:
         fetch-depth: 0
-
+        
+    - name: Download and setup MSBuild
+      uses: microsoft/setup-msbuild@v1.0.2
+      
     # Install the .NET Core SDK
     - name: Setup .NET Core SDK
       uses: actions/setup-dotnet@v3
@@ -45,11 +48,20 @@ jobs:
     - name: List Contents of NebuliReferences folder
       run: |
         Get-ChildItem -Path $env:NEBULIREFERENCES -Recurse
+        
+    # Download and setup NuGet        
+    - name: Download and Setup NuGet
+      uses: NuGet/setup-nuget@v1.1.1
 
+      
     # Restore NuGet packages
     - name: Restore NuGet packages
       run: dotnet restore ${{ env.Solution_Name }}
-
+      
+    # Restore the application to populate the obj folder with RuntimeIdentifiers
+    - name: Restore the application
+      run: msbuild $env:Solution_Name /t:Restore /p:Configuration=$env:Configuration
+      
     # Build the Nebuli project for the specified configuration
     - name: Build Nebuli
       run: msbuild ${{ env.Project_Path }} --configuration ${{ matrix.configuration }} -r ${{ env.NEBULIREFERENCES }} --no-restore
