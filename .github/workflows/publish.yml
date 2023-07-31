@@ -50,4 +50,4 @@ jobs:
 
     # Build the Nebuli project for the specified configuration
     - name: Build Nebuli
-      run: dotnet build ${{ env.Project_Path }} --configuration ${{ matrix.configuration }} -r $env:NEBULIREFERENCES --no-restore
+      run: dotnet build ${{ env.Project_Path }} --configuration ${{ matrix.configuration }} -r $env:(NEBULIREFERENCES) --no-restore
