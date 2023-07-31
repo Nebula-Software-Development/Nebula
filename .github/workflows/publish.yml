@@ -16,9 +16,8 @@ jobs:
     - name: Setup .NET Core SDK
       uses: actions/setup-dotnet@v1.7.2
 
-    - name: Download ExternalLibs
+    - name: Extract ExternalLibs
       run: |
-        Invoke-WebRequest -Uri "https://drive.google.com/uc?id=YOUR_FILE_ID&export=download" -OutFile "${{ github.workspace }}/ExternalLibs/dev.zip"
         Expand-Archive -Path "${{ github.workspace }}/ExternalLibs/dev.zip" -DestinationPath "${{ github.workspace }}/ExternalLibs"
 
     - name: Build and Pack NuGet
