@@ -19,4 +19,4 @@ jobs:
       run: |
         Expand-Archive -Path "${{ github.workspace }}\Nebuli\ExternalLibs\dev.zip" -DestinationPath "${{ github.workspace }}\ExternalLibs"
     - name: Build and Pack NuGet
-      run: nuget pack Nebuli.csproj -Prop Configuration=Release -IncludeReferencedProjects
+      run: nuget pack Nebuli\Nebuli.csproj -Prop Configuration=Release -IncludeReferencedProjects
