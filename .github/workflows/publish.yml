@@ -4,8 +4,9 @@ on:
   release:
     types: [published]
   workflow_dispatch:
+
 jobs:
-  push:
+  build:
     runs-on: windows-latest
 
     steps:
@@ -17,6 +18,13 @@ jobs:
 
     - name: Extract ExternalLibs
       run: |
-        Expand-Archive -Path "${{ github.workspace }}\Nebuli\ExternalLibs\dev.zip" -DestinationPath "${{ github.workspace }}\ExternalLibs"
-    - name: Build and Pack NuGet
-      run: nuget pack Nebuli\Nebuli.csproj -Prop Configuration=Release -IncludeReferencedProjects
+        Expand-Archive -Path "${{ github.workspace }}/Nebuli/ExternalLibs/dev.zip" -DestinationPath "${{ github.workspace }}/ExternalLibs"
+
+    - name: Restore Dependencies
+      run: dotnet restore
+
+    - name: Build Project
+      run: dotnet build Nebuli\Nebuli.csproj -c Release
+
+    - name: Pack NuGet
+      run: nuget pack Nebuli\Nebuli.csproj -Prop Configuration=Release -IncludeReferencedProjects -OutputDirectory "${{ github.workspace }}/NuGetOutput"
