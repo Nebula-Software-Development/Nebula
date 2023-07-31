@@ -18,10 +18,9 @@ jobs:
 
       - name: Extract ExternalLibs
         run: |
-          Expand-Archive -Path "${{ github.workspace }}/Nebuli/ExternalLibs/dev.zip" -DestinationPath "${{ NEBULIREFERENCES }}"
-          Move-Item -Path "${{ NEBULIREFERENCES }}/dev/*" -Destination "${{ NEBULIREFERENCES }}"
-          Remove-Item -Path "${{ NEBULIREFERENCES }}/dev" -Force
-
+          Expand-Archive -Path "${{ github.workspace }}/Nebuli/ExternalLibs/dev.zip" -DestinationPath "${{ env.NEBULIREFERENCES }}"
+          Move-Item -Path "${{ env.NEBULIREFERENCES }}/dev/*" -Destination "${{ env.NEBULIREFERENCES }}"
+          Remove-Item -Path "${{ env.NEBULIREFERENCES }}/dev" -Force
 
       - name: Build Project
         run: dotnet build Nebuli\Nebuli.csproj -c Release
