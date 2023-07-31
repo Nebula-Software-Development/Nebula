@@ -13,6 +13,11 @@
     <FileAlignment>512</FileAlignment>
     <LangVersion>10</LangVersion>
   </PropertyGroup>
+  <Target Name="EnsureTargetFramework" BeforeTargets="Pack">
+    <PropertyGroup>
+      <_TargetFramework Condition=" '$(TargetFramework)' == '' ">4.8</_TargetFramework>
+    </PropertyGroup>
+  </Target>
   <PropertyGroup>
     <!-- Package metadata -->
     <PackageId>nebuli.nuget.package</PackageId>
