@@ -5,13 +5,24 @@ on:
     types: [published]
   workflow_dispatch:
 
+env:
+  GDRIVE_FOLDER_URL: https://drive.google.com/drive/folders/19qoFkGeaAHmWfn_G7XCTvx5EhvjKfqE9?usp=sharing
+  EXTERNAL_LIBS_DIR: external_libs
+
 jobs:
-  build:
+  push:
     runs-on: windows-latest
 
     steps:
     - name: Checkout Code
       uses: actions/checkout@v2
+
+    - name: Download and Extract External References
+      run: |
+        mkdir ${{ env.EXTERNAL_LIBS_DIR }}
+        curl -L "${{ env.GDRIVE_FOLDER_URL }}/dev.zip" -o ${{ env.EXTERNAL_LIBS_DIR }}/dependencies.zip
+        Expand-Archive -Path ${{ env.EXTERNAL_LIBS_DIR }}/dependencies.zip -DestinationPath ${{ env.EXTERNAL_LIBS_DIR }}
+      shell: pwsh
 
     - name: Setup .NET Core SDK
       uses: actions/setup-dotnet@v1.7.2
@@ -19,19 +30,5 @@ jobs:
     - name: Restore Dependencies
       run: dotnet restore
 
-    - name: Build Project
-      run: dotnet build --configuration Release
-
-  pack:
-    needs: build
-    runs-on: windows-latest
-
-    steps:
-    - name: Checkout Code
-      uses: actions/checkout@v2
-
-    - name: Setup .NET Core SDK
-      uses: actions/setup-dotnet@v1.7.2
-
-    - name: Pack NuGet
-      run: nuget pack Nebuli/Nebuli.csproj -Prop Configuration=Release -IncludeReferencedProjects
+    - name: Build and Pack NuGet
+      run: nuget pack -Prop Configuration=Release -IncludeReferencedProjects
