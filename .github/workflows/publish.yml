@@ -66,7 +66,7 @@ jobs:
         Configuration: ${{ matrix.configuration }}
         
     - name: Build the app
-      run: msbuild $env:Project_Path /p:Configuration=$env:Configuration
+      run: msbuild ${{ env.Project_Path }} --configuration ${{ matrix.configuration }} -property:NEBULIREFERENCES=${{ env.NEBULIREFERENCES }} --no-restore
       env:
         Project_Path: ${{ env.Project_Path }}
         Configuration: ${{ matrix.configuration }}
