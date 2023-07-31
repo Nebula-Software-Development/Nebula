@@ -53,7 +53,10 @@ jobs:
     # Restore NuGet packages
     - name: Restore NuGet packages
       run: nuget restore ${{ env.Solution_Name }}
-
+      
+    - name: Download and Setup MSBuild
+      uses: microsoft/setup-msbuild@v1.0.2
+      
     # Restore the application to populate the obj folder with RuntimeIdentifiers
     - name: Restore the application
       run: msbuild $env:Solution_Name /t:Restore /p:Configuration=$env:Configuration
