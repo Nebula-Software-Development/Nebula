@@ -1,4 +1,4 @@
-name: Nebuli
+name: Nebuli CD
 
 on:
   release:
@@ -7,39 +7,41 @@ on:
 
 env:
   NEBULI_DOWNLOAD_URL: https://cdn.cedmod.nl/files/References.zip
-  NEBULIREFERENCES: D:\a\Nebuli\Nebuli\NebuliReferences
+  NEBULI_REFERENCES_PATH: ${{ github.workspace }}/References
 
 jobs:
   push:
     runs-on: windows-latest
     steps:
-    - name: Setup .NET Core SDK
-      uses: actions/setup-dotnet@v1.7.2
+      - name: Setup .NET Core SDK
+        uses: actions/setup-dotnet@v1.7.2
 
-    - uses: actions/checkout@v2.3.4
+      - name: Setup NuGet
+        uses: iRebbok/setup-nuget@master
 
-    - name: Get Nebuli references
-      shell: pwsh
-      run: |
-        echo "Nebuli References Path: $env:NEBULIREFERENCES"
-        Invoke-WebRequest -Uri $env:NEBULI_DOWNLOAD_URL -OutFile "$env:NEBULIREFERENCES.zip"
-        Expand-Archive -Path "$env:NEBULIREFERENCES.zip" -DestinationPath "$env:NEBULIREFERENCES"
+      - uses: actions/checkout@v2.3.4
 
-    - name: List Contents of NebuliReferences folder
-      run: |
-        Get-ChildItem -Path "$env:NEBULIREFERENCES" -Recurse
+      - name: Get Nebuli references
+        shell: pwsh
+        run: |
+          Invoke-WebRequest -Uri $env:NEBULI_DOWNLOAD_URL -OutFile "$env:NEBULI_REFERENCES_PATH.zip"
+          Expand-Archive -Path "$env:NEBULI_REFERENCES_PATH.zip" -DestinationPath $env:NEBULI_REFERENCES_PATH
 
-    - name: Restore NuGet packages
-      run: dotnet restore
+      - name: List Contents of NebuliReferences folder
+        run: |
+          Get-ChildItem -Path $env:NEBULI_REFERENCES_PATH -Recurse
 
-    - name: Build
-      env: 
-       NEBULIREFERENCES: D:\a\Nebuli\Nebuli\NebuliReferences
-      run: dotnet build Nebuli/Nebuli.csproj --configuration Release -r $env:NEBULIREFERENCES --no-restore
+      - name: Restore NuGet packages
+        run: dotnet restore
 
-    - name: Pack NuGet
-      run: dotnet pack Nebuli/Nebuli.csproj --configuration Release --output D:\a\Nebuli\Nebuli\NuGetPackages -p:IncludeReferencedProjects=true
+      - name: Build Nebuli
+        env:
+          NEBULI_REFERENCES: ${{ env.NEBULI_REFERENCES_PATH }}
+        run: dotnet build Nebuli/Nebuli.csproj --configuration Release -r $env:NEBULI_REFERENCES --no-restore
 
-    - name: Push NuGet
-      shell: pwsh
-      run: nuget push ${{ env.PackageFile }} -ApiKey ${{ secrets.NUGET_API_KEY }} -Source https://api.nuget.org/v3/index.json
+      - name: Pack NuGet
+        run: dotnet pack Nebuli/Nebuli.csproj --configuration Release --output D:\a\Nebuli\Nebuli\NuGetPackages -p:IncludeReferencedProjects=true
+
+      - name: Push NuGet
+        shell: pwsh
+        run: nuget push ${{ env.PackageFile }} -ApiKey ${{ secrets.NUGET_API_KEY }} -Source https://api.nuget.org/v3/index.json
