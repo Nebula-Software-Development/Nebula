@@ -66,7 +66,7 @@ jobs:
         Configuration: ${{ matrix.configuration }}
         
     - name: Build the app
-      run: msbuild ${{ env.Project_Path }} --configuration ${{ matrix.configuration }} -property:NEBULIREFERENCES=${{ env.NEBULIREFERENCES }} --no-restore
+      run: msbuild ${{ env.Project_Path }} /p:Configuration=Release /p:NEBULIREFERENCES=D:\a\Nebuli\Nebuli\References\References /p:NoRestore=true
       env:
         Project_Path: ${{ env.Project_Path }}
         Configuration: ${{ matrix.configuration }}
