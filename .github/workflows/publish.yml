@@ -22,7 +22,7 @@ jobs:
       shell: pwsh
       run: |
         Invoke-WebRequest -Uri ${{ env.NEBULI_DOWNLOAD_URL }} -OutFile ${{ github.workspace }}/NebuliReferences.zip
-        Expand-Archive -Path NebuliReferences.zip -DestinationPath ${{ env.NEBULIREFERENCES }}
+        Expand-Archive -Path NebuliReferences.zip -DestinationPath ${{ env.NEBULI_REFERENCES_PATH }}
 
     - name: Restore NuGet packages
       run: dotnet restore
@@ -32,7 +32,7 @@ jobs:
 
     - name: Build and Pack NuGet
       env:
-        NEBULI_REFERENCES: ${{ env.NEBULIREFERENCES }}
+        NEBULI_REFERENCES: ${{ env.NEBULI_REFERENCES_PATH }}
       run: |
         dotnet pack Nebuli.csproj --configuration Release --output D:\a\Nebuli\Nebuli\NuGetPackages -p:IncludeReferencedProjects=true
         $File = (Get-ChildItem -Path D:\a\Nebuli\Nebuli\NuGetPackages -Include 'Nebuli.*.nupkg' -Recurse).Name
