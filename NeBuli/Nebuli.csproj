@@ -54,6 +54,7 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup>
+    <PackageDescription>Nebuli : A Powerful Plugin Framework for SCP : Secret Labratory servers.</PackageDescription>
     <SignAssembly>false</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
@@ -207,6 +208,12 @@
   <ItemGroup>
     <Content Include="Loader\Icon\140282733.ico" />
   </ItemGroup>
+  <ItemGroup>
+  <None Update="Loader\Icon\140282733.ico">
+    <Pack>true</Pack>
+    <PackagePath>content</PackagePath>
+  </None>
+</ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
