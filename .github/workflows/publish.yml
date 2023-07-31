@@ -34,10 +34,6 @@ jobs:
       with:
         dotnet-version: '7.0.306'
 
-    # Print NEBULIREFERENCES for verification (optional)
-    - name: Print NEBULIREFERENCES
-      run: echo "NEBULIREFERENCES: ${{ env.NEBULIREFERENCES }}"
-
     # Fetch the required Nebuli references
     - name: Get Nebuli references
       shell: pwsh
@@ -53,7 +49,7 @@ jobs:
     # Restore NuGet packages
     - name: Restore NuGet packages
       run: dotnet restore ${{ env.Solution_Name }}
-      
+
     # List paths that the dependencies are looking for
     - name: List Dependency Paths
       run: |
