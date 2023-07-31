@@ -21,7 +21,7 @@ jobs:
       PROJECT_FOLDER: Nebuli
       Solution_Name: Nebuli.sln
       Solution_Path: D:\a\Nebuli\Nebuli\Nebuli\Nebuli.sln
-      Project_Path: Nebuli/Nebuli.csproj
+      Project_Path: Nebuli/Nebuli.nuspec
 
     steps:
     - name: Checkout
