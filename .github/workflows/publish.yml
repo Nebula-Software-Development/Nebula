@@ -10,21 +10,22 @@ jobs:
     runs-on: windows-latest
 
     steps:
-    - name: Checkout Code
-      uses: actions/checkout@v2
+      - name: Checkout Code
+        uses: actions/checkout@v2
 
-    - name: Setup .NET Core SDK
-      uses: actions/setup-dotnet@v1.7.2
+      - name: Setup .NET Core SDK
+        uses: actions/setup-dotnet@v1.7.2
 
-    - name: Extract ExternalLibs
-      run: |
-        Expand-Archive -Path "${{ github.workspace }}/Nebuli/ExternalLibs/dev.zip" -DestinationPath "${{ github.workspace }}/ExternalLibs"
+      - name: Extract ExternalLibs
+        run: |
+          Expand-Archive -Path "${{ github.workspace }}/Nebuli/ExternalLibs/dev.zip" -DestinationPath "${{ github.workspace }}/ExternalLibs"
+          echo "NEBULIREFERENCES=${{ github.workspace }}/ExternalLibs" >> $GITHUB_ENV
 
-    - name: Restore Dependencies
-      run: dotnet restore
+      - name: Restore Dependencies
+        run: dotnet restore Nebuli\Nebuli.csproj
 
-    - name: Build Project
-      run: dotnet build Nebuli\Nebuli.csproj -c Release
+      - name: Build Project
+        run: dotnet build Nebuli\Nebuli.csproj -c Release
 
-    - name: Pack NuGet
-      run: nuget pack Nebuli\Nebuli.csproj -Prop Configuration=Release -IncludeReferencedProjects -OutputDirectory "${{ github.workspace }}/NuGetOutput"
+      - name: Pack NuGet
+        run: nuget pack Nebuli\Nebuli.csproj -Prop Configuration=Release -IncludeReferencedProjects -OutputDirectory "${{ github.workspace }}/NuGetOutput"
