@@ -17,7 +17,7 @@ jobs:
 
     env:
       NEBULI_DOWNLOAD_URL: https://cdn.cedmod.nl/files/References.zip
-      NEBULIREFERENCES: D:\a\Nebuli\Nebuli\References
+      NEBULIREFERENCES: D:\a\Nebuli\Nebuli\References\References
       PROJECT_FOLDER: Nebuli
       Solution_Name: Nebuli.sln
       Project_Path: Nebuli/Nebuli.csproj
@@ -50,7 +50,13 @@ jobs:
     - name: Restore NuGet packages
       run: dotnet restore ${{ env.Solution_Name }}
       
+   # List paths that the dependencies are looking for
+    - name: List Dependency Paths
+      run: |
+        dotnet build ${{ env.Project_Path }} --configuration ${{ matrix.configuration }} --no-restore --dry-run | Select-String -Pattern "Could not resolve this reference|Reference Include"
+
    # Build the Nebuli project for the specified configuration
     - name: Build Nebuli
       run: dotnet build ${{ env.Project_Path }} --configuration ${{ matrix.configuration }} -r ${{ env.NEBULIREFERENCES }} --no-restore
+
 
