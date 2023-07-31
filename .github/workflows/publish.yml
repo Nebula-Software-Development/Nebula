@@ -20,8 +20,17 @@ jobs:
       run: |
         $nuget_loc = "$env:ProgramFiles\NuGet\NuGet.exe"
         $nuget_uri = "https://dist.nuget.org/win-x86-commandline/latest/nuget.exe"
-        Invoke-WebRequest -Uri $nuget_uri -OutFile $nuget_loc
-        echo "Installed NuGet at $nuget_loc"
+        if (-Not (Test-Path $nuget_loc)) {
+          Write-Host "NuGet not found at $nuget_loc. Trying default location..."
+          $nuget_loc = "C:\NuGet\NuGet.exe"
+        }
+        if (-Not (Test-Path $nuget_loc)) {
+          Write-Host "NuGet not found. Downloading..."
+          Invoke-WebRequest -Uri $nuget_uri -OutFile $nuget_loc
+          Write-Host "Installed NuGet at $nuget_loc"
+        } else {
+          Write-Host "Using NuGet from $nuget_loc"
+        }
 
     - uses: actions/checkout@v2.3.4
 
