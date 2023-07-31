@@ -70,6 +70,11 @@ jobs:
         Project_Path: ${{ env.Project_Path }}
         Configuration: ${{ matrix.configuration }}
     
+    # Pack the project and generate the NuGet package
+    - name: Pack the project
+      shell: pwsh
+      run: nuget pack ${{ env.Project_Path }} -Properties Configuration=Release -OutputDirectory ${{ env.PROJECT_FOLDER }}/bin/Release
+      
     # Upload the app
     - name: Upload release results
       uses: actions/upload-artifact@v3
