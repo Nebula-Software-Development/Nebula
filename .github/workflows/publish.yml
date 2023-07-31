@@ -23,6 +23,7 @@ jobs:
        Solution_Name: Nebuli.sln
        Solution_Path: D:\a\Nebuli\Nebuli\Nebuli\Nebuli.sln
        Project_Path: Nebuli/Nebuli.csproj
+       PackageFile: ${{ env.PROJECT_FOLDER }}/bin/Release/*.nupkg
 
 
     steps:
@@ -85,6 +86,7 @@ jobs:
         name: Debug Build
         path: ${{ env.PROJECT_FOLDER }}\bin\Debug\Nebuli.dll
         
-    - name: Publish to NuGet
-      run: dotnet nuget push ${{ env.PROJECT_FOLDER }}/bin/Release/*.nupkg --source https://api.nuget.org/v3/index.json --api-key ${{ secrets.NUGET_API_KEY }}
-      if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v')  # Only run on tag pushes (RELEASE)
+    - name: Push NuGet
+      if: startsWith(github.ref, 'refs/tags/')
+      shell: pwsh
+      run: nuget push ${{ env.PackageFile }} -ApiKey ${{ secrets.NUGET_API_KEY }} -Source https://api.nuget.org/v3/index.json
