@@ -23,6 +23,7 @@ jobs:
         if (-Not (Test-Path $nuget_loc)) {
           Write-Host "NuGet not found at $nuget_loc. Trying default location..."
           $nuget_loc = "C:\NuGet\NuGet.exe"
+          New-Item -ItemType Directory -Force -Path "C:\NuGet"
         }
         if (-Not (Test-Path $nuget_loc)) {
           Write-Host "NuGet not found. Downloading..."
