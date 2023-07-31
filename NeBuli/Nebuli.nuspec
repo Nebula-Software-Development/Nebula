@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
   <metadata>
-    <id>nebuli.nuget.api</id>
+    <id>Nebuli</id>
 	<title>Nebuli</title>
     <version>1.0.0</version>
     <authors>NotIntense</authors>
