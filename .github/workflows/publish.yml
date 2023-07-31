@@ -21,7 +21,7 @@ jobs:
       PROJECT_FOLDER: Nebuli
       Solution_Name: Nebuli.sln
       Solution_Path: D:\a\Nebuli\Nebuli\Nebuli\Nebuli.sln
-      Project_Path: Nebuli/Nebuli.nuspec
+      Project_Path: Nebuli\Nebuli.csproj
 
     steps:
     - name: Checkout
@@ -84,7 +84,7 @@ jobs:
     # Pack the project and generate the NuGet package using the version obtained from the script
     - name: Pack the project
       shell: pwsh
-      run: nuget pack ${{ env.Project_Path }} -Properties Configuration=Release -OutputDirectory ${{ env.PROJECT_FOLDER }}/bin/Release -Version ${{ steps.get_version.outputs.version }}
+      run: nuget pack Nebuli\Nebuli.nuspec -Properties Configuration=Release -OutputDirectory ${{ env.PROJECT_FOLDER }}/bin/Release -Version ${{ steps.get_version.outputs.version }}
       
     # Upload the app
     - name: Upload release results
