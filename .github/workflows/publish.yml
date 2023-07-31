@@ -38,7 +38,7 @@ jobs:
     - name: Get Nebuli references
       shell: pwsh
       run: |
-       Invoke-WebRequest -Uri $env:NEBULI_DOWNLOAD_URL -OutFile "$env:NEBULIREFERENCES.zip"
+        Invoke-WebRequest -Uri $env:NEBULI_DOWNLOAD_URL -OutFile "$env:NEBULIREFERENCES.zip"
         Expand-Archive -Path "$env:NEBULIREFERENCES.zip" -DestinationPath $env:NEBULIREFERENCES
 
     # List contents of the NebuliReferences folder (optional, for verification)
@@ -50,13 +50,11 @@ jobs:
     - name: Restore NuGet packages
       run: dotnet restore ${{ env.Solution_Name }}
       
-   # List paths that the dependencies are looking for
+    # List paths that the dependencies are looking for
     - name: List Dependency Paths
       run: |
         dotnet build ${{ env.Project_Path }} --configuration ${{ matrix.configuration }} --no-restore --dry-run | Select-String -Pattern "Could not resolve this reference|Reference Include"
 
-   # Build the Nebuli project for the specified configuration
+    # Build the Nebuli project for the specified configuration
     - name: Build Nebuli
       run: dotnet build ${{ env.Project_Path }} --configuration ${{ matrix.configuration }} -r ${{ env.NEBULIREFERENCES }} --no-restore
-
-
