@@ -17,7 +17,7 @@ jobs:
 
     env:
       NEBULI_DOWNLOAD_URL: https://cdn.cedmod.nl/files/References.zip
-      NEBULIREFERENCES: D:\a\Nebuli\Nebuli\References\References
+      NEBULIREFERENCES: ${{ github.workspace }}/References
       PROJECT_FOLDER: Nebuli
       Solution_Name: Nebuli.sln
       Project_Path: Nebuli/Nebuli.csproj
@@ -50,4 +50,4 @@ jobs:
 
     # Build the Nebuli project for the specified configuration
     - name: Build Nebuli
-      run: dotnet build ${{ env.Project_Path }} --configuration ${{ matrix.configuration }} -r $env:NEBULIREFERENCES --no-restore
+      run: dotnet build ${{ env.Project_Path }} --configuration ${{ matrix.configuration }} -r D:\a\Nebuli\Nebuli\References\References --no-restore
