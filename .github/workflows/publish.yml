@@ -11,27 +11,12 @@ env:
 
 jobs:
   push:
+
     runs-on: windows-latest
+
     steps:
     - name: Setup .NET Core SDK
       uses: actions/setup-dotnet@v1.7.2
-
-    - name: Install NuGet
-      run: |
-        $nuget_loc = "$env:ProgramFiles\NuGet\NuGet.exe"
-        $nuget_uri = "https://dist.nuget.org/win-x86-commandline/latest/nuget.exe"
-        if (-Not (Test-Path $nuget_loc)) {
-          Write-Host "NuGet not found at $nuget_loc. Trying default location..."
-          $nuget_loc = "C:\NuGet\NuGet.exe"
-          New-Item -ItemType Directory -Force -Path "C:\NuGet"
-        }
-        if (-Not (Test-Path $nuget_loc)) {
-          Write-Host "NuGet not found. Downloading..."
-          Invoke-WebRequest -Uri $nuget_uri -OutFile $nuget_loc
-          Write-Host "Installed NuGet at $nuget_loc"
-        } else {
-          Write-Host "Using NuGet from $nuget_loc"
-        }
 
     - uses: actions/checkout@v2.3.4
 
@@ -39,17 +24,19 @@ jobs:
       shell: pwsh
       run: |
         Invoke-WebRequest -Uri ${{ env.NEBULI_DOWNLOAD_URL }} -OutFile ${{ github.workspace }}/NebuliReferences.zip
-        Expand-Archive -Path ${{ github.workspace }}/NebuliReferences.zip -DestinationPath ${{ env.NEBULI_REFERENCES_PATH }}
+        Expand-Archive -Path NebuliReferences.zip -DestinationPath ${{ env.NEBULI_REFERENCES_PATH }}
 
-    - name: Build NuGet
+    - name: Restore NuGet packages
+      run: dotnet restore
+
+    - name: Build and Pack NuGet
       env:
-        NEBULI_REFERENCES: ${{ env.NEBULI_REFERENCES_PATH }}
-      shell: pwsh
+        NEBULI_REFERENCES: ${{ env.NEBULIREFERENCES }}
       run: |
-        ./build.ps1 -BuildNuGet
-        $File = (Get-ChildItem -Path . -Include 'Nebuli.*.nupkg' -Recurse).Name
-        Out-File -FilePath ${{ github.workspace }}/PackageFile.txt -InputObject "PackageFile=$File" -Encoding utf-8 -Append
+        dotnet pack Nebuli.csproj --configuration Release --output ${{ github.workspace }}/NuGetPackages -p:IncludeReferencedProjects=true
+        $File = (Get-ChildItem -Path ${{ github.workspace }}/NuGetPackages -Include 'Nebuli.*.nupkg' -Recurse).Name
+        Out-File -FilePath ${{ github.env }} -InputObject "PackageFile=$File" -Encoding utf-8 -Append
 
     - name: Push NuGet
       shell: pwsh
-      run: nuget push ${{ github.workspace }}/PackageFile.txt -ApiKey ${{ secrets.NUGET_API_KEY }} -Source https://api.nuget.org/v3/index.json
+      run: nuget push ${{ env.PackageFile }} -ApiKey ${{ secrets.NUGET_API_KEY }} -Source https://api.nuget.org/v3/index.json
