@@ -1,4 +1,4 @@
-name: Build Nebuli NuGet
+name: Build Nebuli/master
 
 on:
   push:
@@ -11,7 +11,7 @@ jobs:
 
     strategy:
       matrix:
-        configuration: [Release]
+        configuration: [Debug, Release]
 
     runs-on: windows-latest
 
@@ -20,7 +20,6 @@ jobs:
       NEBULIREFERENCES: D:\a\Nebuli\Nebuli\References
       PROJECT_FOLDER: Nebuli
       Solution_Name: Nebuli.sln
-      Solution_Path: D:\a\Nebuli\Nebuli\Nebuli\Nebuli.sln
       Project_Path: Nebuli/Nebuli.csproj
 
     steps:
@@ -28,9 +27,6 @@ jobs:
       uses: actions/checkout@v3
       with:
         fetch-depth: 0
-
-    - name: Download and setup MSBuild
-      uses: microsoft/setup-msbuild@v1.0.2
 
     # Install the .NET Core SDK
     - name: Setup .NET Core SDK
@@ -56,12 +52,29 @@ jobs:
 
     # Restore NuGet packages
     - name: Restore NuGet packages
-      run: dotnet restore ${{ env.Solution_Name }}
+      run: nuget restore ${{ env.Solution_Name }}
 
     # Restore the application to populate the obj folder with RuntimeIdentifiers
     - name: Restore the application
-      run: msbuild ${{ env.Solution_Path }} /t:Restore /p:Configuration=${{ env.configuration }}
-
-    # Build the Nebuli project for the specified configuration
-    - name: Build Nebuli
-      run: msbuild ${{ env.Project_Path }} --configuration ${{ matrix.configuration }} -r ${{ env.NEBULIREFERENCES }} --no-restore
+      run: msbuild $env:Solution_Name /t:Restore /p:Configuration=$env:Configuration
+      env:
+        Configuration: ${{ matrix.configuration }}
+        
+    - name: Build the app
+      run: msbuild $env:Project_Path /p:Configuration=$env:Configuration
+      env:
+        Project_Path: ${{ env.Project_Path }}
+        Configuration: ${{ matrix.configuration }}
+    
+    # Upload the app
+    - name: Upload release results
+      uses: actions/upload-artifact@v3
+      with:
+        name: Release Build
+        path: ${{ env.PROJECT_FOLDER }}\bin\Release\Nebuli.dll
+    
+    - name: Upload debug results
+      uses: actions/upload-artifact@v3
+      with:
+        name: Debug Build
+        path: ${{ env.PROJECT_FOLDER }}\bin\Debug\Nebuli.dll
