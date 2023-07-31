@@ -8,6 +8,7 @@ on:
 env:
   NEBULI_DOWNLOAD_URL: https://cdn.cedmod.nl/files/References.zip
   NEBULI_REFERENCES_PATH: ${{ github.workspace }}/NebuliReferences
+  NEBULIREFERENCES: ${{ env.NEBULI_REFERENCES_PATH }}
 
 jobs:
   push:
@@ -44,8 +45,8 @@ jobs:
     - name: Restore NuGet packages
       run: dotnet restore
 
-    - name: Build Nebuli
-      run: dotnet build --configuration Release --no-dependencies
+    - name: Build
+      run: dotnet build --configuration Release -r ${{ env.NEBULIREFERENCES }} --no-restore
       
     - name: Navigate to Nebuli directory
       run: cd Nebuli
