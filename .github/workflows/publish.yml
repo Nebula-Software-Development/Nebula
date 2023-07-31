@@ -83,3 +83,7 @@ jobs:
       with:
         name: Debug Build
         path: ${{ env.PROJECT_FOLDER }}\bin\Debug\Nebuli.dll
+        
+    - name: Publish to NuGet
+      run: dotnet nuget push ${{ env.PROJECT_FOLDER }}/bin/Release/*.nupkg --source https://api.nuget.org/v3/index.json --api-key ${{ secrets.NUGET_API_KEY }}
+      if: startsWith(github.ref, 'refs/tags/v')  # Only run on tag pushes (RELEASE)
