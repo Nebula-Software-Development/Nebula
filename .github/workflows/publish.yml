@@ -24,8 +24,8 @@ jobs:
       shell: pwsh
       run: |
         echo "Nebuli References Path: $env:NEBULI_REFERENCES_PATH"
-        Invoke-WebRequest -Uri $env:NEBULI_DOWNLOAD_URL -OutFile $env:NEBULI_REFERENCES_PATH.zip
-        Expand-Archive -Path $env:NEBULI_REFERENCES_PATH.zip -DestinationPath $env:NEBULI_REFERENCES_PATH
+        Invoke-WebRequest -Uri $env:NEBULI_DOWNLOAD_URL -OutFile "$env:NEBULI_REFERENCES_PATH.zip"
+        Expand-Archive -Path "$env:NEBULI_REFERENCES_PATH.zip" -DestinationPath "$env:NEBULI_REFERENCES_PATH"
 
     - name: Restore NuGet packages
       run: dotnet restore
