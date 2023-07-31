@@ -17,7 +17,7 @@ jobs:
 
     env:
       NEBULI_DOWNLOAD_URL: https://cdn.cedmod.nl/files/References.zip
-      NEBULI_REFERENCES_PATH: ${{ github.workspace }}/References
+      NEBULIREFERENCES: ${{ github.workspace }}/References
       PROJECT_FOLDER: Nebuli
       Solution_Name: Nebuli.sln
       Project_Path: Nebuli/Nebuli.csproj
@@ -36,13 +36,13 @@ jobs:
     - name: Get Nebuli references
       shell: pwsh
       run: |
-        Invoke-WebRequest -Uri $env:NEBULI_DOWNLOAD_URL -OutFile "$env:NEBULI_REFERENCES_PATH.zip"
-        Expand-Archive -Path "$env:NEBULI_REFERENCES_PATH.zip" -DestinationPath $env:NEBULI_REFERENCES_PATH
+        Invoke-WebRequest -Uri $env:NEBULI_DOWNLOAD_URL -OutFile "$env:NEBULIREFERENCES.zip"
+        Expand-Archive -Path "$env:NEBULIREFERENCES.zip" -DestinationPath $env:NEBULIREFERENCES
 
     # List contents of the NebuliReferences folder (optional, for verification)
     - name: List Contents of NebuliReferences folder
       run: |
-        Get-ChildItem -Path $env:NEBULI_REFERENCES_PATH -Recurse
+        Get-ChildItem -Path $env:NEBULIREFERENCES -Recurse
 
     # Restore NuGet packages
     - name: Restore NuGet packages
@@ -50,4 +50,4 @@ jobs:
 
     # Build the Nebuli project for the specified configuration
     - name: Build Nebuli
-      run: dotnet build ${{ env.Project_Path }} --configuration ${{ matrix.configuration }} -r $env:NEBULI_REFERENCES_PATH --no-restore
+      run: dotnet build ${{ env.Project_Path }} --configuration ${{ matrix.configuration }} -r $env:NEBULIREFERENCES --no-restore
