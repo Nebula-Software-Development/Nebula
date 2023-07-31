@@ -20,4 +20,4 @@ jobs:
       run: dotnet restore
 
     - name: Build and Pack NuGet
-      run: nuget pack Nebuli.csproj -Prop Configuration=Release -IncludeReferencedProjects
+      run: nuget pack Nebuli\Nebuli.csproj -Prop Configuration=Release -IncludeReferencedProjects
