@@ -75,9 +75,10 @@ jobs:
       id: get_version
       shell: pwsh
       run: |
-        $Version = (Get-Content ${{ env.PROJECT_FOLDER }}/Loader/NebuliInfo.cs | Select-String 'public static readonly Version NebuliVersion = new(.*);').Matches[0].Groups[1].Value
-        echo "Nebuli Version: $Version"
-        echo "::set-output name=version::$Version"  # Set the output for later use
+         $Version = (Get-Content Nebuli/NeBuli.Loader/NebuliInfo.cs | Select-String 'public static readonly Version NebuliVersion = new(.*);').Matches[0].Groups[1].Value
+          $Version = $Version -replace '[()]', '' -replace ' ', '.'
+          echo "Nebuli Version: $Version"
+          echo "::set-output name=version::$Version"  # Set the output for later use
 
   
     # Pack the project and generate the NuGet package using the version obtained from the script
