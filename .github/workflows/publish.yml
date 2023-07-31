@@ -44,6 +44,9 @@ jobs:
     - name: Restore NuGet packages
       run: dotnet restore
 
+    - name: Build Nebuli
+      run: dotnet build --configuration Release --no-dependencies
+      
     - name: Navigate to Nebuli directory
       run: cd Nebuli
 
