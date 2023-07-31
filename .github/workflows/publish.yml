@@ -21,10 +21,11 @@ jobs:
 
     - name: Install NuGet
       run: |
-        nuget_loc="/c/Program Files/NuGet/NuGet.exe"
-        nuget_uri="https://dist.nuget.org/win-x86-commandline/latest/nuget.exe"
-        curl -o "$nuget_loc" $nuget_uri
-        echo "Installed NuGet at $nuget_loc"
+         $nuget_loc = "$env:ProgramFiles\NuGet\NuGet.exe"
+         $nuget_uri = "https://dist.nuget.org/win-x86-commandline/latest/nuget.exe"
+         Invoke-WebRequest -Uri $nuget_uri -OutFile $nuget_loc
+         echo "Installed NuGet at $nuget_loc"
+
 
     - uses: actions/checkout@v2.3.4
 
