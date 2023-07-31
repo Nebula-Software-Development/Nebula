@@ -24,12 +24,12 @@
   <PropertyGroup>
     <!-- Package metadata -->
     <PackageId>nebuli.nuget.package</PackageId>
-    <Version>1.0.0</Version>
+    <Version>1.1.2</Version>
     <Description>Nebuli - A Powerful Plugin Framework for SCP : Secret Laboratory servers. Nebuli is an extensible and feature-rich plugin framework designed for game servers.</Description>
     <Authors>Nebuli Team</Authors>
     <PackageProjectUrl>https://github.com/Nebuli-Team/Nebuli</PackageProjectUrl>
     <PackageLicenseUrl>https://github.com/Nebuli-Team/Nebuli/blob/master/LICENSE</PackageLicenseUrl>
-    <PackageIcon>Icon\140282733.ico</PackageIcon>
+    <PackageIcon>Loader\Icon\140282733.ico</PackageIcon>
     <EnablePackageValidation>true</EnablePackageValidation>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
