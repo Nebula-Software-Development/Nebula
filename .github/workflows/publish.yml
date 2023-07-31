@@ -48,10 +48,11 @@ jobs:
     - name: Restore NuGet packages
       run: dotnet restore ${{ env.Solution_Name }}
 
-   # Build the Nebuli project for the specified configuration
+    # Build the Nebuli project for the specified configuration
     - name: Build Nebuli
       shell: pwsh
       run: |
-        $dllPath = Join-Path $env:NEBULIREFERENCES 'References'
-        dotnet build $env:Project_Path --configuration $env:configuration -r $dllPath --no-restore
+         $dllPath = Join-Path $env:NEBULIREFERENCES 'References'
+         dotnet build $env:Project_Path --configuration $env:configuration --no-restore
+
 
