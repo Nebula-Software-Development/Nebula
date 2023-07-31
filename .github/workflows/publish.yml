@@ -85,12 +85,11 @@ jobs:
         name: Debug Build
         path: ${{ env.PROJECT_FOLDER }}\bin\Debug\Nebuli.dll
         
-# Pack the NuGet package
+    # Pack the NuGet package
     - name: Pack NuGet
-      run: dotnet pack ${{ env.Project_Path }} --configuration Release --no-build --output ${{ env.PROJECT_FOLDER }}/bin/Release
+      run: nuget pack ${{ env.Project_Path }} -Properties Configuration=Release -OutputDirectory ${{ env.PROJECT_FOLDER }}/bin/Release --no-build
       env:
         Project_Path: ${{ env.Project_Path }}
-        Configuration: ${{ matrix.configuration }}
     
     # Push NuGet package if on tag push or manually triggered
     - name: Push NuGet
