@@ -37,8 +37,6 @@ public class PeanutBlink
             new(OpCodes.Brtrue_S, retLabel),
             new(OpCodes.Ldloc_S, @event.LocalIndex),
             new(OpCodes.Callvirt, PropertyGetter(typeof(Scp173Blink), nameof(Scp173Blink.Position))),
-            new(OpCodes.Ldarg_1),
-            new(OpCodes.Stobj, typeof(Vector3)),
             new(OpCodes.Starg_S, 1)
         });
         
