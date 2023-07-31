@@ -23,21 +23,21 @@ jobs:
         run: mkdir ${{ env.NEBULIREFERENCES }}
 
       - name: Extract ExternalLibs
-        run: Expand-Archive -Path "${{ github.workspace }}\Nebuli\ExternalLibs\dev.zip" -DestinationPath "${{ env.NEBULIREFERENCES }}"
+        run: Expand-Archive -Path "${{ github.workspace }}/Nebuli/ExternalLibs/dev.zip" -DestinationPath "${{ env.NEBULIREFERENCES }}"
 
       - name: Copy required DLLs
         run: |
-          copy /Y "${{ env.NEBULIREFERENCES }}\Assembly-CSharp-Publicized.dll" "${{ github.workspace }}\Nebuli\Nebuli\Assembly-CSharp-Publicized.dll"
-          copy /Y "${{ env.NEBULIREFERENCES }}\Assembly-CSharp-Firstpass.dll" "${{ github.workspace }}\Nebuli\Nebuli\Assembly-CSharp-Firstpass.dll"
-          copy /Y "${{ env.NEBULIREFERENCES }}\CommandSystem.Core.dll" "${{ github.workspace }}\Nebuli\Nebuli\CommandSystem.Core.dll"
-          copy /Y "${{ env.NEBULIREFERENCES }}\Mirror-Publicized.dll" "${{ github.workspace }}\Nebuli\Nebuli\Mirror-Publicized.dll"
-          copy /Y "${{ env.NEBULIREFERENCES }}\NorthwoodLib.dll" "${{ github.workspace }}\Nebuli\Nebuli\NorthwoodLib.dll"
-          copy /Y "${{ env.NEBULIREFERENCES }}\UnityEngine.AnimationModule.dll" "${{ github.workspace }}\Nebuli\Nebuli\UnityEngine.AnimationModule.dll"
-          copy /Y "${{ env.NEBULIREFERENCES }}\Mirror.dll" "${{ github.workspace }}\Nebuli\Nebuli\Mirror.dll"
-          copy /Y "${{ env.NEBULIREFERENCES }}\Pooling.dll" "${{ github.workspace }}\Nebuli\Nebuli\Pooling.dll"
-          copy /Y "${{ env.NEBULIREFERENCES }}\UnityEngine.AudioModule.dll" "${{ github.workspace }}\Nebuli\Nebuli\UnityEngine.AudioModule.dll"
-          copy /Y "${{ env.NEBULIREFERENCES }}\UnityEngine.CoreModule.dll" "${{ github.workspace }}\Nebuli\Nebuli\UnityEngine.CoreModule.dll"
-          copy /Y "${{ env.NEBULIREFERENCES }}\UnityEngine.PhysicsModule.dll" "${{ github.workspace }}\Nebuli\Nebuli\UnityEngine.PhysicsModule.dll"
+          Copy-Item -Path "${{ env.NEBULIREFERENCES }}\Assembly-CSharp-Publicized.dll" -Destination "${{ github.workspace }}/Nebuli/Nebuli/Assembly-CSharp-Publicized.dll"
+          Copy-Item -Path "${{ env.NEBULIREFERENCES }}\Assembly-CSharp-Firstpass.dll" -Destination "${{ github.workspace }}/Nebuli/Nebuli/Assembly-CSharp-Firstpass.dll"
+          Copy-Item -Path "${{ env.NEBULIREFERENCES }}\CommandSystem.Core.dll" -Destination "${{ github.workspace }}/Nebuli/Nebuli/CommandSystem.Core.dll"
+          Copy-Item -Path "${{ env.NEBULIREFERENCES }}\Mirror-Publicized.dll" -Destination "${{ github.workspace }}/Nebuli/Nebuli/Mirror-Publicized.dll"
+          Copy-Item -Path "${{ env.NEBULIREFERENCES }}\NorthwoodLib.dll" -Destination "${{ github.workspace }}/Nebuli/Nebuli/NorthwoodLib.dll"
+          Copy-Item -Path "${{ env.NEBULIREFERENCES }}\UnityEngine.AnimationModule.dll" -Destination "${{ github.workspace }}/Nebuli/Nebuli/UnityEngine.AnimationModule.dll"
+          Copy-Item -Path "${{ env.NEBULIREFERENCES }}\Mirror.dll" -Destination "${{ github.workspace }}/Nebuli/Nebuli/Mirror.dll"
+          Copy-Item -Path "${{ env.NEBULIREFERENCES }}\Pooling.dll" -Destination "${{ github.workspace }}/Nebuli/Nebuli/Pooling.dll"
+          Copy-Item -Path "${{ env.NEBULIREFERENCES }}\UnityEngine.AudioModule.dll" -Destination "${{ github.workspace }}/Nebuli/Nebuli/UnityEngine.AudioModule.dll"
+          Copy-Item -Path "${{ env.NEBULIREFERENCES }}\UnityEngine.CoreModule.dll" -Destination "${{ github.workspace }}/Nebuli/Nebuli/UnityEngine.CoreModule.dll"
+          Copy-Item -Path "${{ env.NEBULIREFERENCES }}\UnityEngine.PhysicsModule.dll" -Destination "${{ github.workspace }}/Nebuli/Nebuli/UnityEngine.PhysicsModule.dll"
 
       - name: Build Project
         run: dotnet build Nebuli\Nebuli.csproj -c Release
