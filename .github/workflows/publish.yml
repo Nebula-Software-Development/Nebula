@@ -85,7 +85,15 @@ jobs:
         name: Debug Build
         path: ${{ env.PROJECT_FOLDER }}\bin\Debug\Nebuli.dll
         
+# Pack the NuGet package
+    - name: Pack NuGet
+      run: dotnet pack ${{ env.Project_Path }} --configuration Release --no-build --output ${{ env.PROJECT_FOLDER }}/bin/Release
+      env:
+        Project_Path: ${{ env.Project_Path }}
+        Configuration: ${{ matrix.configuration }}
+    
+    # Push NuGet package if on tag push or manually triggered
     - name: Push NuGet
-      if: startsWith(github.ref, 'refs/tags/')
+      if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/') || github.event_name == 'workflow_dispatch'
       shell: pwsh
-      run: nuget push ${{ env.PROJECT_FOLDER }}/bin/Release/*.nupkg -ApiKey ${{ secrets.NUGET_API_KEY }} -Source https://api.nuget.org/v3/index.json
+      run: nuget push ${{ env.PackageFile }} -ApiKey ${{ secrets.NUGET_API_KEY }} -Source https://api.nuget.org/v3/index.json
