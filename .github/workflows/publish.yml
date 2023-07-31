@@ -15,6 +15,23 @@ jobs:
     steps:
     - name: Setup .NET Core SDK
       uses: actions/setup-dotnet@v1.7.2
+      
+    - name: Install NuGet
+      run: |
+        $nuget_loc = "$env:ProgramFiles\NuGet\NuGet.exe"
+        $nuget_uri = "https://dist.nuget.org/win-x86-commandline/latest/nuget.exe"
+        if (-Not (Test-Path $nuget_loc)) {
+          Write-Host "NuGet not found at $nuget_loc. Trying default location..."
+          $nuget_loc = "C:\NuGet\NuGet.exe"
+          New-Item -ItemType Directory -Force -Path "C:\NuGet"
+        }
+        if (-Not (Test-Path $nuget_loc)) {
+          Write-Host "NuGet not found. Downloading..."
+          Invoke-WebRequest -Uri $nuget_uri -OutFile $nuget_loc
+          Write-Host "Installed NuGet at $nuget_loc"
+        } else {
+          Write-Host "Using NuGet from $nuget_loc"
+        }
 
     - uses: actions/checkout@v2.3.4
 
@@ -31,12 +48,8 @@ jobs:
       run: cd Nebuli
 
     - name: Build and Pack NuGet
-      env:
-        NEBULI_REFERENCES: ${{ env.NEBULI_REFERENCES_PATH }}
-      run: |
-        dotnet pack Nebuli.csproj --configuration Release --output D:\a\Nebuli\Nebuli\NuGetPackages -p:IncludeReferencedProjects=true
-        $File = (Get-ChildItem -Path D:\a\Nebuli\Nebuli\NuGetPackages -Include 'Nebuli.*.nupkg' -Recurse).Name
-        Out-File -FilePath ${{ github.env }} -InputObject "PackageFile=$File" -Encoding utf-8 -Append
+      run: nuget pack Nebuli\Nebuli.csproj -Prop Configuration=Release -IncludeReferencedProjects
+
 
     - name: Push NuGet
       shell: pwsh
