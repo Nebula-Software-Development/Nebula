@@ -1,20 +1,20 @@
-name: Build Nebuli/master
+name: Build and Publish Nebuli Package
 
 on:
   push:
     branches: [ "master" ]
-  pull_request:
-    branches: [ "master" ]
+    tags:
+      - 'v*'  # Trigger on tag pushes starting with 'v'
+  workflow_dispatch:  # Manually trigger the workflow from the GitHub Actions UI
 
 jobs:
-  build:
-
+  build_and_publish:
     strategy:
       matrix:
         configuration: [Release]
 
     runs-on: windows-latest
-    
+
     env:
        NEBULI_DOWNLOAD_URL: https://cdn.cedmod.nl/files/References.zip
        NEBULIREFERENCES: D:\a\Nebuli\Nebuli\References
@@ -22,7 +22,6 @@ jobs:
        Solution_Name: Nebuli.sln
        Solution_Path: D:\a\Nebuli\Nebuli\Nebuli\Nebuli.sln
        Project_Path: Nebuli/Nebuli.csproj
-
 
     steps:
     - name: Checkout
@@ -71,20 +70,30 @@ jobs:
         Project_Path: ${{ env.Project_Path }}
         Configuration: ${{ matrix.configuration }}
     
+    # Pack the project and generate the NuGet package
+    - name: Pack the project
+      shell: pwsh
+      run: nuget pack ${{ env.Project_Path }} -Properties Configuration=Release -OutputDirectory ${{ env.PROJECT_FOLDER }}/bin/Release
+      
     # Upload the app
     - name: Upload release results
       uses: actions/upload-artifact@v3
       with:
         name: Release Build
-        path: ${{ env.PROJECT_FOLDER }}\bin\Release\Nebuli.dll
-        
-    - name: Publish to NuGet
-      run: dotnet nuget push ${{ env.PROJECT_FOLDER }}/bin/Release/*.nupkg --source https://api.nuget.org/v3/index.json --api-key ${{ secrets.NUGET_API_KEY }}
-      if: startsWith(github.ref, 'refs/tags/v')  # Only run on tag pushes (RELEASE)
+        path: ${{ env.PROJECT_FOLDER }}/bin/Release
+
+    - name: List artifacts
+      run: |
+        ls ${{ env.PROJECT_FOLDER }}/bin/Release
+
+    # Find the .nupkg file
+    - name: Set package file path
+      id: set_package_file
+      run: |
+        echo "::set-output name=package_file::$(ls ${{ env.PROJECT_FOLDER }}/bin/Release/Nebuli.*.nupkg)"
       
-    - name: Upload debug results
-      uses: actions/upload-artifact@v3
-      with:
-        name: Debug Build
-        path: ${{ env.PROJECT_FOLDER }}\bin\Debug\Nebuli.dll
-        
+    # Push NuGet package if on tag push or manually triggered
+    - name: Push NuGet
+      if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/') || github.event_name == 'workflow_dispatch'
+      shell: pwsh
+      run: nuget push ${{ steps.set_package_file.outputs.package_file }} -ApiKey ${{ secrets.NUGET_API_KEY }} -Source https://api.nuget.org/v3/index.json
