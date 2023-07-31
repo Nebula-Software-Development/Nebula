@@ -24,5 +24,8 @@ jobs:
           # Remove the now empty "dev" subfolder
           Remove-Item -Path "${{ github.workspace }}/ExternalLibs/dev" -Force
 
-      - name: Build and Pack NuGet
+      - name: Build Project
+        run: dotnet build Nebuli\Nebuli.csproj -c Release
+
+      - name: Pack NuGet
         run: nuget pack Nebuli\Nebuli.csproj -Prop Configuration=Release -IncludeReferencedProjects
