@@ -18,20 +18,20 @@ jobs:
 
       - name: List Contents of Source Directory
         run: |
-          ls "${{ github.workspace }}\Nebuli\ExternalLibs"
+          ls "${{ github.workspace }}/Nebuli/ExternalLibs"
 
       - name: Extract ExternalLibs
         run: |
-          Expand-Archive -Path "${{ github.workspace }}\Nebuli\ExternalLibs\dev.zip" -DestinationPath "${{ env.NEBULIREFERENCES }}"
-          Move-Item -Path "${{ env.NEBULIREFERENCES }}\dev\*" -Destination "${{ env.NEBULIREFERENCES }}"
-          Remove-Item -Path "${{ env.NEBULIREFERENCES }}\dev" -Force
+          Expand-Archive -Path "${{ github.workspace }}/Nebuli/ExternalLibs/dev.zip" -DestinationPath "${{ github.workspace }}/ExternalLibs"
+          Move-Item -Path "${{ github.workspace }}/ExternalLibs/dev/*" -Destination "${{ github.workspace }}/ExternalLibs"
+          Remove-Item -Path "${{ github.workspace }}/ExternalLibs/dev" -Force
 
       - name: List Contents of Destination Directory
         run: |
-          ls "${{ env.NEBULIREFERENCES }}"
+          ls "${{ github.workspace }}/ExternalLibs"
 
       - name: Build Project
-        run: dotnet build Nebuli\Nebuli.csproj -c Release
+        run: dotnet build Nebuli/Nebuli.csproj -c Release
 
       - name: Pack NuGet
-        run: nuget pack Nebuli\Nebuli.csproj -Prop Configuration=Release -IncludeReferencedProjects
+        run: nuget pack Nebuli/Nebuli.csproj -Prop Configuration=Release -IncludeReferencedProjects
