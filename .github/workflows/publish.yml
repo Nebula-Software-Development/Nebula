@@ -47,7 +47,8 @@ jobs:
     # Restore NuGet packages
     - name: Restore NuGet packages
       run: dotnet restore ${{ env.Solution_Name }}
-
-    # Build the Nebuli project for the specified configuration
+      
+   # Build the Nebuli project for the specified configuration
     - name: Build Nebuli
-      run: dotnet build ${{ env.Project_Path }} --configuration ${{ matrix.configuration }} -r $env:(NEBULIREFERENCES) --no-restore
+      run: dotnet build ${{ env.Project_Path }} --configuration ${{ matrix.configuration }} -r ${{ env.NEBULIREFERENCES }} --no-restore
+
