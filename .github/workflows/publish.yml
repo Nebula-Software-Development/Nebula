@@ -18,7 +18,7 @@ jobs:
 
     - name: Extract ExternalLibs
       run: |
-        Expand-Archive -Path "${{ github.workspace }}Nebuli\ExternalLibs\dev.zip" -DestinationPath "${{ github.workspace }}\ExternalLibs"
+        Expand-Archive -Path "${{ github.workspace }}\Nebuli\ExternalLibs\dev.zip" -DestinationPath "${{ github.workspace }}\ExternalLibs"
 
     - name: Build and Pack NuGet
       run: nuget pack -Prop Configuration=Release -IncludeReferencedProjects
