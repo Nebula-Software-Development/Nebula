@@ -20,11 +20,19 @@ jobs:
         run: |
           mkdir "${{ env.NEBULIREFERENCES }}"
       
+      - name: List Contents of Source Directory
+        run: |
+          ls "${{ github.workspace }}/Nebuli/ExternalLibs"
+
       - name: Extract ExternalLibs
         run: |
-          Expand-Archive -Path "${{ github.workspace }}/Nebuli/ExternalLibs/dev.zip" -DestinationPath "${{ env.NEBULIREFERENCES }}"
-          Move-Item -Path "${{ env.NEBULIREFERENCES }}/dev/*" -Destination "${{ env.NEBULIREFERENCES }}"
-          Remove-Item -Path "${{ env.NEBULIREFERENCES }}/dev" -Force
+          Expand-Archive -Path "${{ github.workspace }}\Nebuli\ExternalLibs\dev.zip" -DestinationPath "${{ env.NEBULIREFERENCES }}"
+          Move-Item -Path "${{ env.NEBULIREFERENCES }}\dev\*" -Destination "${{ env.NEBULIREFERENCES }}"
+          Remove-Item -Path "${{ env.NEBULIREFERENCES }}\dev" -Force
+
+      - name: List Contents of Destination Directory
+        run: |
+          ls "${{ env.NEBULIREFERENCES }}"
 
       - name: Build Project
         run: dotnet build Nebuli\Nebuli.csproj -c Release
