@@ -19,13 +19,10 @@ jobs:
       - name: Extract ExternalLibs
         run: |
           Expand-Archive -Path "${{ github.workspace }}/Nebuli/ExternalLibs/dev.zip" -DestinationPath "${{ github.workspace }}/ExternalLibs"
-          echo "NEBULIREFERENCES=${{ github.workspace }}/ExternalLibs" >> $GITHUB_ENV
+          # Move the DLLs from the "dev" subfolder to the parent folder
+          Move-Item -Path "${{ github.workspace }}/ExternalLibs/dev/*" -Destination "${{ github.workspace }}/ExternalLibs"
+          # Remove the now empty "dev" subfolder
+          Remove-Item -Path "${{ github.workspace }}/ExternalLibs/dev" -Force
 
-      - name: Restore Dependencies
-        run: dotnet restore Nebuli\Nebuli.csproj
-
-      - name: Build Project
-        run: dotnet build Nebuli\Nebuli.csproj -c Release
-
-      - name: Pack NuGet
-        run: nuget pack Nebuli\Nebuli.csproj -Prop Configuration=Release -IncludeReferencedProjects -OutputDirectory "${{ github.workspace }}/NuGetOutput"
+      - name: Build and Pack NuGet
+        run: nuget pack Nebuli\Nebuli.csproj -Prop Configuration=Release -IncludeReferencedProjects
