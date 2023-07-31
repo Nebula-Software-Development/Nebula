@@ -6,7 +6,9 @@ on:
   workflow_dispatch:
 
 env:
-  NEBULIREFERENCES: ${{ github.workspace }}/ExternalLibs
+  DEPOT_DOWNLOADER_VERSION: 2.4.7 
+  NEBULI_REFERENCES: D:\a\Nebuli\Nebuli\Nebuli\ExternalLibs
+  NEBULI_APP_ID: 996560
 
 jobs:
   build:
@@ -19,14 +21,28 @@ jobs:
       - name: Setup .NET Core SDK
         uses: actions/setup-dotnet@v1.7.2
 
-      - name: Create NEBULIREFERENCES directory
-        run: mkdir ${{ env.NEBULIREFERENCES }}
+      - name: Download depot downloader
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force -Path D:\a\Nebuli
+          New-Item -ItemType Directory -Force -Path D:\a\Nebuli\DepotDownloader
+          Invoke-WebRequest -Uri "https://github.com/SteamRE/DepotDownloader/releases/download/DepotDownloader_${{ env.DEPOT_DOWNLOADER_VERSION }}/depotdownloader-${{ env.DEPOT_DOWNLOADER_VERSION }}.zip" -OutFile "D:\a\Nebuli\depotdownloader.zip"
+          Expand-Archive -Path D:\a\Nebuli\depotdownloader.zip -PassThru -DestinationPath D:\a\Nebuli/DepotDownloader
 
-      - name: Extract ExternalLibs
-        run: Expand-Archive -Path "${{ github.workspace }}/Nebuli/ExternalLibs/dev.zip" -DestinationPath "${{ env.NEBULIREFERENCES }}"
+      - name: Download Nebuli references
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force -Path ${{ env.NEBULI_REFERENCES }}
+          Start-Process -NoNewWindow -Wait -FilePath "D:\a\Nebuli\DepotDownloader\DepotDownloader.exe" -WorkingDirectory "D:\a\Nebuli\DepotDownloader" -ArgumentList "-app ${{ env.NEBULI_APP_ID }}",'-beta nightly','-betapassword ${{ secrets.NIGHTLYPASSWORD }}','-dir ${{ env.NEBULI_REFERENCES }}','-filelist "${{ github.workspace }}\download-files.txt"'
 
       - name: Build Project
         run: dotnet build Nebuli\Nebuli.csproj -c Release
 
       - name: Pack NuGet
         run: nuget pack Nebuli\Nebuli.csproj -Prop Configuration=Release -IncludeReferencedProjects
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: nuget-package
+          path: '*.nupkg'
