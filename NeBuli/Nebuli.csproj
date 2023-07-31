@@ -19,6 +19,9 @@
     </PropertyGroup>
   </Target>
   <PropertyGroup>
+    <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup>
     <!-- Package metadata -->
     <PackageId>nebuli.nuget.package</PackageId>
     <Version>1.0.0</Version>
@@ -36,12 +39,12 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\..\..\..\..\..\..\obj\bin\Debug\</OutputPath>
+    <OutputPath>obj\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <DocumentationFile>..\..\..\..\..\..\..\obj\bin\Debug\Nebuli.xml</DocumentationFile>
+    <DocumentationFile>obj\Debug\Nebuli.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -209,11 +212,11 @@
     <Content Include="Loader\Icon\140282733.ico" />
   </ItemGroup>
   <ItemGroup>
-  <None Update="Loader\Icon\140282733.ico">
-    <Pack>true</Pack>
-    <PackagePath>content</PackagePath>
-  </None>
-</ItemGroup>
+    <None Update="Loader\Icon\140282733.ico">
+      <Pack>true</Pack>
+      <PackagePath>content</PackagePath>
+    </None>
+  </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
