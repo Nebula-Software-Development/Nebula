@@ -30,7 +30,9 @@ jobs:
 
     # Install the .NET Core SDK
     - name: Setup .NET Core SDK
-      uses: actions/setup-dotnet@v1.7.2
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: '7.0.306'
 
     # Fetch the required Nebuli references
     - name: Get Nebuli references
