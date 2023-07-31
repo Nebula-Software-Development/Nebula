@@ -27,6 +27,10 @@ jobs:
         Invoke-WebRequest -Uri $env:NEBULI_DOWNLOAD_URL -OutFile "$env:NEBULI_REFERENCES_PATH.zip"
         Expand-Archive -Path "$env:NEBULI_REFERENCES_PATH.zip" -DestinationPath "$env:NEBULI_REFERENCES_PATH"
 
+    - name: List Contents of NebuliReferences folder
+      run: |
+        Get-ChildItem -Path $env:NEBULI_REFERENCES_PATH -Recurse
+
     - name: Restore NuGet packages
       run: dotnet restore
 
