@@ -1,31 +1,28 @@
-name: publish
+name: Build and Publish NuGet Package
 
 on:
   release:
     types: [published]
-  workflow_dispatch:
 
 jobs:
-
-  push:
-
+  build:
     runs-on: windows-latest
 
     steps:
+    - name: Checkout Code
+      uses: actions/checkout@v2
 
     - name: Setup .NET Core SDK
       uses: actions/setup-dotnet@v1.7.2
 
-    - uses: actions/checkout@v2.3.4
+    - name: Restore Dependencies
+      run: dotnet restore
 
-    - name: Build NuGet
-      shell: pwsh
+    - name: Build and Pack NuGet
       run: |
         ./build.ps1 -BuildNuGet
         $File = (Get-ChildItem -Path . -Include 'Nebuli.*.nupkg' -Recurse).Name
-        Out-File -FilePath ${{ github.workspace }}/package.txt -InputObject "PackageFile=$File" -Encoding utf-8 -Append
+        Out-File -FilePath package.txt -InputObject "PackageFile=$File" -Encoding utf-8 -Append
 
-
-    - name: Push NuGet
-      shell: pwsh
-      run: nuget push ${{ github.workspace }}/$(Get-Content ${{ github.workspace }}/package.txt | Select-String -Pattern '^PackageFile=' | ForEach-Object { $_.ToString().Split('=')[1] }) -ApiKey ${{ secrets.NUGET_API_KEY }} -Source https://api.nuget.org/v3/index.json
+    - name: Publish NuGet Package
+      run: nuget push $(Get-Content package.txt | Select-String -Pattern '^PackageFile=' | ForEach-Object { $_.ToString().Split('=')[1] }) -ApiKey ${{ secrets.NUGET_API_KEY }} -Source https://api.nuget.org/v3/index.json
