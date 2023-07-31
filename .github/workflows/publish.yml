@@ -1,4 +1,4 @@
-name: Nebuli CD
+name: Nebuli Updater
 
 on:
   release:
@@ -34,10 +34,12 @@ jobs:
       - name: Build Nebuli
         env:
           NEBULI_REFERENCES: ${{ env.NEBULI_REFERENCES_PATH }}
-        run: dotnet build Nebuli/Nebuli.csproj --configuration Release -r $env:NEBULIREFERENCES --no-restore
+        run: dotnet build Nebuli/Nebuli.csproj --configuration Release -r $env:NEBULI_REFERENCES --no-restore
 
       - name: Pack NuGet
         run: dotnet pack Nebuli/Nebuli.csproj --configuration Release --output D:\a\Nebuli\Nebuli\NuGetPackages -p:IncludeReferencedProjects=true
+        env:
+          PackageFile: ./Nebuli/Nebuli/bin/Release/*.nupkg
 
       - name: Push NuGet
         shell: pwsh
