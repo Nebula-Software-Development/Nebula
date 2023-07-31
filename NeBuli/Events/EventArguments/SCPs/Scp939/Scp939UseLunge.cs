@@ -8,8 +8,7 @@ public class Scp939UseLunge : EventArgs, IPlayerEvent
     public Scp939UseLunge(ReferenceHub player)
     {
         Player = NebuliPlayer.Get(player);
-    }
-    
+    } 
     /// <summary>
     /// Gets the player lunging.
     /// </summary>

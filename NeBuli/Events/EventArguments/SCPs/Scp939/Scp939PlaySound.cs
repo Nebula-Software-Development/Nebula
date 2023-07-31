@@ -23,7 +23,7 @@ public class Scp939PlaySound : EventArgs, IPlayerEvent, ICancellableEvent
     public bool IsCancelled { get; set; }
     
     /// <summary>
-    /// The sound option to be played
+    /// The sound to be played.
     /// </summary>
     public byte SoundOption { get; }
 }
