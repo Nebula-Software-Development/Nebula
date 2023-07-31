@@ -77,13 +77,14 @@ jobs:
       with:
         name: Release Build
         path: ${{ env.PROJECT_FOLDER }}\bin\Release\Nebuli.dll
-    
+        
+    - name: Publish to NuGet
+      run: dotnet nuget push ${{ env.PROJECT_FOLDER }}/bin/Release/*.nupkg --source https://api.nuget.org/v3/index.json --api-key ${{ secrets.NUGET_API_KEY }}
+      if: startsWith(github.ref, 'refs/tags/v')  # Only run on tag pushes (RELEASE)
+      
     - name: Upload debug results
       uses: actions/upload-artifact@v3
       with:
         name: Debug Build
         path: ${{ env.PROJECT_FOLDER }}\bin\Debug\Nebuli.dll
         
-    - name: Publish to NuGet
-      run: dotnet nuget push ${{ env.PROJECT_FOLDER }}/bin/Release/*.nupkg --source https://api.nuget.org/v3/index.json --api-key ${{ secrets.NUGET_API_KEY }}
-      if: startsWith(github.ref, 'refs/tags/v')  # Only run on tag pushes (RELEASE)
