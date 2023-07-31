@@ -5,10 +5,6 @@ on:
     types: [published]
   workflow_dispatch:
 
-env:
-  GDRIVE_FOLDER_URL: https://drive.google.com/drive/folders/19qoFkGeaAHmWfn_G7XCTvx5EhvjKfqE9?usp=sharing
-  EXTERNAL_LIBS_DIR: external_libs
-
 jobs:
   push:
     runs-on: windows-latest
@@ -17,18 +13,13 @@ jobs:
     - name: Checkout Code
       uses: actions/checkout@v2
 
-    - name: Download and Extract External References
-      run: |
-        mkdir ${{ env.EXTERNAL_LIBS_DIR }}
-        curl -L "${{ env.GDRIVE_FOLDER_URL }}/dev.zip" -o ${{ env.EXTERNAL_LIBS_DIR }}/dependencies.zip
-        Expand-Archive -Path ${{ env.EXTERNAL_LIBS_DIR }}/dependencies.zip -DestinationPath ${{ env.EXTERNAL_LIBS_DIR }}
-      shell: pwsh
-
     - name: Setup .NET Core SDK
       uses: actions/setup-dotnet@v1.7.2
 
-    - name: Restore Dependencies
-      run: dotnet restore
+    - name: Download ExternalLibs
+      run: |
+        Invoke-WebRequest -Uri "https://drive.google.com/uc?id=YOUR_FILE_ID&export=download" -OutFile "${{ github.workspace }}/ExternalLibs/dev.zip"
+        Expand-Archive -Path "${{ github.workspace }}/ExternalLibs/dev.zip" -DestinationPath "${{ github.workspace }}/ExternalLibs"
 
     - name: Build and Pack NuGet
       run: nuget pack -Prop Configuration=Release -IncludeReferencedProjects
