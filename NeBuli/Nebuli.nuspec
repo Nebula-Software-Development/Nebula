@@ -1,0 +1,14 @@
+﻿<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
+  <metadata>
+    <id>nebuli.nuget.api</id>
+	<title>Nebuli</title>
+    <version>1.0.0</version>
+    <authors>NotIntense</authors>
+    <owners>Nebuli Team</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>A Powerful Plugin Framework for SCP : Secret Labratory servers.</description>
+	<licenseUrl>https://github.com/Nebuli-Team/Nebuli/blob/master/LICENSE</licenseUrl>
+	<icon>Loader\Icon\140282733.ico</icon>
+  </metadata>
+</package>
