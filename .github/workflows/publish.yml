@@ -17,7 +17,7 @@ jobs:
 
     env:
       NEBULI_DOWNLOAD_URL: https://cdn.cedmod.nl/files/References.zip
-      NEBULIREFERENCES: D:\a\Nebuli\Nebuli\References\References\Reference
+      NEBULIREFERENCES: D:\a\Nebuli\Nebuli\References\References
       PROJECT_FOLDER: Nebuli
       Solution_Name: Nebuli.sln
       Project_Path: Nebuli/Nebuli.csproj
