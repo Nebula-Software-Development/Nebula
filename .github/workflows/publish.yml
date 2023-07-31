@@ -9,7 +9,6 @@ on:
 
 jobs:
   build_and_publish:
-
     strategy:
       matrix:
         configuration: [Release]
@@ -76,18 +75,19 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: Release Build
-        path: ${{ env.PROJECT_FOLDER }}/bin/Release\
+        path: ${{ env.PROJECT_FOLDER }}/bin/Release
 
     - name: List artifacts
       run: |
-        ls ${{ env.PROJECT_FOLDER }}/bin/Release\
+        ls ${{ env.PROJECT_FOLDER }}/bin/Release
 
     # Find the .nupkg file
     - name: Set package file path
       id: set_package_file
       run: |
         echo "::set-output name=package_file::$(ls ${{ env.PROJECT_FOLDER }}/bin/Release/Nebuli.*.nupkg)"
-    
+      
+    # Push NuGet package if on tag push or manually triggered
     - name: Push NuGet
       if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/') || github.event_name == 'workflow_dispatch'
       shell: pwsh
