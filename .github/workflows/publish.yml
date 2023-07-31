@@ -87,7 +87,7 @@ jobs:
         
     # Pack the NuGet package
     - name: Pack NuGet
-      run: nuget pack ${{ env.Project_Path }} -Properties Configuration=Release -OutputDirectory ${{ env.PROJECT_FOLDER }}/bin/Release --no-build
+      run: nuget pack ${{ env.Project_Path }} -Properties Configuration=Release -OutputDirectory ${{ env.PROJECT_FOLDER }}/bin/Release
       env:
         Project_Path: ${{ env.Project_Path }}
     
