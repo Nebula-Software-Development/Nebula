@@ -15,10 +15,6 @@ jobs:
 
       - name: Setup .NET Core SDK
         uses: actions/setup-dotnet@v1.7.2
-
-      - name: Create Destination Directory
-        run: |
-          mkdir "${{ env.NEBULIREFERENCES }}"
       
       - name: List Contents of Source Directory
         run: |
