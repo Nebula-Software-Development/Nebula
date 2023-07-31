@@ -33,10 +33,9 @@ jobs:
       run: dotnet restore
 
     - name: Build
-      env:
-        NEBULIREFERENCES: D:\a\Nebuli\Nebuli\NebuliReferences
-        run: dotnet build Nebuli/Nebuli.csproj --configuration Release -r $env:NEBULIREFERENCES --no-restore
-
+      env: 
+       NEBULIREFERENCES: D:\a\Nebuli\Nebuli\NebuliReferences
+      run: dotnet build Nebuli/Nebuli.csproj --configuration Release -r $env:NEBULIREFERENCES --no-restore
 
     - name: Pack NuGet
       run: dotnet pack Nebuli/Nebuli.csproj --configuration Release --output D:\a\Nebuli\Nebuli\NuGetPackages -p:IncludeReferencedProjects=true
