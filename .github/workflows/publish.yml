@@ -26,7 +26,7 @@ jobs:
       shell: pwsh
       run: |
         echo "Nebuli References Path: $env:NEBULI_REFERENCES_PATH"
-        Invoke-WebRequest -Uri $env:NEBULI_DOWNLOAD_URL -OutFile "$env:NEBULI_REFERENCES_PATH.zip"
+        Invoke-WebRequest -Uri $env:NEBULI_DOWNLOAD_URL -OutFile "$env:NEBULIREFERENCES.zip"
         Expand-Archive -Path "$env:NEBULI_REFERENCES_PATH.zip" -DestinationPath "$env:NEBULI_REFERENCES_PATH"
 
     - name: List Contents of NebuliReferences folder
