@@ -15,7 +15,7 @@ jobs:
         configuration: [Release]
 
     runs-on: windows-latest
-    
+
     env:
        NEBULI_DOWNLOAD_URL: https://cdn.cedmod.nl/files/References.zip
        NEBULIREFERENCES: D:\a\Nebuli\Nebuli\References
@@ -23,7 +23,6 @@ jobs:
        Solution_Name: Nebuli.sln
        Solution_Path: D:\a\Nebuli\Nebuli\Nebuli\Nebuli.sln
        Project_Path: Nebuli/Nebuli.csproj
-
 
     steps:
     - name: Checkout
@@ -77,28 +76,19 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: Release Build
-        path: ${{ env.PROJECT_FOLDER }}\bin\Release\Nebuli.dll
-    
-    - name: Upload debug results
-      uses: actions/upload-artifact@v3
-      with:
-        name: Debug Build
-        path: ${{ env.PROJECT_FOLDER }}\bin\Debug\Nebuli.dll
-        
-    # Pack the NuGet package
-    - name: Pack NuGet
-      run: nuget pack ${{ env.Project_Path }} -Properties Configuration=Release -OutputDirectory ${{ env.PROJECT_FOLDER }}/bin/Release
-      env:
-        Project_Path: ${{ env.Project_Path }}
-    
-    # Find NuGet package file in the release directory and set it in an environment variable
-    - name: Find NuGet Package File
-      id: find_package_file
-      run: |
-        echo "##[set-output name=package_file]$(find . -name 'Nebuli.*.nupkg' -type f)"
+        path: ${{ env.PROJECT_FOLDER }}/bin/Release\
 
-    # Push NuGet package if on tag push or manually triggered
+    - name: List artifacts
+      run: |
+        ls ${{ env.PROJECT_FOLDER }}/bin/Release\
+
+    # Find the .nupkg file
+    - name: Set package file path
+      id: set_package_file
+      run: |
+        echo "::set-output name=package_file::$(ls ${{ env.PROJECT_FOLDER }}/bin/Release/Nebuli.*.nupkg)"
+    
     - name: Push NuGet
       if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/') || github.event_name == 'workflow_dispatch'
       shell: pwsh
-      run: nuget push ${{ steps.find_package_file.outputs.package_file }} -ApiKey ${{ secrets.NUGET_API_KEY }} -Source https://api.nuget.org/v3/index.json
+      run: nuget push ${{ steps.set_package_file.outputs.package_file }} -ApiKey ${{ secrets.NUGET_API_KEY }} -Source https://api.nuget.org/v3/index.json
