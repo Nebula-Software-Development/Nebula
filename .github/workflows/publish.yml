@@ -5,6 +5,9 @@ on:
     types: [published]
   workflow_dispatch:
 
+env:
+  NEBULIREFERENCES: ${{ github.workspace }}/ExternalLibs
+
 jobs:
   build:
     runs-on: windows-latest
@@ -16,19 +19,25 @@ jobs:
       - name: Setup .NET Core SDK
         uses: actions/setup-dotnet@v1.7.2
 
-      - name: List Contents of Source Directory
-        run: |
-          ls "${{ github.workspace }}/Nebuli/ExternalLibs"
+      - name: Create NEBULIREFERENCES directory
+        run: mkdir ${{ env.NEBULIREFERENCES }}
 
       - name: Extract ExternalLibs
-        run: |
-          Expand-Archive -Path "${{ github.workspace }}/Nebuli/ExternalLibs/dev.zip" -DestinationPath "${{ github.workspace }}/ExternalLibs"
-          Move-Item -Path "${{ github.workspace }}/ExternalLibs/dev/*" -Destination "${{ github.workspace }}/ExternalLibs"
-          Remove-Item -Path "${{ github.workspace }}/ExternalLibs/dev" -Force
+        run: Expand-Archive -Path "${{ github.workspace }}/Nebuli/ExternalLibs/dev.zip" -DestinationPath "${{ env.NEBULIREFERENCES }}"
 
-      - name: List Contents of Destination Directory
+      - name: Copy required DLLs
         run: |
-          ls "${{ github.workspace }}/ExternalLibs"
+          copy /Y "${{ env.NEBULIREFERENCES }}\Assembly-CSharp-Publicized.dll" "${{ github.workspace }}/Nebuli/Nebuli/Assembly-CSharp-Publicized.dll"
+          copy /Y "${{ env.NEBULIREFERENCES }}\Assembly-CSharp-Firstpass.dll" "${{ github.workspace }}/Nebuli/Nebuli/Assembly-CSharp-Firstpass.dll"
+          copy /Y "${{ env.NEBULIREFERENCES }}\CommandSystem.Core.dll" "${{ github.workspace }}/Nebuli/Nebuli/CommandSystem.Core.dll"
+          copy /Y "${{ env.NEBULIREFERENCES }}\Mirror-Publicized.dll" "${{ github.workspace }}/Nebuli/Nebuli/Mirror-Publicized.dll"
+          copy /Y "${{ env.NEBULIREFERENCES }}\NorthwoodLib.dll" "${{ github.workspace }}/Nebuli/Nebuli/NorthwoodLib.dll"
+          copy /Y "${{ env.NEBULIREFERENCES }}\UnityEngine.AnimationModule.dll" "${{ github.workspace }}/Nebuli/Nebuli/UnityEngine.AnimationModule.dll"
+          copy /Y "${{ env.NEBULIREFERENCES }}\Mirror.dll" "${{ github.workspace }}/Nebuli/Nebuli/Mirror.dll"
+          copy /Y "${{ env.NEBULIREFERENCES }}\Pooling.dll" "${{ github.workspace }}/Nebuli/Nebuli/Pooling.dll"
+          copy /Y "${{ env.NEBULIREFERENCES }}\UnityEngine.AudioModule.dll" "${{ github.workspace }}/Nebuli/Nebuli/UnityEngine.AudioModule.dll"
+          copy /Y "${{ env.NEBULIREFERENCES }}\UnityEngine.CoreModule.dll" "${{ github.workspace }}/Nebuli/Nebuli/UnityEngine.CoreModule.dll"
+          copy /Y "${{ env.NEBULIREFERENCES }}\UnityEngine.PhysicsModule.dll" "${{ github.workspace }}/Nebuli/Nebuli/UnityEngine.PhysicsModule.dll"
 
       - name: Build Project
         run: dotnet build Nebuli/Nebuli.csproj -c Release
