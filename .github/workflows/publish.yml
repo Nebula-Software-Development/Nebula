@@ -15,10 +15,10 @@ jobs:
 
       - name: Setup .NET Core SDK
         uses: actions/setup-dotnet@v1.7.2
-      
+
       - name: List Contents of Source Directory
         run: |
-          ls "${{ github.workspace }}/Nebuli/ExternalLibs"
+          ls "${{ github.workspace }}\Nebuli\ExternalLibs"
 
       - name: Extract ExternalLibs
         run: |
