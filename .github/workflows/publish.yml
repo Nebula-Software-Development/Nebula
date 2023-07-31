@@ -8,6 +8,8 @@ on:
 env:
   NEBULI_DOWNLOAD_URL: https://cdn.cedmod.nl/files/References.zip
   NEBULI_REFERENCES_PATH: ${{ github.workspace }}/NebuliReferences
+  NEBULIREFERENCES: D:\a\Nebuli\Nebuli\Nebuli\NebuliReferences
+
 
 jobs:
   push:
