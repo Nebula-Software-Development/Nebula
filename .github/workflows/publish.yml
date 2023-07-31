@@ -7,15 +7,11 @@ on:
 
 env:
   NEBULI_DOWNLOAD_URL: https://cdn.cedmod.nl/files/References.zip
-  NEBULI_REFERENCES_PATH: ${{ github.workspace }}/NebuliReferences
-  NEBULIREFERENCES: D:\a\Nebuli\Nebuli\Nebuli\NebuliReferences
-  PackageFile: ''
+  NEBULIREFERENCES: D:\a\Nebuli\Nebuli\NebuliReferences
 
 jobs:
   push:
-
     runs-on: windows-latest
-
     steps:
     - name: Setup .NET Core SDK
       uses: actions/setup-dotnet@v1.7.2
@@ -25,13 +21,13 @@ jobs:
     - name: Get Nebuli references
       shell: pwsh
       run: |
-        echo "Nebuli References Path: $env:NEBULI_REFERENCES_PATH"
-        Invoke-WebRequest -Uri $env:NEBULI_DOWNLOAD_URL -OutFile "$env:NEBULI_REFERENCES_PATH.zip"
-        Expand-Archive -Path "$env:NEBULI_REFERENCES_PATH.zip" -DestinationPath "$env:NEBULI_REFERENCES_PATH"
+        echo "Nebuli References Path: $env:NEBULIREFERENCES"
+        Invoke-WebRequest -Uri $env:NEBULI_DOWNLOAD_URL -OutFile "$env:NEBULIREFERENCES.zip"
+        Expand-Archive -Path "$env:NEBULIREFERENCES.zip" -DestinationPath "$env:NEBULIREFERENCES"
 
     - name: List Contents of NebuliReferences folder
       run: |
-        Get-ChildItem -Path $env:NEBULI_REFERENCES_PATH -Recurse
+        Get-ChildItem -Path "$env:NEBULIREFERENCES" -Recurse
 
     - name: Restore NuGet packages
       run: dotnet restore
@@ -40,13 +36,7 @@ jobs:
       run: dotnet build Nebuli/Nebuli.csproj --configuration Release -r "$env:NEBULIREFERENCES" --no-restore
 
     - name: Pack NuGet
-      run: dotnet pack Nebuli/Nebuli.csproj --configuration Release --output ${{ github.workspace }}/NuGetPackages -p:IncludeReferencedProjects=true
-
-    - name: Set Package File Path
-      run: |
-        $packageFile = Get-ChildItem -Path "${{ github.workspace }}/NuGetPackages" -Recurse -Filter "*.nupkg" | Select-Object -Last 1 -ExpandProperty FullName
-        echo "Package File: $packageFile"
-        echo "::set-env name=PackageFile::$packageFile"
+      run: dotnet pack Nebuli/Nebuli.csproj --configuration Release --output D:\a\Nebuli\Nebuli\NuGetPackages -p:IncludeReferencedProjects=true
 
     - name: Push NuGet
       shell: pwsh
