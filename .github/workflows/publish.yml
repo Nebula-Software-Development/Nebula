@@ -8,52 +8,32 @@ on:
 env:
   NEBULI_DOWNLOAD_URL: https://cdn.cedmod.nl/files/References.zip
   NEBULI_REFERENCES_PATH: ${{ github.workspace }}/NebuliReferences
-  NEBULIREFERENCES: ${{ env.NEBULI_REFERENCES_PATH }}
 
 jobs:
   push:
+
     runs-on: windows-latest
+
     steps:
     - name: Setup .NET Core SDK
       uses: actions/setup-dotnet@v1.7.2
-      
-    - name: Install NuGet
-      run: |
-        $nuget_loc = "$env:ProgramFiles\NuGet\NuGet.exe"
-        $nuget_uri = "https://dist.nuget.org/win-x86-commandline/latest/nuget.exe"
-        if (-Not (Test-Path $nuget_loc)) {
-          Write-Host "NuGet not found at $nuget_loc. Trying default location..."
-          $nuget_loc = "C:\NuGet\NuGet.exe"
-          New-Item -ItemType Directory -Force -Path "C:\NuGet"
-        }
-        if (-Not (Test-Path $nuget_loc)) {
-          Write-Host "NuGet not found. Downloading..."
-          Invoke-WebRequest -Uri $nuget_uri -OutFile $nuget_loc
-          Write-Host "Installed NuGet at $nuget_loc"
-        } else {
-          Write-Host "Using NuGet from $nuget_loc"
-        }
 
     - uses: actions/checkout@v2.3.4
 
     - name: Get Nebuli references
       shell: pwsh
       run: |
-        Invoke-WebRequest -Uri ${{ env.NEBULI_DOWNLOAD_URL }} -OutFile ${{ github.workspace }}/NebuliReferences.zip
-        Expand-Archive -Path NebuliReferences.zip -DestinationPath ${{ env.NEBULI_REFERENCES_PATH }}
+        Invoke-WebRequest -Uri $env:NEBULI_DOWNLOAD_URL -OutFile $env:NEBULI_REFERENCES_PATH.zip
+        Expand-Archive -Path $env:NEBULI_REFERENCES_PATH.zip -DestinationPath $env:NEBULI_REFERENCES_PATH
 
     - name: Restore NuGet packages
       run: dotnet restore
 
     - name: Build
-      run: dotnet build --configuration Release -r ${{ env.NEBULIREFERENCES }} --no-restore
-      
-    - name: Navigate to Nebuli directory
-      run: cd Nebuli
+      run: dotnet build Nebuli/Nebuli.csproj --configuration Release -r $env:NEBULI_REFERENCES_PATH --no-restore
 
-    - name: Build and Pack NuGet
-      run: nuget pack Nebuli\Nebuli.csproj -Prop Configuration=Release -IncludeReferencedProjects
-
+    - name: Pack NuGet
+      run: dotnet pack Nebuli/Nebuli.csproj --configuration Release --output D:\a\Nebuli\Nebuli\NuGetPackages -p:IncludeReferencedProjects=true
 
     - name: Push NuGet
       shell: pwsh
