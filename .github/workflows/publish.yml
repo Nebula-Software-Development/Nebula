@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  push:
+  build:
     runs-on: windows-latest
 
     steps:
@@ -19,5 +19,19 @@ jobs:
     - name: Restore Dependencies
       run: dotnet restore
 
-    - name: Build and Pack NuGet
-      run: nuget pack Nebuli\Nebuli.csproj -Prop Configuration=Release -IncludeReferencedProjects
+    - name: Build Project
+      run: dotnet build --configuration Release
+
+  pack:
+    needs: build
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v2
+
+    - name: Setup .NET Core SDK
+      uses: actions/setup-dotnet@v1.7.2
+
+    - name: Pack NuGet
+      run: nuget pack Nebuli/Nebuli.csproj -Prop Configuration=Release -IncludeReferencedProjects
