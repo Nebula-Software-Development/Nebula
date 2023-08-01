@@ -15,7 +15,7 @@ public class Scp096PlayerRole : FpcRoleBase
     /// </summary>
     public new Scp096Role Base { get; }
 
-    public Scp096PlayerRole(Scp096Role role) : base(role)
+    internal Scp096PlayerRole(Scp096Role role) : base(role)
     {
         Base = role;
         SetupSubroutines();
