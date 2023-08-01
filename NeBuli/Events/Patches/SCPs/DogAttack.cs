@@ -16,6 +16,8 @@ public class DogAttack
     private static IEnumerable<CodeInstruction> OnClawing(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
         List<CodeInstruction> newInstructions = EventManager.CheckPatchInstructions<DogAttack>(11, instructions);
+
+        Label retLabel = generator.DefineLabel();
         
         newInstructions.InsertRange(0, new CodeInstruction[]
         {
@@ -24,8 +26,13 @@ public class DogAttack
             new(OpCodes.Ldarg_1),
             new(OpCodes.Callvirt, PropertyGetter(typeof(IDestructible), nameof(IDestructible.NetworkId))),
             new(OpCodes.Newobj, GetDeclaredConstructors(typeof(Scp939Attack))),
-            new(OpCodes.Call, Method(typeof(Scp939Handlers), nameof(Scp939Handlers.OnAttack)))
+            new(OpCodes.Dup),
+            new(OpCodes.Call, Method(typeof(Scp939Handlers), nameof(Scp939Handlers.OnAttack))),
+            new(OpCodes.Callvirt, PropertyGetter(typeof(Scp939Attack), nameof(Scp939Attack.IsCancelled))),
+            new(OpCodes.Brtrue_S, retLabel)
         });
+        
+        newInstructions[newInstructions.Count - 1].labels.Add(retLabel);
         
         foreach (CodeInstruction instruction in newInstructions)
             yield return instruction;
