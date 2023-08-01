@@ -19,14 +19,17 @@
     </PropertyGroup>
   </Target>
   <PropertyGroup>
+    <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup>
     <!-- Package metadata -->
     <PackageId>nebuli.nuget.package</PackageId>
-    <Version>1.0.0</Version>
+    <Version>1.1.2</Version>
     <Description>Nebuli - A Powerful Plugin Framework for SCP : Secret Laboratory servers. Nebuli is an extensible and feature-rich plugin framework designed for game servers.</Description>
     <Authors>Nebuli Team</Authors>
     <PackageProjectUrl>https://github.com/Nebuli-Team/Nebuli</PackageProjectUrl>
     <PackageLicenseUrl>https://github.com/Nebuli-Team/Nebuli/blob/master/LICENSE</PackageLicenseUrl>
-    <PackageIcon>Icon\140282733.ico</PackageIcon>
+    <PackageIcon>Loader\Icon\140282733.ico</PackageIcon>
     <EnablePackageValidation>true</EnablePackageValidation>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
@@ -36,12 +39,12 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\..\..\..\..\..\..\obj\bin\Debug\</OutputPath>
+    <OutputPath>obj\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <DocumentationFile>..\..\..\..\..\..\..\obj\bin\Debug\Nebuli.xml</DocumentationFile>
+    <DocumentationFile>obj\Debug\Nebuli.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -54,6 +57,7 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup>
+    <PackageDescription>Nebuli : A Powerful Plugin Framework for SCP : Secret Labratory servers.</PackageDescription>
     <SignAssembly>false</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
@@ -199,6 +203,7 @@
     <None Include="..\.editorconfig">
       <Link>.editorconfig</Link>
     </None>
+    <None Include="Nebuli.nuspec" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -206,6 +211,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Loader\Icon\140282733.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="Loader\Icon\140282733.ico">
+      <Pack>true</Pack>
+      <PackagePath>content</PackagePath>
+    </None>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

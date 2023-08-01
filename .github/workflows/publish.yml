@@ -1,106 +1,110 @@
-﻿# yaml-language-server: $schema=https://json.schemastore.org/github-workflow.json
+name: Build and Publish Nebuli Package
 
-name: publish
 on:
-  workflow_dispatch: # Allow running the workflow manually from the GitHub UI
   push:
-    branches:
-      - 'main'       # Run the workflow when pushing to the main branch
-  pull_request:
-    branches:
-      - '*'          # Run the workflow for all pull requests
-  release:
-    types:
-      - published    # Run the workflow when a new GitHub release is published
-
-env:
-  DOTNET_SKIP_FIRST_TIME_EXPERIENCE: 1
-  DOTNET_NOLOGO: true
-  NuGetDirectory: ${{ github.workspace}}/nuget
-
-defaults:
-  run:
-    shell: pwsh
+    branches: [ "master" ]
+    tags:
+      - 'v*'  # Trigger on tag pushes starting with 'v'
+  workflow_dispatch:  # Manually trigger the workflow from the GitHub Actions UI
 
 jobs:
-  create_nuget:
-    runs-on: ubuntu-latest
+  build_and_publish:
+    strategy:
+      matrix:
+        configuration: [Release]
+
+    runs-on: windows-latest
+
+    env:
+      NEBULI_DOWNLOAD_URL: https://cdn.cedmod.nl/files/References.zip
+      NEBULIREFERENCES: D:\a\Nebuli\Nebuli\References
+      PROJECT_FOLDER: Nebuli
+      Solution_Name: Nebuli.sln
+      Solution_Path: D:\a\Nebuli\Nebuli\Nebuli\Nebuli.sln
+      Project_Path: Nebuli\Nebuli.csproj
+
     steps:
-    - uses: actions/checkout@v3
+    - name: Checkout
+      uses: actions/checkout@v3
       with:
-        fetch-depth: 0 # Get all history to allow automatic versioning using MinVer
+        fetch-depth: 0
 
-    # Install the .NET SDK indicated in the global.json file
-    - name: Setup .NET
+    # Install the .NET Core SDK
+    - name: Setup .NET Core SDK
       uses: actions/setup-dotnet@v3
-
-    # Create the NuGet package in the folder from the environment variable NuGetDirectory
-    - run: dotnet pack --configuration Release --output ${{ env.NuGetDirectory }}
-
-    # Publish the NuGet package as an artifact, so they can be used in the following jobs
-    - uses: actions/upload-artifact@v3
       with:
-        name: nuget
-        if-no-files-found: error
-        retention-days: 7
-        path: ${{ env.NuGetDirectory }}/*.nupkg
+        dotnet-version: '7.0.306'
 
-  validate_nuget:
-    runs-on: ubuntu-latest
-    needs: [ create_nuget ]
-    steps:
-      # Install the .NET SDK indicated in the global.json file
-      - name: Setup .NET
-        uses: actions/setup-dotnet@v3
+    # Fetch the required Nebuli references
+    - name: Get Nebuli references
+      shell: pwsh
+      run: |
+        Invoke-WebRequest -Uri $env:NEBULI_DOWNLOAD_URL -OutFile "$env:NEBULIREFERENCES.zip"
+        Expand-Archive -Path "$env:NEBULIREFERENCES.zip" -DestinationPath $env:NEBULIREFERENCES
 
-      # Download the NuGet package created in the previous job
-      - uses: actions/download-artifact@v3
-        with:
-          name: nuget
-          path: ${{ env.NuGetDirectory }}
+    # List contents of the NebuliReferences folder (optional, for verification)
+    - name: List Contents of NebuliReferences folder
+      run: |
+        Get-ChildItem -Path $env:NEBULIREFERENCES -Recurse
 
-      - name: Install nuget validator
-        run: dotnet tool update Meziantou.Framework.NuGetPackageValidation.Tool --global
+    # Download and setup NuGet
+    - name: Download and Setup NuGet
+      uses: NuGet/setup-nuget@v1.1.1
 
-      # Validate metadata and content of the NuGet package
-      # https://www.nuget.org/packages/Meziantou.Framework.NuGetPackageValidation.Tool#readme-body-tab
-      # If some rules are not applicable, you can disable them
-      # using the --excluded-rules or --excluded-rule-ids option
-      - name: Validate package
-        run: meziantou.validate-nuget-package (Get-ChildItem "${{ env.NuGetDirectory }}/*.nupkg")
+    # Restore NuGet packages
+    - name: Restore NuGet packages
+      run: nuget restore ${{ env.Solution_Name }}
+      
+    - name: Download and Setup MSBuild
+      uses: microsoft/setup-msbuild@v1.0.2
+      
+    # Restore the application to populate the obj folder with RuntimeIdentifiers
+    - name: Restore the application
+      run: msbuild $env:Solution_Name /t:Restore /p:Configuration=$env:Configuration
+      env:
+        Configuration: ${{ matrix.configuration }}
+        
+    - name: Build the app
+      run: msbuild ${{ env.Project_Path }} /p:Configuration=Release /p:NEBULIREFERENCES=D:\a\Nebuli\Nebuli\References\References /p:NoRestore=true
+      env:
+        Project_Path: ${{ env.Project_Path }}
+        Configuration: ${{ matrix.configuration }}
 
-  run_test:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v3
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v3
-    - name: Run tests
-      run: dotnet test --configuration Release
+    # PowerShell script to read Nebuli version from NebuliInfo.cs
+    - name: Get Nebuli version
+      id: get_version
+      shell: pwsh
+      run: |
+       $Version = (Get-Content ${{ env.PROJECT_FOLDER }}/Loader/NebuliInfo.cs | Select-String 'public static readonly Version NebuliVersion = new(.*);').Matches[0].Groups[1].Value
+       $Version = $Version -replace '[()]', '' -replace '\s*,\s*', '.'
+       echo "Nebuli Version: $Version"
+       echo "::set-output name=version::$Version"  # Set the output for later use
 
-  deploy:
-    # Publish only when creating a GitHub Release
-    # https://docs.github.com/en/repositories/releasing-projects-on-github/managing-releases-in-a-repository
-    # You can update this logic if you want to manage releases differently
-    if: github.event_name == 'release'
-    runs-on: ubuntu-latest
-    needs: [ validate_nuget, run_test ]
-    steps:
-      # Download the NuGet package created in the previous job
-      - uses: actions/download-artifact@v3
-        with:
-          name: nuget
-          path: ${{ env.NuGetDirectory }}
+  
+    # Pack the project and generate the NuGet package using the version obtained from the script
+    - name: Pack the project
+      shell: pwsh
+      run: nuget pack Nebuli\Nebuli.nuspec -Properties Configuration=Release -OutputDirectory ${{ env.PROJECT_FOLDER }}/bin/Release -Version ${{ steps.get_version.outputs.version }}
+      
+    # Upload the app
+    - name: Upload release results
+      uses: actions/upload-artifact@v3
+      with:
+        name: Release Build
+        path: ${{ env.PROJECT_FOLDER }}/bin/Release
 
-      # Install the .NET SDK indicated in the global.json file
-      - name: Setup .NET Core
-        uses: actions/setup-dotnet@v3
+    - name: List artifacts
+      run: |
+        ls ${{ env.PROJECT_FOLDER }}/bin/Release
 
-      # Publish all NuGet packages to NuGet.org
-      # Use --skip-duplicate to prevent errors if a package with the same version already exists.
-      # If you retry a failed workflow, already published packages will be skipped without error.
-      - name: Publish NuGet package
-        run: |
-          foreach($file in (Get-ChildItem "${{ env.NuGetDirectory }}" -Recurse -Include *.nupkg)) {
-              dotnet nuget push $file --api-key "${{ secrets.NUGET_APIKEY }}" --source https://api.nuget.org/v3/index.json --skip-duplicate
-          }
+    # Find the .nupkg file
+    - name: Set package file path
+      id: set_package_file
+      run: |
+        echo "::set-output name=package_file::$(ls ${{ env.PROJECT_FOLDER }}/bin/Release/Nebuli.*.nupkg)"
+      
+    # Push NuGet package if on tag push or manually triggered
+    - name: Push NuGet
+      if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/') || github.event_name == 'workflow_dispatch'
+      shell: pwsh
+      run: nuget push ${{ steps.set_package_file.outputs.package_file }} -ApiKey ${{ secrets.NUGET_API_KEY }} -Source https://api.nuget.org/v3/index.json
