@@ -5,7 +5,6 @@ using Nebuli.Events.EventArguments.SCPs.Scp173;
 using Nebuli.Events.Handlers;
 using NorthwoodLib.Pools;
 using PlayerRoles.PlayableScps.Scp173;
-using PlayerRoles.PlayableScps.Subroutines;
 using static HarmonyLib.AccessTools;
 
 namespace Nebuli.Events.Patches.SCPs;
@@ -20,7 +19,7 @@ public class PlaceTantrum
 
         Label retLabel = generator.DefineLabel();
         
-        int index = newInstructions.FindIndex(i => i.Calls(Method(typeof(AbilityCooldown), nameof(AbilityCooldown.Trigger), new[] {typeof(float)}))) - 3;
+        int index = newInstructions.FindIndex(i => i.opcode == OpCodes.Newobj) - 2;
         
         newInstructions.InsertRange(index, new CodeInstruction[]
         {
