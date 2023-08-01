@@ -20,6 +20,7 @@ public class Scp079PlayerRole : Role
     {
         Base = role;
         SetupSubroutines();
+        Owner.CurrentRole = this;
     }
 
     /// <summary>
