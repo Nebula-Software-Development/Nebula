@@ -117,6 +117,7 @@
     <Compile Include="Events\EventArguments\ICancellableEvent.cs" />
     <Compile Include="Events\EventArguments\IDamageEvent.cs" />
     <Compile Include="Events\EventArguments\IPlayerEvent.cs" />
+    <Compile Include="Events\EventArguments\IRadgollEvent.cs" />
     <Compile Include="Events\EventArguments\Player\PlayerRoleChange.cs" />
     <Compile Include="Events\EventArguments\Player\PlayerBanned.cs" />
     <Compile Include="Events\EventArguments\Player\PlayerDying.cs" />
