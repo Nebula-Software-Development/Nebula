@@ -5,7 +5,6 @@ using Nebuli.Events.EventArguments.SCPs.Scp173;
 using Nebuli.Events.Handlers;
 using NorthwoodLib.Pools;
 using PlayerRoles.PlayableScps.Scp173;
-using UnityEngine;
 using static HarmonyLib.AccessTools;
 
 namespace Nebuli.Events.Patches.SCPs;
