@@ -9,7 +9,6 @@
 		<requireLicenseAcceptance>false</requireLicenseAcceptance>
 		<description>A Powerful Plugin Framework for SCP: Secret Laboratory servers.</description>
 		<licenseUrl>https://github.com/Nebuli-Team/Nebuli/blob/master/LICENSE</licenseUrl>
-		<icon>Loader\Icon\NebuliLogo.png</icon>
 		<dependencies>
 			<group targetFramework="net48" />
 		</dependencies>
