@@ -15,7 +15,7 @@ public class PeanutAttack
     [HarmonyTranspiler]
     private static IEnumerable<CodeInstruction> OnSnap(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
-        List<CodeInstruction> newInstructions = EventManager.CheckPatchInstructions<PeanutAttack>(1, instructions);
+        List<CodeInstruction> newInstructions = EventManager.CheckPatchInstructions<PeanutAttack>(137, instructions);
 
         Label retLabel = generator.DefineLabel();
 
