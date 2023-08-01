@@ -18,7 +18,7 @@ public abstract class Role
         if (roleBase.TryGetOwner(out ReferenceHub hub))
             Owner = NebuliPlayer.TryGet(hub, out NebuliPlayer ply) ? ply : null;
         Base = roleBase;
-        Owner.CurrentRole = this;
+        if(Owner is not null) Owner.CurrentRole = this;
     }
 
     /// <summary>
@@ -115,7 +115,7 @@ public abstract class Role
             Scp106Role scp106 => new Scp106PlayerRole(scp106),
             Scp049Role scp049 => new Scp049PlayerRole(scp049),
             OverwatchRole overwatch => new OverwatchPlayerRole(overwatch),
-            SpectatorRole spectator => new SpectatorPlayerRole(spectator),          
+            SpectatorRole spectator => new SpectatorPlayerRole(spectator),     
             _ => null,
         };
     }
