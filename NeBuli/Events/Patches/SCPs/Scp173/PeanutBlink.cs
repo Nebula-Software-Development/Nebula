@@ -7,7 +7,7 @@ using NorthwoodLib.Pools;
 using PlayerRoles.PlayableScps.Scp173;
 using static HarmonyLib.AccessTools;
 
-namespace Nebuli.Events.Patches.SCPs;
+namespace Nebuli.Events.Patches.SCPs.Scp173;
 
 [HarmonyPatch(typeof(Scp173BlinkTimer), nameof(Scp173BlinkTimer.ServerBlink))]
 public class PeanutBlink
