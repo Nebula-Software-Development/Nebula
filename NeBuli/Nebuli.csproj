@@ -125,6 +125,10 @@
     <Compile Include="Events\EventArguments\Player\PlayerLeave.cs" />
     <Compile Include="Events\EventArguments\Player\PlayerShot.cs" />
     <Compile Include="Events\EventArguments\Player\PlayerTriggeringTesla.cs" />
+    <Compile Include="Events\EventArguments\SCPs\Scp0492\Scp0492Attack.cs" />
+    <Compile Include="Events\EventArguments\SCPs\Scp0492\Scp0492Bloodlust.cs" />
+    <Compile Include="Events\EventArguments\SCPs\Scp0492\Scp0492ConsumeCorpse.cs" />
+    <Compile Include="Events\EventArguments\SCPs\Scp0492\Scp0492CorpseConsumed.cs" />
     <Compile Include="Events\EventArguments\SCPs\Scp173\Scp173Attack.cs" />
     <Compile Include="Events\EventArguments\SCPs\Scp173\Scp173Blink.cs" />
     <Compile Include="Events\EventArguments\SCPs\Scp173\Scp173PlaceTantrum.cs" />
@@ -144,6 +148,7 @@
     <Compile Include="Events\EventArguments\Server\WarheadDetonating.cs" />
     <Compile Include="Events\EventManager.cs" />
     <Compile Include="Events\Handlers\PlayerHandlers.cs" />
+    <Compile Include="Events\Handlers\Scp0492Handlers.cs" />
     <Compile Include="Events\Handlers\Scp173Handlers.cs" />
     <Compile Include="Events\Handlers\Scp939Handlers.cs" />
     <Compile Include="Events\Handlers\ServerHandler.cs" />
@@ -155,6 +160,8 @@
     <Compile Include="Events\Patches\Player\TriggeringTesla.cs" />
     <Compile Include="Events\Patches\Player\VerificationCompleted.cs" />
     <Compile Include="Events\Patches\SCPs\CancelCloudPlacement.cs" />
+    <Compile Include="Events\Patches\SCPs\ConsumeCorpse.cs" />
+    <Compile Include="Events\Patches\SCPs\CorpseConsumed.cs" />
     <Compile Include="Events\Patches\SCPs\DogAttack.cs" />
     <Compile Include="Events\Patches\SCPs\PeanutAttack.cs" />
     <Compile Include="Events\Patches\SCPs\PeanutBlink.cs" />
@@ -168,6 +175,8 @@
     <Compile Include="Events\Patches\SCPs\ToggleFocus.cs" />
     <Compile Include="Events\Patches\SCPs\UseBreakneck.cs" />
     <Compile Include="Events\Patches\SCPs\UsingLunge.cs" />
+    <Compile Include="Events\Patches\SCPs\ZombieAttack.cs" />
+    <Compile Include="Events\Patches\SCPs\ZombieBloodlust.cs" />
     <Compile Include="Events\Patches\Warhead\WarheadDetonatingPatch.cs" />
     <Compile Include="Loader\Loader.cs" />
     <Compile Include="Loader\LoaderConfiguration.cs" />
