@@ -2,7 +2,7 @@
 Thank you for considering contributing to Nebuli! We welcome contributions from the community to help make Nebuli even better. Before you get started, please take a moment to review these guidelines.
 
 Code of Conduct
-We expect all contributors to follow our Code of Conduct, which can be found in the CODE_OF_CONDUCT.md Please ensure a respectful and inclusive environment for everyone.
+We expect all contributors to follow our Code of Conduct. Please ensure a respectful and inclusive environment for everyone.
 
 # Getting Started
 Fork the Nebuli repository on GitHub.
