@@ -7,7 +7,7 @@ using NorthwoodLib.Pools;
 using PlayerRoles.PlayableScps.Scp939.Mimicry;
 using static HarmonyLib.AccessTools;
 
-namespace Nebuli.Events.Patches.SCPs;
+namespace Nebuli.Events.Patches.SCPs.Scp939;
 
 [HarmonyPatch(typeof(MimicryRecorder), nameof(MimicryRecorder.RemoveRecordingsOfPlayer))]
 public class RemoveSavedVoice

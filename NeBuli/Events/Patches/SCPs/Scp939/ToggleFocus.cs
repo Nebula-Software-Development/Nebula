@@ -7,7 +7,7 @@ using NorthwoodLib.Pools;
 using PlayerRoles.PlayableScps.Scp939;
 using static HarmonyLib.AccessTools;
 
-namespace Nebuli.Events.Patches.SCPs;
+namespace Nebuli.Events.Patches.SCPs.Scp939;
 
 [HarmonyPatch(typeof(Scp939FocusAbility), nameof(Scp939FocusAbility.TargetState), MethodType.Setter)]
 public class ToggleFocus

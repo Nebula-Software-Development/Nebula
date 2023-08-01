@@ -7,7 +7,7 @@ using NorthwoodLib.Pools;
 using PlayerRoles.PlayableScps.Scp939.Mimicry;
 using static HarmonyLib.AccessTools;
 
-namespace Nebuli.Events.Patches.SCPs;
+namespace Nebuli.Events.Patches.SCPs.Scp939;
 
 [HarmonyPatch(typeof(MimicPointController), nameof(MimicPointController.ServerProcessCmd))]
 public class PlaceMimicPoint
@@ -16,7 +16,7 @@ public class PlaceMimicPoint
     private static IEnumerable<CodeInstruction> OnPlaceMimicPoint(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
         List<CodeInstruction> newInstructions = EventManager.CheckPatchInstructions<PlaceMimicPoint>(30, instructions);
-        
+
         Label retLabel = generator.DefineLabel();
 
         int index = newInstructions.FindIndex(i => i.opcode == OpCodes.Ldc_I4_S) - 1;
@@ -31,9 +31,9 @@ public class PlaceMimicPoint
             new(OpCodes.Callvirt, PropertyGetter(typeof(Scp939RemoveMimicPoint), nameof(Scp939RemoveMimicPoint.IsCancelled))),
             new(OpCodes.Brtrue_S, retLabel),
         });
-        
+
         index = newInstructions.FindLastIndex(i => i.opcode == OpCodes.Ldc_I4_S) - 1;
-        
+
         newInstructions.InsertRange(index, new CodeInstruction[]
         {
             new CodeInstruction(OpCodes.Ldarg_0).MoveLabelsFrom(newInstructions[index]),
@@ -46,10 +46,10 @@ public class PlaceMimicPoint
         });
 
         newInstructions[newInstructions.Count - 1].labels.Add(retLabel);
-        
+
         foreach (CodeInstruction instruction in newInstructions)
             yield return instruction;
-        
+
         ListPool<CodeInstruction>.Shared.Return(newInstructions);
     }
 }
