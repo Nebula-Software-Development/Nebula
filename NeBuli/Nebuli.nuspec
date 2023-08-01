@@ -10,5 +10,8 @@
     <description>A Powerful Plugin Framework for SCP : Secret Labratory servers.</description>
 	<licenseUrl>https://github.com/Nebuli-Team/Nebuli/blob/master/LICENSE</licenseUrl>
 	<icon>Loader\Icon\NebuliLogo.png</icon>
+	<files>
+    <file src="bin\Release\Nebuli.dll" target="lib\net45" />
+	  </files>
   </metadata>
 </package>
