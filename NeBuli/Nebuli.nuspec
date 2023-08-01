@@ -1,17 +1,19 @@
 ﻿<?xml version="1.0"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
-  <metadata>
-    <id>Nebuli</id>
-	<title>Nebuli</title>
-    <version>1.0.0</version>
-    <authors>Nebuli Team</authors>
-    <owners>Nebuli Team</owners>
-    <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>A Powerful Plugin Framework for SCP : Secret Labratory servers.</description>
-	<licenseUrl>https://github.com/Nebuli-Team/Nebuli/blob/master/LICENSE</licenseUrl>
-	<icon>Loader\Icon\NebuliLogo.png</icon>
+	<metadata>
+		<id>Nebuli</id>
+		<title>Nebuli</title>
+		<version>1.0.0</version>
+		<authors>Nebuli Team</authors>
+		<owners>Nebuli Team</owners>
+		<requireLicenseAcceptance>false</requireLicenseAcceptance>
+		<description>A Powerful Plugin Framework for SCP: Secret Laboratory servers.</description>
+		<licenseUrl>https://github.com/Nebuli-Team/Nebuli/blob/master/LICENSE</licenseUrl>
+		<icon>Loader\Icon\NebuliLogo.png</icon>
+	</metadata>
 	<files>
-    <file src="bin\Release\Nebuli.dll" target="lib\net45" />
-	  </files>
-  </metadata>
+		<file src="bin\Release\Nebuli.dll" target="lib\net45" />
+	</files>
 </package>
+
+
