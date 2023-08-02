@@ -4,9 +4,9 @@ namespace Nebuli.Events.Handlers
 {
     public static class ServerHandler
     {
-        public static EventManager.CustomEventHandler<RoundStartedEvent> RoundStart;
+        public static event EventManager.CustomEventHandler<RoundStartedEvent> RoundStart;
 
-        public static EventManager.CustomEventHandler<WarheadDetonating> WarheadDetonated;
+        public static event EventManager.CustomEventHandler<WarheadDetonating> WarheadDetonated;
 
         internal static void OnRoundStart() => RoundStart.CallEvent(null);
 

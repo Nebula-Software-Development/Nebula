@@ -12,7 +12,7 @@ public class SpectatorPlayerRole : Role
     /// </summary>
     public new SpectatorRole Base { get; }
  
-    public SpectatorPlayerRole(SpectatorRole role) : base(role)
+    internal SpectatorPlayerRole(SpectatorRole role) : base(role)
     {
         Base = role;
     }

@@ -9,7 +9,7 @@ public class Scp106PlayerRole : FpcRoleBase
     /// Gets the <see cref="Scp106Role"/> base.
     /// </summary>
     public new Scp106Role Base { get; }
-    public Scp106PlayerRole(Scp106Role scpRole) : base(scpRole)
+    internal Scp106PlayerRole(Scp106Role scpRole) : base(scpRole)
     {
         Base = scpRole;
     }

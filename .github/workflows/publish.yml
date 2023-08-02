@@ -1,0 +1,110 @@
+name: Build and Publish Nebuli Package
+
+on:
+  push:
+    branches: [ "master" ]
+    tags:
+      - 'v*'  # Trigger on tag pushes starting with 'v'
+  workflow_dispatch:  # Manually trigger the workflow from the GitHub Actions UI
+
+jobs:
+  build_and_publish:
+    strategy:
+      matrix:
+        configuration: [Release]
+
+    runs-on: windows-latest
+
+    env:
+      NEBULI_DOWNLOAD_URL: https://cdn.cedmod.nl/files/References.zip
+      NEBULIREFERENCES: D:\a\Nebuli\Nebuli\References
+      PROJECT_FOLDER: Nebuli
+      Solution_Name: Nebuli.sln
+      Solution_Path: D:\a\Nebuli\Nebuli\Nebuli\Nebuli.sln
+      Project_Path: Nebuli\Nebuli.csproj
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+
+    # Install the .NET Core SDK
+    - name: Setup .NET Core SDK
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: '7.0.306'
+
+    # Fetch the required Nebuli references
+    - name: Get Nebuli references
+      shell: pwsh
+      run: |
+        Invoke-WebRequest -Uri $env:NEBULI_DOWNLOAD_URL -OutFile "$env:NEBULIREFERENCES.zip"
+        Expand-Archive -Path "$env:NEBULIREFERENCES.zip" -DestinationPath $env:NEBULIREFERENCES
+
+    # List contents of the NebuliReferences folder (optional, for verification)
+    - name: List Contents of NebuliReferences folder
+      run: |
+        Get-ChildItem -Path $env:NEBULIREFERENCES -Recurse
+
+    # Download and setup NuGet
+    - name: Download and Setup NuGet
+      uses: NuGet/setup-nuget@v1.1.1
+
+    # Restore NuGet packages
+    - name: Restore NuGet packages
+      run: nuget restore ${{ env.Solution_Name }}
+      
+    - name: Download and Setup MSBuild
+      uses: microsoft/setup-msbuild@v1.0.2
+      
+    # Restore the application to populate the obj folder with RuntimeIdentifiers
+    - name: Restore the application
+      run: msbuild $env:Solution_Name /t:Restore /p:Configuration=$env:Configuration
+      env:
+        Configuration: ${{ matrix.configuration }}
+        
+    - name: Build the app
+      run: msbuild ${{ env.Project_Path }} /p:Configuration=Release /p:NEBULIREFERENCES=D:\a\Nebuli\Nebuli\References\References /p:NoRestore=true
+      env:
+        Project_Path: ${{ env.Project_Path }}
+        Configuration: ${{ matrix.configuration }}
+
+    # PowerShell script to read Nebuli version from NebuliInfo.cs
+    - name: Get Nebuli version
+      id: get_version
+      shell: pwsh
+      run: |
+       $Version = (Get-Content ${{ env.PROJECT_FOLDER }}/Loader/NebuliInfo.cs | Select-String 'public static readonly Version NebuliVersion = new(.*);').Matches[0].Groups[1].Value
+       $Version = $Version -replace '[()]', '' -replace '\s*,\s*', '.'
+       echo "Nebuli Version: $Version"
+       echo "::set-output name=version::$Version"  # Set the output for later use
+
+  
+    # Pack the project and generate the NuGet package using the version obtained from the script
+    - name: Pack the project
+      shell: pwsh
+      run: nuget pack Nebuli\Nebuli.nuspec -Properties Configuration=Release -OutputDirectory ${{ env.PROJECT_FOLDER }}/bin/Release -Version ${{ steps.get_version.outputs.version }}
+      
+    # Upload the app
+    - name: Upload release results
+      uses: actions/upload-artifact@v3
+      with:
+        name: Release Build
+        path: ${{ env.PROJECT_FOLDER }}/bin/Release
+
+    - name: List artifacts
+      run: |
+        ls ${{ env.PROJECT_FOLDER }}/bin/Release
+
+    # Find the .nupkg file
+    - name: Set package file path
+      id: set_package_file
+      run: |
+        echo "::set-output name=package_file::$(ls ${{ env.PROJECT_FOLDER }}/bin/Release/Nebuli.*.nupkg)"
+      
+    # Push NuGet package if on tag push or manually triggered
+    - name: Push NuGet
+      if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/') || github.event_name == 'workflow_dispatch'
+      shell: pwsh
+      run: nuget push ${{ steps.set_package_file.outputs.package_file }} -ApiKey ${{ secrets.NUGET_API_KEY }} -Source https://api.nuget.org/v3/index.json
