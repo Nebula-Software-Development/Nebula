@@ -142,6 +142,7 @@
     <Compile Include="Events\EventArguments\IDamageEvent.cs" />
     <Compile Include="Events\EventArguments\IPlayerEvent.cs" />
     <Compile Include="Events\EventArguments\Player\PlayerEscaping.cs" />
+    <Compile Include="Events\EventArguments\Player\PlayerPickingUpItem.cs" />
     <Compile Include="Events\EventArguments\Player\PlayerRoleChange.cs" />
     <Compile Include="Events\EventArguments\Player\PlayerBanned.cs" />
     <Compile Include="Events\EventArguments\Player\PlayerDying.cs" />
@@ -158,6 +159,7 @@
     <Compile Include="Events\Patches\Player\BannedPlayer.cs" />
     <Compile Include="Events\Patches\Player\HurtPlayer.cs" />
     <Compile Include="Events\Patches\Player\LeavingServer.cs" />
+    <Compile Include="Events\Patches\Player\PickingUpItemPatch.cs" />
     <Compile Include="Events\Patches\Player\PlayerEscapingPatch.cs" />
     <Compile Include="Events\Patches\Player\PlayerShot.cs" />
     <Compile Include="Events\Patches\Player\RoleChange.cs" />
