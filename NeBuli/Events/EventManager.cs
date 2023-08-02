@@ -14,6 +14,7 @@ using Nebuli.Loader;
 using NorthwoodLib.Pools;
 using PlayerRoles;
 using PlayerRoles.Ragdolls;
+using InventorySystem;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
