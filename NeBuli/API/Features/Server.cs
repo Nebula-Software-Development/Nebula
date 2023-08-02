@@ -4,6 +4,8 @@ using Mirror;
 using Nebuli.API.Features.Player;
 using PlayerRoles.RoleAssign;
 using RoundRestarting;
+using System;
+using UnityEngine;
 using static Broadcast;
 using static ServerStatic;
 
@@ -182,9 +184,9 @@ public static class Server
     }
 
     /// <summary>
-    /// Gets or sets the ServerTicketRate.
+    /// Gets or sets the ServerTickRate.
     /// </summary>
-    public static short ServerTicketRate
+    public static short ServerTickRate
     {
         get => ServerTickrate;
         set => ServerTickrate = value;
@@ -198,4 +200,9 @@ public static class Server
         get => StopNextRound;
         set => StopNextRound = value;
     }
+
+    /// <summary>
+    /// Gets the servers ticks-per-second.
+    /// </summary>
+    public static double ServerTPS => Math.Round(1f / Time.smoothDeltaTime);
 }

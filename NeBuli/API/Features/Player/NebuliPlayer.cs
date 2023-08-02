@@ -3,7 +3,7 @@ using CustomPlayerEffects;
 using Footprinting;
 using Hints;
 using InventorySystem;
-using InventorySystem.Items;
+using InventorySystem.Disarming;
 using MapGeneration;
 using Mirror;
 using Nebuli.API.Features.Enum;
@@ -106,6 +106,33 @@ public class NebuliPlayer
     /// The player' Transform.
     /// </summary>
     public Transform Transform { get; }
+
+    /// <summary>
+    /// Gets if the player is cuffed.
+    /// </summary>
+    public bool IsCuffed => Inventory.IsDisarmed();
+
+    /// <summary>
+    /// Disarms the player.
+    /// </summary>
+    /// <param name="disarmer">The player disarming.</param>
+    public void Disarm(NebuliPlayer disarmer) => Inventory.SetDisarmedStatus(disarmer.Inventory);
+
+    /// <summary>
+    /// Gets the disarmer of the player, or null if none.
+    /// </summary>
+    public NebuliPlayer Disarmer
+    {
+        get
+        {
+            foreach(DisarmedPlayers.DisarmedEntry disarmedEntry in DisarmedPlayers.Entries)
+            {
+                if (disarmedEntry.DisarmedPlayer == NetId)
+                    return Get(disarmedEntry.Disarmer);
+            }
+            return null;
+        }
+    }
 
     /// <summary>
     /// The players RawUserId.

@@ -13,7 +13,7 @@ namespace Nebuli.Loader
     {
         internal static FileStream PendingUpdate = null;
         internal static Stream Stream = null;
-        internal string NeubliPath;
+        internal static string NeubliPath;
 
         public void CheckForUpdates()
         {

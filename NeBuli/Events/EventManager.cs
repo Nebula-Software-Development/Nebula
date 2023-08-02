@@ -1,4 +1,5 @@
 ﻿using HarmonyLib;
+using Interactables.Interobjects;
 using Interactables.Interobjects.DoorUtils;
 using InventorySystem.Items;
 using InventorySystem.Items.Pickups;
@@ -13,6 +14,7 @@ using Nebuli.Loader;
 using NorthwoodLib.Pools;
 using PlayerRoles;
 using PlayerRoles.Ragdolls;
+using InventorySystem;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -56,8 +58,8 @@ public static class EventManager
         SeedSynchronizer.OnMapGenerated += OnMapGenerated;
         ItemPickupBase.OnPickupAdded += OnPickupAdded;
         ItemPickupBase.OnPickupDestroyed += OnPickupRemoved;
-        InventorySystem.InventoryExtensions.OnItemAdded += OnItemAdded;
-        InventorySystem.InventoryExtensions.OnItemRemoved += OnItemRemoved;
+        InventoryExtensions.OnItemAdded += OnItemAdded;
+        InventoryExtensions.OnItemRemoved += OnItemRemoved;
         CharacterClassManager.OnRoundStarted += Handlers.ServerHandler.OnRoundStart;
         PlayerRoleManager.OnRoleChanged += RoleChange;
     }
@@ -70,8 +72,8 @@ public static class EventManager
         SeedSynchronizer.OnMapGenerated -= OnMapGenerated;
         ItemPickupBase.OnPickupAdded -= OnPickupAdded;
         ItemPickupBase.OnPickupDestroyed -= OnPickupRemoved;
-        InventorySystem.InventoryExtensions.OnItemAdded -= OnItemAdded;
-        InventorySystem.InventoryExtensions.OnItemRemoved -= OnItemRemoved;
+        InventoryExtensions.OnItemAdded -= OnItemAdded;
+        InventoryExtensions.OnItemRemoved -= OnItemRemoved;
         PlayerRoleManager.OnRoleChanged -= RoleChange;
     }
 
@@ -119,6 +121,8 @@ public static class EventManager
             Door.Get(door);
         foreach (global::TeslaGate teslaGate in Object.FindObjectsOfType<TeslaGate>())
             NebuliTeslaGate.Get(teslaGate);
+        foreach (ElevatorChamber elevatorChamber in Object.FindObjectsOfType<ElevatorChamber>())
+            Elevator.Get(elevatorChamber);
         NebuliPlayer nebuliHost = new(ReferenceHub.HostHub);
         Server.NebuliHost = nebuliHost;
     }
@@ -145,7 +149,7 @@ public static class EventManager
 
     private static void Update()
     {
-        string destinationFilePath = Path.Combine(PluginAPI.Helpers.Paths.GlobalPlugins.Plugins, "Nebuli.dll");
+        string destinationFilePath = Updater.NeubliPath;
 
         if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
         {
@@ -157,7 +161,7 @@ public static class EventManager
 
     private static void SetLinuxFilePermissions(string filePath, string usernameOrGroup, string permissions)
     {
-        ProcessStartInfo psi = new ProcessStartInfo
+        ProcessStartInfo psi = new()
         {
             FileName = "chmod",
             Arguments = $"{permissions} {filePath}",
@@ -170,7 +174,7 @@ public static class EventManager
             process.WaitForExit();
         }
 
-        ProcessStartInfo chownPsi = new ProcessStartInfo
+        ProcessStartInfo chownPsi = new()
         {
             FileName = "chown",
             Arguments = $"{usernameOrGroup}:{usernameOrGroup} {filePath}",

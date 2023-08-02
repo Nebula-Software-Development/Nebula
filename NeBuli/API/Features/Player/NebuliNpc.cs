@@ -25,7 +25,7 @@ public class NebuliNpc : NebuliPlayer
     /// Creates a new <see cref="NebuliNpc"/> with a specified <see cref="ReferenceHub"/>.
     /// </summary>
     /// <param name="hub">The <see cref="ReferenceHub"/> to use to create the NPC.</param>
-    public NebuliNpc(ReferenceHub hub) : base(hub)
+    internal NebuliNpc(ReferenceHub hub) : base(hub)
     {
         Dictionary.Add(hub, this);
     }
@@ -34,7 +34,7 @@ public class NebuliNpc : NebuliPlayer
     /// Creates a new <see cref="NebuliNpc"/> with a specified <see cref="GameObject"/>.
     /// </summary>
     /// <param name="gameObject">The <see cref="GameObject"/> to use to create the NPC.</param>
-    public NebuliNpc(GameObject gameObject) : base(gameObject) 
+    internal NebuliNpc(GameObject gameObject) : base(gameObject) 
     {      
         Dictionary.Add(ReferenceHub, this);
     }
