@@ -58,8 +58,8 @@ public static class EventManager
         SeedSynchronizer.OnMapGenerated += OnMapGenerated;
         ItemPickupBase.OnPickupAdded += OnPickupAdded;
         ItemPickupBase.OnPickupDestroyed += OnPickupRemoved;
-        InventorySystem.InventoryExtensions.OnItemAdded += OnItemAdded;
-        InventorySystem.InventoryExtensions.OnItemRemoved += OnItemRemoved;
+        InventoryExtensions.OnItemAdded += OnItemAdded;
+        InventoryExtensions.OnItemRemoved += OnItemRemoved;
         CharacterClassManager.OnRoundStarted += Handlers.ServerHandler.OnRoundStart;
         PlayerRoleManager.OnRoleChanged += RoleChange;
     }
@@ -72,8 +72,8 @@ public static class EventManager
         SeedSynchronizer.OnMapGenerated -= OnMapGenerated;
         ItemPickupBase.OnPickupAdded -= OnPickupAdded;
         ItemPickupBase.OnPickupDestroyed -= OnPickupRemoved;
-        InventorySystem.InventoryExtensions.OnItemAdded -= OnItemAdded;
-        InventorySystem.InventoryExtensions.OnItemRemoved -= OnItemRemoved;
+        InventoryExtensions.OnItemAdded -= OnItemAdded;
+        InventoryExtensions.OnItemRemoved -= OnItemRemoved;
         PlayerRoleManager.OnRoleChanged -= RoleChange;
     }
 
