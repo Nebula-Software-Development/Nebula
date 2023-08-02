@@ -106,6 +106,7 @@
     <Compile Include="API\Features\Items\Usables\Painkillers.cs" />
     <Compile Include="API\Features\Log.cs" />
     <Compile Include="API\Features\Map\Door.cs" />
+    <Compile Include="API\Features\Map\Elevator.cs" />
     <Compile Include="API\Features\Map\Generator.cs" />
     <Compile Include="API\Features\Map\Room.cs" />
     <Compile Include="API\Features\Map\NebuliTeslaGate.cs" />

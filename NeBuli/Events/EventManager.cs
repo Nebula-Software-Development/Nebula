@@ -1,4 +1,5 @@
 ﻿using HarmonyLib;
+using Interactables.Interobjects;
 using Interactables.Interobjects.DoorUtils;
 using InventorySystem.Items;
 using InventorySystem.Items.Pickups;
@@ -119,6 +120,8 @@ public static class EventManager
             Door.Get(door);
         foreach (global::TeslaGate teslaGate in Object.FindObjectsOfType<TeslaGate>())
             NebuliTeslaGate.Get(teslaGate);
+        foreach (ElevatorChamber elevatorChamber in Object.FindObjectsOfType<ElevatorChamber>())
+            Elevator.Get(elevatorChamber);
         NebuliPlayer nebuliHost = new(ReferenceHub.HostHub);
         Server.NebuliHost = nebuliHost;
     }
