@@ -15,7 +15,7 @@ public class Scp173PlayerRole : FpcRoleBase
     /// Gets the <see cref="Scp173Role"/> base.
     /// </summary>
     public new Scp173Role Base { get; }
-    public Scp173PlayerRole(Scp173Role role) : base(role) 
+    internal Scp173PlayerRole(Scp173Role role) : base(role) 
     {
         Base = role;
         SetupSubroutines();

@@ -33,6 +33,17 @@ public class Scp079PlayerRole : Role
     public bool ZoneBlackoutReady => BlackoutZoneAbility.IsReady;
 
     /// <summary>
+    /// Grants the role experience.
+    /// </summary>
+    /// <param name="amount">The amount of experience to give.</param>
+    public void GrantExperience(int amount) => TierManager.ServerGrantExperience(amount, Scp079HudTranslation.Experience);
+
+    /// <summary>
+    /// Gets the roles tier level.
+    /// </summary>
+    public int TierLevel => TierManager.AccessTierLevel;
+
+    /// <summary>
     /// Forces SCP-079 to lose singal for the specified duration.
     /// </summary>
     /// <param name="duration">The duration of the signal loss.</param>

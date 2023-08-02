@@ -11,7 +11,7 @@ public class FpcRoleBase : Role
     /// Gets the <see cref="FpcStandardRoleBase"/>.
     /// </summary>
     public new FpcStandardRoleBase Base { get; }
-    public FpcRoleBase(FpcStandardRoleBase fpcRole) : base(fpcRole)
+    internal FpcRoleBase(FpcStandardRoleBase fpcRole) : base(fpcRole)
     {
         Base = fpcRole;
         Ragdoll = Ragdoll.Get(Base.Ragdoll);
