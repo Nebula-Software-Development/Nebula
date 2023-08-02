@@ -34,7 +34,7 @@ public class PlayerEscaping : EventArgs, IPlayerEvent, ICancellableEvent
     /// <summary>
     /// The previous role of the player before the event.
     /// </summary>
-    public RoleTypeId OldRole { get; set; }
+    public RoleTypeId OldRole { get; }
 
     /// <summary>
     /// The <see cref="EscapeScenarioType"/> of the event.
