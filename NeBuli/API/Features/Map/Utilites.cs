@@ -43,6 +43,5 @@ namespace Nebuli.API.Features.Map
             NetworkServer.Spawn(tantrum.gameObject);
             return tantrum.gameObject;
         }
-
     }
 }
