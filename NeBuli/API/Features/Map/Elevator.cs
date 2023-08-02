@@ -6,6 +6,9 @@ using UnityEngine;
 
 namespace Nebuli.API.Features.Map;
 
+/// <summary>
+/// Wrapper class for <see cref="ElevatorChamber"/>.
+/// </summary>
 public class Elevator
 {
     /// <summary>

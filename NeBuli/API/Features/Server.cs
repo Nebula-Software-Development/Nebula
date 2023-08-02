@@ -184,9 +184,9 @@ public static class Server
     }
 
     /// <summary>
-    /// Gets or sets the ServerTicketRate.
+    /// Gets or sets the ServerTickRate.
     /// </summary>
-    public static short ServerTicketRate
+    public static short ServerTickRate
     {
         get => ServerTickrate;
         set => ServerTickrate = value;

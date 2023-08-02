@@ -3,7 +3,6 @@ using CustomPlayerEffects;
 using Footprinting;
 using Hints;
 using InventorySystem;
-using InventorySystem.Items;
 using MapGeneration;
 using Mirror;
 using Nebuli.API.Features.Enum;
