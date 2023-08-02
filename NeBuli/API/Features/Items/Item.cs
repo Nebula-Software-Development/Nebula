@@ -36,7 +36,7 @@ public class Item
     internal Item(ItemBase itemBase)
     {
         Base = itemBase;
-        Dictionary.Add(itemBase, this);
+        if(!Dictionary.ContainsKey(itemBase)) Dictionary.Add(itemBase, this);
     }
 
     /// <summary>

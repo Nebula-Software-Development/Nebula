@@ -22,7 +22,7 @@ public class UpgradingItemPatch
 
         Label retLabel = generator.DefineLabel();
 
-        int index = newInstructions.FindIndex(instruction => instruction.opcode == OpCodes.Callvirt && instruction.operand is MethodInfo methodInfo && methodInfo.ReturnType == typeof(global::Scp914.Scp914KnobSetting));
+        int index = newInstructions.FindIndex(i => i.opcode == OpCodes.Starg_S) - 2;
 
         newInstructions.InsertRange(index, new CodeInstruction[]
         {
