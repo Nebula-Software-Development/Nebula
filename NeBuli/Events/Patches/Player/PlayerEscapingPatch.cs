@@ -34,7 +34,7 @@ public class PlayerEscapingPatch
             new(OpCodes.Callvirt, PropertyGetter(typeof(PlayerEscaping), nameof(PlayerEscaping.IsCancelled))),
             new(OpCodes.Brtrue_S, retLabel),
             new(OpCodes.Ldloc_S, @event.LocalIndex),
-            new(OpCodes.Callvirt, PropertyGetter(typeof(PlayerEscaping), nameof(PlayerEscaping.NewRole)),
+            new(OpCodes.Callvirt, PropertyGetter(typeof(PlayerEscaping), nameof(PlayerEscaping.NewRole))),
             new(OpCodes.Stloc_0),
         });
 
