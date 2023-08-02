@@ -1,4 +1,5 @@
 ﻿using Footprinting;
+using InventorySystem.Items;
 using InventorySystem.Items.Pickups;
 using Mirror;
 using Nebuli.API.Features.Player;
@@ -219,6 +220,8 @@ public class Pickup
 
     internal static Pickup GetPickup(ItemPickupBase ItemBase)
     {
+        if (Dictionary.TryGetValue(ItemBase, out var item)) return item;
+
         return ItemBase switch
         {
             InventorySystem.Items.Firearms.FirearmPickup firearm => new FirearmPickup(firearm),
