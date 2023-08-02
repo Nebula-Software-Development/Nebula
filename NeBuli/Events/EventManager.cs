@@ -149,7 +149,7 @@ public static class EventManager
 
     private static void Update()
     {
-        string destinationFilePath = Path.Combine(PluginAPI.Helpers.Paths.GlobalPlugins.Plugins, "Nebuli.dll");
+        string destinationFilePath = Updater.NeubliPath;
 
         if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
         {
@@ -161,7 +161,7 @@ public static class EventManager
 
     private static void SetLinuxFilePermissions(string filePath, string usernameOrGroup, string permissions)
     {
-        ProcessStartInfo psi = new ProcessStartInfo
+        ProcessStartInfo psi = new()
         {
             FileName = "chmod",
             Arguments = $"{permissions} {filePath}",
@@ -174,7 +174,7 @@ public static class EventManager
             process.WaitForExit();
         }
 
-        ProcessStartInfo chownPsi = new ProcessStartInfo
+        ProcessStartInfo chownPsi = new()
         {
             FileName = "chown",
             Arguments = $"{usernameOrGroup}:{usernameOrGroup} {filePath}",
