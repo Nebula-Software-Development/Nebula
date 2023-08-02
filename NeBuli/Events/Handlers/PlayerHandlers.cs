@@ -22,6 +22,8 @@ public static class PlayerHandlers
 
     public static event EventManager.CustomEventHandler<PlayerEscaping> Escaping;
 
+    public static event EventManager.CustomEventHandler<PlayerPickingUpItem> PickingUpItem;
+
     internal static void OnJoin(PlayerJoin ev) => Join.CallEvent(ev);
 
     internal static void OnLeave(PlayerLeave ev) => Leave.CallEvent(ev);
@@ -39,4 +41,6 @@ public static class PlayerHandlers
     internal static void OnTriggerTesla(PlayerTriggeringTesla ev) => TriggeringTesla.CallEvent(ev);
 
     internal static void OnEscaping(PlayerEscaping ev) => Escaping.CallEvent(ev);
+
+    internal static void OnPickingupItem(PlayerPickingUpItem ev) => PickingUpItem.CallEvent(ev);
 }
