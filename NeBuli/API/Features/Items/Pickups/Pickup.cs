@@ -32,7 +32,7 @@ public class Pickup
     internal Pickup(ItemPickupBase pickupBase)
     {
         Base = pickupBase;
-        Dictionary.Add(pickupBase, this);
+        if(!Dictionary.ContainsKey(pickupBase)) Dictionary.Add(pickupBase, this);
     }
 
     /// <summary>
