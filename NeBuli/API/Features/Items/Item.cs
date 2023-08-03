@@ -5,6 +5,7 @@ using InventorySystem.Items.Firearms;
 using InventorySystem.Items.Firearms.Attachments;
 using InventorySystem.Items.Firearms.Attachments.Components;
 using InventorySystem.Items.Usables;
+using Nebuli.API.Features.Items.Pickups;
 using Nebuli.API.Features.Player;
 using System.Collections.Generic;
 using System.Linq;
@@ -165,6 +166,8 @@ public class Item
 
     internal static Item GetPickup(ItemBase itemBase)
     {
+        if (Dictionary.TryGetValue(itemBase, out var item)) return item;
+
         return itemBase switch
         {
             InventorySystem.Items.Firearms.Firearm firearm => new Firearm(firearm),

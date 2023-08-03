@@ -23,10 +23,7 @@ public static class AlphaWarhead
     /// <summary>
     /// Gets a value if the Alpha Warhead is in progress or not.
     /// </summary>
-    public static bool IsInProgress
-    {
-        get => Controller.NetworkInfo.InProgress;
-    }
+    public static bool IsInProgress => Controller.NetworkInfo.InProgress;
 
     /// <summary>
     /// Forces the warhead to dentonate.

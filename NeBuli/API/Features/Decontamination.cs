@@ -1,13 +1,14 @@
 ﻿using static LightContainmentZoneDecontamination.DecontaminationController;
+using LightContainmentZoneDecontamination;
 
 namespace Nebuli.API.Features;
 
 public static class Decontamination
 {
-    private static readonly LightContainmentZoneDecontamination.DecontaminationController Controller = Singleton;
+    private static readonly DecontaminationController Controller = Singleton;
 
     /// <summary>
-    /// Gets if <see cref="LightContainmentZoneDecontamination.DecontaminationController"/> is currently decontaminating.
+    /// Gets if <see cref="DecontaminationController"/> is currently decontaminating.
     /// </summary>
     public static bool IsDecontaminating => Controller.IsDecontaminating;
 
@@ -27,7 +28,7 @@ public static class Decontamination
     public static void ForceDecontamination() => Controller.ForceDecontamination();
 
     /// <summary>
-    /// Sets the <see cref="LightContainmentZoneDecontamination.DecontaminationController.DecontaminationStatus"/>.
+    /// Sets the <see cref="DecontaminationController.DecontaminationStatus"/>.
     /// </summary>
     public static DecontaminationStatus DecontaminationStatus
     {

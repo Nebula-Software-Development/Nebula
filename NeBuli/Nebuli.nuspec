@@ -9,13 +9,15 @@
 		<requireLicenseAcceptance>false</requireLicenseAcceptance>
 		<description>A Powerful Plugin Framework for SCP: Secret Laboratory servers.</description>
 		<licenseUrl>https://github.com/Nebuli-Team/Nebuli/blob/master/LICENSE</licenseUrl>
+		<icon>content\NebuliLogo.png</icon>
 		<dependencies>
-			<group targetFramework="net48" />
+			<group targetFramework="net48"/>
 		</dependencies>
 	</metadata>
 	<files>
-		<file src="bin\Release\Nebuli.dll" target="lib\net45" />
-		<file src="bin\Release\Nebuli.xml" target="lib\net45" />
+		<file src="bin\Release\Nebuli.dll" target="lib\net48" />
+		<file src="bin\Release\Nebuli.xml" target="lib\net48" />
+		<file src="Loader\Icon\NebuliLogo.png" target="content\NebuliLogo.png" />
 	</files>
 </package>
 
