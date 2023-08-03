@@ -2,6 +2,7 @@
 using InventorySystem.Items.Firearms.Modules;
 using InventorySystem.Searching;
 using Nebuli.Events.EventArguments.Player;
+using Nebuli.Events.Handlers;
 using NorthwoodLib.Pools;
 using System.Collections.Generic;
 using System.Reflection.Emit;
@@ -22,12 +23,12 @@ namespace Nebuli.Events.Patches.Player
             newInstructions.InsertRange(0, new CodeInstruction[]
             {
                 new(OpCodes.Ldarg_0),
-                new(OpCodes.Callvirt, PropertyGetter(typeof(ItemSearchCompletor), nameof(ItemSearchCompletor.Hub))),
+                new(OpCodes.Ldfld, Field(typeof(ItemSearchCompletor), nameof(ItemSearchCompletor.Hub))),
                 new(OpCodes.Ldarg_0),
-                new(OpCodes.Callvirt, PropertyGetter(typeof(ItemSearchCompletor), nameof(ItemSearchCompletor.TargetPickup))),
-                new(OpCodes.Ldc_I4_1),
+                new(OpCodes.Ldfld, Field(typeof(ItemSearchCompletor), nameof(ItemSearchCompletor.TargetPickup))),
                 new(OpCodes.Newobj, GetDeclaredConstructors(typeof(PlayerPickingUpItem))[0]),
                 new(OpCodes.Dup),
+                new(OpCodes.Call, Method(typeof(PlayerHandlers), nameof(PlayerHandlers.OnPickingupItem))),
                 new(OpCodes.Callvirt, PropertyGetter(typeof(PlayerPickingUpItem), nameof(PlayerPickingUpItem.IsCancelled))),
                 new(OpCodes.Brtrue_S, retLabel),
             });
