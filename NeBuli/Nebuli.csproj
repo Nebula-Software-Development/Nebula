@@ -156,6 +156,12 @@
     <Compile Include="Events\EventArguments\SCPs\Scp0492\Scp0492Bloodlust.cs" />
     <Compile Include="Events\EventArguments\SCPs\Scp0492\Scp0492ConsumeCorpse.cs" />
     <Compile Include="Events\EventArguments\SCPs\Scp0492\Scp0492CorpseConsumed.cs" />
+    <Compile Include="Events\EventArguments\SCPs\Scp049\Scp049CancelResurrect.cs" />
+    <Compile Include="Events\EventArguments\SCPs\Scp049\Scp049FinishResurrect.cs" />
+    <Compile Include="Events\EventArguments\SCPs\Scp049\Scp049LoseSenseTarget.cs" />
+    <Compile Include="Events\EventArguments\SCPs\Scp049\Scp049StartResurrect.cs" />
+    <Compile Include="Events\EventArguments\SCPs\Scp049\Scp049UseCall.cs" />
+    <Compile Include="Events\EventArguments\SCPs\Scp049\Scp049UseSense.cs" />
     <Compile Include="Events\EventArguments\SCPs\Scp173\Scp173Attack.cs" />
     <Compile Include="Events\EventArguments\SCPs\Scp173\Scp173Blink.cs" />
     <Compile Include="Events\EventArguments\SCPs\Scp173\Scp173PlaceTantrum.cs" />
@@ -178,6 +184,7 @@
     <Compile Include="Events\EventManager.cs" />
     <Compile Include="Events\Handlers\PlayerHandlers.cs" />
     <Compile Include="Events\Handlers\Scp0492Handlers.cs" />
+    <Compile Include="Events\Handlers\Scp049Handlers.cs" />
     <Compile Include="Events\Handlers\Scp173Handlers.cs" />
     <Compile Include="Events\Handlers\Scp914Handlers.cs" />
     <Compile Include="Events\Handlers\Scp939Handlers.cs" />
@@ -211,6 +218,12 @@
     <Compile Include="Events\Patches\SCPs\Scp173\UseBreakneck.cs" />
     <Compile Include="Events\Patches\SCPs\Scp0492\ZombieAttack.cs" />
     <Compile Include="Events\Patches\SCPs\Scp0492\ZombieBloodlust.cs" />
+    <Compile Include="Events\Patches\SCPs\Scp049\CancelRevive.cs" />
+    <Compile Include="Events\Patches\SCPs\Scp049\FinishRevive.cs" />
+    <Compile Include="Events\Patches\SCPs\Scp049\LoseSenseTarget.cs" />
+    <Compile Include="Events\Patches\SCPs\Scp049\StartRevive.cs" />
+    <Compile Include="Events\Patches\SCPs\Scp049\TriggerCall.cs" />
+    <Compile Include="Events\Patches\SCPs\Scp049\TriggerSense.cs" />
     <Compile Include="Events\Patches\Warhead\WarheadDetonatingPatch.cs" />
     <Compile Include="Loader\Loader.cs" />
     <Compile Include="Loader\LoaderConfiguration.cs" />
