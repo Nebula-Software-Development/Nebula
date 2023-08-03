@@ -9,6 +9,7 @@ using Nebuli.API.Features.Items.Pickups;
 using Nebuli.API.Features.Player;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 
 namespace Nebuli.API.Features.Items;
 
@@ -55,6 +56,11 @@ public class Item
     /// Gets a list of all the current Items.
     /// </summary>
     public static List<Item> List => Collection.ToList();
+
+    /// <summary>
+    /// Gets the items <see cref="UnityEngine.GameObject"/>.
+    /// </summary>
+    public GameObject GameObject => Base.gameObject;
 
     /// <summary>
     /// Gets or sets the Items serial.
