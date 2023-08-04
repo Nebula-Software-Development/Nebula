@@ -67,8 +67,6 @@ public class Pickup
                 ConvertToDerivedPickup(new RadioPickup(radio));
                 break;
 
-            // Add more cases for other pickup types...
-
             default:
                 break;
         }
