@@ -18,7 +18,7 @@ public class Pickup
     /// A Dictionary of <see cref="ItemPickupBase"/>, and their wrapper class <see cref="Pickup"/>.
     /// </summary>
     public static Dictionary<ItemPickupBase, Pickup> Dictionary = new();
-    
+
     /// <summary>
     /// Gets if the pickup is spawned or not.
     /// </summary>
@@ -32,46 +32,9 @@ public class Pickup
     internal Pickup(ItemPickupBase pickupBase)
     {
         Base = pickupBase;
-        if (!Dictionary.ContainsKey(pickupBase))
-        {
-            Dictionary.Add(pickupBase, this);
-            HandleDerivedPickupCreation();
-        }
+        if (!Dictionary.ContainsKey(pickupBase)) Dictionary.Add(pickupBase, this);
+        else return;
     }
-
-    private void HandleDerivedPickupCreation()
-    {
-        switch (Base)
-        {
-            case InventorySystem.Items.Firearms.FirearmPickup firearm:
-                ConvertToDerivedPickup(new FirearmPickup(firearm));
-                break;
-
-            case InventorySystem.Items.Keycards.KeycardPickup keycard:
-                ConvertToDerivedPickup(new KeycardPickup(keycard));
-                break;
-
-            case InventorySystem.Items.Armor.BodyArmorPickup armorPickup:
-                ConvertToDerivedPickup(new ArmorPickup(armorPickup));
-                break;
-
-            case InventorySystem.Items.Jailbird.JailbirdPickup jailbirdPickup:
-                ConvertToDerivedPickup(new JailbirdPickup(jailbirdPickup));
-                break;
-
-            case InventorySystem.Items.MicroHID.MicroHIDPickup microHID:
-                ConvertToDerivedPickup(new MicroHIDPickup(microHID));
-                break;
-
-            case InventorySystem.Items.Radio.RadioPickup radio:
-                ConvertToDerivedPickup(new RadioPickup(radio));
-                break;
-
-            default:
-                break;
-        }
-    }
-
 
     /// <summary>
     /// Gets a collection of all the current Pickups.
@@ -229,14 +192,7 @@ public class Pickup
     /// </summary>
     /// <param name="itemPickupBase">The <see cref="ItemPickupBase"/> to find the <see cref="Pickup"/> with.</param>
     /// <returns></returns>
-    public static Pickup Get(ItemPickupBase itemPickupBase) => Dictionary.TryGetValue(itemPickupBase, out Pickup pickup) ? pickup : new Pickup(itemPickupBase);
-
-    /// <summary>
-    /// Tries to get a <see cref="Pickup"/> with the specified serial number.
-    /// </summary>
-    /// <param name="serial">The serial number to find the item by.</param>
-    /// <returns></returns>
-    public static Pickup Get(ushort serial) => Dictionary.Values.FirstOrDefault(item => item.Serial == serial);
+    public static Pickup Get(ItemPickupBase itemPickupBase) => Dictionary.TryGetValue(itemPickupBase, out Pickup pickup) ? pickup : GetPickup(itemPickupBase);
 
     /// <summary>
     /// Spawns the pickup.
@@ -263,8 +219,19 @@ public class Pickup
         return;
     }
 
-    private void ConvertToDerivedPickup(Pickup derivedPickup)
+    internal static Pickup GetPickup(ItemPickupBase ItemBase)
     {
-        Dictionary[Base] = derivedPickup;
+        if (Dictionary.ContainsKey(ItemBase)) return Dictionary[ItemBase];
+
+        return ItemBase switch
+        {
+            InventorySystem.Items.Firearms.FirearmPickup firearm => new FirearmPickup(firearm),
+            InventorySystem.Items.Keycards.KeycardPickup keycard => new KeycardPickup(keycard),
+            InventorySystem.Items.Armor.BodyArmorPickup armorPickup => new ArmorPickup(armorPickup),
+            InventorySystem.Items.Jailbird.JailbirdPickup jailbirdPickup => new JailbirdPickup(jailbirdPickup),
+            InventorySystem.Items.MicroHID.MicroHIDPickup microHID => new MicroHIDPickup(microHID),
+            InventorySystem.Items.Radio.RadioPickup radio => new RadioPickup(radio),
+            _ => null,
+        };
     }
 }

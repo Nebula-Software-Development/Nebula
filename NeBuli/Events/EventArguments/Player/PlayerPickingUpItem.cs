@@ -10,7 +10,7 @@ public class PlayerPickingUpItem : EventArgs, IPlayerEvent, ICancellableEvent
     public PlayerPickingUpItem(ReferenceHub player, ItemPickupBase targetItem)
     {
         Player = NebuliPlayer.Get(player);
-        Item = Pickup.Get(targetItem);
+        Item = Pickup.GetPickup(targetItem);
         IsCancelled = false;
     }
 

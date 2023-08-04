@@ -152,13 +152,7 @@ public class Ragdoll
     /// </summary>
     /// <param name="ragdollBase">The <see cref="BasicRagdoll"/> to use to look.</param>
     /// <returns></returns>
-    public static Ragdoll Get(BasicRagdoll ragdollBase)
-    {
-        if (Dictionary.TryGetValue(ragdollBase, out Ragdoll ragdoll))
-            return ragdoll;
-
-        return new Ragdoll(ragdollBase);
-    }
+    public static Ragdoll Get(BasicRagdoll ragdollBase) => Dictionary.TryGetValue(ragdollBase, out Ragdoll rag) ? rag : new Ragdoll(ragdollBase);
 
     /// <summary>
     /// Destroys the ragdoll.
