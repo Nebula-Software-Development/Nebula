@@ -902,7 +902,7 @@ public class NebuliPlayer
     /// </summary>
     public Item CurrentItem
     {
-        get => Item.ItemGet(Inventory.CurItem.SerialNumber);
+        get => Item.Get(Inventory.CurItem.SerialNumber);
         set
         {
             Inventory.ServerSelectItem(value.Serial);
@@ -923,7 +923,7 @@ public class NebuliPlayer
     /// <param name="item">The item to add.</param>
     public Item AddItem(ItemType item)
     {
-        return Item.ItemGet(Inventory.ServerAddItem(item));
+        return Item.Get(Inventory.ServerAddItem(item));
     }
     
     /// <summary>

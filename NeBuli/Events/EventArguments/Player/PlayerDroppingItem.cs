@@ -10,7 +10,7 @@ public class PlayerDroppingItem : EventArgs, IPlayerEvent, ICancellableEvent
     public PlayerDroppingItem(ReferenceHub player, ItemBase item)
     {
         Player = NebuliPlayer.Get(player);
-        Item = Item.ItemGet(item);
+        Item = Item.Get(item);
         IsCancelled = false;
     }
 

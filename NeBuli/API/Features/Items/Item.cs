@@ -5,7 +5,6 @@ using InventorySystem.Items.Firearms;
 using InventorySystem.Items.Firearms.Attachments;
 using InventorySystem.Items.Firearms.Attachments.Components;
 using InventorySystem.Items.Usables;
-using Nebuli.API.Features.Items.Pickups;
 using Nebuli.API.Features.Player;
 using System.Collections.Generic;
 using System.Linq;
@@ -35,10 +34,71 @@ public class Item
     /// </summary>
     public NebuliPlayer Owner => NebuliPlayer.Get(OwnerRefHub);
 
-    internal Item(ItemBase itemBase)
+    /// <summary>
+    /// Creates a new item by wrapping a <see cref="ItemBase"/>.
+    /// </summary>
+    /// <param name="itemBase">The <see cref="ItemBase"/> to wrap.</param>
+    public Item(ItemBase itemBase)
     {
         Base = itemBase;
-        if(!Dictionary.ContainsKey(itemBase)) Dictionary.Add(itemBase, this);
+        if (!Dictionary.ContainsKey(itemBase))
+        {
+            Dictionary.Add(itemBase, this);
+            HandleDerivedItemCreation();
+        }
+    }
+
+    private void HandleDerivedItemCreation()
+    {
+        switch (Base)
+        {
+            case InventorySystem.Items.Keycards.KeycardItem keycard:
+                ConvertToDerivedItem(new Keycard(keycard));
+                break;
+
+            case InventorySystem.Items.Firearms.Firearm firearm:
+                ConvertToDerivedItem(new Firearm(firearm));
+                break;
+
+            case InventorySystem.Items.Coin.Coin coin:
+                ConvertToDerivedItem(new Coin(coin));
+                break;
+
+            case InventorySystem.Items.Armor.BodyArmor armor:
+                ConvertToDerivedItem(new BodyArmor(armor));
+                break;
+
+            case InventorySystem.Items.Flashlight.FlashlightItem flashlight:
+                ConvertToDerivedItem(new Flashlight(flashlight));
+                break;
+
+            case InventorySystem.Items.MicroHID.MicroHIDItem microHID:
+                ConvertToDerivedItem(new MicroHID(microHID));
+                break;
+
+            case InventorySystem.Items.Radio.RadioItem radio:
+                ConvertToDerivedItem(new Radio(radio));
+                break;
+
+            case InventorySystem.Items.Jailbird.JailbirdItem jailbird:
+                ConvertToDerivedItem(new Jailbird(jailbird));
+                break;
+
+            case Adrenaline adrenaline:
+                ConvertToDerivedItem(new Usables.Adrenaline(adrenaline));
+                break;
+
+            case Medkit medkit:
+                ConvertToDerivedItem(new Usables.Medkit(medkit));
+                break;
+
+            case Painkillers painkillers:
+                ConvertToDerivedItem(new Usables.Painkillers(painkillers));
+                break;
+
+            default:
+                break;
+        }
     }
 
     /// <summary>
@@ -161,33 +221,18 @@ public class Item
     /// </summary>
     /// <param name="itemBase">The <see cref="ItemBase"/> to find the <see cref="Item"/> with.</param>
     /// <returns></returns>
-    public static Item ItemGet(ItemBase itemBase) => Dictionary.TryGetValue(itemBase, out var item) ? item : new Item(itemBase);
+    public static Item Get(ItemBase itemBase) => Dictionary.TryGetValue(itemBase, out var item) ? item : new Item(itemBase);
 
     /// <summary>
     /// Gets an <see cref="Item"/> with the specified serial number.
     /// </summary>
     /// <param name="serialNumber">The serial number of the item to find.</param>
     /// <returns>The <see cref="Item"/> with the specified serial number if found; otherwise, null.</returns>
-    public static Item ItemGet(ushort serialNumber) => Dictionary.Values.FirstOrDefault(item => item.Serial == serialNumber);
+    public static Item Get(ushort serialNumber) => Dictionary.Values.FirstOrDefault(item => item.Serial == serialNumber);
 
-    internal static Item GetPickup(ItemBase itemBase)
+    private void ConvertToDerivedItem(Item derivedItem)
     {
-        if (Dictionary.TryGetValue(itemBase, out var item)) return item;
-
-        return itemBase switch
-        {
-            InventorySystem.Items.Firearms.Firearm firearm => new Firearm(firearm),
-            InventorySystem.Items.Keycards.KeycardItem keycard => new Keycard(keycard),
-            InventorySystem.Items.Coin.Coin coin => new Coin(coin),
-            InventorySystem.Items.Armor.BodyArmor armor => new BodyArmor(armor),
-            InventorySystem.Items.Flashlight.FlashlightItem flashlight => new Flashlight(flashlight),
-            InventorySystem.Items.MicroHID.MicroHIDItem microHID => new MicroHID(microHID),
-            InventorySystem.Items.Radio.RadioItem radio => new Radio(radio),
-            InventorySystem.Items.Jailbird.JailbirdItem jailbird => new Jailbird(jailbird),
-            Adrenaline adreniline => new Usables.Adrenaline(adreniline),
-            Medkit medkit => new Usables.Medkit(medkit),
-            Painkillers painkillers => new Usables.Painkillers(painkillers),
-            _ => null,
-        };
+        Dictionary[Base] = derivedItem;
     }
+
 }

@@ -10,7 +10,7 @@ public class UpgradingItem : EventArgs, ICancellableEvent
 {
     public UpgradingItem(ItemPickupBase pickup, bool upgradeDropped, Scp914KnobSetting knobSetting)
     {
-        Pickup = Pickup.GetPickup(pickup);
+        Pickup = Pickup.Get(pickup);
         IsCancelled = false;
         KnobSetting = knobSetting;
         UpgradeDropped = upgradeDropped;

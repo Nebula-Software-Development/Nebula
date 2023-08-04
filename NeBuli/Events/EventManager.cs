@@ -129,7 +129,7 @@ public static class EventManager
 
     private static void OnPickupAdded(ItemPickupBase itemPickupBase)
     {
-        Pickup.PickupGet(itemPickupBase);
+        Pickup.Get(itemPickupBase);
     }
 
     private static void OnPickupRemoved(ItemPickupBase itemPickupBase)
@@ -139,7 +139,7 @@ public static class EventManager
 
     private static void OnItemAdded(ReferenceHub hub, ItemBase ibase, ItemPickupBase ipbase)
     {
-        Item.ItemGet(ibase);
+        Item.Get(ibase);
     }
 
     private static void OnItemRemoved(ReferenceHub hub, ItemBase ibase, ItemPickupBase ipbase)
