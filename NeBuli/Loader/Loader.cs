@@ -137,9 +137,8 @@ public class Loader
                 Assembly loadPlugin = Assembly.Load(File.ReadAllBytes(file.FullName));
                 IPlugin<IConfiguration> newPlugin = NewPlugin(loadPlugin);
 
-                if (newPlugin.NebulisVersion.Major < NebuliInfo.NebuliVersion.Major && !Configuration.LoadOutDatedPlugins && !newPlugin.SkipVersionCheck || newPlugin.NebulisVersion.Major > NebuliInfo.NebuliVersion.Major && !Configuration.LoadOutDatedPlugins && !newPlugin.SkipVersionCheck)
+                if (IsPluginOutdated(newPlugin))
                 {
-                    Log.Warning($"{newPlugin.PluginName} is outdated and will not be loaded by Nebuli! (Plugin Version : {newPlugin.NebulisVersion}, Nebuli Version : {NebuliInfo.NebuliVersion})");
                     continue;
                 }
 
@@ -150,8 +149,9 @@ public class Loader
                     continue;
                 }
 
-                Log.Info($"Plugin {newPlugin.PluginName}, by {newPlugin.PluginAuthor}, Version : {newPlugin.NebulisVersion}, has been succesfully enabled!");
+                Log.Info($"Plugin {newPlugin.Name}, by {newPlugin.Creator}, Version : {newPlugin.NebuliVersion}, has been successfully enabled!");
 
+                newPlugin.LoadCommands();
                 newPlugin.OnEnabled();
 
                 _plugins.Add(loadPlugin, config);
@@ -163,7 +163,9 @@ public class Loader
                 Log.Error($"Failed to load plugin {file.Name}. Full error : \n{e}");
             }
         }
+
         Log.Info("Plugins loaded!");
+
         if (pluginCount > 0)
         {
             CustomNetworkManager.Modded = true;
@@ -206,6 +208,25 @@ public class Loader
         return typeof(IPlugin<IConfiguration>).IsAssignableFrom(type) && !type.IsAbstract && !type.IsInterface;
     }
 
+    private bool IsPluginOutdated(IPlugin<IConfiguration> plugin)
+    {
+        if (!Configuration.LoadOutDatedPlugins && !plugin.SkipVersionCheck)
+        {
+            switch (plugin.NebuliVersion.Major.CompareTo(NebuliInfo.NebuliVersion.Major))
+            {
+                case -1:
+                    Log.Warning($"{plugin.Name} is outdated and will not be loaded by Nebuli! (Plugin Version: {plugin.NebuliVersion} | Nebuli Version: {NebuliInfo.NebuliVersion})");
+                    return true;
+                case 0:
+                    return false;
+                case 1:
+                    Log.Warning($"Nebuli is outdated! Please update Nebuli because it can cause plugin issues! (Plugin Version: {plugin.NebuliVersion} | Nebuli Version: {NebuliInfo.NebuliVersion})");
+                    return false;
+            }
+        }
+        return false;
+    }
+
     private static IPlugin<IConfiguration> CreatePluginInstance(Type type)
     {
         ConstructorInfo constructor = type.GetConstructor(Type.EmptyTypes);
@@ -230,12 +251,12 @@ public class Loader
 
     private static IConfiguration SetupPluginConfig(IPlugin<IConfiguration> plugin, ISerializer serializer, IDeserializer deserializer)
     {
-        string configPath = Path.Combine(Paths.PluginConfigDirectory.FullName, plugin.PluginName + "_Config.yml");
+        string configPath = Path.Combine(Paths.PluginConfigDirectory.FullName, plugin.Name + "_Config.yml");
         try
         {
             if (!File.Exists(configPath))
             {
-                Log.Warning($"{plugin.PluginName} does not have configs! Generating...");
+                Log.Warning($"{plugin.Name} does not have configs! Generating...");
                 Log.Debug("Serializing new config and writing it to the path...");
                 File.WriteAllText(configPath, serializer.Serialize(plugin.Config));
                 configPaths.Add(plugin.Config, configPath);
@@ -243,7 +264,7 @@ public class Loader
             }
             else
             {
-                Log.Debug($"Deserializing {plugin.PluginName} config at {configPath}...");
+                Log.Debug($"Deserializing {plugin.Name} config at {configPath}...");
                 IConfiguration config = (IConfiguration)deserializer.Deserialize(File.ReadAllText(configPath), plugin.Config.GetType());
                 configPaths.Add(config, configPath);
                 plugin.ReloadConfig(config);
@@ -252,12 +273,12 @@ public class Loader
         }
         catch (YamlException yame)
         {
-            Log.Error($"A YamlException occured while loading {plugin.PluginName} configs! Full Error --> \n{yame}");
+            Log.Error($"A YamlException occured while loading {plugin.Name} configs! Full Error --> \n{yame}");
             return null;
         }
         catch (Exception e)
         {
-            Log.Error($"Error while loading {plugin.PluginName} configs! Full Error --> \n{e}");
+            Log.Error($"Error while loading {plugin.Name} configs! Full Error --> \n{e}");
             return null;
         }
     }
@@ -276,7 +297,7 @@ public class Loader
             }
             catch (Exception e)
             {
-                Log.Error($"Error reloading config for plugin {plugin.PluginName}: {e.Message}");
+                Log.Error($"Error reloading config for plugin {plugin.Name}: {e.Message}");
             }
         }
     }
@@ -286,6 +307,7 @@ public class Loader
         foreach (IPlugin<IConfiguration> plugin in PluginConfig.Keys)
         {
             plugin.OnDisabled();
+            plugin.UnLoadCommands();
         }
     }
 }

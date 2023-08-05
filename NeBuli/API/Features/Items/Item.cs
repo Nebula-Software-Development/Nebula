@@ -179,6 +179,7 @@ public class Item
             InventorySystem.Items.Armor.BodyArmor armor => new BodyArmor(armor),
             InventorySystem.Items.Flashlight.FlashlightItem flashlight => new Flashlight(flashlight),
             InventorySystem.Items.MicroHID.MicroHIDItem microHID => new MicroHID(microHID),
+            InventorySystem.Items.Firearms.Ammo.AmmoItem ammo => new Ammo(ammo),
             InventorySystem.Items.Radio.RadioItem radio => new Radio(radio),
             InventorySystem.Items.Jailbird.JailbirdItem jailbird => new Jailbird(jailbird),
             Adrenaline adreniline => new Usables.Adrenaline(adreniline),

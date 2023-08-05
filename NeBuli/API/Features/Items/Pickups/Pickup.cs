@@ -228,6 +228,7 @@ public class Pickup
             InventorySystem.Items.Firearms.FirearmPickup firearm => new FirearmPickup(firearm),
             InventorySystem.Items.Keycards.KeycardPickup keycard => new KeycardPickup(keycard),
             InventorySystem.Items.Armor.BodyArmorPickup armorPickup => new ArmorPickup(armorPickup),
+            InventorySystem.Items.Firearms.Ammo.AmmoPickup ammoPickup => new AmmoPickup(ammoPickup),
             InventorySystem.Items.Jailbird.JailbirdPickup jailbirdPickup => new JailbirdPickup(jailbirdPickup),
             InventorySystem.Items.MicroHID.MicroHIDPickup microHID => new MicroHIDPickup(microHID),
             InventorySystem.Items.Radio.RadioPickup radio => new RadioPickup(radio),
