@@ -109,18 +109,12 @@ public class Room
     /// </summary>
     /// <param name="identifier"></param>
     /// <returns></returns>
-    public static Room Get(RoomIdentifier identifier)
-    {
-        return Dictionary.TryGetValue(identifier, out var room) ? room : new Room(identifier);
-    }
+    public static Room Get(RoomIdentifier identifier) => Dictionary.TryGetValue(identifier, out var room) ? room : new Room(identifier);
 
     /// <summary>
     /// Gets a <see cref="Room"/> based off the given <see cref="Vector3"/>.
     /// </summary>
     /// <param name="position">The positon to look for a room at.</param>
     /// <returns></returns>
-    public static Room Get(Vector3 position)
-    {
-        return RoomIdUtils.RoomAtPositionRaycasts(position, true) is RoomIdentifier roomIdentifier ? Get(roomIdentifier) : null;
-    }
+    public static Room Get(Vector3 position) => RoomIdUtils.RoomAtPositionRaycasts(position, true) is RoomIdentifier roomIdentifier ? Get(roomIdentifier) : null;
 }
