@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Nebuli.API.Features.Map;
 
-public class Room : MonoBehaviour
+public class Room
 {
     public static readonly Dictionary<RoomIdentifier, Room> Dictionary = new();
 
