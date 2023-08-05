@@ -22,6 +22,9 @@ public class Room
     /// </summary>
     public RoomIdentifier Base { get; }
 
+    /// <summary>
+    /// Gets the rooms <see cref="RoomLightController"/>.
+    /// </summary>
     public RoomLightController LightController { get; internal set; }
 
     /// <summary>
@@ -53,6 +56,13 @@ public class Room
     /// Gets the rooms <see cref="UnityEngine.Transform"/>.
     /// </summary>
     public Transform Transform => Base.transform;
+
+    /// <summary>
+    /// Gets a value if the given <see cref="Vector3"/> position is in this room.
+    /// </summary>
+    /// <param name="position"></param>
+    /// <returns></returns>
+    public bool IsInRoom(Vector3 position) => RoomIdUtils.IsTheSameRoom(position, Position);
 
     /// <summary>
     /// Disables the room lights for the specified amount of time.
