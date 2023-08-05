@@ -118,6 +118,7 @@
     <Compile Include="API\Features\Player\NebuliNpc.cs" />
     <Compile Include="API\Features\Plugin.cs" />
     <Compile Include="API\Features\Ragdoll.cs" />
+    <Compile Include="API\Features\Respawn.cs" />
     <Compile Include="API\Features\Roles\FpcRoleBase.cs" />
     <Compile Include="API\Features\Roles\HumanPlayerRole.cs" />
     <Compile Include="API\Features\Roles\OverwatchPlayerRole.cs" />
