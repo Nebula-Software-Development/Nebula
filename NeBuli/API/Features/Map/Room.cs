@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Nebuli.API.Features.Map;
 
-public class Room
+public class Room : MonoBehaviour
 {
     public static readonly Dictionary<RoomIdentifier, Room> Dictionary = new();
 
@@ -13,12 +13,16 @@ public class Room
     {
         Base = identifier;
         Dictionary.Add(identifier, this);
+
+        LightController = GameObject.GetComponentInChildren<RoomLightController>();
     }
 
     /// <summary>
     /// Gets the rooms base.
     /// </summary>
     public RoomIdentifier Base { get; }
+
+    public RoomLightController LightController { get; internal set; }
 
     /// <summary>
     /// Gets a collection of all the rooms.
@@ -49,6 +53,32 @@ public class Room
     /// Gets the rooms <see cref="UnityEngine.Transform"/>.
     /// </summary>
     public Transform Transform => Base.transform;
+
+    /// <summary>
+    /// Disables the room lights for the specified amount of time.
+    /// </summary>
+    /// <param name="duration"></param>
+    public void DisableRoomLights(int duration) => LightController.ServerFlickerLights(duration);
+
+    /// <summary>
+    /// Gets if the rooms light are enabled.
+    /// </summary>
+    public bool LightsEnabled => LightController.LightsEnabled;
+
+    /// <summary>
+    /// Gets or sets the rooms color.
+    /// </summary>
+    public Color RoomColor
+    {
+        get => LightController.NetworkOverrideColor;
+        set => LightController.NetworkOverrideColor = value;
+    }
+
+    /// <summary>
+    /// Toggles the room lights on/off.
+    /// </summary>
+    /// <param name="state"></param>
+    public void ToggleLights(bool state) => LightController.SetLights(state);
 
     /// <summary>
     /// Gets the <see cref="RoomName"/> of the room.
