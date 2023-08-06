@@ -4,11 +4,15 @@ using InventorySystem.Items;
 using InventorySystem.Items.Firearms;
 using InventorySystem.Items.Firearms.Attachments;
 using InventorySystem.Items.Firearms.Attachments.Components;
+using InventorySystem.Items.ThrowableProjectiles;
 using InventorySystem.Items.Usables;
+using Nebuli.API.Features.Items.Projectiles;
+using Nebuli.API.Features.Items.Throwables;
 using Nebuli.API.Features.Player;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using ExplosionGrenade = InventorySystem.Items.ThrowableProjectiles.ExplosionGrenade;
 
 namespace Nebuli.API.Features.Items;
 
@@ -185,7 +189,13 @@ public class Item
             Adrenaline adreniline => new Usables.Adrenaline(adreniline),
             Medkit medkit => new Usables.Medkit(medkit),
             Painkillers painkillers => new Usables.Painkillers(painkillers),
-            _ => null,
-        };
+            ThrowableItem throwable => throwable.Projectile switch
+            {
+                ExplosionGrenade => new Throwables.ExplosionGrenade(throwable),
+                InventorySystem.Items.ThrowableProjectiles.FlashbangGrenade => new Throwables.FlashbangGrenade(throwable),
+                _ => new Throwable(throwable),
+            },
+            _ => new Item(itemBase),
+        } ;
     }
 }

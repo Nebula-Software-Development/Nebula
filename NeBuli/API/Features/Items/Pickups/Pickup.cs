@@ -2,6 +2,7 @@
 using InventorySystem.Items;
 using InventorySystem.Items.Pickups;
 using Mirror;
+using Nebuli.API.Features.Items.Projectiles;
 using Nebuli.API.Features.Player;
 using System.Collections.Generic;
 using System.Linq;
@@ -60,7 +61,11 @@ public class Pickup
     /// <summary>
     /// Gets the pickups serial.
     /// </summary>
-    public ushort Serial => Base.Info.Serial;
+    public ushort Serial
+    {
+        get => Base.Info.Serial;
+        set => Base.Info.Serial = value;
+    }
 
     /// <summary>
     /// Gets or sets if the pickup is locked.
@@ -232,7 +237,13 @@ public class Pickup
             InventorySystem.Items.Jailbird.JailbirdPickup jailbirdPickup => new JailbirdPickup(jailbirdPickup),
             InventorySystem.Items.MicroHID.MicroHIDPickup microHID => new MicroHIDPickup(microHID),
             InventorySystem.Items.Radio.RadioPickup radio => new RadioPickup(radio),
-            _ => null,
+            InventorySystem.Items.ThrowableProjectiles.Scp018Projectile scp018 => new Scp018Projectile(scp018),
+            InventorySystem.Items.ThrowableProjectiles.Scp2176Projectile scp2174 => new Scp2176Projectile(scp2174),
+            InventorySystem.Items.ThrowableProjectiles.ExplosionGrenade explosionGrenade => new ExplosionGrenadeProjectile(explosionGrenade),
+            InventorySystem.Items.ThrowableProjectiles.FlashbangGrenade flashbangGrenade => new FlashbangProjectile(flashbangGrenade),
+            InventorySystem.Items.ThrowableProjectiles.EffectGrenade effectGrenade => new GrenadeEffectProjectile(effectGrenade),
+            InventorySystem.Items.ThrowableProjectiles.TimeGrenade timedGrenade => new TimedExplosiveProjectile(timedGrenade),          
+            _ => new Pickup(ItemBase),
         };
     }
 }
