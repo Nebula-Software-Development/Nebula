@@ -102,7 +102,7 @@
     <Compile Include="API\Features\Items\Pickups\KeycardPickup.cs" />
     <Compile Include="API\Features\Items\Pickups\MicroHIDPickup.cs" />
     <Compile Include="API\Features\Items\Pickups\RadioPickup.cs" />
-    <Compile Include="API\Features\Items\Projectiles\ExplosionGrenadeProjectile.cs" />
+    <Compile Include="API\Features\Items\Projectiles\ExplosiveGrenadeProjectile.cs" />
     <Compile Include="API\Features\Items\Projectiles\FlashbangProjectile.cs" />
     <Compile Include="API\Features\Items\Projectiles\GrenadeEffectProjectile.cs" />
     <Compile Include="API\Features\Items\Projectiles\Projectile.cs" />
@@ -110,7 +110,7 @@
     <Compile Include="API\Features\Items\Projectiles\Scp2176Projectile.cs" />
     <Compile Include="API\Features\Items\Projectiles\TimedExplosiveProjectile.cs" />
     <Compile Include="API\Features\Items\Radio.cs" />
-    <Compile Include="API\Features\Items\Throwables\ExplosionGrenade.cs" />
+    <Compile Include="API\Features\Items\Throwables\ExplosiveGrenade.cs" />
     <Compile Include="API\Features\Items\Throwables\FlashbangGrenade.cs" />
     <Compile Include="API\Features\Items\Throwables\Throwable.cs" />
     <Compile Include="API\Features\Items\Usables\Adrenaline.cs" />

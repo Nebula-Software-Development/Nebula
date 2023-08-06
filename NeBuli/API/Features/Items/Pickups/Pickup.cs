@@ -239,7 +239,7 @@ public class Pickup
             InventorySystem.Items.Radio.RadioPickup radio => new RadioPickup(radio),
             InventorySystem.Items.ThrowableProjectiles.Scp018Projectile scp018 => new Scp018Projectile(scp018),
             InventorySystem.Items.ThrowableProjectiles.Scp2176Projectile scp2174 => new Scp2176Projectile(scp2174),
-            InventorySystem.Items.ThrowableProjectiles.ExplosionGrenade explosionGrenade => new ExplosionGrenadeProjectile(explosionGrenade),
+            InventorySystem.Items.ThrowableProjectiles.ExplosionGrenade explosionGrenade => new ExplosiveGrenadeProjectile(explosionGrenade),
             InventorySystem.Items.ThrowableProjectiles.FlashbangGrenade flashbangGrenade => new FlashbangProjectile(flashbangGrenade),
             InventorySystem.Items.ThrowableProjectiles.EffectGrenade effectGrenade => new GrenadeEffectProjectile(effectGrenade),
             InventorySystem.Items.ThrowableProjectiles.TimeGrenade timedGrenade => new TimedExplosiveProjectile(timedGrenade),          

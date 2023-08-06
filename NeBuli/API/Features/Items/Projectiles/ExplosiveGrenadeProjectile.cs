@@ -3,15 +3,20 @@ using UnityEngine;
 
 namespace Nebuli.API.Features.Items.Projectiles;
 
-public class ExplosionGrenadeProjectile : GrenadeEffectProjectile
+public class ExplosiveGrenadeProjectile : GrenadeEffectProjectile
 {
     /// <summary>
     /// Gets the <see cref="ExplosionGrenade"/> base.
     /// </summary>
     public new ExplosionGrenade Base { get; }
-    internal ExplosionGrenadeProjectile(ExplosionGrenade itemBase) : base(itemBase)
+    internal ExplosiveGrenadeProjectile(ExplosionGrenade itemBase) : base(itemBase)
     {
         Base = itemBase;
+    }
+    public float MaxRadius
+    {
+        get => Base._maxRadius; 
+        set => Base._maxRadius = value;
     }
 
     /// <summary>
@@ -60,11 +65,11 @@ public class ExplosionGrenadeProjectile : GrenadeEffectProjectile
     }
 
     /// <summary>
-    /// Gets or sets the max radius of the grenade.
+    /// Gets or sets the SCP damange multiplier.
     /// </summary>
-    public float MaxRadius
+    public float SCPDamageMultiplier
     {
-        get => Base._maxRadius;
-        set => Base._maxRadius = value;
+        get => Base._scpDamageMultiplier;
+        set => Base._scpDamageMultiplier = value;
     }
 }

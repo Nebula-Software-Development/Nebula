@@ -129,12 +129,12 @@ public class Item
     public void DropItem() => Base.ServerDropItem();
 
     /// <summary>
-    /// Creates a new instance of the <see cref="Item"/> class with the specified item type and owner.
+    /// Creates a new instance of the <see cref="Item"/> class with the specified item type.
     /// </summary>
     /// <param name="itemType">The type of the new item.</param>
-    public static void Create(ItemType itemType)
+    public static Item Create(ItemType itemType)
     {
-        Server.NebuliHost.ReferenceHub.inventory.CreateItemInstance(new(itemType, 0), false);
+        return Get(Server.NebuliHost.ReferenceHub.inventory.CreateItemInstance(new(itemType, 0), false));
     }
 
     /// <summary>
@@ -143,7 +143,7 @@ public class Item
     /// <param name="itemType">The ItemType to give. </param>>
     /// <param name="owner">The owner of the item.</param>
     /// <param name="attachments">The attachments on the weapon.</param>
-    public static void CreateAndGive(ItemType itemType, NebuliPlayer owner, Attachment[] attachments = null)
+    public static Item CreateAndGive(ItemType itemType, NebuliPlayer owner, Attachment[] attachments = null)
     {
         ItemBase item = owner.Inventory.ServerAddItem(itemType);
         if (item is InventorySystem.Items.Firearms.Firearm firearm)
@@ -154,7 +154,9 @@ public class Item
                 firearm.Attachments.AddRangeToArray(attachments);
             }
             firearm.Status = new FirearmStatus(firearm.AmmoManagerModule.MaxAmmo, flags, firearm.GetCurrentAttachmentsCode());
+            return Get(item);
         }
+        return Get(item);
     }
 
     /// <summary>
@@ -191,7 +193,7 @@ public class Item
             Painkillers painkillers => new Usables.Painkillers(painkillers),
             ThrowableItem throwable => throwable.Projectile switch
             {
-                ExplosionGrenade => new Throwables.ExplosionGrenade(throwable),
+                ExplosionGrenade => new Throwables.ExplosiveGrenade(throwable),
                 InventorySystem.Items.ThrowableProjectiles.FlashbangGrenade => new Throwables.FlashbangGrenade(throwable),
                 _ => new Throwable(throwable),
             },
