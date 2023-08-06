@@ -28,6 +28,8 @@ public class ExplosiveGrenade : Throwable
         grenade.BurnedDuration = Projectile.BurnedDuration;
         grenade.DeafenedDuration = Projectile.DeafenedDuration;
         grenade.ConcussedDuration = Projectile.ConcussedDuration;
+        grenade.DetectionMask = Projectile.DetectionMask;
+        grenade.SCPDamageMultiplier = Projectile.SCPDamageMultiplier;
         grenade.FuzeTime = Projectile.FuzeTime;
         grenade.PreviousOwner = owner ?? Server.NebuliHost;
         grenade.Spawn();
