@@ -24,6 +24,9 @@ public class Loader
     private int pluginCount;
     private static bool _loaded = false;
 
+    public static ISerializer Serializer { get; private set; }
+    public static IDeserializer Deserializer { get; private set; }
+
     internal static void EDisablePlugins() => DisablePlugins();
 
     internal static Dictionary<Assembly, IConfiguration> _plugins = new();
@@ -127,8 +130,8 @@ public class Loader
     {
         Log.Info("Loading plugins...");
 
-        ISerializer serializer = new SerializerBuilder().WithNamingConvention(UnderscoredNamingConvention.Instance).Build();
-        IDeserializer deserializer = new DeserializerBuilder().WithNamingConvention(UnderscoredNamingConvention.Instance).Build();
+        Serializer = new SerializerBuilder().WithNamingConvention(UnderscoredNamingConvention.Instance).Build();
+        Deserializer = new DeserializerBuilder().WithNamingConvention(UnderscoredNamingConvention.Instance).Build();
 
         foreach (FileInfo file in files)
         {
@@ -142,7 +145,7 @@ public class Loader
                     continue;
                 }
 
-                IConfiguration config = SetupPluginConfig(newPlugin, serializer, deserializer);
+                IConfiguration config = SetupPluginConfig(newPlugin, Serializer, Deserializer);
 
                 if (!config.IsEnabled)
                 {
@@ -285,14 +288,14 @@ public class Loader
 
     private static void ReloadConfigs()
     {
-        IDeserializer deserializer = new DeserializerBuilder().WithNamingConvention(UnderscoredNamingConvention.Instance).Build();
+        Deserializer = new DeserializerBuilder().WithNamingConvention(UnderscoredNamingConvention.Instance).Build();
         Log.Info("Reloading plugin configs...");
 
         foreach (IPlugin<IConfiguration> plugin in PluginConfig.Keys)
         {
             try
             {
-                plugin.ReloadConfig((IConfiguration)deserializer.Deserialize(File.ReadAllText(configPaths[plugin.Config]), plugin.Config.GetType()));
+                plugin.ReloadConfig((IConfiguration)Deserializer.Deserialize(File.ReadAllText(configPaths[plugin.Config]), plugin.Config.GetType()));
                 PluginConfig[plugin] = plugin.Config;
             }
             catch (Exception e)

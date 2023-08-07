@@ -13,9 +13,11 @@ using Nebuli.API.Features.Roles;
 using PlayerRoles;
 using PlayerRoles.FirstPersonControl;
 using PlayerStatsSystem;
+using PluginAPI.Roles;
 using RelativePositioning;
 using RemoteAdmin;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Reflection;
 using UnityEngine;
@@ -39,12 +41,13 @@ public class NebuliPlayer
         GameObject = ReferenceHub.gameObject;
         Transform = ReferenceHub.transform;
         CustomHintManager = GameObject.AddComponent<CustomHintManager>();
-        CustomHintManager.player = this;
-
-        if (hub == ReferenceHub.HostHub && Server.NebuliHost is not null)
-            return;
+        CustomHintManager.player = this;      
 
         Create();
+
+        if (ReferenceHub == ReferenceHub.HostHub)
+            return;
+
         Dictionary.Add(hub, this);
     }
 
@@ -56,10 +59,11 @@ public class NebuliPlayer
         CustomHintManager = GameObject.AddComponent<CustomHintManager>();
         CustomHintManager.player = this;
 
-        if (ReferenceHub == ReferenceHub.HostHub && Server.NebuliHost is not null)
+        Create();
+
+        if (ReferenceHub == ReferenceHub.HostHub)
             return;
 
-        Create();
         Dictionary.Add(ReferenceHub, this);
     }
 
@@ -160,9 +164,21 @@ public class NebuliPlayer
     public Faction Faction => CurrentRoleType.GetFaction();
 
     /// <summary>
+    /// Gets the players <see cref="PlayerRoleManager"/>.
+    /// </summary>
+    public PlayerRoleManager RoleManager => ReferenceHub.roleManager;
+
+    private Role currentRole = null;
+
+    /// <summary>
     /// Gets the players current <see cref="PlayerRoleBase"/>.
     /// </summary>
-    public Role CurrentRole { get; internal set; }
+    public Role Role
+    {
+        get => currentRole ?? Role.CreateNew(RoleManager.CurrentRole);
+        set => currentRole = value;
+    }
+
 
     /// <summary>
     /// Gets or sets whether or not the player has bypass or not.
@@ -715,7 +731,7 @@ public class NebuliPlayer
     /// <param name="flags">The flags for the role spawn. (Optional)</param>
     public void SetRole(RoleTypeId role, RoleChangeReason reason = RoleChangeReason.RemoteAdmin, RoleSpawnFlags flags = RoleSpawnFlags.All)
     {
-        ReferenceHub.roleManager.ServerSetRole(role, reason, flags);
+        RoleManager.ServerSetRole(role, reason, flags);
     }
 
     /// <summary>
@@ -885,17 +901,17 @@ public class NebuliPlayer
     /// <summary>
     /// Gets the players <see cref="PlayerRoles.Team"/>.
     /// </summary>
-    public Team Team => CurrentRole.Team;
+    public Team Team => Role.Team;
 
     /// <summary>
     /// Gets if the player is alive or not.
     /// </summary>
-    public bool IsAlive => CurrentRole.IsAlive;
+    public bool IsAlive => !IsDead;
 
     /// <summary>
     /// Gets if the player is dead or not.
     /// </summary>
-    public bool IsDead => CurrentRole.IsDead;
+    public bool IsDead => Role?.IsDead ?? false;
 
     /// <summary>
     /// Gets or sets the current item held by the player.

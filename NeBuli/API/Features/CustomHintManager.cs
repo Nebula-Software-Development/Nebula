@@ -22,7 +22,7 @@ public class CustomHintManager : MonoBehaviour
 
     public void Update()
     {
-        UpdateHints();
+        //UpdateHints();
     }
 
     internal void UpdateHints()

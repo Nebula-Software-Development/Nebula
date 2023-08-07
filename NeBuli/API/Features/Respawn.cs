@@ -14,6 +14,19 @@ public static class Respawn
     public static RespawnManager.RespawnSequencePhase CurrentRespawnSequence() => RespawnManager.CurrentSequence();
 
     /// <summary>
+    /// Gets if a wave is currently respawning.
+    /// </summary>
+    public static bool IsSpawning
+    {
+        get
+        {
+            RespawnManager.RespawnSequencePhase currentPhase = RespawnManager.Singleton._curSequence;
+            return currentPhase == RespawnManager.RespawnSequencePhase.PlayingEntryAnimations ||
+                   currentPhase == RespawnManager.RespawnSequencePhase.SpawningSelectedTeam;
+        }
+    }
+
+    /// <summary>
     /// Gets the next known team.
     /// </summary>
     public static SpawnableTeamType NextKnownTeam => RespawnManager.Singleton.NextKnownTeam;
@@ -68,6 +81,12 @@ public static class Respawn
         get => RespawnTokensManager.Counters[1].Amount;
         set => GiveTickets(SpawnableTeamType.NineTailedFox, value);
     }
+
+    /// <summary>
+    /// Gets a team's dominance tokens.
+    /// </summary>
+    /// <param name="team"></param>
+    public static float GetTeamDominance(SpawnableTeamType team) => RespawnTokensManager.GetTeamDominance(team);
 
     /// <summary>
     /// Gets or sets Chaos Insurgencys tokens.
