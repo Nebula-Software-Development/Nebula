@@ -89,7 +89,7 @@ public static class Round
     }
 
     /// <summary>
-    /// Gets the total round time as a <see cref="DateTime"/>.
+    /// Gets the total round time as a <see cref="TimeSpan"/>.
     /// </summary>
     public static TimeSpan TotalRoundTime => RoundStart.RoundLength;
 

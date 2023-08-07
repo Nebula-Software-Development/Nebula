@@ -95,10 +95,7 @@ public class Generator
     /// </summary>
     /// <param name="generator"></param>
     /// <returns></returns>
-    public static Generator Get(Scp079Generator generator)
-    {
-        return Dictionary.TryGetValue(generator, out var gen) ? gen : new Generator(generator);
-    }
+    public static Generator Get(Scp079Generator generator) => Dictionary.TryGetValue(generator, out Generator gen) ? gen : new Generator(generator);
 
     /// <summary>
     /// Forces a generator to become interacted with.

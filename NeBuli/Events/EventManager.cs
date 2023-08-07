@@ -123,8 +123,7 @@ public static class EventManager
             NebuliTeslaGate.Get(teslaGate);
         foreach (ElevatorChamber elevatorChamber in Object.FindObjectsOfType<ElevatorChamber>())
             Elevator.Get(elevatorChamber);
-        NebuliPlayer nebuliHost = new(ReferenceHub.HostHub);
-        Server.NebuliHost = nebuliHost;
+        Server.NebuliHost = new(ReferenceHub.HostHub);
     }
 
     private static void OnPickupAdded(ItemPickupBase itemPickupBase)

@@ -1,4 +1,5 @@
-﻿using Interactables.Interobjects.DoorUtils;
+﻿using Interactables.Interobjects;
+using Interactables.Interobjects.DoorUtils;
 using MapGeneration;
 using System.Collections.Generic;
 using System.Linq;
@@ -52,9 +53,24 @@ public class Door
     /// </summary>
     public bool IsOpened
     {
-        get => Base.NetworkTargetState;
+        get => Base.IsConsideredOpen();
         set => Base.NetworkTargetState = value;
     }
+
+    /// <summary>
+    /// Gets if the door is a elevator door.
+    /// </summary>
+    public bool IsElevatorDoor => Base is ElevatorDoor;
+
+    /// <summary>
+    /// Gets if the door is a gate.
+    /// </summary>
+    public bool IsGateDoor => Base is PryableDoor;
+
+    /// <summary>
+    /// Gets if the door is a checkpoint door.
+    /// </summary>
+    public bool IsCheckpointDoor => Base is CheckpointDoor;
 
     /// <summary>
     /// Gets the doors current room.

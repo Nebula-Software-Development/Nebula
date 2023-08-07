@@ -152,7 +152,7 @@ public class Loader
                     continue;
                 }
 
-                Log.Info($"Plugin {newPlugin.Name}, by {newPlugin.Creator}, Version : {newPlugin.NebuliVersion}, has been successfully enabled!");
+                Log.Info($"Plugin '{newPlugin.Name}' by {newPlugin.Creator} (Version: {newPlugin.Version}) has been successfully enabled!");
 
                 newPlugin.LoadCommands();
                 newPlugin.OnEnabled();
@@ -288,7 +288,6 @@ public class Loader
 
     private static void ReloadConfigs()
     {
-        Deserializer = new DeserializerBuilder().WithNamingConvention(UnderscoredNamingConvention.Instance).Build();
         Log.Info("Reloading plugin configs...");
 
         foreach (IPlugin<IConfiguration> plugin in PluginConfig.Keys)

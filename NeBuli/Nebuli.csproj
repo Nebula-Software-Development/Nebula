@@ -198,6 +198,7 @@
     <Compile Include="Events\Handlers\Scp939Handlers.cs" />
     <Compile Include="Events\Handlers\ServerHandler.cs" />
     <Compile Include="Events\Patches\Player\BannedPlayer.cs" />
+    <Compile Include="Events\Patches\Player\DyingPlayer.cs" />
     <Compile Include="Events\Patches\Player\HurtPlayer.cs" />
     <Compile Include="Events\Patches\Player\LeavingServer.cs" />
     <Compile Include="Events\Patches\Player\PickingUpAmmoPatch.cs" />

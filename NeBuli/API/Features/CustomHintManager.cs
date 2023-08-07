@@ -1,4 +1,5 @@
 ﻿using Hints;
+using MEC;
 using Mirror;
 using Nebuli.API.Features.Player;
 using Nebuli.API.Internal;
@@ -8,16 +9,16 @@ using System.Text;
 using UnityEngine;
 
 namespace Nebuli.API.Features;
-
 public class CustomHintManager : MonoBehaviour
 {
-    internal List<CustomHint> CustomHints = new();
+    internal Dictionary<CustomHint, CoroutineHandle> CustomHints = new();
     internal NebuliPlayer player;
     internal StringBuilder hintMessage = new();
 
     public void AddHint(string message, float duration = 5f)
     {
-        CustomHints.Add(new CustomHint(message, duration));
+        CustomHint newHint = new(message, duration);
+        CustomHints.Add(newHint, Timing.CallDelayed(duration, () => CustomHints.Remove(newHint)));
     }
 
     public void Update()
@@ -33,17 +34,10 @@ public class CustomHintManager : MonoBehaviour
                 return;
 
             hintMessage.Clear();
-            for (int i = CustomHints.Count - 1; i >= 0; i--)
-            {
-                CustomHint customHint = CustomHints[i];
-                if (customHint.Duration <= 0)
-                {
-                    CustomHints.RemoveAt(i);
-                    continue;
-                }
 
-                customHint.Duration -= Time.deltaTime;
-                hintMessage.Append(customHint.Content);
+            foreach (var customHint in CustomHints.Keys)
+            {
+                hintMessage.AppendLine(customHint.Content);
             }
 
             if (string.IsNullOrEmpty(hintMessage.ToString()))
@@ -51,7 +45,7 @@ public class CustomHintManager : MonoBehaviour
 
             if (!HintDisplay.SuppressedReceivers.Contains(player.ReferenceHub.connectionToClient))
             {
-                player.ReferenceHub.connectionToClient.Send(new HintMessage(new TextHint(hintMessage.ToString())));
+                
             }
         }
         catch (Exception e)
@@ -59,5 +53,4 @@ public class CustomHintManager : MonoBehaviour
             Log.Error($"Error in UpdateHints: {e}");
         }
     }
-
 }
