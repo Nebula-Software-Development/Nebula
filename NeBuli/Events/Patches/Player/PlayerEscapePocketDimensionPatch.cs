@@ -18,7 +18,7 @@ internal class PlayerEscapePocketDimensionPatch
 
         Label retLabel = generator.DefineLabel();
 
-        int index = newInstructions.FindLastIndex(i => i.opcode == OpCodes.Ldloc_2) - 2;
+        int index = newInstructions.FindIndex(i => i.opcode == OpCodes.Ldloc_2);
 
         newInstructions.InsertRange(index, new CodeInstruction[]
         {
@@ -31,7 +31,7 @@ internal class PlayerEscapePocketDimensionPatch
            new(OpCodes.Brtrue_S, retLabel),
         });
 
-        index = newInstructions.FindIndex(i => i.opcode == OpCodes.Ldfld && i.OperandIs(Field(typeof(ReferenceHub), "playerStats"))) - 1;
+        index = newInstructions.FindIndex(i => i.opcode == OpCodes.Ldc_I4_0) - 1;
 
         newInstructions.InsertRange(index, new CodeInstruction[]
         {

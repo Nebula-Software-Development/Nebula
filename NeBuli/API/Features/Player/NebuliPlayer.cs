@@ -187,7 +187,12 @@ public class NebuliPlayer
     /// </summary>
     public Role Role
     {
-        get => currentRole ?? Role.CreateNew(RoleManager.CurrentRole);
+        get
+        {
+            if(currentRole is null || currentRole.RoleTypeId != RoleManager.CurrentRole.RoleTypeId)
+                currentRole = Role.CreateNew(RoleManager.CurrentRole);
+            return currentRole;
+        }
         set => currentRole = value;
     }
 

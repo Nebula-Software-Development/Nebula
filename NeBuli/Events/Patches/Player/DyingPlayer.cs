@@ -23,7 +23,7 @@ public class DyingPlayer
         newInstructions.InsertRange(0, new CodeInstruction[]
         {
             new(OpCodes.Ldarg_0),
-            new(OpCodes.Ldfld, Field(typeof(PlayerStats), nameof(PlayerStats._hub))),          
+            new(OpCodes.Ldfld, Field(typeof(PlayerStats), nameof(PlayerStats._hub))),
             new(OpCodes.Ldarg_1),
             new(OpCodes.Newobj, GetDeclaredConstructors(typeof(PlayerDying))[0]),
             new(OpCodes.Dup),
@@ -35,7 +35,7 @@ public class DyingPlayer
             new(OpCodes.Starg, 1),
             new(OpCodes.Callvirt, PropertyGetter(typeof(PlayerHurt), nameof(PlayerHurt.IsCancelled))),
             new(OpCodes.Brtrue_S, retLabel)
-        });    
+        }) ;    
 
         newInstructions[newInstructions.Count - 1].labels.Add(retLabel);
 
