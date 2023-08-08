@@ -67,13 +67,13 @@ public abstract class Plugin<TConfig> : IPlugin<TConfig> where TConfig : IConfig
     }
 
     private readonly Dictionary<Type, ICommandHandler> CommandHandlers = new()
-{
+    {
     { typeof(RemoteAdminCommandHandler), CommandProcessor.RemoteAdminCommandHandler },
     { typeof(GameConsoleCommandHandler), GameCore.Console.singleton.ConsoleCommandHandler },
     { typeof(ClientCommandHandler), QueryProcessor.DotCommandHandler }
-};
+    };
 
-    private readonly List<ICommand> Commands = new List<ICommand>();
+    private readonly List<ICommand> Commands = new();
 
     public virtual void LoadCommands()
     {
@@ -96,7 +96,9 @@ public abstract class Plugin<TConfig> : IPlugin<TConfig> where TConfig : IConfig
 
                     if (CommandHandlers.TryGetValue(commandHandlerType, out ICommandHandler commandHandler))
                     {
-                        commandHandler.RegisterCommand((ICommand)Activator.CreateInstance(type));
+                        ICommand command = (ICommand)Activator.CreateInstance(type);
+                        commandHandler.RegisterCommand(command);
+                        Commands.Add(command);
                     }
                 }
                 catch (Exception exception)

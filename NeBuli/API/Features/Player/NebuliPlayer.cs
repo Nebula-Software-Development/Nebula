@@ -1,4 +1,5 @@
-﻿using CommandSystem;
+﻿using Achievements;
+using CommandSystem;
 using CustomPlayerEffects;
 using Footprinting;
 using Hints;
@@ -40,13 +41,13 @@ public class NebuliPlayer
         ReferenceHub = hub;
         GameObject = ReferenceHub.gameObject;
         Transform = ReferenceHub.transform;
-        CustomHintManager = GameObject.AddComponent<CustomHintManager>();
-        CustomHintManager.player = this;      
-
         Create();
 
         if (ReferenceHub == ReferenceHub.HostHub)
             return;
+
+        CustomHintManager = GameObject.AddComponent<CustomHintManager>();
+        CustomHintManager.player = this;
 
         Dictionary.Add(hub, this);
     }
@@ -56,13 +57,13 @@ public class NebuliPlayer
         ReferenceHub = ReferenceHub.GetHub(gameObject);
         GameObject = ReferenceHub.gameObject;
         Transform = ReferenceHub.transform;
-        CustomHintManager = GameObject.AddComponent<CustomHintManager>();
-        CustomHintManager.player = this;
-
         Create();
 
         if (ReferenceHub == ReferenceHub.HostHub)
             return;
+
+        CustomHintManager = GameObject.AddComponent<CustomHintManager>();
+        CustomHintManager.player = this;
 
         Dictionary.Add(ReferenceHub, this);
     }
@@ -84,6 +85,12 @@ public class NebuliPlayer
             return List.Where(ply => HasAnyPermission(ply)).ToList();
         }
     }
+
+    /// <summary>
+    /// Gives the player the specified <see cref="AchievementName"/>.
+    /// </summary>
+    /// <param name="achievement">The <see cref="AchievementName"/> to give.</param>
+    public void GiveAchievement(AchievementName achievement) => AchievementHandlerBase.ServerAchieve(NetworkConnection, achievement);
 
     /// <summary>
     /// The player count of the server.
@@ -152,6 +159,11 @@ public class NebuliPlayer
     /// Gets the <see cref="NebuliPlayer"/> <see cref="PlayerCommandSender"/>.
     /// </summary>
     public PlayerCommandSender Sender => ReferenceHub.queryProcessor._sender;
+
+    /// <summary>
+    /// Gets the servers connection to the client.
+    /// </summary>
+    public NetworkConnection NetworkConnection => ReferenceHub.connectionToClient;
 
     /// <summary>
     /// Gets the players current <see cref="RoleTypeId"/>.

@@ -15,7 +15,7 @@ public static class Log
     {
         callingAssembly ??= Assembly.GetCallingAssembly();
         prefix ??= callingAssembly.GetName().Name;
-        string formattedMessage = callingAssembly.GetName().Name == "Nebuli" ? $"&7[&b&3Nebuli&B&7] {message}" : $"&7[&b&3Nebuli | {messageType}&B&7] &7[&b&2{prefix}&B&7]&r {message}";
+        string formattedMessage = callingAssembly.GetName().Name == "Nebuli" ? $"&7[&b&3Nebuli&B&7] {message}" : $"&7[&b&3Nebuli {messageType}&B&7] &7[&b&2{prefix}&B&7]&r {message}";
 
         return formattedMessage;
     }

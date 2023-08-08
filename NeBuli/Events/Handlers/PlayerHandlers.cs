@@ -28,6 +28,8 @@ public static class PlayerHandlers
 
     public static event EventManager.CustomEventHandler<PlayerPickingUpAmmo> PickingUpAmmo;
 
+    public static event EventManager.CustomEventHandler<PlayerEscapingPocket> EscapingPocket;
+
     internal static void OnJoin(PlayerJoin ev) => Join.CallEvent(ev);
 
     internal static void OnLeave(PlayerLeave ev) => Leave.CallEvent(ev);
@@ -51,4 +53,6 @@ public static class PlayerHandlers
     internal static void OnDroppingItem(PlayerDroppingItem ev) => DroppingItem.CallEvent(ev);
 
     internal static void OnPickingUpAmmo(PlayerPickingUpAmmo ev) => PickingUpAmmo.CallEvent(ev);
-}
+
+    internal static void OnEscapingPocket(PlayerEscapingPocket ev) => EscapingPocket.CallEvent(ev);
+ }
