@@ -16,12 +16,24 @@ public class UpgradingItem : EventArgs, ICancellableEvent
         UpgradeDropped = upgradeDropped;
     }
 
+    /// <summary>
+    /// Gets the <see cref="API.Features.Items.Pickups.Pickup"/> being upgraded.
+    /// </summary>
     public Pickup Pickup { get; }
 
+    /// <summary>
+    /// Gets or sets if the event is cancelled.
+    /// </summary>
     public bool IsCancelled { get; set; }
 
+    /// <summary>
+    /// Gets or sets if 914 should upgrade dropped.
+    /// </summary>
     public bool UpgradeDropped { get; set; }
 
+    /// <summary>
+    /// Gets or sets SCP-914s <see cref="Scp914KnobSetting"/>.
+    /// </summary>
     public Scp914KnobSetting KnobSetting { get; set; }
 }
 

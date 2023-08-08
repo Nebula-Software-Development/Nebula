@@ -10,7 +10,7 @@ using static HarmonyLib.AccessTools;
 namespace Nebuli.Events.Patches.SCPs.Scp939;
 
 [HarmonyPatch(typeof(MimicPointController), nameof(MimicPointController.ServerProcessCmd))]
-public class PlaceMimicPoint
+internal class PlaceMimicPoint
 {
     [HarmonyTranspiler]
     private static IEnumerable<CodeInstruction> OnPlaceMimicPoint(IEnumerable<CodeInstruction> instructions, ILGenerator generator)

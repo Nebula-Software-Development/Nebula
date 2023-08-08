@@ -14,7 +14,7 @@ using static HarmonyLib.AccessTools;
 namespace Nebuli.Events.Patches.SCPs.Scp914;
 
 [HarmonyPatch(typeof(Scp914Upgrader), nameof(Scp914Upgrader.ProcessPlayer))]
-public class UpgradingPlayerPatch
+internal class UpgradingPlayerPatch
 {
     [HarmonyTranspiler]
     private static IEnumerable<CodeInstruction> OnPlayerUpgrade(IEnumerable<CodeInstruction> instructions, ILGenerator generator)

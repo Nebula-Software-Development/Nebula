@@ -10,7 +10,7 @@ using static HarmonyLib.AccessTools;
 namespace Nebuli.Events.Patches.Player;
 
 [HarmonyPatch(typeof(Inventory), nameof(Inventory.UserCode_CmdDropItem__UInt16__Boolean))]
-public class PlayerDroppingItemPatch
+internal class PlayerDroppingItemPatch
 {
     [HarmonyTranspiler]
     private static IEnumerable<CodeInstruction> OnDrop(IEnumerable<CodeInstruction> instructions, ILGenerator generator)

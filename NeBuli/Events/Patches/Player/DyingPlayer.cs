@@ -10,7 +10,7 @@ using static HarmonyLib.AccessTools;
 namespace Nebuli.Events.Patches.Player;
 
 [HarmonyPatch(typeof(PlayerStats), nameof(PlayerStats.KillPlayer))]
-public class DyingPlayer
+internal class DyingPlayer
 {
     [HarmonyTranspiler]
     private static IEnumerable<CodeInstruction> OnDying(IEnumerable<CodeInstruction> instructions, ILGenerator generator)

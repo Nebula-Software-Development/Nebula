@@ -11,7 +11,7 @@ using static HarmonyLib.AccessTools;
 namespace Nebuli.Events.Patches.Player;
 
 [HarmonyPatch(typeof(BanPlayer), nameof(BanPlayer.BanUser), typeof(Footprint), typeof(ICommandSender), typeof(string), typeof(long))]
-public class BannedPlayer
+internal class BannedPlayer
 {
     [HarmonyTranspiler]
     private static IEnumerable<CodeInstruction> OnBanning(IEnumerable<CodeInstruction> instructions, ILGenerator generator)

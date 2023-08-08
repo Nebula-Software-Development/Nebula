@@ -10,5 +10,8 @@ public class Scp049CancelResurrect : EventArgs, IPlayerEvent
         Player = NebuliPlayer.Get(player);
     }
     
+    /// <summary>
+    /// Gets the player cancelling the ressurect.
+    /// </summary>
     public NebuliPlayer Player { get; }
 }

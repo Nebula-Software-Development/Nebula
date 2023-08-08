@@ -30,7 +30,7 @@ public class PlayerShotEventArgs : EventArgs, IPlayerEvent, ICancellableEvent
     public NebuliPlayer Player { get; }
 
     /// <summary>
-    /// Gets the <see cref="Item"/> wrapper class for this item.
+    /// Gets the <see cref="API.Features.Items.Item"/> wrapper class for this item.
     /// </summary>
     public Item Item { get; }
 }

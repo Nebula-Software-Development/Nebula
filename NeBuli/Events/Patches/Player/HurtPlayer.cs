@@ -11,7 +11,7 @@ using static HarmonyLib.AccessTools;
 namespace Nebuli.Events.Patches.Player;
 
 [HarmonyPatch(typeof(PlayerStats), nameof(PlayerStats.DealDamage))]
-public class HurtPlayer
+internal class HurtPlayer
 {
     [HarmonyTranspiler]
     private static IEnumerable<CodeInstruction> OnHurting(IEnumerable<CodeInstruction> instructions, ILGenerator generator)

@@ -9,7 +9,7 @@ using static HarmonyLib.AccessTools;
 namespace Nebuli.Events.Patches.Player;
 
 [HarmonyPatch(typeof(CustomNetworkManager), nameof(CustomNetworkManager.OnServerDisconnect))]
-public class LeavingServer
+internal class LeavingServer
 {
     [HarmonyTranspiler]
     private static IEnumerable<CodeInstruction> OnDisconnecting(IEnumerable<CodeInstruction> instructions, ILGenerator generator)

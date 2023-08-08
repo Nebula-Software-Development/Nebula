@@ -10,7 +10,7 @@ using static HarmonyLib.AccessTools;
 namespace Nebuli.Events.Patches.SCPs.Scp049;
 
 [HarmonyPatch(typeof(RagdollAbilityBase<Scp049Role>), nameof(RagdollAbilityBase<Scp049Role>.ServerValidateCancel))]
-public class CancelRevive
+internal class CancelRevive
 {
     [HarmonyTranspiler]
     private static IEnumerable<CodeInstruction> OnValidatingCancel(IEnumerable<CodeInstruction> instructions, ILGenerator generator)

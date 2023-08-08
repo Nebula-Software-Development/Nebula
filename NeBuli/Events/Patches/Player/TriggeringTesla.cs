@@ -11,7 +11,7 @@ using static HarmonyLib.AccessTools;
 namespace Nebuli.Events.Patches.Player;
 
 [HarmonyPatch(typeof(TeslaGateController), nameof(TeslaGateController.FixedUpdate))]
-public class TriggeringTesla
+internal class TriggeringTesla
 {
     [HarmonyTranspiler]
     private static IEnumerable<CodeInstruction> OnTriggerTesla(IEnumerable<CodeInstruction> instructions, ILGenerator generator)

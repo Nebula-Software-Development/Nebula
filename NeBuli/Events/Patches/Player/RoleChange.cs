@@ -10,7 +10,7 @@ using static HarmonyLib.AccessTools;
 namespace Nebuli.Events.Patches.Player;
 
 [HarmonyPatch(typeof(PlayerRoleManager), nameof(PlayerRoleManager.InitializeNewRole))]
-public class RoleChange
+internal class RoleChange
 {
     [HarmonyTranspiler]
     private static IEnumerable<CodeInstruction> OnChangingRole(IEnumerable<CodeInstruction> instructions, ILGenerator generator)

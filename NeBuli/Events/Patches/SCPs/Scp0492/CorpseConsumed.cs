@@ -10,7 +10,7 @@ using static HarmonyLib.AccessTools;
 namespace Nebuli.Events.Patches.SCPs.Scp0492;
 
 [HarmonyPatch(typeof(ZombieConsumeAbility), nameof(ZombieConsumeAbility.ServerComplete))]
-public class CorpseConsumed
+internal class CorpseConsumed
 {
     [HarmonyTranspiler]
     private static IEnumerable<CodeInstruction> OnCorpseConsumed(IEnumerable<CodeInstruction> instructions, ILGenerator generator)

@@ -10,7 +10,7 @@ using static HarmonyLib.AccessTools;
 namespace Nebuli.Events.Patches.SCPs.Scp049;
 
 [HarmonyPatch(typeof(Scp049ResurrectAbility), nameof(Scp049ResurrectAbility.ServerComplete))]
-public class FinishRevive
+internal class FinishRevive
 {
     [HarmonyTranspiler]
     private static IEnumerable<CodeInstruction> OnCompleteRevive(IEnumerable<CodeInstruction> instructions, ILGenerator generator)

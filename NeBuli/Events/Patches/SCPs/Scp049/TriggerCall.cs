@@ -10,7 +10,7 @@ using static HarmonyLib.AccessTools;
 namespace Nebuli.Events.Patches.SCPs.Scp049;
 
 [HarmonyPatch(typeof(Scp049CallAbility), nameof(Scp049CallAbility.ServerProcessCmd))]
-public class TriggerCall
+internal class TriggerCall
 {
     [HarmonyTranspiler]
     private static IEnumerable<CodeInstruction> OnUsingCall(IEnumerable<CodeInstruction> instructions, ILGenerator generator)

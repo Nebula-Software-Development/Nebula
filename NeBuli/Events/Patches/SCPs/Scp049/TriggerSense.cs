@@ -10,7 +10,7 @@ using static HarmonyLib.AccessTools;
 namespace Nebuli.Events.Patches.SCPs.Scp049;
 
 [HarmonyPatch(typeof(Scp049SenseAbility), nameof(Scp049SenseAbility.ServerProcessCmd))]
-public class TriggerSense
+internal class TriggerSense
 {
     [HarmonyTranspiler]
     private static IEnumerable<CodeInstruction> OnUsingSense(IEnumerable<CodeInstruction> instructions, ILGenerator generator)

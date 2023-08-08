@@ -20,11 +20,23 @@ public class PlayerRoleChange : EventArgs, IPlayerEvent, ICancellableEvent
     /// </summary>
     public NebuliPlayer Player { get; }
 
+    /// <summary>
+    /// Gets or sets the new role.
+    /// </summary>
     public RoleTypeId NewRole { get; set; }
 
+    /// <summary>
+    /// Gets or sets the <see cref="RoleChangeReason"/>.
+    /// </summary>
     public RoleChangeReason Reason { get; set; }
 
+    /// <summary>
+    /// Gets or sets the <see cref="RoleSpawnFlags"/>.
+    /// </summary>
     public RoleSpawnFlags SpawnFlags { get; set; }
 
+    /// <summary>
+    /// Gets or sets if the event is cancelled.
+    /// </summary>
     public bool IsCancelled { get; set; }
 }

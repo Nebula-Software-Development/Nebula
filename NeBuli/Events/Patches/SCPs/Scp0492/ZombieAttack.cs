@@ -11,7 +11,7 @@ using static HarmonyLib.AccessTools;
 namespace Nebuli.Events.Patches.SCPs.Scp0492;
 
 [HarmonyPatch(typeof(ScpAttackAbilityBase<ZombieRole>), nameof(ScpAttackAbilityBase<ZombieRole>.ServerProcessCmd))]
-public class ZombieAttack
+internal class ZombieAttack
 {
     [HarmonyTranspiler]
     private static IEnumerable<CodeInstruction> OnZombieAttack(IEnumerable<CodeInstruction> instructions, ILGenerator generator)

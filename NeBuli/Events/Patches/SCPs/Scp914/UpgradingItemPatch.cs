@@ -13,7 +13,7 @@ using static HarmonyLib.AccessTools;
 namespace Nebuli.Events.Patches.SCPs.Scp914;
 
 [HarmonyPatch(typeof(Scp914Upgrader), nameof(Scp914Upgrader.ProcessPickup))]
-public class UpgradingItemPatch
+internal class UpgradingItemPatch
 {
     [HarmonyTranspiler]
     private static IEnumerable<CodeInstruction> OnItemUpgrade(IEnumerable<CodeInstruction> instructions, ILGenerator generator)

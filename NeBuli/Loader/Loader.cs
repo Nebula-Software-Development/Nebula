@@ -152,7 +152,7 @@ public class Loader
                     continue;
                 }
 
-                Log.Info($"Plugin '{newPlugin.Name}' by {newPlugin.Creator} (Version: {newPlugin.Version}) has been successfully enabled!");
+                Log.Info($"Plugin '{newPlugin.Name}' by {newPlugin.Creator}, (Version: {newPlugin.Version}) has been successfully enabled!");
 
                 newPlugin.LoadCommands();
                 newPlugin.OnEnabled();

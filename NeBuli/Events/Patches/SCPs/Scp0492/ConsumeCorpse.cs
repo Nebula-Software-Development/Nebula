@@ -11,7 +11,7 @@ using static HarmonyLib.AccessTools;
 namespace Nebuli.Events.Patches.SCPs.Scp0492;
 
 [HarmonyPatch(typeof(RagdollAbilityBase<ZombieRole>), nameof(RagdollAbilityBase<ZombieRole>.ServerProcessCmd))]
-public class ConsumeCorpse
+internal class ConsumeCorpse
 {
     [HarmonyTranspiler]
     private static IEnumerable<CodeInstruction> OnConsumingCorpse(IEnumerable<CodeInstruction> instructions, ILGenerator generator)

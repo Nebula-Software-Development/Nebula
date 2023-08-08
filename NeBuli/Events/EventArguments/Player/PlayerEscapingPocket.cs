@@ -11,9 +11,18 @@ public class PlayerEscapingPocket : EventArgs, IPlayerEvent, ICancellableEvent
         IsCancelled = false;
         Successful = successful;
     }
+    /// <summary>
+    /// The player calling the event.
+    /// </summary>
     public NebuliPlayer Player { get; }
 
+    /// <summary>
+    /// If the escape was succesful or not.
+    /// </summary>
     public bool Successful { get; }
 
+    /// <summary>
+    /// Gets or sets if the event is cancelled or not.
+    /// </summary>
     public bool IsCancelled { get; set; }
 }

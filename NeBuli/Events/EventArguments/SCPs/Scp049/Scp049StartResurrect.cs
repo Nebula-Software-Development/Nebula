@@ -13,9 +13,18 @@ public class Scp049StartResurrect : EventArgs, IPlayerEvent, IRadgollEvent, ICan
         IsCancelled = false;
     }
     
+    /// <summary>
+    /// Gets the player triggering the event.
+    /// </summary>
     public NebuliPlayer Player { get; }
 
+    /// <summary>
+    /// Gets the <see cref="API.Features.Ragdoll"/> being resurrected.
+    /// </summary>
     public Ragdoll Ragdoll { get; }
 
+    /// <summary>
+    /// Gets or sets if the event is cancelled.
+    /// </summary>
     public bool IsCancelled { get; set; }
 }

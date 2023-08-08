@@ -10,7 +10,7 @@ using static HarmonyLib.AccessTools;
 namespace Nebuli.Events.Patches.SCPs.Scp939;
 
 [HarmonyPatch(typeof(Scp939AmnesticCloudAbility), nameof(Scp939AmnesticCloudAbility.OnStateEnabled))]
-public class PlaceCloud
+internal class PlaceCloud
 {
     [HarmonyTranspiler]
     private static IEnumerable<CodeInstruction> OnPlacingCloud(IEnumerable<CodeInstruction> instructions, ILGenerator generator)

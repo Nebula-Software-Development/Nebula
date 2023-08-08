@@ -10,19 +10,20 @@ using static HarmonyLib.AccessTools;
 namespace Nebuli.Events.Patches.Player;
 
 //[HarmonyPatch(typeof(ItemSearchCompletor), nameof(AmmoSearchCompletor.Complete))]
-public class PickingUpAmmoPatch
+internal class PickingUpAmmoPatch
 {
     [HarmonyTranspiler]
     private static IEnumerable<CodeInstruction> OnPickingupAmmo(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
-        List<CodeInstruction> newInstructions = EventManager.CheckPatchInstructions<PickingUpAmmoPatch>(29, instructions);
+        List<CodeInstruction> newInstructions = EventManager.CheckPatchInstructions<PickingUpAmmoPatch>(37, instructions);
 
         Label retLabel = generator.DefineLabel();
 
-        int index = newInstructions.FindIndex(i => i.opcode == OpCodes.Call) + 1;
+        int index = newInstructions.FindIndex(i => i.opcode == OpCodes.Ldloc_1) + 1;
 
         newInstructions.InsertRange(index, new CodeInstruction[]
         {
+            new(OpCodes.Ldarg_0),
             new(OpCodes.Ldfld, Field(typeof(ItemSearchCompletor), nameof(ItemSearchCompletor.Hub))),
             new(OpCodes.Ldarg_0),
             new(OpCodes.Newobj, GetDeclaredConstructors(typeof(PlayerPickingUpAmmo))[0]),

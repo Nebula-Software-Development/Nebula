@@ -10,7 +10,7 @@ using static HarmonyLib.AccessTools;
 namespace Nebuli.Events.Patches.SCPs.Scp049;
 
 [HarmonyPatch(typeof(Scp049SenseAbility), nameof(Scp049SenseAbility.ServerLoseTarget))]
-public class LoseSenseTarget
+internal class LoseSenseTarget
 {
     [HarmonyTranspiler]
     private static IEnumerable<CodeInstruction> OnLoseSenseTarget(IEnumerable<CodeInstruction> instructions, ILGenerator generator)

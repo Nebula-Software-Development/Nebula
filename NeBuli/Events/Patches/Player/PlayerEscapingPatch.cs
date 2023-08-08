@@ -10,7 +10,7 @@ using static HarmonyLib.AccessTools;
 namespace Nebuli.Events.Patches.Player;
 
 [HarmonyPatch(typeof(Escape), nameof(Escape.ServerHandlePlayer))]
-public class PlayerEscapingPatch
+internal class PlayerEscapingPatch
 {
     [HarmonyTranspiler]
     private static IEnumerable<CodeInstruction> OnEscape(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
