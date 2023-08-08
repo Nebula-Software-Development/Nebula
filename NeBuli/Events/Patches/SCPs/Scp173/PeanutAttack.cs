@@ -10,7 +10,7 @@ using static HarmonyLib.AccessTools;
 namespace Nebuli.Events.Patches.SCPs.Scp173;
 
 [HarmonyPatch(typeof(Scp173SnapAbility), nameof(Scp173SnapAbility.ServerProcessCmd))]
-public class PeanutAttack
+internal class PeanutAttack
 {
     [HarmonyTranspiler]
     private static IEnumerable<CodeInstruction> OnSnap(IEnumerable<CodeInstruction> instructions, ILGenerator generator)

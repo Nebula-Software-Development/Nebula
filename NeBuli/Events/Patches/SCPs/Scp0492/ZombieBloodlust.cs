@@ -10,7 +10,7 @@ using static HarmonyLib.AccessTools;
 namespace Nebuli.Events.Patches.SCPs.Scp0492;
 
 [HarmonyPatch(typeof(ZombieBloodlustAbility), nameof(ZombieBloodlustAbility.AnyTargets))]
-public class ZombieBloodlust
+internal class ZombieBloodlust
 {
     [HarmonyTranspiler]
     private static IEnumerable<CodeInstruction> OnBloodlusting(IEnumerable<CodeInstruction> instructions, ILGenerator generator)

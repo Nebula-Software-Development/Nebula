@@ -10,7 +10,7 @@ using static HarmonyLib.AccessTools;
 namespace Nebuli.Events.Patches.SCPs.Scp939;
 
 [HarmonyPatch(typeof(Scp939LungeAbility), nameof(Scp939LungeAbility.TriggerLunge))]
-public class UsingLunge
+internal class UsingLunge
 {
     [HarmonyTranspiler]
     private static IEnumerable<CodeInstruction> OnUsingLunge(IEnumerable<CodeInstruction> instructions, ILGenerator generator)

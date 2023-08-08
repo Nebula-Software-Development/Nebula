@@ -11,10 +11,18 @@ public class Scp0492Attack : EventArgs, IDamageEvent, ICancellableEvent
         Target = NebuliPlayer.Get(target);
         IsCancelled = false;
     }
-    
+    /// <summary>
+    /// Gets the attacker, or SCP-0492.
+    /// </summary>
     public NebuliPlayer Attacker { get; }
 
+    /// <summary>
+    /// Gets the player being attacked.
+    /// </summary>
     public NebuliPlayer Target { get; }
 
+    /// <summary>
+    /// Gets or sets if the event is cancelled.
+    /// </summary>
     public bool IsCancelled { get; set; }
 }

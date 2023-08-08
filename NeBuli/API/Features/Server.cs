@@ -113,6 +113,11 @@ public static class Server
     public static string ServerIP => ServerConsole.Ip;
 
     /// <summary>
+    /// Gets if the server is verified.
+    /// </summary>
+    public static bool IsVerified => ServerStatic.PermissionsHandler.IsVerified;
+
+    /// <summary>
     /// Restarts the server.
     /// </summary>
     /// <param name="roundRestartType">The <see cref="RoundRestartType"/> to use.</param>

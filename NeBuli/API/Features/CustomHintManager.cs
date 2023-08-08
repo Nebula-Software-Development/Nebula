@@ -1,63 +1,120 @@
 ﻿using Hints;
+using MEC;
 using Mirror;
 using Nebuli.API.Features.Player;
 using Nebuli.API.Internal;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 using UnityEngine;
 
-namespace Nebuli.API.Features;
-
-public class CustomHintManager : MonoBehaviour
+namespace Nebuli.API.Features
 {
-    internal List<CustomHint> CustomHints = new();
-    internal NebuliPlayer player;
-    internal StringBuilder hintMessage = new();
-
-    public void AddHint(string message, float duration = 5f)
+    public class CustomHintManager : MonoBehaviour
     {
-        CustomHints.Add(new CustomHint(message, duration));
-    }
+        internal Dictionary<CustomHint, CoroutineHandle> _customHints = new();
+        internal NebuliPlayer player;
+        internal StringBuilder _builder = new();
+        internal float _counter;
 
-    public void Update()
-    {
-        UpdateHints();
-    }
-
-    internal void UpdateHints()
-    {
-        try
+        public void Update()
         {
-            if (player == null || player.ReferenceHub == null || player.ReferenceHub == Server.NebuliHost.ReferenceHub || !NetworkServer.active)
-                return;
-
-            hintMessage.Clear();
-            for (int i = CustomHints.Count - 1; i >= 0; i--)
+            try
             {
-                CustomHint customHint = CustomHints[i];
-                if (customHint.Duration <= 0)
+                _counter += Time.deltaTime;
+                if (_counter < 0.5f)
+                    return;
+                PrintHud();
+                _counter = 0;
+            }
+            catch (Exception e)
+            {
+                Log.Error($"A error occured while handling custom hints! Full error --> \n{e}");
+            }    
+        }
+
+
+        public void AddHint(string message, float duration = 5f)
+        {          
+            try
+            {
+                CustomHint newHint = new(message, duration);
+                _builder.Append(message);
+                _customHints.Add(newHint, Timing.CallDelayed(duration, () => _customHints.Remove(newHint)));
+            }
+            catch(Exception e)
+            {
+                Log.Error($"A error occured while handling custom hints! Full error --> \n{e}");
+            }
+        }
+
+        public void AddHint(CustomHint customHint)
+        {
+            try
+            {
+                _builder.Append(customHint.Content);
+                _customHints.Add(customHint, Timing.CallDelayed(customHint.Duration, () => _customHints.Remove(customHint)));
+            }
+            catch (Exception e)
+            {
+                Log.Error($"A error occured while handling custom hints! Full error --> \n{e}");
+            } 
+        }
+
+        public async void PrintHud()
+        {
+            try
+            {
+                List<CustomHint> hintsToPrint;
+                lock (_customHints)
                 {
-                    CustomHints.RemoveAt(i);
-                    continue;
+                    hintsToPrint = new List<CustomHint>(_customHints.Keys);
                 }
 
-                customHint.Duration -= Time.deltaTime;
-                hintMessage.Append(customHint.Content);
+                string hudMessage = await Task.Run(() =>
+                {
+                    _builder.Clear();
+                    foreach (CustomHint message in hintsToPrint)
+                    {
+                        _builder.AppendLine(message.Content);
+                    }
+                    return _builder.ToString();
+                });
+
+                player.ReferenceHub.hints.Show(new TextHint(hudMessage, new HintParameter[0], null, durationScalar: 1));
             }
-
-            if (string.IsNullOrEmpty(hintMessage.ToString()))
-                return;
-
-            if (!HintDisplay.SuppressedReceivers.Contains(player.ReferenceHub.connectionToClient))
+            catch (Exception e)
             {
-                player.ReferenceHub.connectionToClient.Send(new HintMessage(new TextHint(hintMessage.ToString())));
+                Log.Error($"An error occurred while handling custom hints! Full error --> \n{e}");
             }
         }
-        catch (Exception e)
+
+
+        public void Clear()
         {
-            Log.Error($"Error in UpdateHints: {e}");
+            try
+            {
+                _customHints.Clear();
+                _builder.Clear();
+            }
+            catch (Exception e)
+            {
+                Log.Error($"A error occured while handling custom hints! Full error --> \n{e}");
+            }
+        }
+
+        private void OnDestroy()
+        {
+            try
+            {
+                Clear();
+            }
+            catch (Exception e)
+            {
+                Log.Error($"A error occured while handling custom hints! Full error --> \n{e}");
+            }
         }
     }
-
 }
+

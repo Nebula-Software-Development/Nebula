@@ -6,7 +6,7 @@ using System;
 
 namespace Nebuli.API.Internal.NebuliPatches;
 
-[HarmonyPatch(typeof(HintDisplay), nameof(HintDisplay.Show))]
+//[HarmonyPatch(typeof(HintDisplay), nameof(HintDisplay.Show))]
 public class ShowHint
 {
     [HarmonyPrefix]

@@ -10,7 +10,7 @@ using static HarmonyLib.AccessTools;
 namespace Nebuli.Events.Patches.SCPs.Scp173;
 
 [HarmonyPatch(typeof(Scp173BreakneckSpeedsAbility), nameof(Scp173BreakneckSpeedsAbility.ServerProcessCmd))]
-public class UseBreakneck
+internal class UseBreakneck
 {
     [HarmonyTranspiler] 
     private static IEnumerable<CodeInstruction> OnTogglingBreakneck(IEnumerable<CodeInstruction> instructions, ILGenerator generator)

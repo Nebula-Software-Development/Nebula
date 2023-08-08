@@ -10,7 +10,7 @@ using static HarmonyLib.AccessTools;
 namespace Nebuli.Events.Patches.SCPs.Scp939;
 
 [HarmonyPatch(typeof(Scp939ClawAbility), nameof(Scp939ClawAbility.OnDestructibleDamaged))]
-public class DogAttack
+internal class DogAttack
 {
     [HarmonyTranspiler]
     private static IEnumerable<CodeInstruction> OnClawing(IEnumerable<CodeInstruction> instructions, ILGenerator generator)

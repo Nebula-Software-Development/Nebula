@@ -1,4 +1,6 @@
-﻿using PlayerRoles;
+﻿using GameCore;
+using PlayerRoles;
+using System;
 
 namespace Nebuli.API.Features;
 
@@ -10,7 +12,7 @@ public static class Round
     /// <summary>
     /// Gets if the round has started or not.
     /// </summary>
-    public static bool RoundStarted => Server.NebuliHost.ReferenceHub.characterClassManager.RoundStarted;
+    public static bool RoundStarted => RoundStart.RoundStarted;
 
     /// <summary>
     /// Forces the round to start if not already.
@@ -20,7 +22,7 @@ public static class Round
     /// <summary>
     /// Gets if the round is active.
     /// </summary>
-    public static bool RoundActive => !RoundSummary.singleton._roundEnded;
+    public static bool RoundActive => !RoundEnded;
 
     /// <summary>
     /// Gets if the round has ended.
@@ -87,9 +89,9 @@ public static class Round
     }
 
     /// <summary>
-    /// Gets the total round time in seconds.
+    /// Gets the total round time as a <see cref="TimeSpan"/>.
     /// </summary>
-    public static int TotalRoundTime => RoundSummary.roundTime;
+    public static TimeSpan TotalRoundTime => RoundStart.RoundLength;
 
     /// <summary>
     /// Gets the singleton instance of the <see cref="RoundSummary"/> class.

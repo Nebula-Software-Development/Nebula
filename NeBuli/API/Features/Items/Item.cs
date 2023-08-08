@@ -4,11 +4,15 @@ using InventorySystem.Items;
 using InventorySystem.Items.Firearms;
 using InventorySystem.Items.Firearms.Attachments;
 using InventorySystem.Items.Firearms.Attachments.Components;
+using InventorySystem.Items.ThrowableProjectiles;
 using InventorySystem.Items.Usables;
-using Nebuli.API.Features.Items.Pickups;
+using Nebuli.API.Features.Items.Projectiles;
+using Nebuli.API.Features.Items.Throwables;
 using Nebuli.API.Features.Player;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
+using ExplosionGrenade = InventorySystem.Items.ThrowableProjectiles.ExplosionGrenade;
 
 namespace Nebuli.API.Features.Items;
 
@@ -34,17 +38,15 @@ public class Item
     /// </summary>
     public NebuliPlayer Owner => NebuliPlayer.Get(OwnerRefHub);
 
+    /// <summary>
+    /// Creates a new item by wrapping a <see cref="ItemBase"/>.
+    /// </summary>
+    /// <param name="itemBase">The <see cref="ItemBase"/> to wrap.</param>
     internal Item(ItemBase itemBase)
     {
         Base = itemBase;
-        if(!Dictionary.ContainsKey(itemBase)) Dictionary.Add(itemBase, this);
+        if (!Dictionary.ContainsKey(itemBase)) Dictionary.Add(itemBase, this);
     }
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="Item"/> class with the specified item type and owner.
-    /// </summary>
-    /// <param name="newItemType">The type of the new item.</param>
-    public Item(ItemType newItemType) => Server.NebuliHost.ReferenceHub.inventory.CreateItemInstance(new(newItemType, 0), false);
 
     /// <summary>
     /// Gets a collection of all the current Items.
@@ -55,6 +57,11 @@ public class Item
     /// Gets a list of all the current Items.
     /// </summary>
     public static List<Item> List => Collection.ToList();
+
+    /// <summary>
+    /// Gets the items <see cref="UnityEngine.GameObject"/>.
+    /// </summary>
+    public GameObject GameObject => Base.gameObject;
 
     /// <summary>
     /// Gets or sets the Items serial.
@@ -122,21 +129,21 @@ public class Item
     public void DropItem() => Base.ServerDropItem();
 
     /// <summary>
-    /// Creates a new instance of the <see cref="Item"/> class with the specified item type and owner.
+    /// Creates a new instance of the <see cref="Item"/> class with the specified item type.
     /// </summary>
     /// <param name="itemType">The type of the new item.</param>
-    public static void Create(ItemType itemType)
+    public static Item Create(ItemType itemType)
     {
-        Server.NebuliHost.ReferenceHub.inventory.CreateItemInstance(new(itemType, 0), false);
+        return Get(Server.NebuliHost.ReferenceHub.inventory.CreateItemInstance(new(itemType, 0), false));
     }
 
     /// <summary>
     /// Creates a item and gives it to the specified player.
     /// </summary>
     /// <param name="itemType">The ItemType to give. </param>>
-    /// <param name="owner">The owner of the </param>
+    /// <param name="owner">The owner of the item.</param>
     /// <param name="attachments">The attachments on the weapon.</param>
-    public static void CreateAndGive(ItemType itemType, NebuliPlayer owner, Attachment[] attachments = null)
+    public static Item CreateAndGive(ItemType itemType, NebuliPlayer owner, Attachment[] attachments = null)
     {
         ItemBase item = owner.Inventory.ServerAddItem(itemType);
         if (item is InventorySystem.Items.Firearms.Firearm firearm)
@@ -147,7 +154,9 @@ public class Item
                 firearm.Attachments.AddRangeToArray(attachments);
             }
             firearm.Status = new FirearmStatus(firearm.AmmoManagerModule.MaxAmmo, flags, firearm.GetCurrentAttachmentsCode());
+            return Get(item);
         }
+        return Get(item);
     }
 
     /// <summary>
@@ -155,18 +164,18 @@ public class Item
     /// </summary>
     /// <param name="itemBase">The <see cref="ItemBase"/> to find the <see cref="Item"/> with.</param>
     /// <returns></returns>
-    public static Item ItemGet(ItemBase itemBase) => Dictionary.TryGetValue(itemBase, out var item) ? item : new Item(itemBase);
+    public static Item Get(ItemBase itemBase) => Dictionary.TryGetValue(itemBase, out var item) ? item : GetItem(itemBase);
 
     /// <summary>
     /// Gets an <see cref="Item"/> with the specified serial number.
     /// </summary>
     /// <param name="serialNumber">The serial number of the item to find.</param>
     /// <returns>The <see cref="Item"/> with the specified serial number if found; otherwise, null.</returns>
-    public static Item ItemGet(ushort serialNumber) => Dictionary.Values.FirstOrDefault(item => item.Serial == serialNumber);
+    public static Item Get(ushort serialNumber) => Dictionary.Values.FirstOrDefault(item => item.Serial == serialNumber);
 
-    internal static Item GetPickup(ItemBase itemBase)
+    internal static Item GetItem(ItemBase itemBase)
     {
-        if (Dictionary.TryGetValue(itemBase, out var item)) return item;
+        if(Dictionary.ContainsKey(itemBase)) return Dictionary[itemBase];
 
         return itemBase switch
         {
@@ -176,12 +185,19 @@ public class Item
             InventorySystem.Items.Armor.BodyArmor armor => new BodyArmor(armor),
             InventorySystem.Items.Flashlight.FlashlightItem flashlight => new Flashlight(flashlight),
             InventorySystem.Items.MicroHID.MicroHIDItem microHID => new MicroHID(microHID),
+            InventorySystem.Items.Firearms.Ammo.AmmoItem ammo => new Ammo(ammo),
             InventorySystem.Items.Radio.RadioItem radio => new Radio(radio),
             InventorySystem.Items.Jailbird.JailbirdItem jailbird => new Jailbird(jailbird),
             Adrenaline adreniline => new Usables.Adrenaline(adreniline),
             Medkit medkit => new Usables.Medkit(medkit),
             Painkillers painkillers => new Usables.Painkillers(painkillers),
-            _ => null,
-        };
+            ThrowableItem throwable => throwable.Projectile switch
+            {
+                ExplosionGrenade => new Throwables.ExplosiveGrenade(throwable),
+                InventorySystem.Items.ThrowableProjectiles.FlashbangGrenade => new Throwables.FlashbangGrenade(throwable),
+                _ => new Throwable(throwable),
+            },
+            _ => new Item(itemBase),
+        } ;
     }
 }

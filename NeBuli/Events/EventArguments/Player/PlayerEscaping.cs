@@ -7,7 +7,7 @@ namespace Nebuli.Events.EventArguments.Player;
 
 public class PlayerEscaping : EventArgs, IPlayerEvent, ICancellableEvent
 {
-    public PlayerEscaping(ReferenceHub player, RoleTypeId newRole, EscapeScenarioType escapeType)
+    public PlayerEscaping(ReferenceHub player, RoleTypeId newRole, EscapeScenarioType escapeType, float tickets)
     {
         Player = NebuliPlayer.Get(player);
         NewRole = newRole;

@@ -10,7 +10,7 @@ using static HarmonyLib.AccessTools;
 namespace Nebuli.Events.Patches.SCPs.Scp939;
 
 [HarmonyPatch(typeof(Scp939AmnesticCloudAbility), nameof(Scp939AmnesticCloudAbility.OnStateDisabled))]
-public class CancelCloudPlacement
+internal class CancelCloudPlacement
 {
     [HarmonyTranspiler]
     private static IEnumerable<CodeInstruction> OnCancelCloud(IEnumerable<CodeInstruction> instructions, ILGenerator generator)

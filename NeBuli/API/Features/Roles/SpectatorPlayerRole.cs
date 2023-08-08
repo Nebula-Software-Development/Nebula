@@ -63,12 +63,12 @@ public class SpectatorPlayerRole : Role
     /// <param name="target">The target to switch to.</param>
     public static void SetCurrentTarget(NebuliPlayer player, NebuliPlayer target)
     {
-        if (player.CurrentRole is not SpectatorPlayerRole)
+        if (player.Role is not SpectatorPlayerRole)
             return;
-        if (target.CurrentRole is not FpcRoleBase)
+        if (target.Role is not FpcRoleBase)
             return;
-        SpectatorPlayerRole spectator = player.CurrentRole as SpectatorPlayerRole;
-        FpcRoleBase targetToSwitchTo = target.CurrentRole as FpcRoleBase;
+        SpectatorPlayerRole spectator = player.Role as SpectatorPlayerRole;
+        FpcRoleBase targetToSwitchTo = target.Role as FpcRoleBase;
         spectator.CurrentTarget = targetToSwitchTo.SpectatableModuleBase;
     }
 }

@@ -13,12 +13,19 @@ public class Room
     {
         Base = identifier;
         Dictionary.Add(identifier, this);
+
+        LightController = GameObject.GetComponentInChildren<RoomLightController>();
     }
 
     /// <summary>
     /// Gets the rooms base.
     /// </summary>
     public RoomIdentifier Base { get; }
+
+    /// <summary>
+    /// Gets the rooms <see cref="RoomLightController"/>.
+    /// </summary>
+    public RoomLightController LightController { get; internal set; }
 
     /// <summary>
     /// Gets a collection of all the rooms.
@@ -51,6 +58,39 @@ public class Room
     public Transform Transform => Base.transform;
 
     /// <summary>
+    /// Gets a value if the given <see cref="Vector3"/> position is in this room.
+    /// </summary>
+    /// <param name="position"></param>
+    /// <returns></returns>
+    public bool IsInRoom(Vector3 position) => RoomIdUtils.IsTheSameRoom(position, Position);
+
+    /// <summary>
+    /// Disables the room lights for the specified amount of time.
+    /// </summary>
+    /// <param name="duration"></param>
+    public void DisableRoomLights(int duration) => LightController.ServerFlickerLights(duration);
+
+    /// <summary>
+    /// Gets if the rooms light are enabled.
+    /// </summary>
+    public bool LightsEnabled => LightController.LightsEnabled;
+
+    /// <summary>
+    /// Gets or sets the rooms color.
+    /// </summary>
+    public Color RoomColor
+    {
+        get => LightController.NetworkOverrideColor;
+        set => LightController.NetworkOverrideColor = value;
+    }
+
+    /// <summary>
+    /// Toggles the room lights on/off.
+    /// </summary>
+    /// <param name="state"></param>
+    public void ToggleLights(bool state) => LightController.SetLights(state);
+
+    /// <summary>
     /// Gets the <see cref="RoomName"/> of the room.
     /// </summary>
     public RoomName Name => Base.Name;
@@ -69,18 +109,12 @@ public class Room
     /// </summary>
     /// <param name="identifier"></param>
     /// <returns></returns>
-    public static Room Get(RoomIdentifier identifier)
-    {
-        return Dictionary.TryGetValue(identifier, out var room) ? room : new Room(identifier);
-    }
+    public static Room Get(RoomIdentifier identifier) => Dictionary.TryGetValue(identifier, out var room) ? room : new Room(identifier);
 
     /// <summary>
     /// Gets a <see cref="Room"/> based off the given <see cref="Vector3"/>.
     /// </summary>
     /// <param name="position">The positon to look for a room at.</param>
     /// <returns></returns>
-    public static Room Get(Vector3 position)
-    {
-        return RoomIdUtils.RoomAtPositionRaycasts(position, true) is RoomIdentifier roomIdentifier ? Get(roomIdentifier) : null;
-    }
+    public static Room Get(Vector3 position) => RoomIdUtils.RoomAtPositionRaycasts(position, true) is RoomIdentifier roomIdentifier ? Get(roomIdentifier) : null;
 }

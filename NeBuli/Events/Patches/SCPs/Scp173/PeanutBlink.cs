@@ -10,7 +10,7 @@ using static HarmonyLib.AccessTools;
 namespace Nebuli.Events.Patches.SCPs.Scp173;
 
 [HarmonyPatch(typeof(Scp173BlinkTimer), nameof(Scp173BlinkTimer.ServerBlink))]
-public class PeanutBlink
+internal class PeanutBlink
 {
     [HarmonyTranspiler]
     private static IEnumerable<CodeInstruction> OnBlink(IEnumerable<CodeInstruction> instructions, ILGenerator generator)

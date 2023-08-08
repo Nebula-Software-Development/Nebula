@@ -13,9 +13,18 @@ public class Scp173Blink : EventArgs, IPlayerEvent, ICancellableEvent
         IsCancelled = false;
     }
     
+    /// <summary>
+    /// The player triggering the event.
+    /// </summary>
     public NebuliPlayer Player { get; }
     
+    /// <summary>
+    /// The position 173 will be teleported to.
+    /// </summary>
     public Vector3 Position { get; set; }
 
+    /// <summary>
+    /// Gets or sets if the event is cancelled.
+    /// </summary>
     public bool IsCancelled { get; set; }
 }

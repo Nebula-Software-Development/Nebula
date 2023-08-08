@@ -10,7 +10,7 @@ using static HarmonyLib.AccessTools;
 namespace Nebuli.Events.Patches.SCPs.Scp939;
 
 [HarmonyPatch(typeof(MimicryRecorder), nameof(MimicryRecorder.RemoveRecordingsOfPlayer))]
-public class RemoveSavedVoice
+internal class RemoveSavedVoice
 {
     [HarmonyTranspiler]
     private static IEnumerable<CodeInstruction> OnRemoveSavedVoice(IEnumerable<CodeInstruction> instructions, ILGenerator generator)

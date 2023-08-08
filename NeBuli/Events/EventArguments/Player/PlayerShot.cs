@@ -9,9 +9,9 @@ public class PlayerShotEventArgs : EventArgs, IPlayerEvent, ICancellableEvent
     public PlayerShotEventArgs(ReferenceHub player, InventorySystem.Items.Firearms.Firearm firearm)
     {
         Player = NebuliPlayer.Get(player);
-        Firearm = Item.ItemGet(firearm) as Firearm;
+        Firearm = Item.Get(firearm) as Firearm;
         IsCancelled = false;
-        Item = Item.ItemGet(firearm);
+        Item = Item.Get(firearm);
     }
 
     /// <summary>
@@ -30,7 +30,7 @@ public class PlayerShotEventArgs : EventArgs, IPlayerEvent, ICancellableEvent
     public NebuliPlayer Player { get; }
 
     /// <summary>
-    /// Gets the <see cref="Item"/> wrapper class for this item.
+    /// Gets the <see cref="API.Features.Items.Item"/> wrapper class for this item.
     /// </summary>
     public Item Item { get; }
 }

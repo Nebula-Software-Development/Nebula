@@ -10,7 +10,7 @@ using static HarmonyLib.AccessTools;
 namespace Nebuli.Events.Patches.SCPs.Scp939;
 
 [HarmonyPatch(typeof(EnvironmentalMimicry), nameof(EnvironmentalMimicry.ServerProcessCmd))]
-public class PlayMimicrySound
+internal class PlayMimicrySound
 {
     [HarmonyTranspiler]
     private static IEnumerable<CodeInstruction> OnPlayMimicry(IEnumerable<CodeInstruction> instructions, ILGenerator generator)

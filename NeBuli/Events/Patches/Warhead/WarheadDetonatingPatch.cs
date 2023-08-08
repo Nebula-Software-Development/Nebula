@@ -10,7 +10,7 @@ using static HarmonyLib.AccessTools;
 namespace Nebuli.Events.Patches.Warhead;
 
 [HarmonyPatch(typeof(AlphaWarheadController), nameof(AlphaWarheadController.Detonate))]
-public class WarheadDetonatingPatch
+internal class WarheadDetonatingPatch
 {
     [HarmonyTranspiler]
     private static IEnumerable<CodeInstruction> OnDetonating(IEnumerable<CodeInstruction> instructions, ILGenerator generator)

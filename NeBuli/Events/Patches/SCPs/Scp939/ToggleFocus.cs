@@ -10,7 +10,7 @@ using static HarmonyLib.AccessTools;
 namespace Nebuli.Events.Patches.SCPs.Scp939;
 
 [HarmonyPatch(typeof(Scp939FocusAbility), nameof(Scp939FocusAbility.TargetState), MethodType.Setter)]
-public class ToggleFocus
+internal class ToggleFocus
 {
     [HarmonyTranspiler]
     private static IEnumerable<CodeInstruction> OnTogglingFocus(IEnumerable<CodeInstruction> instructions, ILGenerator generator)

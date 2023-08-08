@@ -9,7 +9,7 @@ using static HarmonyLib.AccessTools;
 namespace Nebuli.Events.Patches.Player;
 
 [HarmonyPatch(typeof(ServerRoles), nameof(ServerRoles.UserCode_CmdServerSignatureComplete__String__String__String__Boolean))]
-public class VerificationCompleted
+internal class VerificationCompleted
 {
     [HarmonyTranspiler]
     private static IEnumerable<CodeInstruction> OnJoining(IEnumerable<CodeInstruction> instructions, ILGenerator generator)

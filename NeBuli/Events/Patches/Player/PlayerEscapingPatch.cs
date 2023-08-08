@@ -3,13 +3,14 @@ using Nebuli.Events.EventArguments.Player;
 using Nebuli.Events.Handlers;
 using NorthwoodLib.Pools;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection.Emit;
 using static HarmonyLib.AccessTools;
 
 namespace Nebuli.Events.Patches.Player;
 
 [HarmonyPatch(typeof(Escape), nameof(Escape.ServerHandlePlayer))]
-public class PlayerEscapingPatch
+internal class PlayerEscapingPatch
 {
     [HarmonyTranspiler]
     private static IEnumerable<CodeInstruction> OnEscape(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
@@ -19,13 +20,14 @@ public class PlayerEscapingPatch
         Label retLabel = generator.DefineLabel();
         LocalBuilder @event = generator.DeclareLocal(typeof(PlayerEscaping));
 
-        int index = newInstructions.FindLastIndex(i => i.opcode == OpCodes.Ldloc_2);
+        int index = newInstructions.FindLastIndex(i => i.opcode == OpCodes.Newobj) - 2;
 
         newInstructions.InsertRange(index, new CodeInstruction[]
         {
             new CodeInstruction(OpCodes.Ldarg_0).MoveLabelsFrom(newInstructions[index]),
             new(OpCodes.Ldloc_0),
             new(OpCodes.Ldloc_1),
+            new(OpCodes.Ldloc_3),
             new(OpCodes.Newobj, GetDeclaredConstructors(typeof(PlayerEscaping))[0]),
             new(OpCodes.Dup),
             new(OpCodes.Dup),
@@ -35,7 +37,7 @@ public class PlayerEscapingPatch
             new(OpCodes.Brtrue, retLabel),
             new(OpCodes.Ldloc, @event.LocalIndex),
             new(OpCodes.Callvirt, PropertyGetter(typeof(PlayerEscaping), nameof(PlayerEscaping.NewRole))),
-            new(OpCodes.Stloc_0),
+            new(OpCodes.Stloc_0),             
         });
 
         newInstructions[newInstructions.Count - 1].labels.Add(retLabel);

@@ -1,4 +1,5 @@
-﻿using CommandSystem;
+﻿using Achievements;
+using CommandSystem;
 using CustomPlayerEffects;
 using Footprinting;
 using Hints;
@@ -13,9 +14,11 @@ using Nebuli.API.Features.Roles;
 using PlayerRoles;
 using PlayerRoles.FirstPersonControl;
 using PlayerStatsSystem;
+using PluginAPI.Roles;
 using RelativePositioning;
 using RemoteAdmin;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Reflection;
 using UnityEngine;
@@ -38,13 +41,14 @@ public class NebuliPlayer
         ReferenceHub = hub;
         GameObject = ReferenceHub.gameObject;
         Transform = ReferenceHub.transform;
+        Create();
+
+        if (ReferenceHub == ReferenceHub.HostHub)
+            return;
+
         CustomHintManager = GameObject.AddComponent<CustomHintManager>();
         CustomHintManager.player = this;
 
-        if (hub == ReferenceHub.HostHub && Server.NebuliHost is not null)
-            return;
-
-        Create();
         Dictionary.Add(hub, this);
     }
 
@@ -53,13 +57,14 @@ public class NebuliPlayer
         ReferenceHub = ReferenceHub.GetHub(gameObject);
         GameObject = ReferenceHub.gameObject;
         Transform = ReferenceHub.transform;
+        Create();
+
+        if (ReferenceHub == ReferenceHub.HostHub)
+            return;
+
         CustomHintManager = GameObject.AddComponent<CustomHintManager>();
         CustomHintManager.player = this;
 
-        if (ReferenceHub == ReferenceHub.HostHub && Server.NebuliHost is not null)
-            return;
-
-        Create();
         Dictionary.Add(ReferenceHub, this);
     }
 
@@ -80,6 +85,12 @@ public class NebuliPlayer
             return List.Where(ply => HasAnyPermission(ply)).ToList();
         }
     }
+
+    /// <summary>
+    /// Gives the player the specified <see cref="AchievementName"/>.
+    /// </summary>
+    /// <param name="achievement">The <see cref="AchievementName"/> to give.</param>
+    public void GiveAchievement(AchievementName achievement) => AchievementHandlerBase.ServerAchieve(NetworkConnection, achievement);
 
     /// <summary>
     /// The player count of the server.
@@ -150,6 +161,11 @@ public class NebuliPlayer
     public PlayerCommandSender Sender => ReferenceHub.queryProcessor._sender;
 
     /// <summary>
+    /// Gets the servers connection to the client.
+    /// </summary>
+    public NetworkConnection NetworkConnection => ReferenceHub.connectionToClient;
+
+    /// <summary>
     /// Gets the players current <see cref="RoleTypeId"/>.
     /// </summary>
     public RoleTypeId CurrentRoleType => ReferenceHub.GetRoleId();
@@ -160,9 +176,26 @@ public class NebuliPlayer
     public Faction Faction => CurrentRoleType.GetFaction();
 
     /// <summary>
+    /// Gets the players <see cref="PlayerRoleManager"/>.
+    /// </summary>
+    public PlayerRoleManager RoleManager => ReferenceHub.roleManager;
+
+    private Role currentRole = null;
+
+    /// <summary>
     /// Gets the players current <see cref="PlayerRoleBase"/>.
     /// </summary>
-    public Role CurrentRole { get; internal set; }
+    public Role Role
+    {
+        get
+        {
+            if(currentRole is null || currentRole.RoleTypeId != RoleManager.CurrentRole.RoleTypeId)
+                currentRole = Role.CreateNew(RoleManager.CurrentRole);
+            return currentRole;
+        }
+        set => currentRole = value;
+    }
+
 
     /// <summary>
     /// Gets or sets whether or not the player has bypass or not.
@@ -715,7 +748,7 @@ public class NebuliPlayer
     /// <param name="flags">The flags for the role spawn. (Optional)</param>
     public void SetRole(RoleTypeId role, RoleChangeReason reason = RoleChangeReason.RemoteAdmin, RoleSpawnFlags flags = RoleSpawnFlags.All)
     {
-        ReferenceHub.roleManager.ServerSetRole(role, reason, flags);
+        RoleManager.ServerSetRole(role, reason, flags);
     }
 
     /// <summary>
@@ -885,24 +918,24 @@ public class NebuliPlayer
     /// <summary>
     /// Gets the players <see cref="PlayerRoles.Team"/>.
     /// </summary>
-    public Team Team => CurrentRole.Team;
+    public Team Team => Role.Team;
 
     /// <summary>
     /// Gets if the player is alive or not.
     /// </summary>
-    public bool IsAlive => CurrentRole.IsAlive;
+    public bool IsAlive => !IsDead;
 
     /// <summary>
     /// Gets if the player is dead or not.
     /// </summary>
-    public bool IsDead => CurrentRole.IsDead;
+    public bool IsDead => Role?.IsDead ?? false;
 
     /// <summary>
     /// Gets or sets the current item held by the player.
     /// </summary>
     public Item CurrentItem
     {
-        get => Item.ItemGet(Inventory.CurItem.SerialNumber);
+        get => Item.Get(Inventory.CurItem.SerialNumber);
         set
         {
             Inventory.ServerSelectItem(value.Serial);
@@ -923,7 +956,7 @@ public class NebuliPlayer
     /// <param name="item">The item to add.</param>
     public Item AddItem(ItemType item)
     {
-        return Item.ItemGet(Inventory.ServerAddItem(item));
+        return Item.Get(Inventory.ServerAddItem(item));
     }
     
     /// <summary>

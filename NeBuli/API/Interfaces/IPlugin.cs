@@ -1,5 +1,6 @@
 ﻿using Nebuli.API.Interfaces;
 using System;
+using System.Reflection;
 
 namespace Nebuli.API.Features;
 
@@ -10,14 +11,19 @@ namespace Nebuli.API.Features;
 public interface IPlugin<out TConfig> where TConfig : IConfiguration
 {
     /// <summary>
+    /// Gets the plugins assembly.
+    /// </summary>
+    Assembly Assembly { get; }
+
+    /// <summary>
     /// Gets the plugins name.
     /// </summary>
-    string PluginName { get; }
+    string Name { get; }
 
     /// <summary>
     /// Gets the plugin's author.
     /// </summary>
-    string PluginAuthor { get; }
+    string Creator { get; }
 
     /// <summary>
     /// Gets the plugins current version.
@@ -27,7 +33,7 @@ public interface IPlugin<out TConfig> where TConfig : IConfiguration
     /// <summary>
     /// Gets the plugins current Nebulis version.
     /// </summary>
-    Version NebulisVersion { get; }
+    Version NebuliVersion { get; }
 
     /// <summary>
     /// If true, skips checking if the plugins current Nebulis version lines up with the Nebulis version loading the plugin.
@@ -53,4 +59,8 @@ public interface IPlugin<out TConfig> where TConfig : IConfiguration
     /// Reloads the plugin's config.
     /// </summary>
     void ReloadConfig(IConfiguration config);
+
+    void LoadCommands();
+
+    void UnLoadCommands();
 }

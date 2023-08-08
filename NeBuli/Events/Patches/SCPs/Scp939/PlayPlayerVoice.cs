@@ -11,7 +11,7 @@ using static HarmonyLib.AccessTools;
 namespace Nebuli.Events.Patches.SCPs.Scp939;
 
 [HarmonyPatch(typeof(MimicryRecorder), nameof(MimicryRecorder.ServerProcessCmd))]
-public class PlayPlayerVoice
+internal class PlayPlayerVoice
 {
     [HarmonyTranspiler]
     private static IEnumerable<CodeInstruction> OnPlayVoice(IEnumerable<CodeInstruction> instructions, ILGenerator generator)

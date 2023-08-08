@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using Nebuli.API.Features.Player;
+using System;
+using Object = UnityEngine.Object;
 
 namespace Nebuli.API.Features;
 
@@ -23,9 +25,13 @@ public class Ragdoll
     public BasicRagdoll Base { get; }
 
     /// <summary>
-    /// Gets the RagdollData from the <see cref="BasicRagdoll"/>.
+    /// Gets or sets the RagdollData from the <see cref="BasicRagdoll"/>.
     /// </summary>
-    public RagdollData RagdollData => Base.Info;
+    public RagdollData RagdollData
+    {
+        get => Base.Info;
+        set => Base.Info = value;
+    }
 
     /// <summary>
     /// Tries to get the player assosiated with the ragdoll.
@@ -94,7 +100,7 @@ public class Ragdoll
     public Vector3 StartPosition
     {
         get => Base.NetworkInfo.StartPosition;
-        set => new RagdollData(ReferenceHub, DamageHandlerBase, RoleTypeId, value, RagdollRotation, RagdollName, CreationTime);
+        set => RagdollData = new RagdollData(ReferenceHub, DamageHandlerBase, RoleTypeId, value, RagdollRotation, RagdollName, CreationTime);
     }
 
     /// <summary>
@@ -103,7 +109,7 @@ public class Ragdoll
     public RoleTypeId RoleTypeId
     {
         get => Base.NetworkInfo.RoleType;
-        set => new RagdollData(ReferenceHub, DamageHandlerBase, value, StartPosition, RagdollRotation, RagdollName, CreationTime);
+        set => RagdollData = new RagdollData(ReferenceHub, DamageHandlerBase, value, StartPosition, RagdollRotation, RagdollName, CreationTime);
     }
 
     /// <summary>
@@ -112,7 +118,7 @@ public class Ragdoll
     public DamageHandlerBase DamageHandlerBase
     {
         get => Base.NetworkInfo.Handler;
-        set => new RagdollData(ReferenceHub, value, RoleTypeId, StartPosition, RagdollRotation, RagdollName, CreationTime);
+        set => RagdollData = new RagdollData(ReferenceHub, value, RoleTypeId, StartPosition, RagdollRotation, RagdollName, CreationTime);
     }
 
     /// <summary>
@@ -121,7 +127,7 @@ public class Ragdoll
     public string RagdollName
     {
         get => Base.NetworkInfo.Nickname;
-        set => new RagdollData(ReferenceHub, DamageHandlerBase, RoleTypeId, StartPosition, RagdollRotation, value, CreationTime);
+        set => RagdollData = new RagdollData(ReferenceHub, DamageHandlerBase, RoleTypeId, StartPosition, RagdollRotation, value, CreationTime);
     }
 
     /// <summary>
@@ -130,7 +136,7 @@ public class Ragdoll
     public Quaternion RagdollRotation
     {
         get => Base.NetworkInfo.StartRotation;
-        set => new RagdollData(ReferenceHub, DamageHandlerBase, RoleTypeId, StartPosition, value, RagdollName, CreationTime);
+        set => RagdollData = new RagdollData(ReferenceHub, DamageHandlerBase, RoleTypeId, StartPosition, value, RagdollName, CreationTime);
     }
 
     /// <summary>
@@ -139,26 +145,20 @@ public class Ragdoll
     public double CreationTime
     {
         get => Base.NetworkInfo.CreationTime;
-        set => new RagdollData(ReferenceHub, DamageHandlerBase, RoleTypeId, StartPosition, RagdollRotation, RagdollName, value);
+        set => RagdollData = new RagdollData(ReferenceHub, DamageHandlerBase, RoleTypeId, StartPosition, RagdollRotation, RagdollName, value);
     }
 
     /// <summary>
     /// Gets the existence time of the ragdoll
     /// </summary>
-    public double ExistenceTime => Base.NetworkInfo.ExistenceTime;
+    public TimeSpan ExistenceTime => TimeSpan.FromSeconds(Base.NetworkInfo.ExistenceTime);
 
     /// <summary>
     /// Gets or creates a new ragdoll with the specified <see cref="BasicRagdoll"/>.
     /// </summary>
     /// <param name="ragdollBase">The <see cref="BasicRagdoll"/> to use to look.</param>
     /// <returns></returns>
-    public static Ragdoll Get(BasicRagdoll ragdollBase)
-    {
-        if (Dictionary.TryGetValue(ragdollBase, out Ragdoll ragdoll))
-            return ragdoll;
-
-        return new Ragdoll(ragdollBase);
-    }
+    public static Ragdoll Get(BasicRagdoll ragdollBase) => Dictionary.TryGetValue(ragdollBase, out Ragdoll rag) ? rag : new Ragdoll(ragdollBase);
 
     /// <summary>
     /// Destroys the ragdoll.

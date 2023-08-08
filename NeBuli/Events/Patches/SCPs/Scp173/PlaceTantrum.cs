@@ -10,7 +10,7 @@ using static HarmonyLib.AccessTools;
 namespace Nebuli.Events.Patches.SCPs.Scp173;
 
 [HarmonyPatch(typeof(Scp173TantrumAbility), nameof(Scp173TantrumAbility.ServerProcessCmd))]
-public class PlaceTantrum
+internal class PlaceTantrum
 {
     [HarmonyTranspiler]
     private static IEnumerable<CodeInstruction> OnPlacingTantrum(IEnumerable<CodeInstruction> instructions, ILGenerator generator)

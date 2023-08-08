@@ -11,7 +11,7 @@ using static HarmonyLib.AccessTools;
 namespace Nebuli.Events.Patches.Player;
 
 [HarmonyPatch(typeof(PlayerStats), nameof(PlayerStats.DealDamage))]
-public class HurtPlayer
+internal class HurtPlayer
 {
     [HarmonyTranspiler]
     private static IEnumerable<CodeInstruction> OnHurting(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
@@ -28,27 +28,12 @@ public class HurtPlayer
             new CodeInstruction(OpCodes.Ldloc_2).MoveLabelsFrom(newInstructions[index]),
             new(OpCodes.Ldarg_0),
             new(OpCodes.Ldfld, Field(typeof(PlayerStats), nameof(PlayerStats._hub))),
+
             new(OpCodes.Ldarg_1),
             new(OpCodes.Newobj, GetDeclaredConstructors(typeof(PlayerHurt))[0]),
             new(OpCodes.Dup),
             new(OpCodes.Call, Method(typeof(PlayerHandlers), nameof(PlayerHandlers.OnHurt))),
             new(OpCodes.Callvirt, PropertyGetter(typeof(PlayerHurt), nameof(PlayerHurt.IsCancelled))),
-            new(OpCodes.Brtrue_S, retLabel)
-        });
-
-        index = newInstructions.FindIndex(i =>
-            i.opcode == OpCodes.Newobj && i.OperandIs(GetDeclaredConstructors(typeof(PlayerDyingEvent))[0])) - 6;
-
-        newInstructions.InsertRange(index, new[]
-        {
-            new CodeInstruction(OpCodes.Ldloc_3).MoveLabelsFrom(newInstructions[index]),
-            new(OpCodes.Ldarg_0),
-            new(OpCodes.Ldfld, Field(typeof(PlayerStats), nameof(PlayerStats._hub))),
-            new(OpCodes.Ldarg_1),
-            new(OpCodes.Newobj, GetDeclaredConstructors(typeof(PlayerDying))[0]),
-            new(OpCodes.Dup),
-            new(OpCodes.Call, Method(typeof(PlayerHandlers), nameof(PlayerHandlers.OnDying))),
-            new(OpCodes.Callvirt, PropertyGetter(typeof(PlayerDying), nameof(PlayerDying.IsCancelled))),
             new(OpCodes.Brtrue_S, retLabel)
         });
 
