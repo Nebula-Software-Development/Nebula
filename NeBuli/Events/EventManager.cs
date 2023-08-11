@@ -124,6 +124,8 @@ public static class EventManager
             NebuliTeslaGate.Get(teslaGate);
         foreach (ElevatorChamber elevatorChamber in Object.FindObjectsOfType<ElevatorChamber>())
             Elevator.Get(elevatorChamber);
+        foreach(BreakableWindow breakableWindow in Object.FindObjectsOfType<BreakableWindow>())
+
         Server.NebuliHost = new(ReferenceHub.HostHub);
     }
 

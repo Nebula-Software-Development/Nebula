@@ -5,6 +5,13 @@ using Mirror;
 using RelativePositioning;
 using UnityEngine;
 using Object = UnityEngine.Object;
+using Nebuli.API.Features.Items.Pickups;
+using Nebuli.API.Features.Items;
+using InventorySystem;
+using Decals;
+using InventorySystem.Items.Firearms.BasicMessages;
+using Utils.Networking;
+using Nebuli.API.Features.Player;
 
 namespace Nebuli.API.Features.Map
 {
@@ -42,6 +49,38 @@ namespace Nebuli.API.Features.Map
             tantrum.SynchronizedPosition = new RelativePosition(position + (Vector3.up * 0.25f));
             NetworkServer.Spawn(tantrum.gameObject);
             return tantrum.gameObject;
+        }
+
+        /// <summary>
+        /// Destroys all pickups in the Pickup List.
+        /// </summary>
+        public static void CleanAllPickups()
+        {
+            foreach (Pickup pickup in Pickup.List)
+                pickup.Destroy();
+        }
+
+        /// <summary>
+        /// Destroys all ragdolls in the Ragdoll List.
+        /// </summary>
+        public static void CleanAllRagdolls()
+        {
+            foreach(Ragdoll ragdoll in Ragdoll.List)
+                ragdoll.Destroy();
+        }
+
+        /// <summary>
+        /// Places a decal on the map.
+        /// </summary>
+        /// <param name="decalPosition"></param>
+        /// <param name="decalDirection"></param>
+        /// <param name="decalType"></param>
+        /// <returns></returns>
+        public static GunDecalMessage PlaceDecal(Vector3 decalPosition, Vector3 decalDirection, DecalPoolType decalType)
+        {
+            GunDecalMessage gunDecalMessage = new(decalPosition, decalDirection, decalType);
+            gunDecalMessage.SendToAuthenticated();
+            return gunDecalMessage;
         }
     }
 }
