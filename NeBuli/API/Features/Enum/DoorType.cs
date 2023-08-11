@@ -21,7 +21,7 @@ public enum DoorType
     HeavyContainmentDoor,
 
     /// <summary>
-    /// A door in the entrance area..
+    /// A door in the entrance area.
     /// </summary>
     EntranceDoor,
 
