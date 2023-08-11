@@ -24,7 +24,6 @@ public class Window
     {
         Base = window;
         Dictionary.Add(window, this);
-        Base._preventScpDamage = true;
     }
 
     /// <summary>
