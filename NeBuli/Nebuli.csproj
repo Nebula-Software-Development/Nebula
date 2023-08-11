@@ -85,6 +85,10 @@
     <Compile Include="API\Features\AlphaWarhead.cs" />
     <Compile Include="API\Features\CustomHintManager.cs" />
     <Compile Include="API\Features\Decontamination.cs" />
+    <Compile Include="API\Features\Doors\PryableDoor.cs" />
+    <Compile Include="API\Features\Doors\BasicDoor.cs" />
+    <Compile Include="API\Features\Doors\CheckpointDoor.cs" />
+    <Compile Include="API\Features\Doors\ElevatorDoor.cs" />
     <Compile Include="API\Features\Enum\MenuType.cs" />
     <Compile Include="API\Features\Items\Ammo.cs" />
     <Compile Include="API\Features\Items\BodyArmor.cs" />
@@ -118,7 +122,7 @@
     <Compile Include="API\Features\Items\Usables\Painkillers.cs" />
     <Compile Include="API\Features\Log.cs" />
     <Compile Include="API\Features\Map\CASSIE.cs" />
-    <Compile Include="API\Features\Map\Door.cs" />
+    <Compile Include="API\Features\Doors\Door.cs" />
     <Compile Include="API\Features\Map\Elevator.cs" />
     <Compile Include="API\Features\Map\Generator.cs" />
     <Compile Include="API\Features\Map\Room.cs" />

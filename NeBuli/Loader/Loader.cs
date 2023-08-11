@@ -38,7 +38,7 @@ public class Loader
     [PluginConfig]
     public static LoaderConfiguration Configuration;
 
-    [PluginEntryPoint("Nebuli Loader", "0, 0, 0", "Nebuli Plugin Framework", "Nebuli Team")]
+    [PluginEntryPoint("Nebuli Loader", $"{NebuliInfo.NebuliVersionConst}", "Nebuli Plugin Framework", "Nebuli Team")]
     [PluginPriority(LoadPriority.Highest)]
     public void FrameworkLoader()
     {
@@ -79,7 +79,7 @@ public class Loader
                 _harmony.PatchAll();
             }
             else
-                Log.Info("Event patching is disabled, Events will not work");
+                Log.Warning("Event patching is disabled, Events will not work");
         }
         catch (Exception e)
         {
@@ -302,6 +302,11 @@ public class Loader
                 Log.Error($"Error reloading config for plugin {plugin.Name}: {e.Message}");
             }
         }
+    }
+
+    private static string GetNebuliVersion()
+    {
+        return NebuliInfo.NebuliVersion.ToString();
     }
 
     private static void DisablePlugins()

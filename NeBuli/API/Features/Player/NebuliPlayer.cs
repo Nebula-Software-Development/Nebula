@@ -2,6 +2,7 @@
 using CommandSystem;
 using CustomPlayerEffects;
 using Footprinting;
+using GameCore;
 using Hints;
 using InventorySystem;
 using InventorySystem.Disarming;
@@ -14,15 +15,17 @@ using Nebuli.API.Features.Roles;
 using PlayerRoles;
 using PlayerRoles.FirstPersonControl;
 using PlayerStatsSystem;
-using PluginAPI.Roles;
 using RelativePositioning;
 using RemoteAdmin;
+using System;
 using System.Collections.Generic;
 using System.Data;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using UnityEngine;
 using VoiceChat;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace Nebuli.API.Features.Player;
 
@@ -227,6 +230,36 @@ public class NebuliPlayer
     {
         get => Transform.eulerAngles;
         set => ReferenceHub.TryOverridePosition(Position, value);
+    }
+
+    /// <summary>
+    /// Gets or sets if the player has a reserved slot.
+    /// </summary>
+    public bool HasReservedSlot
+    {
+        get => ReservedSlot.HasReservedSlot(UserId, out _);
+        set
+        {
+            string path = ConfigSharing.Paths[3] + "UserIDReservedSlots.txt";
+            if (value)
+            {
+                ReservedSlot.Reload();
+                using StreamWriter streamWriter = new(path);
+                streamWriter.WriteLine(UserId);
+                ReservedSlot.Users.Add(UserId);
+            }
+            else
+            {
+                string[] lines = File.ReadAllLines(path);
+                List<string> newLines = new();
+                foreach (string line in lines.Where(line => !line.Contains(UserId)))
+                {
+                    newLines.Add(line);
+                }
+                File.WriteAllLines(path, newLines);
+                ReservedSlot.Reload();
+            }
+        }
     }
 
     /// <summary>
@@ -971,9 +1004,9 @@ public class NebuliPlayer
     /// <returns></returns>
     public static bool HasAnyPermission(NebuliPlayer player)
     {
-        foreach (var perm in PermissionsHandler.PermissionCodes)
+        foreach (PlayerPermissions perm in PermissionsHandler.PermissionCodes.Keys)
         {
-            if (player.HasPermission(perm.Key))
+            if (player.HasPermission(perm))
                 return true;
         }
         return false;

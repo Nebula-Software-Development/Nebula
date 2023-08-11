@@ -22,6 +22,7 @@ using System.IO;
 using System.Runtime.InteropServices;
 using UnityEngine.SceneManagement;
 using Object = UnityEngine.Object;
+using Nebuli.API.Features.Doors;
 
 namespace Nebuli.Events;
 
@@ -118,7 +119,7 @@ public static class EventManager
         foreach (Scp079Generator gen in Object.FindObjectsOfType<Scp079Generator>())
             Generator.Get(gen);
         foreach (DoorVariant door in Object.FindObjectsOfType<DoorVariant>())
-            Door.Get(door);
+            Door.GetDoor(door);
         foreach (global::TeslaGate teslaGate in Object.FindObjectsOfType<TeslaGate>())
             NebuliTeslaGate.Get(teslaGate);
         foreach (ElevatorChamber elevatorChamber in Object.FindObjectsOfType<ElevatorChamber>())

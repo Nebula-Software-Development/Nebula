@@ -42,4 +42,12 @@ public static class CASSIE
     /// <param name="unitName">If foundation forces, the Units name.</param>
     public static void ConvertTeam(Team team, string unitName) => NineTailedFoxAnnouncer.ConvertTeam(team, unitName);
 
+    /// <summary>
+    /// Gets the amount of time it would take to speak the words given.
+    /// </summary>
+    /// <param name="text">The text to calculate the time with.</param>
+    /// <param name="rawNumber">If it should be a raw number.</param>
+    /// <param name="speed">The speed at which to calculate at.</param>
+    public static float TimeToSpeak(string text, bool rawNumber = false, float speed = 1) => NineTailedFoxAnnouncer.singleton.CalculateDuration(text, rawNumber, speed);
+
 }

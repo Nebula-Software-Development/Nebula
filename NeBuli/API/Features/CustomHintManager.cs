@@ -20,6 +20,7 @@ namespace Nebuli.API.Features
 
         public void Update()
         {
+            /*
             try
             {
                 _counter += Time.deltaTime;
@@ -31,7 +32,9 @@ namespace Nebuli.API.Features
             catch (Exception e)
             {
                 Log.Error($"A error occured while handling custom hints! Full error --> \n{e}");
-            }    
+            }   
+            */
+
         }
 
 
