@@ -59,11 +59,11 @@ namespace Nebuli.API.Features.Map
         public Room Room => Room.Get(Base.Room);
 
         /// <summary>
-        /// Gets if the specified player is in range of the tesla gate.
+        /// Gets if the specified player is in hurting range of the tesla gate.
         /// </summary>
         /// <param name="player"></param>
         /// <returns></returns>
-        public bool IsPlayerInRange(NebuliPlayer player) => Base.PlayerInRange(player.ReferenceHub);
+        public bool IsPlayerInHurtingRange(NebuliPlayer player) => Base.PlayerInRange(player.ReferenceHub);
 
         /// <summary>
         /// Gets if the Vector3 position is in range of the tesla gate.
@@ -95,22 +95,6 @@ namespace Nebuli.API.Features.Map
         public void Idle(bool shouldIdle = true)
         {
             Base.ServerSideIdle(shouldIdle);
-        }
-
-        /// <summary>
-        /// Gets if the specified player is in hurting range of the tesla gate.
-        /// </summary>
-        /// <param name="player">The player to check.</param>
-        /// <returns>True if in hurting range, otherwise false.</returns>
-        public bool InHurtRange(NebuliPlayer player)
-        {
-            if (player == null)
-                return false;
-
-            float distanceSquared = (Position - player.Position).sqrMagnitude;
-            float hurtRangeSquared = Base.sizeOfTrigger * 2.2f;
-
-            return distanceSquared <= hurtRangeSquared;
         }
 
         /// <summary>

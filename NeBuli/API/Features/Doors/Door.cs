@@ -211,6 +211,7 @@ public class Door
         if (door.GetComponent<DoorNametagExtension>() is null)
         {
             string doorName = GetSubstringBeforeCharacter(door.name, ' ');
+
             return doorName switch
             {
                 "LCZ" => DoorType.LightContainmentDoor,
