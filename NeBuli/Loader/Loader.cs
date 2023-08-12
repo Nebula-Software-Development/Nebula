@@ -263,6 +263,7 @@ public class Loader
                 Log.Debug("Serializing new config and writing it to the path...");
                 File.WriteAllText(configPath, serializer.Serialize(plugin.Config));
                 configPaths.Add(plugin.Config, configPath);
+                PluginConfig.Add(plugin, plugin.Config);
                 return plugin.Config;
             }
             else
@@ -271,6 +272,7 @@ public class Loader
                 IConfiguration config = (IConfiguration)deserializer.Deserialize(File.ReadAllText(configPath), plugin.Config.GetType());
                 configPaths.Add(config, configPath);
                 plugin.ReloadConfig(config);
+                PluginConfig.Add(plugin, config);
                 return config;
             }
         }
@@ -286,27 +288,24 @@ public class Loader
         }
     }
 
-    private static void ReloadConfigs()
+    internal static void ReloadConfigs()
     {
         Log.Info("Reloading plugin configs...");
-
-        foreach (IPlugin<IConfiguration> plugin in PluginConfig.Keys)
+        foreach (IPlugin<IConfiguration> plugin in PluginConfig.Keys.ToList())
         {
             try
             {
-                plugin.ReloadConfig((IConfiguration)Deserializer.Deserialize(File.ReadAllText(configPaths[plugin.Config]), plugin.Config.GetType()));
-                PluginConfig[plugin] = plugin.Config;
+                Log.Info($"Reloading plugin configs for {plugin.Name}...");
+                IConfiguration newConfig = (IConfiguration)Deserializer.Deserialize(File.ReadAllText(configPaths[plugin.Config]), plugin.Config.GetType());
+                plugin.ReloadConfig(newConfig);
+
+                PluginConfig[plugin] = newConfig;
             }
             catch (Exception e)
             {
                 Log.Error($"Error reloading config for plugin {plugin.Name}: {e.Message}");
             }
         }
-    }
-
-    private static string GetNebuliVersion()
-    {
-        return NebuliInfo.NebuliVersion.ToString();
     }
 
     private static void DisablePlugins()

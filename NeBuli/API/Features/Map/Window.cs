@@ -85,4 +85,11 @@ public class Window
         set => Base._preventScpDamage = value;
     }
 
+    /// <summary>
+    /// Gets or creates a new window with the <see cref="WindowBase"/>.
+    /// </summary>
+    /// <param name="breakableWindow"></param>
+    /// <returns></returns>
+    public static Window Get(WindowBase breakableWindow) => Dictionary.TryGetValue(breakableWindow, out Window window) ? window : new Window(breakableWindow);
+
 }

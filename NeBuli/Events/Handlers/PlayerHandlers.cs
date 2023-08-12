@@ -30,6 +30,10 @@ public static class PlayerHandlers
 
     public static event EventManager.CustomEventHandler<PlayerEscapingPocketEvent> EscapingPocket;
 
+    public static event EventManager.CustomEventHandler<PlayerChangingUserGroupEvent> UserChangingUserGroup;
+
+    public static event EventManager.CustomEventHandler<PlayerSpawningRagdollEvent> SpawningRagdoll;
+
     internal static void OnJoin(PlayerJoinEvent ev) => Join.CallEvent(ev);
 
     internal static void OnLeave(PlayerLeaveEvent ev) => Leave.CallEvent(ev);
@@ -55,4 +59,8 @@ public static class PlayerHandlers
     internal static void OnPickingUpAmmo(PlayerPickingUpAmmoEvent ev) => PickingUpAmmo.CallEvent(ev);
 
     internal static void OnEscapingPocket(PlayerEscapingPocketEvent ev) => EscapingPocket.CallEvent(ev);
- }
+
+    internal static void OnChangingUserGroup(PlayerChangingUserGroupEvent ev) => UserChangingUserGroup.CallEvent(ev); 
+
+    internal static void OnSpawningRagdoll(PlayerSpawningRagdollEvent ev) => SpawningRagdoll.CallEvent(ev);
+}

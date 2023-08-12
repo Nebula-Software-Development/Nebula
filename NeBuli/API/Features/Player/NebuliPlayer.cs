@@ -6,6 +6,8 @@ using GameCore;
 using Hints;
 using InventorySystem;
 using InventorySystem.Disarming;
+using InventorySystem.Items.Firearms.Attachments;
+using InventorySystem.Items.Firearms;
 using MapGeneration;
 using Mirror;
 using Nebuli.API.Features.Enum;
@@ -26,6 +28,10 @@ using System.Reflection;
 using UnityEngine;
 using VoiceChat;
 using static System.Net.Mime.MediaTypeNames;
+using Firearm = Nebuli.API.Features.Items.Firearm;
+using Nebuli.API.Features.Structs;
+using Nebuli.API.Extensions;
+using InventorySystem.Items.Firearms.Attachments.Components;
 
 namespace Nebuli.API.Features.Player;
 
@@ -891,6 +897,21 @@ public class NebuliPlayer
     }
 
     /// <summary>
+    /// Gets the players firearm preferences.
+    /// </summary>
+    public Dictionary<FirearmType, AttachmentIdentity[]> Preferences
+    {
+        get
+        {
+            if (Firearm.PlayerPreferences.TryGetValue(this, out Dictionary<FirearmType, AttachmentIdentity[]> prefs))
+            {
+                return prefs;
+            }
+            return new Dictionary<FirearmType, AttachmentIdentity[]>();
+        }
+    }
+
+    /// <summary>
     /// Sends a broadcast to the player.
     /// </summary>
     /// <param name="message">The message that will be shown.</param>
@@ -989,6 +1010,26 @@ public class NebuliPlayer
     /// <param name="item">The item to add.</param>
     public Item AddItem(ItemType item)
     {
+        if (item.IsFirearmType())
+        {
+            Firearm firearm = Item.Get(Inventory.ServerAddItem(item)) as Firearm;
+
+            if (Preferences is not null && Preferences.TryGetValue(item.ToFirearmType(), out AttachmentIdentity[] attachments))
+            {
+                firearm.Base.ApplyAttachmentsCode((uint)attachments.Sum(attachment => attachment.Code), true);
+            }
+
+            FirearmStatusFlags flags = FirearmStatusFlags.MagazineInserted;
+
+            if (firearm.Attachments.Any(a => a.Name == AttachmentName.Flashlight))
+            {
+                flags |= FirearmStatusFlags.FlashlightEnabled;
+            }
+
+            firearm.Base.Status = new FirearmStatus(firearm.MaxAmmo, flags, firearm.Base.GetCurrentAttachmentsCode());
+            return firearm;
+        }
+
         return Item.Get(Inventory.ServerAddItem(item));
     }
     

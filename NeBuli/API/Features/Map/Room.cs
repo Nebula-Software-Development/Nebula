@@ -85,6 +85,11 @@ public class Room
     }
 
     /// <summary>
+    /// Resets the rooms color.
+    /// </summary>
+    public void ColorReset() => RoomColor = Color.clear;
+
+    /// <summary>
     /// Toggles the room lights on/off.
     /// </summary>
     /// <param name="state"></param>

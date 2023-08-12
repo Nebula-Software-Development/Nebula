@@ -82,6 +82,7 @@
     <Reference Include="UnityEngine.PhysicsModule" HintPath="$(NEBULIREFERENCES)\UnityEngine.PhysicsModule.dll" Private="false" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="API\Extensions\ItemTypeExtension.cs" />
     <Compile Include="API\Features\AlphaWarhead.cs" />
     <Compile Include="API\Features\CustomHintManager.cs" />
     <Compile Include="API\Features\Decontamination.cs" />
@@ -89,6 +90,9 @@
     <Compile Include="API\Features\Doors\BasicDoor.cs" />
     <Compile Include="API\Features\Doors\CheckpointDoor.cs" />
     <Compile Include="API\Features\Doors\ElevatorDoor.cs" />
+    <Compile Include="API\Features\Enum\AmmoType.cs" />
+    <Compile Include="API\Features\Enum\CameraType.cs" />
+    <Compile Include="API\Features\Enum\FirearmType.cs" />
     <Compile Include="API\Features\Enum\MenuType.cs" />
     <Compile Include="API\Features\Items\Ammo.cs" />
     <Compile Include="API\Features\Items\BodyArmor.cs" />
@@ -121,6 +125,7 @@
     <Compile Include="API\Features\Items\Usables\Medkit.cs" />
     <Compile Include="API\Features\Items\Usables\Painkillers.cs" />
     <Compile Include="API\Features\Log.cs" />
+    <Compile Include="API\Features\Map\Camera.cs" />
     <Compile Include="API\Features\Map\CASSIE.cs" />
     <Compile Include="API\Features\Doors\Door.cs" />
     <Compile Include="API\Features\Map\Elevator.cs" />
@@ -134,6 +139,8 @@
     <Compile Include="API\Features\Player\NebuliPlayer.cs" />
     <Compile Include="API\Features\Player\NebuliNpc.cs" />
     <Compile Include="API\Features\Plugin.cs" />
+    <Compile Include="API\Features\Pools\HashsetPool.cs" />
+    <Compile Include="API\Features\Pools\ListPool.cs" />
     <Compile Include="API\Features\Ragdoll.cs" />
     <Compile Include="API\Features\Respawn.cs" />
     <Compile Include="API\Features\Roles\FpcRoleBase.cs" />
@@ -149,16 +156,19 @@
     <Compile Include="API\Features\Roles\SpectatorPlayerRole.cs" />
     <Compile Include="API\Features\Round.cs" />
     <Compile Include="API\Features\Server.cs" />
+    <Compile Include="API\Features\Structs\AttachmentIdentity.cs" />
     <Compile Include="API\Interfaces\IConfiguration.cs" />
     <Compile Include="API\Interfaces\IPlugin.cs" />
     <Compile Include="API\Features\Enum\DoorType.cs" />
     <Compile Include="API\Features\Enum\GeneratorState.cs" />
+    <Compile Include="API\Internal\Commands\ReloadConfigs.cs" />
     <Compile Include="API\Internal\CustomHint.cs" />
     <Compile Include="API\Internal\FakeConnection.cs" />
     <Compile Include="API\Internal\NebuliPatches\HintPatch.cs" />
     <Compile Include="Events\EventArguments\ICancellableEvent.cs" />
     <Compile Include="Events\EventArguments\IDamageEvent.cs" />
     <Compile Include="Events\EventArguments\IPlayerEvent.cs" />
+    <Compile Include="Events\EventArguments\Player\PlayerChangingUserGroupEvent.cs" />
     <Compile Include="Events\EventArguments\Player\PlayerDroppingItemEvent.cs" />
     <Compile Include="Events\EventArguments\Player\PlayerEscapingEvent.cs" />
     <Compile Include="Events\EventArguments\Player\PlayerEscapingPocketEvent.cs" />
@@ -172,6 +182,7 @@
     <Compile Include="Events\EventArguments\Player\PlayerJoinEvent.cs" />
     <Compile Include="Events\EventArguments\Player\PlayerLeaveEvent.cs" />
     <Compile Include="Events\EventArguments\Player\PlayerShotEvent.cs" />
+    <Compile Include="Events\EventArguments\Player\PlayerSpawningRagdollEvent.cs" />
     <Compile Include="Events\EventArguments\Player\PlayerTriggeringTeslaEvent.cs" />
     <Compile Include="Events\EventArguments\Round\RespawningTeamEvent.cs" />
     <Compile Include="Events\EventArguments\SCPs\Scp0492\Scp0492AttackEvent.cs" />
@@ -212,7 +223,9 @@
     <Compile Include="Events\Handlers\Scp914Handlers.cs" />
     <Compile Include="Events\Handlers\Scp939Handlers.cs" />
     <Compile Include="Events\Handlers\ServerHandler.cs" />
+    <Compile Include="Events\Patches\GameFixes\WeaponDysncFix.cs" />
     <Compile Include="Events\Patches\Player\BannedPlayer.cs" />
+    <Compile Include="Events\Patches\Player\ChangingUserGroupPatch.cs" />
     <Compile Include="Events\Patches\Player\DyingPlayer.cs" />
     <Compile Include="Events\Patches\Player\HurtPlayer.cs" />
     <Compile Include="Events\Patches\Player\LeavingServer.cs" />
@@ -223,6 +236,7 @@
     <Compile Include="Events\Patches\Player\PlayerEscapingPatch.cs" />
     <Compile Include="Events\Patches\Player\PlayerShot.cs" />
     <Compile Include="Events\Patches\Player\RoleChange.cs" />
+    <Compile Include="Events\Patches\Player\SpawningRagdollPatch.cs" />
     <Compile Include="Events\Patches\Player\TriggeringTesla.cs" />
     <Compile Include="Events\Patches\Player\VerificationCompleted.cs" />
     <Compile Include="Events\Patches\Round\RespawningTeamPatch.cs" />
