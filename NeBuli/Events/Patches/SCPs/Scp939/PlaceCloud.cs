@@ -24,10 +24,10 @@ internal class PlaceCloud
         {
             new CodeInstruction(OpCodes.Ldarg_0).MoveLabelsFrom(newInstructions[index]),
             new(OpCodes.Callvirt, PropertyGetter(typeof(Scp939AmnesticCloudAbility), nameof(Scp939AmnesticCloudAbility.Owner))),
-            new(OpCodes.Newobj, GetDeclaredConstructors(typeof(Scp939PlaceCloud))[0]),
+            new(OpCodes.Newobj, GetDeclaredConstructors(typeof(Scp939PlaceCloudEvent))[0]),
             new(OpCodes.Dup),
             new(OpCodes.Call, Method(typeof(Scp939Handlers), nameof(Scp939Handlers.OnPlaceCloud))),
-            new(OpCodes.Callvirt, PropertyGetter(typeof(Scp939PlaceCloud), nameof(Scp939PlaceCloud.IsCancelled))),
+            new(OpCodes.Callvirt, PropertyGetter(typeof(Scp939PlaceCloudEvent), nameof(Scp939PlaceCloudEvent.IsCancelled))),
             new(OpCodes.Brtrue_S, retLabel),
         });
         

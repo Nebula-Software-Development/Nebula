@@ -42,7 +42,7 @@ internal class TriggeringTesla
         {
             if (player is not null && teslaGate.IsInIdleRange(player.ReferenceHub))
             {
-                PlayerTriggeringTesla args = new(player.ReferenceHub, teslaGate, inIdleRange, isTriggerable);
+                PlayerTriggeringTeslaEvent args = new(player.ReferenceHub, teslaGate, inIdleRange, isTriggerable);
 
                 PlayerHandlers.OnTriggerTesla(args);
 

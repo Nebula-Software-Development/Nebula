@@ -34,10 +34,10 @@ internal class PlayPlayerVoice
             new CodeInstruction(OpCodes.Ldarg_0).MoveLabelsFrom(newInstructions[index]),
             new(OpCodes.Callvirt, PropertyGetter(typeof(MimicryRecorder), nameof(MimicryRecorder.Owner))),
             new(OpCodes.Ldloc_S, playerVoice.LocalIndex),
-            new(OpCodes.Newobj, GetDeclaredConstructors(typeof(Scp939PlayVoice))[0]),
+            new(OpCodes.Newobj, GetDeclaredConstructors(typeof(Scp939PlayVoiceEvent))[0]),
             new(OpCodes.Dup),
             new(OpCodes.Call, Method(typeof(Scp939Handlers), nameof(Scp939Handlers.OnPlayVoice))),
-            new(OpCodes.Callvirt, PropertyGetter(typeof(Scp939PlayVoice), nameof(Scp939PlayVoice.IsCancelled))),
+            new(OpCodes.Callvirt, PropertyGetter(typeof(Scp939PlayVoiceEvent), nameof(Scp939PlayVoiceEvent.IsCancelled))),
             new(OpCodes.Brtrue_S, returnLabel),
         });
         

@@ -26,10 +26,10 @@ internal class PlayerDroppingItemPatch
            new CodeInstruction(OpCodes.Ldarg_0).MoveLabelsFrom(newInstructions[index]),
            new(OpCodes.Ldfld, Field(typeof(Inventory), nameof(Inventory._hub))),
            new(OpCodes.Ldloc_0),
-           new(OpCodes.Newobj, GetDeclaredConstructors(typeof(PlayerDroppingItem))[0]),
+           new(OpCodes.Newobj, GetDeclaredConstructors(typeof(PlayerDroppingItemEvent))[0]),
            new(OpCodes.Dup),
            new(OpCodes.Call, Method(typeof(PlayerHandlers), nameof(PlayerHandlers.OnDroppingItem))),
-           new(OpCodes.Callvirt, PropertyGetter(typeof(PlayerDroppingItem), nameof(PlayerDroppingItem.IsCancelled))),
+           new(OpCodes.Callvirt, PropertyGetter(typeof(PlayerDroppingItemEvent), nameof(PlayerDroppingItemEvent.IsCancelled))),
            new(OpCodes.Brtrue_S, retLabel),
         });
 

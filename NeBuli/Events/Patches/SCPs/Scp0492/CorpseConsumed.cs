@@ -30,10 +30,10 @@ internal class CorpseConsumed
             new(OpCodes.Callvirt, PropertyGetter(typeof(ZombieConsumeAbility), nameof(ZombieConsumeAbility.Owner))),
             new(OpCodes.Ldarg_0),
             new(OpCodes.Callvirt, PropertyGetter(typeof(ZombieConsumeAbility), nameof(ZombieConsumeAbility.CurRagdoll))),
-            new(OpCodes.Newobj, GetDeclaredConstructors(typeof(Scp0492CorpseConsumed))[0]),
+            new(OpCodes.Newobj, GetDeclaredConstructors(typeof(Scp0492CorpseConsumedEvent))[0]),
             new(OpCodes.Dup),
             new(OpCodes.Call, Method(typeof(Scp0492Handlers), nameof(Scp0492Handlers.OnCorpseConsumed))),
-            new(OpCodes.Callvirt, PropertyGetter(typeof(Scp0492CorpseConsumed), nameof(Scp0492CorpseConsumed.HealthToReceive))),
+            new(OpCodes.Callvirt, PropertyGetter(typeof(Scp0492CorpseConsumedEvent), nameof(Scp0492CorpseConsumedEvent.HealthToReceive))),
             new(OpCodes.Stloc_S, floatBuilder.LocalIndex),
         });
         

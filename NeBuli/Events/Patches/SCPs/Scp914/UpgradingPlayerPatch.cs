@@ -31,10 +31,10 @@ internal class UpgradingPlayerPatch
             new(OpCodes.Ldarg_1),
             new(OpCodes.Ldarg_2), 
             new(OpCodes.Ldarg_S, 4), 
-            new(OpCodes.Newobj, GetDeclaredConstructors(typeof(UpgradingPlayer))[0]),
+            new(OpCodes.Newobj, GetDeclaredConstructors(typeof(UpgradingPlayerEvent))[0]),
             new(OpCodes.Dup),
             new(OpCodes.Call, Method(typeof(Scp914Handlers), nameof(Scp914Handlers.OnUpgradingPlayer))),
-            new(OpCodes.Callvirt, PropertyGetter(typeof(UpgradingPlayer), nameof(UpgradingPlayer.IsCancelled))),
+            new(OpCodes.Callvirt, PropertyGetter(typeof(UpgradingPlayerEvent), nameof(UpgradingPlayerEvent.IsCancelled))),
             new(OpCodes.Brtrue_S, retLabel)
         });
 

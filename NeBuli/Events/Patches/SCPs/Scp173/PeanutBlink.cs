@@ -17,7 +17,7 @@ internal class PeanutBlink
     {
         List<CodeInstruction> newInstructions = EventManager.CheckPatchInstructions<PeanutBlink>(21, instructions);
         
-        LocalBuilder @event = generator.DeclareLocal(typeof(Scp173Blink));
+        LocalBuilder @event = generator.DeclareLocal(typeof(Scp173BlinkEvent));
         Label retLabel = generator.DefineLabel();
 
         newInstructions.InsertRange(0, new CodeInstruction[]
@@ -27,15 +27,15 @@ internal class PeanutBlink
             new(OpCodes.Ldfld, Field(typeof(Scp173MovementModule), nameof(Scp173MovementModule._role))),
             new(OpCodes.Ldfld, Field(typeof(Scp173Role), nameof(Scp173Role._owner))),
             new(OpCodes.Ldarg_1),
-            new(OpCodes.Newobj, GetDeclaredConstructors(typeof(Scp173Blink))[0]),
+            new(OpCodes.Newobj, GetDeclaredConstructors(typeof(Scp173BlinkEvent))[0]),
             new(OpCodes.Dup),
             new(OpCodes.Dup),
             new(OpCodes.Call, Method(typeof(Scp173Handlers), nameof(Scp173Handlers.OnBlink))),
             new(OpCodes.Stloc_S, @event.LocalIndex),
-            new(OpCodes.Callvirt, PropertyGetter(typeof(Scp173Blink), nameof(Scp173Blink.IsCancelled))),
+            new(OpCodes.Callvirt, PropertyGetter(typeof(Scp173BlinkEvent), nameof(Scp173BlinkEvent.IsCancelled))),
             new(OpCodes.Brtrue_S, retLabel),
             new(OpCodes.Ldloc_S, @event.LocalIndex),
-            new(OpCodes.Callvirt, PropertyGetter(typeof(Scp173Blink), nameof(Scp173Blink.Position))),
+            new(OpCodes.Callvirt, PropertyGetter(typeof(Scp173BlinkEvent), nameof(Scp173BlinkEvent.Position))),
             new(OpCodes.Starg_S, 1)
         });
         

@@ -24,10 +24,10 @@ internal class UseBreakneck
         {
             new CodeInstruction(OpCodes.Ldarg_0).MoveLabelsFrom(newInstructions[index]),
             new(OpCodes.Callvirt, PropertyGetter(typeof(Scp173BreakneckSpeedsAbility), nameof(Scp173BreakneckSpeedsAbility.Owner))),
-            new(OpCodes.Newobj, GetDeclaredConstructors(typeof(Scp173ToggleBreakneckSpeed))[0]),
+            new(OpCodes.Newobj, GetDeclaredConstructors(typeof(Scp173ToggleBreakneckSpeedEvent))[0]),
             new(OpCodes.Dup),
             new(OpCodes.Call, Method(typeof(Scp173Handlers), nameof(Scp173Handlers.OnToggleBreakneckSpeed))),
-            new(OpCodes.Callvirt, PropertyGetter(typeof(Scp173ToggleBreakneckSpeed), nameof(Scp173ToggleBreakneckSpeed.IsCancelled))),
+            new(OpCodes.Callvirt, PropertyGetter(typeof(Scp173ToggleBreakneckSpeedEvent), nameof(Scp173ToggleBreakneckSpeedEvent.IsCancelled))),
             new(OpCodes.Brtrue_S, retLabel)
         });
 
@@ -37,10 +37,10 @@ internal class UseBreakneck
         {
             new CodeInstruction(OpCodes.Ldarg_0).MoveLabelsFrom(newInstructions[index]),
             new(OpCodes.Callvirt, PropertyGetter(typeof(Scp173BreakneckSpeedsAbility), nameof(Scp173BreakneckSpeedsAbility.Owner))),
-            new(OpCodes.Newobj, GetDeclaredConstructors(typeof(Scp173ToggleBreakneckSpeed))[0]),
+            new(OpCodes.Newobj, GetDeclaredConstructors(typeof(Scp173ToggleBreakneckSpeedEvent))[0]),
             new(OpCodes.Dup),
             new(OpCodes.Call, Method(typeof(Scp173Handlers), nameof(Scp173Handlers.OnToggleBreakneckSpeed))),
-            new(OpCodes.Callvirt, PropertyGetter(typeof(Scp173ToggleBreakneckSpeed), nameof(Scp173ToggleBreakneckSpeed.IsCancelled))),
+            new(OpCodes.Callvirt, PropertyGetter(typeof(Scp173ToggleBreakneckSpeedEvent), nameof(Scp173ToggleBreakneckSpeedEvent.IsCancelled))),
             new(OpCodes.Brtrue_S, retLabel)
         });
 

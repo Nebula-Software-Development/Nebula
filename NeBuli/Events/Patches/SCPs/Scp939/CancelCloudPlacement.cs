@@ -21,7 +21,7 @@ internal class CancelCloudPlacement
         {
             new(OpCodes.Ldarg_0),
             new(OpCodes.Callvirt, PropertyGetter(typeof(Scp939AmnesticCloudAbility), nameof(Scp939AmnesticCloudAbility.Owner))),
-            new(OpCodes.Newobj, GetDeclaredConstructors(typeof(Scp939CancelCloudPlacement))[0]),
+            new(OpCodes.Newobj, GetDeclaredConstructors(typeof(Scp939CancelCloudPlacementEvent))[0]),
             new(OpCodes.Call, Method(typeof(Scp939Handlers), nameof(Scp939Handlers.OnCancelCloudPlacement))),
         });
         

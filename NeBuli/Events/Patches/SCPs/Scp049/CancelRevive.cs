@@ -21,7 +21,7 @@ internal class CancelRevive
         {
             new(OpCodes.Ldarg_0),
             new(OpCodes.Callvirt, PropertyGetter(typeof(RagdollAbilityBase<Scp049Role>), nameof(RagdollAbilityBase<Scp049Role>.Owner))),
-            new(OpCodes.Newobj, GetDeclaredConstructors(typeof(Scp049CancelResurrect))[0]),
+            new(OpCodes.Newobj, GetDeclaredConstructors(typeof(Scp049CancelResurrectEvent))[0]),
             new(OpCodes.Call, Method(typeof(Scp049Handlers), nameof(Scp049Handlers.OnCancelResurrect))),
         });
         

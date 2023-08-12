@@ -26,10 +26,10 @@ internal class PickingUpAmmoPatch
             new(OpCodes.Ldarg_0),
             new(OpCodes.Ldfld, Field(typeof(ItemSearchCompletor), nameof(ItemSearchCompletor.Hub))),
             new(OpCodes.Ldarg_0),
-            new(OpCodes.Newobj, GetDeclaredConstructors(typeof(PlayerPickingUpAmmo))[0]),
+            new(OpCodes.Newobj, GetDeclaredConstructors(typeof(PlayerPickingUpAmmoEvent))[0]),
             new(OpCodes.Dup),
             new(OpCodes.Call, Method(typeof(PlayerHandlers), nameof(PlayerHandlers.OnPickingUpAmmo))),
-            new(OpCodes.Callvirt, PropertyGetter(typeof(PlayerPickingUpAmmo), nameof(PlayerPickingUpAmmo.IsCancelled))),
+            new(OpCodes.Callvirt, PropertyGetter(typeof(PlayerPickingUpAmmoEvent), nameof(PlayerPickingUpAmmoEvent.IsCancelled))),
             new(OpCodes.Brtrue_S, retLabel),
         });
 

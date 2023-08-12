@@ -29,10 +29,10 @@ internal class UpgradingItemPatch
             new(OpCodes.Ldarg_0),
             new(OpCodes.Ldarg_1),
             new(OpCodes.Ldarg_3),
-            new(OpCodes.Newobj, GetDeclaredConstructors(typeof(UpgradingItem))[0]),
+            new(OpCodes.Newobj, GetDeclaredConstructors(typeof(UpgradingItemEvent))[0]),
             new(OpCodes.Dup),
             new(OpCodes.Call, Method(typeof(Scp914Handlers), nameof(Scp914Handlers.OnUpgradingItem))),
-            new(OpCodes.Callvirt, PropertyGetter(typeof(UpgradingItem), nameof(UpgradingItem.IsCancelled))),
+            new(OpCodes.Callvirt, PropertyGetter(typeof(UpgradingItemEvent), nameof(UpgradingItemEvent.IsCancelled))),
             new(OpCodes.Brtrue_S, retLabel)
         });
 

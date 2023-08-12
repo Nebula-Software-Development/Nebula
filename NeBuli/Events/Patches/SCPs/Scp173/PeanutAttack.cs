@@ -27,10 +27,10 @@ internal class PeanutAttack
             new(OpCodes.Callvirt, PropertyGetter(typeof(Scp173SnapAbility), nameof(Scp173SnapAbility.Owner))),
             new(OpCodes.Ldarg_0),
             new(OpCodes.Ldfld, Field(typeof(Scp173SnapAbility), nameof(Scp173SnapAbility._targetHub))),
-            new(OpCodes.Newobj, GetDeclaredConstructors(typeof(Scp173Attack))[0]),
+            new(OpCodes.Newobj, GetDeclaredConstructors(typeof(Scp173AttackEvent))[0]),
             new(OpCodes.Dup),
             new(OpCodes.Call, Method(typeof(Scp173Handlers), nameof(Scp173Handlers.OnAttack))),
-            new(OpCodes.Callvirt, PropertyGetter(typeof(Scp173Attack), nameof(Scp173Attack.IsCancelled))),
+            new(OpCodes.Callvirt, PropertyGetter(typeof(Scp173AttackEvent), nameof(Scp173AttackEvent.IsCancelled))),
             new(OpCodes.Brtrue_S, retLabel)
         });
         

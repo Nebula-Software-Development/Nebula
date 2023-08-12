@@ -27,10 +27,10 @@ internal class ConsumeCorpse
             new(OpCodes.Callvirt, PropertyGetter(typeof(RagdollAbilityBase<ZombieRole>), nameof(RagdollAbilityBase<ZombieRole>.Owner))),
             new(OpCodes.Ldarg_0),
             new(OpCodes.Callvirt, PropertyGetter(typeof(RagdollAbilityBase<ZombieRole>), nameof(RagdollAbilityBase<ZombieRole>.CurRagdoll))),
-            new(OpCodes.Newobj, GetDeclaredConstructors(typeof(Scp0492ConsumeCorpse))[0]),
+            new(OpCodes.Newobj, GetDeclaredConstructors(typeof(Scp0492ConsumeCorpseEvent))[0]),
             new(OpCodes.Dup),
             new(OpCodes.Call, Method(typeof(Scp0492Handlers), nameof(Scp0492Handlers.OnConsumeCorpse))),
-            new(OpCodes.Callvirt, PropertyGetter(typeof(Scp0492ConsumeCorpse), nameof(Scp0492ConsumeCorpse.IsCancelled))),
+            new(OpCodes.Callvirt, PropertyGetter(typeof(Scp0492ConsumeCorpseEvent), nameof(Scp0492ConsumeCorpseEvent.IsCancelled))),
             new(OpCodes.Brtrue_S, retLabel),
         });
         

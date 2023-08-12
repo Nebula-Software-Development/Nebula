@@ -25,10 +25,10 @@ internal class ZombieBloodlust
         {
             new(OpCodes.Ldarg_1),
             new(OpCodes.Ldloc_1),
-            new(OpCodes.Newobj, GetDeclaredConstructors(typeof(Scp0492Bloodlust))[0]),
+            new(OpCodes.Newobj, GetDeclaredConstructors(typeof(Scp0492BloodlustEvent))[0]),
             new(OpCodes.Dup),
             new(OpCodes.Call, Method(typeof(Scp0492Handlers), nameof(Scp0492Handlers.OnBloodLust))),
-            new(OpCodes.Callvirt, PropertyGetter(typeof(Scp0492Bloodlust), nameof(Scp0492Bloodlust.IsCancelled))),
+            new(OpCodes.Callvirt, PropertyGetter(typeof(Scp0492BloodlustEvent), nameof(Scp0492BloodlustEvent.IsCancelled))),
             new(OpCodes.Brtrue_S, retLabel)
         });
         

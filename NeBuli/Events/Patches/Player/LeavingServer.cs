@@ -19,7 +19,7 @@ internal class LeavingServer
         newInstructions.InsertRange(0, new CodeInstruction[]
         {
             new(OpCodes.Ldarg_1),
-            new(OpCodes.Newobj, GetDeclaredConstructors(typeof(PlayerLeave))[0]),
+            new(OpCodes.Newobj, GetDeclaredConstructors(typeof(PlayerLeaveEvent))[0]),
             new(OpCodes.Call, Method(typeof(PlayerHandlers), nameof(PlayerHandlers.OnLeave))),
         });
 

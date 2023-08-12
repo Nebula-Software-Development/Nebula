@@ -27,10 +27,10 @@ internal class FinishRevive
             new(OpCodes.Callvirt, PropertyGetter(typeof(Scp049ResurrectAbility), nameof(Scp049ResurrectAbility.Owner))),
             new(OpCodes.Ldarg_0),
             new(OpCodes.Callvirt, PropertyGetter(typeof(Scp049ResurrectAbility), nameof(Scp049ResurrectAbility.CurRagdoll))),
-            new(OpCodes.Newobj, GetDeclaredConstructors(typeof(Scp049FinishResurrect))[0]),
+            new(OpCodes.Newobj, GetDeclaredConstructors(typeof(Scp049FinishResurrectEvent))[0]),
             new(OpCodes.Dup),
             new(OpCodes.Call, Method(typeof(Scp049Handlers), nameof(Scp049Handlers.OnFinishResurrect))),
-            new(OpCodes.Callvirt, PropertyGetter(typeof(Scp049FinishResurrect), nameof(Scp049FinishResurrect.IsCancelled))),
+            new(OpCodes.Callvirt, PropertyGetter(typeof(Scp049FinishResurrectEvent), nameof(Scp049FinishResurrectEvent.IsCancelled))),
             new(OpCodes.Brtrue_S, retLabel),
         });
         

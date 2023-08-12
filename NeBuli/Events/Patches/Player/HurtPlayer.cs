@@ -30,10 +30,10 @@ internal class HurtPlayer
             new(OpCodes.Ldfld, Field(typeof(PlayerStats), nameof(PlayerStats._hub))),
 
             new(OpCodes.Ldarg_1),
-            new(OpCodes.Newobj, GetDeclaredConstructors(typeof(PlayerHurt))[0]),
+            new(OpCodes.Newobj, GetDeclaredConstructors(typeof(PlayerHurtEvent))[0]),
             new(OpCodes.Dup),
             new(OpCodes.Call, Method(typeof(PlayerHandlers), nameof(PlayerHandlers.OnHurt))),
-            new(OpCodes.Callvirt, PropertyGetter(typeof(PlayerHurt), nameof(PlayerHurt.IsCancelled))),
+            new(OpCodes.Callvirt, PropertyGetter(typeof(PlayerHurtEvent), nameof(PlayerHurtEvent.IsCancelled))),
             new(OpCodes.Brtrue_S, retLabel)
         });
 
