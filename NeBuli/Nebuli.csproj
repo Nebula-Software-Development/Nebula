@@ -212,9 +212,9 @@
     <Compile Include="Events\EventArguments\SCPs\Scp939\Scp939SavePlayerVoiceEvent.cs" />
     <Compile Include="Events\EventArguments\SCPs\Scp939\Scp939ToggleFocusEvent.cs" />
     <Compile Include="Events\EventArguments\SCPs\Scp939\Scp939UseLungeEvent.cs" />
-    <Compile Include="Events\EventArguments\Round\RoundStartedEvent.cs" />
     <Compile Include="Events\EventArguments\Server\WarheadDetonatingEvent.cs" />
     <Compile Include="Events\EventManager.cs" />
+    <Compile Include="Events\Handlers\Internal.cs" />
     <Compile Include="Events\Handlers\PlayerHandlers.cs" />
     <Compile Include="Events\Handlers\RoundHandlers.cs" />
     <Compile Include="Events\Handlers\Scp0492Handlers.cs" />

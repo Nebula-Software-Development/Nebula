@@ -31,6 +31,8 @@ using Nebuli.API.Extensions;
 using System.Linq;
 using Utils.NonAllocLINQ;
 using Nebuli.API.Features.Pools;
+using static Nebuli.Events.EventManager;
+using Nebuli.Events.Handlers;
 
 namespace Nebuli.Events;
 
@@ -59,9 +61,31 @@ public static class EventManager
         }
     }
 
+    public delegate void CustomEventHandler();
+
+    public static void CallEmptyEvent(this CustomEventHandler eventHandler)
+    {
+        if (eventHandler is null)
+            return;
+
+        foreach (Delegate sub in eventHandler.GetInvocationList())
+        {
+            try
+            {
+                sub.DynamicInvoke();
+            }
+            catch (Exception e)
+            {
+                Log.Error("An error occurred while handling the event " + eventHandler.Method.Name + $"\n{e}", "EVENT ERROR");
+            }
+        }
+    }
+
+
     internal static void RegisterBaseEvents()
     {
         SceneManager.sceneUnloaded += OnSceneUnLoaded;
+        SeedSynchronizer.OnMapGenerated += ServerHandler.OnMapGenerated;
         RagdollManager.OnRagdollSpawned += OnRagdollSpawned;
         RagdollManager.OnRagdollRemoved += OnRagdollDeSpawned;
         SeedSynchronizer.OnMapGenerated += OnMapGenerated;
@@ -69,13 +93,15 @@ public static class EventManager
         ItemPickupBase.OnPickupDestroyed += OnPickupRemoved;
         InventoryExtensions.OnItemAdded += OnItemAdded;
         InventoryExtensions.OnItemRemoved += OnItemRemoved;
-        CharacterClassManager.OnRoundStarted += Handlers.ServerHandler.OnRoundStart;
+        CharacterClassManager.OnRoundStarted += RoundHandlers.OnRoundStart;
         PlayerRoleManager.OnRoleChanged += RoleChange;
+        ServerHandler.MapGenerated += Internal.Handler;
     }
 
     internal static void UnRegisterBaseEvents()
     {
         SceneManager.sceneUnloaded -= OnSceneUnLoaded;
+        SeedSynchronizer.OnMapGenerated -= ServerHandler.OnMapGenerated;
         RagdollManager.OnRagdollSpawned -= OnRagdollSpawned;
         RagdollManager.OnRagdollRemoved -= OnRagdollDeSpawned;
         SeedSynchronizer.OnMapGenerated -= OnMapGenerated;
@@ -83,7 +109,9 @@ public static class EventManager
         ItemPickupBase.OnPickupDestroyed -= OnPickupRemoved;
         InventoryExtensions.OnItemAdded -= OnItemAdded;
         InventoryExtensions.OnItemRemoved -= OnItemRemoved;
+        CharacterClassManager.OnRoundStarted -= RoundHandlers.OnRoundStart;
         PlayerRoleManager.OnRoleChanged -= RoleChange;
+        ServerHandler.MapGenerated -= Internal.Handler;
     }
 
     private static void RoleChange(ReferenceHub userHub, PlayerRoleBase prevRole, PlayerRoleBase newRole)
