@@ -94,6 +94,7 @@
     <Compile Include="API\Features\Enum\CameraType.cs" />
     <Compile Include="API\Features\Enum\FirearmType.cs" />
     <Compile Include="API\Features\Enum\MenuType.cs" />
+    <Compile Include="API\Features\Enum\Scp079PingType.cs" />
     <Compile Include="API\Features\Items\Ammo.cs" />
     <Compile Include="API\Features\Items\BodyArmor.cs" />
     <Compile Include="API\Features\Items\Coin.cs" />
@@ -195,6 +196,7 @@
     <Compile Include="Events\EventArguments\SCPs\Scp049\Scp049StartResurrectEvent.cs" />
     <Compile Include="Events\EventArguments\SCPs\Scp049\Scp049UseCallEvent.cs" />
     <Compile Include="Events\EventArguments\SCPs\Scp049\Scp049UseSenseEvent.cs" />
+    <Compile Include="Events\EventArguments\SCPs\Scp079\Scp079PingingEvent.cs" />
     <Compile Include="Events\EventArguments\SCPs\Scp173\Scp173AttackEvent.cs" />
     <Compile Include="Events\EventArguments\SCPs\Scp173\Scp173BlinkEvent.cs" />
     <Compile Include="Events\EventArguments\SCPs\Scp173\Scp173PlaceTantrumEvent.cs" />
@@ -219,6 +221,7 @@
     <Compile Include="Events\Handlers\RoundHandlers.cs" />
     <Compile Include="Events\Handlers\Scp0492Handlers.cs" />
     <Compile Include="Events\Handlers\Scp049Handlers.cs" />
+    <Compile Include="Events\Handlers\Scp079Handlers.cs" />
     <Compile Include="Events\Handlers\Scp173Handlers.cs" />
     <Compile Include="Events\Handlers\Scp914Handlers.cs" />
     <Compile Include="Events\Handlers\Scp939Handlers.cs" />
@@ -242,6 +245,7 @@
     <Compile Include="Events\Patches\Round\RespawningTeamPatch.cs" />
     <Compile Include="Events\Patches\SCPs\Scp0492\ConsumeCorpse.cs" />
     <Compile Include="Events\Patches\SCPs\Scp0492\CorpseConsumed.cs" />
+    <Compile Include="Events\Patches\SCPs\Scp079\PingingPatch.cs" />
     <Compile Include="Events\Patches\SCPs\Scp173\PeanutAttack.cs" />
     <Compile Include="Events\Patches\SCPs\Scp173\PeanutBlink.cs" />
     <Compile Include="Events\Patches\SCPs\Scp173\PlaceTantrum.cs" />
