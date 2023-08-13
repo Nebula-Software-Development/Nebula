@@ -14,6 +14,8 @@ using Nebuli.API.Extensions;
 using Nebuli.API.Features.Structs;
 using InventorySystem.Items.Firearms.Attachments;
 using InventorySystem.Items.Firearms.Attachments.Components;
+using CameraShaking;
+using System;
 
 namespace Nebuli.API.Features.Items
 {
@@ -53,6 +55,15 @@ namespace Nebuli.API.Features.Items
         public byte MaxAmmo => Base.AmmoManagerModule.MaxAmmo;
 
         /// <summary>
+        /// Gets or sets the firearms <see cref="FirearmStatusFlags"/>
+        /// </summary>
+        public FirearmStatusFlags StatusFlags
+        {
+            get => Base.Status.Flags;
+            set => new FirearmStatus(CurrentAmmo, value, Base.Status.Attachments);
+        }
+
+        /// <summary>
         /// Gets the attachments of the firearm.
         /// </summary>
         public Attachment[] Attachments => Base.Attachments;
@@ -66,6 +77,89 @@ namespace Nebuli.API.Features.Items
         /// Gets the ammo type of the firearm.
         /// </summary>
         public AmmoType AmmoType => Base.AmmoType.ToAmmoType();
+
+        /// <summary>
+        /// Gets or sets the current ammo of the firearm.
+        /// </summary>
+        public byte CurrentAmmo
+        {
+            get => Base.Status.Ammo;
+            set => new FirearmStatus(value, StatusFlags, Base.Status.Attachments);
+        }
+
+        public float FireRate
+        {
+            get
+            {
+                if (Base is AutomaticFirearm firearm)
+                {
+                    return firearm._fireRate;
+                }
+                else
+                {
+                    return 1f;
+                }
+            }
+            set
+            {
+                if (Base is AutomaticFirearm firearm)
+                {
+                    firearm._fireRate = value;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the recoil settings for the firearm.
+        /// </summary>
+        public RecoilSettings Recoil
+        {
+            get
+            {
+                if (Base is AutomaticFirearm firearm)
+                {
+                    return firearm._recoil;
+                }
+                else
+                {
+                    return default;
+                }
+            }
+            set
+            {
+                if (Base is AutomaticFirearm auto)
+                {
+                    auto.ActionModule = new AutomaticAction(Base, auto._semiAutomatic, auto._boltTravelTime, 1f / auto._fireRate, auto._dryfireClipId, auto._triggerClipId, auto._gunshotPitchRandomization, value, auto._recoilPattern, false, Mathf.Max(1, auto._chamberSize));
+                }
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the firearms <see cref="AutomaticFirearm.ActionModule"/>
+        /// </summary>
+        public AutomaticAction AutomaticAction
+        {
+            get
+            {
+                if(Base is AutomaticFirearm firearm)
+                {
+                    return (AutomaticAction)firearm.ActionModule;
+                }
+                else
+                {
+                    return default;
+                }
+            }
+            set
+            {
+                if(Base is AutomaticFirearm firearm)
+                {
+                    firearm.ActionModule = value;
+                }
+            }
+        }
+
+
 
         /// <summary>
         /// Gets the faction affiliation of the firearm.
@@ -110,10 +204,45 @@ namespace Nebuli.API.Features.Items
         {
             get
             {
-                foreach (Attachment attachment in Attachments.Where(att => att.IsEnabled))
-                    yield return AvailableAttachments[Type].FirstOrDefault(att => att == attachment);
+                foreach (Attachment attachment in Attachments.Where(attachment => attachment.IsEnabled))
+                    yield return AvailableAttachments[Type].FirstOrDefault(aa => aa == attachment);
             }
         }
+
+        /// <summary>
+        /// Adds a <see cref="AttachmentIdentity"/> to the firearm.
+        /// </summary>
+        /// <param name="identifier">The <see cref="AttachmentIdentity"/> to add.</param>
+        public void AddAttachment(AttachmentIdentity identifier)
+        {
+            uint toRemove = 0;
+
+            foreach (Attachment attachment in Base.Attachments)
+            {
+                if (attachment.Slot == identifier.Slot && attachment.IsEnabled)
+                {
+                    toRemove = (uint)(1 << (int)attachment.Slot);
+                    break;
+                }
+            }
+
+            uint newCode;
+            if (identifier.Code == 0)
+            {
+                AttachmentIdentity matchingAttachment = AvailableAttachments[Type].FirstOrDefault(attId => attId.Name == identifier.Name);
+                newCode = matchingAttachment != null ? matchingAttachment.Code : 0U;
+            }
+            else
+            {
+                newCode = identifier.Code;
+            }
+
+            uint currentAttachmentsCode = Base.GetCurrentAttachmentsCode();
+
+            Base.ApplyAttachmentsCode((currentAttachmentsCode & ~toRemove) | newCode, true);
+            Base.Status = new FirearmStatus(Math.Min(CurrentAmmo, MaxAmmo), Base.Status.Flags, currentAttachmentsCode);
+        }
+
 
         /// <summary>
         /// Fires a shot from the firearm.
