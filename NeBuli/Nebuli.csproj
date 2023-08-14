@@ -196,6 +196,7 @@
     <Compile Include="Events\EventArguments\SCPs\Scp049\Scp049StartResurrectEvent.cs" />
     <Compile Include="Events\EventArguments\SCPs\Scp049\Scp049UseCallEvent.cs" />
     <Compile Include="Events\EventArguments\SCPs\Scp049\Scp049UseSenseEvent.cs" />
+    <Compile Include="Events\EventArguments\SCPs\Scp079\Scp079GainingExperienceEvent.cs" />
     <Compile Include="Events\EventArguments\SCPs\Scp079\Scp079LosingSignalEvent.cs" />
     <Compile Include="Events\EventArguments\SCPs\Scp079\Scp079PingingEvent.cs" />
     <Compile Include="Events\EventArguments\SCPs\Scp173\Scp173AttackEvent.cs" />
@@ -246,6 +247,7 @@
     <Compile Include="Events\Patches\Round\RespawningTeamPatch.cs" />
     <Compile Include="Events\Patches\SCPs\Scp0492\ConsumeCorpse.cs" />
     <Compile Include="Events\Patches\SCPs\Scp0492\CorpseConsumed.cs" />
+    <Compile Include="Events\Patches\SCPs\Scp079\GainingExperiencePatch.cs" />
     <Compile Include="Events\Patches\SCPs\Scp079\LosingSignalPatch.cs" />
     <Compile Include="Events\Patches\SCPs\Scp079\PingingPatch.cs" />
     <Compile Include="Events\Patches\SCPs\Scp173\PeanutAttack.cs" />

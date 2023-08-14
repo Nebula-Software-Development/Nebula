@@ -43,7 +43,7 @@ public static class Paths
     /// </summary>
     public static void LoadPaths()
     {
-        MainDirectory = Directory.CreateDirectory(Path.Combine(NwPaths.SecretLab, "Nebuli"));
+        MainDirectory = Directory.CreateDirectory(Path.Combine(NwPaths.AppData, "Nebuli"));
         PluginsDirectory = MainDirectory.CreateSubdirectory("Plugins");
         PluginConfigDirectory = MainDirectory.CreateSubdirectory("PluginConfigs");
         DependenciesDirectory = PluginsDirectory.CreateSubdirectory("Dependencies");

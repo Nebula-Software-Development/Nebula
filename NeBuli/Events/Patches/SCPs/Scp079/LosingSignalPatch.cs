@@ -35,7 +35,7 @@ internal class LosingSignalPatch
             new(OpCodes.Ldloc_S, losingSignal.LocalIndex),
             new(OpCodes.Callvirt, PropertyGetter(typeof(Scp079LosingSignalEvent), nameof(Scp079LosingSignalEvent.IsCancelled))),
             new(OpCodes.Brtrue_S, retLabel),
-            new(OpCodes.Ldloca_S, losingSignal.LocalIndex),
+            new(OpCodes.Ldloc_S, losingSignal.LocalIndex),
             new(OpCodes.Callvirt, PropertyGetter(typeof(Scp079LosingSignalEvent), nameof(Scp079LosingSignalEvent.DurationOfSignalLoss))),
             new(OpCodes.Starg_S, 1),
         });
