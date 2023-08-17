@@ -185,6 +185,7 @@
     <Compile Include="Events\EventArguments\Player\PlayerJoinEvent.cs" />
     <Compile Include="Events\EventArguments\Player\PlayerLeaveEvent.cs" />
     <Compile Include="Events\EventArguments\Player\PlayerShotEvent.cs" />
+    <Compile Include="Events\EventArguments\Player\PlayerSpawningEvent.cs" />
     <Compile Include="Events\EventArguments\Player\PlayerSpawningRagdollEvent.cs" />
     <Compile Include="Events\EventArguments\Player\PlayerTriggeringTeslaEvent.cs" />
     <Compile Include="Events\EventArguments\Round\RespawningTeamEvent.cs" />
@@ -244,6 +245,7 @@
     <Compile Include="Events\Patches\Player\PlayerEscapingPatch.cs" />
     <Compile Include="Events\Patches\Player\PlayerShot.cs" />
     <Compile Include="Events\Patches\Player\RoleChange.cs" />
+    <Compile Include="Events\Patches\Player\SpawningPlayerPatch.cs" />
     <Compile Include="Events\Patches\Player\SpawningRagdollPatch.cs" />
     <Compile Include="Events\Patches\Player\TriggeringTesla.cs" />
     <Compile Include="Events\Patches\Player\VerificationCompleted.cs" />

@@ -34,6 +34,8 @@ public static class PlayerHandlers
 
     public static event EventManager.CustomEventHandler<PlayerSpawningRagdollEvent> SpawningRagdoll;
 
+    public static event EventManager.CustomEventHandler<PlayerSpawningEvent> Spawning;
+
     internal static void OnJoin(PlayerJoinEvent ev) => Join.CallEvent(ev);
 
     internal static void OnLeave(PlayerLeaveEvent ev) => Leave.CallEvent(ev);
@@ -63,4 +65,6 @@ public static class PlayerHandlers
     internal static void OnChangingUserGroup(PlayerChangingUserGroupEvent ev) => UserChangingUserGroup.CallEvent(ev); 
 
     internal static void OnSpawningRagdoll(PlayerSpawningRagdollEvent ev) => SpawningRagdoll.CallEvent(ev);
+
+    internal static void OnSpawning(PlayerSpawningEvent ev) => Spawning.CallEvent(ev);
 }
