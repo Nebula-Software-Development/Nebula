@@ -13,7 +13,7 @@ public enum MenuType
     OldMenu,
 
     /// <summary>
-    /// The new main menu, or "NewMainMenu".
+    /// The new main menu for SCP:SL, or "NewMainMenu".
     /// </summary>
     Menu
 }

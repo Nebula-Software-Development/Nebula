@@ -192,7 +192,7 @@ public class NebuliPlayer
     private Role currentRole = null;
 
     /// <summary>
-    /// Gets the players current <see cref="PlayerRoleBase"/>.
+    /// Gets the players current <see cref="Roles.Role"/>.
     /// </summary>
     public Role Role
     {

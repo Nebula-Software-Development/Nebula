@@ -83,6 +83,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="API\Extensions\ItemTypeExtension.cs" />
+    <Compile Include="API\Extensions\RoleTypeExtensions.cs" />
     <Compile Include="API\Features\AlphaWarhead.cs" />
     <Compile Include="API\Features\CustomHintManager.cs" />
     <Compile Include="API\Features\Decontamination.cs" />
@@ -92,6 +93,7 @@
     <Compile Include="API\Features\Doors\ElevatorDoor.cs" />
     <Compile Include="API\Features\Enum\AmmoType.cs" />
     <Compile Include="API\Features\Enum\CameraType.cs" />
+    <Compile Include="API\Features\Enum\DoorLockingType.cs" />
     <Compile Include="API\Features\Enum\FirearmType.cs" />
     <Compile Include="API\Features\Enum\MenuType.cs" />
     <Compile Include="API\Features\Enum\Scp079PingType.cs" />

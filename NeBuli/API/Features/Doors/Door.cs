@@ -3,7 +3,6 @@ using MapGeneration;
 using Nebuli.API.Features.Enum;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.Remoting.Messaging;
 using UnityEngine;
 using Room = Nebuli.API.Features.Map.Room;
 
@@ -144,6 +143,20 @@ public class Door
     }
 
     /// <summary>
+    /// Changes the doors lock to the specified <see cref="DoorLockingType"/>.
+    /// </summary>
+    /// <param name="type"></param>
+    public void ChangeDoorLock(DoorLockingType type)
+    {
+        if (type is DoorLockingType.None)
+            Base.NetworkActiveLocks = 0;
+        DoorLockingType activeLocks = (DoorLockingType)Base.NetworkActiveLocks;
+        activeLocks ^= type;
+        Base.NetworkActiveLocks = (ushort)activeLocks;
+        DoorEvents.TriggerAction(Base, IsLocked ? DoorAction.Locked : DoorAction.Unlocked, null);
+    }
+
+    /// <summary>
     /// Gets the doors current zone.
     /// </summary>
     public FacilityZone CurrentZone
@@ -161,6 +174,11 @@ public class Door
     }
 
     /// <summary>
+    /// Gets if the door is locked.
+    /// </summary>
+    public bool IsLocked => (DoorLockingType)Base.NetworkActiveLocks is not DoorLockingType.None;
+
+    /// <summary>
     /// Gets a door given the <see cref="DoorVariant"/>.
     /// </summary>
     /// <param name="doorVariant">The <see cref="DoorVariant"/> to use to find the door.</param>
@@ -171,26 +189,25 @@ public class Door
     }
 
     /// <summary>
-    /// Locks a door.
+    /// Locks the door.
     /// </summary>
-    /// <param name="doorLockReason">The <see cref="DoorLockReason"/> of the lock.</param>
-    public void LockDoor(DoorLockReason doorLockReason = DoorLockReason.AdminCommand)
+    /// <param name="type"></param>
+    public void LockDoor(DoorLockingType type = DoorLockingType.RegularSCP079)
     {
-        if (IsOpened) IsOpened = false;
-        Base.NetworkActiveLocks = (ushort)doorLockReason;
-        DoorEvents.TriggerAction(Base, DoorAction.Locked, null);
+        ChangeDoorLock(type); 
     }
 
     /// <summary>
-    /// Unlocks a door.
+    /// Unlocks the door.
     /// </summary>
-    public void UnLockDoor() => Base.NetworkActiveLocks = 0;
+    public void UnLockDoor() => ChangeDoorLock(DoorLockingType.None);
 
     /// <summary>
     /// Locks the door and unlocks it after a specific time period has passed.
     /// </summary>
     /// <param name="timeToWait">The time to wait before unlocking.</param>
-    public void UnLockLater(float timeToWait) => Base.UnlockLater(timeToWait, DoorLockReason.SpecialDoorFeature);
+    /// <param name="typeToUnlock">The type of lock to unlock.</param>
+    public void UnLockLater(float timeToWait, DoorLockingType typeToUnlock) => Base.UnlockLater(timeToWait, (DoorLockReason)typeToUnlock);
 
     internal static Door GetDoor(DoorVariant doorVariant) 
     {

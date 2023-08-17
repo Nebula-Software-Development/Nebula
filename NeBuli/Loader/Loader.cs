@@ -148,14 +148,12 @@ public class Loader
                 IConfiguration config = SetupPluginConfig(newPlugin, Serializer, Deserializer);
 
                 if (!config.IsEnabled)
-                {
                     continue;
-                }
-
-                Log.Info($"Plugin '{newPlugin.Name}' by '{newPlugin.Creator}', (v{newPlugin.Version}), has been successfully enabled!");
 
                 newPlugin.LoadCommands();
                 newPlugin.OnEnabled();
+
+                Log.Info($"Plugin '{newPlugin.Name}' by '{newPlugin.Creator}', (v{newPlugin.Version}), has been successfully enabled!");
 
                 _plugins.Add(loadPlugin, config);
 
@@ -206,10 +204,7 @@ public class Loader
         }
     }
 
-    private static bool IsDerivedFromPlugin(Type type)
-    {
-        return typeof(IPlugin<IConfiguration>).IsAssignableFrom(type) && !type.IsAbstract && !type.IsInterface;
-    }
+    private static bool IsDerivedFromPlugin(Type type) => typeof(IPlugin<IConfiguration>).IsAssignableFrom(type) && !type.IsAbstract && !type.IsInterface;
 
     private bool IsPluginOutdated(IPlugin<IConfiguration> plugin)
     {

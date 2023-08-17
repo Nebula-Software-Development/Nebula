@@ -23,5 +23,8 @@ public class Scp939AttackEvent : EventArgs, IDamageEvent, ICancellableEvent
     /// </summary>
     public NebuliPlayer Target { get; }
 
+    /// <summary>
+    /// Gets or sets if the event is cancelled.
+    /// </summary>
     public bool IsCancelled { get; set; }
 }
