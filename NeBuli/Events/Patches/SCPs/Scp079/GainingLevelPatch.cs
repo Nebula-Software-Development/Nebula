@@ -34,6 +34,7 @@ internal class GainingLevelPatch
             new(OpCodes.Stloc_S, gainingLevel.LocalIndex),
             new(OpCodes.Ldloc_S, gainingLevel.LocalIndex),
             new(OpCodes.Call, Method(typeof(Scp079Handlers), nameof(Scp079Handlers.OnScp079GainingLevel))),
+            new(OpCodes.Ldloc_S, gainingLevel.LocalIndex),
             new(OpCodes.Callvirt, PropertyGetter(typeof(Scp079GainingLevelEvent), nameof(Scp079GainingLevelEvent.IsCancelled))),
             new(OpCodes.Brtrue_S, retLabel),
         });
