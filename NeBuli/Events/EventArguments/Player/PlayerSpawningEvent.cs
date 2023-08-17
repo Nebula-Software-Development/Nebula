@@ -7,13 +7,13 @@ namespace Nebuli.Events.EventArguments.Player
 {
     public class PlayerSpawningEvent : EventArgs, IPlayerEvent
     {
-        public PlayerSpawningEvent(ReferenceHub player, PlayerRoleBase prevRole, PlayerRoleBase newRole, Vector3 pos, float oldRotation)
+        public PlayerSpawningEvent(ReferenceHub player, PlayerRoleBase oldRole, PlayerRoleBase newRole, Vector3 position, float oldRotation)
         {
             Player = NebuliPlayer.Get(player);
             NewRole = newRole.RoleTypeId;
-            OldRole = prevRole.RoleTypeId;
+            OldRole = oldRole.RoleTypeId;
             HorizontalRotation = oldRotation;
-            Position = pos;
+            Position = position;
         }
 
         /// <summary>

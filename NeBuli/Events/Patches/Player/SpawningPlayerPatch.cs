@@ -1,59 +1,56 @@
 ﻿using HarmonyLib;
-using PlayerRoles.FirstPersonControl;
 using PlayerRoles;
 using UnityEngine;
-using Nebuli.Events.EventArguments.Player;
 using Nebuli.Events.Handlers;
 using static HarmonyLib.AccessTools;
 using System.Reflection;
 using PlayerRoles.FirstPersonControl.Spawnpoints;
+using System.Collections.Generic;
+using System.Reflection.Emit;
+using Nebuli.Events.EventArguments.Player;
+using NorthwoodLib.Pools;
 
 namespace Nebuli.Events.Patches.Player;
 
-[HarmonyPatch(typeof(RoleSpawnpointManager))]
+[HarmonyPatch]
 internal class SpawningPlayerPatch
 {
-    private static MethodInfo TargetMethod() => Method(TypeByName("PlayerRoles.FirstPersonControl.Spawnpoints.RoleSpawnpointManager").GetNestedTypes(all)[1], "<Init>b__2_0");
-
-    private static bool Prefix(ReferenceHub hub, PlayerRoleBase prevRole, PlayerRoleBase newRole)
+    private static MethodInfo TargetMethod() => Method(typeof(RoleSpawnpointManager).GetNestedTypes(all)[1], "<Init>b__2_0");
+    private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
-        if (newRole.ServerSpawnReason is not RoleChangeReason.Destroyed)
+        List<CodeInstruction> newInstructions = EventManager.CheckPatchInstructions<SpawningPlayerPatch>(38, instructions);
+
+        LocalBuilder spawning = generator.DeclareLocal(typeof(PlayerSpawningEvent));
+        Label ret = generator.DefineLabel();
+
+        int index = newInstructions.FindLastIndex(x => x.opcode == OpCodes.Ldarg_1);
+
+        newInstructions.InsertRange(index, new CodeInstruction[]
         {
-            if (newRole is IFpcRole fpcRole && fpcRole.SpawnpointHandler != null &&
-                fpcRole.SpawnpointHandler.TryGetSpawnpoint(out Vector3 position, out float horizontalRot))
-            {
-                HandleFpcRoleSpawn(hub, prevRole, newRole, position, horizontalRot);
-            }
-            else
-            {
-                HandleOtherRoleSpawn(hub, prevRole, newRole);
-            }
-            return false;
-        }
-        return true;
-    }
+            new CodeInstruction(OpCodes.Ldarg_1).MoveLabelsFrom(newInstructions[index]),
+            new(OpCodes.Ldarg_2),
+            new(OpCodes.Ldarg_3),
+            new(OpCodes.Ldloc_1),
+            new(OpCodes.Ldloc_2),
+            new(OpCodes.Newobj, GetDeclaredConstructors(typeof(PlayerSpawningEvent))[0]),
+            new(OpCodes.Dup),
+            new(OpCodes.Call, Method(typeof(PlayerHandlers), nameof(PlayerHandlers.OnSpawning))),
+            new(OpCodes.Stloc_S, spawning.LocalIndex),
+            new(OpCodes.Ldloc_S, spawning.LocalIndex),
+            new(OpCodes.Callvirt, PropertyGetter(typeof(PlayerSpawningEvent), nameof(PlayerSpawningEvent.Position))),
+            new(OpCodes.Stloc_1),
+            new(OpCodes.Ldloc_S, spawning.LocalIndex),
+            new(OpCodes.Callvirt, PropertyGetter(typeof(PlayerSpawningEvent), nameof(PlayerSpawningEvent.HorizontalRotation))),
+            new(OpCodes.Stloc_2),
+        });
 
-    private static void HandleFpcRoleSpawn(ReferenceHub hub, PlayerRoleBase prevRole, PlayerRoleBase newRole, Vector3 position, float horizontalRot)
-    {
-        Vector3 currentPos = position;
-        float currentRot = horizontalRot;
+        newInstructions[newInstructions.Count - 1].labels.Add(ret);
 
-        PlayerSpawningEvent ev = new(hub, prevRole, newRole, currentPos, currentRot);
-        PlayerHandlers.OnSpawning(ev);
+        newInstructions.RemoveAt(newInstructions.FindLastIndex(i => i.opcode == OpCodes.Ret));
 
-        hub.transform.position = ev.Position;
-        if (newRole is IFpcRole fpcRole)
-        {
-            fpcRole.FpcModule.MouseLook.CurrentHorizontal = ev.HorizontalRotation;
-        }
-    }
+        foreach (CodeInstruction instruction in newInstructions)
+            yield return instruction;
 
-    private static void HandleOtherRoleSpawn(ReferenceHub hub, PlayerRoleBase prevRole, PlayerRoleBase newRole)
-    {
-        Vector3 currentPos = hub.transform.position;
-        float currentRot = (prevRole as IFpcRole)?.FpcModule.MouseLook.CurrentVertical ?? 0;
-
-        PlayerSpawningEvent ev = new(hub, prevRole, newRole, currentPos, currentRot);
-        PlayerHandlers.OnSpawning(ev);
+        ListPool<CodeInstruction>.Shared.Return(newInstructions);
     }
 }

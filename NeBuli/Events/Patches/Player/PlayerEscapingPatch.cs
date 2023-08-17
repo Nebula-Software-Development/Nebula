@@ -3,7 +3,6 @@ using Nebuli.Events.EventArguments.Player;
 using Nebuli.Events.Handlers;
 using NorthwoodLib.Pools;
 using System.Collections.Generic;
-using System.Linq;
 using System.Reflection.Emit;
 using static HarmonyLib.AccessTools;
 
@@ -30,9 +29,9 @@ internal class PlayerEscapingPatch
             new(OpCodes.Ldloc_3),
             new(OpCodes.Newobj, GetDeclaredConstructors(typeof(PlayerEscapingEvent))[0]),
             new(OpCodes.Dup),
-            new(OpCodes.Dup),
-            new(OpCodes.Stloc, @event.LocalIndex),
             new(OpCodes.Call, Method(typeof(PlayerHandlers), nameof(PlayerHandlers.OnEscaping))),
+            new(OpCodes.Stloc, @event.LocalIndex),
+            new(OpCodes.Ldloc, @event.LocalIndex),
             new(OpCodes.Callvirt, PropertyGetter(typeof(PlayerEscapingEvent), nameof(PlayerEscapingEvent.IsCancelled))),
             new(OpCodes.Brtrue, retLabel),
             new(OpCodes.Ldloc, @event.LocalIndex),
@@ -41,6 +40,26 @@ internal class PlayerEscapingPatch
         });
 
         newInstructions[newInstructions.Count - 1].labels.Add(retLabel);
+
+        foreach (CodeInstruction instruction in newInstructions)
+            yield return instruction;
+
+        ListPool<CodeInstruction>.Shared.Return(newInstructions);
+    }
+}
+
+[HarmonyPatch(typeof(Escape), nameof(Escape.ServerGetScenario))]
+internal static class GetScenario
+{
+    private static IEnumerable<CodeInstruction> ChangeScenario(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
+    {
+        List<CodeInstruction> newInstructions = EventManager.CheckPatchInstructions<PlayerEscapingPatch>(60, instructions);
+
+        int indexToReplace = newInstructions.FindLastIndex(i => i.opcode == OpCodes.Ldloc_0) - 2;
+        if (indexToReplace >= 0 && indexToReplace < newInstructions.Count)
+        {
+            newInstructions[indexToReplace].opcode = OpCodes.Ldc_I4_5;
+        }
 
         foreach (CodeInstruction instruction in newInstructions)
             yield return instruction;

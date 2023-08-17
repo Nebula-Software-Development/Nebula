@@ -1,4 +1,6 @@
-﻿using Nebuli.API.Features.Player;
+﻿using Nebuli.API.Features;
+using Nebuli.API.Features.Enum;
+using Nebuli.API.Features.Player;
 using PlayerRoles;
 using System;
 using static Escape;
@@ -8,12 +10,13 @@ namespace Nebuli.Events.EventArguments.Player;
 public class PlayerEscapingEvent : EventArgs, IPlayerEvent, ICancellableEvent
 {
     public PlayerEscapingEvent(ReferenceHub player, RoleTypeId newRole, EscapeScenarioType escapeType, float tickets)
-    {
+    {      
         Player = NebuliPlayer.Get(player);
         NewRole = newRole;
-        OldRole = Player.CurrentRoleType;
-        EscapeScenario = escapeType;
+        OldRole = player.GetRoleId();
+        EscapeScenario = (EscapeType)escapeType;
         IsCancelled = false;
+        Log.Info(OldRole);
     }
 
     /// <summary>
@@ -39,5 +42,5 @@ public class PlayerEscapingEvent : EventArgs, IPlayerEvent, ICancellableEvent
     /// <summary>
     /// The <see cref="EscapeScenarioType"/> of the event.
     /// </summary>
-    public EscapeScenarioType EscapeScenario { get; set; }
+    public EscapeType EscapeScenario { get; set; }
 }

@@ -94,6 +94,7 @@
     <Compile Include="API\Features\Enum\AmmoType.cs" />
     <Compile Include="API\Features\Enum\CameraType.cs" />
     <Compile Include="API\Features\Enum\DoorLockingType.cs" />
+    <Compile Include="API\Features\Enum\EscapeType.cs" />
     <Compile Include="API\Features\Enum\FirearmType.cs" />
     <Compile Include="API\Features\Enum\MenuType.cs" />
     <Compile Include="API\Features\Enum\Scp079PingType.cs" />
