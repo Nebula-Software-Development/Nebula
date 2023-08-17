@@ -30,7 +30,7 @@ internal class SpawningPlayerPatch
             }
             return false;
         }
-        return false;
+        return true;
     }
 
     private static void HandleFpcRoleSpawn(ReferenceHub hub, PlayerRoleBase prevRole, PlayerRoleBase newRole, Vector3 position, float horizontalRot)

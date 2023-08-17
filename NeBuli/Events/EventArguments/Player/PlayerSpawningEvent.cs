@@ -1,6 +1,5 @@
 ﻿using Nebuli.API.Features.Player;
 using PlayerRoles;
-using PlayerRoles.FirstPersonControl;
 using System;
 using UnityEngine;
 
