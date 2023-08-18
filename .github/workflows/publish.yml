@@ -75,7 +75,7 @@ jobs:
       id: get_version
       shell: pwsh
       run: |
-       $Version = (Get-Content ${{ env.PROJECT_FOLDER }}/Loader/NebuliInfo.cs | Select-String 'public static Version NebuliVersion = new(.*);').Matches[0].Groups[1].Value
+       $Version = (Get-Content ${{ env.PROJECT_FOLDER }}/Loader/NebuliInfo.cs | Select-String 'internal const string NebuliVersionConst = new(.*);').Matches[0].Groups[1].Value
        $Version = $Version -replace '[()]', '' -replace '\s*,\s*', '.'
        echo "Nebuli Version: $Version"
        echo "::set-output name=version::$Version"  # Set the output for later use
