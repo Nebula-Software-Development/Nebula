@@ -1,5 +1,6 @@
 ﻿using CommandSystem.Commands.Shared;
 using HarmonyLib;
+using MEC;
 using Nebuli.API.Features;
 using Nebuli.API.Interfaces;
 using Nebuli.Events;
@@ -46,7 +47,7 @@ public class Loader
         {
             Log.Info("Nebuli Loader is disabled, Nebuli will not load");
             return;
-        }
+        }       
 
         if (_loaded) return;
         else _loaded = true;
@@ -85,6 +86,19 @@ public class Loader
         {
             Log.Error($"A error has occured while patching! Full error: \n{e}");
         }
+
+        try
+        {
+            Timing.CallDelayed(5, () =>
+            {
+                //PermissionHandler.LoadPermissionHandler();
+            });
+        }
+        catch(Exception e) 
+        {
+            Log.Error("Error occured while loading permission handler! Full error -->\n" + e);
+        }
+       
     }
 
     [PluginUnload]
@@ -249,7 +263,7 @@ public class Loader
 
     private static IConfiguration SetupPluginConfig(IPlugin<IConfiguration> plugin, ISerializer serializer, IDeserializer deserializer)
     {
-        string configPath = Path.Combine(Paths.PluginConfigDirectory.FullName, plugin.Name + "_Config.yml");
+        string configPath = Path.Combine(Paths.PluginPortConfigDirectory.FullName, plugin.Name + $"-({Server.ServerPort})-Config.yml");
         try
         {
             if (!File.Exists(configPath))

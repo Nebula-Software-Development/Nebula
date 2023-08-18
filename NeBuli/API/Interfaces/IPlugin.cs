@@ -21,7 +21,7 @@ public interface IPlugin<out TConfig> where TConfig : IConfiguration
     string Name { get; }
 
     /// <summary>
-    /// Gets the plugin's author.
+    /// Gets the plugin's creator.
     /// </summary>
     string Creator { get; }
 

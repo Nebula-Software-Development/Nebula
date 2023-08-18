@@ -1,5 +1,10 @@
 ﻿using System.IO;
+using System.Linq;
+using System.Text;
+using YamlDotNet.Serialization.NamingConventions;
+using YamlDotNet.Serialization;
 using NwPaths = PluginAPI.Helpers.Paths;
+using System.Collections.Generic;
 
 namespace Nebuli.API.Features;
 
@@ -28,10 +33,11 @@ public static class Paths
     /// </summary>
     public static DirectoryInfo PluginConfigDirectory { get; private set; }
 
+
     /// <summary>
-    ///
+    /// Gets the current port folder for the plugin configuration files.
     /// </summary>
-    public static FileInfo Configs { get; private set; }
+    public static DirectoryInfo PluginPortConfigDirectory { get; private set; }
 
     /// <summary>
     ///
@@ -45,9 +51,9 @@ public static class Paths
     {
         MainDirectory = Directory.CreateDirectory(Path.Combine(NwPaths.AppData, "Nebuli"));
         PluginsDirectory = MainDirectory.CreateSubdirectory("Plugins");
-        PluginConfigDirectory = MainDirectory.CreateSubdirectory("PluginConfigs");
+        PluginConfigDirectory = MainDirectory.CreateSubdirectory("Plugin-Configurations");
+        PluginPortConfigDirectory = PluginConfigDirectory.CreateSubdirectory(Server.ServerPort.ToString());
         DependenciesDirectory = PluginsDirectory.CreateSubdirectory("Dependencies");
-        Configs = new FileInfo(Path.Combine(MainDirectory.FullName, "Configuration.yml"));
-        Permissions = new FileInfo(Path.Combine(MainDirectory.FullName, "Permissions.yml"));
+        Permissions = new FileInfo(Path.Combine(MainDirectory.FullName, "Permissions.yml"));       
     }
 }
