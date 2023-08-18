@@ -1,6 +1,5 @@
-﻿using HarmonyLib;
+﻿/*using HarmonyLib;
 using Hints;
-using Nebuli.API.Features;
 using Nebuli.API.Features.Player;
 using System;
 
@@ -27,3 +26,4 @@ public class ShowHint
         return true;
     }
 }
+*/

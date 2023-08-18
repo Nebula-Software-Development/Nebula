@@ -1,14 +1,20 @@
 ﻿using Nebuli.Events.EventArguments.Server;
+using System;
 
 namespace Nebuli.Events.Handlers;
 
 public static class ServerHandler
 {
-    public static event EventManager.CustomEventHandler<RoundStartedEvent> RoundStart;
 
-    public static event EventManager.CustomEventHandler<WarheadDetonating> WarheadDetonated;
+    public static event EventManager.CustomEventHandler<WarheadDetonatingEvent> WarheadDetonated;
 
-    internal static void OnRoundStart() => RoundStart.CallEvent(null);
+    public static event EventManager.CustomEventHandler MapGenerated;
 
-    internal static void OnWarheadDetonated(WarheadDetonating ev) => WarheadDetonated.CallEvent(ev);
+    public static event EventManager.CustomEventHandler WaitingForPlayers;
+
+    internal static void OnWarheadDetonated(WarheadDetonatingEvent ev) => WarheadDetonated.CallEvent(ev);
+
+    internal static void OnMapGenerated() => MapGenerated.CallEmptyEvent();
+
+    internal static void OnWaitingForPlayers() => WaitingForPlayers.CallEmptyEvent();
 }

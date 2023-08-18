@@ -4,27 +4,27 @@ namespace Nebuli.Events.Handlers;
 
 public static class Scp049Handlers
 {
-    public static event EventManager.CustomEventHandler<Scp049UseSense> Sense;
+    public static event EventManager.CustomEventHandler<Scp049UseSenseEvent> Sense;
     
-    public static event EventManager.CustomEventHandler<Scp049UseCall> Call;
+    public static event EventManager.CustomEventHandler<Scp049UseCallEvent> Call;
     
-    public static event EventManager.CustomEventHandler<Scp049StartResurrect> StartResurrect; 
+    public static event EventManager.CustomEventHandler<Scp049StartResurrectEvent> StartResurrect; 
     
-    public static event EventManager.CustomEventHandler<Scp049FinishResurrect> FinishResurrect; 
+    public static event EventManager.CustomEventHandler<Scp049FinishResurrectEvent> FinishResurrect; 
     
-    public static event EventManager.CustomEventHandler<Scp049CancelResurrect> CancelResurrect; 
+    public static event EventManager.CustomEventHandler<Scp049CancelResurrectEvent> CancelResurrect; 
     
-    public static event EventManager.CustomEventHandler<Scp049LoseSenseTarget> LoseSenseTarget; 
+    public static event EventManager.CustomEventHandler<Scp049LoseSenseTargetEvent> LoseSenseTarget; 
 
-    internal static void OnSense(Scp049UseSense ev) => Sense.CallEvent(ev);
+    internal static void OnSense(Scp049UseSenseEvent ev) => Sense.CallEvent(ev);
     
-    internal static void OnCall(Scp049UseCall ev) => Call.CallEvent(ev);
+    internal static void OnCall(Scp049UseCallEvent ev) => Call.CallEvent(ev);
     
-    internal static void OnStartResurrect(Scp049StartResurrect ev) => StartResurrect.CallEvent(ev);
+    internal static void OnStartResurrect(Scp049StartResurrectEvent ev) => StartResurrect.CallEvent(ev);
     
-    internal static void OnFinishResurrect(Scp049FinishResurrect ev) => FinishResurrect.CallEvent(ev);
+    internal static void OnFinishResurrect(Scp049FinishResurrectEvent ev) => FinishResurrect.CallEvent(ev);
     
-    internal static void OnCancelResurrect(Scp049CancelResurrect ev) => CancelResurrect.CallEvent(ev);
+    internal static void OnCancelResurrect(Scp049CancelResurrectEvent ev) => CancelResurrect.CallEvent(ev);
     
-    internal static void OnLoseSenseTarget(Scp049LoseSenseTarget ev) => LoseSenseTarget.CallEvent(ev);
+    internal static void OnLoseSenseTarget(Scp049LoseSenseTargetEvent ev) => LoseSenseTarget.CallEvent(ev);
 }

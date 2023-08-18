@@ -26,10 +26,10 @@ internal class PickingUpItemPatch
             new(OpCodes.Ldfld, Field(typeof(ItemSearchCompletor), nameof(ItemSearchCompletor.Hub))),
             new(OpCodes.Ldarg_0),
             new(OpCodes.Ldfld, Field(typeof(ItemSearchCompletor), nameof(ItemSearchCompletor.TargetPickup))),
-            new(OpCodes.Newobj, GetDeclaredConstructors(typeof(PlayerPickingUpItem))[0]),
+            new(OpCodes.Newobj, GetDeclaredConstructors(typeof(PlayerPickingUpItemEvent))[0]),
             new(OpCodes.Dup),
             new(OpCodes.Call, Method(typeof(PlayerHandlers), nameof(PlayerHandlers.OnPickingupItem))),
-            new(OpCodes.Callvirt, PropertyGetter(typeof(PlayerPickingUpItem), nameof(PlayerPickingUpItem.IsCancelled))),
+            new(OpCodes.Callvirt, PropertyGetter(typeof(PlayerPickingUpItemEvent), nameof(PlayerPickingUpItemEvent.IsCancelled))),
             new(OpCodes.Brtrue_S, retLabel),
         });
 

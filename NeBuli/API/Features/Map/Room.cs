@@ -85,6 +85,11 @@ public class Room
     }
 
     /// <summary>
+    /// Resets the rooms color.
+    /// </summary>
+    public void ColorReset() => RoomColor = Color.clear;
+
+    /// <summary>
     /// Toggles the room lights on/off.
     /// </summary>
     /// <param name="state"></param>
@@ -116,5 +121,25 @@ public class Room
     /// </summary>
     /// <param name="position">The positon to look for a room at.</param>
     /// <returns></returns>
-    public static Room Get(Vector3 position) => RoomIdUtils.RoomAtPositionRaycasts(position, true) is RoomIdentifier roomIdentifier ? Get(roomIdentifier) : null;
+    public static Room Get(Vector3 position) => RoomIdUtils.RoomAtPositionRaycasts(position, true) is RoomIdentifier roomIdentifier ? Get(roomIdentifier) : GetNearestRoom(position);
+
+    /// <summary>
+    /// Gets the nearest room to the specified position.
+    /// </summary>
+    /// <param name="position">The position for which to find the nearest room.</param>
+    public static Room GetNearestRoom(Vector3 position)
+    {
+        Room nearestRoom = List[0];
+        float nearestDistance = Vector3.SqrMagnitude(nearestRoom.Position - position);
+        for (int i = 1; i < List.Count; i++)
+        {
+            float distance = Vector3.SqrMagnitude(List[i].Position - position);
+            if (distance < nearestDistance)
+            {
+                nearestRoom = List[i];
+                nearestDistance = distance;
+            }
+        }
+        return nearestRoom;
+    }
 }

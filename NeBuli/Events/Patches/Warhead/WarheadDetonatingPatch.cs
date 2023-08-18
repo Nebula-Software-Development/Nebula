@@ -24,10 +24,10 @@ internal class WarheadDetonatingPatch
             new(OpCodes.Callvirt, PropertyGetter(typeof(AlphaWarheadController), nameof(AlphaWarheadController.Singleton))),
             new(OpCodes.Ldfld, Field(typeof(AlphaWarheadController), nameof(AlphaWarheadController._triggeringPlayer))),
             new(OpCodes.Ldfld, Field(typeof(Footprint), nameof(Footprint.Hub))),
-            new(OpCodes.Newobj, GetDeclaredConstructors(typeof(WarheadDetonating))[0]),
+            new(OpCodes.Newobj, GetDeclaredConstructors(typeof(WarheadDetonatingEvent))[0]),
             new(OpCodes.Dup),
             new(OpCodes.Call, Method(typeof(ServerHandler), nameof(ServerHandler.OnWarheadDetonated))),
-            new(OpCodes.Callvirt, PropertyGetter(typeof(WarheadDetonating), nameof(WarheadDetonating.IsCancelled))),
+            new(OpCodes.Callvirt, PropertyGetter(typeof(WarheadDetonatingEvent), nameof(WarheadDetonatingEvent.IsCancelled))),
             new(OpCodes.Brtrue_S, retLabel)
         });
 

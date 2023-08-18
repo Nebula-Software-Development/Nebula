@@ -18,22 +18,22 @@ internal class DyingPlayer
         List<CodeInstruction> newInstructions = EventManager.CheckPatchInstructions<DyingPlayer>(37, instructions);
 
         Label retLabel = generator.DefineLabel();
-        LocalBuilder @event = generator.DeclareLocal(typeof(PlayerDying));
+        LocalBuilder @event = generator.DeclareLocal(typeof(PlayerDyingEvent));
 
         newInstructions.InsertRange(0, new CodeInstruction[]
         {
             new(OpCodes.Ldarg_0),
             new(OpCodes.Ldfld, Field(typeof(PlayerStats), nameof(PlayerStats._hub))),
             new(OpCodes.Ldarg_1),
-            new(OpCodes.Newobj, GetDeclaredConstructors(typeof(PlayerDying))[0]),
+            new(OpCodes.Newobj, GetDeclaredConstructors(typeof(PlayerDyingEvent))[0]),
             new(OpCodes.Dup),
             new(OpCodes.Dup),
             new(OpCodes.Stloc, @event.LocalIndex),
             new(OpCodes.Call, Method(typeof(PlayerHandlers), nameof(PlayerHandlers.OnDying))),
             new(OpCodes.Ldloc, @event.LocalIndex),
-            new(OpCodes.Callvirt, PropertyGetter(typeof(PlayerDying), nameof(PlayerDying.DamageHandlerBase))),
+            new(OpCodes.Callvirt, PropertyGetter(typeof(PlayerDyingEvent), nameof(PlayerDyingEvent.DamageHandlerBase))),
             new(OpCodes.Starg, 1),
-            new(OpCodes.Callvirt, PropertyGetter(typeof(PlayerHurt), nameof(PlayerHurt.IsCancelled))),
+            new(OpCodes.Callvirt, PropertyGetter(typeof(PlayerHurtEvent), nameof(PlayerHurtEvent.IsCancelled))),
             new(OpCodes.Brtrue_S, retLabel)
         }) ;    
 

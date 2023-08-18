@@ -4,55 +4,67 @@ namespace Nebuli.Events.Handlers;
 
 public static class PlayerHandlers
 {
-    public static event EventManager.CustomEventHandler<PlayerJoin> Join;
+    public static event EventManager.CustomEventHandler<PlayerJoinEvent> Join;
 
-    public static event EventManager.CustomEventHandler<PlayerLeave> Leave;
+    public static event EventManager.CustomEventHandler<PlayerLeaveEvent> Leave;
 
-    public static event EventManager.CustomEventHandler<PlayerHurt> Hurt;
+    public static event EventManager.CustomEventHandler<PlayerHurtEvent> Hurt;
 
-    public static event EventManager.CustomEventHandler<PlayerDying> Dying;
+    public static event EventManager.CustomEventHandler<PlayerDyingEvent> Dying;
 
-    public static event EventManager.CustomEventHandler<PlayerBanned> Banned;
+    public static event EventManager.CustomEventHandler<PlayerBannedEvent> Banned;
 
     public static event EventManager.CustomEventHandler<PlayerShotEventArgs> Shot;
 
-    public static event EventManager.CustomEventHandler<PlayerRoleChange> RoleChange;
+    public static event EventManager.CustomEventHandler<PlayerRoleChangeEvent> RoleChange;
 
-    public static event EventManager.CustomEventHandler<PlayerTriggeringTesla> TriggeringTesla;
+    public static event EventManager.CustomEventHandler<PlayerTriggeringTeslaEvent> TriggeringTesla;
 
-    public static event EventManager.CustomEventHandler<PlayerEscaping> Escaping;
+    public static event EventManager.CustomEventHandler<PlayerEscapingEvent> Escaping;
 
-    public static event EventManager.CustomEventHandler<PlayerPickingUpItem> PickingUpItem;
+    public static event EventManager.CustomEventHandler<PlayerPickingUpItemEvent> PickingUpItem;
      
-    public static event EventManager.CustomEventHandler<PlayerDroppingItem> DroppingItem;
+    public static event EventManager.CustomEventHandler<PlayerDroppingItemEvent> DroppingItem;
 
-    public static event EventManager.CustomEventHandler<PlayerPickingUpAmmo> PickingUpAmmo;
+    public static event EventManager.CustomEventHandler<PlayerPickingUpAmmoEvent> PickingUpAmmo;
 
-    public static event EventManager.CustomEventHandler<PlayerEscapingPocket> EscapingPocket;
+    public static event EventManager.CustomEventHandler<PlayerEscapingPocketEvent> EscapingPocket;
 
-    internal static void OnJoin(PlayerJoin ev) => Join.CallEvent(ev);
+    public static event EventManager.CustomEventHandler<PlayerChangingUserGroupEvent> UserChangingUserGroup;
 
-    internal static void OnLeave(PlayerLeave ev) => Leave.CallEvent(ev);
+    public static event EventManager.CustomEventHandler<PlayerSpawningRagdollEvent> SpawningRagdoll;
 
-    internal static void OnHurt(PlayerHurt ev) => Hurt.CallEvent(ev);
+    public static event EventManager.CustomEventHandler<PlayerSpawningEvent> Spawning;
 
-    internal static void OnDying(PlayerDying ev) => Dying.CallEvent(ev);
+    internal static void OnJoin(PlayerJoinEvent ev) => Join.CallEvent(ev);
 
-    internal static void OnBanned(PlayerBanned ev) => Banned.CallEvent(ev);
+    internal static void OnLeave(PlayerLeaveEvent ev) => Leave.CallEvent(ev);
+
+    internal static void OnHurt(PlayerHurtEvent ev) => Hurt.CallEvent(ev);
+
+    internal static void OnDying(PlayerDyingEvent ev) => Dying.CallEvent(ev);
+
+    internal static void OnBanned(PlayerBannedEvent ev) => Banned.CallEvent(ev);
 
     internal static void OnShot(PlayerShotEventArgs ev) => Shot.CallEvent(ev);
 
-    internal static void OnRoleChange(PlayerRoleChange ev) => RoleChange.CallEvent(ev);
+    internal static void OnRoleChange(PlayerRoleChangeEvent ev) => RoleChange.CallEvent(ev);
 
-    internal static void OnTriggerTesla(PlayerTriggeringTesla ev) => TriggeringTesla.CallEvent(ev);
+    internal static void OnTriggerTesla(PlayerTriggeringTeslaEvent ev) => TriggeringTesla.CallEvent(ev);
 
-    internal static void OnEscaping(PlayerEscaping ev) => Escaping.CallEvent(ev);
+    internal static void OnEscaping(PlayerEscapingEvent ev) => Escaping.CallEvent(ev);
 
-    internal static void OnPickingupItem(PlayerPickingUpItem ev) => PickingUpItem.CallEvent(ev);
+    internal static void OnPickingupItem(PlayerPickingUpItemEvent ev) => PickingUpItem.CallEvent(ev);
 
-    internal static void OnDroppingItem(PlayerDroppingItem ev) => DroppingItem.CallEvent(ev);
+    internal static void OnDroppingItem(PlayerDroppingItemEvent ev) => DroppingItem.CallEvent(ev);
 
-    internal static void OnPickingUpAmmo(PlayerPickingUpAmmo ev) => PickingUpAmmo.CallEvent(ev);
+    internal static void OnPickingUpAmmo(PlayerPickingUpAmmoEvent ev) => PickingUpAmmo.CallEvent(ev);
 
-    internal static void OnEscapingPocket(PlayerEscapingPocket ev) => EscapingPocket.CallEvent(ev);
- }
+    internal static void OnEscapingPocket(PlayerEscapingPocketEvent ev) => EscapingPocket.CallEvent(ev);
+
+    internal static void OnChangingUserGroup(PlayerChangingUserGroupEvent ev) => UserChangingUserGroup.CallEvent(ev); 
+
+    internal static void OnSpawningRagdoll(PlayerSpawningRagdollEvent ev) => SpawningRagdoll.CallEvent(ev);
+
+    internal static void OnSpawning(PlayerSpawningEvent ev) => Spawning.CallEvent(ev);
+}

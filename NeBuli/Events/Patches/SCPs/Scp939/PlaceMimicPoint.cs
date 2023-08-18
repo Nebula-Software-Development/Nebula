@@ -38,10 +38,10 @@ internal class PlaceMimicPoint
         {
             new CodeInstruction(OpCodes.Ldarg_0).MoveLabelsFrom(newInstructions[index]),
             new(OpCodes.Callvirt, PropertyGetter(typeof(MimicPointController), nameof(MimicPointController.Owner))),
-            new(OpCodes.Newobj, GetDeclaredConstructors(typeof(Scp939PlaceMimicPoint))[0]),
+            new(OpCodes.Newobj, GetDeclaredConstructors(typeof(Scp939PlaceMimicPointEvent))[0]),
             new(OpCodes.Dup),
             new(OpCodes.Call, Method(typeof(Scp939Handlers), nameof(Scp939Handlers.OnPlaceMimicPoint))),
-            new(OpCodes.Callvirt, PropertyGetter(typeof(Scp939PlaceMimicPoint), nameof(Scp939PlaceMimicPoint.IsCancelled))),
+            new(OpCodes.Callvirt, PropertyGetter(typeof(Scp939PlaceMimicPointEvent), nameof(Scp939PlaceMimicPointEvent.IsCancelled))),
             new(OpCodes.Brtrue_S, retLabel),
         });
 

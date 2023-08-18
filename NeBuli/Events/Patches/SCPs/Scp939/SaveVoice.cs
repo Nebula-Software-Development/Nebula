@@ -24,10 +24,10 @@ internal class SaveVoice
             new(OpCodes.Ldarg_0),
             new(OpCodes.Callvirt, PropertyGetter(typeof(MimicryRecorder), nameof(MimicryRecorder.Owner))),
             new(OpCodes.Ldarg_1),
-            new(OpCodes.Newobj, GetDeclaredConstructors(typeof(Scp939SavePlayerVoice))[0]),
+            new(OpCodes.Newobj, GetDeclaredConstructors(typeof(Scp939SavePlayerVoiceEvent))[0]),
             new(OpCodes.Dup),
             new(OpCodes.Call, Method(typeof(Scp939Handlers), nameof(Scp939Handlers.OnSaveVoice))),
-            new(OpCodes.Callvirt, PropertyGetter(typeof(Scp939SavePlayerVoice), nameof(Scp939SavePlayerVoice.IsCancelled))),
+            new(OpCodes.Callvirt, PropertyGetter(typeof(Scp939SavePlayerVoiceEvent), nameof(Scp939SavePlayerVoiceEvent.IsCancelled))),
             new(OpCodes.Brtrue_S, retLabel),
         });
         

@@ -24,10 +24,10 @@ internal class PlayerEscapePocketDimensionPatch
         {
            new(OpCodes.Ldloc_1),
            new(OpCodes.Ldc_I4_1),
-           new(OpCodes.Newobj, GetDeclaredConstructors(typeof(PlayerEscapingPocket))[0]),
+           new(OpCodes.Newobj, GetDeclaredConstructors(typeof(PlayerEscapingPocketEvent))[0]),
            new(OpCodes.Dup),
            new(OpCodes.Call, Method(typeof(PlayerHandlers), nameof(PlayerHandlers.OnEscapingPocket))),
-           new(OpCodes.Callvirt, PropertyGetter(typeof(PlayerEscapingPocket), nameof(PlayerEscapingPocket.IsCancelled))),
+           new(OpCodes.Callvirt, PropertyGetter(typeof(PlayerEscapingPocketEvent), nameof(PlayerEscapingPocketEvent.IsCancelled))),
            new(OpCodes.Brtrue_S, retLabel),
         });
 
@@ -37,10 +37,10 @@ internal class PlayerEscapePocketDimensionPatch
         {
            new(OpCodes.Ldloc_1),
            new(OpCodes.Ldc_I4_0),
-           new(OpCodes.Newobj, GetDeclaredConstructors(typeof(PlayerEscapingPocket))[0]),
+           new(OpCodes.Newobj, GetDeclaredConstructors(typeof(PlayerEscapingPocketEvent))[0]),
            new(OpCodes.Dup),
            new(OpCodes.Call, Method(typeof(PlayerHandlers), nameof(PlayerHandlers.OnEscapingPocket))),
-           new(OpCodes.Callvirt, PropertyGetter(typeof(PlayerEscapingPocket), nameof(PlayerEscapingPocket.IsCancelled))),
+           new(OpCodes.Callvirt, PropertyGetter(typeof(PlayerEscapingPocketEvent), nameof(PlayerEscapingPocketEvent.IsCancelled))),
            new(OpCodes.Brtrue_S, retLabel),
         });
 

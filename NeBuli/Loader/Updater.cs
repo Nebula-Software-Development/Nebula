@@ -1,6 +1,8 @@
 ﻿using Newtonsoft.Json;
+using PluginAPI.Core;
 using PluginAPI.Loader;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
@@ -137,10 +139,9 @@ namespace Nebuli.Loader
         }
         public static string FindNebuliPath()
         {
-            var nebuliPlugin = AssemblyLoader.Plugins
-                .SelectMany(assemblyEntry => assemblyEntry.Value)
-                .FirstOrDefault(pluginEntry => pluginEntry.Value.PluginName == "Nebuli Loader");
-
+            KeyValuePair<Type, PluginHandler> nebuliPlugin = 
+                AssemblyLoader.Plugins.SelectMany(assemblyEntry => assemblyEntry.Value)
+                .FirstOrDefault(pluginEntry => pluginEntry.Value.PluginName == "Nebuli Loader" && pluginEntry.Value.PluginVersion == NebuliInfo.NebuliVersionConst);
             return nebuliPlugin.Value.PluginFilePath;
         }
     }

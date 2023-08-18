@@ -25,10 +25,10 @@ internal class PlaceTantrum
         {
             new CodeInstruction(OpCodes.Ldarg_0).MoveLabelsFrom(newInstructions[index]),
             new(OpCodes.Callvirt, PropertyGetter(typeof(Scp173TantrumAbility), nameof(Scp173TantrumAbility.Owner))),
-            new(OpCodes.Newobj, GetDeclaredConstructors(typeof(Scp173PlaceTantrum))[0]),
+            new(OpCodes.Newobj, GetDeclaredConstructors(typeof(Scp173PlaceTantrumEvent))[0]),
             new(OpCodes.Dup),
             new(OpCodes.Call, Method(typeof(Scp173Handlers), nameof(Scp173Handlers.OnPlaceTantrum))),
-            new(OpCodes.Callvirt, PropertyGetter(typeof(Scp173PlaceTantrum), nameof(Scp173PlaceTantrum.IsCancelled))),
+            new(OpCodes.Callvirt, PropertyGetter(typeof(Scp173PlaceTantrumEvent), nameof(Scp173PlaceTantrumEvent.IsCancelled))),
             new(OpCodes.Brtrue_S, retLabel)
         });
         

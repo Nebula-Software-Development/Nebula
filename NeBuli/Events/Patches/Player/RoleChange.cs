@@ -18,7 +18,7 @@ internal class RoleChange
         List<CodeInstruction> newInstructions = EventManager.CheckPatchInstructions<RoleChange>(111, instructions);
         
         Label retLabel = generator.DefineLabel();
-        LocalBuilder @event = generator.DeclareLocal(typeof(PlayerRoleChange));
+        LocalBuilder @event = generator.DeclareLocal(typeof(PlayerRoleChangeEvent));
         
         newInstructions.InsertRange(0, new CodeInstruction[]
         {
@@ -27,21 +27,21 @@ internal class RoleChange
             new(OpCodes.Ldarg_1),
             new(OpCodes.Ldarg_2),
             new(OpCodes.Ldarg_3),
-            new(OpCodes.Newobj, GetDeclaredConstructors(typeof(PlayerRoleChange))[0]),
+            new(OpCodes.Newobj, GetDeclaredConstructors(typeof(PlayerRoleChangeEvent))[0]),
             new(OpCodes.Stloc_S, @event.LocalIndex),
             new(OpCodes.Ldloc_S, @event.LocalIndex),
             new(OpCodes.Call, Method(typeof(PlayerHandlers), nameof(PlayerHandlers.OnRoleChange))),
             new(OpCodes.Ldloc_S, @event.LocalIndex),
-            new(OpCodes.Callvirt, PropertyGetter(typeof(PlayerRoleChange), nameof(PlayerRoleChange.IsCancelled))),
+            new(OpCodes.Callvirt, PropertyGetter(typeof(PlayerRoleChangeEvent), nameof(PlayerRoleChangeEvent.IsCancelled))),
             new(OpCodes.Brtrue_S, retLabel),
             new(OpCodes.Ldloc_S, @event.LocalIndex),
-            new(OpCodes.Callvirt, PropertyGetter(typeof(PlayerRoleChange), nameof(PlayerRoleChange.NewRole))),
+            new(OpCodes.Callvirt, PropertyGetter(typeof(PlayerRoleChangeEvent), nameof(PlayerRoleChangeEvent.NewRole))),
             new(OpCodes.Starg_S, 1),
             new(OpCodes.Ldloc_S, @event.LocalIndex),
-            new(OpCodes.Callvirt, PropertyGetter(typeof(PlayerRoleChange), nameof(PlayerRoleChange.Reason))),
+            new(OpCodes.Callvirt, PropertyGetter(typeof(PlayerRoleChangeEvent), nameof(PlayerRoleChangeEvent.Reason))),
             new(OpCodes.Starg_S, 2),
             new(OpCodes.Ldloc_S, @event.LocalIndex),
-            new(OpCodes.Callvirt, PropertyGetter(typeof(PlayerRoleChange), nameof(PlayerRoleChange.SpawnFlags))),
+            new(OpCodes.Callvirt, PropertyGetter(typeof(PlayerRoleChangeEvent), nameof(PlayerRoleChangeEvent.SpawnFlags))),
             new(OpCodes.Starg_S, 3),
         });
         

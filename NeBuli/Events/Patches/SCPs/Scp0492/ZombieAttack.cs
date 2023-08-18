@@ -27,10 +27,10 @@ internal class ZombieAttack
             new CodeInstruction(OpCodes.Ldarg_0).MoveLabelsFrom(newInstructions[index]),
             new(OpCodes.Callvirt, PropertyGetter(typeof(ScpAttackAbilityBase<ZombieRole>), nameof(ScpAttackAbilityBase<ZombieRole>.Owner))),
             new(OpCodes.Ldloc_S, 4),
-            new(OpCodes.Newobj, GetDeclaredConstructors(typeof(Scp0492Attack))[0]),
+            new(OpCodes.Newobj, GetDeclaredConstructors(typeof(Scp0492AttackEvent))[0]),
             new(OpCodes.Dup),
             new(OpCodes.Call, Method(typeof(Scp0492Handlers), nameof(Scp0492Handlers.OnAttack))),
-            new(OpCodes.Callvirt, PropertyGetter(typeof(Scp0492Attack), nameof(Scp0492Attack.IsCancelled))),
+            new(OpCodes.Callvirt, PropertyGetter(typeof(Scp0492AttackEvent), nameof(Scp0492AttackEvent.IsCancelled))),
             new(OpCodes.Brtrue_S, retLabel)
         });
         

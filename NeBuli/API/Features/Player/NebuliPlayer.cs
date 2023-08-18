@@ -2,9 +2,12 @@
 using CommandSystem;
 using CustomPlayerEffects;
 using Footprinting;
+using GameCore;
 using Hints;
 using InventorySystem;
 using InventorySystem.Disarming;
+using InventorySystem.Items.Firearms.Attachments;
+using InventorySystem.Items.Firearms;
 using MapGeneration;
 using Mirror;
 using Nebuli.API.Features.Enum;
@@ -14,15 +17,21 @@ using Nebuli.API.Features.Roles;
 using PlayerRoles;
 using PlayerRoles.FirstPersonControl;
 using PlayerStatsSystem;
-using PluginAPI.Roles;
 using RelativePositioning;
 using RemoteAdmin;
+using System;
 using System.Collections.Generic;
 using System.Data;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using UnityEngine;
 using VoiceChat;
+using static System.Net.Mime.MediaTypeNames;
+using Firearm = Nebuli.API.Features.Items.Firearm;
+using Nebuli.API.Features.Structs;
+using Nebuli.API.Extensions;
+using InventorySystem.Items.Firearms.Attachments.Components;
 
 namespace Nebuli.API.Features.Player;
 
@@ -183,7 +192,7 @@ public class NebuliPlayer
     private Role currentRole = null;
 
     /// <summary>
-    /// Gets the players current <see cref="PlayerRoleBase"/>.
+    /// Gets the players current <see cref="Roles.Role"/>.
     /// </summary>
     public Role Role
     {
@@ -227,6 +236,36 @@ public class NebuliPlayer
     {
         get => Transform.eulerAngles;
         set => ReferenceHub.TryOverridePosition(Position, value);
+    }
+
+    /// <summary>
+    /// Gets or sets if the player has a reserved slot.
+    /// </summary>
+    public bool HasReservedSlot
+    {
+        get => ReservedSlot.HasReservedSlot(UserId, out _);
+        set
+        {
+            string path = ConfigSharing.Paths[3] + "UserIDReservedSlots.txt";
+            if (value)
+            {
+                ReservedSlot.Reload();
+                using StreamWriter streamWriter = new(path);
+                streamWriter.WriteLine(UserId);
+                ReservedSlot.Users.Add(UserId);
+            }
+            else
+            {
+                string[] lines = File.ReadAllLines(path);
+                List<string> newLines = new();
+                foreach (string line in lines.Where(line => !line.Contains(UserId)))
+                {
+                    newLines.Add(line);
+                }
+                File.WriteAllLines(path, newLines);
+                ReservedSlot.Reload();
+            }
+        }
     }
 
     /// <summary>
@@ -858,6 +897,21 @@ public class NebuliPlayer
     }
 
     /// <summary>
+    /// Gets the players firearm preferences.
+    /// </summary>
+    public Dictionary<FirearmType, AttachmentIdentity[]> Preferences
+    {
+        get
+        {
+            if (Firearm.PlayerPreferences.TryGetValue(this, out Dictionary<FirearmType, AttachmentIdentity[]> prefs))
+            {
+                return prefs;
+            }
+            return new Dictionary<FirearmType, AttachmentIdentity[]>();
+        }
+    }
+
+    /// <summary>
     /// Sends a broadcast to the player.
     /// </summary>
     /// <param name="message">The message that will be shown.</param>
@@ -956,6 +1010,26 @@ public class NebuliPlayer
     /// <param name="item">The item to add.</param>
     public Item AddItem(ItemType item)
     {
+        if (item.IsFirearmType())
+        {
+            Firearm firearm = Item.Get(Inventory.ServerAddItem(item)) as Firearm;
+
+            if (Preferences is not null && Preferences.TryGetValue(item.ToFirearmType(), out AttachmentIdentity[] attachments))
+            {
+                firearm.Base.ApplyAttachmentsCode((uint)attachments.Sum(attachment => attachment.Code), true);
+            }
+
+            FirearmStatusFlags flags = FirearmStatusFlags.MagazineInserted;
+
+            if (firearm.Attachments.Any(a => a.Name == AttachmentName.Flashlight))
+            {
+                flags |= FirearmStatusFlags.FlashlightEnabled;
+            }
+
+            firearm.Base.Status = new FirearmStatus(firearm.MaxAmmo, flags, firearm.Base.GetCurrentAttachmentsCode());
+            return firearm;
+        }
+
         return Item.Get(Inventory.ServerAddItem(item));
     }
     
@@ -971,9 +1045,9 @@ public class NebuliPlayer
     /// <returns></returns>
     public static bool HasAnyPermission(NebuliPlayer player)
     {
-        foreach (var perm in PermissionsHandler.PermissionCodes)
+        foreach (PlayerPermissions perm in PermissionsHandler.PermissionCodes.Keys)
         {
-            if (player.HasPermission(perm.Key))
+            if (player.HasPermission(perm))
                 return true;
         }
         return false;

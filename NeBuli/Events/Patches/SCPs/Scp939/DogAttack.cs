@@ -25,10 +25,10 @@ internal class DogAttack
             new(OpCodes.Callvirt, PropertyGetter(typeof(Scp939ClawAbility), nameof(Scp939ClawAbility.Owner))),
             new(OpCodes.Ldarg_1),
             new(OpCodes.Callvirt, PropertyGetter(typeof(IDestructible), nameof(IDestructible.NetworkId))),
-            new(OpCodes.Newobj, GetDeclaredConstructors(typeof(Scp939Attack))[0]),
+            new(OpCodes.Newobj, GetDeclaredConstructors(typeof(Scp939AttackEvent))[0]),
             new(OpCodes.Dup),
             new(OpCodes.Call, Method(typeof(Scp939Handlers), nameof(Scp939Handlers.OnAttack))),
-            new(OpCodes.Callvirt, PropertyGetter(typeof(Scp939Attack), nameof(Scp939Attack.IsCancelled))),
+            new(OpCodes.Callvirt, PropertyGetter(typeof(Scp939AttackEvent), nameof(Scp939AttackEvent.IsCancelled))),
             new(OpCodes.Brtrue_S, retLabel)
         });
         

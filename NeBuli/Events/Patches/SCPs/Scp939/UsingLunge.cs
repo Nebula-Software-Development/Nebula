@@ -21,7 +21,7 @@ internal class UsingLunge
         {
             new(OpCodes.Ldarg_0),
             new(OpCodes.Callvirt, PropertyGetter(typeof(Scp939LungeAbility), nameof(Scp939LungeAbility.Owner))),
-            new(OpCodes.Newobj, GetDeclaredConstructors(typeof(Scp939UseLunge))[0]),
+            new(OpCodes.Newobj, GetDeclaredConstructors(typeof(Scp939UseLungeEvent))[0]),
             new(OpCodes.Call, Method(typeof(Scp939Handlers), nameof(Scp939Handlers.OnUseLunge))),
         });
         

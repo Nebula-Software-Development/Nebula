@@ -23,10 +23,10 @@ internal class LoseSenseTarget
         {
             new(OpCodes.Ldarg_0),
             new(OpCodes.Callvirt, PropertyGetter(typeof(Scp049SenseAbility), nameof(Scp049SenseAbility.Owner))),
-            new(OpCodes.Newobj, GetDeclaredConstructors(typeof(Scp049LoseSenseTarget))[0]),
+            new(OpCodes.Newobj, GetDeclaredConstructors(typeof(Scp049LoseSenseTargetEvent))[0]),
             new(OpCodes.Dup),
             new(OpCodes.Call, Method(typeof(Scp049Handlers), nameof(Scp049Handlers.OnLoseSenseTarget))),
-            new(OpCodes.Callvirt, PropertyGetter(typeof(Scp049LoseSenseTarget), nameof(Scp049LoseSenseTarget.IsCancelled))),
+            new(OpCodes.Callvirt, PropertyGetter(typeof(Scp049LoseSenseTargetEvent), nameof(Scp049LoseSenseTargetEvent.IsCancelled))),
             new(OpCodes.Brtrue_S, retLabel),
         });
         

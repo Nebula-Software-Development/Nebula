@@ -18,7 +18,7 @@ internal class TriggerSense
         List<CodeInstruction> newInstructions = EventManager.CheckPatchInstructions<TriggerSense>(75, instructions);
         
         Label retLabel = generator.DefineLabel();
-        LocalBuilder @event = generator.DeclareLocal(typeof(Scp049UseSense));
+        LocalBuilder @event = generator.DeclareLocal(typeof(Scp049UseSenseEvent));
         
         int index = newInstructions.FindIndex(i => i.opcode == OpCodes.Ldc_I4_0) - 1;
         
@@ -30,16 +30,16 @@ internal class TriggerSense
             new(OpCodes.Callvirt, PropertyGetter(typeof(Scp049SenseAbility), nameof(Scp049SenseAbility.Target))),
             new(OpCodes.Ldarg_0),
             new(OpCodes.Ldfld, Field(typeof(Scp049SenseAbility), nameof(Scp049SenseAbility._distanceThreshold))),
-            new(OpCodes.Newobj, GetDeclaredConstructors(typeof(Scp049UseSense))[0]),
+            new(OpCodes.Newobj, GetDeclaredConstructors(typeof(Scp049UseSenseEvent))[0]),
             new(OpCodes.Dup),
             new(OpCodes.Call, Method(typeof(Scp049Handlers), nameof(Scp049Handlers.OnSense))),
             new(OpCodes.Stloc_S, @event.LocalIndex),
             new(OpCodes.Ldloc_S, @event.LocalIndex),
-            new(OpCodes.Callvirt, PropertyGetter(typeof(Scp049UseSense), nameof(Scp049UseSense.IsCancelled))),
+            new(OpCodes.Callvirt, PropertyGetter(typeof(Scp049UseSenseEvent), nameof(Scp049UseSenseEvent.IsCancelled))),
             new(OpCodes.Brtrue_S, retLabel),
             new(OpCodes.Ldarg_0),
             new(OpCodes.Ldloc_S, @event.LocalIndex),
-            new(OpCodes.Callvirt, PropertyGetter(typeof(Scp049UseSense), nameof(Scp049UseSense.Distance))),
+            new(OpCodes.Callvirt, PropertyGetter(typeof(Scp049UseSenseEvent), nameof(Scp049UseSenseEvent.Distance))),
             new(OpCodes.Stfld, Field(typeof(Scp049SenseAbility), nameof(Scp049SenseAbility._distanceThreshold))),
         });
         

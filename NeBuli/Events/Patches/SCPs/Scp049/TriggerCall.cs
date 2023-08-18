@@ -24,10 +24,10 @@ internal class TriggerCall
         {
             new CodeInstruction(OpCodes.Ldarg_0).MoveLabelsFrom(newInstructions[index]),
             new(OpCodes.Callvirt, PropertyGetter(typeof(Scp049CallAbility), nameof(Scp049CallAbility.Owner))),
-            new(OpCodes.Newobj, GetDeclaredConstructors(typeof(Scp049UseCall))[0]),
+            new(OpCodes.Newobj, GetDeclaredConstructors(typeof(Scp049UseCallEvent))[0]),
             new(OpCodes.Dup),
             new(OpCodes.Call, Method(typeof(Scp049Handlers), nameof(Scp049Handlers.OnCall))),
-            new(OpCodes.Callvirt, PropertyGetter(typeof(Scp049UseCall), nameof(Scp049UseCall.IsCancelled))),
+            new(OpCodes.Callvirt, PropertyGetter(typeof(Scp049UseCallEvent), nameof(Scp049UseCallEvent.IsCancelled))),
             new(OpCodes.Brtrue_S, retLabel),
         });
         

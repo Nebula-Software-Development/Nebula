@@ -1,5 +1,6 @@
 ﻿using CommandSystem.Commands.Shared;
 using HarmonyLib;
+using MEC;
 using Nebuli.API.Features;
 using Nebuli.API.Interfaces;
 using Nebuli.Events;
@@ -38,7 +39,7 @@ public class Loader
     [PluginConfig]
     public static LoaderConfiguration Configuration;
 
-    [PluginEntryPoint("Nebuli Loader", "0, 0, 0", "Nebuli Plugin Framework", "Nebuli Team")]
+    [PluginEntryPoint("Nebuli Loader", $"{NebuliInfo.NebuliVersionConst}", "Nebuli Plugin Framework", "Nebuli Team")]
     [PluginPriority(LoadPriority.Highest)]
     public void FrameworkLoader()
     {
@@ -46,7 +47,7 @@ public class Loader
         {
             Log.Info("Nebuli Loader is disabled, Nebuli will not load");
             return;
-        }
+        }       
 
         if (_loaded) return;
         else _loaded = true;
@@ -79,12 +80,25 @@ public class Loader
                 _harmony.PatchAll();
             }
             else
-                Log.Info("Event patching is disabled, Events will not work");
+                Log.Warning("Event patching is disabled, Events will not work");
         }
         catch (Exception e)
         {
             Log.Error($"A error has occured while patching! Full error: \n{e}");
         }
+
+        try
+        {
+            Timing.CallDelayed(5, () =>
+            {
+                //PermissionHandler.LoadPermissionHandler();
+            });
+        }
+        catch(Exception e) 
+        {
+            Log.Error("Error occured while loading permission handler! Full error -->\n" + e);
+        }
+       
     }
 
     [PluginUnload]
@@ -148,14 +162,12 @@ public class Loader
                 IConfiguration config = SetupPluginConfig(newPlugin, Serializer, Deserializer);
 
                 if (!config.IsEnabled)
-                {
                     continue;
-                }
-
-                Log.Info($"Plugin '{newPlugin.Name}' by '{newPlugin.Creator}', (v{newPlugin.Version}), has been successfully enabled!");
 
                 newPlugin.LoadCommands();
                 newPlugin.OnEnabled();
+
+                Log.Info($"Plugin '{newPlugin.Name}' by '{newPlugin.Creator}', (v{newPlugin.Version}), has been successfully enabled!");
 
                 _plugins.Add(loadPlugin, config);
 
@@ -206,10 +218,7 @@ public class Loader
         }
     }
 
-    private static bool IsDerivedFromPlugin(Type type)
-    {
-        return typeof(IPlugin<IConfiguration>).IsAssignableFrom(type) && !type.IsAbstract && !type.IsInterface;
-    }
+    private static bool IsDerivedFromPlugin(Type type) => typeof(IPlugin<IConfiguration>).IsAssignableFrom(type) && !type.IsAbstract && !type.IsInterface;
 
     private bool IsPluginOutdated(IPlugin<IConfiguration> plugin)
     {
@@ -254,7 +263,7 @@ public class Loader
 
     private static IConfiguration SetupPluginConfig(IPlugin<IConfiguration> plugin, ISerializer serializer, IDeserializer deserializer)
     {
-        string configPath = Path.Combine(Paths.PluginConfigDirectory.FullName, plugin.Name + "_Config.yml");
+        string configPath = Path.Combine(Paths.PluginPortConfigDirectory.FullName, plugin.Name + $"-({Server.ServerPort})-Config.yml");
         try
         {
             if (!File.Exists(configPath))
@@ -263,6 +272,7 @@ public class Loader
                 Log.Debug("Serializing new config and writing it to the path...");
                 File.WriteAllText(configPath, serializer.Serialize(plugin.Config));
                 configPaths.Add(plugin.Config, configPath);
+                PluginConfig.Add(plugin, plugin.Config);
                 return plugin.Config;
             }
             else
@@ -271,6 +281,7 @@ public class Loader
                 IConfiguration config = (IConfiguration)deserializer.Deserialize(File.ReadAllText(configPath), plugin.Config.GetType());
                 configPaths.Add(config, configPath);
                 plugin.ReloadConfig(config);
+                PluginConfig.Add(plugin, config);
                 return config;
             }
         }
@@ -286,16 +297,18 @@ public class Loader
         }
     }
 
-    private static void ReloadConfigs()
+    internal static void ReloadConfigs()
     {
         Log.Info("Reloading plugin configs...");
-
-        foreach (IPlugin<IConfiguration> plugin in PluginConfig.Keys)
+        foreach (IPlugin<IConfiguration> plugin in PluginConfig.Keys.ToList())
         {
             try
             {
-                plugin.ReloadConfig((IConfiguration)Deserializer.Deserialize(File.ReadAllText(configPaths[plugin.Config]), plugin.Config.GetType()));
-                PluginConfig[plugin] = plugin.Config;
+                Log.Info($"Reloading plugin configs for {plugin.Name}...");
+                IConfiguration newConfig = (IConfiguration)Deserializer.Deserialize(File.ReadAllText(configPaths[plugin.Config]), plugin.Config.GetType());
+                plugin.ReloadConfig(newConfig);
+
+                PluginConfig[plugin] = newConfig;
             }
             catch (Exception e)
             {
