@@ -28,7 +28,6 @@ internal class HurtPlayer
             new CodeInstruction(OpCodes.Ldloc_2).MoveLabelsFrom(newInstructions[index]),
             new(OpCodes.Ldarg_0),
             new(OpCodes.Ldfld, Field(typeof(PlayerStats), nameof(PlayerStats._hub))),
-
             new(OpCodes.Ldarg_1),
             new(OpCodes.Newobj, GetDeclaredConstructors(typeof(PlayerHurtEvent))[0]),
             new(OpCodes.Dup),

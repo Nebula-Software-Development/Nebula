@@ -24,10 +24,18 @@ public static class ItemTypeExtension
     public static bool IsFirearmType(this ItemType type) => type.ToFirearmType() is not FirearmType.None;
 
     /// <summary>
+    /// Gets if the <see cref="ItemType"/> is a keycard.
+    /// </summary>
+    /// <param name="type"></param>
+    /// <returns></returns>
+    public static bool IsKeycard(this ItemType type) => Item.Create(type) is Keycard;
+
+    /// <summary>
     /// Retrieves a collection of <see cref="ItemType"/> from a collection of <see cref="Item"/>.
     /// </summary>
     public static IEnumerable<ItemType> GetItemTypesFromItems(this IEnumerable<Item> items) =>
         items.Select(item => item.ItemType);
+    
 
     /// <summary>
     /// Converts a <see cref="FirearmType"/> to its corresponding <see cref="ItemType"/>.
