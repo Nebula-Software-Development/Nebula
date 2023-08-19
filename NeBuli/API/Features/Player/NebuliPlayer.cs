@@ -19,7 +19,6 @@ using PlayerRoles.FirstPersonControl;
 using PlayerStatsSystem;
 using RelativePositioning;
 using RemoteAdmin;
-using System;
 using System.Collections.Generic;
 using System.Data;
 using System.IO;
@@ -27,11 +26,9 @@ using System.Linq;
 using System.Reflection;
 using UnityEngine;
 using VoiceChat;
-using static System.Net.Mime.MediaTypeNames;
 using Firearm = Nebuli.API.Features.Items.Firearm;
 using Nebuli.API.Features.Structs;
 using Nebuli.API.Extensions;
-using InventorySystem.Items.Firearms.Attachments.Components;
 using Nebuli.API.Internal;
 
 namespace Nebuli.API.Features.Player;
@@ -1065,7 +1062,7 @@ public class NebuliPlayer
     /// <param name="menu">The <see cref="MenuType"/> to send.</param>
     public void OpenMenu(MenuType menu)
     {
-        var menutype = "";
+        string menutype = string.Empty;
 
         switch (menu)
         {
