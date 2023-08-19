@@ -11,7 +11,7 @@ public class PlayerTriggeringTeslaEvent : EventArgs, IPlayerEvent, ICancellableE
         Player = NebuliPlayer.Get(player);
         TeslaGate = NebuliTeslaGate.Get(teslaGate);
         IsCancelled = false;
-        IsInIdleRange = teslaGate.IsInIdleRange(player);
+        IsInIdleRange = TeslaGate.IsPlayerInIdleRange(Player);
         IsTriggerable = TeslaGate.IsPlayerInHurtingRange(Player);
     }
 

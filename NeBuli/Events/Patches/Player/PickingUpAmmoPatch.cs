@@ -9,23 +9,24 @@ using static HarmonyLib.AccessTools;
 
 namespace Nebuli.Events.Patches.Player;
 
-//[HarmonyPatch(typeof(ItemSearchCompletor), nameof(AmmoSearchCompletor.Complete))]
+[HarmonyPatch(typeof(AmmoSearchCompletor), nameof(AmmoSearchCompletor.Complete))]
 internal class PickingUpAmmoPatch
 {
     [HarmonyTranspiler]
     private static IEnumerable<CodeInstruction> OnPickingupAmmo(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
-        List<CodeInstruction> newInstructions = EventManager.CheckPatchInstructions<PickingUpAmmoPatch>(37, instructions);
+        List<CodeInstruction> newInstructions = EventManager.CheckPatchInstructions<PickingUpAmmoPatch>(92, instructions);
 
         Label retLabel = generator.DefineLabel();
 
-        int index = newInstructions.FindIndex(i => i.opcode == OpCodes.Ldloc_1) + 1;
+        int index = newInstructions.FindIndex(i => i.opcode == OpCodes.Brfalse) + 1;
 
         newInstructions.InsertRange(index, new CodeInstruction[]
         {
             new(OpCodes.Ldarg_0),
-            new(OpCodes.Ldfld, Field(typeof(ItemSearchCompletor), nameof(ItemSearchCompletor.Hub))),
+            new(OpCodes.Ldfld, Field(typeof(AmmoSearchCompletor), nameof(AmmoSearchCompletor.Hub))),
             new(OpCodes.Ldarg_0),
+            new(OpCodes.Ldfld, Field(typeof(AmmoSearchCompletor), nameof(AmmoSearchCompletor.TargetPickup))),
             new(OpCodes.Newobj, GetDeclaredConstructors(typeof(PlayerPickingUpAmmoEvent))[0]),
             new(OpCodes.Dup),
             new(OpCodes.Call, Method(typeof(PlayerHandlers), nameof(PlayerHandlers.OnPickingUpAmmo))),

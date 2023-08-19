@@ -1,4 +1,5 @@
-﻿using Nebuli.API.Features.Items.Pickups;
+﻿using InventorySystem.Items.Pickups;
+using Nebuli.API.Features.Items.Pickups;
 using Nebuli.API.Features.Player;
 using System;
 
@@ -6,7 +7,7 @@ namespace Nebuli.Events.EventArguments.Player;
 
 public class PlayerPickingUpAmmoEvent : EventArgs, IPlayerEvent, ICancellableEvent
 {
-    public PlayerPickingUpAmmoEvent(ReferenceHub player, InventorySystem.Items.Firearms.Ammo.AmmoPickup ammo)
+    public PlayerPickingUpAmmoEvent(ReferenceHub player, ItemPickupBase ammo)
     {
         Player = NebuliPlayer.Get(player);
         Ammo = (AmmoPickup)Pickup.Get(ammo);

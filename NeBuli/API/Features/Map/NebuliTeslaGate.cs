@@ -66,6 +66,13 @@ namespace Nebuli.API.Features.Map
         public bool IsPlayerInHurtingRange(NebuliPlayer player) => Base.PlayerInRange(player.ReferenceHub);
 
         /// <summary>
+        /// Gets if the specified player is in the idle range of the tesla gate.
+        /// </summary>
+        /// <param name="player"></param>
+        /// <returns></returns>
+        public bool IsPlayerInIdleRange(NebuliPlayer player) => Base.IsInIdleRange(player.ReferenceHub);
+
+        /// <summary>
         /// Gets if the Vector3 position is in range of the tesla gate.
         /// </summary>
         /// <param name="position"></param>
