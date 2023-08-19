@@ -178,6 +178,7 @@
     <Compile Include="Events\EventArguments\Player\PlayerEscapingPocketEvent.cs" />
     <Compile Include="Events\EventArguments\Player\PlayerInteractingDoorEvent.cs" />
     <Compile Include="Events\EventArguments\Player\PlayerPickingUpAmmoEvent.cs" />
+    <Compile Include="Events\EventArguments\Player\PlayerPickingUpArmorEvent.cs" />
     <Compile Include="Events\EventArguments\Player\PlayerPickingUpItemEvent.cs" />
     <Compile Include="Events\EventArguments\IRadgollEvent.cs" />
     <Compile Include="Events\EventArguments\Player\PlayerRoleChangeEvent.cs" />
@@ -243,6 +244,7 @@
     <Compile Include="Events\Patches\Player\InteractingDoorEventPatch.cs" />
     <Compile Include="Events\Patches\Player\LeavingServer.cs" />
     <Compile Include="Events\Patches\Player\PickingUpAmmoPatch.cs" />
+    <Compile Include="Events\Patches\Player\PickingUpArmorPatch.cs" />
     <Compile Include="Events\Patches\Player\PickingUpItemPatch.cs" />
     <Compile Include="Events\Patches\Player\PlayerDroppingItemPatch.cs" />
     <Compile Include="Events\Patches\Player\PlayerEscapePocketDimensionPatch.cs" />
