@@ -143,6 +143,7 @@
     <Compile Include="API\Features\Player\NebuliPlayer.cs" />
     <Compile Include="API\Features\Player\NebuliNpc.cs" />
     <Compile Include="API\Features\Plugin.cs" />
+    <Compile Include="API\Features\Pools\DictionaryPool.cs" />
     <Compile Include="API\Features\Pools\HashsetPool.cs" />
     <Compile Include="API\Features\Pools\ListPool.cs" />
     <Compile Include="API\Features\Ragdoll.cs" />
@@ -169,6 +170,7 @@
     <Compile Include="API\Internal\CustomHint.cs" />
     <Compile Include="API\Internal\FakeConnection.cs" />
     <Compile Include="API\Internal\NebuliPatches\HintPatch.cs" />
+    <Compile Include="API\Internal\UserSessionData.cs" />
     <Compile Include="Events\EventArguments\ICancellableEvent.cs" />
     <Compile Include="Events\EventArguments\IDamageEvent.cs" />
     <Compile Include="Events\EventArguments\IPlayerEvent.cs" />
@@ -203,6 +205,7 @@
     <Compile Include="Events\EventArguments\SCPs\Scp049\Scp049StartResurrectEvent.cs" />
     <Compile Include="Events\EventArguments\SCPs\Scp049\Scp049UseCallEvent.cs" />
     <Compile Include="Events\EventArguments\SCPs\Scp049\Scp049UseSenseEvent.cs" />
+    <Compile Include="Events\EventArguments\SCPs\Scp079\Scp079ChangingCameraEvent.cs" />
     <Compile Include="Events\EventArguments\SCPs\Scp079\Scp079GainingExperienceEvent.cs" />
     <Compile Include="Events\EventArguments\SCPs\Scp079\Scp079GainingLevelEvent.cs" />
     <Compile Include="Events\EventArguments\SCPs\Scp079\Scp079LosingSignalEvent.cs" />
@@ -259,6 +262,7 @@
     <Compile Include="Events\Patches\Round\RespawningTeamPatch.cs" />
     <Compile Include="Events\Patches\SCPs\Scp0492\ConsumeCorpse.cs" />
     <Compile Include="Events\Patches\SCPs\Scp0492\CorpseConsumed.cs" />
+    <Compile Include="Events\Patches\SCPs\Scp079\ChangingCamerasPatch.cs" />
     <Compile Include="Events\Patches\SCPs\Scp079\GainingExperiencePatch.cs" />
     <Compile Include="Events\Patches\SCPs\Scp079\GainingLevelPatch.cs" />
     <Compile Include="Events\Patches\SCPs\Scp079\LosingSignalPatch.cs" />

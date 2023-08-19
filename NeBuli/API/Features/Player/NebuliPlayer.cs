@@ -32,6 +32,7 @@ using Firearm = Nebuli.API.Features.Items.Firearm;
 using Nebuli.API.Features.Structs;
 using Nebuli.API.Extensions;
 using InventorySystem.Items.Firearms.Attachments.Components;
+using Nebuli.API.Internal;
 
 namespace Nebuli.API.Features.Player;
 
@@ -100,6 +101,11 @@ public class NebuliPlayer
     /// </summary>
     /// <param name="achievement">The <see cref="AchievementName"/> to give.</param>
     public void GiveAchievement(AchievementName achievement) => AchievementHandlerBase.ServerAchieve(NetworkConnection, achievement);
+
+    /// <summary>
+    /// Gets the players <see cref="Internal.UserSessionData"/>.
+    /// </summary>
+    public UserSessionData UserSessionData { get; } = new();
 
     /// <summary>
     /// The player count of the server.
