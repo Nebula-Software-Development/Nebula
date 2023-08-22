@@ -475,6 +475,36 @@ public class NebuliPlayer
     }
 
     /// <summary>
+    /// Gets the players <see cref="Enum.AuthenticationType"/>.
+    /// </summary>
+    public AuthenticationType AuthenticationType
+    {
+        get
+        {
+            if (string.IsNullOrEmpty(UserId))
+            {
+                return AuthenticationType.Unknown;
+            }
+            switch (UserId.Substring(UserId.LastIndexOf('@') + 1))
+            {
+                case "steam":
+                    return AuthenticationType.Steam;
+                case "discord":
+                    return AuthenticationType.Discord;
+                case "northwood":
+                    return AuthenticationType.Northwood;
+                case "localhost":
+                    return AuthenticationType.LocalHost;
+                case "ID_Dedicated":
+                    return AuthenticationType.DedicatedServer;
+                default:
+                    return AuthenticationType.Unknown;
+            }
+        }
+    }
+
+
+    /// <summary>
     /// Trys to get a <see cref="NebuliPlayer"/> with the provided Referencehub.
     /// </summary>
     /// <param name="hub">The players referencehub.</param>

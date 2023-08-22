@@ -23,7 +23,7 @@ public class LoaderConfiguration
     /// Determines if the Loader's debug logs should be shown or not.
     /// </summary>
     [Description("Determines if Loader's debug logs show or not.")]
-    public bool ShowDebugLogs { get; set; } = true;
+    public bool ShowDebugLogs { get; set; } = false;
 
     /// <summary>
     /// Determines if the Loader should load plugins where their major required version of Nebuli dosent match Nebulis current major version.

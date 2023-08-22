@@ -184,7 +184,7 @@ namespace Nebuli.API.Features.Items
         /// <summary>
         /// Gets the available attachments for each firearm type.
         /// </summary>
-        public static IReadOnlyDictionary<FirearmType, AttachmentIdentity[]> AvailableAttachments => AvailableAttachmentsValue;
+        public static Dictionary<FirearmType, AttachmentIdentity[]> AvailableAttachments => AvailableAttachmentsValue;
 
         /// <summary>
         /// Gets the base code of the firearm.

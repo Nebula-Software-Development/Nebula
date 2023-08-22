@@ -10,7 +10,7 @@ using static HarmonyLib.AccessTools;
 
 namespace Nebuli.Events.Patches.SCPs.Scp0492;
 
-[HarmonyPatch(typeof(ScpAttackAbilityBase<ZombieRole>), nameof(ScpAttackAbilityBase<ZombieRole>.ServerProcessCmd))]
+//[HarmonyPatch(typeof(ScpAttackAbilityBase<ZombieRole>), nameof(ScpAttackAbilityBase<ZombieRole>.ServerProcessCmd))]
 internal class ZombieAttack
 {
     [HarmonyTranspiler]
@@ -20,12 +20,12 @@ internal class ZombieAttack
 
         Label retLabel = generator.DefineLabel();
 
-        int index = newInstructions.FindIndex(i => i.Calls(Method(typeof(ScpAttackAbilityBase<ZombieRole>), nameof(ScpAttackAbilityBase<ZombieRole>.ServerPerformAttack)))) - 1;
+        int index = newInstructions.FindIndex(i => i.Calls(Method(typeof(ZombieAttackAbility), nameof(ZombieAttackAbility.ServerPerformAttack)))) - 1;
         
         newInstructions.InsertRange(index, new CodeInstruction[]
         {
             new CodeInstruction(OpCodes.Ldarg_0).MoveLabelsFrom(newInstructions[index]),
-            new(OpCodes.Callvirt, PropertyGetter(typeof(ScpAttackAbilityBase<ZombieRole>), nameof(ScpAttackAbilityBase<ZombieRole>.Owner))),
+            new(OpCodes.Callvirt, PropertyGetter(typeof(ZombieAttackAbility), nameof(ZombieAttackAbility.Owner))),
             new(OpCodes.Ldloc_S, 4),
             new(OpCodes.Newobj, GetDeclaredConstructors(typeof(Scp0492AttackEvent))[0]),
             new(OpCodes.Dup),

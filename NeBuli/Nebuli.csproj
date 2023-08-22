@@ -92,6 +92,7 @@
     <Compile Include="API\Features\Doors\CheckpointDoor.cs" />
     <Compile Include="API\Features\Doors\ElevatorDoor.cs" />
     <Compile Include="API\Features\Enum\AmmoType.cs" />
+    <Compile Include="API\Features\Enum\AuthenticationType.cs" />
     <Compile Include="API\Features\Enum\CameraType.cs" />
     <Compile Include="API\Features\Enum\DoorLockingType.cs" />
     <Compile Include="API\Features\Enum\EscapeType.cs" />
@@ -134,6 +135,7 @@
     <Compile Include="API\Features\Doors\Door.cs" />
     <Compile Include="API\Features\Map\Elevator.cs" />
     <Compile Include="API\Features\Map\Generator.cs" />
+    <Compile Include="API\Features\Map\Locker.cs" />
     <Compile Include="API\Features\Map\Room.cs" />
     <Compile Include="API\Features\Map\NebuliTeslaGate.cs" />
     <Compile Include="API\Features\Map\Utilites.cs" />

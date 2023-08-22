@@ -64,7 +64,7 @@ public class Updater
             }
             else
             {
-                Log.Info("Nebuli is up-to-date!");
+                Log.Info("Nebuli is up-to-date!", "Updater");
                 return;
             }
         }

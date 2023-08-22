@@ -232,6 +232,9 @@ public static class EventManager
 
     private static void GenerateAttachments()
     {
+        Firearm.BaseCodes.Clear();
+        Firearm.AvailableAttachments.Clear();
+
         foreach (FirearmType firearmType in Enum.GetValues(typeof(FirearmType)))
         {
             try

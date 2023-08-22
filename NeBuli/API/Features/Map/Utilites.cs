@@ -17,38 +17,35 @@ namespace Nebuli.API.Features.Map
 {
     public static class Utilites
     {
-        private static TantrumEnvironmentalHazard tantrumPrefab = null;
+        private static TantrumEnvironmentalHazard cachedTantrumPrefab;
 
-        //Credit to EXILED for method of spawning SCP-173 tantrums
+        /// <summary>
+        /// Gets the SCP-173 Tantrum Prefab GameObject.
+        /// </summary>
         public static TantrumEnvironmentalHazard TantrumPrefab
         {
             get
             {
-                if (tantrumPrefab == null)
-                {
-                    if (PlayerRoleLoader.TryGetRoleTemplate(RoleTypeId.Scp173, out PlayerRoleBase role))
-                    {
-                        Scp173Role scp173Role = role as Scp173Role;
-                        if (scp173Role.SubroutineModule.TryGetSubroutine(out Scp173TantrumAbility scp173TantrumAbility))
-                            tantrumPrefab = scp173TantrumAbility._tantrumPrefab;
-                    }
-                }
-                return tantrumPrefab;
+                if (cachedTantrumPrefab is not null)
+                    return cachedTantrumPrefab;
+                if (PlayerRoleLoader.TryGetRoleTemplate(RoleTypeId.Scp173, out PlayerRoleBase scp173RoleBase) && scp173RoleBase is Scp173Role scp173Role)
+                    if (scp173Role.SubroutineModule.TryGetSubroutine(out Scp173TantrumAbility tantrumAbility))
+                        return cachedTantrumPrefab = tantrumAbility._tantrumPrefab;
+                return null;
             }
         }
 
-        //Credit to EXILED for method of spawning SCP-173 tantrums
         /// <summary>
         /// Places a SCP-173 tantrum.
         /// </summary>
         /// <param name="position">The positon to place it.</param>
         /// <returns></returns>
-        public static GameObject PlaceTantrum(Vector3 position)
+        public static TantrumEnvironmentalHazard PlaceTantrum(Vector3 position)
         {
             TantrumEnvironmentalHazard tantrum = Object.Instantiate(TantrumPrefab);
             tantrum.SynchronizedPosition = new RelativePosition(position + (Vector3.up * 0.25f));
             NetworkServer.Spawn(tantrum.gameObject);
-            return tantrum.gameObject;
+            return tantrum;
         }
 
         /// <summary>
