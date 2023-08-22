@@ -5,13 +5,10 @@ using Mirror;
 using RelativePositioning;
 using UnityEngine;
 using Object = UnityEngine.Object;
-using Nebuli.API.Features.Items.Pickups;
-using Nebuli.API.Features.Items;
-using InventorySystem;
 using Decals;
 using InventorySystem.Items.Firearms.BasicMessages;
 using Utils.Networking;
-using Nebuli.API.Features.Player;
+using Nebuli.API.Features.Items.Pickups;
 
 namespace Nebuli.API.Features.Map
 {
