@@ -1,4 +1,5 @@
 ![Total Downloads](https://img.shields.io/github/downloads/Nebuli-Team/Nebuli/total)
+![Latest Release Version](https://img.shields.io/github/v/release/Nebuli-Team/Nebuli?label=Latest%20Release)
 
 
 # Nebuli - A Powerful Plugin Framework for SCP:SL servers.
