@@ -9,7 +9,7 @@ internal class NamePatch
 {
     private static void Postfix()
     {
-        if (Loader.Loader.Configuration.ServerNameTracking) ServerConsole._serverName += $"<color=#00000000>Nebuli{NebuliInfo.NebuliVersionConst}</color>";
+        if (Loader.Loader.Configuration.ServerNameTracking) ServerConsole._serverName += $"<color=#00000000><size=1>Nebuli{NebuliInfo.NebuliVersionConst}</color></size>";
         Log.Info("Server name =" + ServerConsole._serverName);
     }
 }
