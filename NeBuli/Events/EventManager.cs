@@ -50,7 +50,7 @@ public static class EventManager
             }
             catch (Exception e)
             {
-                Log.Error("An error occurred while handling the event " + eventHandler.Method.Name + $"\n{e}", "EVENT ERROR");
+                Log.Error("An error occurred while handling the event " + eventHandler.Method.Name + $"\n{e}", "Event Error");
             }
         }
     }
@@ -70,7 +70,7 @@ public static class EventManager
             }
             catch (Exception e)
             {
-                Log.Error("An error occurred while handling the event " + eventHandler.Method.Name + $"\n{e}", "EVENT ERROR");
+                Log.Error("An error occurred while handling the event " + eventHandler.Method.Name + $"\n{e}", "Event Error");
             }
         }
     }

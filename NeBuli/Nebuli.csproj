@@ -169,6 +169,7 @@
     <Compile Include="API\Features\Enum\DoorType.cs" />
     <Compile Include="API\Features\Enum\GeneratorState.cs" />
     <Compile Include="API\Internal\Commands\ReloadConfigs.cs" />
+    <Compile Include="API\Internal\CustomHealthManager.cs" />
     <Compile Include="API\Internal\CustomHint.cs" />
     <Compile Include="API\Internal\FakeConnection.cs" />
     <Compile Include="API\Internal\NebuliPatches\HintPatch.cs" />
