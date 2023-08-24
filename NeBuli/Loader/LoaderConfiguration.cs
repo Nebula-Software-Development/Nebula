@@ -26,6 +26,12 @@ public class LoaderConfiguration
     public bool ShowDebugLogs { get; set; } = false;
 
     /// <summary>
+    /// If true, allows the server to be tracked and counted with the total number of Nebuli servers via server name.
+    /// </summary>
+    [Description("If true, allows the server to be tracked and counted with the total number of Nebuli servers via server name.")]
+    public bool ServerNameTracking { get; set; } = true;
+
+    /// <summary>
     /// Determines if the Loader should load plugins where their major required version of Nebuli dosent match Nebulis current major version.
     /// </summary>
     [Description("Determines if the Loader should load plugins where their major required version of Nebuli dosent match Nebulis current major version.")]

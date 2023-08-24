@@ -241,6 +241,7 @@
     <Compile Include="Events\Handlers\Scp914Handlers.cs" />
     <Compile Include="Events\Handlers\Scp939Handlers.cs" />
     <Compile Include="Events\Handlers\ServerHandler.cs" />
+    <Compile Include="Events\Patches\GameFixes\NamePatch.cs" />
     <Compile Include="Events\Patches\GameFixes\WeaponDysncFix.cs" />
     <Compile Include="Events\Patches\Player\BannedPlayer.cs" />
     <Compile Include="Events\Patches\Player\ChangingUserGroupPatch.cs" />
