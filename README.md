@@ -1,3 +1,6 @@
+![Total Downloads](https://img.shields.io/github/downloads/Nebuli-Team/Nebuli/total)
+
+
 # Nebuli - A Powerful Plugin Framework for SCP:SL servers.
 
 Nebuli is an extensible and feature-rich plugin framework designed for SCP:SL servers. It provides a flexible and easy-to-use platform for developers to create, manage, and distribute plugins to enhance the functionality and customization of game servers. Nebuli offers robust API interfaces, event handling, and seamless integration, making it a top choice for server owners and plugin developers alike.
