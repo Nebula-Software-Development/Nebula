@@ -508,7 +508,14 @@ public class NebuliPlayer
     public bool DoNotTrack
     {
         get => ReferenceHub.serverRoles.DoNotTrack;
-        set => ReferenceHub.serverRoles.DoNotTrack = value;
+        set
+        {
+            if (ReferenceHub.serverRoles.DoNotTrack = value)
+                return;
+
+            ReferenceHub.serverRoles.DoNotTrack = value;
+            Broadcast($"<color=#2643EC>[</color><color=#2649EC>N</color><color=#264FEC>e</color><color=#2655EC>b</color><color=#265BEC>u</color><color=#2661EC>l</color><color=#2667EC>i</color> <color=#2673EC>U</color><color=#2679EC>s</color><color=#267FEC>e</color><color=#2685EC>r</color> <color=#2691EC>P</color><color=#2697EC>r</color><color=#269DEC>o</color><color=#26A3EC>t</color><color=#26A9EC>e</color><color=#26AFEC>c</color><color=#26B5EC>t</color><color=#26BBEC>i</color><color=#26C1EC>o</color><color=#26C7EC>n</color><color=#26CDEC>]</color> Your 'Do Not Track' settings have been changed to {value} by a server plugin!", 10, global::Broadcast.BroadcastFlags.Normal, true);
+        }
     }
 
     /// <summary>
