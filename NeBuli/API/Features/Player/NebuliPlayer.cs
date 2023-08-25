@@ -1143,7 +1143,7 @@ public class NebuliPlayer
     /// <param name="includeAmmo">If ammo should also be cleared.</param>
     public void ClearInventory(bool includeAmmo = true)
     {
-        if(includeAmmo) Ammo.Clear();
+        if (includeAmmo) Inventory.UserInventory.ReserveAmmo.Clear();
         foreach(ItemBase item in Inventory.UserInventory.Items.Values.ToList())
             Inventory.ServerRemoveItem(item.ItemSerial, item.PickupDropModel);
     }
