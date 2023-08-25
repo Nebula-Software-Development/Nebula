@@ -110,7 +110,6 @@ public static class Server
     /// </summary>
     public static MethodInfo SendSpawnMessage => serverMessage ??= typeof(NetworkServer).GetMethod("SendSpawnMessage", BindingFlags.NonPublic | BindingFlags.Static);
 
-
     /// <summary>
     /// Gets the server's port.
     /// </summary>

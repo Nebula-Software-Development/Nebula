@@ -30,11 +30,11 @@ using Firearm = Nebuli.API.Features.Items.Firearm;
 using Nebuli.API.Features.Structs;
 using Nebuli.API.Extensions;
 using Nebuli.API.Internal;
-using YamlDotNet.Core.Tokens;
 using PlayerRoles.Voice;
 using Utils.Networking;
 using PlayerRoles.RoleAssign;
 using System;
+using InventorySystem.Items;
 
 namespace Nebuli.API.Features.Player;
 
@@ -48,7 +48,7 @@ public class NebuliPlayer
     /// </summary>
     public static readonly Dictionary<ReferenceHub, NebuliPlayer> Dictionary = new();
 
-    private CustomHealthManager customHealthManager;
+    private readonly CustomHealthManager customHealthManager;
 
     internal NebuliPlayer(ReferenceHub hub)
     {
@@ -197,6 +197,11 @@ public class NebuliPlayer
     public VoiceModuleBase VoiceModule => RoleManager.CurrentRole is IVoiceRole voiceRole ? voiceRole.VoiceModule : null;
 
     /// <summary>
+    /// Disconnects the player from the server.
+    /// </summary>
+    public void Disconnect(string reason = null) => ServerConsole.Disconnect(NetworkConnection, reason ?? string.Empty);
+
+    /// <summary>
     /// The players RawUserId.
     /// </summary>
     public string RawUserId { get; private set; }
@@ -282,6 +287,11 @@ public class NebuliPlayer
     }
 
     /// <summary>
+    /// Gets the players camera transform.
+    /// </summary>
+    public Transform PlayerCamera => ReferenceHub.PlayerCameraReference;
+
+    /// <summary>
     /// Gets the players RelativePosition.
     /// </summary>
     public RelativePosition RelativePosition => new(Position);
@@ -296,7 +306,7 @@ public class NebuliPlayer
     }
 
     /// <summary>
-    /// Gets or sets the players current scale.
+    /// Gets or sets the players current scale.nwa
     /// </summary>
     public Vector3 Scale
     {
@@ -363,6 +373,15 @@ public class NebuliPlayer
             }
         }
     }
+
+    /// <summary>
+    /// Gets or sets if the player has noclip.
+    /// </summary>
+    public bool HasNoClip
+    {
+        get => ReferenceHub.playerStats.GetModule<AdminFlagsStat>().HasFlag(AdminFlags.Noclip);
+        set => ReferenceHub.playerStats.GetModule<AdminFlagsStat>().SetFlag(AdminFlags.Noclip, value);
+    }  
 
     /// <summary>
     /// Gets or sets the players current UserId.
@@ -1112,6 +1131,17 @@ public class NebuliPlayer
     }
 
     /// <summary>
+    /// Clears the players inventory.
+    /// </summary>
+    /// <param name="includeAmmo">If ammo should also be cleared.</param>
+    public void ClearInventory(bool includeAmmo = true)
+    {
+        if(includeAmmo) Ammo.Clear();
+        foreach(ItemBase item in Inventory.UserInventory.Items.Values.ToList())
+            Inventory.ServerRemoveItem(item.ItemSerial, item.PickupDropModel);
+    }
+
+    /// <summary>
     /// Adds ammo to the players inventory.
     /// </summary>
     /// <param name="ammoType">The type of ammo to add.</param>
@@ -1147,6 +1177,12 @@ public class NebuliPlayer
     /// Gets the players <see cref="InventorySystem.Inventory"/>.
     /// </summary>
     public Inventory Inventory => ReferenceHub.inventory;
+
+    /// <summary>
+    /// Gets if the player has a full inventory.
+    /// </summary>
+
+    public bool HasFullInventory => Inventory.UserInventory.Items.Count >= Inventory.MaxSlots;
 
     /// <summary>
     /// Checks if the player has any permission in <see cref="PlayerPermissions"/>.
