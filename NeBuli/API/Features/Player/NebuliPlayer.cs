@@ -503,6 +503,11 @@ public class NebuliPlayer
     }
 
     /// <summary>
+    /// Gets the players current velocity.
+    /// </summary>
+    public Vector3 Velocity => ReferenceHub.GetVelocity();
+
+    /// <summary>
     /// Gets or sets whether the player has DoNotTrack enabled or not.
     /// </summary>
     public bool DoNotTrack
@@ -882,6 +887,11 @@ public class NebuliPlayer
     {
         ReferenceHub.playerEffectsController.DisableAllEffects();
     }
+
+    /// <summary>
+    /// Gets all the players current <see cref="StatusEffectBase"/>.
+    /// </summary>
+    public IEnumerable<StatusEffectBase> ActiveEffects => ReferenceHub.playerEffectsController.AllEffects.Where(e => e.Intensity > 0);
 
     /// <summary>
     /// Shows the player's tag.
