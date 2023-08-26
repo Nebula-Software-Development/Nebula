@@ -137,7 +137,7 @@
     <Compile Include="API\Features\Map\Generator.cs" />
     <Compile Include="API\Features\Map\Locker.cs" />
     <Compile Include="API\Features\Map\Room.cs" />
-    <Compile Include="API\Features\Map\NebuliTeslaGate.cs" />
+    <Compile Include="API\Features\Map\TeslaGate.cs" />
     <Compile Include="API\Features\Map\Utilites.cs" />
     <Compile Include="API\Features\Map\Window.cs" />
     <Compile Include="API\Features\Paths.cs" />
