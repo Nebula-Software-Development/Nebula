@@ -109,6 +109,7 @@ public class NebuliNpc : NebuliPlayer
     public void DestroyNPC()
     {
         NetworkServer.Destroy(GameObject);
+        CustomNetworkManager.TypedSingleton.OnServerDisconnect(ReferenceHub.connectionToClient);
         ReferenceHub.OnDestroy();
         Dictionary.Remove(ReferenceHub);
     }
