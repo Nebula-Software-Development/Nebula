@@ -99,6 +99,7 @@
     <Compile Include="API\Features\Enum\FirearmType.cs" />
     <Compile Include="API\Features\Enum\MenuType.cs" />
     <Compile Include="API\Features\Enum\Scp079PingType.cs" />
+    <Compile Include="API\Features\Intercom.cs" />
     <Compile Include="API\Features\Items\Ammo.cs" />
     <Compile Include="API\Features\Items\BodyArmor.cs" />
     <Compile Include="API\Features\Items\Coin.cs" />
@@ -162,6 +163,7 @@
     <Compile Include="API\Features\Roles\Scp939PlayerRole.cs" />
     <Compile Include="API\Features\Roles\SpectatorPlayerRole.cs" />
     <Compile Include="API\Features\Round.cs" />
+    <Compile Include="API\Features\Scp914.cs" />
     <Compile Include="API\Features\Server.cs" />
     <Compile Include="API\Features\Structs\AttachmentIdentity.cs" />
     <Compile Include="API\Interfaces\IConfiguration.cs" />
