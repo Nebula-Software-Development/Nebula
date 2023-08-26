@@ -9,15 +9,15 @@ using TeslaGateBase = global::TeslaGate;
 namespace Nebuli.API.Features.Map
 {
     /// <summary>
-    /// Wrapper for managing <see cref="NebuliTeslaGate"/> easier.
+    /// Wrapper for managing <see cref="TeslaGate"/> easier.
     /// </summary>
-    public class NebuliTeslaGate
+    public class TeslaGate
     {
         /// <summary>
-        /// The dictionary of all the <see cref="TeslaGateBase"/> and their wrappers, <see cref="NebuliTeslaGate"/>, in the server.
+        /// The dictionary of all the <see cref="TeslaGateBase"/> and their wrappers, <see cref="TeslaGate"/>, in the server.
         /// </summary>
-        public static readonly Dictionary<TeslaGateBase, NebuliTeslaGate> Dictionary = new();
-        internal NebuliTeslaGate(TeslaGateBase teslaGate)
+        public static readonly Dictionary<TeslaGateBase, TeslaGate> Dictionary = new();
+        internal TeslaGate(TeslaGateBase teslaGate)
         {
             Base = teslaGate;
             Dictionary.Add(teslaGate, this);
@@ -31,30 +31,30 @@ namespace Nebuli.API.Features.Map
         /// <summary>
         /// Gets a collection of all the tesla gates.
         /// </summary>
-        public static IEnumerable<NebuliTeslaGate> Collection => Dictionary.Values;
+        public static IEnumerable<TeslaGate> Collection => Dictionary.Values;
 
         /// <summary>
         /// Gets a list of all the tesla gates on the server.
         /// </summary>
-        public static List<NebuliTeslaGate> List => Collection.ToList();
+        public static List<TeslaGate> List => Collection.ToList();
 
         /// <summary>
-        /// Gets the <see cref="NebuliTeslaGate"/> position.
+        /// Gets the <see cref="TeslaGate"/> position.
         /// </summary>
         public Vector3 Position => Base.Position;
 
         /// <summary>
-        /// Gets the <see cref="NebuliTeslaGate"/> <see cref="UnityEngine.Transform"/>.
+        /// Gets the <see cref="TeslaGate"/> <see cref="UnityEngine.Transform"/>.
         /// </summary>
         public Transform Transform => Base.transform;
         
         /// <summary>
-        /// Gets the <see cref="NebuliTeslaGate"/> <see cref="UnityEngine.GameObject"/>.
+        /// Gets the <see cref="TeslaGate"/> <see cref="UnityEngine.GameObject"/>.
         /// </summary>
         public GameObject GameObject => Base.gameObject;
 
         /// <summary>
-        /// Gets the current <see cref="Map.Room"/> the <see cref="NebuliTeslaGate"/> is in.
+        /// Gets the current <see cref="Map.Room"/> the <see cref="TeslaGate"/> is in.
         /// </summary>
         public Room Room => Room.Get(Base.Room);
 
@@ -80,7 +80,7 @@ namespace Nebuli.API.Features.Map
         public bool IsInRange(Vector3 position) => Base.InRange(position);
 
         /// <summary>
-        /// Force triggers the <see cref="NebuliTeslaGate"/>, bypassing all cooldowns.
+        /// Force triggers the <see cref="TeslaGate"/>, bypassing all cooldowns.
         /// </summary>
         public void ForceTrigger()
         {
@@ -130,20 +130,20 @@ namespace Nebuli.API.Features.Map
         /// </summary>
         /// <param name="teslaGate">The <see cref="TeslaGateBase"/> to use to find/create a wrapper.</param>
         /// <returns></returns>
-        public static NebuliTeslaGate Get(TeslaGateBase teslaGate)
+        public static TeslaGate Get(TeslaGateBase teslaGate)
         {
-            return Dictionary.TryGetValue(teslaGate, out NebuliTeslaGate tesla) ? tesla : new(teslaGate);
+            return Dictionary.TryGetValue(teslaGate, out TeslaGate tesla) ? tesla : new(teslaGate);
         }
 
         /// <summary>
         /// Triggers the specified tesla gate.
         /// </summary>
         /// <param name="gate"></param>
-        public static void TriggerTeslaGate(NebuliTeslaGate gate) => gate.Trigger();
+        public static void TriggerTeslaGate(TeslaGate gate) => gate.Trigger();
 
         /// <summary>
         /// Force triggers the specified tesla gate.
         /// </summary>
-        public static void ForceTriggerTeslaGate(NebuliTeslaGate gate) => gate.ForceTrigger();
+        public static void ForceTriggerTeslaGate(TeslaGate gate) => gate.ForceTrigger();
     }
 }

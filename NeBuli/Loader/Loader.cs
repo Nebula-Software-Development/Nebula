@@ -25,6 +25,8 @@ public class Loader
     private readonly int pluginCount = EnabledPlugins.Count;
     private static bool _loaded = false;
 
+    public static Random Random { get; } = new();
+
     public static ISerializer Serializer { get; private set; }
     public static IDeserializer Deserializer { get; private set; }
 

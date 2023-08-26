@@ -86,9 +86,6 @@
     <Compile Include="API\Extensions\RoleTypeExtensions.cs" />
     <Compile Include="API\Features\AlphaWarhead.cs" />
     <Compile Include="API\Features\CustomHintManager.cs" />
-    <Compile Include="API\Features\DamageHandlers\CassieAnnouncement.cs" />
-    <Compile Include="API\Features\DamageHandlers\DamageHandler.cs" />
-    <Compile Include="API\Features\DamageHandlers\DamageHandlerBase.cs" />
     <Compile Include="API\Features\Decontamination.cs" />
     <Compile Include="API\Features\Doors\PryableDoor.cs" />
     <Compile Include="API\Features\Doors\BasicDoor.cs" />
@@ -97,7 +94,6 @@
     <Compile Include="API\Features\Enum\AmmoType.cs" />
     <Compile Include="API\Features\Enum\AuthenticationType.cs" />
     <Compile Include="API\Features\Enum\CameraType.cs" />
-    <Compile Include="API\Features\Enum\DamageType.cs" />
     <Compile Include="API\Features\Enum\DoorLockingType.cs" />
     <Compile Include="API\Features\Enum\EscapeType.cs" />
     <Compile Include="API\Features\Enum\FirearmType.cs" />
@@ -141,7 +137,7 @@
     <Compile Include="API\Features\Map\Generator.cs" />
     <Compile Include="API\Features\Map\Locker.cs" />
     <Compile Include="API\Features\Map\Room.cs" />
-    <Compile Include="API\Features\Map\NebuliTeslaGate.cs" />
+    <Compile Include="API\Features\Map\TeslaGate.cs" />
     <Compile Include="API\Features\Map\Utilites.cs" />
     <Compile Include="API\Features\Map\Window.cs" />
     <Compile Include="API\Features\Paths.cs" />

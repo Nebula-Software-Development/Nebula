@@ -9,7 +9,7 @@ public class PlayerTriggeringTeslaEvent : EventArgs, IPlayerEvent, ICancellableE
     public PlayerTriggeringTeslaEvent(ReferenceHub player, TeslaGate teslaGate, bool inIdleRange, bool isTriggerable)
     {
         Player = NebuliPlayer.Get(player);
-        TeslaGate = NebuliTeslaGate.Get(teslaGate);
+        TeslaGate = API.Features.Map.TeslaGate.Get(teslaGate);
         IsCancelled = false;
         IsInIdleRange = TeslaGate.IsPlayerInIdleRange(Player);
         IsTriggerable = TeslaGate.IsPlayerInHurtingRange(Player);
@@ -24,11 +24,11 @@ public class PlayerTriggeringTeslaEvent : EventArgs, IPlayerEvent, ICancellableE
     /// Gets the player triggering the tesla gate.
     /// </summary>
     public NebuliPlayer Player { get; }
-    
+
     /// <summary>
-    /// Gets the <see cref="NebuliTeslaGate"/> being triggered.
+    /// Gets the <see cref="API.Features.Map.TeslaGate"/> being triggered.
     /// </summary>
-    public NebuliTeslaGate TeslaGate { get; }
+    public API.Features.Map.TeslaGate TeslaGate { get; }
 
     /// <summary>
     /// Gets or sets if the player is in idle range.

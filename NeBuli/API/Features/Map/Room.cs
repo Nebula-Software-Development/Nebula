@@ -5,15 +5,20 @@ using UnityEngine;
 
 namespace Nebuli.API.Features.Map;
 
+/// <summary>
+/// Wrapper class for handling rooms in-game easier.
+/// </summary>
 public class Room
 {
+    /// <summary>
+    /// Gets a dictionary of all <see cref="RoomIdentifier"/> to <see cref="Room"/>.
+    /// </summary>
     public static readonly Dictionary<RoomIdentifier, Room> Dictionary = new();
 
     internal Room(RoomIdentifier identifier)
     {
         Base = identifier;
         Dictionary.Add(identifier, this);
-
         LightController = GameObject.GetComponentInChildren<RoomLightController>();
     }
 
@@ -71,6 +76,33 @@ public class Room
     public void DisableRoomLights(int duration) => LightController.ServerFlickerLights(duration);
 
     /// <summary>
+    /// Tries to get the rooms main coordniates.
+    /// </summary>
+    /// <param name="coords"></param>
+    /// <returns></returns>
+    public bool TryGetMainCoords(out Vector3Int coords) => Base.TryGetMainCoords(out coords);
+
+    /// <summary>
+    /// Gets a random room. If zone is null, it'll search all rooms from all zones.
+    /// </summary>
+    /// <param name="zone"></param>
+    /// <returns></returns>
+    public static Room GetRandomRoom(FacilityZone? zone = null)
+    {
+        if (zone is null)
+            return List[Loader.Loader.Random.Next(List.Count)];
+        else
+            return List.Where(room => room.Zone == zone).OrderBy(_ => Loader.Loader.Random.Next()).FirstOrDefault();
+    }
+
+    /// <summary>
+    /// Gets a list of all the rooms in a specified zone.
+    /// </summary>
+    /// <param name="zone"></param>
+    /// <returns></returns>
+    public static List<Room> GetRoomsInZone(FacilityZone zone) => List.Where(room => room.Zone == zone).ToList();
+
+    /// <summary>
     /// Gets if the rooms light are enabled.
     /// </summary>
     public bool LightsEnabled => LightController.LightsEnabled;
@@ -105,8 +137,23 @@ public class Room
     /// </summary>
     public FacilityZone Zone => Base.Zone;
 
+    /// <summary>
+    /// Gets the <see cref="RoomShape"/> of the room.
+    /// </summary>
+    public RoomShape Shape => Base.Shape;
+
+    /// <summary>
+    /// Gets the global point of the room.
+    /// </summary>
+    /// <param name="localPoint"></param>
+    /// <returns></returns>
     public Vector3 GetGlobalPoint(Vector3 localPoint) => Transform.TransformPoint(localPoint);
 
+    /// <summary>
+    /// Gets the local point of the room.
+    /// </summary>
+    /// <param name="globalPoint"></param>
+    /// <returns></returns>
     public Vector3 GetLocalPoint(Vector3 globalPoint) => Transform.InverseTransformPoint(globalPoint);
 
     /// <summary>

@@ -148,7 +148,7 @@ public static class EventManager
         foreach (DoorVariant door in Object.FindObjectsOfType<DoorVariant>())
             Door.GetDoor(door);
         foreach (global::TeslaGate teslaGate in Object.FindObjectsOfType<TeslaGate>())
-            NebuliTeslaGate.Get(teslaGate);
+            API.Features.Map.TeslaGate.Get(teslaGate);
         foreach (ElevatorChamber elevatorChamber in Object.FindObjectsOfType<ElevatorChamber>())
             Elevator.Get(elevatorChamber);
         foreach (BreakableWindow breakableWindow in Object.FindObjectsOfType<BreakableWindow>())
