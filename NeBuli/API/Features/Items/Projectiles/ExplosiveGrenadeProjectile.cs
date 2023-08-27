@@ -13,6 +13,9 @@ public class ExplosiveGrenadeProjectile : GrenadeEffectProjectile
     {
         Base = itemBase;
     }
+    /// <summary>
+    /// Gets or sets the grenades max radius.
+    /// </summary>
     public float MaxRadius
     {
         get => Base._maxRadius; 
