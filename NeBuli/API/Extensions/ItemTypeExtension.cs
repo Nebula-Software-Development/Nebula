@@ -5,6 +5,8 @@ using Nebuli.API.Features.Structs;
 using Nebuli.API.Features.Items;
 using System.Linq;
 using InventorySystem.Items.Firearms.Attachments;
+using InventorySystem.Items;
+using InventorySystem;
 
 namespace Nebuli.API.Extensions;
 
@@ -28,13 +30,39 @@ public static class ItemTypeExtension
     /// </summary>
     /// <param name="type"></param>
     /// <returns></returns>
-    public static bool IsKeycard(this ItemType type) => Item.Create(type) is Keycard;
+    public static bool IsKeycard(this ItemType type) => GetItemBase(type).Category == ItemCategory.Keycard;
+
+    /// <summary>
+    /// Gets if the <see cref="ItemType"/> is a medical item.
+    /// </summary>
+    /// <param name="type"></param>
+    /// <returns></returns>
+    public static bool IsMedical(this ItemType type) => GetItemBase(type).Category == ItemCategory.Medical;
+
+    /// <summary>
+    /// Gets if the <see cref="ItemType"/> is armor item.
+    /// </summary>
+    /// <param name="type"></param>
+    /// <returns></returns>
+    public static bool IsArmor(this ItemType type) => GetItemBase(type).Category == ItemCategory.Armor;
 
     /// <summary>
     /// Retrieves a collection of <see cref="ItemType"/> from a collection of <see cref="Item"/>.
     /// </summary>
     public static IEnumerable<ItemType> GetItemTypesFromItems(this IEnumerable<Item> items) =>
         items.Select(item => item.ItemType);
+
+    /// <summary>
+    /// Gets the <see cref="ItemType"/> base.
+    /// </summary>
+    /// <param name="item"></param>
+    /// <returns></returns>
+    public static ItemBase GetItemBase(this ItemType item)
+    {
+        if (InventoryItemLoader.AvailableItems.TryGetValue(item, out ItemBase itemBase))
+            return itemBase;
+        return null;
+    }
     
 
     /// <summary>
@@ -82,6 +110,14 @@ public static class ItemTypeExtension
         _ => AmmoType.None,
     };
 
+    internal static bool IsMedicalType(this ItemType type) => type switch
+    { 
+        ItemType.Adrenaline => true,
+        ItemType.Medkit => true,
+        ItemType.Painkillers => true,
+        ItemType.SCP500 => true,
+        _ => false, 
+    };
 
     /// <summary>
     /// Converts a <see cref="ItemType"/> to its corresponding <see cref="FirearmType"/>.
