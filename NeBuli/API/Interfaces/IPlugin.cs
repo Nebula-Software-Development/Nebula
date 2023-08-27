@@ -63,4 +63,9 @@ public interface IPlugin<out TConfig> where TConfig : IConfiguration
     void LoadCommands();
 
     void UnLoadCommands();
+
+    /// <summary>
+    /// Gets the plugins configuration file path.
+    /// </summary>
+    string ConfigPath { get; internal set; }
 }

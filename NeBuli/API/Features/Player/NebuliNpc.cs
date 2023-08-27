@@ -3,6 +3,7 @@ using Mirror;
 using Nebuli.API.Internal;
 using PlayerRoles;
 using PlayerRoles.FirstPersonControl;
+using PlayerStatsSystem;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -92,6 +93,7 @@ public class NebuliNpc : NebuliPlayer
 
             newNPC.IsNPC = true;
 
+            newNPC.Health = newNPC.ReferenceHub.playerStats.GetModule<HealthStat>().MaxValue;
             return newNPC;
         }
         catch(Exception e)
@@ -107,6 +109,7 @@ public class NebuliNpc : NebuliPlayer
     public void DestroyNPC()
     {
         NetworkServer.Destroy(GameObject);
+        CustomNetworkManager.TypedSingleton.OnServerDisconnect(ReferenceHub.connectionToClient);
         ReferenceHub.OnDestroy();
         Dictionary.Remove(ReferenceHub);
     }

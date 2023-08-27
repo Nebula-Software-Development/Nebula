@@ -55,10 +55,7 @@ public class Ragdoll
     /// <summary>
     /// Gets the owner's ReferenceHub of the ragdoll.
     /// </summary>
-    public ReferenceHub ReferenceHub
-    {
-        get => Base.NetworkInfo.OwnerHub;
-    }
+    public ReferenceHub ReferenceHub => Base.NetworkInfo.OwnerHub;
 
     /// <summary>
     /// Get or set if the Ragdoll is frozen or not.
@@ -72,18 +69,12 @@ public class Ragdoll
     /// <summary>
     /// Gets the ragdolls transform.
     /// </summary>
-    public Transform Transform
-    {
-        get => Base.transform;
-    }
+    public Transform Transform => Base.transform;
 
     /// <summary>
     /// Gets the ragdolls GameObject.
     /// </summary>
-    public GameObject GameObject
-    {
-        get => Base.gameObject;
-    }
+    public GameObject GameObject => Base.gameObject;
 
     /// <summary>
     /// Get or set the ragdolls origin point.

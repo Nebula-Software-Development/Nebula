@@ -5,6 +5,7 @@ using Nebuli.API.Features.Player;
 using PlayerRoles.RoleAssign;
 using RoundRestarting;
 using System;
+using System.Reflection;
 using UnityEngine;
 using static Broadcast;
 using static ServerStatic;
@@ -16,6 +17,8 @@ namespace Nebuli.API.Features;
 /// </summary>
 public static class Server
 {
+    private static MethodInfo serverMessage;
+
     /// <summary>
     /// Gets the servers <see cref="NebuliPlayer"/> Host.
     /// </summary>
@@ -101,6 +104,11 @@ public static class Server
     /// Gets the <see cref="Broadcast.Broadcast"/> singleton.
     /// </summary>
     public static Broadcast Broadcast => Singleton;
+
+    /// <summary>
+    /// Gets the Network servers "SendSpawnMessage" method.
+    /// </summary>
+    public static MethodInfo SendSpawnMessage => serverMessage ??= typeof(NetworkServer).GetMethod("SendSpawnMessage", BindingFlags.NonPublic | BindingFlags.Static);
 
     /// <summary>
     /// Gets the server's port.

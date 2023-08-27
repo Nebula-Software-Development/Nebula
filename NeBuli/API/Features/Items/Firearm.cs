@@ -73,6 +73,8 @@ namespace Nebuli.API.Features.Items
         /// </summary>
         public FirearmBaseStats Stats => Base.BaseStats;
 
+        public Firearm Is 
+
         /// <summary>
         /// Gets the ammo type of the firearm.
         /// </summary>
@@ -184,7 +186,7 @@ namespace Nebuli.API.Features.Items
         /// <summary>
         /// Gets the available attachments for each firearm type.
         /// </summary>
-        public static IReadOnlyDictionary<FirearmType, AttachmentIdentity[]> AvailableAttachments => AvailableAttachmentsValue;
+        public static Dictionary<FirearmType, AttachmentIdentity[]> AvailableAttachments => AvailableAttachmentsValue;
 
         /// <summary>
         /// Gets the base code of the firearm.

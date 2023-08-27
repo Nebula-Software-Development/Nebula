@@ -19,7 +19,6 @@ using PlayerRoles.FirstPersonControl;
 using PlayerStatsSystem;
 using RelativePositioning;
 using RemoteAdmin;
-using System;
 using System.Collections.Generic;
 using System.Data;
 using System.IO;
@@ -27,11 +26,15 @@ using System.Linq;
 using System.Reflection;
 using UnityEngine;
 using VoiceChat;
-using static System.Net.Mime.MediaTypeNames;
 using Firearm = Nebuli.API.Features.Items.Firearm;
 using Nebuli.API.Features.Structs;
 using Nebuli.API.Extensions;
-using InventorySystem.Items.Firearms.Attachments.Components;
+using Nebuli.API.Internal;
+using PlayerRoles.Voice;
+using Utils.Networking;
+using PlayerRoles.RoleAssign;
+using System;
+using InventorySystem.Items;
 
 namespace Nebuli.API.Features.Player;
 
@@ -45,6 +48,8 @@ public class NebuliPlayer
     /// </summary>
     public static readonly Dictionary<ReferenceHub, NebuliPlayer> Dictionary = new();
 
+    private readonly CustomHealthManager customHealthManager;
+
     internal NebuliPlayer(ReferenceHub hub)
     {
         ReferenceHub = hub;
@@ -57,10 +62,9 @@ public class NebuliPlayer
 
         CustomHintManager = GameObject.AddComponent<CustomHintManager>();
         CustomHintManager.player = this;
-
+        ReferenceHub.playerStats._dictionarizedTypes[typeof(HealthStat)] = ReferenceHub.playerStats.StatModules[0] = customHealthManager = new CustomHealthManager { Hub = ReferenceHub };
         Dictionary.Add(hub, this);
     }
-
     internal NebuliPlayer(GameObject gameObject)
     {
         ReferenceHub = ReferenceHub.GetHub(gameObject);
@@ -73,7 +77,7 @@ public class NebuliPlayer
 
         CustomHintManager = GameObject.AddComponent<CustomHintManager>();
         CustomHintManager.player = this;
-
+        ReferenceHub.playerStats._dictionarizedTypes[typeof(HealthStat)] = ReferenceHub.playerStats.StatModules[0] = customHealthManager = new CustomHealthManager { Hub = ReferenceHub };
         Dictionary.Add(ReferenceHub, this);
     }
 
@@ -102,6 +106,11 @@ public class NebuliPlayer
     public void GiveAchievement(AchievementName achievement) => AchievementHandlerBase.ServerAchieve(NetworkConnection, achievement);
 
     /// <summary>
+    /// Gets the players <see cref="Internal.UserSessionData"/>.
+    /// </summary>
+    public UserSessionData UserSessionData { get; } = new();
+
+    /// <summary>
     /// The player count of the server.
     /// </summary>
     public static int PlayerCount => Dictionary.Count;
@@ -116,6 +125,19 @@ public class NebuliPlayer
     /// </summary>
     public bool IsNPC { get; set; }
 
+    /// <summary>
+    /// Gets the players <see cref="Mirror.NetworkIdentity"/>.
+    /// </summary>
+    public NetworkIdentity NetworkIdentity => ReferenceHub.netIdentity;
+
+    /// <summary>
+    /// Gets or sets the players current ammo.
+    /// </summary>
+    public Dictionary<ItemType, ushort> Ammo
+    {
+        get => Inventory.UserInventory.ReserveAmmo;
+        set => Inventory.UserInventory.ReserveAmmo = value;
+    }
 
     /// <summary>
     /// The player's GameObject.
@@ -133,26 +155,51 @@ public class NebuliPlayer
     public bool IsCuffed => Inventory.IsDisarmed();
 
     /// <summary>
+    /// Gets or sets the players <see cref="global::PlayerInfoArea"/>.
+    /// </summary>
+    public PlayerInfoArea PlayerInfoArea
+    {
+        get => ReferenceHub.nicknameSync.Network_playerInfoToShow;
+        set => ReferenceHub.nicknameSync.Network_playerInfoToShow = value;
+    }
+
+    /// <summary>
     /// Disarms the player.
     /// </summary>
     /// <param name="disarmer">The player disarming.</param>
     public void Disarm(NebuliPlayer disarmer) => Inventory.SetDisarmedStatus(disarmer.Inventory);
 
     /// <summary>
-    /// Gets the disarmer of the player, or null if none.
+    /// Gets or sets a disarmer of the player, or null if none.
     /// </summary>
     public NebuliPlayer Disarmer
     {
-        get
+        get => Get(DisarmedPlayers.Entries.FirstOrDefault(e => e.DisarmedPlayer == NetId).Disarmer);
+        set
         {
-            foreach(DisarmedPlayers.DisarmedEntry disarmedEntry in DisarmedPlayers.Entries)
-            {
-                if (disarmedEntry.DisarmedPlayer == NetId)
-                    return Get(disarmedEntry.Disarmer);
-            }
-            return null;
+            DisarmedPlayers.DisarmedEntry entryToRemove = DisarmedPlayers.Entries.FirstOrDefault(e => e.DisarmedPlayer == Inventory.netId);
+
+            if (DisarmedPlayers.Entries.Contains(entryToRemove))
+                DisarmedPlayers.Entries.Remove(entryToRemove);
+
+            if (value is null)
+                return;           
+
+            Inventory.SetDisarmedStatus(value.Inventory);
+            new DisarmedPlayersListMessage(DisarmedPlayers.Entries).SendToAuthenticated();
         }
     }
+
+
+    /// <summary>
+    /// Gets the players <see cref="VoiceModuleBase"/>.
+    /// </summary>
+    public VoiceModuleBase VoiceModule => RoleManager.CurrentRole is IVoiceRole voiceRole ? voiceRole.VoiceModule : null;
+
+    /// <summary>
+    /// Disconnects the player from the server.
+    /// </summary>
+    public void Disconnect(string reason = null) => ServerConsole.Disconnect(NetworkConnection, reason ?? string.Empty);
 
     /// <summary>
     /// The players RawUserId.
@@ -216,6 +263,21 @@ public class NebuliPlayer
     }
 
     /// <summary>
+    /// Gets or sets the players <see cref="ScpSpawnPreferences.SpawnPreferences"/>.
+    /// </summary>
+    public ScpSpawnPreferences.SpawnPreferences SCPSpawnPreferences
+    {
+        get
+        {
+            if (ScpSpawnPreferences.Preferences.TryGetValue(NetworkConnection.connectionId, out ScpSpawnPreferences.SpawnPreferences value))
+                return value;
+
+            return default;
+        }
+        set => ScpSpawnPreferences.Preferences[NetworkConnection.connectionId] = value;
+    }
+
+    /// <summary>
     /// Gets or sets the players current position.
     /// </summary>
     public Vector3 Position
@@ -223,6 +285,11 @@ public class NebuliPlayer
         get => Transform.position;
         set => ReferenceHub.TryOverridePosition(value, Vector3.zero);
     }
+
+    /// <summary>
+    /// Gets the players camera transform.
+    /// </summary>
+    public Transform PlayerCamera => ReferenceHub.PlayerCameraReference;
 
     /// <summary>
     /// Gets the players RelativePosition.
@@ -236,6 +303,29 @@ public class NebuliPlayer
     {
         get => Transform.eulerAngles;
         set => ReferenceHub.TryOverridePosition(Position, value);
+    }
+
+    /// <summary>
+    /// Gets or sets the players current scale.nwa
+    /// </summary>
+    public Vector3 Scale
+    {
+        get => ReferenceHub.transform.localScale;
+        set
+        {
+            if (value == ReferenceHub.transform.localScale)
+                return;
+            try
+            {
+                ReferenceHub.transform.localScale = value;
+                foreach (NebuliPlayer player in List)
+                    Server.SendSpawnMessage?.Invoke(null, new object[] { NetworkIdentity, player.NetworkConnection });
+            }
+            catch (Exception exception)
+            {
+                Log.Error($"Error setting player scale! Full error -->\n" + exception);
+            }
+        }
     }
 
     /// <summary>
@@ -259,9 +349,7 @@ public class NebuliPlayer
                 string[] lines = File.ReadAllLines(path);
                 List<string> newLines = new();
                 foreach (string line in lines.Where(line => !line.Contains(UserId)))
-                {
                     newLines.Add(line);
-                }
                 File.WriteAllLines(path, newLines);
                 ReservedSlot.Reload();
             }
@@ -285,6 +373,15 @@ public class NebuliPlayer
             }
         }
     }
+
+    /// <summary>
+    /// Gets or sets if the player has noclip.
+    /// </summary>
+    public bool HasNoClip
+    {
+        get => ReferenceHub.playerStats.GetModule<AdminFlagsStat>().HasFlag(AdminFlags.Noclip);
+        set => ReferenceHub.playerStats.GetModule<AdminFlagsStat>().SetFlag(AdminFlags.Noclip, value);
+    }  
 
     /// <summary>
     /// Gets or sets the players current UserId.
@@ -319,14 +416,22 @@ public class NebuliPlayer
     }
 
     /// <summary>
-    /// Gets the players maximum possible health value.
+    /// Gets or sets the players maximum possible health value.
     /// </summary>
-    public float MaxHealth => ReferenceHub.playerStats.GetModule<HealthStat>().MaxValue;
+    public float MaxHealth
+    {
+        get => customHealthManager.MaxValue;
+        set => customHealthManager.MaxHealth = value;
+    }
 
     /// <summary>
-    /// Gets the players minimum possible health value.
+    /// Gets or setsthe players minimum possible health value.
     /// </summary>
-    public float MinHealth => ReferenceHub.playerStats.GetModule<HealthStat>().MinValue;
+    public float MinHealth
+    {
+        get => customHealthManager.MinValue;
+        set => customHealthManager.MinHealth = value;
+    }
 
     /// <summary>
     /// Gets or sets the players current HumeShield value.
@@ -398,12 +503,24 @@ public class NebuliPlayer
     }
 
     /// <summary>
+    /// Gets the players current velocity.
+    /// </summary>
+    public Vector3 Velocity => ReferenceHub.GetVelocity();
+
+    /// <summary>
     /// Gets or sets whether the player has DoNotTrack enabled or not.
     /// </summary>
     public bool DoNotTrack
     {
         get => ReferenceHub.serverRoles.DoNotTrack;
-        set => ReferenceHub.serverRoles.DoNotTrack = value;
+        set
+        {
+            if (ReferenceHub.serverRoles.DoNotTrack = value)
+                return;
+
+            ReferenceHub.serverRoles.DoNotTrack = value;
+            Broadcast($"<color=#2643EC>[</color><color=#2649EC>N</color><color=#264FEC>e</color><color=#2655EC>b</color><color=#265BEC>u</color><color=#2661EC>l</color><color=#2667EC>i</color> <color=#2673EC>U</color><color=#2679EC>s</color><color=#267FEC>e</color><color=#2685EC>r</color> <color=#2691EC>P</color><color=#2697EC>r</color><color=#269DEC>o</color><color=#26A3EC>t</color><color=#26A9EC>e</color><color=#26AFEC>c</color><color=#26B5EC>t</color><color=#26BBEC>i</color><color=#26C1EC>o</color><color=#26C7EC>n</color><color=#26CDEC>]</color> Your 'Do Not Track' settings have been changed to {value} by a server plugin!", 10, global::Broadcast.BroadcastFlags.Normal, true);
+        }
     }
 
     /// <summary>
@@ -470,6 +587,34 @@ public class NebuliPlayer
         get => ReferenceHub.serverRoles.Permissions;
         set => ReferenceHub.serverRoles.Permissions = value;
     }
+
+    /// <summary>
+    /// Gets the players <see cref="Enum.AuthenticationType"/>.
+    /// </summary>
+    public AuthenticationType AuthenticationType
+    {
+        get
+        {
+            if (string.IsNullOrEmpty(UserId))
+                return AuthenticationType.Unknown;
+            switch (UserId.Substring(UserId.LastIndexOf('@') + 1))
+            {
+                case "steam":
+                    return AuthenticationType.Steam;
+                case "discord":
+                    return AuthenticationType.Discord;
+                case "northwood":
+                    return AuthenticationType.Northwood;
+                case "localhost":
+                    return AuthenticationType.LocalHost;
+                case "ID_Dedicated":
+                    return AuthenticationType.DedicatedServer;
+                default:
+                    return AuthenticationType.Unknown;
+            }
+        }
+    }
+
 
     /// <summary>
     /// Trys to get a <see cref="NebuliPlayer"/> with the provided Referencehub.
@@ -744,6 +889,11 @@ public class NebuliPlayer
     }
 
     /// <summary>
+    /// Gets all the players current <see cref="StatusEffectBase"/>.
+    /// </summary>
+    public IEnumerable<StatusEffectBase> ActiveEffects => ReferenceHub.playerEffectsController.AllEffects.Where(e => e.Intensity > 0);
+
+    /// <summary>
     /// Shows the player's tag.
     /// </summary>
     /// <param name="global">Whether to show the name tag globally.</param>
@@ -998,11 +1148,22 @@ public class NebuliPlayer
     }
 
     /// <summary>
+    /// Clears the players inventory.
+    /// </summary>
+    /// <param name="includeAmmo">If ammo should also be cleared.</param>
+    public void ClearInventory(bool includeAmmo = true)
+    {
+        if (includeAmmo) Inventory.UserInventory.ReserveAmmo.Clear();
+        foreach(ItemBase item in Inventory.UserInventory.Items.Values.ToList())
+            Inventory.ServerRemoveItem(item.ItemSerial, item.PickupDropModel);
+    }
+
+    /// <summary>
     /// Adds ammo to the players inventory.
     /// </summary>
     /// <param name="ammoType">The type of ammo to add.</param>
     /// <param name="amount">The ammount of ammo to add.</param>
-    public void AddAmmo(ItemType ammoType, int amount) => Inventory.ServerAddAmmo(ammoType, amount);
+    public void AddAmmo(AmmoType ammoType, int amount) => Inventory.ServerAddAmmo(ammoType.ConvertToItemType(), amount);
 
     /// <summary>
     /// Adds a item to the players inventory.
@@ -1015,16 +1176,12 @@ public class NebuliPlayer
             Firearm firearm = Item.Get(Inventory.ServerAddItem(item)) as Firearm;
 
             if (Preferences is not null && Preferences.TryGetValue(item.ToFirearmType(), out AttachmentIdentity[] attachments))
-            {
-                firearm.Base.ApplyAttachmentsCode((uint)attachments.Sum(attachment => attachment.Code), true);
-            }
+            firearm.Base.ApplyAttachmentsCode((uint)attachments.Sum(attachment => attachment.Code), true);
 
             FirearmStatusFlags flags = FirearmStatusFlags.MagazineInserted;
 
             if (firearm.Attachments.Any(a => a.Name == AttachmentName.Flashlight))
-            {
                 flags |= FirearmStatusFlags.FlashlightEnabled;
-            }
 
             firearm.Base.Status = new FirearmStatus(firearm.MaxAmmo, flags, firearm.Base.GetCurrentAttachmentsCode());
             return firearm;
@@ -1039,6 +1196,12 @@ public class NebuliPlayer
     public Inventory Inventory => ReferenceHub.inventory;
 
     /// <summary>
+    /// Gets if the player has a full inventory.
+    /// </summary>
+
+    public bool HasFullInventory => Inventory.UserInventory.Items.Count >= Inventory.MaxSlots;
+
+    /// <summary>
     /// Checks if the player has any permission in <see cref="PlayerPermissions"/>.
     /// </summary>
     /// <param name="player">The player to check.</param>
@@ -1046,10 +1209,8 @@ public class NebuliPlayer
     public static bool HasAnyPermission(NebuliPlayer player)
     {
         foreach (PlayerPermissions perm in PermissionsHandler.PermissionCodes.Keys)
-        {
-            if (player.HasPermission(perm))
-                return true;
-        }
+        if (player.HasPermission(perm))
+            return true;
         return false;
     }
 
@@ -1059,7 +1220,7 @@ public class NebuliPlayer
     /// <param name="menu">The <see cref="MenuType"/> to send.</param>
     public void OpenMenu(MenuType menu)
     {
-        var menutype = "";
+        string menutype = string.Empty;
 
         switch (menu)
         {
@@ -1082,5 +1243,5 @@ public class NebuliPlayer
             sceneOperation = SceneOperation.Normal,
             customHandling = false
         });
-    }
+    }  
 }

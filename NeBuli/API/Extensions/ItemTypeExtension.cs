@@ -5,6 +5,9 @@ using Nebuli.API.Features.Structs;
 using Nebuli.API.Features.Items;
 using System.Linq;
 using InventorySystem.Items.Firearms.Attachments;
+using InventorySystem.Items;
+using InventorySystem;
+using Item = Nebuli.API.Features.Items.Item;
 
 namespace Nebuli.API.Extensions;
 
@@ -24,10 +27,57 @@ public static class ItemTypeExtension
     public static bool IsFirearmType(this ItemType type) => type.ToFirearmType() is not FirearmType.None;
 
     /// <summary>
+    /// Gets if the <see cref="ItemType"/> is a keycard.
+    /// </summary>
+    /// <param name="type"></param>
+    /// <returns></returns>
+    public static bool IsKeycard(this ItemType type) => GetItemBase(type).Category == ItemCategory.Keycard;
+
+    /// <summary>
+    /// Gets if the <see cref="ItemType"/> is a medical item.
+    /// </summary>
+    /// <param name="type"></param>
+    /// <returns></returns>
+    public static bool IsMedical(this ItemType type) => GetItemBase(type).Category == ItemCategory.Medical;
+
+    /// <summary>
+    /// Gets if the <see cref="ItemType"/> is armor item.
+    /// </summary>
+    /// <param name="type"></param>
+    /// <returns></returns>
+    public static bool IsArmor(this ItemType type) => GetItemBase(type).Category == ItemCategory.Armor;
+
+    /// <summary>
     /// Retrieves a collection of <see cref="ItemType"/> from a collection of <see cref="Item"/>.
     /// </summary>
     public static IEnumerable<ItemType> GetItemTypesFromItems(this IEnumerable<Item> items) =>
         items.Select(item => item.ItemType);
+
+    /// <summary>
+    /// Gets the max ammo for the <see cref="FirearmType"/>.
+    /// </summary>
+    /// <param name="firearmType"></param>
+    /// <returns></returns>
+    public static byte MaxAmmo(this FirearmType firearmType)
+    {
+        if (InventoryItemLoader.AvailableItems.TryGetValue(firearmType.ConvertToItemType(), out ItemBase itemBase) && itemBase is InventorySystem.Items.Firearms.Firearm firearm)
+            return firearm.AmmoManagerModule.MaxAmmo;
+        else
+            return 0;
+    }
+
+    /// <summary>
+    /// Gets the <see cref="ItemType"/> base.
+    /// </summary>
+    /// <param name="item"></param>
+    /// <returns></returns>
+    public static ItemBase GetItemBase(this ItemType item)
+    {
+        if (InventoryItemLoader.AvailableItems.TryGetValue(item, out ItemBase itemBase))
+            return itemBase;
+        return null;
+    }
+    
 
     /// <summary>
     /// Converts a <see cref="FirearmType"/> to its corresponding <see cref="ItemType"/>.
@@ -73,7 +123,6 @@ public static class ItemTypeExtension
         ItemType.Ammo44cal => AmmoType.Ammo44Caliber,
         _ => AmmoType.None,
     };
-
 
     /// <summary>
     /// Converts a <see cref="ItemType"/> to its corresponding <see cref="FirearmType"/>.

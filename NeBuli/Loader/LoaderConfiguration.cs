@@ -23,7 +23,13 @@ public class LoaderConfiguration
     /// Determines if the Loader's debug logs should be shown or not.
     /// </summary>
     [Description("Determines if Loader's debug logs show or not.")]
-    public bool ShowDebugLogs { get; set; } = true;
+    public bool ShowDebugLogs { get; set; } = false;
+
+    /// <summary>
+    /// If true, allows the server to be tracked and counted with the total number of Nebuli servers via server name.
+    /// </summary>
+    [Description("If true, allows the server to be tracked and counted with the total number of Nebuli servers via server name.")]
+    public bool ServerNameTracking { get; set; } = true;
 
     /// <summary>
     /// Determines if the Loader should load plugins where their major required version of Nebuli dosent match Nebulis current major version.

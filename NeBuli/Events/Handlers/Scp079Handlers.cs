@@ -12,6 +12,8 @@ public static class Scp079Handlers
 
     public static event EventManager.CustomEventHandler<Scp079GainingLevelEvent > GainingLevel;
 
+    public static event EventManager.CustomEventHandler<Scp079ChangingCameraEvent> ChangingCamera;
+
     internal static void OnScp079Pinging(Scp079PingingEvent ev) => Pinging.CallEvent(ev);
 
     internal static void OnScp079LosingSignal(Scp079LosingSignalEvent ev) => LosingSignal.CallEvent(ev);
@@ -19,4 +21,6 @@ public static class Scp079Handlers
     internal static void OnScp079GainingExpereince(Scp079GainingExperienceEvent ev) => GainingExperience.CallEvent(ev);
 
     internal static void OnScp079GainingLevel(Scp079GainingLevelEvent ev) => GainingLevel.CallEvent(ev);
+
+    internal static void OnScp079ChangingCamera(Scp079ChangingCameraEvent ev) => ChangingCamera.CallEvent(ev);
 }

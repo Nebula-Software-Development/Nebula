@@ -50,7 +50,7 @@ public static class EventManager
             }
             catch (Exception e)
             {
-                Log.Error("An error occurred while handling the event " + eventHandler.Method.Name + $"\n{e}", "EVENT ERROR");
+                Log.Error("An error occurred while handling the event " + eventHandler.Method.Name + $"\n{e}", "Event Error");
             }
         }
     }
@@ -70,7 +70,7 @@ public static class EventManager
             }
             catch (Exception e)
             {
-                Log.Error("An error occurred while handling the event " + eventHandler.Method.Name + $"\n{e}", "EVENT ERROR");
+                Log.Error("An error occurred while handling the event " + eventHandler.Method.Name + $"\n{e}", "Event Error");
             }
         }
     }
@@ -148,7 +148,7 @@ public static class EventManager
         foreach (DoorVariant door in Object.FindObjectsOfType<DoorVariant>())
             Door.GetDoor(door);
         foreach (global::TeslaGate teslaGate in Object.FindObjectsOfType<TeslaGate>())
-            NebuliTeslaGate.Get(teslaGate);
+            API.Features.Map.TeslaGate.Get(teslaGate);
         foreach (ElevatorChamber elevatorChamber in Object.FindObjectsOfType<ElevatorChamber>())
             Elevator.Get(elevatorChamber);
         foreach (BreakableWindow breakableWindow in Object.FindObjectsOfType<BreakableWindow>())
@@ -232,6 +232,9 @@ public static class EventManager
 
     private static void GenerateAttachments()
     {
+        Firearm.BaseCodes.Clear();
+        Firearm.AvailableAttachments.Clear();
+
         foreach (FirearmType firearmType in Enum.GetValues(typeof(FirearmType)))
         {
             try

@@ -1,6 +1,7 @@
 ﻿using Interactables.Interobjects.DoorUtils;
 using MapGeneration;
 using Nebuli.API.Features.Enum;
+using Nebuli.API.Features.Player;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -179,6 +180,23 @@ public class Door
     public bool IsLocked => (DoorLockingType)Base.NetworkActiveLocks is not DoorLockingType.None;
 
     /// <summary>
+    /// Simulates a permission denied action on the door.
+    /// </summary>
+    /// <param name="player"></param>
+    /// <param name="colliderId"></param>
+    public void PermissionDenied(NebuliPlayer player, byte colliderId) => Base.PermissionsDenied(player.ReferenceHub, colliderId);
+
+    /// <summary>
+    /// Triggers a door action.
+    /// </summary>
+    public void TriggerDoorAction(DoorVariant door, DoorAction action, NebuliPlayer player) => DoorEvents.TriggerAction(door, action, player.ReferenceHub);
+
+    /// <summary>
+    /// Triggers a door action.
+    /// </summary>   
+    public void TriggerDoorAction(DoorVariant door, DoorAction action, ReferenceHub player) => DoorEvents.TriggerAction(door, action, player);
+
+    /// <summary>
     /// Gets a door given the <see cref="DoorVariant"/>.
     /// </summary>
     /// <param name="doorVariant">The <see cref="DoorVariant"/> to use to find the door.</param>
@@ -195,6 +213,18 @@ public class Door
     public void LockDoor(DoorLockingType type = DoorLockingType.RegularSCP079)
     {
         ChangeDoorLock(type); 
+    }
+
+    /// <summary>
+    /// Gets if the door can change its current state.
+    /// </summary>
+    /// <param name="variant">The door variant.</param>
+    /// <returns>True if the door can change state, otherwise false.</returns>
+    public static bool CanChangeState(DoorVariant variant)
+    {
+        float exactState = variant.GetExactState();
+        bool canChangeState = exactState <= 0f || exactState >= 1f;
+        return canChangeState;
     }
 
     /// <summary>

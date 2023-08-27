@@ -40,6 +40,11 @@ public abstract class Plugin<TConfig> : IPlugin<TConfig> where TConfig : IConfig
     public virtual bool SkipVersionCheck { get; } = false;
 
     /// <summary>
+    /// Gets the plugins configuration file path.
+    /// </summary>
+    public virtual string ConfigurationPath { get; internal set; }
+
+    /// <summary>
     /// The plugins config.
     /// </summary>
     public TConfig Config { get; set; } = new TConfig();
@@ -75,7 +80,7 @@ public abstract class Plugin<TConfig> : IPlugin<TConfig> where TConfig : IConfig
 
     private readonly List<ICommand> Commands = new();
 
-    public virtual void LoadCommands()
+    public void LoadCommands()
     {
         Commands.Clear();
 
@@ -145,4 +150,7 @@ public abstract class Plugin<TConfig> : IPlugin<TConfig> where TConfig : IConfig
         Commands.Clear();
         CommandHandlers.Clear();
     }
+
+
+    string IPlugin<TConfig>.ConfigPath { get => ConfigurationPath; set => ConfigurationPath = value; }
 }
