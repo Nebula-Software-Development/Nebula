@@ -110,15 +110,6 @@ public static class ItemTypeExtension
         _ => AmmoType.None,
     };
 
-    internal static bool IsMedicalType(this ItemType type) => type switch
-    { 
-        ItemType.Adrenaline => true,
-        ItemType.Medkit => true,
-        ItemType.Painkillers => true,
-        ItemType.SCP500 => true,
-        _ => false, 
-    };
-
     /// <summary>
     /// Converts a <see cref="ItemType"/> to its corresponding <see cref="FirearmType"/>.
     /// </summary>
