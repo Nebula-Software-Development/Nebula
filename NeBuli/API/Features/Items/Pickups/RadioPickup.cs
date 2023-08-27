@@ -1,5 +1,4 @@
-﻿using InventorySystem.Items.Radio;
-using RadioPickupBase = InventorySystem.Items.Radio.RadioPickup;
+﻿using RadioPickupBase = InventorySystem.Items.Radio.RadioPickup;
 
 
 namespace Nebuli.API.Features.Items.Pickups;

@@ -12,4 +12,13 @@ public class MicroHIDPickup : Pickup
     {
         Base = itemBase;
     }
+
+    /// <summary>
+    /// Gets or sets the Mirco-HID's current energy level.
+    /// </summary>
+    public float EnergyLevel
+    {
+        get => Base.NetworkEnergy; 
+        set => Base.NetworkEnergy = value;
+    }
 }

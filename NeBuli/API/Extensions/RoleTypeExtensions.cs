@@ -3,15 +3,31 @@ using PlayerRoles;
 
 namespace Nebuli.API.Extensions;
 
+/// <summary>
+/// Extension for managing <see cref="Role"/> and <see cref="RoleTypeId"/> easier.
+/// </summary>
 public static class RoleTypeExtensions
 {
     /// <summary>
-    /// Casts a role to a specific type.
+    /// Unsafley casts a role to a specific type.
     /// </summary>
     /// <typeparam name="T">The type to cast the role to.</typeparam>
     /// <param name="role">The role to cast.</param>
     /// <returns>The role cast to the specified type, or null if the cast is not possible.</returns>
     public static T ConvertTo<T>(this Role role) where T : Role => role as T;
+
+    /// <summary>
+    /// Safely attempts to cast a role to a specific type.
+    /// </summary>
+    /// <typeparam name="T">The type to cast the role to.</typeparam>
+    /// <param name="role">The role to cast.</param>
+    /// <param name="castedRole">The role cast to the specified type, if the cast is successful.</param>
+    /// <returns>True if the cast is successful, false otherwise.</returns>
+    public static bool TryCastTo<T>(this Role role, out T castedRole) where T : Role
+    {
+        castedRole = role as T;
+        return castedRole != null;
+    }
 
     /// <summary>
     /// Gets if the <see cref="Role"/> is a human role.

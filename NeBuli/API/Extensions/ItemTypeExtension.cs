@@ -7,6 +7,7 @@ using System.Linq;
 using InventorySystem.Items.Firearms.Attachments;
 using InventorySystem.Items;
 using InventorySystem;
+using Item = Nebuli.API.Features.Items.Item;
 
 namespace Nebuli.API.Extensions;
 
@@ -51,6 +52,19 @@ public static class ItemTypeExtension
     /// </summary>
     public static IEnumerable<ItemType> GetItemTypesFromItems(this IEnumerable<Item> items) =>
         items.Select(item => item.ItemType);
+
+    /// <summary>
+    /// Gets the max ammo for the <see cref="FirearmType"/>.
+    /// </summary>
+    /// <param name="firearmType"></param>
+    /// <returns></returns>
+    public static byte MaxAmmo(this FirearmType firearmType)
+    {
+        if (InventoryItemLoader.AvailableItems.TryGetValue(firearmType.ConvertToItemType(), out ItemBase itemBase) && itemBase is InventorySystem.Items.Firearms.Firearm firearm)
+            return firearm.AmmoManagerModule.MaxAmmo;
+        else
+            return 0;
+    }
 
     /// <summary>
     /// Gets the <see cref="ItemType"/> base.

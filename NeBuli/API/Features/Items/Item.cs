@@ -193,7 +193,7 @@ public class Item
             Painkillers painkillers => new Usables.Painkillers(painkillers),
             ThrowableItem throwable => throwable.Projectile switch
             {
-                ExplosionGrenade => new Throwables.ExplosiveGrenade(throwable),
+                ExplosionGrenade => new ExplosiveGrenade(throwable),
                 InventorySystem.Items.ThrowableProjectiles.FlashbangGrenade => new Throwables.FlashbangGrenade(throwable),
                 _ => new Throwable(throwable),
             },

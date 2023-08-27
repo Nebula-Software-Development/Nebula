@@ -73,6 +73,8 @@ namespace Nebuli.API.Features.Items
         /// </summary>
         public FirearmBaseStats Stats => Base.BaseStats;
 
+        public Firearm Is 
+
         /// <summary>
         /// Gets the ammo type of the firearm.
         /// </summary>
