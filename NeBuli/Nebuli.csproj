@@ -170,6 +170,7 @@
     <Compile Include="API\Interfaces\IPlugin.cs" />
     <Compile Include="API\Features\Enum\DoorType.cs" />
     <Compile Include="API\Features\Enum\GeneratorState.cs" />
+    <Compile Include="API\Internal\Commands\ForceInstall.cs" />
     <Compile Include="API\Internal\Commands\ReloadConfigs.cs" />
     <Compile Include="API\Internal\CustomHealthManager.cs" />
     <Compile Include="API\Internal\CustomHint.cs" />
@@ -213,6 +214,7 @@
     <Compile Include="Events\EventArguments\SCPs\Scp079\Scp079ChangingCameraEvent.cs" />
     <Compile Include="Events\EventArguments\SCPs\Scp079\Scp079GainingExperienceEvent.cs" />
     <Compile Include="Events\EventArguments\SCPs\Scp079\Scp079GainingLevelEvent.cs" />
+    <Compile Include="Events\EventArguments\SCPs\Scp079\Scp079InteractingTeslaEvent.cs" />
     <Compile Include="Events\EventArguments\SCPs\Scp079\Scp079LosingSignalEvent.cs" />
     <Compile Include="Events\EventArguments\SCPs\Scp079\Scp079PingingEvent.cs" />
     <Compile Include="Events\EventArguments\SCPs\Scp173\Scp173AttackEvent.cs" />
@@ -271,6 +273,7 @@
     <Compile Include="Events\Patches\SCPs\Scp079\ChangingCamerasPatch.cs" />
     <Compile Include="Events\Patches\SCPs\Scp079\GainingExperiencePatch.cs" />
     <Compile Include="Events\Patches\SCPs\Scp079\GainingLevelPatch.cs" />
+    <Compile Include="Events\Patches\SCPs\Scp079\InteractingTeslaPatch.cs" />
     <Compile Include="Events\Patches\SCPs\Scp079\LosingSignalPatch.cs" />
     <Compile Include="Events\Patches\SCPs\Scp079\PingingPatch.cs" />
     <Compile Include="Events\Patches\SCPs\Scp173\PeanutAttack.cs" />

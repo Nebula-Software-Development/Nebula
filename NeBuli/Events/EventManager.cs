@@ -234,12 +234,13 @@ public static class EventManager
     {
         Firearm.BaseCodes.Clear();
         Firearm.AvailableAttachments.Clear();
+        Firearm.TypeToFirearm.Clear();
 
         foreach (FirearmType firearmType in Enum.GetValues(typeof(FirearmType)))
         {
             try
             {
-                if (firearmType == FirearmType.None || firearmType == FirearmType.MircoHID || Item.Create(firearmType.ConvertToItemType()) is not Firearm firearm)
+                if (firearmType == FirearmType.None || firearmType == FirearmType.MircoHID || Item.Get(firearmType.ConvertToItemType().GetItemBase()) is not Firearm firearm)
                     continue;
 
                 Firearm.TypeToFirearm.Add(firearmType, firearm);
@@ -258,8 +259,8 @@ public static class EventManager
 
                 uint baseCode = CalculateBaseCode(attachmentIdentifiers);               
 
-                Firearm.BaseCodes.Add(firearmType, baseCode);
-                Firearm.AvailableAttachmentsValue.Add(firearmType, attachmentIdentifiers.ToArray());
+                if(!Firearm.BaseCodes.ContainsKey(firearmType)) Firearm.BaseCodes.Add(firearmType, baseCode);
+                if (!Firearm.AvailableAttachments.ContainsKey(firearmType)) Firearm.AvailableAttachmentsValue.Add(firearmType, attachmentIdentifiers.ToArray());
 
                 ListPool<AttachmentIdentity>.Instance.Return(attachmentIdentifiers);
                 HashSetPool<AttachmentSlot>.Pool.Return(attachmentsSlots);

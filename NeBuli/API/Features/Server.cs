@@ -128,17 +128,28 @@ public static class Server
     /// <summary>
     /// Restarts the server.
     /// </summary>
-    /// <param name="roundRestartType">The <see cref="RoundRestartType"/> to use.</param>
-    /// <param name="reconnectPlayers">If the server should reconnect players after the restart.</param>
-    /// <param name="offset">The restart offset.</param>
-    /// <param name="port">The port to reconnect to, if null, it will be the current port.</param>
-    /// <param name="extendedReconnectionPeriod">If the reconnection period should take longer.</param>
-    public static void RestartServer(RoundRestartType roundRestartType = RoundRestartType.FullRestart, bool reconnectPlayers = true, float offset = 0, ushort? port = null, bool extendedReconnectionPeriod = false)
+    /// <param name="roundRestartType">The <see cref="ServerStatic.NextRoundAction"/> to use.</param>
+    /// <param name="FastRestart">If the restart is a fast restart.</param>
+
+    public static void RestartServer(NextRoundAction roundRestartType = NextRoundAction.Restart, bool FastRestart = false)
     {
-        ushort portValue = port ?? ServerPort;
-        NetworkServer.SendToAll(new RoundRestartMessage(roundRestartType, offset, portValue, reconnectPlayers, extendedReconnectionPeriod));
+        StopNextRound = roundRestartType;
+        bool oldValue = CustomNetworkManager.EnableFastRestart;
+        CustomNetworkManager.EnableFastRestart = FastRestart;
         RoundRestart.InitiateRoundRestart();
+        CustomNetworkManager.EnableFastRestart = oldValue;
     }
+
+    /// <summary>
+    /// Redirects players to another server.
+    /// </summary>
+    ///<param name="port">The port to redirect to.</param>
+    public static void RedirectPlayers(ushort port = default)
+    {
+        NetworkServer.SendToAll(new RoundRestartMessage(RoundRestartType.RedirectRestart, 0.3f, port, true, false));
+        RestartServer(NextRoundAction.Restart, false);   
+    }
+
 
     /// <summary>
     /// Gets or sets the server's name.
