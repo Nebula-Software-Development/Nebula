@@ -3,7 +3,7 @@
 namespace Nebuli.Loader;
 
 /// <summary>
-///
+/// The loaders configuration class.
 /// </summary>
 public class LoaderConfiguration
 {
@@ -48,4 +48,10 @@ public class LoaderConfiguration
     /// </summary>
     [Description("If Nebuli should automatically check for updates.")]
     public bool ShouldCheckForUpdates { get; set; } = true;
+
+    /// <summary>
+    /// If Nebuli should allow external download URLs for commands like 'forceinstall'..
+    /// </summary>
+    [Description("If Nebuli should allow external download URLs for commands like 'forceinstall'.")]
+    public bool AllowExternalDownloadURLS { get; set; } = false;
 }

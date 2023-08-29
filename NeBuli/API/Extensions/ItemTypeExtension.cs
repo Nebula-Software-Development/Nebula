@@ -1,12 +1,12 @@
-﻿using Nebuli.API.Features.Enum;
-using System.Collections.Generic;
-using System;
-using Nebuli.API.Features.Structs;
-using Nebuli.API.Features.Items;
-using System.Linq;
-using InventorySystem.Items.Firearms.Attachments;
+﻿using InventorySystem;
 using InventorySystem.Items;
-using InventorySystem;
+using InventorySystem.Items.Firearms.Attachments;
+using Nebuli.API.Features.Enum;
+using Nebuli.API.Features.Items;
+using Nebuli.API.Features.Structs;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using Item = Nebuli.API.Features.Items.Item;
 
 namespace Nebuli.API.Extensions;
@@ -77,7 +77,6 @@ public static class ItemTypeExtension
             return itemBase;
         return null;
     }
-    
 
     /// <summary>
     /// Converts a <see cref="FirearmType"/> to its corresponding <see cref="ItemType"/>.
@@ -165,13 +164,12 @@ public static class ItemTypeExtension
     /// </summary>
     public static uint GetBaseCode(this FirearmType type)
     {
-       if (type == FirearmType.None)
-          return 0;
+        if (type == FirearmType.None)
+            return 0;
 
-       if (Firearm.BaseCodes.TryGetValue(type, out uint baseCode))
-          return baseCode;
+        if (Firearm.BaseCodes.TryGetValue(type, out uint baseCode))
+            return baseCode;
 
-       throw new KeyNotFoundException($"Basecode for weapon {type} not found!" + $" Stored BaseCodes:\nKeys: [{string.Join(", ", Firearm.BaseCodes.Keys)}]" + $" Values: [{string.Join(", ", Firearm.BaseCodes.Values)}]");
+        throw new KeyNotFoundException($"Basecode for weapon {type} not found!" + $" Stored BaseCodes:\nKeys: [{string.Join(", ", Firearm.BaseCodes.Keys)}]" + $" Values: [{string.Join(", ", Firearm.BaseCodes.Values)}]");
     }
-
 }

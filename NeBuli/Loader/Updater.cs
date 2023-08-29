@@ -1,13 +1,18 @@
-﻿using Newtonsoft.Json;
+﻿using Nebuli.API.Features;
+using Newtonsoft.Json;
 using PluginAPI.Core;
 using PluginAPI.Loader;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
+using System.Security.Policy;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Log = Nebuli.API.Features.Log;
+using Server = Nebuli.API.Features.Server;
 
 namespace Nebuli.Loader;
 
@@ -139,5 +144,37 @@ public class Updater
             AssemblyLoader.Plugins.SelectMany(assemblyEntry => assemblyEntry.Value)
             .FirstOrDefault(pluginEntry => pluginEntry.Value.PluginName == "Nebuli Loader" && pluginEntry.Value.PluginVersion == NebuliInfo.NebuliVersionConst);
         return nebuliPlugin.Value.PluginFilePath;
+    }
+
+    internal void ForceInstall(string url)
+    {
+        if (!IsGitHubUrl(url))
+        {
+            Log.Info("The provided URL is not a valid GitHub URL. Only Github URLs are allowed for security reasons.");
+            return;
+        }
+
+        Log.Info($"Force installing Nebuli from {url}...");
+        using WebClient client = new();
+        string filePath = FindNebuliPath();
+
+        try
+        {
+            client.DownloadFile(url, filePath);
+            Log.Info($"DLL downloaded and saved at: {filePath}");
+        }
+        catch (Exception ex)
+        {
+            Log.Info($"An error occurred while downloading the DLL: {ex}");
+        }
+
+        Log.Info("Download complete! Restarting server...");
+        Server.RestartServer();
+    }
+
+    private bool IsGitHubUrl(string url)
+    {
+        string githubPattern = @"^(https?:\/\/)?(www\.)?github\.com\/.*";
+        return Regex.IsMatch(url, githubPattern, RegexOptions.IgnoreCase);
     }
 }
