@@ -105,8 +105,7 @@ public class Door
     /// <summary>
     /// Gets the door's <see cref="DoorNametagExtension"/>.
     /// </summary>
-    public DoorNametagExtension NameTag => Base.GetComponent<DoorNametagExtension>()
-
+    public DoorNametagExtension NameTag => Base.GetComponent<DoorNametagExtension>();
 
     /// <summary>
     /// Gets the doors Transform.
