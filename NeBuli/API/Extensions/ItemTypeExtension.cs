@@ -164,7 +164,7 @@ public static class ItemTypeExtension
     /// </summary>
     public static uint GetBaseCode(this FirearmType type)
     {
-        if (type == FirearmType.None)
+        if (type == FirearmType.None || type == FirearmType.MircoHID || type == FirearmType.ParticleDisruptor)
             return 0;
 
         if (Firearm.BaseCodes.TryGetValue(type, out uint baseCode))

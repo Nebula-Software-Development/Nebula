@@ -1,4 +1,7 @@
-﻿namespace Nebuli.API.Features;
+﻿using Nebuli.API.Features.Player;
+using UnityEngine;
+
+namespace Nebuli.API.Features;
 
 /// <summary>
 /// Allows easier control of the Alphawarhead by using the <see cref="AlphaWarheadController"/>.
@@ -9,6 +12,11 @@ public static class AlphaWarhead
     /// Gets the <see cref="AlphaWarheadController"/> singleton.
     /// </summary>
     public static AlphaWarheadController Controller => AlphaWarheadController.Singleton;
+
+    /// <summary>
+    /// Gets the <see cref="AlphaWarheadController"/> <see cref="UnityEngine.GameObject"/>.
+    /// </summary>
+    public static GameObject GameObject => Controller.gameObject;
 
     /// <summary>
     /// Gets the <see cref="AlphaWarheadSyncInfo"/>.
@@ -29,6 +37,11 @@ public static class AlphaWarhead
     /// Forces the warhead to dentonate.
     /// </summary>
     public static void Detonate() => Controller.Detonate();
+
+    /// <summary>
+    /// Cancels the warhead detonation sequence.
+    /// </summary>
+    public static void CancelDetonation(NebuliPlayer disabler = null) => Controller.CancelDetonation(disabler.ReferenceHub);
 
     /// <summary>
     /// Gets the total amount of deaths caused by the warhead.

@@ -12,6 +12,6 @@ public class Scp049PlayerRole : FpcRoleBase
     public new Scp049Role Base { get; }
     internal Scp049PlayerRole(Scp049Role role) : base(role) 
     {
-        Base = role;          
+        Base = role;
     }
 }

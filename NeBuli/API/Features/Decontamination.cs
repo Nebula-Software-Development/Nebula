@@ -5,7 +5,10 @@ namespace Nebuli.API.Features;
 
 public static class Decontamination
 {
-    private static readonly DecontaminationController Controller = Singleton;
+    /// <summary>
+    /// Gets the <see cref="DecontaminationController"/>.
+    /// </summary>
+    public static readonly DecontaminationController Controller = Singleton;
 
     /// <summary>
     /// Gets if <see cref="DecontaminationController"/> is currently decontaminating.
@@ -28,7 +31,7 @@ public static class Decontamination
     public static void ForceDecontamination() => Controller.ForceDecontamination();
 
     /// <summary>
-    /// Sets the <see cref="DecontaminationController.DecontaminationStatus"/>.
+    /// Gets or sets the <see cref="DecontaminationController.DecontaminationStatus"/>.
     /// </summary>
     public static DecontaminationStatus DecontaminationStatus
     {
