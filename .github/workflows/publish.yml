@@ -16,7 +16,7 @@ jobs:
     runs-on: windows-latest
 
     env:
-      NEBULI_DOWNLOAD_URL: https://cdn.cedmod.nl/files/References.zip
+      NEBULI_DOWNLOAD_URL: ${{ secrets.NEBULIREFERENCES }}
       NEBULIREFERENCES: D:\a\Nebuli\Nebuli\References
       PROJECT_FOLDER: Nebuli
       Solution_Name: Nebuli.sln
