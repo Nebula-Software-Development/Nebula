@@ -6,7 +6,7 @@ namespace Nebuli.Loader;
 
 public static class NebuliInfo
 {
-    internal const string NebuliVersionConst = "1.1.8";
+    internal const string NebuliVersionConst = "1.1.9";
 
     public static Version NebuliVersion => new(NebuliVersionConst);
 }
