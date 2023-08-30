@@ -217,7 +217,10 @@
     <Compile Include="Events\EventArguments\SCPs\Scp079\Scp079InteractingTeslaEvent.cs" />
     <Compile Include="Events\EventArguments\SCPs\Scp079\Scp079LosingSignalEvent.cs" />
     <Compile Include="Events\EventArguments\SCPs\Scp079\Scp079PingingEvent.cs" />
+    <Compile Include="Events\EventArguments\SCPs\Scp096\Scp096CalmingEvent.cs" />
     <Compile Include="Events\EventArguments\SCPs\Scp096\Scp096AddingTargetEvent.cs" />
+    <Compile Include="Events\EventArguments\SCPs\Scp096\Scp096EnragingEvent.cs" />
+    <Compile Include="Events\EventArguments\SCPs\Scp096\Scp096PryingGateEvent.cs" />
     <Compile Include="Events\EventArguments\SCPs\Scp173\Scp173AttackEvent.cs" />
     <Compile Include="Events\EventArguments\SCPs\Scp173\Scp173BlinkEvent.cs" />
     <Compile Include="Events\EventArguments\SCPs\Scp173\Scp173PlaceTantrumEvent.cs" />
@@ -279,6 +282,9 @@
     <Compile Include="Events\Patches\SCPs\Scp079\LosingSignalPatch.cs" />
     <Compile Include="Events\Patches\SCPs\Scp079\PingingPatch.cs" />
     <Compile Include="Events\Patches\SCPs\Scp096\AddingTargetPatch.cs" />
+    <Compile Include="Events\Patches\SCPs\Scp096\CalmingPatch.cs" />
+    <Compile Include="Events\Patches\SCPs\Scp096\EnragingPatch.cs" />
+    <Compile Include="Events\Patches\SCPs\Scp096\PryingGatePatch.cs" />
     <Compile Include="Events\Patches\SCPs\Scp173\PeanutAttack.cs" />
     <Compile Include="Events\Patches\SCPs\Scp173\PeanutBlink.cs" />
     <Compile Include="Events\Patches\SCPs\Scp173\PlaceTantrum.cs" />
