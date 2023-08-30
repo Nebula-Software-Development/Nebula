@@ -19,7 +19,7 @@ public static class Log
                 return $"&7[&b&3Nebuli {prefix}&B&7] {message}";
             return text;
         }
-        return $"&7[&b&3Nebuli {messageType}&B&7] &7[&b&2{prefix}&B&7]&r {message}";
+        return $"&7[&b&3Nebuli {messageType}&B&7] &7[&b&2{callingAssembly.GetName().Name}&B&7]&r {message}";
     }
 
 

@@ -3,6 +3,7 @@ using Nebuli.Events.EventArguments.SCPs.Scp079;
 using Nebuli.Events.Handlers;
 using NorthwoodLib.Pools;
 using PlayerRoles.PlayableScps.Scp079;
+using PlayerRoles.PlayableScps.Subroutines;
 using System.Collections.Generic;
 using System.Reflection.Emit;
 using static HarmonyLib.AccessTools;
@@ -23,10 +24,10 @@ internal class InteractingTeslaPatch
 
         Label retLabel = generator.DefineLabel();
 
-        newInstructions.InsertRange(index, new CodeInstruction[]
+        newInstructions.InsertRange(index, new[]
         {
-            new(OpCodes.Ldloc_0),
-            new(OpCodes.Callvirt, PropertyGetter(typeof(Scp079TeslaAbility), nameof(Scp079TeslaAbility.Owner))),
+            new CodeInstruction(OpCodes.Ldarg_0).MoveLabelsFrom(newInstructions[index]),
+            new(OpCodes.Call, PropertyGetter(typeof(ScpStandardSubroutine<Scp079Role>), nameof(ScpStandardSubroutine<Scp079Role>.Owner))),
             new(OpCodes.Ldloc_1),
             new(OpCodes.Newobj, GetDeclaredConstructors(typeof(Scp079InteractingTeslaEvent))[0]),
             new(OpCodes.Stloc_S, interactingTesla.LocalIndex),

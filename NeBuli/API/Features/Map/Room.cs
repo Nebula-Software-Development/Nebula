@@ -1,4 +1,5 @@
 using MapGeneration;
+using Nebuli.API.Features.Doors;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -26,6 +27,11 @@ public class Room
     /// Gets the rooms base.
     /// </summary>
     public RoomIdentifier Base { get; }
+
+    /// <summary>
+    /// Gets all the doors that belong this this <see cref="Room"/>.
+    /// </summary>
+    public List<Door> Doors => Door.List.Where(door => door.CurrentRoom == this).ToList();
 
     /// <summary>
     /// Gets the rooms <see cref="RoomLightController"/>.
@@ -167,8 +173,17 @@ public class Room
     /// Gets a <see cref="Room"/> based off the given <see cref="Vector3"/>.
     /// </summary>
     /// <param name="position">The positon to look for a room at.</param>
-    /// <returns></returns>
-    public static Room Get(Vector3 position) => RoomIdUtils.RoomAtPositionRaycasts(position, true) is RoomIdentifier roomIdentifier ? Get(roomIdentifier) : GetNearestRoom(position);
+    /// <param name="getNearest">Indicates whether to get the nearest room if the exact room is not found.</param>
+    /// <returns>A <see cref="Room"/> instance if found; otherwise, <c>null</c>.</returns>
+    public static Room Get(Vector3 position, bool getNearest = true)
+    {
+        Room room = Get(RoomIdUtils.RoomAtPositionRaycasts(position, true));
+        if (room is not null)
+            return room;
+        if(getNearest)
+            return GetNearestRoom(position);
+        return null;        
+    }
 
     /// <summary>
     /// Gets the nearest room to the specified position.

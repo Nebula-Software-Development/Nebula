@@ -6,6 +6,8 @@ using UnityEngine;
 using Nebuli.API.Features.Player;
 using System;
 using Object = UnityEngine.Object;
+using Mirror;
+using Nebuli.API.Extensions;
 
 namespace Nebuli.API.Features;
 
@@ -140,6 +142,73 @@ public class Ragdoll
     }
 
     /// <summary>
+    /// Creates a new ragdoll.
+    /// </summary>
+    /// <param name="networkInfo">The data associated with the ragdoll.</param>
+    /// <param name="ragdoll">The ragdoll created.</param>
+    public static bool Create(RagdollData networkInfo, out Ragdoll ragdoll)
+    {
+        ragdoll = null;
+
+        if (networkInfo.RoleType.GetBaseRole() is not IRagdollRole ragdollRole)
+            return false;
+
+        GameObject modelRagdoll = ragdollRole.Ragdoll.gameObject;
+        if (modelRagdoll == null || !Object.Instantiate(modelRagdoll).TryGetComponent(out BasicRagdoll basicRagdoll))
+            return false;
+
+        basicRagdoll.NetworkInfo = networkInfo;
+
+        ragdoll = new Ragdoll(basicRagdoll)
+        {
+            StartPosition = networkInfo.StartPosition,
+            RagdollRotation = networkInfo.StartRotation
+        };
+
+        return true;
+    }
+
+    /// <summary>
+    /// Creates a new <see cref="Ragdoll"/> with the specified parameters.
+    /// </summary>
+    /// <param name="Nickname">The nickname associated with the ragdoll.</param>
+    /// <param name="role">The <see cref="PlayerRoles.RoleTypeId"/> of the ragdoll's role.</param>
+    /// <param name="damageHandlerBase">The <see cref="PlayerStatsSystem.DamageHandlerBase"/> for the ragdoll.</param>
+    /// <param name="owner">The optional <see cref="NebuliPlayer"/> owner of the ragdoll.</param>
+    /// <param name="position">The optional position of the ragdoll.</param>
+    /// <param name="rotation">The optional rotation of the ragdoll.</param>
+    /// <param name="creationTime">The optional creation time of the ragdoll.</param>
+    /// <returns>The created <see cref="Ragdoll"/> instance, or <c>null</c> if creation failed.</returns>
+    public static Ragdoll Create(string Nickname, RoleTypeId role, DamageHandlerBase damageHandlerBase, NebuliPlayer owner = null, Vector3 position = default, Quaternion rotation = default, double creationTime = default)
+    {
+        if(Create(new RagdollData(owner.ReferenceHub ?? Server.NebuliHost.ReferenceHub, damageHandlerBase, roleType: role, position, rotation, Nickname, creationTime), out Ragdoll ragdoll))
+            return ragdoll;
+        return null;
+    }
+
+
+    /// <summary>
+    /// Creates a new <see cref="Ragdoll"/> with the specified parameters and spawns it.
+    /// </summary>
+    /// /// <param name="Nickname">The nickname associated with the ragdoll.</param>
+    /// <param name="role">The <see cref="PlayerRoles.RoleTypeId"/> of the ragdoll's role.</param>
+    /// <param name="damageHandlerBase">The <see cref="PlayerStatsSystem.DamageHandlerBase"/> for the ragdoll.</param>
+    /// <param name="owner">The optional <see cref="NebuliPlayer"/> owner of the ragdoll.</param>
+    /// <param name="position">The optional position of the ragdoll.</param>
+    /// <param name="rotation">The optional rotation of the ragdoll.</param>
+    /// <param name="creationTime">The optional creation time of the ragdoll.</param>
+    /// <returns>The created <see cref="Ragdoll"/> instance, or <c>null</c> if creation failed.</returns>
+    public static Ragdoll CreateAndSpawn(string Nickname, RoleTypeId role, DamageHandlerBase damageHandlerBase, NebuliPlayer owner = null, Vector3 position = default, Quaternion rotation = default, double creationTime = default)
+    {
+        if (Create(new RagdollData(owner.ReferenceHub ?? Server.NebuliHost.ReferenceHub, damageHandlerBase, roleType: role, position, rotation, Nickname, creationTime), out Ragdoll ragdoll))
+        {
+            ragdoll.Spawn();
+            return ragdoll;
+        }         
+        return null;
+    }
+
+    /// <summary>
     /// Gets the existence time of the ragdoll
     /// </summary>
     public TimeSpan ExistenceTime => TimeSpan.FromSeconds(Base.NetworkInfo.ExistenceTime);
@@ -155,4 +224,14 @@ public class Ragdoll
     /// Destroys the ragdoll.
     /// </summary>
     public void Destroy() => Object.Destroy(GameObject);
+
+    /// <summary>
+    /// Spawns the ragdoll.
+    /// </summary>
+    public void Spawn() => NetworkServer.Spawn(GameObject);
+
+    /// <summary>
+    /// Despawns the ragdoll.
+    /// </summary>
+    public void Despawn() => NetworkServer.UnSpawn(GameObject);
 }

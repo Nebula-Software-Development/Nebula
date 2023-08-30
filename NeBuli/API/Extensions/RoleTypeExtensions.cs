@@ -62,4 +62,24 @@ public static class RoleTypeExtensions
     /// Gets if the <see cref="Role"/> is apart of <see cref="Faction.Unclassified"/>.
     /// </summary>
     public static bool IsUnclassified(this Role role) => role.RoleTypeId.GetFaction() == Faction.Unclassified;
+
+    /// <summary>
+    /// Gets the <see cref="RoleTypeId"/> full name.
+    /// </summary>
+    public static string FullRoleName(this RoleTypeId role) => role.GetBaseRole().RoleName;
+
+    /// <summary>
+    /// Gets the roles <see cref="PlayerRoleBase"/>.
+    /// </summary>
+    public static PlayerRoleBase GetBaseRole(this RoleTypeId role) => TryGetBaseRole(role, out PlayerRoleBase playerRole) ? playerRole : null;
+
+    /// <summary>
+    /// Tries to get a <see cref="PlayerRoleBase"/> from the specified <see cref="RoleTypeId"/>.
+    /// </summary>
+    public static bool TryGetBaseRole(this RoleTypeId role, out PlayerRoleBase playerRoleBase) => PlayerRoleLoader.TryGetRoleTemplate(role, out playerRoleBase);
+
+    /// <summary>
+    /// Tries to get a <see cref="PlayerRoleBase"/> from the specified <see cref="Role"/>.
+    /// </summary>
+    public static bool TryGetBaseRole(this Role role, out PlayerRoleBase playerRoleBase) => TryGetBaseRole(role.RoleTypeId, out playerRoleBase);
 }
