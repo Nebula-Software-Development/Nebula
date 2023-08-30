@@ -9,20 +9,25 @@ namespace Nebuli.Events.EventArguments.Player;
 
 public class PlayerEscapingEvent : EventArgs, IPlayerEvent, ICancellableEvent
 {
-    public PlayerEscapingEvent(ReferenceHub player, RoleTypeId newRole, EscapeScenarioType escapeType, float tickets)
+    public PlayerEscapingEvent(ReferenceHub player, RoleTypeId newRole, EscapeScenarioType escapeType, EscapeMessage escapeMessage)
     {      
         Player = NebuliPlayer.Get(player);
         NewRole = newRole;
+        EscapeMessage = escapeMessage;
         OldRole = player.GetRoleId();
-        EscapeScenario = (EscapeType)escapeType;
+        EscapeScenario = escapeType;
         IsCancelled = false;
-        Log.Info(OldRole);
     }
 
     /// <summary>
     /// The player that is escaping.
     /// </summary>
     public NebuliPlayer Player { get; }
+
+    /// <summary>
+    /// Gets the <see cref="Escape.EscapeMessage"/> for the event.
+    /// </summary>
+    public EscapeMessage EscapeMessage { get; set; }
 
     /// <summary>
     /// If the event is cancelled or not.
@@ -42,5 +47,5 @@ public class PlayerEscapingEvent : EventArgs, IPlayerEvent, ICancellableEvent
     /// <summary>
     /// The <see cref="EscapeScenarioType"/> of the event.
     /// </summary>
-    public EscapeType EscapeScenario { get; set; }
+    public EscapeScenarioType EscapeScenario { get; set; }
 }

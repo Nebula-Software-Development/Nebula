@@ -58,12 +58,12 @@ public static class Server
     }
 
     /// <summary>
-    /// Gets or sets whether the server is Heavily Modded or not.
+    /// Gets or sets whether the server is Transparently Modded or not.
     /// </summary>
-    public static bool HeavilyModded
+    public static bool TransparentlyModded
     {
-        get => CustomNetworkManager.HeavilyModded;
-        set => CustomNetworkManager.HeavilyModded = value;
+        get => ServerConsole.TransparentlyModdedServerConfig;
+        set => ServerConsole.TransparentlyModdedServerConfig = value;
     }
 
     /// <summary>
@@ -123,7 +123,7 @@ public static class Server
     /// <summary>
     /// Gets if the server is verified.
     /// </summary>
-    public static bool IsVerified => ServerStatic.PermissionsHandler.IsVerified;
+    public static bool IsVerified => CustomNetworkManager.IsVerified;
 
     /// <summary>
     /// Restarts the server.

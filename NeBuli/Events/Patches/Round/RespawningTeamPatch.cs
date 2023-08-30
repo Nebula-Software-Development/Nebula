@@ -16,7 +16,7 @@ internal class RespawningTeamPatch
     [HarmonyTranspiler]
     private static IEnumerable<CodeInstruction> OnRespawning(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
-        List<CodeInstruction> newInstructions = EventManager.CheckPatchInstructions<RespawningTeamPatch>(299, instructions);
+        List<CodeInstruction> newInstructions = EventManager.CheckPatchInstructions<RespawningTeamPatch>(305, instructions);
 
         Label retLabel = generator.DefineLabel();
 

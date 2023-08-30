@@ -14,7 +14,7 @@ internal class LeavingServer
     [HarmonyTranspiler]
     private static IEnumerable<CodeInstruction> OnDisconnecting(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
-        List<CodeInstruction> newInstructions = EventManager.CheckPatchInstructions<LeavingServer>(45, instructions);
+        List<CodeInstruction> newInstructions = EventManager.CheckPatchInstructions<LeavingServer>(48, instructions);
 
         newInstructions.InsertRange(0, new CodeInstruction[]
         {

@@ -61,6 +61,11 @@ public enum FirearmType
     COM45 = ItemType.GunCom45,
 
     /// <summary>
+    /// The FRMGO firearm.
+    /// </summary>
+    FRMGO = ItemType.GunFRMG0,
+
+    /// <summary>
     /// The Micro-HID firearm.
     /// </summary>
     MircoHID = ItemType.MicroHID,

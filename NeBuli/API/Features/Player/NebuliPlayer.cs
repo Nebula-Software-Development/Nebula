@@ -602,21 +602,15 @@ public class NebuliPlayer
         {
             if (string.IsNullOrEmpty(UserId))
                 return AuthenticationType.Unknown;
-            switch (UserId.Substring(UserId.LastIndexOf('@') + 1))
+            return UserId.Substring(UserId.LastIndexOf('@') + 1) switch
             {
-                case "steam":
-                    return AuthenticationType.Steam;
-                case "discord":
-                    return AuthenticationType.Discord;
-                case "northwood":
-                    return AuthenticationType.Northwood;
-                case "localhost":
-                    return AuthenticationType.LocalHost;
-                case "ID_Dedicated":
-                    return AuthenticationType.DedicatedServer;
-                default:
-                    return AuthenticationType.Unknown;
-            }
+                "steam" => AuthenticationType.Steam,
+                "discord" => AuthenticationType.Discord,
+                "northwood" => AuthenticationType.Northwood,
+                "localhost" => AuthenticationType.LocalHost,
+                "ID_Dedicated" => AuthenticationType.DedicatedServer,
+                _ => AuthenticationType.Unknown,
+            };
         }
     }
 
