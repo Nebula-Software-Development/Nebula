@@ -192,7 +192,7 @@ public class NebuliPlayer
 
 
     /// <summary>
-    /// Gets the players <see cref="VoiceModuleBase"/>.
+    /// Gets the players <see cref="VoiceModuleBase"/>, or null if the current role isnt a <see cref="IVoiceRole"/>.
     /// </summary>
     public VoiceModuleBase VoiceModule => RoleManager.CurrentRole is IVoiceRole voiceRole ? voiceRole.VoiceModule : null;
 
@@ -1067,16 +1067,14 @@ public class NebuliPlayer
     }
 
     /// <summary>
-    /// Gets the players firearm preferences.
+    /// Gets or sets the players firearm preferences.
     /// </summary>
     public Dictionary<FirearmType, AttachmentIdentity[]> Preferences
     {
         get
         {
             if (Firearm.PlayerPreferences.TryGetValue(this, out Dictionary<FirearmType, AttachmentIdentity[]> prefs))
-            {
                 return prefs;
-            }
             return new Dictionary<FirearmType, AttachmentIdentity[]>();
         }
     }
@@ -1260,8 +1258,12 @@ public class NebuliPlayer
     /// <summary>
     /// Gets if the player has a full inventory.
     /// </summary>
-
     public bool HasFullInventory => Inventory.UserInventory.Items.Count >= Inventory.MaxSlots;
+
+    /// <summary>
+    /// Gets if the player has a empty inventory.
+    /// </summary>
+    public bool EmptyInventory => !Inventory.UserInventory.Items.Any();
 
     /// <summary>
     /// Checks if the player has any permission in <see cref="PlayerPermissions"/>.

@@ -194,7 +194,10 @@ namespace Nebuli.API.Features.Items
         /// <summary>
         /// Gets the players firearms preferences.
         /// </summary>
-        public static IReadOnlyDictionary<NebuliPlayer, Dictionary<FirearmType, AttachmentIdentity[]>> PlayerPreferences => AttachmentsServerHandler.PlayerPreferences.Where(kvp => kvp.Key != null).ToDictionary(kvp => NebuliPlayer.Get(kvp.Key), kvp => kvp.Value.ToDictionary(subKvp => subKvp.Key.ToFirearmType(), subKvp => subKvp.Key.ToFirearmType().GetAttachmentIdentifiers(subKvp.Value).ToArray()));
+        public static IReadOnlyDictionary<NebuliPlayer, Dictionary<FirearmType, AttachmentIdentity[]>> PlayerPreferences 
+            => AttachmentsServerHandler.PlayerPreferences.Where(kvp => kvp.Key != null).ToDictionary(kvp => NebuliPlayer.Get(kvp.Key), kvp 
+                => kvp.Value.ToDictionary(subKvp => subKvp.Key.ToFirearmType(), subKvp 
+                    => subKvp.Key.ToFirearmType().GetAttachmentIdentifiers(subKvp.Value).ToArray()));
 
 
         /// <summary>
