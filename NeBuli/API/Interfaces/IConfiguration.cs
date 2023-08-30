@@ -3,7 +3,7 @@
 namespace Nebuli.API.Interfaces;
 
 /// <summary>
-/// Default Interface for plugin configs.
+/// Default Interface for plugin configurations.
 /// </summary>
 public interface IConfiguration
 {

@@ -570,6 +570,11 @@ public class NebuliPlayer
     }
 
     /// <summary>
+    /// Gets the player's nickname.
+    /// </summary>
+    public string Nickname => ReferenceHub.nicknameSync.Network_myNickSync;
+
+    /// <summary>
     /// Gets the players IP adress.
     /// </summary>
     public string Address => ReferenceHub.connectionToClient.address;
@@ -798,6 +803,21 @@ public class NebuliPlayer
     /// <param name="footprint">The <see cref="Footprinting.Footprint"/> to use to find the <see cref="NebuliPlayer"/>.</param>
     /// <returns></returns>
     public static NebuliPlayer Get(Footprint footprint) => Get(footprint.Hub);
+
+    /// <summary>
+    /// Gets a <see cref="NebuliPlayer"/> by their nickname.
+    /// </summary>
+    public static NebuliPlayer Get(string Nickname)
+    {
+        foreach (NebuliPlayer player in List)
+        {
+            if (string.Equals(player.DisplayNickname, Nickname, StringComparison.OrdinalIgnoreCase) 
+                || player.DisplayNickname.ToLower() == Nickname.ToLower())
+                return player;
+        }
+        return null;
+    }
+
 
     /// <summary>
     /// Kills the player with a custom reason.
@@ -1122,7 +1142,7 @@ public class NebuliPlayer
     /// <summary>
     /// Gets the players <see cref="PlayerRoles.Team"/>.
     /// </summary>
-    public Team Team => Role.Team;
+    public Team Team => Role is not null ? Role.Team : Team.Dead;
 
     /// <summary>
     /// Gets if the player is alive or not.
@@ -1146,6 +1166,11 @@ public class NebuliPlayer
             Inventory.UserCode_CmdSelectItem__UInt16(value.Serial);
         }
     }
+
+    /// <summary>
+    /// Gets a list of all the players items.
+    /// </summary>
+    public List<Item> Items => Inventory.UserInventory.Items.Values.Select(itemBase => Item.Get(itemBase)).ToList();
 
     /// <summary>
     /// Clears the players inventory.
@@ -1188,6 +1213,43 @@ public class NebuliPlayer
         }
 
         return Item.Get(Inventory.ServerAddItem(item));
+    }
+
+    /// <summary>
+    /// Adds a item to the players inventory.
+    /// </summary>
+    /// <param name="item">The item to add.</param>
+    public Item AddItem(Item item)
+    {
+        if (item.ItemType.IsFirearmType())
+        {
+            Firearm firearm = Item.Get(Inventory.ServerAddItem(item.ItemType, item.Serial)) as Firearm;
+
+            if (Preferences is not null && Preferences.TryGetValue(item.ItemType.ToFirearmType(), out AttachmentIdentity[] attachments))
+                firearm.Base.ApplyAttachmentsCode((uint)attachments.Sum(attachment => attachment.Code), true);
+
+            FirearmStatusFlags flags = FirearmStatusFlags.MagazineInserted;
+
+            if (firearm.Attachments.Any(a => a.Name == AttachmentName.Flashlight))
+                flags |= FirearmStatusFlags.FlashlightEnabled;
+
+            firearm.Base.Status = new FirearmStatus(firearm.MaxAmmo, flags, firearm.Base.GetCurrentAttachmentsCode());
+            return firearm;
+        }
+
+        return Item.Get(Inventory.ServerAddItem(item.ItemType, item.Serial));
+    }
+
+    /// <summary>
+    /// Adds a list of items to the players inventory.
+    /// </summary>
+    /// <param name="items">The items to add.</param>
+    public void AddItems(List<Item> items)
+    {
+        foreach(Item item in items)
+        {
+            AddItem(item);
+        }
     }
     
     /// <summary>
@@ -1243,5 +1305,10 @@ public class NebuliPlayer
             sceneOperation = SceneOperation.Normal,
             customHandling = false
         });
-    }  
+    }
+
+    /// <summary>
+    /// Converts the player to a string.
+    /// </summary>
+    public override string ToString() => $"ID: {Id} - Nickname : {Nickname} - UserID: {UserId} - Role: {(Role is null ? "No role" : Role.RoleName)} Team - {Team}";
 }

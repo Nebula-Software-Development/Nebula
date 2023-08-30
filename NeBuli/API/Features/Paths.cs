@@ -47,7 +47,7 @@ public static class Paths
     /// <summary>
     ///
     /// </summary>
-    public static void LoadPaths()
+    internal static void LoadPaths()
     {
         MainDirectory = Directory.CreateDirectory(Path.Combine(NwPaths.AppData, "Nebuli"));
         PluginsDirectory = MainDirectory.CreateSubdirectory("Plugins");

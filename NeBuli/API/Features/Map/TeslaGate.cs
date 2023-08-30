@@ -9,7 +9,7 @@ using TeslaGateBase = global::TeslaGate;
 namespace Nebuli.API.Features.Map
 {
     /// <summary>
-    /// Wrapper for managing <see cref="TeslaGate"/> easier.
+    /// Wrapper for managing <see cref="TeslaGateBase"/> easier.
     /// </summary>
     public class TeslaGate
     {

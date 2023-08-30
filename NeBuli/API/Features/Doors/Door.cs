@@ -103,9 +103,10 @@ public class Door
     public GameObject GameObject => Base.gameObject;
 
     /// <summary>
-    /// Gets the doors <see cref="DoorNametagExtension"/>.
+    /// Gets the door's <see cref="DoorNametagExtension"/>.
     /// </summary>
-    public DoorNametagExtension NameTag => Base.GetComponent<DoorNametagExtension>();
+    public DoorNametagExtension NameTag => Base.GetComponent<DoorNametagExtension>()
+
 
     /// <summary>
     /// Gets the doors Transform.
@@ -189,7 +190,7 @@ public class Door
     /// <summary>
     /// Triggers a door action.
     /// </summary>
-    public void TriggerDoorAction(DoorVariant door, DoorAction action, NebuliPlayer player) => DoorEvents.TriggerAction(door, action, player.ReferenceHub);
+    public void TriggerDoorAction(DoorVariant door, DoorAction action, NebuliPlayer player) => TriggerDoorAction(door, action, player.ReferenceHub);
 
     /// <summary>
     /// Triggers a door action.
