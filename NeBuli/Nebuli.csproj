@@ -180,6 +180,7 @@
     <Compile Include="Events\EventArguments\IDamageEvent.cs" />
     <Compile Include="Events\EventArguments\IPlayerEvent.cs" />
     <Compile Include="Events\EventArguments\Player\PlayerChangingUserGroupEvent.cs" />
+    <Compile Include="Events\EventArguments\Player\PlayerDestroyingEvent.cs" />
     <Compile Include="Events\EventArguments\Player\PlayerDroppingItemEvent.cs" />
     <Compile Include="Events\EventArguments\Player\PlayerEscapingEvent.cs" />
     <Compile Include="Events\EventArguments\Player\PlayerEscapingPocketEvent.cs" />
@@ -254,6 +255,7 @@
     <Compile Include="Events\Patches\GameFixes\WeaponDysncFix.cs" />
     <Compile Include="Events\Patches\Player\BannedPlayer.cs" />
     <Compile Include="Events\Patches\Player\ChangingUserGroupPatch.cs" />
+    <Compile Include="Events\Patches\Player\DestroyingPlayer.cs" />
     <Compile Include="Events\Patches\Player\DyingPlayer.cs" />
     <Compile Include="Events\Patches\Player\HurtPlayer.cs" />
     <Compile Include="Events\Patches\Player\InteractingDoorEventPatch.cs" />
