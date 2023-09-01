@@ -1,54 +1,93 @@
-﻿using Nebuli.API.Features;
+﻿using CommandSystem;
+using Nebuli.API.Features;
+using System;
 using System.Collections.Generic;
 using System.IO;
 
 namespace Nebuli.Loader;
 
-public static class PermissionHandler
+public static class PermissionsHandler
 {
-    public static Dictionary<string, List<string>> GroupPermissions { get; set; } = new();
+    public static Dictionary<string, Group> Groups { get; internal set; } = new();
 
-    internal static void LoadPermissionHandler()
+    public static void LoadPermissions()
     {
-        foreach (string userGroup in ServerStatic.PermissionsHandler.GetAllGroupsNames())
+        try
         {
-            GroupPermissions.Add(userGroup, new List<string>());
-        }
-
-        if (!File.Exists(Paths.Permissions.FullName))
-        {
-            string serializationString = Loader.Serializer.Serialize(GroupPermissions);
-            File.WriteAllText(Paths.Permissions.FullName, serializationString);
-        }
-
-        Dictionary<string, List<string>> deserializedDict = Loader.Deserializer.Deserialize<Dictionary<string, List<string>>>(File.ReadAllText(Paths.Permissions.FullName));
-
-        foreach (KeyValuePair<string, List<string>> kvp in deserializedDict)
-        {
-            string groupName = kvp.Key;
-            List<string> permissions = kvp.Value;
-          
-            if (!ServerStatic.PermissionsHandler.GetAllGroupsNames().Contains(groupName))
+            if(!File.Exists(Paths.Permissions.FullName))
             {
-                Log.Error(groupName + " is not a valid UserGroup! Skipping...");
-                continue;
+                GenerateDefaultPermissionsFile(Paths.Permissions.FullName);
             }
-            GroupPermissions[groupName] = permissions;
+
+            PermissionsConfig permissionsConfig = Loader.Deserializer.Deserialize<PermissionsConfig>(File.ReadAllText(Paths.Permissions.FullName));
+
+            foreach(string group in permissionsConfig.Permissions.Keys)
+            {
+                if (string.Equals(group, "user", StringComparison.OrdinalIgnoreCase) || ServerStatic.PermissionsHandler._groups.ContainsKey(group))
+                    continue;
+                Log.Info($"{group} is not a valid permission group!", "Permissions");
+                permissionsConfig.Permissions.Remove(group);
+            }
+
+            if (permissionsConfig?.Permissions != null)
+                Groups = permissionsConfig.Permissions;
+        }
+        catch (Exception e)
+        {
+            Log.Error($"Failed to load permissions from file: {e.Message}", "Permissions");
         }
     }
 
-    //public static bool HasPermission(this ICommandSender commandSender, string permission) => HasPermission(NebuliPlayer.Get(commandSender), permission);
-
-    /*public static bool HasPermission(this NebuliPlayer player, string permission)
+    public static void SavePermissions()
     {
-        if (player.ReferenceHub == ReferenceHub.HostHub)
-            return true;
+        PermissionsConfig permissionsConfig = new()
+        {
+            Permissions = Groups
+        };
 
-        if (player is null || player.Group is null)
-            return false;
+        try
+        {
 
-        
-       
-    }*/
+            string yaml = Loader.Serializer.Serialize(permissionsConfig);
+            File.WriteAllText(Paths.Permissions.FullName, yaml);
+        }
+        catch (Exception e)
+        {
+            Log.Error($"Failed to save permissions to file: {e.Message}", "Permissions");
+        }
+    }
+
+    public static void GenerateDefaultPermissionsFile(string filePath)
+    {
+        PermissionsConfig defaultPermissionsConfig = new()
+        {
+            Permissions = new Dictionary<string, Group>
+                {
+                    { "user", new Group { Default = true, Permissions = new List<string> { } } },
+                    { "owner", new Group { Permissions = new List<string> { ".*" } } },
+                    { "admin", new Group { Permissions = new List<string> { "testplugin.admin", "testplugin.*" } } },
+                    { "moderator", new Group { Permissions = new List<string> { "testplugin.moderator" } } }
+                }
+        };
+
+        try
+        {            
+            File.WriteAllText(filePath, Loader.Serializer.Serialize(defaultPermissionsConfig));
+        }
+        catch (Exception e)
+        {
+            Log.Error($"Failed to generate default permissions file: {e.Message}", "Permissions");
+        }
+    }
 }
 
+public class Group
+{
+    public bool Default { get; set; }
+    public List<string> Permissions { get; set; } = new List<string>();
+}
+
+public class PermissionsConfig
+{
+    public Dictionary<string, Group> Permissions { get; set; }
+}

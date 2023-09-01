@@ -4,11 +4,12 @@ using InventorySystem.Items.Firearms;
 using InventorySystem.Items.Firearms.Attachments;
 using UnityEngine;
 
-namespace Nebuli.Events.Patches.GameFixes;
+namespace Nebuli.Events.Patches.Game;
 
 [HarmonyPatch(typeof(AttachmentsServerHandler), nameof(AttachmentsServerHandler.SetupProvidedWeapon))]
 internal static class WeaponAttachmentDesyncFix
 {
+    [HarmonyPrefix]
     private static bool Prefix(ReferenceHub ply, InventorySystem.Items.ItemBase item)
     {
         if (item is Firearm firearm && !ply.inventory.UserInventory.ReserveAmmo.TryGetValue(firearm.AmmoType, out ushort num2))

@@ -17,8 +17,6 @@ using YamlDotNet.Serialization.NamingConventions;
 
 namespace Nebuli.Loader;
 
-#pragma warning disable CS1591
-
 public class Loader
 {
     private Harmony _harmony;
@@ -26,6 +24,27 @@ public class Loader
     private static bool _loaded = false;
 
     public static Random Random { get; } = new();
+
+    private static Assembly _assemblyCache = null;
+    public static Assembly NebuliAssembly
+    {
+        get
+        {
+            if (_assemblyCache != null)
+                return _assemblyCache;
+
+            foreach (Assembly assembly in PluginAPI.Loader.AssemblyLoader.Plugins.Keys)
+            {
+                if (PluginAPI.Loader.AssemblyLoader.Plugins[assembly].Any(plugin => plugin.Value.PluginName == "Nebuli Loader"))
+                {
+                    _assemblyCache = assembly;
+                    break;
+                }
+            }
+
+            return _assemblyCache;
+        }
+    }
 
     public static ISerializer Serializer { get; private set; }
     public static IDeserializer Deserializer { get; private set; }
@@ -70,7 +89,7 @@ public class Loader
 
         LoadPlugins(Paths.PluginsDirectory.GetFiles("*.dll"));
 
-        EventManager.RegisterBaseEvents();
+        EventManager.RegisterBaseEvents();     
 
         try
         {
@@ -91,7 +110,7 @@ public class Loader
         {
             Timing.CallDelayed(5, () =>
             {
-                //PermissionHandler.LoadPermissionHandler();
+                PermissionsHandler.LoadPermissions();
             });
         }
         catch(Exception e) 

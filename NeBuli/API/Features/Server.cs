@@ -1,4 +1,5 @@
-﻿using CustomPlayerEffects;
+﻿using CommandSystem;
+using CustomPlayerEffects;
 using GameCore;
 using Mirror;
 using Nebuli.API.Features.Player;
@@ -23,6 +24,11 @@ public static class Server
     /// Gets the servers <see cref="NebuliPlayer"/> Host.
     /// </summary>
     public static NebuliPlayer NebuliHost { get; internal set; } = null;
+
+    /// <summary>
+    /// Gets the servers GameConsoleCommandHandler.
+    /// </summary>
+    public static GameConsoleCommandHandler GameConsoleCommandHandler => GameCore.Console.singleton.ConsoleCommandHandler;
 
     /// <summary>
     /// Gets or sets whether friendly fire is on or not.
@@ -124,6 +130,26 @@ public static class Server
     /// Gets if the server is verified.
     /// </summary>
     public static bool IsVerified => CustomNetworkManager.IsVerified;
+
+    /// <summary>
+    /// Gets if the server has streaming allowed.
+    /// </summary>
+    public static bool IsStreamingAllowed => GameCore.Version.StreamingAllowed;
+
+    /// <summary>
+    /// Gets if the server is a release version.
+    /// </summary>
+    public static bool IsReleaseVersion => GameCore.Version.ReleaseCandidate;
+
+    /// <summary>
+    /// Gets if the server is a private beta version.
+    /// </summary>
+    public static bool IsPrivateBeta => GameCore.Version.PrivateBeta;
+
+    /// <summary>
+    /// Gets if the server is a public beta version.
+    /// </summary>
+    public static bool IsPublicBeta => GameCore.Version.PublicBeta;
 
     /// <summary>
     /// Restarts the server.

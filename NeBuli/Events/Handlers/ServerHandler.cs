@@ -1,5 +1,4 @@
 ﻿using Nebuli.Events.EventArguments.Server;
-using System;
 
 namespace Nebuli.Events.Handlers;
 
