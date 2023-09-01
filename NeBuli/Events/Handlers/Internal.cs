@@ -1,5 +1,4 @@
-﻿using UnityEngine;
-using MapGeneration.Distributors;
+﻿using MapGeneration.Distributors;
 using Nebuli.API.Features.Map;
 using MEC;
 using Locker = Nebuli.API.Features.Map.Locker;
@@ -15,7 +14,7 @@ internal class Internal
     {
         try
         {
-            Timing.CallDelayed(1f, () =>
+            Timing.CallDelayed(0.8f, () =>
             {
                 foreach (Scp079Generator generator in Object.FindObjectsOfType<Scp079Generator>())
                     Generator.Get(generator);

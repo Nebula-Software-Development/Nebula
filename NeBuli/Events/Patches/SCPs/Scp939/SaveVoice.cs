@@ -15,7 +15,7 @@ internal class SaveVoice
     [HarmonyTranspiler]
     private static IEnumerable<CodeInstruction> OnSaveVoice(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
-        List<CodeInstruction> newInstructions = EventManager.CheckPatchInstructions<SaveVoice>(37, instructions);
+        List<CodeInstruction> newInstructions = EventManager.CheckPatchInstructions<SaveVoice>(45, instructions);
         
         Label retLabel = generator.DefineLabel();
         

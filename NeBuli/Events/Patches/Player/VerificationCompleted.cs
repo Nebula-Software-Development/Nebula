@@ -14,7 +14,7 @@ internal class VerificationCompleted
     [HarmonyTranspiler]
     private static IEnumerable<CodeInstruction> OnJoining(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
-        List<CodeInstruction> newInstructions = EventManager.CheckPatchInstructions<VerificationCompleted>(702, instructions);
+        List<CodeInstruction> newInstructions = EventManager.CheckPatchInstructions<VerificationCompleted>(701, instructions);
 
         Label retLabel = generator.DefineLabel();
         int index = newInstructions.FindIndex(i => i.opcode == OpCodes.Pop) + 1;

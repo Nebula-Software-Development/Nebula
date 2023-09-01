@@ -10,7 +10,7 @@ public class PlayerDyingEvent : EventArgs, ICancellableEvent, IPlayerEvent
     {
         Player = NebuliPlayer.Get(target);
         if (DamageHandlerBase is AttackerDamageHandler attackerDamageHandler)
-            Killer = NebuliPlayer.Get(attackerDamageHandler.Attacker);
+            Killer = NebuliPlayer.Get(attackerDamageHandler.Attacker.Hub);
         DamageHandlerBase = dmgB;
         IsCancelled = false;
     }

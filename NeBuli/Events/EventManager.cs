@@ -75,11 +75,9 @@ public static class EventManager
         }
     }
 
-
     internal static void RegisterBaseEvents()
     {
         SceneManager.sceneUnloaded += OnSceneUnLoaded;
-        SeedSynchronizer.OnMapGenerated += ServerHandler.OnMapGenerated;
         RagdollManager.OnRagdollSpawned += OnRagdollSpawned;
         RagdollManager.OnRagdollRemoved += OnRagdollDeSpawned;
         SeedSynchronizer.OnMapGenerated += OnMapGenerated;
@@ -89,13 +87,12 @@ public static class EventManager
         InventoryExtensions.OnItemRemoved += OnItemRemoved;
         CharacterClassManager.OnRoundStarted += RoundHandlers.OnRoundStart;
         PlayerRoleManager.OnRoleChanged += RoleChange;
-        ServerHandler.MapGenerated += Internal.Handler;
+        SeedSynchronizer.OnMapGenerated += Internal.Handler;
     }
 
     internal static void UnRegisterBaseEvents()
     {
         SceneManager.sceneUnloaded -= OnSceneUnLoaded;
-        SeedSynchronizer.OnMapGenerated -= ServerHandler.OnMapGenerated;
         RagdollManager.OnRagdollSpawned -= OnRagdollSpawned;
         RagdollManager.OnRagdollRemoved -= OnRagdollDeSpawned;
         SeedSynchronizer.OnMapGenerated -= OnMapGenerated;
@@ -105,7 +102,7 @@ public static class EventManager
         InventoryExtensions.OnItemRemoved -= OnItemRemoved;
         CharacterClassManager.OnRoundStarted -= RoundHandlers.OnRoundStart;
         PlayerRoleManager.OnRoleChanged -= RoleChange;
-        ServerHandler.MapGenerated -= Internal.Handler;
+        SeedSynchronizer.OnMapGenerated -= Internal.Handler;
     }
 
     private static void RoleChange(ReferenceHub userHub, PlayerRoleBase prevRole, PlayerRoleBase newRole)
@@ -222,7 +219,6 @@ public static class EventManager
     public static List<CodeInstruction> CheckPatchInstructions<T>(int originalCodes, IEnumerable<CodeInstruction> instructions)
     {
         List<CodeInstruction> newInstructions = NorthwoodLib.Pools.ListPool<CodeInstruction>.Shared.Rent(instructions);
-
         if (originalCodes == newInstructions.Count)
             return newInstructions;
 

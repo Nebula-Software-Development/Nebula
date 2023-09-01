@@ -1,4 +1,5 @@
-﻿using Interactables.Interobjects.DoorUtils;
+﻿using Interactables.Interobjects;
+using Interactables.Interobjects.DoorUtils;
 using MapGeneration;
 using Nebuli.API.Features.Enum;
 using Nebuli.API.Features.Player;
@@ -76,7 +77,7 @@ public class Door
     /// <summary>
     /// Gets the doors ID.
     /// </summary>
-    public byte DoorID => Base.DoorId;
+    public byte DoorId => Base.DoorId;
 
     /// <summary>
     /// Gets or sets the doors required permissions.
@@ -175,6 +176,53 @@ public class Door
     }
 
     /// <summary>
+    /// Damages the door with the specified amount and <see cref="DoorDamageType"/>.
+    /// </summary>
+    public void Damage(float amount, DoorDamageType type)
+    {
+        if (Base is IDamageableDoor door)
+            door.ServerDamage(amount, type);
+        return;
+    }
+
+    /// <summary>
+    /// Destroys the door.
+    /// </summary>
+    public void Destroy(DoorDamageType doorDamageType = DoorDamageType.ServerCommand)
+    {
+        Damage(float.MaxValue, doorDamageType);
+    }
+
+    /// <summary>
+    /// Gets or sets the doors health.
+    /// </summary>
+    public float Health
+    {
+        get => Base is BreakableDoor door ? door.RemainingHealth : 0;
+        set
+        {
+            if (Base is BreakableDoor breakable)
+                breakable.RemainingHealth = value;
+            return;
+        }
+    }
+
+    /// <summary>
+    /// Gets or sets the doors maximum amount of health.
+    /// </summary>
+    public float MaxHealth
+    {
+        get => Base is BreakableDoor door ? door._maxHealth : 0;
+        set
+        {
+            if (Base is BreakableDoor breakable)
+                breakable._maxHealth = value;
+            return;
+        }
+    }
+
+
+    /// <summary>
     /// Gets if the door is locked.
     /// </summary>
     public bool IsLocked => (DoorLockingType)Base.NetworkActiveLocks is not DoorLockingType.None;
@@ -255,39 +303,26 @@ public class Door
 
     internal static DoorType GetDoorType(DoorVariant door)
     {
-        if (door.GetComponent<DoorNametagExtension>() is null)
-        {
-            string doorName = GetSubstringBeforeCharacter(door.name, ' ');
-
-            return doorName switch
-            {
-                "LCZ" => DoorType.LightContainmentDoor,
-                "HCZ" => DoorType.HeavyContainmentDoor,
-                "EZ" => DoorType.LightContainmentDoor,
-                "Prison" => DoorType.PrisonDoor,
-                "914" => DoorType.Scp914Door,
-                "Intercom" => DoorType.Intercom,
-                "Unsecured" => DoorType.UnsecuredPryableGate,
-                "Elevator" => DoorType.UnknownElevator,
-                _ => DoorType.UnknownDoor,
-            };
-         
-        }
-        if (nameToDoorType.TryGetValue(door.GetComponent<DoorNametagExtension>().GetName, out DoorType doorType))
-        {
+        if (door.GetComponent<DoorNametagExtension>() is not null && nameToDoorType.TryGetValue(door.GetComponent<DoorNametagExtension>().GetName, out DoorType doorType))
             return doorType;
-        }
-
-        return DoorType.UnknownDoor;
-
+        return GetSubstringBeforeCharacter(door.name, ' ') switch
+        {
+            "LCZ" => DoorType.LightContainmentDoor,
+            "HCZ" => DoorType.HeavyContainmentDoor,
+            "EZ" => DoorType.LightContainmentDoor,
+            "Prison" => DoorType.PrisonDoor,
+            "914" => DoorType.Scp914Door,
+            "Intercom" => DoorType.Intercom,
+            "Unsecured" => DoorType.UnsecuredPryableGate,
+            "Elevator" => DoorType.UnknownElevator,
+            _ => DoorType.UnknownDoor,
+        };
     }
     private static string GetSubstringBeforeCharacter(string input, char character)
     {
         int index = input.IndexOf(character);
         if (index != -1)
-        {
             return input.Substring(0, index);
-        }
         return input;
     }
 }

@@ -42,6 +42,8 @@ public static class PlayerHandlers
 
     public static event EventManager.CustomEventHandler<PlayerPickingUpArmorEvent> PickingUpArmor;
 
+    public static event EventManager.CustomEventHandler<PlayerDestroyingEvent> Destroying;
+
     internal static void OnJoin(PlayerJoinEvent ev) => Join.CallEvent(ev);
 
     internal static void OnLeave(PlayerLeaveEvent ev) => Leave.CallEvent(ev);
@@ -79,4 +81,6 @@ public static class PlayerHandlers
     internal static void OnPlayerInteractingDoor(PlayerInteractingDoorEvent ev) => InteractingDoor.CallEvent(ev);
 
     internal static void OnPlayerPickingUpArmor(PlayerPickingUpArmorEvent ev) => PickingUpArmor.CallEvent(ev);
+
+    internal static void OnDestroying(PlayerDestroyingEvent ev) => Destroying.CallEvent(ev);
 }

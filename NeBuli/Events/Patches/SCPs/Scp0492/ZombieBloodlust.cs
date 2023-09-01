@@ -15,7 +15,7 @@ internal class ZombieBloodlust
     [HarmonyTranspiler]
     private static IEnumerable<CodeInstruction> OnBloodlusting(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
-        List<CodeInstruction> newInstructions = EventManager.CheckPatchInstructions<ZombieBloodlust>(56, instructions);
+        List<CodeInstruction> newInstructions = EventManager.CheckPatchInstructions<ZombieBloodlust>(57, instructions);
 
         Label retLabel = generator.DefineLabel();
         

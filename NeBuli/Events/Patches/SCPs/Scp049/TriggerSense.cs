@@ -15,7 +15,7 @@ internal class TriggerSense
     [HarmonyTranspiler]
     private static IEnumerable<CodeInstruction> OnUsingSense(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
-        List<CodeInstruction> newInstructions = EventManager.CheckPatchInstructions<TriggerSense>(75, instructions);
+        List<CodeInstruction> newInstructions = EventManager.CheckPatchInstructions<TriggerSense>(76, instructions);
         
         Label retLabel = generator.DefineLabel();
         LocalBuilder @event = generator.DeclareLocal(typeof(Scp049UseSenseEvent));

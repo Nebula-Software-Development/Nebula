@@ -15,7 +15,7 @@ internal class WarheadDetonatingPatch
     [HarmonyTranspiler]
     private static IEnumerable<CodeInstruction> OnDetonating(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
-        List<CodeInstruction> newInstructions = EventManager.CheckPatchInstructions<WarheadDetonatingPatch>(184, instructions);
+        List<CodeInstruction> newInstructions = EventManager.CheckPatchInstructions<WarheadDetonatingPatch>(187, instructions);
 
         Label retLabel = generator.DefineLabel();
 
