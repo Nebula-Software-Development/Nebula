@@ -66,6 +66,11 @@ public enum FirearmType
     FRMGO = ItemType.GunFRMG0,
 
     /// <summary>
+    /// The A7 firearm.
+    /// </summary>
+    A7 = ItemType.GunA7,
+
+    /// <summary>
     /// The Micro-HID firearm.
     /// </summary>
     MircoHID = ItemType.MicroHID,

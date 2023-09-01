@@ -95,6 +95,7 @@ public static class ItemTypeExtension
         FirearmType.COM45 => ItemType.GunCom45,
         FirearmType.ParticleDisruptor => ItemType.ParticleDisruptor,
         FirearmType.FRMGO => ItemType.GunFRMG0,
+        FirearmType.A7 => ItemType.GunA7,
         _ => ItemType.None,
     };
 
@@ -142,6 +143,7 @@ public static class ItemTypeExtension
         ItemType.ParticleDisruptor => FirearmType.ParticleDisruptor,
         ItemType.MicroHID => FirearmType.MircoHID,
         ItemType.GunFRMG0 => FirearmType.FRMGO,
+        ItemType.GunA7 => FirearmType.A7,
         _ => FirearmType.None,
     };
 
