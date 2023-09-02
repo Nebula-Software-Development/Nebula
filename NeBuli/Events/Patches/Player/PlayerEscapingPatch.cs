@@ -1,11 +1,11 @@
 ﻿using HarmonyLib;
-using Mono.Cecil.Cil;
 using Nebuli.Events.EventArguments.Player;
 using Nebuli.Events.Handlers;
 using NorthwoodLib.Pools;
 using System.Collections.Generic;
 using System.Reflection.Emit;
 using static HarmonyLib.AccessTools;
+using Label = System.Reflection.Emit.Label;
 using OpCodes = System.Reflection.Emit.OpCodes;
 
 namespace Nebuli.Events.Patches.Player;
@@ -20,7 +20,7 @@ internal class PlayerEscapingPatch
 
         Label retLabel = generator.DefineLabel();
         LocalBuilder @event = generator.DeclareLocal(typeof(PlayerEscapingEvent));
-       
+
         int index = newInstructions.FindLastIndex(i => i.opcode == OpCodes.Conv_U1) - 6;
 
         newInstructions.InsertRange(index, new CodeInstruction[]
@@ -42,9 +42,6 @@ internal class PlayerEscapingPatch
             new(OpCodes.Ldloc, @event.LocalIndex),
             new(OpCodes.Callvirt, PropertyGetter(typeof(PlayerEscapingEvent), nameof(PlayerEscapingEvent.EscapeMessage))),
             new(OpCodes.Stloc_2),
-            new(OpCodes.Ldloc, @event.LocalIndex),
-            new(OpCodes.Callvirt, PropertyGetter(typeof(PlayerEscapingEvent), nameof(PlayerEscapingEvent.EscapeScenario))),
-            new(OpCodes.Stloc_1),
         });
 
         newInstructions[newInstructions.Count - 1].labels.Add(retLabel);

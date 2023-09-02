@@ -95,6 +95,7 @@
     <Compile Include="API\Features\Enum\AuthenticationType.cs" />
     <Compile Include="API\Features\Enum\CameraType.cs" />
     <Compile Include="API\Features\Enum\DoorLockingType.cs" />
+    <Compile Include="API\Features\Enum\EscapeType.cs" />
     <Compile Include="API\Features\Enum\FirearmType.cs" />
     <Compile Include="API\Features\Enum\MenuType.cs" />
     <Compile Include="API\Features\Enum\Scp079PingType.cs" />
@@ -252,6 +253,7 @@
     <Compile Include="Events\Handlers\Scp939Handlers.cs" />
     <Compile Include="Events\Handlers\ServerHandler.cs" />
     <Compile Include="Events\Patches\Game\MapGeneratedPatch.cs" />
+    <Compile Include="Events\Patches\Game\MoreEscapePatch.cs" />
     <Compile Include="Events\Patches\Game\NamePatch.cs" />
     <Compile Include="Events\Patches\Game\WeaponDysncFix.cs" />
     <Compile Include="Events\Patches\Player\BannedPlayer.cs" />
