@@ -2,7 +2,7 @@
 
 namespace Nebuli.Events.Patches.Round;
 
-[HarmonyPatch(typeof(RoundSummary), nameof(RoundSummary._ProcessServerSideCode))]
+[HarmonyPatch(typeof(RoundSummary), nameof(RoundSummary.Start))]
 internal class RoundEndPatch
 {
 
