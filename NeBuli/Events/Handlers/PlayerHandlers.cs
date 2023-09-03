@@ -44,6 +44,8 @@ public static class PlayerHandlers
 
     public static event EventManager.CustomEventHandler<PlayerDestroyingEvent> Destroying;
 
+    public static event EventManager.CustomEventHandler<PlayerFlippingCoinEvent> FlippingCoin;
+
     internal static void OnJoin(PlayerJoinEvent ev) => Join.CallEvent(ev);
 
     internal static void OnLeave(PlayerLeaveEvent ev) => Leave.CallEvent(ev);
@@ -83,4 +85,6 @@ public static class PlayerHandlers
     internal static void OnPlayerPickingUpArmor(PlayerPickingUpArmorEvent ev) => PickingUpArmor.CallEvent(ev);
 
     internal static void OnDestroying(PlayerDestroyingEvent ev) => Destroying.CallEvent(ev);
+
+    internal static void OnFlippingCoin(PlayerFlippingCoinEvent ev) => FlippingCoin.CallEvent(ev);
 }

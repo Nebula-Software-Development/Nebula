@@ -103,7 +103,7 @@ public class Loader
         }
         catch (Exception e)
         {
-            Log.Error($"A error has occured while patching! Full error: \n{e}");
+            Log.Error($"A error has occured while patching! Full error: \n{e}", "Patching");
         }
 
         try
