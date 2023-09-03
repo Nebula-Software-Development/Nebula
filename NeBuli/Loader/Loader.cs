@@ -103,21 +103,28 @@ public class Loader
         }
         catch (Exception e)
         {
-            Log.Error($"A error has occured while patching! Full error: \n{e}");
+            Log.Error($"A error has occured while patching! Full error: \n{e}", "Patching");
         }
 
         try
         {
             Timing.CallDelayed(5, () =>
             {
-                PermissionsHandler.LoadPermissions();
+                Permissions.PermissionsHandler.LoadPermissions();
             });
         }
         catch(Exception e) 
         {
             Log.Error("Error occured while loading permission handler! Full error -->\n" + e);
         }
-       
+
+        if (pluginCount > 0)
+        {
+            CustomNetworkManager.Modded = true;
+            BuildInfoCommand.ModDescription = $"Framework : Nebuli\nFramework Version : {NebuliInfo.NebuliVersion}\nCopyright : Copyright (c) 2023 Nebuli Team";
+        }
+
+        Log.Info(Configuration.StartupMessage);
     }
 
     [PluginUnload]
@@ -195,15 +202,7 @@ public class Loader
             }
         }
 
-        Log.Info("Plugins loaded!");
-
-        if (pluginCount > 0)
-        {
-            CustomNetworkManager.Modded = true;
-            BuildInfoCommand.ModDescription = $"Framework : Nebuli\nFramework Version : {NebuliInfo.NebuliVersion}\nCopyright : Copyright (c) 2023 Nebuli Team";
-        }
-
-        Log.Info(Configuration.StartupMessage);
+        Log.Info("Plugins loaded!");      
     }
 
     private static IPlugin<IConfiguration> NewPlugin(Assembly assembly)
@@ -331,7 +330,15 @@ public class Loader
         }
     }
 
-    private static void DisablePlugins()
+    internal void ReloadPlugins()
+    {
+        Log.Info("Reloading plugins...");
+        DisablePlugins();
+        LoadDependencies(Paths.DependenciesDirectory.GetFiles("*.dll"));
+        LoadPlugins(Paths.PluginsDirectory.GetFiles("*.dll"));
+    }
+
+    internal static void DisablePlugins()
     {
         foreach (IPlugin<IConfiguration> plugin in EnabledPlugins.Keys)
         {

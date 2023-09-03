@@ -1,10 +1,13 @@
 ﻿using CommandSystem;
 using Nebuli.API.Features;
+using Nebuli.API.Features.Player;
+using NuGet.Protocol.Plugins;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
-namespace Nebuli.Loader;
+namespace Nebuli.Permissions;
 
 public static class PermissionsHandler
 {
@@ -19,18 +22,26 @@ public static class PermissionsHandler
                 GenerateDefaultPermissionsFile(Paths.Permissions.FullName);
             }
 
-            PermissionsConfig permissionsConfig = Loader.Deserializer.Deserialize<PermissionsConfig>(File.ReadAllText(Paths.Permissions.FullName));
+            PermissionsConfig permissionsConfig = Loader.Loader.Deserializer.Deserialize<PermissionsConfig>(File.ReadAllText(Paths.Permissions.FullName));
 
-            foreach(string group in permissionsConfig.Permissions.Keys)
+            foreach(string group in permissionsConfig.Permissions.Keys.ToList())
             {
                 if (string.Equals(group, "user", StringComparison.OrdinalIgnoreCase) || ServerStatic.PermissionsHandler._groups.ContainsKey(group))
                     continue;
-                Log.Info($"{group} is not a valid permission group!", "Permissions");
+                Log.Error($"{group} is not a valid permission group!", "Permissions");
                 permissionsConfig.Permissions.Remove(group);
             }
 
             if (permissionsConfig?.Permissions != null)
-                Groups = permissionsConfig.Permissions;
+            {
+                Groups.Clear();
+                foreach (var kvp in permissionsConfig.Permissions)
+                {
+                    kvp.Value.GroupName = kvp.Key;
+                    Groups.Add(kvp.Key, kvp.Value);
+                }            
+            }
+
         }
         catch (Exception e)
         {
@@ -48,7 +59,7 @@ public static class PermissionsHandler
         try
         {
 
-            string yaml = Loader.Serializer.Serialize(permissionsConfig);
+            string yaml = Loader.Loader.Serializer.Serialize(permissionsConfig);
             File.WriteAllText(Paths.Permissions.FullName, yaml);
         }
         catch (Exception e)
@@ -57,13 +68,28 @@ public static class PermissionsHandler
         }
     }
 
+    public static bool HasPermission(this NebuliPlayer ply, string permission) => HasPermission(ply.Sender, permission);
+
+    public static bool HasPermission(this ICommandSender commandSender, string permission)
+    {
+        if(commandSender is ServerConsoleSender) return true;
+        if (!NebuliPlayer.TryGet(commandSender, out NebuliPlayer ply)) return false; 
+        if (ply.ReferenceHub == ReferenceHub.HostHub || 
+            Groups.TryGetValue(ply.GroupName, out var playerGroup) && 
+            (playerGroup.Permissions.Contains(".*") || playerGroup.Permissions.Contains(permission)))
+        {
+            return true;
+        }
+        return false;
+    }
+
     public static void GenerateDefaultPermissionsFile(string filePath)
     {
         PermissionsConfig defaultPermissionsConfig = new()
         {
             Permissions = new Dictionary<string, Group>
                 {
-                    { "user", new Group { Default = true, Permissions = new List<string> { } } },
+                    { "user", new Group { Default = true, Permissions = new List<string> { "" } } },
                     { "owner", new Group { Permissions = new List<string> { ".*" } } },
                     { "admin", new Group { Permissions = new List<string> { "testplugin.admin", "testplugin.*" } } },
                     { "moderator", new Group { Permissions = new List<string> { "testplugin.moderator" } } }
@@ -72,7 +98,7 @@ public static class PermissionsHandler
 
         try
         {            
-            File.WriteAllText(filePath, Loader.Serializer.Serialize(defaultPermissionsConfig));
+            File.WriteAllText(filePath, Loader.Loader.Serializer.Serialize(defaultPermissionsConfig));
         }
         catch (Exception e)
         {
@@ -83,7 +109,8 @@ public static class PermissionsHandler
 
 public class Group
 {
-    public bool Default { get; set; }
+    public string GroupName { get; set; } = string.Empty;
+    public bool Default { get; set; } = false;
     public List<string> Permissions { get; set; } = new List<string>();
 }
 

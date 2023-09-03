@@ -476,12 +476,21 @@ public class NebuliPlayer
     }
 
     /// <summary>
-    /// Gets or sets the players usergroups.
+    /// Gets or sets the players <see cref="UserGroup"/>.
     /// </summary>
     public UserGroup Group
     {
         get => ReferenceHub.serverRoles.Group;
         set => ReferenceHub.serverRoles.SetGroup(value, false);
+    }
+
+    /// <summary>
+    /// Gets or sets the players <see cref="UserGroup"/> name.
+    /// </summary>
+    public string GroupName
+    {
+        get => ServerStatic.PermissionsHandler._members.TryGetValue(UserId, out string name) ? name : null;
+        set => ServerStatic.PermissionsHandler._members[UserId] = value;
     }
 
     /// <summary>
@@ -1045,7 +1054,7 @@ public class NebuliPlayer
     /// </summary>
     /// <param name="permission">The permission to check.</param>
     /// <returns>True if the player has the permission; otherwise, false.</returns>
-    public bool HasPermission(PlayerPermissions permission)
+    public bool HasPlayerPermission(PlayerPermissions permission)
     {
         return PermissionsHandler.IsPermitted(Permissions, permission);
     }
@@ -1055,7 +1064,7 @@ public class NebuliPlayer
     /// </summary>
     /// <param name="permissions">The array of permissions to check.</param>
     /// <returns>True if the player has any of the permissions; otherwise, false.</returns>
-    public bool HasPermissions(PlayerPermissions[] permissions)
+    public bool HasPlayerPermissions(PlayerPermissions[] permissions)
     {
         return PermissionsHandler.IsPermitted(Permissions, permissions);
     }
@@ -1267,7 +1276,7 @@ public class NebuliPlayer
     public static bool HasAnyPermission(NebuliPlayer player)
     {
         foreach (PlayerPermissions perm in PermissionsHandler.PermissionCodes.Keys)
-        if (player.HasPermission(perm))
+        if (player.HasPlayerPermission(perm))
             return true;
         return false;
     }

@@ -15,11 +15,23 @@ public class PlayerSpawningRagdollEvent : EventArgs, IPlayerEvent, ICancellableE
         IsCancelled = false;
     }
 
+    /// <summary>
+    /// Gets the owner of the ragdoll.
+    /// </summary>
     public NebuliPlayer Player { get; }
 
+    /// <summary>
+    /// Gets or sets if the event is cancelled.
+    /// </summary>
     public bool IsCancelled { get; set; }
 
+    /// <summary>
+    /// Gets the <see cref="DamageHandlerBase"/> of the ragdoll.
+    /// </summary>
     public DamageHandlerBase DamageHandler { get; }
 
+    /// <summary>
+    /// Gets the <see cref="API.Features.Ragdoll"/> being spawned.
+    /// </summary>
     public Ragdoll Ragdoll { get; }
 }

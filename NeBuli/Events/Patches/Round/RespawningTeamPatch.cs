@@ -1,5 +1,4 @@
 ﻿using HarmonyLib;
-using Nebuli.Events.EventArguments.Player;
 using Nebuli.Events.EventArguments.Round;
 using Nebuli.Events.Handlers;
 using NorthwoodLib.Pools;
