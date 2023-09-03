@@ -23,6 +23,9 @@ public static class Paths
     /// </summary>
     public static DirectoryInfo PluginsDirectory { get; private set; }
 
+    /// <summary>
+    /// Gets the specific plugin-port directory.
+    /// </summary>
     public static DirectoryInfo PluginsPortDirectory { get; private set; }
 
     /// <summary>

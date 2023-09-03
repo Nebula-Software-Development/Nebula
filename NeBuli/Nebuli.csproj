@@ -187,6 +187,7 @@
     <Compile Include="Events\EventArguments\Player\PlayerChangingUserGroupEvent.cs" />
     <Compile Include="Events\EventArguments\Player\PlayerDestroyingEvent.cs" />
     <Compile Include="Events\EventArguments\Player\PlayerDroppingItemEvent.cs" />
+    <Compile Include="Events\EventArguments\Player\PlayerEnteringPocketDimensionEvent.cs" />
     <Compile Include="Events\EventArguments\Player\PlayerEscapingEvent.cs" />
     <Compile Include="Events\EventArguments\Player\PlayerEscapingPocketEvent.cs" />
     <Compile Include="Events\EventArguments\Player\PlayerFlippingCoinEvent.cs" />
@@ -266,6 +267,7 @@
     <Compile Include="Events\Patches\Player\ChangingUserGroupPatch.cs" />
     <Compile Include="Events\Patches\Player\DestroyingPlayer.cs" />
     <Compile Include="Events\Patches\Player\DyingPlayer.cs" />
+    <Compile Include="Events\Patches\Player\EnteringPocketPatch.cs" />
     <Compile Include="Events\Patches\Player\FlippingCoinPatch.cs" />
     <Compile Include="Events\Patches\Player\HurtPlayer.cs" />
     <Compile Include="Events\Patches\Player\InteractingDoorEventPatch.cs" />

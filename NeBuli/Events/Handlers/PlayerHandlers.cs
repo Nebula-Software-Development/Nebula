@@ -46,6 +46,8 @@ public static class PlayerHandlers
 
     public static event EventManager.CustomEventHandler<PlayerFlippingCoinEvent> FlippingCoin;
 
+    public static event EventManager.CustomEventHandler<PlayerEnteringPocketDimensionEvent> EnteringPocketDimension;
+
     internal static void OnJoin(PlayerJoinEvent ev) => Join.CallEvent(ev);
 
     internal static void OnLeave(PlayerLeaveEvent ev) => Leave.CallEvent(ev);
@@ -87,4 +89,6 @@ public static class PlayerHandlers
     internal static void OnDestroying(PlayerDestroyingEvent ev) => Destroying.CallEvent(ev);
 
     internal static void OnFlippingCoin(PlayerFlippingCoinEvent ev) => FlippingCoin.CallEvent(ev);
+
+    internal static void OnPlayerEnteringPocket(PlayerEnteringPocketDimensionEvent ev) => EnteringPocketDimension.CallEvent(ev);
 }

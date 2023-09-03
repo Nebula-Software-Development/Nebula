@@ -335,7 +335,7 @@ public class Loader
         Log.Info("Reloading plugins...");
         DisablePlugins();
         LoadDependencies(Paths.DependenciesDirectory.GetFiles("*.dll"));
-        LoadPlugins(Paths.PluginsDirectory.GetFiles("*.dll"));
+        LoadPlugins(Paths.PluginsPortDirectory.GetFiles("*.dll"));
     }
 
     internal static void DisablePlugins()
