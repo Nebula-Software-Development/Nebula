@@ -23,6 +23,8 @@ public static class Paths
     /// </summary>
     public static DirectoryInfo PluginsDirectory { get; private set; }
 
+    public static DirectoryInfo PluginsPortDirectory { get; private set; }
+
     /// <summary>
     /// The dependency directory for the framework.
     /// </summary>
@@ -51,6 +53,7 @@ public static class Paths
     {
         MainDirectory = Directory.CreateDirectory(Path.Combine(NwPaths.AppData, "Nebuli"));
         PluginsDirectory = MainDirectory.CreateSubdirectory("Plugins");
+        PluginsPortDirectory = PluginsDirectory.CreateSubdirectory(Server.ServerPort.ToString() + "-Plugins");
         PluginConfigDirectory = MainDirectory.CreateSubdirectory("Plugin-Configurations");
         PluginPortConfigDirectory = PluginConfigDirectory.CreateSubdirectory(Server.ServerPort.ToString());
         DependenciesDirectory = PluginsDirectory.CreateSubdirectory("Dependencies");

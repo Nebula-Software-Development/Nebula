@@ -85,9 +85,9 @@ public class Loader
 
         LoadDependencies(Paths.DependenciesDirectory.GetFiles("*.dll"));
 
-        Log.Debug($"Plugin path is {Paths.PluginsDirectory}");
+        Log.Debug($"Plugin path is {Paths.PluginsPortDirectory}");
 
-        LoadPlugins(Paths.PluginsDirectory.GetFiles("*.dll"));
+        LoadPlugins(Paths.PluginsPortDirectory.GetFiles("*.dll"));
 
         EventManager.RegisterBaseEvents();     
 
