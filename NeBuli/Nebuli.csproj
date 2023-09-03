@@ -171,7 +171,10 @@
     <Compile Include="API\Features\Enum\DoorType.cs" />
     <Compile Include="API\Features\Enum\GeneratorState.cs" />
     <Compile Include="API\Internal\Commands\ForceInstall.cs" />
-    <Compile Include="API\Internal\Commands\ReloadConfigs.cs" />
+    <Compile Include="API\Internal\Commands\Reload.cs" />
+    <Compile Include="API\Internal\Commands\ReloadConfigurations.cs" />
+    <Compile Include="API\Internal\Commands\ReloadPerms.cs" />
+    <Compile Include="API\Internal\Commands\ReloadPlugins.cs" />
     <Compile Include="API\Internal\CustomHealthManager.cs" />
     <Compile Include="API\Internal\CustomHint.cs" />
     <Compile Include="API\Internal\FakeConnection.cs" />
@@ -202,6 +205,7 @@
     <Compile Include="Events\EventArguments\Player\PlayerTriggeringTeslaEvent.cs" />
     <Compile Include="Events\EventArguments\Player\PlayerUsingRadioBatteryEvent.cs" />
     <Compile Include="Events\EventArguments\Round\RespawningTeamEvent.cs" />
+    <Compile Include="Events\EventArguments\Round\RoundEndEvent.cs" />
     <Compile Include="Events\EventArguments\SCPs\Scp0492\Scp0492AttackEvent.cs" />
     <Compile Include="Events\EventArguments\SCPs\Scp0492\Scp0492BloodlustEvent.cs" />
     <Compile Include="Events\EventArguments\SCPs\Scp0492\Scp0492ConsumeCorpseEvent.cs" />

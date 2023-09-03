@@ -78,7 +78,7 @@ public abstract class Plugin<TConfig> : IPlugin<TConfig> where TConfig : IConfig
     { typeof(ClientCommandHandler), QueryProcessor.DotCommandHandler }
     };
 
-    private readonly List<ICommand> Commands = new();
+    private readonly Dictionary<ICommandHandler, ICommand> Commands = new();
 
     public void LoadCommands()
     {
@@ -103,7 +103,7 @@ public abstract class Plugin<TConfig> : IPlugin<TConfig> where TConfig : IConfig
                     {
                         ICommand command = (ICommand)Activator.CreateInstance(type);
                         commandHandler.RegisterCommand(command);
-                        Commands.Add(command);
+                        Commands.Add(commandHandler, command);
                     }
                 }
                 catch (Exception exception)
@@ -116,39 +116,9 @@ public abstract class Plugin<TConfig> : IPlugin<TConfig> where TConfig : IConfig
 
     public void UnLoadCommands()
     {
-        foreach (ICommand command in Commands)
-        {
-            CommandHandlerAttribute attribute = (CommandHandlerAttribute)Attribute.GetCustomAttribute(command.GetType(), typeof(CommandHandlerAttribute));
-
-            PropertyInfo handlerTypeProperty = attribute.GetType().GetProperty("HandlerType");
-            if (handlerTypeProperty != null && handlerTypeProperty.PropertyType == typeof(Type))
-            {
-                Type commandHandlerType = (Type)handlerTypeProperty.GetValue(attribute);
-
-                if (commandHandlerType != null && CommandHandlers.TryGetValue(commandHandlerType, out ICommandHandler commandHandler))
-                {
-                    try
-                    {
-                        commandHandler.UnregisterCommand(command);
-                    }
-                    catch (ArgumentException e)
-                    {
-                        Log.Error($"Error occurred while unregistering a command: {e}");
-                    }
-                }
-                else
-                {
-                    Log.Error($"Unknown command type or command handler type: {command.GetType().Name}");
-                }
-            }
-            else
-            {
-                Log.Error($"Command {command.GetType().Name} does not have a valid command handler attribute.");
-            }
-        }
-
+        foreach (var command in Commands)
+            command.Key.UnregisterCommand(command.Value);
         Commands.Clear();
-        CommandHandlers.Clear();
     }
 
 

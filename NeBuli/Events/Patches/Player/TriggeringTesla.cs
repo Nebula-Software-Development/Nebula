@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Reflection.Emit;
 using HarmonyLib;
-using Nebuli.API.Features.Map;
 using Nebuli.API.Features.Player;
 using Nebuli.Events.EventArguments.Player;
 using Nebuli.Events.Handlers;
@@ -38,24 +38,20 @@ internal class TriggeringTesla
 
     private static void ProcessEvent(TeslaGate teslaGate, ref bool inIdleRange, ref bool isTriggerable)
     {
-        foreach (NebuliPlayer player in NebuliPlayer.List)
+        foreach (NebuliPlayer player in NebuliPlayer.List.Where(ply => teslaGate.IsInIdleRange(ply.ReferenceHub)))
         {
-            if (player is not null && teslaGate.IsInIdleRange(player.ReferenceHub))
+            PlayerTriggeringTeslaEvent args = new(player.ReferenceHub, teslaGate, inIdleRange, isTriggerable);
+            PlayerHandlers.OnTriggerTesla(args);
+
+            if (args.IsCancelled)
             {
-                PlayerTriggeringTeslaEvent args = new(player.ReferenceHub, teslaGate, inIdleRange, isTriggerable);
-
-                PlayerHandlers.OnTriggerTesla(args);
-
-                if (args.IsCancelled)
-                {
-                    isTriggerable = false;
-                    inIdleRange = false;
-                    break;
-                }
-
-                isTriggerable = args.IsTriggerable;
-                inIdleRange = args.IsInIdleRange;
+                isTriggerable = false;
+                inIdleRange = false;
+                break;
             }
+
+            isTriggerable = args.IsTriggerable;
+            inIdleRange = args.IsInIdleRange;
         }
     }
 

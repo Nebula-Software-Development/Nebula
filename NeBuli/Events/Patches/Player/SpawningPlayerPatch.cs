@@ -1,6 +1,4 @@
 ﻿using HarmonyLib;
-using PlayerRoles;
-using UnityEngine;
 using Nebuli.Events.Handlers;
 using static HarmonyLib.AccessTools;
 using System.Reflection;
@@ -16,6 +14,8 @@ namespace Nebuli.Events.Patches.Player;
 internal class SpawningPlayerPatch
 {
     private static MethodInfo TargetMethod() => Method(typeof(RoleSpawnpointManager).GetNestedTypes(all)[1], "<Init>b__2_0");
+
+    [HarmonyTranspiler]
     private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
         List<CodeInstruction> newInstructions = EventManager.CheckPatchInstructions<SpawningPlayerPatch>(38, instructions);
