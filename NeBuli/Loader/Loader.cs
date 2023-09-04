@@ -47,10 +47,8 @@ public class Loader
         }
     }
 
-    public static ISerializer Serializer { get; private set; }
-    public static IDeserializer Deserializer { get; private set; }
-
-    internal static void EDisablePlugins() => DisablePlugins();
+    public static ISerializer Serializer { get; private set; } = YamlParser.Serializer;
+    public static IDeserializer Deserializer { get; private set; } = YamlParser.Deserializer;
 
     internal static Dictionary<Assembly, IConfiguration> _plugins = new();
 
@@ -171,17 +169,6 @@ public class Loader
         EnabledPlugins.Clear();
         _plugins.Clear();
 
-        Serializer = new SerializerBuilder()
-            .WithNamingConvention(UnderscoredNamingConvention.Instance)
-            .IgnoreFields()
-            .WithTypeInspector(inspector => new CommentGatheringTypeInspector(inspector))
-            .Build();
-        Deserializer = new DeserializerBuilder()
-            .WithNamingConvention(UnderscoredNamingConvention.Instance)
-            .IgnoreFields()
-            .WithTypeInspector(inspector => new CommentGatheringTypeInspector(inspector))
-            .Build();
-
         foreach (FileInfo file in files)
         {
             try
@@ -196,7 +183,6 @@ public class Loader
 
                 if (!config.IsEnabled)
                     continue;
-
                 newPlugin.LoadCommands();
                 newPlugin.OnEnabled();
 
