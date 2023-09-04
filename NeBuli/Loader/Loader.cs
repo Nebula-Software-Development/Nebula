@@ -6,6 +6,7 @@ using Nebuli.API.Interfaces;
 using Nebuli.Events;
 using PluginAPI.Core.Attributes;
 using PluginAPI.Enums;
+using Serialization;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -170,8 +171,16 @@ public class Loader
         EnabledPlugins.Clear();
         _plugins.Clear();
 
-        Serializer = new SerializerBuilder().WithNamingConvention(UnderscoredNamingConvention.Instance).Build();
-        Deserializer = new DeserializerBuilder().WithNamingConvention(UnderscoredNamingConvention.Instance).Build();
+        Serializer = new SerializerBuilder()
+            .WithNamingConvention(UnderscoredNamingConvention.Instance)
+            .IgnoreFields()
+            .WithTypeInspector(inspector => new CommentGatheringTypeInspector(inspector))
+            .Build();
+        Deserializer = new DeserializerBuilder()
+            .WithNamingConvention(UnderscoredNamingConvention.Instance)
+            .IgnoreFields()
+            .WithTypeInspector(inspector => new CommentGatheringTypeInspector(inspector))
+            .Build();
 
         foreach (FileInfo file in files)
         {

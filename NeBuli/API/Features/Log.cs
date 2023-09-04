@@ -12,7 +12,7 @@ public static class Log
     private static string FormatLogMessage(string messageType, object message, string prefix = null, Assembly callingAssembly = null)
     {
         callingAssembly ??= Assembly.GetCallingAssembly();
-        if (callingAssembly.GetName().Name == "Nebuli")
+        if (callingAssembly == Loader.Loader.NebuliAssembly)
         {
             string text = $"&7[&b&3Nebuli&B&7] {message}";
             if (!string.IsNullOrEmpty(prefix))
@@ -28,9 +28,10 @@ public static class Log
     public static void Debug(object message, string prefix = null, ConsoleColor consoleColor = ConsoleColor.Green)
     {
         Assembly callingAssembly = Assembly.GetCallingAssembly();
-        if (prefix == "Nebuli" && Loader.Loader.Configuration.ShowDebugLogs)
+        if (callingAssembly == Loader.Loader.NebuliAssembly && Loader.Loader.Configuration.ShowDebugLogs)
         {
             AddLog(FormatLogMessage("Debug", message, prefix, callingAssembly), consoleColor);
+            return;
         }
         else if (!Loader.Loader._plugins.TryGetValue(callingAssembly, out IConfiguration plugin) || !plugin.Debug)
             return;
