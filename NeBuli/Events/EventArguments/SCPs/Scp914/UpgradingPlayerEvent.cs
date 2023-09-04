@@ -1,25 +1,31 @@
 ﻿using Nebuli.API.Features.Player;
 using Scp914;
 using System;
-
+using UnityEngine;
 
 namespace Nebuli.Events.EventArguments.SCPs.Scp914;
 
 public class UpgradingPlayerEvent : EventArgs, IPlayerEvent, ICancellableEvent
 {
-    public UpgradingPlayerEvent(ReferenceHub ply, bool upgradeInventory, bool heldOnly, Scp914KnobSetting knobSetting)
+    public UpgradingPlayerEvent(ReferenceHub ply, bool upgradeInventory, bool heldOnly, Scp914KnobSetting knobSetting, Vector3 moveVector)
     {
         Player = NebuliPlayer.Get(ply);
         IsCancelled = false;
         UpgradeInventory = upgradeInventory;
         HeldOnly = heldOnly;
         KnobSetting = knobSetting;
+        OutputPosition = moveVector + Player.Position;
     }
 
     /// <summary>
     /// Gets the player being upgraded.
     /// </summary>
     public NebuliPlayer Player { get; }
+
+    /// <summary>
+    /// Gets or sets the output position of the player.
+    /// </summary>
+    public Vector3 OutputPosition { get; set; }
 
     /// <summary>
     /// Gets or sets if the event is cancelled.
