@@ -82,6 +82,7 @@
     <Reference Include="UnityEngine.PhysicsModule" HintPath="$(NEBULIREFERENCES)\UnityEngine.PhysicsModule.dll" Private="false" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="API\Extensions\StatusEffectTypeExtension.cs" />
     <Compile Include="API\Extensions\ItemTypeExtension.cs" />
     <Compile Include="API\Extensions\RoleTypeExtensions.cs" />
     <Compile Include="API\Features\AlphaWarhead.cs" />
@@ -96,6 +97,7 @@
     <Compile Include="API\Features\Enum\CameraType.cs" />
     <Compile Include="API\Features\Enum\CoinSide.cs" />
     <Compile Include="API\Features\Enum\DoorLockingType.cs" />
+    <Compile Include="API\Features\Enum\StatusEffectType.cs" />
     <Compile Include="API\Features\Enum\EscapeType.cs" />
     <Compile Include="API\Features\Enum\FirearmType.cs" />
     <Compile Include="API\Features\Enum\MenuType.cs" />
