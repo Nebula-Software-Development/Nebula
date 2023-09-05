@@ -255,6 +255,13 @@ public class Door
     }
 
     /// <summary>
+    /// Tries to get a <see cref="Door"/> based off a given <see cref="DoorType"/>.
+    /// </summary>
+    /// <param name="type"></param>
+    /// <returns></returns>
+    public static Door GetType(DoorType type) => List.FirstOrDefault(x => x.Type == type);
+
+    /// <summary>
     /// Locks the door.
     /// </summary>
     /// <param name="type"></param>

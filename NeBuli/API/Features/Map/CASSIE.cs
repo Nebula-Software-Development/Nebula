@@ -1,5 +1,7 @@
-﻿using PlayerRoles;
+﻿using NorthwoodLib.Pools;
+using PlayerRoles;
 using Respawning;
+using System.Text;
 
 namespace Nebuli.API.Features.Map;
 
@@ -21,6 +23,26 @@ public static class CASSIE
     /// <param name="Noisy">If the announcement is silent or not.</param>
     /// <param name="Subtitles">If subtitles display or not.</param>
     public static void SendMessage(string message, bool Hold = false, bool Noisy = true, bool Subtitles = false) => RespawnEffectsController.PlayCassieAnnouncement(message, Hold, Noisy, Subtitles);
+
+    /// <summary>
+    /// Reproduces a non-glitched C.A.S.S.I.E message with optional customization of subtitles.
+    /// </summary>
+    /// <param name="originalMessage">The original message to be delivered by C.A.S.S.I.E.</param>
+    /// <param name="subtitleTranslation">The translated text to be displayed as subtitles.</param>
+    /// <param name="Hold">Indicates whether C.A.S.S.I.E should hold the message.</param>
+    /// <param name="Noisy">Indicates whether C.A.S.S.I.E should include sound effects during the message.</param>
+    /// <param name="Subtitles">Indicates whether subtitles should be displayed for the message.</param>
+    public static void SendCustomCaptionMessage(string originalMessage, string subtitleTranslation, bool Hold = false, bool Noisy = true, bool Subtitles = true)
+    {
+        StringBuilder announcementBuilder = new();
+        string[] cassieMessages = originalMessage.Split('\n');
+        string[] subtitleTranslations = subtitleTranslation.Split('\n');
+
+        for (int i = 0; i < cassieMessages.Length; i++)
+            announcementBuilder.Append($"{subtitleTranslations[i].Replace(' ', ' ')}<size=0> {cassieMessages[i]} </size><split>");
+
+        SendMessage(announcementBuilder.ToString(), Hold, Noisy, Subtitles);
+    }
 
     /// <summary>
     /// Clears all current and queued C.A.S.S.I.E messages.

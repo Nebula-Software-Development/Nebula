@@ -1,4 +1,5 @@
 ﻿using Footprinting;
+using InventorySystem;
 using InventorySystem.Items;
 using InventorySystem.Items.Pickups;
 using Mirror;
@@ -35,6 +36,22 @@ public class Pickup
         Base = pickupBase;
         if (!Dictionary.ContainsKey(pickupBase)) Dictionary.Add(pickupBase, this);
         else return;
+    }
+
+    internal Pickup(ItemType type)
+    {
+        if (InventoryItemLoader.AvailableItems.TryGetValue(type, out ItemBase itemBase))
+        {           
+            PickupSyncInfo info = new()
+            {
+                ItemId = type,
+                Serial = ItemSerialGenerator.GenerateNext(),
+                WeightKg = itemBase.Weight,
+            };
+            Base = Object.Instantiate(itemBase.PickupDropModel);
+            Info = info;
+        }
+
     }
 
     /// <summary>
@@ -198,6 +215,22 @@ public class Pickup
     /// <param name="itemPickupBase">The <see cref="ItemPickupBase"/> to find the <see cref="Pickup"/> with.</param>
     /// <returns></returns>
     public static Pickup Get(ItemPickupBase itemPickupBase) => Dictionary.TryGetValue(itemPickupBase, out Pickup pickup) ? pickup : GetPickup(itemPickupBase);
+
+    /// <summary>
+    /// Creates a pickup given the ItemType.
+    /// </summary>
+    public static Pickup Create(ItemType type) => new(type);
+
+    /// <summary>
+    /// Creates and spawns a pickup given the ItemType.
+    /// </summary>
+    public static Pickup CreateAndSpawn(ItemType type, Vector3 position)
+    {
+        Pickup pickup = Create(type);
+        pickup.Position = position;
+        pickup.Spawn();
+        return pickup;
+    }
 
     /// <summary>
     /// Spawns the pickup.

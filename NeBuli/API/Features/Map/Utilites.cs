@@ -9,6 +9,9 @@ using Decals;
 using InventorySystem.Items.Firearms.BasicMessages;
 using Utils.Networking;
 using Nebuli.API.Features.Items.Pickups;
+using System.Collections.Generic;
+using MapGeneration;
+using System.Linq;
 
 namespace Nebuli.API.Features.Map;
 
@@ -43,6 +46,25 @@ public static class Utilites
         NetworkServer.Spawn(tantrum.gameObject);
         return tantrum;
     }
+
+    /// <summary>
+    /// Turns off all lights in the facility.
+    /// </summary>
+    /// <param name="duration">The duration of the blackout.</param>
+    /// <param name="zones">If not null, will only blackout those specific zones.</param>
+    public static void TurnOffAllLights(float duration, List<FacilityZone> zones = null)
+    {
+        foreach (RoomLightController light in RoomLightController.Instances)
+        {
+            if (zones is not null && zones.Contains(Room.Get(light.Room).Zone))
+            {
+                light.ServerFlickerLights(duration);
+                return;
+            }
+            light.ServerFlickerLights(duration);
+        }
+    }
+
 
     /// <summary>
     /// Destroys all pickups in the Pickup List.
