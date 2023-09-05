@@ -324,6 +324,7 @@
     <Compile Include="Events\Patches\SCPs\Scp049\TriggerCall.cs" />
     <Compile Include="Events\Patches\SCPs\Scp049\TriggerSense.cs" />
     <Compile Include="Events\Patches\Warhead\WarheadDetonatingPatch.cs" />
+    <Compile Include="Loader\CustomConverters\CustomVectorsConverter.cs" />
     <Compile Include="Loader\Loader.cs" />
     <Compile Include="Loader\LoaderConfiguration.cs" />
     <Compile Include="Loader\NebuliInfo.cs" />

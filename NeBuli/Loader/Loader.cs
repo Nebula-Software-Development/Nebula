@@ -4,6 +4,7 @@ using MEC;
 using Nebuli.API.Features;
 using Nebuli.API.Interfaces;
 using Nebuli.Events;
+using Nebuli.Loader.CustomConverters;
 using PluginAPI.Core.Attributes;
 using PluginAPI.Enums;
 using Serialization;
@@ -21,7 +22,6 @@ namespace Nebuli.Loader;
 public class Loader
 {
     private Harmony _harmony;
-    private readonly int pluginCount = EnabledPlugins.Count;
     private static bool _loaded = false;
 
     public static Random Random { get; } = new();
@@ -47,8 +47,22 @@ public class Loader
         }
     }
 
-    public static ISerializer Serializer { get; private set; } = YamlParser.Serializer;
-    public static IDeserializer Deserializer { get; private set; } = YamlParser.Deserializer;
+    public static ISerializer Serializer { get; private set; } = new SerializerBuilder()
+        .WithTypeConverter(new CustomVectorsConverter())
+        .WithEmissionPhaseObjectGraphVisitor((EmissionPhaseObjectGraphVisitorArgs visitor) 
+        => new CommentsObjectGraphVisitor(visitor.InnerVisitor)).WithTypeInspector((ITypeInspector typeInspector)
+        => new CommentGatheringTypeInspector(typeInspector))
+        .WithNamingConvention(UnderscoredNamingConvention.Instance)
+            .DisableAliases()
+            .IgnoreFields()
+            .Build();
+
+    public static IDeserializer Deserializer { get; private set; } = new DeserializerBuilder()
+        .WithTypeConverter(new CustomVectorsConverter())
+        .WithNamingConvention(UnderscoredNamingConvention.Instance)
+        .IgnoreUnmatchedProperties()
+        .IgnoreFields()
+            .Build();
 
     internal static Dictionary<Assembly, IConfiguration> _plugins = new();
 
@@ -117,11 +131,8 @@ public class Loader
             Log.Error("Error occured while loading permission handler! Full error -->\n" + e);
         }
 
-        if (pluginCount > 0)
-        {
-            CustomNetworkManager.Modded = true;
-            BuildInfoCommand.ModDescription = $"Framework : Nebuli\nFramework Version : {NebuliInfo.NebuliVersion}\nCopyright : Copyright (c) 2023 Nebuli Team";
-        }
+        CustomNetworkManager.Modded = true;
+        BuildInfoCommand.ModDescription = $"Framework : Nebuli\nFramework Version : {NebuliInfo.NebuliVersion}\nCopyright : Copyright (c) 2023 Nebuli Team";
 
         Log.Info("Welcome to... \r\n███╗░░██╗███████╗██████╗░██╗░░░██╗██╗░░░░░██╗\r\n████╗░██║██╔════╝██╔══██╗██║░░░██║██║░░░░░██║\r\n██╔██╗██║█████╗░░██████╦╝██║░░░██║██║░░░░░██║\r\n██║╚████║██╔══╝░░██╔══██╗██║░░░██║██║░░░░░██║\r\n██║░╚███║███████╗██████╦╝╚██████╔╝███████╗██║\r\n╚═╝░░╚══╝╚══════╝╚═════╝░░╚═════╝░╚══════╝╚═╝");
     }
