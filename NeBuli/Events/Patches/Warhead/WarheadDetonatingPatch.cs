@@ -26,7 +26,7 @@ internal class WarheadDetonatingPatch
             new(OpCodes.Ldfld, Field(typeof(Footprint), nameof(Footprint.Hub))),
             new(OpCodes.Newobj, GetDeclaredConstructors(typeof(WarheadDetonatingEvent))[0]),
             new(OpCodes.Dup),
-            new(OpCodes.Call, Method(typeof(ServerHandler), nameof(ServerHandler.OnWarheadDetonated))),
+            new(OpCodes.Call, Method(typeof(ServerHandlers), nameof(ServerHandlers.OnWarheadDetonated))),
             new(OpCodes.Callvirt, PropertyGetter(typeof(WarheadDetonatingEvent), nameof(WarheadDetonatingEvent.IsCancelled))),
             new(OpCodes.Brtrue_S, retLabel)
         });

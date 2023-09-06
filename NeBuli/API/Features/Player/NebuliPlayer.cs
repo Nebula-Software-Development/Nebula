@@ -972,9 +972,9 @@ public class NebuliPlayer
     /// </summary>
     /// <param name="content">The content of the hint.</param>
     /// <param name="time">The duration of the hint in seconds.</param>
-    public void ShowHint(string content, int time = 5)
+    public void ShowHint(string content, float time = 5)
     {
-        ShowHint(new TextHint(content, new HintParameter[] { new StringHintParameter(string.Empty) }, null, time));
+        ShowHint(new TextHint(content, new HintParameter[] { new StringHintParameter(content) }, null, time));
     }
 
     /// <summary>

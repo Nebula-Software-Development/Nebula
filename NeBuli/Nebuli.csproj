@@ -108,7 +108,7 @@
     <Compile Include="API\Features\Items\Coin.cs" />
     <Compile Include="API\Features\Items\Firearm.cs" />
     <Compile Include="API\Features\Items\Flashlight.cs" />
-    <Compile Include="API\Features\Items\Jailbird.cs" />
+    <Compile Include="API\Features\Items\SCPs\Jailbird.cs" />
     <Compile Include="API\Features\Items\Keycard.cs" />
     <Compile Include="API\Features\Items\MicroHID.cs" />
     <Compile Include="API\Features\Items\Pickups\AmmoPickup.cs" />
@@ -119,6 +119,9 @@
     <Compile Include="API\Features\Items\Pickups\KeycardPickup.cs" />
     <Compile Include="API\Features\Items\Pickups\MicroHIDPickup.cs" />
     <Compile Include="API\Features\Items\Pickups\RadioPickup.cs" />
+    <Compile Include="API\Features\Items\Pickups\SCPs\Scp1576Pickup.cs" />
+    <Compile Include="API\Features\Items\Pickups\SCPs\Scp244Pickup.cs" />
+    <Compile Include="API\Features\Items\Pickups\SCPs\Scp330Pickup.cs" />
     <Compile Include="API\Features\Items\Projectiles\ExplosiveGrenadeProjectile.cs" />
     <Compile Include="API\Features\Items\Projectiles\FlashbangProjectile.cs" />
     <Compile Include="API\Features\Items\Projectiles\GrenadeEffectProjectile.cs" />
@@ -127,6 +130,9 @@
     <Compile Include="API\Features\Items\Projectiles\Scp2176Projectile.cs" />
     <Compile Include="API\Features\Items\Projectiles\TimedExplosiveProjectile.cs" />
     <Compile Include="API\Features\Items\Radio.cs" />
+    <Compile Include="API\Features\Items\SCPs\Scp1576.cs" />
+    <Compile Include="API\Features\Items\SCPs\Scp244.cs" />
+    <Compile Include="API\Features\Items\SCPs\Scp330.cs" />
     <Compile Include="API\Features\Items\Throwables\ExplosiveGrenade.cs" />
     <Compile Include="API\Features\Items\Throwables\FlashbangGrenade.cs" />
     <Compile Include="API\Features\Items\Throwables\Throwable.cs" />
@@ -248,6 +254,7 @@
     <Compile Include="Events\EventArguments\SCPs\Scp939\Scp939SavePlayerVoiceEvent.cs" />
     <Compile Include="Events\EventArguments\SCPs\Scp939\Scp939ToggleFocusEvent.cs" />
     <Compile Include="Events\EventArguments\SCPs\Scp939\Scp939UseLungeEvent.cs" />
+    <Compile Include="Events\EventArguments\Server\SpawningItemEvent.cs" />
     <Compile Include="Events\EventArguments\Server\WarheadDetonatingEvent.cs" />
     <Compile Include="Events\EventManager.cs" />
     <Compile Include="Events\Handlers\Internal.cs" />
@@ -260,7 +267,7 @@
     <Compile Include="Events\Handlers\Scp173Handlers.cs" />
     <Compile Include="Events\Handlers\Scp914Handlers.cs" />
     <Compile Include="Events\Handlers\Scp939Handlers.cs" />
-    <Compile Include="Events\Handlers\ServerHandler.cs" />
+    <Compile Include="Events\Handlers\ServerHandlers.cs" />
     <Compile Include="Events\Patches\Game\MapGeneratedPatch.cs" />
     <Compile Include="Events\Patches\Game\MoreEscapePatch.cs" />
     <Compile Include="Events\Patches\Game\NamePatch.cs" />
@@ -325,6 +332,7 @@
     <Compile Include="Events\Patches\SCPs\Scp049\StartRevive.cs" />
     <Compile Include="Events\Patches\SCPs\Scp049\TriggerCall.cs" />
     <Compile Include="Events\Patches\SCPs\Scp049\TriggerSense.cs" />
+    <Compile Include="Events\Patches\Server\SpawningItemPatch.cs" />
     <Compile Include="Events\Patches\Warhead\WarheadDetonatingPatch.cs" />
     <Compile Include="Loader\CustomConverters\CustomVectorsConverter.cs" />
     <Compile Include="Loader\Loader.cs" />

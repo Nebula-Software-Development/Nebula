@@ -21,7 +21,7 @@ internal class MapGeneratedPatch
 
         newInstructions.InsertRange(index, new CodeInstruction[]
         {
-           new(OpCodes.Call, Method(typeof(ServerHandler), nameof(ServerHandler.OnMapGenerated))),
+           new(OpCodes.Call, Method(typeof(ServerHandlers), nameof(ServerHandlers.OnMapGenerated))),
         });
 
         newInstructions[newInstructions.Count - 1].labels.Add(retLabel);

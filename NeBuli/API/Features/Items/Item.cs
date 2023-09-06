@@ -7,7 +7,11 @@ using InventorySystem.Items.Firearms.Attachments.Components;
 using InventorySystem.Items.Pickups;
 using InventorySystem.Items.ThrowableProjectiles;
 using InventorySystem.Items.Usables;
+using InventorySystem.Items.Usables.Scp1576;
+using InventorySystem.Items.Usables.Scp244;
+using InventorySystem.Items.Usables.Scp330;
 using Nebuli.API.Features.Items.Pickups;
+using Nebuli.API.Features.Items.SCPs;
 using Nebuli.API.Features.Items.Throwables;
 using Nebuli.API.Features.Player;
 using System.Collections.Generic;
@@ -219,9 +223,17 @@ public class Item
             InventorySystem.Items.Firearms.Ammo.AmmoItem ammo => new Ammo(ammo),
             InventorySystem.Items.Radio.RadioItem radio => new Radio(radio),
             InventorySystem.Items.Jailbird.JailbirdItem jailbird => new Jailbird(jailbird),
-            Adrenaline adreniline => new Usables.Adrenaline(adreniline),
-            Medkit medkit => new Usables.Medkit(medkit),
-            Painkillers painkillers => new Usables.Painkillers(painkillers),
+            UsableItem usableItem => usableItem switch
+            {
+                Adrenaline adreniline => new Usables.Adrenaline(adreniline),
+                Medkit medkit => new Usables.Medkit(medkit),
+                Painkillers painkillers => new Usables.Painkillers(painkillers),
+                Scp330Bag scp330 => new Scp330(scp330),
+                Scp244Item scp244Item => new Scp244(scp244Item),
+                Scp1576Item scp1576 => new Scp1576(scp1576),
+                _ => new Item(usableItem),
+            },
+
             ThrowableItem throwable => throwable.Projectile switch
             {
                 ExplosionGrenade => new ExplosiveGrenade(throwable),
