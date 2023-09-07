@@ -1,5 +1,6 @@
 ﻿using HarmonyLib;
 using NorthwoodLib.Pools;
+using Respawning;
 using System.Collections.Generic;
 using System.Reflection.Emit;
 
@@ -31,5 +32,18 @@ internal class GetScenario
             yield return instruction;
 
         ListPool<CodeInstruction>.Shared.Return(newInstructions);
+    }
+}
+
+[HarmonyPatch(typeof(RespawnTokensManager), nameof(RespawnTokensManager.ModifyTokens))]
+internal class TokenCatch
+{
+    //Stops SL from spamming errors abt cant grant tickets to none and crashing servers.
+    [HarmonyPrefix]
+    public static bool Prefix(SpawnableTeamType team, float amount)
+    {
+        if (team == SpawnableTeamType.None)
+            return false;
+        return true;
     }
 }

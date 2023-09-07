@@ -16,7 +16,7 @@ internal class PlayerEscapingPatch
     [HarmonyTranspiler]
     private static IEnumerable<CodeInstruction> OnEscape(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
-        List<CodeInstruction> newInstructions = EventManager.CheckPatchInstructions<PlayerEscapingPatch>(61, instructions);
+        List<CodeInstruction> newInstructions = EventManager.CheckPatchInstructions<PlayerEscapingPatch>(71, instructions);
 
         Label retLabel = generator.DefineLabel();
         LocalBuilder @event = generator.DeclareLocal(typeof(PlayerEscapingEvent));
@@ -28,6 +28,7 @@ internal class PlayerEscapingPatch
             new CodeInstruction(OpCodes.Ldarg_0).MoveLabelsFrom(newInstructions[index]),
             new(OpCodes.Ldloc_0),
             new(OpCodes.Ldloc_1),
+            new(OpCodes.Ldloc_S, 4),
             new(OpCodes.Ldloc_2),
             new(OpCodes.Newobj, GetDeclaredConstructors(typeof(PlayerEscapingEvent))[0]),
             new(OpCodes.Dup),
@@ -41,6 +42,9 @@ internal class PlayerEscapingPatch
             new(OpCodes.Stloc_0),
             new(OpCodes.Ldloc, @event.LocalIndex),
             new(OpCodes.Callvirt, PropertyGetter(typeof(PlayerEscapingEvent), nameof(PlayerEscapingEvent.EscapeMessage))),
+            new(OpCodes.Stloc_S, 4),
+            new(OpCodes.Ldloc, @event.LocalIndex),
+            new(OpCodes.Callvirt, PropertyGetter(typeof(PlayerEscapingEvent), nameof(PlayerEscapingEvent.TeamGettingTickets))),
             new(OpCodes.Stloc_2),
         });
 
