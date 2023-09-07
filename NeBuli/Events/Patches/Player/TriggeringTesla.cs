@@ -47,7 +47,7 @@ internal class TriggeringTesla
             {
                 isTriggerable = false;
                 inIdleRange = false;
-                break;
+                continue;
             }
 
             isTriggerable = args.IsTriggerable;

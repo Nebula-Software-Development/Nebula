@@ -2,8 +2,6 @@
 using Nebuli.Events.EventArguments.Player;
 using Nebuli.Events.Handlers;
 using NorthwoodLib.Pools;
-using PlayerStatsSystem;
-using PluginAPI.Events;
 using System.Collections.Generic;
 using System.Reflection.Emit;
 using static HarmonyLib.AccessTools;
