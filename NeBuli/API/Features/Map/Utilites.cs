@@ -11,13 +11,18 @@ using Utils.Networking;
 using Nebuli.API.Features.Items.Pickups;
 using System.Collections.Generic;
 using MapGeneration;
-using System.Linq;
+using Nebuli.API.Features.AdminToys;
 
 namespace Nebuli.API.Features.Map;
 
 public static class Utilites
 {
     private static TantrumEnvironmentalHazard cachedTantrumPrefab;
+
+    /// <summary>
+    /// Gets a list of all current <see cref="AdminToy"/> objects on the server.
+    /// </summary>
+    public static List<AdminToy> AdminToys = new();
 
     /// <summary>
     /// Gets the SCP-173 Tantrum Prefab GameObject.

@@ -1,6 +1,7 @@
 ﻿using Interactables.Interobjects;
 using Interactables.Interobjects.DoorUtils;
 using MapGeneration;
+using Nebuli.API.Extensions;
 using Nebuli.API.Features.Enum;
 using Nebuli.API.Features.Player;
 using System.Collections.Generic;
@@ -139,10 +140,7 @@ public class Door
     /// <summary>
     /// Gets the doors current room.
     /// </summary>
-    public Room CurrentRoom
-    {
-        get => Room.Get(Position);
-    }
+    public Room CurrentRoom => Room.Get(Position);
 
     /// <summary>
     /// Changes the doors lock to the specified <see cref="DoorLockingType"/>.
@@ -312,7 +310,8 @@ public class Door
     {
         if (door.GetComponent<DoorNametagExtension>() is not null && nameToDoorType.TryGetValue(door.GetComponent<DoorNametagExtension>().GetName, out DoorType doorType))
             return doorType;
-        return GetSubstringBeforeCharacter(door.name, ' ') switch
+
+        return door.name.GetSubstringBeforeCharacter(' ') switch
         {
             "LCZ" => DoorType.LightContainmentDoor,
             "HCZ" => DoorType.HeavyContainmentDoor,
@@ -325,11 +324,5 @@ public class Door
             _ => DoorType.UnknownDoor,
         };
     }
-    private static string GetSubstringBeforeCharacter(string input, char character)
-    {
-        int index = input.IndexOf(character);
-        if (index != -1)
-            return input.Substring(0, index);
-        return input;
-    }
+
 }

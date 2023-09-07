@@ -85,6 +85,12 @@
     <Compile Include="API\Extensions\StatusEffectTypeExtension.cs" />
     <Compile Include="API\Extensions\ItemTypeExtension.cs" />
     <Compile Include="API\Extensions\RoleTypeExtensions.cs" />
+    <Compile Include="API\Extensions\StringExtensions.cs" />
+    <Compile Include="API\Features\AdminToys\AdminToy.cs" />
+    <Compile Include="API\Features\AdminToys\LightToy.cs" />
+    <Compile Include="API\Features\AdminToys\PrimitiveToy.cs" />
+    <Compile Include="API\Features\AdminToys\ShootingTargetToy.cs" />
+    <Compile Include="API\Features\AdminToys\ToyUtilities.cs" />
     <Compile Include="API\Features\AlphaWarhead.cs" />
     <Compile Include="API\Features\CustomHintManager.cs" />
     <Compile Include="API\Features\Decontamination.cs" />
@@ -97,11 +103,14 @@
     <Compile Include="API\Features\Enum\CameraType.cs" />
     <Compile Include="API\Features\Enum\CoinSide.cs" />
     <Compile Include="API\Features\Enum\DoorLockingType.cs" />
+    <Compile Include="API\Features\Enum\RoomType.cs" />
+    <Compile Include="API\Features\Enum\ShootingTargetToyType.cs" />
     <Compile Include="API\Features\Enum\StatusEffectType.cs" />
     <Compile Include="API\Features\Enum\EscapeType.cs" />
     <Compile Include="API\Features\Enum\FirearmType.cs" />
     <Compile Include="API\Features\Enum\MenuType.cs" />
     <Compile Include="API\Features\Enum\Scp079PingType.cs" />
+    <Compile Include="API\Features\Enum\ToyType.cs" />
     <Compile Include="API\Features\Intercom.cs" />
     <Compile Include="API\Features\Items\Ammo.cs" />
     <Compile Include="API\Features\Items\BodyArmor.cs" />
