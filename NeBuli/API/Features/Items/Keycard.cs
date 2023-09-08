@@ -1,4 +1,6 @@
 ﻿
+using Interactables.Interobjects.DoorUtils;
+
 namespace Nebuli.API.Features.Items;
 
 public class Keycard : Item
@@ -10,5 +12,14 @@ public class Keycard : Item
     internal Keycard(InventorySystem.Items.Keycards.KeycardItem itemBase) : base(itemBase)
     {
         Base = itemBase;
+    }
+
+    /// <summary>
+    /// Gets or sets the keycards <see cref="KeycardPermissions"/>.
+    /// </summary>
+    public KeycardPermissions Permissions
+    {
+        get => Base.Permissions; 
+        set => Base.Permissions = value;
     }
 }

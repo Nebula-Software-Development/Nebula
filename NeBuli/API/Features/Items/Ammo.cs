@@ -13,4 +13,13 @@ public class Ammo : Item
     {
         Base = itemBase;
     }
+
+    /// <summary>
+    /// Gets or sets the ammo's unit price.
+    /// </summary>
+    public int UnitPrice
+    {
+        get => Base.UnitPrice; 
+        set => Base.UnitPrice = value;
+    }
 }

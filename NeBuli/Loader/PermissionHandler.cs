@@ -75,7 +75,7 @@ public static class PermissionsHandler
         if(commandSender is ServerConsoleSender) return true;
         if (!NebuliPlayer.TryGet(commandSender, out NebuliPlayer ply)) return false; 
         if (ply.ReferenceHub == ReferenceHub.HostHub || 
-            Groups.TryGetValue(ply.GroupName, out var playerGroup) && 
+            Groups.TryGetValue(ply.GroupName, out Group playerGroup) && 
             (playerGroup.Permissions.Contains(".*") || playerGroup.Permissions.Contains(permission)))
         {
             return true;

@@ -24,6 +24,24 @@ public static class AlphaWarhead
     public static AlphaWarheadSyncInfo Info => Controller.Info;
 
     /// <summary>
+    /// Gets or sets if the Alpha Warhead auto detonate mode is enabled.
+    /// </summary>
+    public static bool AutoDetonateEnabled
+    {
+        get => Controller._autoDetonate;
+        set => Controller._autoDetonate = value;
+    }
+
+    /// <summary>
+    /// Gets or sets if the Alpha Warhead can open doors.
+    /// </summary>
+    public static bool CanOpenDoors
+    {
+        get => Controller._openDoors;
+        set => Controller._openDoors = value;
+    }
+
+    /// <summary>
     /// Forces the warhead to instantly prepare.
     /// </summary>
     public static void InstantPrepare() => Controller.InstantPrepare();
@@ -32,6 +50,11 @@ public static class AlphaWarhead
     /// Gets a value if the Alpha Warhead is in progress or not.
     /// </summary>
     public static bool IsInProgress => Controller.NetworkInfo.InProgress;
+
+    /// <summary>
+    /// Gets a value if the Alpha Warhead is detonated or not.
+    /// </summary>
+    public static bool Detonated => Controller._alreadyDetonated;
 
     /// <summary>
     /// Forces the warhead to dentonate.

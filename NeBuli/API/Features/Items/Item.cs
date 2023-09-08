@@ -4,9 +4,14 @@ using InventorySystem.Items;
 using InventorySystem.Items.Firearms;
 using InventorySystem.Items.Firearms.Attachments;
 using InventorySystem.Items.Firearms.Attachments.Components;
+using InventorySystem.Items.Pickups;
 using InventorySystem.Items.ThrowableProjectiles;
 using InventorySystem.Items.Usables;
-using Nebuli.API.Features.Items.Projectiles;
+using InventorySystem.Items.Usables.Scp1576;
+using InventorySystem.Items.Usables.Scp244;
+using InventorySystem.Items.Usables.Scp330;
+using Nebuli.API.Features.Items.Pickups;
+using Nebuli.API.Features.Items.SCPs;
 using Nebuli.API.Features.Items.Throwables;
 using Nebuli.API.Features.Player;
 using System.Collections.Generic;
@@ -62,6 +67,11 @@ public class Item
     /// Gets the items <see cref="UnityEngine.GameObject"/>.
     /// </summary>
     public GameObject GameObject => Base.gameObject;
+
+    /// <summary>
+    /// Gets the Items weight.
+    /// </summary>
+    public float Weight => Base.Weight;
 
     /// <summary>
     /// Gets or sets the Items serial.
@@ -138,6 +148,31 @@ public class Item
     }
 
     /// <summary>
+    /// Creates a pickup.
+    /// </summary>
+    /// <param name="position">The position of the pickup.</param>
+    /// <param name="rotation">The rotation of the pickup.</param>
+    /// <param name="SpawnItem">If the pickup should be spawned in-game.</param>
+    public Pickup CreatePickup(Vector3 position, Quaternion rotation = default, bool SpawnItem = true)
+    {
+        ItemPickupBase item = Object.Instantiate(Base.PickupDropModel, position, rotation);
+        item.Info = new PickupSyncInfo(ItemType, Weight, ItemSerialGenerator.GenerateNext());
+        Pickup pickup = Pickup.Get(item);
+        if (SpawnItem) pickup.Spawn();
+        return pickup;
+    }
+
+    /// <summary>
+    /// Gives the item to a player.
+    /// </summary>
+    public void Give(NebuliPlayer ply) => ply.AddItem(this);
+
+    /// <summary>
+    /// Removes and destroys the item from the owners inventory.
+    /// </summary>
+    public void Destroy() => Owner.RemoveItem(this);
+
+    /// <summary>
     /// Creates a item and gives it to the specified player.
     /// </summary>
     /// <param name="itemType">The ItemType to give. </param>>
@@ -188,9 +223,17 @@ public class Item
             InventorySystem.Items.Firearms.Ammo.AmmoItem ammo => new Ammo(ammo),
             InventorySystem.Items.Radio.RadioItem radio => new Radio(radio),
             InventorySystem.Items.Jailbird.JailbirdItem jailbird => new Jailbird(jailbird),
-            Adrenaline adreniline => new Usables.Adrenaline(adreniline),
-            Medkit medkit => new Usables.Medkit(medkit),
-            Painkillers painkillers => new Usables.Painkillers(painkillers),
+            UsableItem usableItem => usableItem switch
+            {
+                Adrenaline adreniline => new Usables.Adrenaline(adreniline),
+                Medkit medkit => new Usables.Medkit(medkit),
+                Painkillers painkillers => new Usables.Painkillers(painkillers),
+                Scp330Bag scp330 => new Scp330(scp330),
+                Scp244Item scp244Item => new Scp244(scp244Item),
+                Scp1576Item scp1576 => new Scp1576(scp1576),
+                _ => new Item(usableItem),
+            },
+
             ThrowableItem throwable => throwable.Projectile switch
             {
                 ExplosionGrenade => new ExplosiveGrenade(throwable),

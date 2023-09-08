@@ -127,7 +127,7 @@ public class NebuliNpc : NebuliPlayer
         mouseLook.ApplySyncValues(horizontal, vertical);
     }
 
-    internal (ushort horizontal, ushort vertical) ToClientUShorts(Quaternion rotation)
+    private (ushort horizontal, ushort vertical) ToClientUShorts(Quaternion rotation)
     {
         if (rotation.eulerAngles.z != 0f)
         {

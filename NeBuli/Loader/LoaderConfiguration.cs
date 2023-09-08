@@ -38,10 +38,10 @@ public class LoaderConfiguration
     public bool LoadOutDatedPlugins { get; set; } = false;
 
     /// <summary>
-    /// The startup message that the framework will display after initializing.
+    /// Determines if the Nebuli should load plugins based on the current port folder its running on.
     /// </summary>
-    [Description("The startup message that the framework will display in the console after initializing")]
-    public string StartupMessage { get; set; } = "Welcome to... \r\n███╗░░██╗███████╗██████╗░██╗░░░██╗██╗░░░░░██╗\r\n████╗░██║██╔════╝██╔══██╗██║░░░██║██║░░░░░██║\r\n██╔██╗██║█████╗░░██████╦╝██║░░░██║██║░░░░░██║\r\n██║╚████║██╔══╝░░██╔══██╗██║░░░██║██║░░░░░██║\r\n██║░╚███║███████╗██████╦╝╚██████╔╝███████╗██║\r\n╚═╝░░╚══╝╚══════╝╚═════╝░░╚═════╝░╚══════╝╚═╝";
+    [Description("Determines if the Nebuli should load plugins based on the current port folder its running on.")]
+    public bool SeperatePluginsByPort { get; set; } = true;
 
     /// <summary>
     /// If Nebuli should automatically check for updates.

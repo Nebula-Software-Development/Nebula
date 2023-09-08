@@ -860,6 +860,20 @@ public class NebuliPlayer
     }
 
     /// <summary>
+    /// Heals the player.
+    /// </summary>
+    /// <param name="amount">The amount of HP to heal.</param>
+    /// <param name="exceedMaxHealth">If max limit should be exceeded while healing the player.</param>
+    public void Heal(float amount, bool exceedMaxHealth = false)
+    {
+        if (exceedMaxHealth)
+            Health += amount;
+        else
+            customHealthManager.ServerHeal(amount);
+
+    }
+
+    /// <summary>
     /// Tries to get a specific status effect on the player based on its name.
     /// </summary>
     /// <param name="effectName">The name of the status effect.</param>
@@ -891,6 +905,26 @@ public class NebuliPlayer
     public T EnableEffect<T>(float duration = 0f, bool addDuration = false) where T : StatusEffectBase
     {
         return ReferenceHub.playerEffectsController.EnableEffect<T>(duration, addDuration);
+    }
+
+    /// <summary>
+    /// Enables a specific <see cref="StatusEffect"/> on the player.
+    /// </summary>
+    public void EnableEffect(StatusEffect statusEffect, float duration = 0f, bool addDuration = false)
+    {
+        EnableEffect(statusEffect.GetType().Name, duration: duration, addDuration: addDuration);    
+    }
+
+    /// <summary>
+    /// Enables a specific status effect on the player.
+    /// </summary>
+    /// <param name="effectName">The name of the effect.</param>
+    /// <param name="intensity">The intensity of the effect.</param>
+    /// <param name="duration">The duration of the status effect. (Optional)</param>
+    /// <param name="addDuration">Whether to add the duration to the existing effect if already active. (Optional)</param>
+    public StatusEffectBase EnableEffect(string effectName, byte intensity = 1, float duration = 0f, bool addDuration = false)
+    {
+         return ReferenceHub.playerEffectsController.ChangeState(effectName, intensity, duration, addDuration);
     }
 
     /// <summary>
@@ -938,9 +972,9 @@ public class NebuliPlayer
     /// </summary>
     /// <param name="content">The content of the hint.</param>
     /// <param name="time">The duration of the hint in seconds.</param>
-    public void ShowHint(string content, int time = 5)
+    public void ShowHint(string content, float time = 5)
     {
-        ShowHint(new TextHint(content, new HintParameter[] { new StringHintParameter(string.Empty) }, null, time));
+        ShowHint(new TextHint(content, new HintParameter[] { new StringHintParameter(content) }, null, time));
     }
 
     /// <summary>
@@ -1239,6 +1273,31 @@ public class NebuliPlayer
         }
 
         return Item.Get(Inventory.ServerAddItem(item.ItemType, item.Serial));
+    }
+
+    /// <summary>
+    /// Removes a <see cref="Item"/> from the players inventory.
+    /// </summary>
+    public bool RemoveItem(Item item, bool destroyItem = true)
+    {
+        if (!Items.Contains(item)) return false;
+
+        if (destroyItem)
+            Inventory.ServerRemoveItem(item.Serial, null);
+        else
+        {
+            item.Base.OnRemoved(null);
+            item.Base.Owner = Server.NebuliHost.ReferenceHub;
+            item.Base.OnAdded(null);
+            if (CurrentItem is not null && CurrentItem.Serial == item.Serial)
+            {
+                Inventory.NetworkCurItem = ItemIdentifier.None;
+            }          
+            Inventory.UserInventory.Items.Remove(item.Serial);
+            Inventory.SendItemsNextFrame = true;
+        }
+
+        return true;
     }
 
     /// <summary>

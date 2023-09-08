@@ -1,6 +1,6 @@
 ﻿using JailbirdBase = InventorySystem.Items.Jailbird.JailbirdItem;
 
-namespace Nebuli.API.Features.Items;
+namespace Nebuli.API.Features.Items.SCPs;
 
 /// <summary>
 /// Jailbird wrapper class.

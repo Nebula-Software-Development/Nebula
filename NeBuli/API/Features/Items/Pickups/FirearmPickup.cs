@@ -1,8 +1,5 @@
 ﻿using InventorySystem.Items.Firearms;
 using InventorySystem.Items.Pickups;
-using System.Collections.Generic;
-using System.Linq;
-using UnityEngine;
 using FirearmPickupBase = InventorySystem.Items.Firearms.FirearmPickup;
 
 namespace Nebuli.API.Features.Items.Pickups;
@@ -13,45 +10,23 @@ namespace Nebuli.API.Features.Items.Pickups;
 public class FirearmPickup : Pickup
 {
     /// <summary>
-    /// Gets the collection of <see cref="FirearmPickupBase"/> and their wrapper class <see cref="FirearmPickup"/>.
-    /// </summary>
-    public new static Dictionary<FirearmPickupBase, FirearmPickup> Dictionary = new();
-
-    /// <summary>
     /// Gets the FirearmPickup base.
     /// </summary>
     public new FirearmPickupBase Base;
 
     /// <summary>
-    /// Gets the PickupSyncInfo of the FirearmPickup.
+    /// Gets or sets the PickupSyncInfo of the FirearmPickup.
     /// </summary>
-    public new PickupSyncInfo Info => Base.Info;
+    public new PickupSyncInfo Info
+    {
+        get => Base.Info;
+        set => Base.Info = value;
+    }
 
     internal FirearmPickup(FirearmPickupBase pickupBase) : base(pickupBase)
     {
         Base = pickupBase;
-        Dictionary.Add(Base, this);
     }
-
-    /// <summary>
-    /// Gets a collection of all the current FirearmPickups.
-    /// </summary>
-    public new static IEnumerable<FirearmPickup> Collection = Dictionary.Values;
-
-    /// <summary>
-    /// Gets a list of all the current FirearmPickups.
-    /// </summary>
-    public new static List<FirearmPickup> List = Collection.ToList();
-
-    /// <summary>
-    /// Gets the Transform of the FirearmPickup.
-    /// </summary>
-    public Transform Transform => Base.transform;
-
-    /// <summary>
-    /// Gets the Rigidbody of the FirearmPickup.
-    /// </summary>
-    public Rigidbody Rigidbody => Base.Rb;
 
     /// <summary>
     /// Gets or sets a value indicating whether the FirearmPickup is distributed or not.
@@ -72,6 +47,15 @@ public class FirearmPickup : Pickup
     }
 
     /// <summary>
+    /// Gets or sets the firearms status flags.
+    /// </summary>
+    public FirearmStatusFlags Flags
+    {
+        get => Base.NetworkStatus.Flags;
+        set => Base.NetworkStatus = new(Base.NetworkStatus.Ammo, value, Base.NetworkStatus.Attachments);
+    }
+
+    /// <summary>
     /// Gets or sets the amount of ammo for the FirearmPickup.
     /// </summary>
     public byte Ammo
@@ -81,7 +65,11 @@ public class FirearmPickup : Pickup
     }
 
     /// <summary>
-    /// Gets the ItemType of the FirearmPickup.
+    /// Gets or sets the firearms attachments.
     /// </summary>
-    public new ItemType ItemType => Base.NetworkInfo.ItemId;
+    public uint Attachments
+    {
+        get => Base.NetworkStatus.Attachments;
+        set => Base.NetworkStatus = new FirearmStatus(Base.NetworkStatus.Ammo, Flags, value);
+    }
 }

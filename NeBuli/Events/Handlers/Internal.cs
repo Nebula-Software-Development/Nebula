@@ -20,7 +20,7 @@ internal class Internal
                     Generator.Get(generator);
                 foreach (MapGeneration.Distributors.Locker locker in Object.FindObjectsOfType<MapGeneration.Distributors.Locker>())
                     Locker.Get(locker);
-                ServerHandler.OnWaitingForPlayers();
+                ServerHandlers.OnWaitingForPlayers();
             });
         }
         catch(Exception e)

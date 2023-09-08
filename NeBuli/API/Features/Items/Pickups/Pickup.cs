@@ -1,7 +1,9 @@
 ﻿using Footprinting;
+using InventorySystem;
 using InventorySystem.Items;
 using InventorySystem.Items.Pickups;
 using Mirror;
+using Nebuli.API.Features.Items.Pickups.SCPs;
 using Nebuli.API.Features.Items.Projectiles;
 using Nebuli.API.Features.Player;
 using System.Collections.Generic;
@@ -37,6 +39,22 @@ public class Pickup
         else return;
     }
 
+    internal Pickup(ItemType type)
+    {
+        if (InventoryItemLoader.AvailableItems.TryGetValue(type, out ItemBase itemBase))
+        {
+            PickupSyncInfo info = new()
+            {
+                ItemId = type,
+                Serial = ItemSerialGenerator.GenerateNext(),
+                WeightKg = itemBase.Weight,
+            };
+            Base = Object.Instantiate(itemBase.PickupDropModel);
+            Info = info;
+        }
+
+    }
+
     /// <summary>
     /// Gets a collection of all the current Pickups.
     /// </summary>
@@ -56,7 +74,20 @@ public class Pickup
         set => Base.Info = value;
     }
 
+    /// <summary>
+    /// Gets the <see cref="Pickup"/> gameobject.
+    /// </summary>
     public GameObject GameObject => Base.gameObject;
+
+    /// <summary>
+    /// Gets the Pickup's <see cref="UnityEngine.Rigidbody"/>.
+    /// </summary>
+    public Rigidbody Rigidbody => StandardPhysicsModule.Rb;
+
+    /// <summary>
+    /// Gets the Pickup's <see cref="UnityEngine.Transform"/>.
+    /// </summary>
+    public Transform Transform => Base.transform;
 
     /// <summary>
     /// Gets the pickups serial.
@@ -114,7 +145,7 @@ public class Pickup
     /// <summary>
     /// Gets the Pickup's NetId.
     /// </summary>
-    public uint NetID => Base.netId;
+    public uint NetId => Base.netId;
 
     /// <summary>
     /// Gets or sets the Pickup's <see cref="PickupPhysicsModule"/>.
@@ -124,6 +155,11 @@ public class Pickup
         get => Base.PhysicsModule;
         set => Base.PhysicsModule = value;
     }
+
+    /// <summary>
+    /// Gets the Pickup's <see cref="PickupStandardPhysics"/> module.
+    /// </summary>
+    public PickupStandardPhysics StandardPhysicsModule => Base.PhysicsModule as PickupStandardPhysics;
 
     /// <summary>
     /// Gets the previous owner's <see cref="Footprint"/>
@@ -161,6 +197,9 @@ public class Pickup
         set => Base.Position = value;
     }
 
+    /// <summary>
+    /// Gets or sets the rotation of the pickup.
+    /// </summary>
     public Quaternion Rotation
     {
         get => Base.Rotation;
@@ -198,6 +237,34 @@ public class Pickup
     /// <param name="itemPickupBase">The <see cref="ItemPickupBase"/> to find the <see cref="Pickup"/> with.</param>
     /// <returns></returns>
     public static Pickup Get(ItemPickupBase itemPickupBase) => Dictionary.TryGetValue(itemPickupBase, out Pickup pickup) ? pickup : GetPickup(itemPickupBase);
+
+    /// <summary>
+    /// Gets a <see cref="Pickup"/> that's Serial matches the given serial.
+    /// </summary>
+    public static Pickup Get(ushort pickupSerial) => List.FirstOrDefault(x => x.Serial == pickupSerial);
+
+    /// <summary>
+    /// Gets a <see cref="Pickup"/> that's <see cref="UnityEngine.GameObject"/> matches the given <see cref="UnityEngine.GameObject"/>.
+    /// </summary>
+    /// <param name="gameObject"></param>
+    /// <returns></returns>
+    public static Pickup Get(GameObject gameObject) => List.FirstOrDefault(x => x.GameObject == gameObject);
+
+    /// <summary>
+    /// Creates a pickup given the ItemType.
+    /// </summary>
+    public static Pickup Create(ItemType type) => new(type);
+
+    /// <summary>
+    /// Creates and spawns a pickup given the ItemType.
+    /// </summary>
+    public static Pickup CreateAndSpawn(ItemType type, Vector3 position)
+    {
+        Pickup pickup = Create(type);
+        pickup.Position = position;
+        pickup.Spawn();
+        return pickup;
+    }
 
     /// <summary>
     /// Spawns the pickup.
@@ -242,7 +309,9 @@ public class Pickup
             InventorySystem.Items.ThrowableProjectiles.ExplosionGrenade explosionGrenade => new ExplosiveGrenadeProjectile(explosionGrenade),
             InventorySystem.Items.ThrowableProjectiles.FlashbangGrenade flashbangGrenade => new FlashbangProjectile(flashbangGrenade),
             InventorySystem.Items.ThrowableProjectiles.EffectGrenade effectGrenade => new GrenadeEffectProjectile(effectGrenade),
-            InventorySystem.Items.ThrowableProjectiles.TimeGrenade timedGrenade => new TimedExplosiveProjectile(timedGrenade),          
+            InventorySystem.Items.Usables.Scp330.Scp330Pickup scp330 => new Scp330Pickup(scp330),
+            InventorySystem.Items.Usables.Scp244.Scp244DeployablePickup scp244 => new Scp244Pickup(scp244),
+            InventorySystem.Items.Usables.Scp1576.Scp1576Pickup scp1576 => new Scp1576Pickup(scp1576),
             _ => new Pickup(ItemBase),
         };
     }

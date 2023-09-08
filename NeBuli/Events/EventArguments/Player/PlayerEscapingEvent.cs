@@ -1,6 +1,7 @@
 ﻿using Nebuli.API.Features.Enum;
 using Nebuli.API.Features.Player;
 using PlayerRoles;
+using Respawning;
 using System;
 using static Escape;
 
@@ -8,13 +9,14 @@ namespace Nebuli.Events.EventArguments.Player;
 
 public class PlayerEscapingEvent : EventArgs, IPlayerEvent, ICancellableEvent
 {
-    public PlayerEscapingEvent(ReferenceHub player, RoleTypeId newRole, EscapeScenarioType escapeType, EscapeMessage escapeMessage)
+    public PlayerEscapingEvent(ReferenceHub player, RoleTypeId newRole, EscapeScenarioType escapeType, EscapeMessage escapeMessage, SpawnableTeamType team)
     {      
         Player = NebuliPlayer.Get(player);
         NewRole = newRole;
         EscapeMessage = escapeMessage;
         OldRole = player.GetRoleId();
         EscapeScenario = (EscapeType)escapeType;
+        TeamGettingTickets = team;
         IsCancelled = false;
         if (EscapeScenario == EscapeType.PluginEscape)
             IsCancelled = true;
@@ -49,4 +51,9 @@ public class PlayerEscapingEvent : EventArgs, IPlayerEvent, ICancellableEvent
     /// The <see cref="EscapeType"/> of the event.
     /// </summary>
     public EscapeType EscapeScenario { get; }
+    
+    /// <summary>
+    /// Gets or sets the team that will recieve tickets for escaping. Can be <see cref="SpawnableTeamType.None"/> for no tickets for either side.
+    /// </summary>
+    public SpawnableTeamType TeamGettingTickets { get; set; }
 }

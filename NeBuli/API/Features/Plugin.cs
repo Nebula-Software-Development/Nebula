@@ -78,11 +78,11 @@ public abstract class Plugin<TConfig> : IPlugin<TConfig> where TConfig : IConfig
     { typeof(ClientCommandHandler), QueryProcessor.DotCommandHandler }
     };
 
-    private readonly Dictionary<ICommandHandler, ICommand> Commands = new();
+    private readonly Dictionary<ICommandHandler, List<ICommand>> CommandDictionary = new();
 
     public void LoadCommands()
     {
-        Commands.Clear();
+        CommandDictionary.Clear();
 
         foreach (Type type in Assembly.GetTypes())
         {
@@ -103,7 +103,9 @@ public abstract class Plugin<TConfig> : IPlugin<TConfig> where TConfig : IConfig
                     {
                         ICommand command = (ICommand)Activator.CreateInstance(type);
                         commandHandler.RegisterCommand(command);
-                        Commands.Add(commandHandler, command);
+                        if (!CommandDictionary.ContainsKey(commandHandler))
+                            CommandDictionary[commandHandler] = new List<ICommand>();
+                        CommandDictionary[commandHandler].Add(command);
                     }
                 }
                 catch (Exception exception)
@@ -116,9 +118,15 @@ public abstract class Plugin<TConfig> : IPlugin<TConfig> where TConfig : IConfig
 
     public void UnLoadCommands()
     {
-        foreach (var command in Commands)
-            command.Key.UnregisterCommand(command.Value);
-        Commands.Clear();
+        foreach (var commandPair in CommandDictionary)
+        {
+            ICommandHandler handler = commandPair.Key;
+            List<ICommand> commands = commandPair.Value;
+
+            foreach (ICommand command in commands)
+                handler.UnregisterCommand(command);
+        }
+        CommandDictionary.Clear();
     }
 
 

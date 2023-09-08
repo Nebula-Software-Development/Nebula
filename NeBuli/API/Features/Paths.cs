@@ -1,10 +1,5 @@
 ﻿using System.IO;
-using System.Linq;
-using System.Text;
-using YamlDotNet.Serialization.NamingConventions;
-using YamlDotNet.Serialization;
 using NwPaths = PluginAPI.Helpers.Paths;
-using System.Collections.Generic;
 
 namespace Nebuli.API.Features;
 
@@ -22,6 +17,11 @@ public static class Paths
     /// The plugin directory for the framework.
     /// </summary>
     public static DirectoryInfo PluginsDirectory { get; private set; }
+
+    /// <summary>
+    /// Gets the specific plugin-port directory.
+    /// </summary>
+    public static DirectoryInfo PluginsPortDirectory { get; private set; }
 
     /// <summary>
     /// The dependency directory for the framework.
@@ -51,6 +51,10 @@ public static class Paths
     {
         MainDirectory = Directory.CreateDirectory(Path.Combine(NwPaths.AppData, "Nebuli"));
         PluginsDirectory = MainDirectory.CreateSubdirectory("Plugins");
+        if(Loader.Loader.Configuration.SeperatePluginsByPort)
+            PluginsPortDirectory = PluginsDirectory.CreateSubdirectory(Server.ServerPort.ToString() + "-Plugins");
+        else
+            PluginsPortDirectory = PluginsDirectory;
         PluginConfigDirectory = MainDirectory.CreateSubdirectory("Plugin-Configurations");
         PluginPortConfigDirectory = PluginConfigDirectory.CreateSubdirectory(Server.ServerPort.ToString());
         DependenciesDirectory = PluginsDirectory.CreateSubdirectory("Dependencies");
