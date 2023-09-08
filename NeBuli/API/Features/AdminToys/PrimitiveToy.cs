@@ -1,6 +1,9 @@
 ﻿using SLPrimitiveToy = AdminToys.PrimitiveObjectToy;
 using Nebuli.API.Features.Enum;
 using UnityEngine;
+using AdminToys;
+using Nebuli.API.Features.Map;
+using System.Linq;
 
 namespace Nebuli.API.Features.AdminToys;
 
@@ -47,6 +50,9 @@ public class PrimitiveToy : AdminToy
         set => RefreshCollidable(value);
     }
 
+    /// <summary>
+    /// Creates a <see cref="PrimitiveToy"/>.
+    /// </summary>
     public static PrimitiveToy Create(PrimitiveType primitiveType = PrimitiveType.Sphere, Vector3 position = default, Quaternion rotation = default, Vector3 scale = default, bool spawn = true)
     {
         PrimitiveToy primitive = new(Object.Instantiate(ToyUtilities.PrimitiveBase))
@@ -59,6 +65,13 @@ public class PrimitiveToy : AdminToy
         if (spawn) primitive.SpawnToy();
         return primitive;
     }
+
+    /// <summary>
+    /// Gets a <see cref="PrimitiveToy"/> with the matching <see cref="SLPrimitiveToy"/> base.
+    /// </summary>
+    public static PrimitiveToy Get(SLPrimitiveToy primitiveObjectToy) => Utilites.AdminToys
+        .FirstOrDefault(x => x.Base == primitiveObjectToy) as PrimitiveToy ?? new PrimitiveToy(primitiveObjectToy);
+
 
     private void RefreshCollidable(bool value)
     {

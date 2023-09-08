@@ -1,4 +1,6 @@
 ﻿using Nebuli.API.Features.Enum;
+using Nebuli.API.Features.Map;
+using System.Linq;
 using UnityEngine;
 using SLightToy = AdminToys.LightSourceToy;
 
@@ -54,6 +56,12 @@ public class LightToy : AdminToy
         get => Base.NetworkLightShadows;
         set => Base.NetworkLightShadows = value;
     }
+
+    /// <summary>
+    /// Gets a <see cref="LightToy"/> with the matching <see cref="SLightToy"/> base.
+    /// </summary>
+    public static LightToy Get(SLightToy primitiveObjectToy) => Utilites.AdminToys
+        .FirstOrDefault(x => x.Base == primitiveObjectToy) as LightToy ?? new LightToy(primitiveObjectToy);
 
     /// <summary>
     /// Creates a new <see cref="LightToy"/>.

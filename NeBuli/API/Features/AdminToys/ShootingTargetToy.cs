@@ -1,5 +1,7 @@
 ﻿using Nebuli.API.Features.Enum;
+using Nebuli.API.Features.Map;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using Object = UnityEngine.Object;
 using SLTarget = AdminToys.ShootingTarget;
@@ -96,6 +98,12 @@ public class ShootingTargetToy : AdminToy
     /// Clears the <see cref="ShootingTargetToy"/>.
     /// </summary>
     public void ClearTarget() => Base.ClearTarget();
+
+    /// <summary>
+    /// Gets a <see cref="ShootingTargetToy"/> with the matching <see cref="SLTarget"/> base.
+    /// </summary>
+    public static ShootingTargetToy Get(SLTarget primitiveObjectToy) => Utilites.AdminToys
+        .FirstOrDefault(x => x.Base == primitiveObjectToy) as ShootingTargetToy ?? new ShootingTargetToy(primitiveObjectToy);
 
     /// <summary>
     /// Gets the type of the target.
