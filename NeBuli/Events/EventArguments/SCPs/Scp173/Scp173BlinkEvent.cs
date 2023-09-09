@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Nebuli.API.Features.Player;
 using UnityEngine;
 
@@ -6,11 +7,12 @@ namespace Nebuli.Events.EventArguments.SCPs.Scp173;
 
 public class Scp173BlinkEvent : EventArgs, IPlayerEvent, ICancellableEvent
 {
-    public Scp173BlinkEvent(ReferenceHub player, Vector3 position)
+    public Scp173BlinkEvent(ReferenceHub player, Vector3 position, List<NebuliPlayer> blinkers)
     {
         Player = NebuliPlayer.Get(player);
         Position = position;
         IsCancelled = false;
+        Blinkers = blinkers;
     }
     
     /// <summary>
@@ -27,4 +29,9 @@ public class Scp173BlinkEvent : EventArgs, IPlayerEvent, ICancellableEvent
     /// Gets or sets if the event is cancelled.
     /// </summary>
     public bool IsCancelled { get; set; }
+
+    /// <summary>
+    /// Gets the players blinking.
+    /// </summary>
+    public List<NebuliPlayer> Blinkers { get; }
 }

@@ -1,6 +1,9 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection.Emit;
+using System.ServiceModel.Channels;
 using HarmonyLib;
+using Nebuli.API.Features.Player;
 using Nebuli.Events.EventArguments.SCPs.Scp173;
 using Nebuli.Events.Handlers;
 using NorthwoodLib.Pools;
@@ -27,6 +30,10 @@ internal class PeanutBlink
             new(OpCodes.Ldfld, Field(typeof(Scp173MovementModule), nameof(Scp173MovementModule._role))),
             new(OpCodes.Ldfld, Field(typeof(Scp173Role), nameof(Scp173Role._owner))),
             new(OpCodes.Ldarg_1),
+            new(OpCodes.Ldarg_0),
+            new(OpCodes.Ldfld, Field(typeof(Scp173BlinkTimer), nameof(Scp173BlinkTimer._observers))),
+            new(OpCodes.Ldfld, Field(typeof(Scp173ObserversTracker), nameof(Scp173ObserversTracker.Observers))),
+            new(OpCodes.Call, Method(typeof(PeanutBlink), nameof(GetPlayersBlinking))),
             new(OpCodes.Newobj, GetDeclaredConstructors(typeof(Scp173BlinkEvent))[0]),
             new(OpCodes.Dup),
             new(OpCodes.Dup),
@@ -45,5 +52,7 @@ internal class PeanutBlink
             yield return instruction;
         
         ListPool<CodeInstruction>.Shared.Return(newInstructions);
+
     }
+    private static List<NebuliPlayer> GetPlayersBlinking(HashSet<ReferenceHub> hubs) => hubs.Select(NebuliPlayer.Get).ToList();
 }
