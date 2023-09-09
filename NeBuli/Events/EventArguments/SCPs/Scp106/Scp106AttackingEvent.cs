@@ -11,12 +11,20 @@ public class Scp106AttackingEvent : EventArgs, IPlayerEvent, ICancellableEvent
         Player = NebuliPlayer.Get(scp);
         Target = NebuliPlayer.Get(target);
         IsCancelled = false;
-        Log.Info(scp);
     }
 
+    /// <summary>
+    /// Gets the player triggering the event.
+    /// </summary>
     public NebuliPlayer Player { get; }
 
+    /// <summary>
+    /// Gets the player being attacked.
+    /// </summary>
     public NebuliPlayer Target { get; }
 
+    /// <summary>
+    /// Gets or sets if the event is cancelled.
+    /// </summary>
     public bool IsCancelled { get; set; }
 }
