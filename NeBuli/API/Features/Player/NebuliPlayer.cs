@@ -912,7 +912,7 @@ public class NebuliPlayer
     /// </summary>
     public void EnableEffect(StatusEffect statusEffect, float duration = 0f, bool addDuration = false)
     {
-        EnableEffect(statusEffect.GetType().Name, duration: duration, addDuration: addDuration);    
+        EnableEffect(statusEffect.EffectToType().Name, duration: duration, addDuration: addDuration);    
     }
 
     /// <summary>

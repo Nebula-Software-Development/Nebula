@@ -5,6 +5,7 @@ using InventorySystem.Items.Pickups;
 using Mirror;
 using Nebuli.API.Features.Items.Pickups.SCPs;
 using Nebuli.API.Features.Items.Projectiles;
+using Nebuli.API.Features.Map;
 using Nebuli.API.Features.Player;
 using System.Collections.Generic;
 using System.Linq;
@@ -146,6 +147,11 @@ public class Pickup
     /// Gets the Pickup's NetId.
     /// </summary>
     public uint NetId => Base.netId;
+
+    /// <summary>
+    /// Gets the <see cref="Pickup"/> current <see cref="Map.Room"/>.
+    /// </summary>
+    public Room Room => Room.Get(Position);
 
     /// <summary>
     /// Gets or sets the Pickup's <see cref="PickupPhysicsModule"/>.

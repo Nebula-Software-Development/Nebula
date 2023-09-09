@@ -15,7 +15,7 @@ internal class EnteringPocketPatch
     [HarmonyTranspiler]
     private static IEnumerable<CodeInstruction> OnEntering(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
-        List<CodeInstruction> newInstructions = EventManager.CheckPatchInstructions<EnteringPocketPatch>(161, instructions);
+        List<CodeInstruction> newInstructions = EventManager.CheckPatchInstructions<EnteringPocketPatch>(170, instructions);
 
         int index = newInstructions.FindIndex(i => i.opcode == OpCodes.Pop) + 7;
 

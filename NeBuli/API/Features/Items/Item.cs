@@ -13,6 +13,7 @@ using InventorySystem.Items.Usables.Scp330;
 using Nebuli.API.Features.Items.Pickups;
 using Nebuli.API.Features.Items.SCPs;
 using Nebuli.API.Features.Items.Throwables;
+using Nebuli.API.Features.Map;
 using Nebuli.API.Features.Player;
 using System.Collections.Generic;
 using System.Linq;
@@ -69,9 +70,19 @@ public class Item
     public GameObject GameObject => Base.gameObject;
 
     /// <summary>
+    /// Gets the room the <see cref="Item"/> is currently in.
+    /// </summary>
+    public Room Room => Room.Get(Position);
+
+    /// <summary>
     /// Gets the Items weight.
     /// </summary>
     public float Weight => Base.Weight;
+
+    /// <summary>
+    /// Gets the <see cref="Item"/> position.
+    /// </summary>
+    public Vector3 Position => Base.transform.position;
 
     /// <summary>
     /// Gets or sets the Items serial.

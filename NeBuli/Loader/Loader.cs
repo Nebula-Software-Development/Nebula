@@ -141,7 +141,7 @@ public class Loader
     public void UnLoad()
     {
         DisablePlugins();
-
+        _loaded = false;
         _harmony.UnpatchAll(_harmony.Id);
         _harmony = null;
         
@@ -338,7 +338,6 @@ public class Loader
 
     internal void ReloadPlugins()
     {
-        Log.Info("Reloading plugins...");
         DisablePlugins();
         LoadDependencies(Paths.DependenciesDirectory.GetFiles("*.dll"));
         LoadPlugins(Paths.PluginsPortDirectory.GetFiles("*.dll"));
