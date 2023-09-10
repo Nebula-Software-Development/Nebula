@@ -111,6 +111,11 @@
     <Compile Include="API\Features\Enum\MenuType.cs" />
     <Compile Include="API\Features\Enum\Scp079PingType.cs" />
     <Compile Include="API\Features\Enum\ToyType.cs" />
+    <Compile Include="API\Features\Hazards\AmesticCloudHazard.cs" />
+    <Compile Include="API\Features\Hazards\EnviormentHazard.cs" />
+    <Compile Include="API\Features\Hazards\SinkholeHazard.cs" />
+    <Compile Include="API\Features\Hazards\TantrumHazard.cs" />
+    <Compile Include="API\Features\Hazards\TemporaryHazard.cs" />
     <Compile Include="API\Features\Intercom.cs" />
     <Compile Include="API\Features\Items\Ammo.cs" />
     <Compile Include="API\Features\Items\BodyArmor.cs" />
@@ -281,6 +286,7 @@
     <Compile Include="Events\Handlers\Scp914Handlers.cs" />
     <Compile Include="Events\Handlers\Scp939Handlers.cs" />
     <Compile Include="Events\Handlers\ServerHandlers.cs" />
+    <Compile Include="Events\Patches\Game\HazardPatch.cs" />
     <Compile Include="Events\Patches\Game\MapGeneratedPatch.cs" />
     <Compile Include="Events\Patches\Game\MoreEscapePatch.cs" />
     <Compile Include="Events\Patches\Game\NamePatch.cs" />
