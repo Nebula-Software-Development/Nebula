@@ -21,6 +21,11 @@ public static class Server
     private static MethodInfo serverMessage;
 
     /// <summary>
+    /// Gets the current player count of the server.
+    /// </summary>
+    public static int PlayerCount => ReferenceHub.AllHubs.Count - 1;
+
+    /// <summary>
     /// Gets the servers <see cref="NebuliPlayer"/> Host.
     /// </summary>
     public static NebuliPlayer NebuliHost { get; internal set; } = null;

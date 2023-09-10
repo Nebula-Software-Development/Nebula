@@ -40,7 +40,7 @@ internal class TriggeringTesla
     {
         foreach (NebuliPlayer player in NebuliPlayer.List.Where(ply => teslaGate.IsInIdleRange(ply.ReferenceHub)))
         {
-            PlayerTriggeringTeslaEvent args = new(player.ReferenceHub, teslaGate, inIdleRange, isTriggerable);
+            PlayerTriggeringTeslaEvent args = new(player, teslaGate);
             PlayerHandlers.OnTriggerTesla(args);
 
             if (args.IsCancelled)
@@ -54,5 +54,4 @@ internal class TriggeringTesla
             inIdleRange = args.IsInIdleRange;
         }
     }
-
 }

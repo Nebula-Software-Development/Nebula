@@ -238,13 +238,6 @@ public class Pickup
     }
 
     /// <summary>
-    /// Tries to get a <see cref="Pickup"/> with a <see cref="ItemPickupBase"/>. If one cannot be found, it is created.
-    /// </summary>
-    /// <param name="itemPickupBase">The <see cref="ItemPickupBase"/> to find the <see cref="Pickup"/> with.</param>
-    /// <returns></returns>
-    public static Pickup Get(ItemPickupBase itemPickupBase) => Dictionary.TryGetValue(itemPickupBase, out Pickup pickup) ? pickup : GetPickup(itemPickupBase);
-
-    /// <summary>
     /// Gets a <see cref="Pickup"/> that's Serial matches the given serial.
     /// </summary>
     public static Pickup Get(ushort pickupSerial) => List.FirstOrDefault(x => x.Serial == pickupSerial);
@@ -297,8 +290,16 @@ public class Pickup
         return;
     }
 
-    internal static Pickup GetPickup(ItemPickupBase ItemBase)
+    /// <summary>
+    /// Tries to get a <see cref="Pickup"/> with a <see cref="ItemPickupBase"/>. If one cannot be found, it is created.
+    /// </summary>
+    /// <param name="ItemBase">The <see cref="ItemPickupBase"/> to find the <see cref="Pickup"/> with.</param>
+
+    public static Pickup Get(ItemPickupBase ItemBase)
     {
+        if (ItemBase == null)
+            return null;
+
         if (Dictionary.ContainsKey(ItemBase)) return Dictionary[ItemBase];
 
         return ItemBase switch

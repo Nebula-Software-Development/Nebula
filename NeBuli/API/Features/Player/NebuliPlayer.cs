@@ -1196,7 +1196,7 @@ public class NebuliPlayer
     /// </summary>
     public Item CurrentItem
     {
-        get => Item.Get(Inventory.CurItem.SerialNumber);
+        get => Item.Get(Inventory.CurInstance);
         set
         {
             Inventory.ServerSelectItem(value.Serial);
@@ -1207,7 +1207,10 @@ public class NebuliPlayer
     /// <summary>
     /// Gets a list of all the players items.
     /// </summary>
-    public List<Item> Items => Inventory.UserInventory.Items.Values.Select(itemBase => Item.Get(itemBase)).ToList();
+    public List<Item> Items => Inventory.UserInventory.Items.Values
+    .Where(itemBase => itemBase != null)
+    .Select(itemBase => Item.Get(itemBase))
+    .ToList();
 
     /// <summary>
     /// Clears the players inventory.
@@ -1335,12 +1338,16 @@ public class NebuliPlayer
     public bool HasKeycardPermission(KeycardPermissions keycardPermissions, bool IncludeInventory = false)
     {
         bool value = false;
-        if (CurrentItem is Keycard keycard)
-            value = keycard.Permissions == keycardPermissions;
+
+        if (CurrentItem != null && CurrentItem is Keycard keycard)
+            value = keycard.Permissions >= keycardPermissions;
+
         if (IncludeInventory && !value)
-            value = Items.Any(x => x is Keycard key && key.Permissions == keycardPermissions);
+            value = Items.Any(x => x is not null && x is Keycard keyperm && keyperm.Permissions >= keycardPermissions);
+
         return value;
     }
+
 
     /// <summary>
     /// Explodes the player.

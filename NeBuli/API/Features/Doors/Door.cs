@@ -121,6 +121,11 @@ public class Door
     public Vector3 Position => Base.transform.position;
 
     /// <summary>
+    /// Gets the doors current <see cref="DoorLockMode"/>.
+    /// </summary>
+    public DoorLockMode Mode => DoorLockUtils.GetMode((DoorLockReason)ActiveLocks);
+
+    /// <summary>
     /// Determines if the door can be seen through.
     /// </summary>
     public bool CanSeeThrough

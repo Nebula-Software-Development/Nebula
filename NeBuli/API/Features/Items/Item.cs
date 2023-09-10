@@ -206,21 +206,21 @@ public class Item
     }
 
     /// <summary>
-    /// Tries to get a <see cref="Item"/> with a <see cref="ItemBase"/>. If one cannot be found, it is created.
-    /// </summary>
-    /// <param name="itemBase">The <see cref="ItemBase"/> to find the <see cref="Item"/> with.</param>
-    /// <returns></returns>
-    public static Item Get(ItemBase itemBase) => Dictionary.TryGetValue(itemBase, out Item item) ? item : GetItem(itemBase);
-
-    /// <summary>
     /// Gets an <see cref="Item"/> with the specified serial number.
     /// </summary>
     /// <param name="serialNumber">The serial number of the item to find.</param>
     /// <returns>The <see cref="Item"/> with the specified serial number if found; otherwise, null.</returns>
     public static Item Get(ushort serialNumber) => Dictionary.Values.FirstOrDefault(item => item.Serial == serialNumber);
 
-    internal static Item GetItem(ItemBase itemBase)
+    /// <summary>
+    /// Tries to get a <see cref="Item"/> with a <see cref="ItemBase"/>. If one cannot be found, it is created.
+    /// </summary>
+    /// <param name="itemBase">The <see cref="ItemBase"/> to find the <see cref="Item"/> with.</param>
+    public static Item Get(ItemBase itemBase)
     {
+        if (itemBase == null)
+            return null;
+
         if(Dictionary.ContainsKey(itemBase)) return Dictionary[itemBase];
 
         return itemBase switch
