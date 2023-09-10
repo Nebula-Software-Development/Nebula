@@ -36,6 +36,7 @@ using PlayerRoles.RoleAssign;
 using System;
 using InventorySystem.Items;
 using Utils;
+using Interactables.Interobjects.DoorUtils;
 
 namespace Nebuli.API.Features.Player;
 
@@ -1327,6 +1328,19 @@ public class NebuliPlayer
     /// Gets if the player has a empty inventory.
     /// </summary>
     public bool EmptyInventory => !Inventory.UserInventory.Items.Any();
+
+    /// <summary>
+    /// Gets if the player has a specified <see cref="KeycardPermissions"/>.
+    /// </summary>
+    public bool HasKeycardPermission(KeycardPermissions keycardPermissions, bool IncludeInventory = false)
+    {
+        bool value = false;
+        if (CurrentItem is Keycard keycard)
+            value = keycard.Permissions == keycardPermissions;
+        if (IncludeInventory && !value)
+            value = Items.Any(x => x is Keycard key && key.Permissions == keycardPermissions);
+        return value;
+    }
 
     /// <summary>
     /// Explodes the player.
