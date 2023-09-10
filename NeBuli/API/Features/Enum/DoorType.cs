@@ -291,44 +291,9 @@ public enum DoorType
     Scp173Bottom,
 
     /// <summary>
-    /// Breakable door in heavy containment.
-    /// </summary>
-    HeavyContainmentBreakable,
-
-    /// <summary>
-    /// Breakable door in light containment.
-    /// </summary>
-    LightContainmentBreakable,
-
-    /// <summary>
-    /// Door that can be broken.
-    /// </summary>
-    KeycardBreakable,
-
-    /// <summary>
-    /// Unsecured gate that can be pried open.
-    /// </summary>
-    UnsecuredPryableGate,
-
-    /// <summary>
     /// Breakable door near an intercom.
     /// </summary>
     IntercomBreakable,
-
-    /// <summary>
-    /// Pryable gate that can be unlocked with a keycard.
-    /// </summary>
-    KeycardPryableGate,
-
-    /// <summary>
-    /// Blast door.
-    /// </summary>
-    BlastDoor,
-
-    /// <summary>
-    /// Pryable gate for SCP-173.
-    /// </summary>
-    Pryable173Gate,
 
     /// <summary>
     /// Breakable door in the prison area.
