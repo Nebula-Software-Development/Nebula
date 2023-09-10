@@ -35,6 +35,7 @@ using Utils.Networking;
 using PlayerRoles.RoleAssign;
 using System;
 using InventorySystem.Items;
+using Utils;
 
 namespace Nebuli.API.Features.Player;
 
@@ -1326,6 +1327,11 @@ public class NebuliPlayer
     /// Gets if the player has a empty inventory.
     /// </summary>
     public bool EmptyInventory => !Inventory.UserInventory.Items.Any();
+
+    /// <summary>
+    /// Explodes the player.
+    /// </summary>
+    public void Explode() => ExplosionUtils.ServerExplode(ReferenceHub);
 
     /// <summary>
     /// Checks if the player has any permission in <see cref="PlayerPermissions"/>.

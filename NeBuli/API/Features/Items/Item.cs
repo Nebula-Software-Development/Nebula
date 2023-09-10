@@ -210,7 +210,7 @@ public class Item
     /// </summary>
     /// <param name="itemBase">The <see cref="ItemBase"/> to find the <see cref="Item"/> with.</param>
     /// <returns></returns>
-    public static Item Get(ItemBase itemBase) => Dictionary.TryGetValue(itemBase, out var item) ? item : GetItem(itemBase);
+    public static Item Get(ItemBase itemBase) => Dictionary.TryGetValue(itemBase, out Item item) ? item : GetItem(itemBase);
 
     /// <summary>
     /// Gets an <see cref="Item"/> with the specified serial number.
@@ -236,10 +236,10 @@ public class Item
             InventorySystem.Items.Jailbird.JailbirdItem jailbird => new Jailbird(jailbird),
             UsableItem usableItem => usableItem switch
             {
+                Scp330Bag scp330 => new Scp330(scp330),
                 Adrenaline adreniline => new Usables.Adrenaline(adreniline),
                 Medkit medkit => new Usables.Medkit(medkit),
                 Painkillers painkillers => new Usables.Painkillers(painkillers),
-                Scp330Bag scp330 => new Scp330(scp330),
                 Scp244Item scp244Item => new Scp244(scp244Item),
                 Scp1576Item scp1576 => new Scp1576(scp1576),
                 _ => new Item(usableItem),
@@ -252,6 +252,6 @@ public class Item
                 _ => new Throwable(throwable),
             },
             _ => new Item(itemBase),
-        } ;
+        };
     }
 }

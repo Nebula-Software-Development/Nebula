@@ -251,6 +251,7 @@
     <Compile Include="Events\EventArguments\SCPs\Scp173\Scp173BlinkEvent.cs" />
     <Compile Include="Events\EventArguments\SCPs\Scp173\Scp173PlaceTantrumEvent.cs" />
     <Compile Include="Events\EventArguments\SCPs\Scp173\Scp173ToggleBreakneckSpeedEvent.cs" />
+    <Compile Include="Events\EventArguments\SCPs\Scp330\Scp330InteractEvent.cs" />
     <Compile Include="Events\EventArguments\SCPs\Scp914\UpgradingItemEvent.cs" />
     <Compile Include="Events\EventArguments\SCPs\Scp914\UpgradingPlayerEvent.cs" />
     <Compile Include="Events\EventArguments\SCPs\Scp939\Scp939AttackEvent.cs" />
@@ -276,6 +277,7 @@
     <Compile Include="Events\Handlers\Scp096Handlers.cs" />
     <Compile Include="Events\Handlers\Scp106Handlers.cs" />
     <Compile Include="Events\Handlers\Scp173Handlers.cs" />
+    <Compile Include="Events\Handlers\Scp330Handlers.cs" />
     <Compile Include="Events\Handlers\Scp914Handlers.cs" />
     <Compile Include="Events\Handlers\Scp939Handlers.cs" />
     <Compile Include="Events\Handlers\ServerHandlers.cs" />
@@ -323,6 +325,7 @@
     <Compile Include="Events\Patches\SCPs\Scp173\PeanutAttack.cs" />
     <Compile Include="Events\Patches\SCPs\Scp173\PeanutBlink.cs" />
     <Compile Include="Events\Patches\SCPs\Scp173\PlaceTantrum.cs" />
+    <Compile Include="Events\Patches\SCPs\Scp330\InteractingPatch.cs" />
     <Compile Include="Events\Patches\SCPs\Scp914\UpgradingItemPatch.cs" />
     <Compile Include="Events\Patches\SCPs\Scp914\UpgradingPlayerPatch.cs" />
     <Compile Include="Events\Patches\SCPs\Scp939\CancelCloudPlacement.cs" />
