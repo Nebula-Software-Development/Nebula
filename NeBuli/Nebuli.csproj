@@ -92,6 +92,7 @@
     <Compile Include="API\Features\AdminToys\ShootingTargetToy.cs" />
     <Compile Include="API\Features\AdminToys\ToyUtilities.cs" />
     <Compile Include="API\Features\AlphaWarhead.cs" />
+    <Compile Include="API\Features\Broadcast.cs" />
     <Compile Include="API\Features\CustomHintManager.cs" />
     <Compile Include="API\Features\Decontamination.cs" />
     <Compile Include="API\Features\Doors\PryableDoor.cs" />

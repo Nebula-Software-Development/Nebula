@@ -37,6 +37,7 @@ using System;
 using InventorySystem.Items;
 using Utils;
 using Interactables.Interobjects.DoorUtils;
+using static Broadcast;
 
 namespace Nebuli.API.Features.Player;
 
@@ -1123,13 +1124,20 @@ public class NebuliPlayer
     /// </summary>
     /// <param name="message">The message that will be shown.</param>
     /// <param name="duration">The duration of the broadcast.</param>
-    /// <param name="broadcastFlags">The <see cref="Broadcast.BroadcastFlags"/> of the broadcast.</param>
+    /// <param name="broadcastFlags">The <see cref="BroadcastFlags"/> of the broadcast.</param>
     /// <param name="clearCurrent">Determines if the players current broadcasts should be cleared.</param>
-    public void Broadcast(string message, ushort duration = 5, Broadcast.BroadcastFlags broadcastFlags = global::Broadcast.BroadcastFlags.Normal, bool clearCurrent = true)
+    public void Broadcast(string message, ushort duration = 5, BroadcastFlags broadcastFlags = BroadcastFlags.Normal, bool clearCurrent = true)
     {
         if (clearCurrent) ClearBroadcasts();
         Server.Broadcast.TargetAddElement(ReferenceHub.connectionToClient, message, duration, broadcastFlags);
     }
+
+    /// <summary>
+    /// Sends a broadcast to the player.
+    /// </summary>
+    /// <param name="broadcast">The <see cref="Features.Broadcast"/> to show the player.</param>
+    /// <param name="clearCurrent">Determines if the players current broadcasts should be cleared.</param>
+    public void Broadcast(Broadcast broadcast, bool clearCurrent = true) => Broadcast(broadcast.Message, broadcast.Duration, broadcast.BroadcastFlags, clearCurrent);
 
     /// <summary>
     /// Clears all of the player's current broadcasts.

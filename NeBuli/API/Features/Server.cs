@@ -112,9 +112,9 @@ public static class Server
     }
 
     /// <summary>
-    /// Gets the <see cref="Broadcast.Broadcast"/> singleton.
+    /// Gets the <see cref="global::Broadcast"/> singleton.
     /// </summary>
-    public static Broadcast Broadcast => Singleton;
+    public static global::Broadcast Broadcast => Singleton;
 
     /// <summary>
     /// Gets the Network servers "SendSpawnMessage" method.
