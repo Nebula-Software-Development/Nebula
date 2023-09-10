@@ -4,6 +4,7 @@ using Nebuli.API.Features;
 using Nebuli.API.Features.Doors;
 using Nebuli.API.Features.Player;
 using PlayerRoles;
+using PluginAPI.Events;
 using System;
 
 namespace Nebuli.Events.EventArguments.Player;
@@ -51,6 +52,7 @@ public class PlayerInteractingDoorEvent : EventArgs, IPlayerEvent, ICancellableE
                 (mode == DoorLockMode.FullLock || (door.TargetState && !mode.HasFlagFast(DoorLockMode.CanClose)) ||
                 (!door.TargetState && !mode.HasFlagFast(DoorLockMode.CanOpen))))
             {
+                PluginAPI.Events.EventManager.ExecuteEvent(new PlayerInteractDoorEvent(ply, door, false));
                 isCancelled = true;
             }
         }
@@ -61,6 +63,7 @@ public class PlayerInteractingDoorEvent : EventArgs, IPlayerEvent, ICancellableE
         else
         {
             bool flag = ply.GetRoleId() == RoleTypeId.Scp079 || door.RequiredPermissions.CheckPermissions(ply.inventory.CurInstance, ply);
+            PluginAPI.Events.EventManager.ExecuteEvent(new PlayerInteractDoorEvent(ply, door, flag));
             if (!flag)
             {
                 isCancelled = true;
