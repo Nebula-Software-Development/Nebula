@@ -1,6 +1,4 @@
 ﻿using Interactables.Interobjects.DoorUtils;
-using Mirror;
-using Nebuli.API.Features;
 using Nebuli.API.Features.Doors;
 using Nebuli.API.Features.Player;
 using PlayerRoles;
@@ -15,10 +13,7 @@ public class PlayerInteractingDoorEvent : EventArgs, IPlayerEvent, ICancellableE
     {
         Player = NebuliPlayer.Get(ply);
         Door = Door.Get(door);
-
         IsCancelled = CalculateIsCancelled(ply, door, id);
-
-        Log.Info(IsCancelled);
     }
 
     /// <summary>
@@ -40,11 +35,7 @@ public class PlayerInteractingDoorEvent : EventArgs, IPlayerEvent, ICancellableE
     {
         bool isCancelled = false;
 
-        if (!NetworkServer.active)
-        {
-            isCancelled = true;
-        }
-        else if (door.ActiveLocks > 0 && !ply.serverRoles.BypassMode)
+        if (door.ActiveLocks > 0 && !ply.serverRoles.BypassMode)
         {
             DoorLockMode mode = DoorLockUtils.GetMode((DoorLockReason)door.ActiveLocks);
             if ((!mode.HasFlagFast(DoorLockMode.CanClose) || !mode.HasFlagFast(DoorLockMode.CanOpen)) &&
@@ -53,6 +44,7 @@ public class PlayerInteractingDoorEvent : EventArgs, IPlayerEvent, ICancellableE
                 (!door.TargetState && !mode.HasFlagFast(DoorLockMode.CanOpen))))
             {
                 PluginAPI.Events.EventManager.ExecuteEvent(new PlayerInteractDoorEvent(ply, door, false));
+                door.LockBypassDenied(ply, colliderId);
                 isCancelled = true;
             }
         }
@@ -69,7 +61,6 @@ public class PlayerInteractingDoorEvent : EventArgs, IPlayerEvent, ICancellableE
                 isCancelled = true;
             }
         }
-
         return isCancelled;
     }
 }

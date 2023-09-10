@@ -52,15 +52,16 @@ internal class InteractingDoorEventPatch
 
     private static void TriggerDoorAction(DoorVariant door, ReferenceHub player, byte id, PlayerInteractingDoorEvent @event)
     {
+        if (!Door.CanChangeState(door)) return;
+
         if (@event.IsCancelled)
         {
             door.PermissionsDenied(player, id);
             DoorEvents.TriggerAction(door, DoorAction.AccessDenied, player);
+            return;
         }
-        else
-        {
-            door.NetworkTargetState = !door.TargetState;
-            door._triggerPlayer = player;
-        }
+
+        door.NetworkTargetState = !door.TargetState;
+        door._triggerPlayer = player;
     }
 }

@@ -282,8 +282,7 @@ public class Door
     public static bool CanChangeState(DoorVariant variant)
     {
         float exactState = variant.GetExactState();
-        bool canChangeState = exactState <= 0f || exactState >= 1f;
-        return canChangeState;
+        return exactState <= 0f || exactState >= 1f;
     }
 
     /// <summary>
