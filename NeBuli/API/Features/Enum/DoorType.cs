@@ -56,6 +56,11 @@ public enum DoorType
     CheckpointGate,
 
     /// <summary>
+    /// A unknown pryable gate.
+    /// </summary>
+    UnknownGate,
+
+    /// <summary>
     /// Gate leading to SCP-049's containment area.
     /// </summary>
     Scp049Gate,
