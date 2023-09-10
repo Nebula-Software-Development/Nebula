@@ -279,11 +279,7 @@ public class Door
     /// </summary>
     /// <param name="variant">The door variant.</param>
     /// <returns>True if the door can change state, otherwise false.</returns>
-    public static bool CanChangeState(DoorVariant variant)
-    {
-        float exactState = variant.GetExactState();
-        return exactState <= 0f || exactState >= 1f;
-    }
+    public static bool CanChangeState(DoorVariant variant) => !(variant.GetExactState() > 0f && variant.GetExactState() < 1f);
 
     /// <summary>
     /// Unlocks the door.
