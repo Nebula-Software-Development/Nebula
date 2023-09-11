@@ -35,6 +35,9 @@ using Utils.Networking;
 using PlayerRoles.RoleAssign;
 using System;
 using InventorySystem.Items;
+using Utils;
+using Interactables.Interobjects.DoorUtils;
+using static Broadcast;
 
 namespace Nebuli.API.Features.Player;
 
@@ -912,7 +915,7 @@ public class NebuliPlayer
     /// </summary>
     public void EnableEffect(StatusEffect statusEffect, float duration = 0f, bool addDuration = false)
     {
-        EnableEffect(statusEffect.GetType().Name, duration: duration, addDuration: addDuration);    
+        EnableEffect(statusEffect.EffectToType().Name, duration: duration, addDuration: addDuration);    
     }
 
     /// <summary>
@@ -1121,13 +1124,20 @@ public class NebuliPlayer
     /// </summary>
     /// <param name="message">The message that will be shown.</param>
     /// <param name="duration">The duration of the broadcast.</param>
-    /// <param name="broadcastFlags">The <see cref="Broadcast.BroadcastFlags"/> of the broadcast.</param>
+    /// <param name="broadcastFlags">The <see cref="BroadcastFlags"/> of the broadcast.</param>
     /// <param name="clearCurrent">Determines if the players current broadcasts should be cleared.</param>
-    public void Broadcast(string message, ushort duration = 5, Broadcast.BroadcastFlags broadcastFlags = global::Broadcast.BroadcastFlags.Normal, bool clearCurrent = true)
+    public void Broadcast(string message, ushort duration = 5, BroadcastFlags broadcastFlags = BroadcastFlags.Normal, bool clearCurrent = true)
     {
         if (clearCurrent) ClearBroadcasts();
         Server.Broadcast.TargetAddElement(ReferenceHub.connectionToClient, message, duration, broadcastFlags);
     }
+
+    /// <summary>
+    /// Sends a broadcast to the player.
+    /// </summary>
+    /// <param name="broadcast">The <see cref="Features.Broadcast"/> to show the player.</param>
+    /// <param name="clearCurrent">Determines if the players current broadcasts should be cleared.</param>
+    public void Broadcast(Broadcast broadcast, bool clearCurrent = true) => Broadcast(broadcast.Message, broadcast.Duration, broadcast.BroadcastFlags, clearCurrent);
 
     /// <summary>
     /// Clears all of the player's current broadcasts.
@@ -1194,7 +1204,7 @@ public class NebuliPlayer
     /// </summary>
     public Item CurrentItem
     {
-        get => Item.Get(Inventory.CurItem.SerialNumber);
+        get => Item.Get(Inventory.CurInstance);
         set
         {
             Inventory.ServerSelectItem(value.Serial);
@@ -1205,7 +1215,10 @@ public class NebuliPlayer
     /// <summary>
     /// Gets a list of all the players items.
     /// </summary>
-    public List<Item> Items => Inventory.UserInventory.Items.Values.Select(itemBase => Item.Get(itemBase)).ToList();
+    public List<Item> Items => Inventory.UserInventory.Items.Values
+    .Where(itemBase => itemBase != null)
+    .Select(itemBase => Item.Get(itemBase))
+    .ToList();
 
     /// <summary>
     /// Clears the players inventory.
@@ -1326,6 +1339,49 @@ public class NebuliPlayer
     /// Gets if the player has a empty inventory.
     /// </summary>
     public bool EmptyInventory => !Inventory.UserInventory.Items.Any();
+
+    /// <summary>
+    /// Gets if the player has a specified <see cref="KeycardPermissions"/>.
+    /// </summary>
+    public bool HasKeycardPermission(KeycardPermissions keycardPermissions, bool IncludeInventory = false)
+    {
+        bool value = false;
+
+        if (CurrentItem != null && CurrentItem is Keycard keycard)
+            value = keycard.Permissions >= keycardPermissions;
+
+        if (IncludeInventory && !value)
+            value = Items.Any(x => x is not null && x is Keycard keyperm && keyperm.Permissions >= keycardPermissions);
+
+        return value;
+    }
+
+    /// <summary>
+    /// Sends a Console Message to the player.
+    /// </summary>
+    /// <param name="message">The message to send.</param>
+    /// <param name="color">The color to send it in.</param>
+    public void SendConsoleMessage(string message, string color) => ReferenceHub.characterClassManager.ConsolePrint(message, color);
+
+    /// <summary>
+    /// Gets or sets if the player has noclip permissions.
+    /// </summary>
+    public bool HasNoClipPermissions
+    {
+        get => FpcNoclip.IsPermitted(ReferenceHub);
+        set
+        {
+            if(value)
+                FpcNoclip.PermitPlayer(ReferenceHub);
+            else
+                FpcNoclip.UnpermitPlayer(ReferenceHub);
+        }
+    }
+
+    /// <summary>
+    /// Explodes the player.
+    /// </summary>
+    public void Explode() => ExplosionUtils.ServerExplode(ReferenceHub);
 
     /// <summary>
     /// Checks if the player has any permission in <see cref="PlayerPermissions"/>.

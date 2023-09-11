@@ -127,7 +127,6 @@ public static class EventManager
     {
         if (scene.name != "Facility")
             return;
-        Loader.Loader.DisablePlugins();
         NebuliPlayer.Dictionary.Clear();
         Ragdoll.Dictionary.Clear();
         Generator.Dictionary.Clear();

@@ -21,6 +21,11 @@ public static class Server
     private static MethodInfo serverMessage;
 
     /// <summary>
+    /// Gets the current player count of the server.
+    /// </summary>
+    public static int PlayerCount => ReferenceHub.AllHubs.Count - 1;
+
+    /// <summary>
     /// Gets the servers <see cref="NebuliPlayer"/> Host.
     /// </summary>
     public static NebuliPlayer NebuliHost { get; internal set; } = null;
@@ -107,9 +112,9 @@ public static class Server
     }
 
     /// <summary>
-    /// Gets the <see cref="Broadcast.Broadcast"/> singleton.
+    /// Gets the <see cref="global::Broadcast"/> singleton.
     /// </summary>
-    public static Broadcast Broadcast => Singleton;
+    public static global::Broadcast Broadcast => Singleton;
 
     /// <summary>
     /// Gets the Network servers "SendSpawnMessage" method.

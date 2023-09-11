@@ -64,9 +64,9 @@ public class Loader
         .IgnoreFields()
             .Build();
 
-    internal static Dictionary<Assembly, IConfiguration> _plugins = new();
+    public static readonly Dictionary<Assembly, IPlugin<IConfiguration>> _plugins = new();
 
-    public static Dictionary<IPlugin<IConfiguration>, IConfiguration> EnabledPlugins = new();
+    public static readonly Dictionary<IPlugin<IConfiguration>, IConfiguration> EnabledPlugins = new();
 
     [PluginConfig]
     public static LoaderConfiguration Configuration;
@@ -141,7 +141,7 @@ public class Loader
     public void UnLoad()
     {
         DisablePlugins();
-
+        _loaded = false;
         _harmony.UnpatchAll(_harmony.Id);
         _harmony = null;
         
@@ -199,7 +199,7 @@ public class Loader
 
                 Log.Info($"Plugin '{newPlugin.Name}' by '{newPlugin.Creator}', (v{newPlugin.Version}), has been successfully enabled!");
 
-                _plugins.Add(loadPlugin, config);
+                _plugins.Add(loadPlugin, newPlugin);
                 EnabledPlugins.Add(newPlugin, config);
             }
             catch (Exception e)
@@ -338,7 +338,6 @@ public class Loader
 
     internal void ReloadPlugins()
     {
-        Log.Info("Reloading plugins...");
         DisablePlugins();
         LoadDependencies(Paths.DependenciesDirectory.GetFiles("*.dll"));
         LoadPlugins(Paths.PluginsPortDirectory.GetFiles("*.dll"));

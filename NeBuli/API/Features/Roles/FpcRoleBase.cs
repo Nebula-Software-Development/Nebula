@@ -2,6 +2,7 @@
 using PlayerRoles.FirstPersonControl;
 using PlayerRoles.FirstPersonControl.Spawnpoints;
 using PlayerRoles.Voice;
+using PlayerStatsSystem;
 
 namespace Nebuli.API.Features.Roles;
 
@@ -76,5 +77,14 @@ public class FpcRoleBase : Role
     /// Re-shows the players start screen.
     /// </summary>
     public void ShowStartScreen() => Base.ShowStartScreen();
+
+    /// <summary>
+    /// Gets or sets if the <see cref="FpcRoleBase"/> has noclip.
+    /// </summary>
+    public bool HasNoclip
+    {
+        get => Owner.ReferenceHub.playerStats.GetModule<AdminFlagsStat>().HasFlag(AdminFlags.Noclip);
+        set => Owner.ReferenceHub.playerStats.GetModule<AdminFlagsStat>().SetFlag(AdminFlags.Noclip, value);
+    }
 
 }

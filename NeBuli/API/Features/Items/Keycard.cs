@@ -1,5 +1,4 @@
-﻿
-using Interactables.Interobjects.DoorUtils;
+﻿using Interactables.Interobjects.DoorUtils;
 
 namespace Nebuli.API.Features.Items;
 

@@ -33,7 +33,7 @@ public static class Log
             AddLog(FormatLogMessage("Debug", message, prefix, callingAssembly), consoleColor);
             return;
         }
-        else if (!Loader.Loader._plugins.TryGetValue(callingAssembly, out IConfiguration plugin) || !plugin.Debug)
+        else if (!Loader.Loader._plugins.TryGetValue(callingAssembly, out IPlugin<IConfiguration> plugin) || !plugin.Config.Debug)
             return;
 
         AddLog(FormatLogMessage("Debug", message, prefix, callingAssembly), consoleColor);

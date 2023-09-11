@@ -91,8 +91,7 @@ public class Room
     /// <summary>
     /// Disables the room lights for the specified amount of time.
     /// </summary>
-    /// <param name="duration"></param>
-    public void DisableRoomLights(int duration) => LightController.ServerFlickerLights(duration);
+    public void DisableRoomLights(float duration) => LightController.ServerFlickerLights(duration);
 
     /// <summary>
     /// Tries to get the rooms main coordniates.
@@ -122,9 +121,13 @@ public class Room
     public static List<Room> GetRoomsInZone(FacilityZone zone) => List.Where(room => room.Zone == zone).ToList();
 
     /// <summary>
-    /// Gets if the rooms light are enabled.
+    /// Gets or sets if the rooms light are enabled.
     /// </summary>
-    public bool LightsEnabled => LightController.LightsEnabled;
+    public bool LightsEnabled
+    {
+        get => LightController.LightsEnabled;
+        set => LightController.LightsEnabled = value;
+    }
 
     /// <summary>
     /// Gets or sets the rooms color.

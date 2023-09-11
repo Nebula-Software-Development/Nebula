@@ -29,18 +29,17 @@ internal class InteractingDoorEventPatch
             new(OpCodes.Brfalse_S, retLabel),
             new(OpCodes.Ldarg_1),
             new(OpCodes.Ldarg_0),
+            new(OpCodes.Ldarg_2),
             new(OpCodes.Newobj, GetDeclaredConstructors(typeof(PlayerInteractingDoorEvent))[0]),
             new(OpCodes.Stloc_S, interactingDoor.LocalIndex),
             new(OpCodes.Ldloc_S, interactingDoor.LocalIndex),
             new(OpCodes.Call, Method(typeof(PlayerHandlers), nameof(PlayerHandlers.OnPlayerInteractingDoor))),
-            new(OpCodes.Ldloc_S, interactingDoor.LocalIndex),
-            new(OpCodes.Callvirt, PropertyGetter(typeof(PlayerInteractingDoorEvent), nameof(PlayerInteractingDoorEvent.IsCancelled))),
             new(OpCodes.Ldarg_0),
             new(OpCodes.Ldarg_1),
             new(OpCodes.Ldarg_2),
             new(OpCodes.Ldloc_S, interactingDoor.LocalIndex),
-            new(OpCodes.Call, Method(typeof(InteractingDoorEventPatch), nameof(TriggerDeniedAction))),
-            new(OpCodes.Brtrue, retLabel),
+            new(OpCodes.Call, Method(typeof(InteractingDoorEventPatch), nameof(TriggerDoorAction))),
+            new(OpCodes.Ret, retLabel),
         });
 
         newInstructions[newInstructions.Count - 1].labels.Add(retLabel);
@@ -49,13 +48,20 @@ internal class InteractingDoorEventPatch
             yield return instruction;
 
         ListPool<CodeInstruction>.Shared.Return(newInstructions);
-
     }
-    private static void TriggerDeniedAction(DoorVariant door, ReferenceHub player, byte id, PlayerInteractingDoorEvent ev)
+
+    private static void TriggerDoorAction(DoorVariant door, ReferenceHub player, byte id, PlayerInteractingDoorEvent @event)
     {
-        if (!ev.IsCancelled)
+        if (!Door.CanChangeState(door)) return;
+
+        if (@event.IsCancelled)
+        {
+            door.PermissionsDenied(player, id);
+            DoorEvents.TriggerAction(door, DoorAction.AccessDenied, player);
             return;
-        door.PermissionsDenied(player, id);
-        DoorEvents.TriggerAction(door, DoorAction.AccessDenied, player);
+        }
+
+        door.NetworkTargetState = !door.TargetState;
+        door._triggerPlayer = player;
     }
 }

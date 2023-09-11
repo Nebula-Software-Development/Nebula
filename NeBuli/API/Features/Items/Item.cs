@@ -13,6 +13,7 @@ using InventorySystem.Items.Usables.Scp330;
 using Nebuli.API.Features.Items.Pickups;
 using Nebuli.API.Features.Items.SCPs;
 using Nebuli.API.Features.Items.Throwables;
+using Nebuli.API.Features.Map;
 using Nebuli.API.Features.Player;
 using System.Collections.Generic;
 using System.Linq;
@@ -69,9 +70,19 @@ public class Item
     public GameObject GameObject => Base.gameObject;
 
     /// <summary>
+    /// Gets the room the <see cref="Item"/> is currently in.
+    /// </summary>
+    public Room Room => Room.Get(Position);
+
+    /// <summary>
     /// Gets the Items weight.
     /// </summary>
     public float Weight => Base.Weight;
+
+    /// <summary>
+    /// Gets the <see cref="Item"/> position.
+    /// </summary>
+    public Vector3 Position => Base.transform.position;
 
     /// <summary>
     /// Gets or sets the Items serial.
@@ -195,21 +206,21 @@ public class Item
     }
 
     /// <summary>
-    /// Tries to get a <see cref="Item"/> with a <see cref="ItemBase"/>. If one cannot be found, it is created.
-    /// </summary>
-    /// <param name="itemBase">The <see cref="ItemBase"/> to find the <see cref="Item"/> with.</param>
-    /// <returns></returns>
-    public static Item Get(ItemBase itemBase) => Dictionary.TryGetValue(itemBase, out var item) ? item : GetItem(itemBase);
-
-    /// <summary>
     /// Gets an <see cref="Item"/> with the specified serial number.
     /// </summary>
     /// <param name="serialNumber">The serial number of the item to find.</param>
     /// <returns>The <see cref="Item"/> with the specified serial number if found; otherwise, null.</returns>
     public static Item Get(ushort serialNumber) => Dictionary.Values.FirstOrDefault(item => item.Serial == serialNumber);
 
-    internal static Item GetItem(ItemBase itemBase)
+    /// <summary>
+    /// Tries to get a <see cref="Item"/> with a <see cref="ItemBase"/>. If one cannot be found, it is created.
+    /// </summary>
+    /// <param name="itemBase">The <see cref="ItemBase"/> to find the <see cref="Item"/> with.</param>
+    public static Item Get(ItemBase itemBase)
     {
+        if (itemBase == null)
+            return null;
+
         if(Dictionary.ContainsKey(itemBase)) return Dictionary[itemBase];
 
         return itemBase switch
@@ -225,10 +236,10 @@ public class Item
             InventorySystem.Items.Jailbird.JailbirdItem jailbird => new Jailbird(jailbird),
             UsableItem usableItem => usableItem switch
             {
+                Scp330Bag scp330 => new Scp330(scp330),
                 Adrenaline adreniline => new Usables.Adrenaline(adreniline),
                 Medkit medkit => new Usables.Medkit(medkit),
                 Painkillers painkillers => new Usables.Painkillers(painkillers),
-                Scp330Bag scp330 => new Scp330(scp330),
                 Scp244Item scp244Item => new Scp244(scp244Item),
                 Scp1576Item scp1576 => new Scp1576(scp1576),
                 _ => new Item(usableItem),
@@ -241,6 +252,6 @@ public class Item
                 _ => new Throwable(throwable),
             },
             _ => new Item(itemBase),
-        } ;
+        };
     }
 }

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using MEC;
 
 using TeslaGateBase = global::TeslaGate;
 
@@ -105,35 +104,66 @@ namespace Nebuli.API.Features.Map
         }
 
         /// <summary>
-        /// Gets the nearest player to the tesla gate.
+        /// Gets if the tesla gate is idling.
         /// </summary>
-        public NebuliPlayer NearestPlayer
+        public bool IsIdling => Base.isIdling;
+
+        /// <summary>
+        /// Gets if the tesla gate is currently shocking.
+        /// </summary>
+        public bool IsShocking => Base.InProgress;
+
+        /// <summary>
+        /// Gets or sets the trigger range of the tesla gate.
+        /// </summary>
+        public float TriggerRange
         {
-            get
-            {
-                NebuliPlayer nearestPlayer = null;
-                float shortestDistance = float.MaxValue;
-                foreach (NebuliPlayer player in NebuliPlayer.List)
-                {
-                    float distance = Vector3.Distance(Position, player.Position);
-                    if (distance < shortestDistance)
-                    {
-                        nearestPlayer = player;
-                        shortestDistance = distance;
-                    }
-                }
-                return nearestPlayer;
-            }
+            get => Base.sizeOfTrigger;
+            set => Base.sizeOfTrigger = value;
         }
+
+        /// <summary>
+        /// Gets or sets the tesla gates idle range.
+        /// </summary>
+        public float IdleRange
+        {
+            get => Base.distanceToIdle;
+            set => Base.distanceToIdle = value;
+        }
+
+        /// <summary>
+        /// Gets or sets the windup time of the tesla gate.
+        /// </summary>
+        public float WindupTime
+        {
+            get => Base.windupTime;
+            set => Base.windupTime = value;
+        }
+
+        /// <summary>
+        /// Gets or sets the cooldown time of the tesla gate.
+        /// </summary>
+        public float CooldownTime
+        {
+            get => Base.cooldownTime;
+            set => Base.cooldownTime = value;
+        }
+
+        /// <summary>
+        /// Gets or sets the tesla gates size of shock.
+        /// </summary>
+        public Vector3 SizeOfShock
+        {
+            get => Base.sizeOfKiller;
+            set => Base.sizeOfKiller = value;
+        }     
+
         /// <summary>
         /// Gets or creates a new tesla gate wrapper for the specified <see cref="TeslaGateBase"/>.
         /// </summary>
         /// <param name="teslaGate">The <see cref="TeslaGateBase"/> to use to find/create a wrapper.</param>
         /// <returns></returns>
-        public static TeslaGate Get(TeslaGateBase teslaGate)
-        {
-            return Dictionary.TryGetValue(teslaGate, out TeslaGate tesla) ? tesla : new(teslaGate);
-        }
+        public static TeslaGate Get(TeslaGateBase teslaGate) => Dictionary.TryGetValue(teslaGate, out TeslaGate tesla) ? tesla : new(teslaGate);
 
         /// <summary>
         /// Triggers the specified tesla gate.

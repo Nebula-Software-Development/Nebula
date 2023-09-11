@@ -7,6 +7,7 @@ using Nebuli.API.Features.Player;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using static Interactables.Interobjects.ElevatorManager;
 using Room = Nebuli.API.Features.Map.Room;
 
 namespace Nebuli.API.Features.Doors;
@@ -118,6 +119,11 @@ public class Door
     /// Gets the doors current position.
     /// </summary>
     public Vector3 Position => Base.transform.position;
+
+    /// <summary>
+    /// Gets the doors current <see cref="DoorLockMode"/>.
+    /// </summary>
+    public DoorLockMode Mode => DoorLockUtils.GetMode((DoorLockReason)ActiveLocks);
 
     /// <summary>
     /// Determines if the door can be seen through.
@@ -273,12 +279,7 @@ public class Door
     /// </summary>
     /// <param name="variant">The door variant.</param>
     /// <returns>True if the door can change state, otherwise false.</returns>
-    public static bool CanChangeState(DoorVariant variant)
-    {
-        float exactState = variant.GetExactState();
-        bool canChangeState = exactState <= 0f || exactState >= 1f;
-        return canChangeState;
-    }
+    public static bool CanChangeState(DoorVariant variant) => !(variant.GetExactState() > 0f && variant.GetExactState() < 1f);
 
     /// <summary>
     /// Unlocks the door.
@@ -298,31 +299,53 @@ public class Door
 
         return doorVariant switch
         {
-            Interactables.Interobjects.ElevatorDoor elevatorDoor => new ElevatorDoor(elevatorDoor) { Type = GetDoorType(elevatorDoor) },
-            Interactables.Interobjects.PryableDoor pryableDoor => new PryableDoor(pryableDoor) { Type = GetDoorType(pryableDoor) },
-            Interactables.Interobjects.BasicDoor basicDoor => new BasicDoor(basicDoor) { Type = GetDoorType(basicDoor) },
-            Interactables.Interobjects.CheckpointDoor checkpointDoor => new CheckpointDoor(checkpointDoor) { Type = GetDoorType(checkpointDoor) },           
-            _ => new Door(doorVariant) { Type = GetDoorType(doorVariant)},
+            Interactables.Interobjects.ElevatorDoor elevatorDoor => new ElevatorDoor(elevatorDoor),
+            Interactables.Interobjects.PryableDoor pryableDoor => new PryableDoor(pryableDoor),
+            Interactables.Interobjects.BasicDoor basicDoor => new BasicDoor(basicDoor),
+            Interactables.Interobjects.CheckpointDoor checkpointDoor => new CheckpointDoor(checkpointDoor),           
+            _ => new Door(doorVariant),
         };
     }
 
-    internal static DoorType GetDoorType(DoorVariant door)
+    internal DoorType GetDoorType(DoorVariant door)
     {
         if (door.GetComponent<DoorNametagExtension>() is not null && nameToDoorType.TryGetValue(door.GetComponent<DoorNametagExtension>().GetName, out DoorType doorType))
             return doorType;
 
         return door.name.GetSubstringBeforeCharacter(' ') switch
         {
-            "LCZ" => DoorType.LightContainmentDoor,
+            "LCZ" => CurrentRoom.Type switch
+            {
+                RoomType.LczAirlock => (Base.GetComponentInParent<AirlockController>() != null) ? DoorType.Airlock : DoorType.LightContainmentDoor,
+                _ => DoorType.LightContainmentDoor,
+            },
             "HCZ" => DoorType.HeavyContainmentDoor,
-            "EZ" => DoorType.LightContainmentDoor,
+            "EZ" => DoorType.EntranceDoor,
             "Prison" => DoorType.PrisonDoor,
             "914" => DoorType.Scp914Door,
-            "Intercom" => DoorType.Intercom,
-            "Unsecured" => DoorType.UnsecuredPryableGate,
-            "Elevator" => DoorType.UnknownElevator,
+            "Intercom" => CurrentRoom.Type switch
+            {
+                RoomType.HczEzCheckpointA => DoorType.CheckpointArmoryA,
+                RoomType.HczEzCheckpointB => DoorType.CheckpointArmoryB,
+                _ => DoorType.UnknownDoor,
+            },
+            "Unsecured" => CurrentRoom.Type switch
+            {
+                RoomType.EntCheckpointHallway => DoorType.CheckpointGate,
+                RoomType.Hcz049 => Position.y < -805 ? DoorType.Scp049Gate : DoorType.Scp173NewGate,
+                _ => DoorType.UnknownGate,
+            },
+            "Elevator" => (Base as Interactables.Interobjects.ElevatorDoor)?.Group switch
+            {
+                ElevatorGroup.Nuke => DoorType.ElevatorNuke,
+                ElevatorGroup.Scp049 => DoorType.ElevatorScp049,
+                ElevatorGroup.GateB => DoorType.ElevatorGateB,
+                ElevatorGroup.GateA => DoorType.ElevatorGateA,
+                ElevatorGroup.LczA01 or ElevatorGroup.LczA02 => DoorType.ElevatorLczA,
+                ElevatorGroup.LczB01 or ElevatorGroup.LczB02 => DoorType.ElevatorLczB,
+                _ => DoorType.UnknownElevator,
+            },
             _ => DoorType.UnknownDoor,
         };
     }
-
 }
