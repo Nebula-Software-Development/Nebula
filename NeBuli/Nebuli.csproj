@@ -228,6 +228,7 @@
     <Compile Include="Events\EventArguments\Player\PlayerShotEvent.cs" />
     <Compile Include="Events\EventArguments\Player\PlayerSpawningEvent.cs" />
     <Compile Include="Events\EventArguments\Player\PlayerSpawningRagdollEvent.cs" />
+    <Compile Include="Events\EventArguments\Player\PlayerTogglingNoClipEvent.cs" />
     <Compile Include="Events\EventArguments\Player\PlayerTriggeringTeslaEvent.cs" />
     <Compile Include="Events\EventArguments\Player\PlayerUsingRadioBatteryEvent.cs" />
     <Compile Include="Events\EventArguments\Round\RespawningTeamEvent.cs" />
@@ -301,6 +302,7 @@
     <Compile Include="Events\Patches\Player\HurtPlayer.cs" />
     <Compile Include="Events\Patches\Player\InteractingDoorEventPatch.cs" />
     <Compile Include="Events\Patches\Player\LeavingServer.cs" />
+    <Compile Include="Events\Patches\Player\NoClipTogglePatch.cs" />
     <Compile Include="Events\Patches\Player\PickingUpAmmoPatch.cs" />
     <Compile Include="Events\Patches\Player\PickingUpArmorPatch.cs" />
     <Compile Include="Events\Patches\Player\PickingUpItemPatch.cs" />

@@ -1356,6 +1356,27 @@ public class NebuliPlayer
         return value;
     }
 
+    /// <summary>
+    /// Sends a Console Message to the player.
+    /// </summary>
+    /// <param name="message">The message to send.</param>
+    /// <param name="color">The color to send it in.</param>
+    public void SendConsoleMessage(string message, string color) => ReferenceHub.characterClassManager.ConsolePrint(message, color);
+
+    /// <summary>
+    /// Gets or sets if the player has noclip permissions.
+    /// </summary>
+    public bool HasNoClipPermissions
+    {
+        get => FpcNoclip.IsPermitted(ReferenceHub);
+        set
+        {
+            if(value)
+                FpcNoclip.PermitPlayer(ReferenceHub);
+            else
+                FpcNoclip.UnpermitPlayer(ReferenceHub);
+        }
+    }
 
     /// <summary>
     /// Explodes the player.
