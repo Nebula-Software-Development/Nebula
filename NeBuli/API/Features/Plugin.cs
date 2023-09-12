@@ -1,4 +1,5 @@
 ﻿using CommandSystem;
+using Nebuli.API.Features.Pools;
 using Nebuli.API.Interfaces;
 using RemoteAdmin;
 using System;
@@ -78,7 +79,7 @@ public abstract class Plugin<TConfig> : IPlugin<TConfig> where TConfig : IConfig
     { typeof(ClientCommandHandler), QueryProcessor.DotCommandHandler }
     };
 
-    private readonly Dictionary<ICommandHandler, List<ICommand>> CommandDictionary = new();
+    private readonly Dictionary<ICommandHandler, List<ICommand>> CommandDictionary = DictionaryPool<ICommandHandler, List<ICommand>>.Instance.Get();
 
     public void LoadCommands()
     {
@@ -127,6 +128,7 @@ public abstract class Plugin<TConfig> : IPlugin<TConfig> where TConfig : IConfig
                 handler.UnregisterCommand(command);
         }
         CommandDictionary.Clear();
+        DictionaryPool<ICommandHandler, List<ICommand>>.Instance.Return(CommandDictionary);
     }
 
 
