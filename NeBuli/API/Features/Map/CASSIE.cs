@@ -1,5 +1,4 @@
-﻿using NorthwoodLib.Pools;
-using PlayerRoles;
+﻿using PlayerRoles;
 using Respawning;
 using System.Text;
 
@@ -71,5 +70,4 @@ public static class CASSIE
     /// <param name="rawNumber">If it should be a raw number.</param>
     /// <param name="speed">The speed at which to calculate at.</param>
     public static float TimeToSpeak(string text, bool rawNumber = false, float speed = 1) => NineTailedFoxAnnouncer.singleton.CalculateDuration(text, rawNumber, speed);
-
 }

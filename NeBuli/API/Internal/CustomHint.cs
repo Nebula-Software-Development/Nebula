@@ -11,4 +11,3 @@ public class CustomHint
         Duration = duration;
     }
 }
-

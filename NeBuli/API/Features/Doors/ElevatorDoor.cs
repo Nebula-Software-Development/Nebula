@@ -10,6 +10,7 @@ public class ElevatorDoor : Door
     /// Gets the <see cref="ElevatorDoorBase"/> base.
     /// </summary>
     public new ElevatorDoorBase Base { get; }
+
     internal ElevatorDoor(ElevatorDoorBase door) : base(door)
     {
         Base = door;
@@ -28,5 +29,5 @@ public class ElevatorDoor : Door
     /// <summary>
     /// Gets the elevators group.
     /// </summary>
-    public ElevatorGroup Group => Base.Group;   
+    public ElevatorGroup Group => Base.Group;
 }

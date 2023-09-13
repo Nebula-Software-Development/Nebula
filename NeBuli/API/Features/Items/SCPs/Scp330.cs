@@ -10,6 +10,7 @@ public class Scp330 : Item
     /// Gets the <see cref="Scp330Base"/> base.
     /// </summary>
     public new Scp330Base Base { get; }
+
     internal Scp330(Scp330Base itemBase) : base(itemBase)
     {
         Base = itemBase;

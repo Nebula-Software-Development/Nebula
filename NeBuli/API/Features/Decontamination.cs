@@ -1,5 +1,5 @@
-﻿using static LightContainmentZoneDecontamination.DecontaminationController;
-using LightContainmentZoneDecontamination;
+﻿using LightContainmentZoneDecontamination;
+using static LightContainmentZoneDecontamination.DecontaminationController;
 
 namespace Nebuli.API.Features;
 

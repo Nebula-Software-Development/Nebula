@@ -8,6 +8,7 @@ public class Flashlight : Item
     /// Gets the <see cref="FlashlightBase"/> base.
     /// </summary>
     public new FlashlightBase Base { get; }
+
     internal Flashlight(FlashlightBase itemBase) : base(itemBase)
     {
         Base = itemBase;

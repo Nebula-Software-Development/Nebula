@@ -127,4 +127,3 @@ public readonly struct AttachmentIdentity
         return this == attachmentIdentity;
     }
 }
-

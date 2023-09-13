@@ -18,7 +18,7 @@ public static class ToyUtilities
                 if (gameObject.name == objectName && gameObject.TryGetComponent(out T component))
                 {
                     baseObject = component;
-                    if(!primitives.ContainsKey(objectName)) primitives.Add(objectName, baseObject);
+                    if (!primitives.ContainsKey(objectName)) primitives.Add(objectName, baseObject);
                     break;
                 }
             }

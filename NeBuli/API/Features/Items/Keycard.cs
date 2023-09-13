@@ -8,6 +8,7 @@ public class Keycard : Item
     /// Gets the keycards base.
     /// </summary>
     public new InventorySystem.Items.Keycards.KeycardItem Base { get; }
+
     internal Keycard(InventorySystem.Items.Keycards.KeycardItem itemBase) : base(itemBase)
     {
         Base = itemBase;
@@ -18,7 +19,7 @@ public class Keycard : Item
     /// </summary>
     public KeycardPermissions Permissions
     {
-        get => Base.Permissions; 
+        get => Base.Permissions;
         set => Base.Permissions = value;
     }
 }

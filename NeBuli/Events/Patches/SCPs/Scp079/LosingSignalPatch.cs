@@ -1,13 +1,12 @@
 ﻿using HarmonyLib;
+using Nebuli.Events.EventArguments.SCPs.Scp079;
+using Nebuli.Events.Handlers;
 using NorthwoodLib.Pools;
 using PlayerRoles.PlayableScps.Scp079;
 using System.Collections.Generic;
 using System.Reflection.Emit;
-using Label = System.Reflection.Emit.Label;
 using static HarmonyLib.AccessTools;
-using Nebuli.Events.EventArguments.SCPs.Scp173;
-using Nebuli.Events.EventArguments.SCPs.Scp079;
-using Nebuli.Events.Handlers;
+using Label = System.Reflection.Emit.Label;
 
 namespace Nebuli.Events.Patches.SCPs.Scp079;
 

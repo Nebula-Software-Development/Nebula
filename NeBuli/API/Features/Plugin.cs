@@ -15,6 +15,7 @@ namespace Nebuli.API.Features;
 public abstract class Plugin<TConfig> : IPlugin<TConfig> where TConfig : IConfiguration, new()
 {
     public Assembly Assembly { get; internal set; } = Assembly.GetCallingAssembly();
+
     /// <summary>
     /// Gets the plugins name.
     /// </summary>
@@ -130,7 +131,6 @@ public abstract class Plugin<TConfig> : IPlugin<TConfig> where TConfig : IConfig
         CommandDictionary.Clear();
         DictionaryPool<ICommandHandler, List<ICommand>>.Instance.Return(CommandDictionary);
     }
-
 
     string IPlugin<TConfig>.ConfigPath { get => ConfigurationPath; set => ConfigurationPath = value; }
 }

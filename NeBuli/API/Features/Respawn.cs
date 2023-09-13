@@ -67,10 +67,10 @@ public static class Respawn
     /// <param name="team">The team to force respawn.</param>
     public static void ForceRespawn(bool respawnEffects, SpawnableTeamType team)
     {
-        if(respawnEffects)
-        RespawnEffectsController.ExecuteAllEffects(RespawnEffectsController.EffectType.Selection, team);
+        if (respawnEffects)
+            RespawnEffectsController.ExecuteAllEffects(RespawnEffectsController.EffectType.Selection, team);
         else
-        RespawnManager.Singleton.ForceSpawnTeam(team);
+            RespawnManager.Singleton.ForceSpawnTeam(team);
     }
 
     /// <summary>

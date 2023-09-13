@@ -1,36 +1,35 @@
 ﻿using HarmonyLib;
 using Interactables.Interobjects;
 using Interactables.Interobjects.DoorUtils;
+using InventorySystem;
 using InventorySystem.Items;
+using InventorySystem.Items.Firearms.Attachments;
+using InventorySystem.Items.Firearms.Attachments.Components;
 using InventorySystem.Items.Pickups;
 using MapGeneration;
+using Nebuli.API.Extensions;
 using Nebuli.API.Features;
+using Nebuli.API.Features.Doors;
+using Nebuli.API.Features.Enum;
 using Nebuli.API.Features.Items;
 using Nebuli.API.Features.Items.Pickups;
 using Nebuli.API.Features.Map;
 using Nebuli.API.Features.Player;
+using Nebuli.API.Features.Pools;
+using Nebuli.API.Features.Structs;
+using Nebuli.Events.Handlers;
 using Nebuli.Loader;
 using PlayerRoles;
 using PlayerRoles.Ragdolls;
-using InventorySystem;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Runtime.InteropServices;
 using UnityEngine.SceneManagement;
 using Object = UnityEngine.Object;
-using Nebuli.API.Features.Doors;
-using InventorySystem.Items.Firearms.Attachments;
-using Nebuli.API.Features.Enum;
-using Nebuli.API.Features.Structs;
-using InventorySystem.Items.Firearms.Attachments.Components;
-using Nebuli.API.Extensions;
-using System.Linq;
-using Nebuli.API.Features.Pools;
-using Nebuli.Events.Handlers;
 
 namespace Nebuli.Events;
-
 
 public static class EventManager
 {
@@ -150,14 +149,14 @@ public static class EventManager
         foreach (BreakableWindow breakableWindow in Object.FindObjectsOfType<BreakableWindow>())
             Window.Get(breakableWindow);
         foreach (PlayerRoles.PlayableScps.Scp079.Cameras.Scp079Camera camera in Object.FindObjectsOfType<PlayerRoles.PlayableScps.Scp079.Cameras.Scp079Camera>())
-            Camera.Get(camera);      
+            Camera.Get(camera);
         Server.NebuliHost = new(ReferenceHub.HostHub);
         GenerateAttachments();
     }
 
     private static void OnPickupAdded(ItemPickupBase itemPickupBase)
     {
-        Pickup.Get(itemPickupBase);       
+        Pickup.Get(itemPickupBase);
     }
 
     private static void OnPickupRemoved(ItemPickupBase itemPickupBase)
@@ -252,21 +251,21 @@ public static class EventManager
                     code *= 2U;
                 }
 
-                uint baseCode = CalculateBaseCode(attachmentIdentifiers);               
+                uint baseCode = CalculateBaseCode(attachmentIdentifiers);
 
-                if(!Firearm.BaseCodes.ContainsKey(firearmType)) Firearm.BaseCodes.Add(firearmType, baseCode);
+                if (!Firearm.BaseCodes.ContainsKey(firearmType)) Firearm.BaseCodes.Add(firearmType, baseCode);
                 if (!Firearm.AvailableAttachments.ContainsKey(firearmType)) Firearm.AvailableAttachmentsValue.Add(firearmType, attachmentIdentifiers.ToArray());
 
                 ListPool<AttachmentIdentity>.Instance.Return(attachmentIdentifiers);
                 HashSetPool<AttachmentSlot>.Pool.Return(attachmentsSlots);
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 Log.Error($"Error occurred while generating attachments! Full error --> \n{e}");
-            }          
+            }
         }
-
     }
+
     private static uint CalculateBaseCode(List<AttachmentIdentity> attachmentIdentifiers)
     {
         Dictionary<AttachmentSlot, uint> slotToMinCode = attachmentIdentifiers.GroupBy(attachment => attachment.Slot).ToDictionary(group => group.Key, group => group.Aggregate((minAttachment, nextAttachment) => nextAttachment.Code < minAttachment.Code ? nextAttachment : minAttachment).Code);

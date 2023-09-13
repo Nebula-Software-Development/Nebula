@@ -1,5 +1,5 @@
-﻿using System;
-using Nebuli.API.Features.Player;
+﻿using Nebuli.API.Features.Player;
+using System;
 
 namespace Nebuli.Events.EventArguments.SCPs.Scp939;
 
@@ -10,7 +10,7 @@ public class Scp939PlaceMimicPointEvent : EventArgs, IPlayerEvent, ICancellableE
         Player = NebuliPlayer.Get(player);
         IsCancelled = false;
     }
-    
+
     /// <summary>
     /// Gets the player placing the mimic point.
     /// </summary>

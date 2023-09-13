@@ -54,7 +54,7 @@ public class Door
     { "CHECKPOINT_LCZ_A", DoorType.CheckpointLczA },
     { "ESCAPE_PRIMARY", DoorType.EscapePrimary },
     { "173_ARMORY", DoorType.Scp173Armory },
-    { "SURFACE_NUKE", DoorType.NukeSurface },   
+    { "SURFACE_NUKE", DoorType.NukeSurface },
     };
 
     /// <summary>
@@ -225,7 +225,6 @@ public class Door
         }
     }
 
-
     /// <summary>
     /// Gets if the door is locked.
     /// </summary>
@@ -245,7 +244,7 @@ public class Door
 
     /// <summary>
     /// Triggers a door action.
-    /// </summary>   
+    /// </summary>
     public void TriggerDoorAction(DoorVariant door, DoorAction action, ReferenceHub player) => DoorEvents.TriggerAction(door, action, player);
 
     /// <summary>
@@ -271,7 +270,7 @@ public class Door
     /// <param name="type"></param>
     public void LockDoor(DoorLockingType type = DoorLockingType.RegularSCP079)
     {
-        ChangeDoorLock(type); 
+        ChangeDoorLock(type);
     }
 
     /// <summary>
@@ -293,7 +292,7 @@ public class Door
     /// <param name="typeToUnlock">The type of lock to unlock.</param>
     public void UnLockLater(float timeToWait, DoorLockingType typeToUnlock) => Base.UnlockLater(timeToWait, (DoorLockReason)typeToUnlock);
 
-    internal static Door GetDoor(DoorVariant doorVariant) 
+    internal static Door GetDoor(DoorVariant doorVariant)
     {
         if (Dictionary.ContainsKey(doorVariant)) return Dictionary[doorVariant];
 
@@ -302,7 +301,7 @@ public class Door
             Interactables.Interobjects.ElevatorDoor elevatorDoor => new ElevatorDoor(elevatorDoor),
             Interactables.Interobjects.PryableDoor pryableDoor => new PryableDoor(pryableDoor),
             Interactables.Interobjects.BasicDoor basicDoor => new BasicDoor(basicDoor),
-            Interactables.Interobjects.CheckpointDoor checkpointDoor => new CheckpointDoor(checkpointDoor),           
+            Interactables.Interobjects.CheckpointDoor checkpointDoor => new CheckpointDoor(checkpointDoor),
             _ => new Door(doorVariant),
         };
     }

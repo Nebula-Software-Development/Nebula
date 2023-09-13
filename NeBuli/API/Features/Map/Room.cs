@@ -200,9 +200,9 @@ public class Room
         Room room = Get(RoomIdUtils.RoomAtPositionRaycasts(position, true));
         if (room is not null)
             return room;
-        if(getNearest)
+        if (getNearest)
             return GetNearestRoom(position);
-        return null;        
+        return null;
     }
 
     /// <summary>
@@ -288,5 +288,4 @@ public class Room
                 return RoomType.Unknown;
         }
     }
-
 }

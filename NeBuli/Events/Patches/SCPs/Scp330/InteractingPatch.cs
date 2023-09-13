@@ -1,13 +1,13 @@
 ﻿using HarmonyLib;
 using Interactables.Interobjects;
+using InventorySystem;
+using InventorySystem.Items.Usables.Scp330;
+using Nebuli.Events.EventArguments.SCPs.Scp330;
+using Nebuli.Events.Handlers;
 using NorthwoodLib.Pools;
 using System.Collections.Generic;
-using static HarmonyLib.AccessTools;
-using InventorySystem.Items.Usables.Scp330;
-using InventorySystem;
-using Nebuli.Events.EventArguments.SCPs.Scp330;
 using System.Reflection.Emit;
-using Nebuli.Events.Handlers;
+using static HarmonyLib.AccessTools;
 
 namespace Nebuli.Events.Patches.SCPs.Scp330;
 
@@ -18,7 +18,7 @@ internal class InteractingPatch
     private static IEnumerable<CodeInstruction> OnInteracting(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
         List<CodeInstruction> newInstructions = EventManager.CheckPatchInstructions<InteractingPatch>(93, instructions);
-        
+
         int index = newInstructions.FindLastIndex(i => i.Calls(typeof(Scp330Bag).GetMethod(nameof(Scp330Bag.ServerProcessPickup)))) - 2;
 
         newInstructions.RemoveRange(index, 3);
@@ -63,11 +63,11 @@ internal class InteractingPatch
 
         bool result;
 
-        if (pickup == null) 
+        if (pickup == null)
             result = bag.TryAddSpecific(@event.Candy);
         else
         {
-            Scp330Bag localBag = bag; 
+            Scp330Bag localBag = bag;
             result = pickup.StoredCandies.RemoveAll(candy => localBag.TryAddSpecific(candy)) > 0;
         }
 

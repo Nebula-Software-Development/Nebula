@@ -11,7 +11,7 @@ public class SpectatorPlayerRole : Role
     /// Represents a player role that is a spectator.
     /// </summary>
     public new SpectatorRole Base { get; }
- 
+
     internal SpectatorPlayerRole(SpectatorRole role) : base(role)
     {
         Base = role;

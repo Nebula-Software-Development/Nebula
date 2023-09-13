@@ -6,8 +6,8 @@ using PlayerRoles.PlayableScps.Scp096;
 using PlayerRoles.PlayableScps.Scp106;
 using PlayerRoles.PlayableScps.Scp173;
 using PlayerRoles.PlayableScps.Scp939;
-using UnityEngine;
 using PlayerRoles.Spectating;
+using UnityEngine;
 
 namespace Nebuli.API.Features.Roles;
 
@@ -114,7 +114,7 @@ public abstract class Role
             Scp106Role scp106 => new Scp106PlayerRole(scp106),
             Scp049Role scp049 => new Scp049PlayerRole(scp049),
             OverwatchRole overwatch => new OverwatchPlayerRole(overwatch),
-            SpectatorRole spectator => new SpectatorPlayerRole(spectator),     
+            SpectatorRole spectator => new SpectatorPlayerRole(spectator),
             _ => null,
         };
     }

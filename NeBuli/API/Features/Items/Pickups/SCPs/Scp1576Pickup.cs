@@ -8,6 +8,7 @@ public class Scp1576Pickup : Pickup
     /// Gets the <see cref="ItemBase"/> base.
     /// </summary>
     public new ItemBase Base { get; }
+
     internal Scp1576Pickup(ItemBase itemBase) : base(itemBase)
     {
         Base = itemBase;

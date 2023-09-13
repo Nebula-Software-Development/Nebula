@@ -15,10 +15,12 @@ public class Elevator
     /// Gets the <see cref="ElevatorChamber"/> and <see cref="Elevator"/> dictionary.
     /// </summary>
     public static Dictionary<ElevatorChamber, Elevator> Dictionary = new();
+
     /// <summary>
     /// Gets the <see cref="ElevatorChamber"/> base.
     /// </summary>
     public ElevatorChamber Base { get; }
+
     internal Elevator(ElevatorChamber elevator)
     {
         Base = elevator;

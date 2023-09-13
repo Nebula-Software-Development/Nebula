@@ -48,7 +48,7 @@ public class PlayerInteractingDoorEvent : EventArgs, IPlayerEvent, ICancellableE
                 isCancelled = true;
             }
         }
-        else if (!door.AllowInteracting(ply, colliderId)) 
+        else if (!door.AllowInteracting(ply, colliderId))
         {
             isCancelled = true;
         }

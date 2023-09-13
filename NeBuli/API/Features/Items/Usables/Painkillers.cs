@@ -8,10 +8,12 @@ public class Painkillers : Item
     /// Gets the <see cref="PainkillerBase"/> base.
     /// </summary>
     public new PainkillerBase Base { get; }
-    internal Painkillers(PainkillerBase itemBase) : base(itemBase) 
+
+    internal Painkillers(PainkillerBase itemBase) : base(itemBase)
     {
         Base = itemBase;
     }
+
     /// <summary>
     /// Activates the usable's effects.
     /// </summary>

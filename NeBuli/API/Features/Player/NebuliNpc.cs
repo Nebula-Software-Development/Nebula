@@ -20,7 +20,7 @@ public class NebuliNpc : NebuliPlayer
     /// <summary>
     /// Gets a dictionary of all the <see cref="ReferenceHub"/> and <see cref="NebuliNpc"/>.
     /// </summary>
-    public static new readonly Dictionary<ReferenceHub, NebuliNpc> Dictionary = new();
+    public new static readonly Dictionary<ReferenceHub, NebuliNpc> Dictionary = new();
 
     /// <summary>
     /// Creates a new <see cref="NebuliNpc"/> with a specified <see cref="ReferenceHub"/>.
@@ -35,20 +35,20 @@ public class NebuliNpc : NebuliPlayer
     /// Creates a new <see cref="NebuliNpc"/> with a specified <see cref="GameObject"/>.
     /// </summary>
     /// <param name="gameObject">The <see cref="GameObject"/> to use to create the NPC.</param>
-    internal NebuliNpc(GameObject gameObject) : base(gameObject) 
-    {      
+    internal NebuliNpc(GameObject gameObject) : base(gameObject)
+    {
         Dictionary.Add(ReferenceHub, this);
     }
 
     /// <summary>
     /// Gets a collection of all the <see cref="NebuliNpc"/> instances.
     /// </summary>
-    public static new IEnumerable<NebuliNpc> Collection => Dictionary.Values;
+    public new static IEnumerable<NebuliNpc> Collection => Dictionary.Values;
 
     /// <summary>
     /// Gets a list of all the <see cref="NebuliNpc"/> instances.
     /// </summary>
-    public static new List<NebuliNpc> List => Collection.ToList();
+    public new static List<NebuliNpc> List => Collection.ToList();
 
     /// <summary>
     /// Creates a new NPC with the specified parameters.
@@ -96,7 +96,7 @@ public class NebuliNpc : NebuliPlayer
             newNPC.Health = newNPC.ReferenceHub.playerStats.GetModule<HealthStat>().MaxValue;
             return newNPC;
         }
-        catch(Exception e)
+        catch (Exception e)
         {
             Log.Error("Error while creating a NPC! Full error -->\n" + e);
             return null;

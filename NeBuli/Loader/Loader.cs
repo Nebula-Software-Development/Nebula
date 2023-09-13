@@ -27,6 +27,7 @@ public class Loader
     public static Random Random { get; } = new();
 
     private static Assembly _assemblyCache = null;
+
     public static Assembly NebuliAssembly
     {
         get
@@ -49,7 +50,7 @@ public class Loader
 
     public static ISerializer Serializer { get; private set; } = new SerializerBuilder()
         .WithTypeConverter(new CustomVectorsConverter())
-        .WithEmissionPhaseObjectGraphVisitor((EmissionPhaseObjectGraphVisitorArgs visitor) 
+        .WithEmissionPhaseObjectGraphVisitor((EmissionPhaseObjectGraphVisitorArgs visitor)
         => new CommentsObjectGraphVisitor(visitor.InnerVisitor)).WithTypeInspector((ITypeInspector typeInspector)
         => new CommentGatheringTypeInspector(typeInspector))
         .WithNamingConvention(UnderscoredNamingConvention.Instance)
@@ -79,7 +80,7 @@ public class Loader
         {
             Log.Info("Nebuli Loader is disabled, Nebuli will not load.");
             return;
-        }       
+        }
 
         if (_loaded) return;
         else _loaded = true;
@@ -102,7 +103,7 @@ public class Loader
 
         LoadPlugins(Paths.PluginsPortDirectory.GetFiles("*.dll"));
 
-        EventManager.RegisterBaseEvents();     
+        EventManager.RegisterBaseEvents();
 
         try
         {
@@ -126,7 +127,7 @@ public class Loader
                 Permissions.PermissionsHandler.LoadPermissions();
             });
         }
-        catch(Exception e) 
+        catch (Exception e)
         {
             Log.Error("Error occured while loading permission handler! Full error -->\n" + e);
         }
@@ -144,7 +145,7 @@ public class Loader
         _loaded = false;
         _harmony.UnpatchAll(_harmony.Id);
         _harmony = null;
-        
+
         EventManager.UnRegisterBaseEvents();
     }
 
@@ -208,7 +209,7 @@ public class Loader
             }
         }
 
-        Log.Info("Plugins loaded!");      
+        Log.Info("Plugins loaded!");
     }
 
     private static IPlugin<IConfiguration> NewPlugin(Assembly assembly)
@@ -250,8 +251,10 @@ public class Loader
                 case -1:
                     Log.Warning($"{plugin.Name} is outdated and will not be loaded by Nebuli! (Plugin Version: {plugin.NebuliVersion} | Nebuli Version: {NebuliInfo.NebuliVersion})");
                     return true;
+
                 case 0:
                     return false;
+
                 case 1:
                     Log.Warning($"Nebuli is outdated! Please update Nebuli because it can cause plugin issues! ({plugin.Name} Version: {plugin.NebuliVersion} | Nebuli Version: {NebuliInfo.NebuliVersion})");
                     return false;
@@ -327,7 +330,7 @@ public class Loader
                 if (!File.Exists(plugin.ConfigPath))
                     SetupPluginConfig(plugin, Serializer, Deserializer);
                 IConfiguration newConfig = (IConfiguration)Deserializer.Deserialize(File.ReadAllText(plugin.ConfigPath), plugin.Config.GetType());
-                plugin.ReloadConfig(newConfig);               
+                plugin.ReloadConfig(newConfig);
             }
             catch (Exception e)
             {

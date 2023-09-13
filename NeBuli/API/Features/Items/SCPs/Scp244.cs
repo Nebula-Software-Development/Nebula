@@ -8,6 +8,7 @@ public class Scp244 : Item
     /// Gets the <see cref="Scp244Base"/> base.
     /// </summary>
     public new Scp244Base Base { get; }
+
     internal Scp244(Scp244Base itemBase) : base(itemBase)
     {
         Base = itemBase;

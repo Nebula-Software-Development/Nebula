@@ -24,7 +24,7 @@ internal class UsingRadioBatteryPatch
         Label retLabel = generator.DefineLabel();
 
         newInstructions.InsertRange(index, new CodeInstruction[]
-        {            
+        {
             new(OpCodes.Ldarg_0),
             new(OpCodes.Call, PropertyGetter(typeof(RadioItem), nameof(RadioItem.Owner))),
             new(OpCodes.Ldarg_0),

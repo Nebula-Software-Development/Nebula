@@ -10,7 +10,7 @@ namespace Nebuli.Events.EventArguments.Player;
 public class PlayerEscapingEvent : EventArgs, IPlayerEvent, ICancellableEvent
 {
     public PlayerEscapingEvent(ReferenceHub player, RoleTypeId newRole, EscapeScenarioType escapeType, EscapeMessage escapeMessage, SpawnableTeamType team)
-    {      
+    {
         Player = NebuliPlayer.Get(player);
         NewRole = newRole;
         EscapeMessage = escapeMessage;
@@ -51,7 +51,7 @@ public class PlayerEscapingEvent : EventArgs, IPlayerEvent, ICancellableEvent
     /// The <see cref="EscapeType"/> of the event.
     /// </summary>
     public EscapeType EscapeScenario { get; }
-    
+
     /// <summary>
     /// Gets or sets the team that will recieve tickets for escaping. Can be <see cref="SpawnableTeamType.None"/> for no tickets for either side.
     /// </summary>

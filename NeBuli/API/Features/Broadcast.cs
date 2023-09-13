@@ -10,7 +10,8 @@ public class Broadcast
     /// <summary>
     /// Creates a new <see cref="Broadcast"/> class.
     /// </summary>
-    public Broadcast() { }
+    public Broadcast()
+    { }
 
     /// <summary>
     /// Creates a new <see cref="Broadcast"/> class.

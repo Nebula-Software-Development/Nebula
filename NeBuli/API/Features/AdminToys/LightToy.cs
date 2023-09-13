@@ -43,7 +43,7 @@ public class LightToy : AdminToy
     /// Gets or sets the lights range.
     /// </summary>
     public float Range
-    { 
+    {
         get => Base.NetworkLightRange;
         set => Base.NetworkLightRange = value;
     }

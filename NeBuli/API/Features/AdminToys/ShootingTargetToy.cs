@@ -79,7 +79,7 @@ public class ShootingTargetToy : AdminToy
     {
         get => Base._autoDestroyTime;
         set
-        {              
+        {
             Base._autoDestroyTime = Mathf.Max(0, value);
             Base.RpcSendInfo(MaxHealth, AutoResetTime);
         }
@@ -112,7 +112,7 @@ public class ShootingTargetToy : AdminToy
 
     /// <summary>
     /// Creates a new <see cref="ShootingTargetToy"/>.
-    /// </summary>      
+    /// </summary>
     public static ShootingTargetToy Create(ShootingTargetToyType type, Vector3 position = default, Quaternion rotation = default, Vector3 scale = default, bool spawn = true)
     {
         ShootingTargetToy shootingTargetToy = type switch
@@ -126,7 +126,6 @@ public class ShootingTargetToy : AdminToy
         shootingTargetToy.Scale = scale;
         if (spawn) shootingTargetToy.SpawnToy();
         return shootingTargetToy;
-
     }
 
     private ShootingTargetToyType GetTypeFromName(string name)

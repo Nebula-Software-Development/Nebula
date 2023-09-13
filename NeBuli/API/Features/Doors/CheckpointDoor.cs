@@ -9,6 +9,7 @@ public class CheckpointDoor : Door
     /// Gets the <see cref="CheckpointDoorBase"/> base.
     /// </summary>
     public new CheckpointDoorBase Base { get; }
+
     internal CheckpointDoor(CheckpointDoorBase door) : base(door)
     {
         Base = door;
@@ -33,5 +34,4 @@ public class CheckpointDoor : Door
     /// </summary>
     /// <param name="newState"></param>
     public void ToggleAllDoors(bool newState) => Base.ToggleAllDoors(newState);
-
 }

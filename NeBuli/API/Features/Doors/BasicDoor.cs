@@ -8,6 +8,7 @@ public class BasicDoor : Door
     /// Gets the <see cref="BasicDoorBase"/> base.
     /// </summary>
     public new BasicDoorBase Base { get; }
+
     internal BasicDoor(BasicDoorBase basicDoor) : base(basicDoor)
     {
         Base = basicDoor;

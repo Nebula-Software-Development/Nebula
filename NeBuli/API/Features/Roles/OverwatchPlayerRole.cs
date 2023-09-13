@@ -11,10 +11,12 @@ public class OverwatchPlayerRole : Role
     /// Gets the <see cref="OverwatchRole"/> base.
     /// </summary>
     public new OverwatchRole Base { get; }
-    internal OverwatchPlayerRole(OverwatchRole role) : base(role) 
+
+    internal OverwatchPlayerRole(OverwatchRole role) : base(role)
     {
         Base = role;
     }
+
     /// <summary>
     /// Gets the last tracked ReferenceHub by the overwatcher.
     /// </summary>

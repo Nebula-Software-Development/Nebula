@@ -49,5 +49,3 @@ public class HashSetPool<T>
         return array;
     }
 }
-
-

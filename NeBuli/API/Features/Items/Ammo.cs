@@ -1,7 +1,4 @@
-﻿using InventorySystem.Items;
-
-
-namespace Nebuli.API.Features.Items;
+﻿namespace Nebuli.API.Features.Items;
 
 public class Ammo : Item
 {
@@ -9,6 +6,7 @@ public class Ammo : Item
     /// Gets the <see cref="InventorySystem.Items.Firearms.Ammo.AmmoItem"/> base.
     /// </summary>
     public new InventorySystem.Items.Firearms.Ammo.AmmoItem Base { get; }
+
     internal Ammo(InventorySystem.Items.Firearms.Ammo.AmmoItem itemBase) : base(itemBase)
     {
         Base = itemBase;
@@ -19,7 +17,7 @@ public class Ammo : Item
     /// </summary>
     public int UnitPrice
     {
-        get => Base.UnitPrice; 
+        get => Base.UnitPrice;
         set => Base.UnitPrice = value;
     }
 }

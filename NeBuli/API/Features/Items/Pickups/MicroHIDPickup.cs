@@ -8,6 +8,7 @@ public class MicroHIDPickup : Pickup
     /// Gets the <see cref="MicroHIDPickupBase"/> base.
     /// </summary>
     public new MicroHIDPickupBase Base { get; }
+
     internal MicroHIDPickup(MicroHIDPickupBase itemBase) : base(itemBase)
     {
         Base = itemBase;
@@ -18,7 +19,7 @@ public class MicroHIDPickup : Pickup
     /// </summary>
     public float EnergyLevel
     {
-        get => Base.NetworkEnergy; 
+        get => Base.NetworkEnergy;
         set => Base.NetworkEnergy = value;
     }
 }

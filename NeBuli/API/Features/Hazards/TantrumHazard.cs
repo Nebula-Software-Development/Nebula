@@ -10,6 +10,7 @@ public class TantrumHazard : TemporaryHazard
     /// Gets the <see cref="TantrumHazardBase"/> base.
     /// </summary>
     public new TantrumHazardBase Base { get; }
+
     internal TantrumHazard(TantrumHazardBase tantrumHazardBase) : base(tantrumHazardBase)
     {
         Base = tantrumHazardBase;
@@ -28,8 +29,8 @@ public class TantrumHazard : TemporaryHazard
     /// Gets or sets if the tantrum will play a sizzle sound effect.
     /// </summary>
     public bool PlaySizzle
-    { 
-        get => Base.PlaySizzle;  
+    {
+        get => Base.PlaySizzle;
         set => Base.PlaySizzle = value;
     }
 
@@ -38,7 +39,7 @@ public class TantrumHazard : TemporaryHazard
     /// </summary>
     public Transform CorrectPosition
     {
-        get => Base._correctPosition; 
+        get => Base._correctPosition;
         set => Base._correctPosition = value;
     }
 }

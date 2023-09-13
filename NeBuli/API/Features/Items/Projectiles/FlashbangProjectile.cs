@@ -8,6 +8,7 @@ public class FlashbangProjectile : GrenadeEffectProjectile
     /// Gets the <see cref="FlashbangGrenade"/> base.
     /// </summary>
     public new FlashbangGrenade Base { get; }
+
     internal FlashbangProjectile(FlashbangGrenade flashbang) : base(flashbang)
     {
         Base = flashbang;

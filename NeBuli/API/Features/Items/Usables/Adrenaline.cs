@@ -8,6 +8,7 @@ public class Adrenaline : Item
     /// Gets the <see cref="AdrenalineBase"/> base.
     /// </summary>
     public new AdrenalineBase Base { get; }
+
     internal Adrenaline(AdrenalineBase itemBase) : base(itemBase)
     {
         Base = itemBase;
@@ -28,7 +29,7 @@ public class Adrenaline : Item
     /// </summary>
     public bool CanStartUsing
     {
-        get => Base.CanStartUsing;   
+        get => Base.CanStartUsing;
         set => Base.CanStartUsing = value;
     }
 }

@@ -1,11 +1,11 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Reflection.Emit;
-using HarmonyLib;
+﻿using HarmonyLib;
 using Nebuli.API.Features.Player;
 using Nebuli.Events.EventArguments.Player;
 using Nebuli.Events.Handlers;
 using NorthwoodLib.Pools;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection.Emit;
 using static HarmonyLib.AccessTools;
 
 namespace Nebuli.Events.Patches.Player;
@@ -19,7 +19,7 @@ internal class TriggeringTesla
         List<CodeInstruction> newInstructions = EventManager.CheckPatchInstructions<TriggeringTesla>(101, instructions);
 
         int index = newInstructions.FindIndex(instruction => instruction.Calls(PropertyGetter(typeof(ReferenceHub), nameof(ReferenceHub.AllHubs))));
-        
+
         newInstructions.RemoveRange(index, newInstructions.FindIndex(i => i.opcode == OpCodes.Endfinally) + 1 - index);
 
         newInstructions.InsertRange(index, new CodeInstruction[]
@@ -29,7 +29,7 @@ internal class TriggeringTesla
             new(OpCodes.Ldloca_S, 3),
             new(OpCodes.Call, Method(typeof(TriggeringTesla), nameof(ProcessEvent), new[] { typeof(TeslaGate), typeof(bool).MakeByRefType(), typeof(bool).MakeByRefType() })),
         });
-        
+
         foreach (CodeInstruction instruction in newInstructions)
             yield return instruction;
 

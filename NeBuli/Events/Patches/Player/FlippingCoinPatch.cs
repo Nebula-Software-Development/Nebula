@@ -42,7 +42,7 @@ internal class FlippingCoinPatch
             new(OpCodes.Ldc_I4, (int)CoinSide.Tails),
             new(OpCodes.Ceq),
             new(OpCodes.Ldc_I4_1),
-            new(OpCodes.Ceq), 
+            new(OpCodes.Ceq),
             new(OpCodes.Stloc_1),
         });
 

@@ -21,12 +21,12 @@ internal class CustomFriendlyFireManager
         Team attackerTeam = attacker.GetTeam();
         Team victimTeam = victim.GetTeam();
 
-        return attackerTeam != Team.Dead && victimTeam 
-            != Team.Dead && (attackerTeam 
-            != Team.SCPs || victimTeam 
-            != Team.SCPs) && 
-            ((!ignoreFFConfig 
-            && (ServerConfigSynchronizer.Singleton.MainBoolsSync & 1) == 1) 
+        return attackerTeam != Team.Dead && victimTeam
+            != Team.Dead && (attackerTeam
+            != Team.SCPs || victimTeam
+            != Team.SCPs) &&
+            ((!ignoreFFConfig
+            && (ServerConfigSynchronizer.Singleton.MainBoolsSync & 1) == 1)
             || attackerTeam.GetFaction() != victimTeam.GetFaction());
     }
 
@@ -37,7 +37,7 @@ internal class CustomFriendlyFireManager
         if (__instance.DisableSpawnProtect(__instance.Attacker.Hub, ply))
         {
             __instance.Damage = 0f;
-            return false; 
+            return false;
         }
 
         if (ply.networkIdentity.netId == __instance.Attacker.NetId || __instance.ForceFullFriendlyFire)
@@ -45,7 +45,7 @@ internal class CustomFriendlyFireManager
             if (!__instance.AllowSelfDamage && !__instance.ForceFullFriendlyFire)
             {
                 __instance.Damage = 0f;
-                return false; 
+                return false;
             }
             __instance.IsSuicide = true;
         }

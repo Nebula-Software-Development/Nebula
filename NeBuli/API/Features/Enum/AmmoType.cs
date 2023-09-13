@@ -35,4 +35,3 @@ public enum AmmoType
     /// </summary>
     Ammo44Caliber = ItemType.Ammo44cal,
 }
-

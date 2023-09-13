@@ -1,10 +1,10 @@
 ﻿using MapGeneration.Distributors;
-using Nebuli.API.Features.Map;
 using MEC;
-using Locker = Nebuli.API.Features.Map.Locker;
-using System;
-using Object = UnityEngine.Object;
 using Nebuli.API.Features;
+using Nebuli.API.Features.Map;
+using System;
+using Locker = Nebuli.API.Features.Map.Locker;
+using Object = UnityEngine.Object;
 
 namespace Nebuli.Events.Handlers;
 
@@ -23,9 +23,9 @@ internal class Internal
                 ServerHandlers.OnWaitingForPlayers();
             });
         }
-        catch(Exception e)
+        catch (Exception e)
         {
             Log.Error("Error occured while handling internal Nebuli wrappers! Full error -->\n" + e);
-        }    
+        }
     }
 }

@@ -8,10 +8,12 @@ public class Medkit : Item
     /// Gets the <see cref="MedkitBase"/> base.
     /// </summary>
     public new MedkitBase Base { get; }
-    internal Medkit(MedkitBase itemBase) : base(itemBase) 
+
+    internal Medkit(MedkitBase itemBase) : base(itemBase)
     {
         Base = itemBase;
     }
+
     /// <summary>
     /// Activates the usable's effects.
     /// </summary>

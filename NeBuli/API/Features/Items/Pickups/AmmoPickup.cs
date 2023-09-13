@@ -6,6 +6,7 @@ public class AmmoPickup : Pickup
     /// Gets the <see cref="InventorySystem.Items.Firearms.Ammo.AmmoPickup"/> base.
     /// </summary>
     public new InventorySystem.Items.Firearms.Ammo.AmmoPickup Base { get; }
+
     internal AmmoPickup(InventorySystem.Items.Firearms.Ammo.AmmoPickup pickupBase) : base(pickupBase)
     {
         Base = pickupBase;

@@ -38,7 +38,7 @@ internal class RespawningTeamPatch
             new(OpCodes.Brtrue_S, retLabel),
             new(OpCodes.Ldloc_S, respawnArgs.LocalIndex),
             new(OpCodes.Callvirt, PropertyGetter(typeof(RespawningTeamEvent), nameof(RespawningTeamEvent.PlayersRespawning))),
-            new(OpCodes.Stloc_1),          
+            new(OpCodes.Stloc_1),
         });
 
         newInstructions[newInstructions.Count - 1].labels.Add(retLabel);

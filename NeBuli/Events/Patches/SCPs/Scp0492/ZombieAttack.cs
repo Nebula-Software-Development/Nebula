@@ -1,11 +1,10 @@
-using System.Collections.Generic;
-using System.Reflection.Emit;
 using HarmonyLib;
 using Nebuli.Events.EventArguments.SCPs.Scp0492;
 using Nebuli.Events.Handlers;
 using NorthwoodLib.Pools;
-using PlayerRoles.PlayableScps;
 using PlayerRoles.PlayableScps.Scp049.Zombies;
+using System.Collections.Generic;
+using System.Reflection.Emit;
 using static HarmonyLib.AccessTools;
 
 namespace Nebuli.Events.Patches.SCPs.Scp0492;
@@ -21,7 +20,7 @@ internal class ZombieAttack
         Label retLabel = generator.DefineLabel();
 
         int index = newInstructions.FindIndex(i => i.Calls(Method(typeof(ZombieAttackAbility), nameof(ZombieAttackAbility.ServerPerformAttack)))) - 1;
-        
+
         newInstructions.InsertRange(index, new CodeInstruction[]
         {
             new CodeInstruction(OpCodes.Ldarg_0).MoveLabelsFrom(newInstructions[index]),
@@ -33,12 +32,12 @@ internal class ZombieAttack
             new(OpCodes.Callvirt, PropertyGetter(typeof(Scp0492AttackEvent), nameof(Scp0492AttackEvent.IsCancelled))),
             new(OpCodes.Brtrue_S, retLabel)
         });
-        
+
         newInstructions[newInstructions.Count - 1].labels.Add(retLabel);
-        
+
         foreach (CodeInstruction instruction in newInstructions)
             yield return instruction;
-        
+
         ListPool<CodeInstruction>.Shared.Return(newInstructions);
     }
 }

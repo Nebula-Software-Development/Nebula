@@ -1,5 +1,4 @@
 ﻿using InventorySystem.Items.Usables.Scp330;
-using Nebuli.API.Features;
 using Nebuli.API.Features.Player;
 using System;
 
@@ -35,4 +34,3 @@ public class Scp330InteractEvent : EventArgs, IPlayerEvent, ICancellableEvent
     /// </summary>
     public bool IsCancelled { get; set; }
 }
-

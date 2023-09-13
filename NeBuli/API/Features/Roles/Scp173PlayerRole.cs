@@ -3,7 +3,6 @@ using PlayerRoles.FirstPersonControl;
 using PlayerRoles.PlayableScps.HumeShield;
 using PlayerRoles.PlayableScps.Scp173;
 using PlayerRoles.PlayableScps.Subroutines;
-using PlayerRoles.Voice;
 using System;
 using UnityEngine;
 
@@ -15,12 +14,12 @@ public class Scp173PlayerRole : FpcRoleBase
     /// Gets the <see cref="Scp173Role"/> base.
     /// </summary>
     public new Scp173Role Base { get; }
-    internal Scp173PlayerRole(Scp173Role role) : base(role) 
+
+    internal Scp173PlayerRole(Scp173Role role) : base(role)
     {
         Base = role;
         SetupSubroutines();
     }
-
 
     /// <summary>
     /// Gets the roles <see cref="PlayerRoles.RoleTypeId"/>.
@@ -81,11 +80,10 @@ public class Scp173PlayerRole : FpcRoleBase
             if (ManagerModule.TryGetSubroutine(out breakNeck))
                 BreakneckSpeedsAbility = breakNeck;
             Scp173TeleportAbility teleportAbility;
-            if(ManagerModule.TryGetSubroutine(out teleportAbility))
+            if (ManagerModule.TryGetSubroutine(out teleportAbility))
                 TeleportAbility = teleportAbility;
-
         }
-        catch(Exception e)
+        catch (Exception e)
         {
             Log.Error("An error occurred setting up SCP-173 subroutines! Full error --> \n" + e);
         }

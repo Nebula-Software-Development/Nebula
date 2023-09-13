@@ -19,7 +19,6 @@ public class ListPool<T> : IPool<List<T>>
     /// </summary>
     public static ListPool<T> Instance { get; } = new();
 
-
     /// <inheritdoc/>
     public List<T> Get() => NorthwoodLib.Pools.ListPool<T>.Shared.Rent();
 
@@ -70,4 +69,3 @@ public class ListPool<T> : IPool<List<T>>
         return array;
     }
 }
-

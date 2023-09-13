@@ -8,6 +8,7 @@ public class TimedExplosiveProjectile : Projectile
     /// Gets the <see cref="TimeGrenade"/> base.
     /// </summary>
     public new TimeGrenade Base { get; }
+
     internal TimedExplosiveProjectile(TimeGrenade timeGrenade) : base(timeGrenade)
     {
         Base = timeGrenade;
@@ -44,5 +45,4 @@ public class TimedExplosiveProjectile : Projectile
         get => Base._fuseTime;
         set => Base._fuseTime = value;
     }
-
 }

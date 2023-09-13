@@ -221,7 +221,7 @@ public class Item
         if (itemBase == null)
             return null;
 
-        if(Dictionary.ContainsKey(itemBase)) return Dictionary[itemBase];
+        if (Dictionary.ContainsKey(itemBase)) return Dictionary[itemBase];
 
         return itemBase switch
         {

@@ -12,6 +12,7 @@ public class Throwable : Item
     /// Gets the <see cref="ThrowableItem"/> base.
     /// </summary>
     public new ThrowableItem Base { get; }
+
     internal Throwable(ThrowableItem itemBase) : base(itemBase)
     {
         Base = itemBase;
@@ -43,7 +44,7 @@ public class Throwable : Item
     /// </summary>
     public float TimeForPinPull
     {
-        get => Base._pinPullTime; 
+        get => Base._pinPullTime;
         set => Base._pinPullTime = value;
     }
 

@@ -8,6 +8,7 @@ public class GrenadeEffectProjectile : TimedExplosiveProjectile
     /// Gets the <see cref="EffectGrenade"/> base.
     /// </summary>
     public new EffectGrenade Base { get; }
+
     internal GrenadeEffectProjectile(EffectGrenade timeGrenade) : base(timeGrenade)
     {
         Base = timeGrenade;

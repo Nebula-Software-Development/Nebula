@@ -4,40 +4,40 @@ using CustomPlayerEffects;
 using Footprinting;
 using GameCore;
 using Hints;
+using Interactables.Interobjects.DoorUtils;
 using InventorySystem;
 using InventorySystem.Disarming;
-using InventorySystem.Items.Firearms.Attachments;
+using InventorySystem.Items;
 using InventorySystem.Items.Firearms;
+using InventorySystem.Items.Firearms.Attachments;
 using MapGeneration;
 using Mirror;
+using Nebuli.API.Extensions;
 using Nebuli.API.Features.Enum;
 using Nebuli.API.Features.Items;
 using Nebuli.API.Features.Map;
 using Nebuli.API.Features.Roles;
+using Nebuli.API.Features.Structs;
+using Nebuli.API.Internal;
 using PlayerRoles;
 using PlayerRoles.FirstPersonControl;
+using PlayerRoles.RoleAssign;
+using PlayerRoles.Voice;
 using PlayerStatsSystem;
 using RelativePositioning;
 using RemoteAdmin;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.IO;
 using System.Linq;
 using System.Reflection;
 using UnityEngine;
-using VoiceChat;
-using Firearm = Nebuli.API.Features.Items.Firearm;
-using Nebuli.API.Features.Structs;
-using Nebuli.API.Extensions;
-using Nebuli.API.Internal;
-using PlayerRoles.Voice;
-using Utils.Networking;
-using PlayerRoles.RoleAssign;
-using System;
-using InventorySystem.Items;
 using Utils;
-using Interactables.Interobjects.DoorUtils;
+using Utils.Networking;
+using VoiceChat;
 using static Broadcast;
+using Firearm = Nebuli.API.Features.Items.Firearm;
 
 namespace Nebuli.API.Features.Player;
 
@@ -65,6 +65,7 @@ public class NebuliPlayer
         ReferenceHub.playerStats._dictionarizedTypes[typeof(HealthStat)] = ReferenceHub.playerStats.StatModules[0] = customHealthManager = new CustomHealthManager { Hub = ReferenceHub };
         Dictionary.Add(hub, this);
     }
+
     internal NebuliPlayer(GameObject gameObject)
     {
         ReferenceHub = ReferenceHub.GetHub(gameObject);
@@ -181,13 +182,12 @@ public class NebuliPlayer
                 DisarmedPlayers.Entries.Remove(entryToRemove);
 
             if (value is null)
-                return;           
+                return;
 
             Inventory.SetDisarmedStatus(value.Inventory);
             new DisarmedPlayersListMessage(DisarmedPlayers.Entries).SendToAuthenticated();
         }
     }
-
 
     /// <summary>
     /// Gets the players <see cref="VoiceModuleBase"/>, or null if the current role isnt a <see cref="IVoiceRole"/>.
@@ -243,13 +243,12 @@ public class NebuliPlayer
     {
         get
         {
-            if(currentRole is null || currentRole.RoleTypeId != RoleManager.CurrentRole.RoleTypeId)
+            if (currentRole is null || currentRole.RoleTypeId != RoleManager.CurrentRole.RoleTypeId)
                 currentRole = Role.CreateNew(RoleManager.CurrentRole);
             return currentRole;
         }
         set => currentRole = value;
     }
-
 
     /// <summary>
     /// Gets or sets whether or not the player has bypass or not.
@@ -384,7 +383,7 @@ public class NebuliPlayer
     {
         get => ReferenceHub.playerStats.GetModule<AdminFlagsStat>().HasFlag(AdminFlags.Noclip);
         set => ReferenceHub.playerStats.GetModule<AdminFlagsStat>().SetFlag(AdminFlags.Noclip, value);
-    }  
+    }
 
     /// <summary>
     /// Gets or sets the players current UserId.
@@ -626,7 +625,6 @@ public class NebuliPlayer
         }
     }
 
-
     /// <summary>
     /// Trys to get a <see cref="NebuliPlayer"/> with the provided Referencehub.
     /// </summary>
@@ -817,13 +815,12 @@ public class NebuliPlayer
     {
         foreach (NebuliPlayer player in List)
         {
-            if (string.Equals(player.DisplayNickname, Nickname, StringComparison.OrdinalIgnoreCase) 
+            if (string.Equals(player.DisplayNickname, Nickname, StringComparison.OrdinalIgnoreCase)
                 || player.DisplayNickname.ToLower() == Nickname.ToLower())
                 return player;
         }
         return null;
     }
-
 
     /// <summary>
     /// Kills the player with a custom reason.
@@ -873,7 +870,6 @@ public class NebuliPlayer
             Health += amount;
         else
             customHealthManager.ServerHeal(amount);
-
     }
 
     /// <summary>
@@ -915,7 +911,7 @@ public class NebuliPlayer
     /// </summary>
     public void EnableEffect(StatusEffect statusEffect, float duration = 0f, bool addDuration = false)
     {
-        EnableEffect(statusEffect.EffectToType().Name, duration: duration, addDuration: addDuration);    
+        EnableEffect(statusEffect.EffectToType().Name, duration: duration, addDuration: addDuration);
     }
 
     /// <summary>
@@ -927,7 +923,7 @@ public class NebuliPlayer
     /// <param name="addDuration">Whether to add the duration to the existing effect if already active. (Optional)</param>
     public StatusEffectBase EnableEffect(string effectName, byte intensity = 1, float duration = 0f, bool addDuration = false)
     {
-         return ReferenceHub.playerEffectsController.ChangeState(effectName, intensity, duration, addDuration);
+        return ReferenceHub.playerEffectsController.ChangeState(effectName, intensity, duration, addDuration);
     }
 
     /// <summary>
@@ -1222,7 +1218,7 @@ public class NebuliPlayer
     public void ClearInventory(bool includeAmmo = true)
     {
         if (includeAmmo) Inventory.UserInventory.ReserveAmmo.Clear();
-        foreach(ItemBase item in Inventory.UserInventory.Items.Values.ToList())
+        foreach (ItemBase item in Inventory.UserInventory.Items.Values.ToList())
             Inventory.ServerRemoveItem(item.ItemSerial, item.PickupDropModel);
     }
 
@@ -1244,7 +1240,7 @@ public class NebuliPlayer
             Firearm firearm = Item.Get(Inventory.ServerAddItem(item)) as Firearm;
 
             if (Preferences is not null && Preferences.TryGetValue(item.ToFirearmType(), out AttachmentIdentity[] attachments))
-            firearm.Base.ApplyAttachmentsCode((uint)attachments.Sum(attachment => attachment.Code), true);
+                firearm.Base.ApplyAttachmentsCode((uint)attachments.Sum(attachment => attachment.Code), true);
 
             FirearmStatusFlags flags = FirearmStatusFlags.MagazineInserted;
 
@@ -1300,7 +1296,7 @@ public class NebuliPlayer
             if (CurrentItem is not null && CurrentItem.Serial == item.Serial)
             {
                 Inventory.NetworkCurItem = ItemIdentifier.None;
-            }          
+            }
             Inventory.UserInventory.Items.Remove(item.Serial);
             Inventory.SendItemsNextFrame = true;
         }
@@ -1314,12 +1310,12 @@ public class NebuliPlayer
     /// <param name="items">The items to add.</param>
     public void AddItems(List<Item> items)
     {
-        foreach(Item item in items)
+        foreach (Item item in items)
         {
             AddItem(item);
         }
     }
-    
+
     /// <summary>
     /// Gets the players <see cref="InventorySystem.Inventory"/>.
     /// </summary>
@@ -1366,7 +1362,7 @@ public class NebuliPlayer
         get => FpcNoclip.IsPermitted(ReferenceHub);
         set
         {
-            if(value)
+            if (value)
                 FpcNoclip.PermitPlayer(ReferenceHub);
             else
                 FpcNoclip.UnpermitPlayer(ReferenceHub);
@@ -1386,8 +1382,8 @@ public class NebuliPlayer
     public static bool HasAnyPermission(NebuliPlayer player)
     {
         foreach (PlayerPermissions perm in PermissionsHandler.PermissionCodes.Keys)
-        if (player.HasPlayerPermission(perm))
-            return true;
+            if (player.HasPlayerPermission(perm))
+                return true;
         return false;
     }
 

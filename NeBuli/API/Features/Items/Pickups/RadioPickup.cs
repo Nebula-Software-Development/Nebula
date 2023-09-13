@@ -1,6 +1,5 @@
 ﻿using RadioPickupBase = InventorySystem.Items.Radio.RadioPickup;
 
-
 namespace Nebuli.API.Features.Items.Pickups;
 
 public class RadioPickup : Pickup
@@ -9,6 +8,7 @@ public class RadioPickup : Pickup
     /// Gets the <see cref="RadioPickupBase"/> base.
     /// </summary>
     public new RadioPickupBase Base { get; }
+
     internal RadioPickup(RadioPickupBase itemBase) : base(itemBase)
     {
         Base = itemBase;
@@ -19,7 +19,7 @@ public class RadioPickup : Pickup
     /// </summary>
     public float SavedBattery
     {
-        get => Base.SavedBattery; 
+        get => Base.SavedBattery;
         set => Base.SavedBattery = value;
     }
 
@@ -28,7 +28,7 @@ public class RadioPickup : Pickup
     /// </summary>
     public bool IsOn
     {
-        get => Base.SavedEnabled; 
+        get => Base.SavedEnabled;
         set => Base.NetworkSavedEnabled = value;
     }
 
@@ -37,7 +37,7 @@ public class RadioPickup : Pickup
     /// </summary>
     public byte SavedRange
     {
-        get => Base.SavedRange; 
+        get => Base.SavedRange;
         set => Base.NetworkSavedRange = value;
     }
 }
