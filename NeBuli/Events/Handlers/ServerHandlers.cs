@@ -4,7 +4,6 @@ namespace Nebuli.Events.Handlers;
 
 public static class ServerHandlers
 {
-
     public static event EventManager.CustomEventHandler<WarheadDetonatingEvent> WarheadDetonated;
 
     public static event EventManager.CustomEventHandler MapGenerated;

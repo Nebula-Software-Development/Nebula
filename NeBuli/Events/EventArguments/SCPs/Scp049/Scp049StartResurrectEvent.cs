@@ -1,6 +1,6 @@
-using System;
 using Nebuli.API.Features;
 using Nebuli.API.Features.Player;
+using System;
 
 namespace Nebuli.Events.EventArguments.SCPs.Scp049;
 
@@ -12,7 +12,7 @@ public class Scp049StartResurrectEvent : EventArgs, IPlayerEvent, IRadgollEvent,
         Ragdoll = Ragdoll.Get(baseRagdoll);
         IsCancelled = false;
     }
-    
+
     /// <summary>
     /// Gets the player triggering the event.
     /// </summary>

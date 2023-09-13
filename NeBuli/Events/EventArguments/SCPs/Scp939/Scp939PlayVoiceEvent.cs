@@ -1,5 +1,5 @@
-using System;
 using Nebuli.API.Features.Player;
+using System;
 
 namespace Nebuli.Events.EventArguments.SCPs.Scp939;
 
@@ -11,12 +11,12 @@ public class Scp939PlayVoiceEvent : EventArgs, IPlayerEvent, ICancellableEvent
         VoicePlayer = NebuliPlayer.Get(target);
         IsCancelled = false;
     }
-    
+
     /// <summary>
     /// Gets the player playing the voice.
     /// </summary>
     public NebuliPlayer Player { get; }
-    
+
     /// <summary>
     /// Gets the voices player owner.
     /// </summary>

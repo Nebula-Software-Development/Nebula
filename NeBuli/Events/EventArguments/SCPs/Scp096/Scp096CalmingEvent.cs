@@ -2,6 +2,7 @@
 using System;
 
 namespace Nebuli.Events.EventArguments.SCPs.Scp096;
+
 public class Scp096CalmingEvent : EventArgs, IPlayerEvent, ICancellableEvent
 {
     public Scp096CalmingEvent(ReferenceHub player, bool clearingTime)

@@ -10,6 +10,7 @@ public class Scp330Pickup : Pickup
     /// Gets the <see cref="Scp330Base"/> base.
     /// </summary>
     public new Scp330Base Base { get; }
+
     internal Scp330Pickup(Scp330Base scp330) : base(scp330)
     {
         Base = scp330;

@@ -47,7 +47,6 @@ public sealed class CustomVectorsConverter : IYamlTypeConverter
         return vector;
     }
 
-
     public void WriteYaml(IEmitter emitter, object value, Type type)
     {
         Dictionary<string, float> coordinates = new();
@@ -58,17 +57,20 @@ public sealed class CustomVectorsConverter : IYamlTypeConverter
                 coordinates["x"] = vector2.x;
                 coordinates["y"] = vector2.y;
                 break;
+
             case Vector3 vector3:
                 coordinates["x"] = vector3.x;
                 coordinates["y"] = vector3.y;
                 coordinates["z"] = vector3.z;
                 break;
+
             case Vector4 vector4:
                 coordinates["x"] = vector4.x;
                 coordinates["y"] = vector4.y;
                 coordinates["z"] = vector4.z;
                 coordinates["w"] = vector4.w;
                 break;
+
             default:
                 throw new InvalidDataException($"Invalid type for {type.FullName}.");
         }

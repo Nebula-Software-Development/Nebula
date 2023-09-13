@@ -1,6 +1,5 @@
 ﻿using InventorySystem.Items.Pickups;
 using Nebuli.API.Features.Items.Pickups;
-using Nebuli.API.Features.Player;
 using Scp914;
 using System;
 
@@ -36,4 +35,3 @@ public class UpgradingItemEvent : EventArgs, ICancellableEvent
     /// </summary>
     public Scp914KnobSetting KnobSetting { get; set; }
 }
-

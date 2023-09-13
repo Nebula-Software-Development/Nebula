@@ -1,5 +1,5 @@
-using System;
 using Nebuli.API.Features.Player;
+using System;
 
 namespace Nebuli.Events.EventArguments.SCPs.Scp173;
 
@@ -10,7 +10,7 @@ public class Scp173PlaceTantrumEvent : EventArgs, IPlayerEvent, ICancellableEven
         Player = NebuliPlayer.Get(player);
         IsCancelled = false;
     }
-    
+
     /// <summary>
     /// Gets the player placing the tantrum.
     /// </summary>

@@ -19,6 +19,7 @@ public class EnviormentHazard
     /// Gets the <see cref="EnviormentalHazardBase"/> base.
     /// </summary>
     public EnviormentalHazardBase Base { get; }
+
     internal EnviormentHazard(EnviormentalHazardBase hazardBase)
     {
         Base = hazardBase;
@@ -59,7 +60,7 @@ public class EnviormentHazard
     /// </summary>
     public Vector3 SourceOffset
     {
-        get => Base.SourceOffset; 
+        get => Base.SourceOffset;
         set => Base.SourceOffset = value;
     }
 
@@ -68,7 +69,7 @@ public class EnviormentHazard
     /// </summary>
     public float MaxDistance
     {
-        get => Base.MaxDistance; 
+        get => Base.MaxDistance;
         set => Base.MaxDistance = value;
     }
 

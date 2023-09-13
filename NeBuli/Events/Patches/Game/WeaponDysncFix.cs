@@ -1,7 +1,7 @@
-﻿using System.Linq;
-using HarmonyLib;
+﻿using HarmonyLib;
 using InventorySystem.Items.Firearms;
 using InventorySystem.Items.Firearms.Attachments;
+using System.Linq;
 using UnityEngine;
 
 namespace Nebuli.Events.Patches.Game;
@@ -21,5 +21,3 @@ internal static class WeaponAttachmentDesyncFix
         return true;
     }
 }
-
-

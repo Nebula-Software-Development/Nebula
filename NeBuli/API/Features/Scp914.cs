@@ -51,13 +51,12 @@ public static class Scp914
         set => Scp914Controller.IntakeChamber.localPosition = value;
     }
 
-
     /// <summary>
     /// Gets or sets the position of SCP-914's output chamber.
     /// </summary>
-    public static Vector3 OutputPosition 
+    public static Vector3 OutputPosition
     {
-        get => Scp914Controller.OutputChamber.localPosition; 
+        get => Scp914Controller.OutputChamber.localPosition;
         set => Scp914Controller.OutputChamber.localPosition = value;
     }
 
@@ -94,4 +93,3 @@ public static class Scp914
     /// </summary>
     public static void Start(NebuliPlayer player, Scp914InteractCode scp914InteractCode = Scp914InteractCode.Activate) => Scp914Controller.ServerInteract(player.ReferenceHub, (byte)scp914InteractCode);
 }
-

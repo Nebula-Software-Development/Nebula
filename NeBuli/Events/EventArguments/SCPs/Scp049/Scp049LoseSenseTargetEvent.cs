@@ -1,5 +1,5 @@
-using System;
 using Nebuli.API.Features.Player;
+using System;
 
 namespace Nebuli.Events.EventArguments.SCPs.Scp049;
 
@@ -10,7 +10,7 @@ public class Scp049LoseSenseTargetEvent : EventArgs, IPlayerEvent, ICancellableE
         Player = NebuliPlayer.Get(player);
         IsCancelled = false;
     }
-    
+
     /// <summary>
     /// Gets the player losing the target.
     /// </summary>

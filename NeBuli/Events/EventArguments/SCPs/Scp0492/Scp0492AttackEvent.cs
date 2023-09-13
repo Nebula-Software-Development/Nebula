@@ -1,5 +1,5 @@
-using System;
 using Nebuli.API.Features.Player;
+using System;
 
 namespace Nebuli.Events.EventArguments.SCPs.Scp0492;
 
@@ -11,6 +11,7 @@ public class Scp0492AttackEvent : EventArgs, IDamageEvent, ICancellableEvent
         Target = NebuliPlayer.Get(target);
         IsCancelled = false;
     }
+
     /// <summary>
     /// Gets the attacker, or SCP-0492.
     /// </summary>

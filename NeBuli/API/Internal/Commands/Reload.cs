@@ -19,7 +19,7 @@ public class Reload : ParentCommand
     {
         RegisterCommand(new ReloadConfigurations());
         RegisterCommand(new ReloadPlugins());
-        RegisterCommand(new ReloadPerms());       
+        RegisterCommand(new ReloadPerms());
     }
 
     protected override bool ExecuteParent(ArraySegment<string> arguments, ICommandSender sender, out string response)
@@ -28,4 +28,3 @@ public class Reload : ParentCommand
         return false;
     }
 }
-

@@ -16,6 +16,7 @@ namespace Nebuli.API.Features.Map
         /// The dictionary of all the <see cref="TeslaGateBase"/> and their wrappers, <see cref="TeslaGate"/>, in the server.
         /// </summary>
         public static readonly Dictionary<TeslaGateBase, TeslaGate> Dictionary = new();
+
         internal TeslaGate(TeslaGateBase teslaGate)
         {
             Base = teslaGate;
@@ -46,7 +47,7 @@ namespace Nebuli.API.Features.Map
         /// Gets the <see cref="TeslaGate"/> <see cref="UnityEngine.Transform"/>.
         /// </summary>
         public Transform Transform => Base.transform;
-        
+
         /// <summary>
         /// Gets the <see cref="TeslaGate"/> <see cref="UnityEngine.GameObject"/>.
         /// </summary>
@@ -156,7 +157,7 @@ namespace Nebuli.API.Features.Map
         {
             get => Base.sizeOfKiller;
             set => Base.sizeOfKiller = value;
-        }     
+        }
 
         /// <summary>
         /// Gets or creates a new tesla gate wrapper for the specified <see cref="TeslaGateBase"/>.

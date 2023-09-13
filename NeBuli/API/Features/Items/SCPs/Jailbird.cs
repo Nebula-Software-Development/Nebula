@@ -11,7 +11,8 @@ public class Jailbird : Item
     /// Gets the <see cref="JailbirdBase"/> base.
     /// </summary>
     public new JailbirdBase Base { get; }
-    internal Jailbird(JailbirdBase itemBase) : base(itemBase) 
+
+    internal Jailbird(JailbirdBase itemBase) : base(itemBase)
     {
         Base = itemBase;
     }
@@ -24,5 +25,4 @@ public class Jailbird : Item
         get => Base.TotalChargesPerformed;
         set => Base.TotalChargesPerformed = value;
     }
-
 }

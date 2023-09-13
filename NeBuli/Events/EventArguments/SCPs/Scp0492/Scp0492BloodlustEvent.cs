@@ -1,5 +1,5 @@
-using System;
 using Nebuli.API.Features.Player;
+using System;
 
 namespace Nebuli.Events.EventArguments.SCPs.Scp0492;
 
@@ -11,12 +11,12 @@ public class Scp0492BloodlustEvent : EventArgs, IPlayerEvent, ICancellableEvent
         Observer = NebuliPlayer.Get(observer);
         IsCancelled = false;
     }
-    
+
     /// <summary>
     /// Gets the player triggering blood lust.
     /// </summary>
     public NebuliPlayer Player { get; }
-    
+
     /// <summary>
     /// Gets the observing player.
     /// </summary>

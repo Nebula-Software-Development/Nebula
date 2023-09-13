@@ -9,6 +9,7 @@ public class PryableDoor : Door
     /// Gets the <see cref="PryableDoorBase"/> base.
     /// </summary>
     public new PryableDoorBase Base { get; }
+
     internal PryableDoor(PryableDoorBase door) : base(door)
     {
         Base = door;

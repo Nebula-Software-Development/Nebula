@@ -1,5 +1,5 @@
-using System;
 using Nebuli.API.Features.Player;
+using System;
 
 namespace Nebuli.Events.EventArguments.SCPs.Scp939;
 
@@ -11,12 +11,12 @@ public class Scp939RemoveSavedVoiceEvent : EventArgs, IPlayerEvent, ICancellable
         Target = NebuliPlayer.Get(target);
         IsCancelled = false;
     }
-    
+
     /// <summary>
     /// Gets the player removing the saved voice.
     /// </summary>
     public NebuliPlayer Player { get; }
-    
+
     /// <summary>
     /// Gets the voices owner.
     /// </summary>

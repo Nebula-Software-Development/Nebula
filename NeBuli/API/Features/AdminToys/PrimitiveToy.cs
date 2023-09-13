@@ -1,9 +1,8 @@
-﻿using SLPrimitiveToy = AdminToys.PrimitiveObjectToy;
-using Nebuli.API.Features.Enum;
-using UnityEngine;
-using AdminToys;
+﻿using Nebuli.API.Features.Enum;
 using Nebuli.API.Features.Map;
 using System.Linq;
+using UnityEngine;
+using SLPrimitiveToy = AdminToys.PrimitiveObjectToy;
 
 namespace Nebuli.API.Features.AdminToys;
 
@@ -18,6 +17,7 @@ public class PrimitiveToy : AdminToy
     /// Gets the <see cref="SLPrimitiveToy"/> (base) of the <see cref="PrimitiveToy"/>.
     /// </summary>
     public new SLPrimitiveToy Base { get; }
+
     internal PrimitiveToy(SLPrimitiveToy adminToyBase) : base(adminToyBase, ToyType.Primitive)
     {
         Base = adminToyBase;
@@ -72,7 +72,6 @@ public class PrimitiveToy : AdminToy
     public static PrimitiveToy Get(SLPrimitiveToy primitiveObjectToy) => Utilites.AdminToys
         .FirstOrDefault(x => x.Base == primitiveObjectToy) as PrimitiveToy ?? new PrimitiveToy(primitiveObjectToy);
 
-
     private void RefreshCollidable(bool value)
     {
         UnspawnToy();
@@ -82,5 +81,4 @@ public class PrimitiveToy : AdminToy
         Base.transform.localScale = newScale;
         SpawnToy();
     }
-
 }

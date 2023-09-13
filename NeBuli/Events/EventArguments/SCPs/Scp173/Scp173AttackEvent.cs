@@ -1,5 +1,5 @@
-using System;
 using Nebuli.API.Features.Player;
+using System;
 
 namespace Nebuli.Events.EventArguments.SCPs.Scp173;
 
@@ -11,7 +11,7 @@ public class Scp173AttackEvent : EventArgs, IDamageEvent, ICancellableEvent
         Target = NebuliPlayer.Get(target);
         IsCancelled = false;
     }
-    
+
     /// <summary>
     /// Gets SCP-173.
     /// </summary>

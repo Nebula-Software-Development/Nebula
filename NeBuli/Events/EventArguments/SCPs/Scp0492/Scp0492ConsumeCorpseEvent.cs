@@ -1,6 +1,6 @@
-using System;
 using Nebuli.API.Features;
 using Nebuli.API.Features.Player;
+using System;
 
 namespace Nebuli.Events.EventArguments.SCPs.Scp0492;
 
@@ -12,6 +12,7 @@ public class Scp0492ConsumeCorpseEvent : EventArgs, IPlayerEvent, IRadgollEvent,
         Ragdoll = Ragdoll.Get(baseRagdoll);
         IsCancelled = false;
     }
+
     /// <summary>
     /// Gets the player consuming the corpse.
     /// </summary>
