@@ -93,7 +93,6 @@
     <Compile Include="API\Features\AdminToys\ToyUtilities.cs" />
     <Compile Include="API\Features\AlphaWarhead.cs" />
     <Compile Include="API\Features\Broadcast.cs" />
-    <Compile Include="API\Features\CustomHintManager.cs" />
     <Compile Include="API\Features\Decontamination.cs" />
     <Compile Include="API\Features\Doors\PryableDoor.cs" />
     <Compile Include="API\Features\Doors\BasicDoor.cs" />
@@ -104,12 +103,12 @@
     <Compile Include="API\Features\Enum\CameraType.cs" />
     <Compile Include="API\Features\Enum\CoinSide.cs" />
     <Compile Include="API\Features\Enum\DoorLockingType.cs" />
+    <Compile Include="API\Features\Enum\MenuType.cs" />
     <Compile Include="API\Features\Enum\RoomType.cs" />
     <Compile Include="API\Features\Enum\ShootingTargetToyType.cs" />
     <Compile Include="API\Features\Enum\StatusEffectType.cs" />
     <Compile Include="API\Features\Enum\EscapeType.cs" />
     <Compile Include="API\Features\Enum\FirearmType.cs" />
-    <Compile Include="API\Features\Enum\MenuType.cs" />
     <Compile Include="API\Features\Enum\Scp079PingType.cs" />
     <Compile Include="API\Features\Enum\ToyType.cs" />
     <Compile Include="API\Features\Hazards\AmesticCloudHazard.cs" />
@@ -288,6 +287,7 @@
     <Compile Include="Events\Handlers\Scp914Handlers.cs" />
     <Compile Include="Events\Handlers\Scp939Handlers.cs" />
     <Compile Include="Events\Handlers\ServerHandlers.cs" />
+    <Compile Include="Events\Patches\Game\CustomFriendlyFireManager.cs" />
     <Compile Include="Events\Patches\Game\HazardPatch.cs" />
     <Compile Include="Events\Patches\Game\MapGeneratedPatch.cs" />
     <Compile Include="Events\Patches\Game\MoreEscapePatch.cs" />

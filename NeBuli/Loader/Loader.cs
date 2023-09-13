@@ -64,9 +64,9 @@ public class Loader
         .IgnoreFields()
             .Build();
 
-    public static readonly Dictionary<Assembly, IPlugin<IConfiguration>> _plugins = new();
+    public static Dictionary<Assembly, IPlugin<IConfiguration>> _plugins { get; private set; } = new();
 
-    public static readonly Dictionary<IPlugin<IConfiguration>, IConfiguration> EnabledPlugins = new();
+    public static Dictionary<IPlugin<IConfiguration>, IConfiguration> EnabledPlugins { get; private set; } = new();
 
     [PluginConfig]
     public static LoaderConfiguration Configuration;

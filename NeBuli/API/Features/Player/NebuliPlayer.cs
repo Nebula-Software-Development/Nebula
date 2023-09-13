@@ -62,9 +62,6 @@ public class NebuliPlayer
 
         if (ReferenceHub == ReferenceHub.HostHub)
             return;
-
-        CustomHintManager = GameObject.AddComponent<CustomHintManager>();
-        CustomHintManager.player = this;
         ReferenceHub.playerStats._dictionarizedTypes[typeof(HealthStat)] = ReferenceHub.playerStats.StatModules[0] = customHealthManager = new CustomHealthManager { Hub = ReferenceHub };
         Dictionary.Add(hub, this);
     }
@@ -78,12 +75,16 @@ public class NebuliPlayer
         if (ReferenceHub == ReferenceHub.HostHub)
             return;
 
-        CustomHintManager = GameObject.AddComponent<CustomHintManager>();
-        CustomHintManager.player = this;
         ReferenceHub.playerStats._dictionarizedTypes[typeof(HealthStat)] = ReferenceHub.playerStats.StatModules[0] = customHealthManager = new CustomHealthManager { Hub = ReferenceHub };
         Dictionary.Add(ReferenceHub, this);
     }
 
+    ~NebuliPlayer()
+    { }
+
+    /// <summary>
+    /// Gets a collection of <see cref="NebuliPlayer"/> instances.
+    /// </summary>
     public static IEnumerable<NebuliPlayer> Collection => Dictionary.Values;
 
     /// <summary>
@@ -92,15 +93,9 @@ public class NebuliPlayer
     public static List<NebuliPlayer> List => Collection.ToList();
 
     /// <summary>
-    /// Gets a list of all online staff.
+    /// Gets a list of all online staff. This is determined by if the have Remote Admin access or not.
     /// </summary>
-    public static List<NebuliPlayer> OnlineStaff
-    {
-        get
-        {
-            return List.Where(ply => HasAnyPermission(ply)).ToList();
-        }
-    }
+    public static List<NebuliPlayer> OnlineStaff => List.Where(ply => ply.ReferenceHub.serverRoles.RemoteAdmin).ToList();
 
     /// <summary>
     /// Gives the player the specified <see cref="AchievementName"/>.
@@ -116,7 +111,7 @@ public class NebuliPlayer
     /// <summary>
     /// The player count of the server.
     /// </summary>
-    public static int PlayerCount => Dictionary.Count;
+    public static int PlayerCount => Server.PlayerCount;
 
     /// <summary>
     /// The player's ReferenceHub.
@@ -264,6 +259,11 @@ public class NebuliPlayer
         get => ReferenceHub.serverRoles.BypassMode;
         set => ReferenceHub.serverRoles.BypassMode = value;
     }
+
+    /// <summary>
+    /// Gets or sets if the player should ignore base-game friendly fire rules.
+    /// </summary>
+    public bool IgnoreFFRules { get; set; } = true;
 
     /// <summary>
     /// Gets or sets the players <see cref="ScpSpawnPreferences.SpawnPreferences"/>.
@@ -999,11 +999,6 @@ public class NebuliPlayer
     {
         RoleManager.ServerSetRole(role, reason, flags);
     }
-
-    /// <summary>
-    /// Gets the players <see cref="Features.CustomHintManager"/>.
-    /// </summary>
-    public CustomHintManager CustomHintManager { get; }
 
     /// <summary>
     /// Adds a component of the specified type to the player's GameObject.
