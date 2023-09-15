@@ -206,6 +206,8 @@
     <Compile Include="Events\EventArguments\ICancellableEvent.cs" />
     <Compile Include="Events\EventArguments\IDamageEvent.cs" />
     <Compile Include="Events\EventArguments\IPlayerEvent.cs" />
+    <Compile Include="Events\EventArguments\Player\PlayerChangedItemEvent.cs" />
+    <Compile Include="Events\EventArguments\Player\PlayerChangingNicknameEvent.cs" />
     <Compile Include="Events\EventArguments\Player\PlayerChangingUserGroupEvent.cs" />
     <Compile Include="Events\EventArguments\Player\PlayerDestroyingEvent.cs" />
     <Compile Include="Events\EventArguments\Player\PlayerDroppingItemEvent.cs" />
@@ -294,6 +296,8 @@
     <Compile Include="Events\Patches\Game\NamePatch.cs" />
     <Compile Include="Events\Patches\Game\WeaponDysncFix.cs" />
     <Compile Include="Events\Patches\Player\BannedPlayer.cs" />
+    <Compile Include="Events\Patches\Player\ChangedItemPatch.cs" />
+    <Compile Include="Events\Patches\Player\ChangingNicknamePatch.cs" />
     <Compile Include="Events\Patches\Player\ChangingUserGroupPatch.cs" />
     <Compile Include="Events\Patches\Player\DestroyingPlayer.cs" />
     <Compile Include="Events\Patches\Player\DyingPlayer.cs" />

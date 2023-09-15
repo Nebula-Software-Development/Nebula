@@ -50,6 +50,10 @@ public static class PlayerHandlers
 
     public static event EventManager.CustomEventHandler<PlayerTogglingNoClipEvent> TogglingNoClip;
 
+    public static event EventManager.CustomEventHandler<PlayerChangedItemEvent> ChangedItem;
+
+    public static event EventManager.CustomEventHandler<PlayerChangingNicknameEvent> ChangingNickname;
+
     internal static void OnJoin(PlayerJoinEvent ev) => Join.CallEvent(ev);
 
     internal static void OnLeave(PlayerLeaveEvent ev) => Leave.CallEvent(ev);
@@ -95,4 +99,8 @@ public static class PlayerHandlers
     internal static void OnPlayerEnteringPocket(PlayerEnteringPocketDimensionEvent ev) => EnteringPocketDimension.CallEvent(ev);
 
     internal static void OnPlayerTogglingNoClip(PlayerTogglingNoClipEvent ev) => TogglingNoClip.CallEvent(ev);
+
+    internal static void OnChangedItem(PlayerChangedItemEvent ev) => ChangedItem.CallEvent(ev);
+
+    internal static void OnChangingNickname(PlayerChangingNicknameEvent ev) => ChangingNickname.CallEvent(ev); 
 }
