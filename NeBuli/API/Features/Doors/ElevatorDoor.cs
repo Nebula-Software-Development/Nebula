@@ -17,6 +17,11 @@ public class ElevatorDoor : Door
     }
 
     /// <summary>
+    /// Gets the last player that interacted with the elevator.
+    /// </summary>
+    public ReferenceHub LastPlayerInteracted => Base._triggerPlayer;
+
+    /// <summary>
     /// Gets the elevators bottom position.
     /// </summary>
     public Vector3 BottomPosition => Base.BottomPosition;

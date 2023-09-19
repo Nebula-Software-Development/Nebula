@@ -1,5 +1,7 @@
 ﻿using InventorySystem.Items.Firearms.Attachments;
 using InventorySystem.Items.Firearms.Attachments.Components;
+using Nebuli.API.Features.Enum;
+using System.Linq;
 
 namespace Nebuli.API.Features.Structs;
 
@@ -35,6 +37,17 @@ public readonly struct AttachmentIdentity
     /// Gets the attachment slot.
     /// </summary>
     public AttachmentSlot Slot { get; }
+
+    /// <summary>
+    /// Gets a <see cref="AttachmentIdentity"/> by its name.
+    /// </summary>
+    /// <param name="type">The <see cref="FirearmType"/> the attachment belongs to.</param>
+    /// <param name="name">The <see cref="AttachmentName"/> of the attachment.</param>
+    /// <returns></returns>
+    public static AttachmentIdentity Get(FirearmType type, AttachmentName name) 
+        => Items.Firearm.AvailableAttachments[type]
+        .FirstOrDefault(identifier => identifier.Name == name);
+
 
     /// <summary>
     /// Compares two <see cref="AttachmentIdentity"/> objects with an <see cref="Attachment"/> object for equality.

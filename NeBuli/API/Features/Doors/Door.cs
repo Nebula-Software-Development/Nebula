@@ -67,6 +67,7 @@ public class Door
     {
         Base = door;
         Dictionary.Add(door, this);
+        Type = GetDoorType(door);
     }
 
     public static IEnumerable<Door> Collection => Dictionary.Values;

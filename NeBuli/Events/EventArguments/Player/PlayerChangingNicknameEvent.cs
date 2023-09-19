@@ -18,7 +18,7 @@ public class PlayerChangingNicknameEvent : EventArgs, IPlayerEvent, ICancellable
     public NebuliPlayer Player { get; }
 
     /// <summary>
-    /// Gets pr sets the new nickname.
+    /// Gets or sets the new nickname.
     /// </summary>
     public string NewName { get; set; }
 

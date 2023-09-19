@@ -21,6 +21,7 @@ using Nebuli.API.Features.Structs;
 using Nebuli.API.Internal;
 using PlayerRoles;
 using PlayerRoles.FirstPersonControl;
+using PlayerRoles.PlayableScps.HumeShield;
 using PlayerRoles.RoleAssign;
 using PlayerRoles.Voice;
 using PlayerStatsSystem;
@@ -62,6 +63,7 @@ public class NebuliPlayer
 
         if (ReferenceHub == ReferenceHub.HostHub)
             return;
+
         ReferenceHub.playerStats._dictionarizedTypes[typeof(HealthStat)] = ReferenceHub.playerStats.StatModules[0] = customHealthManager = new CustomHealthManager { Hub = ReferenceHub };
         Dictionary.Add(hub, this);
     }
@@ -262,7 +264,7 @@ public class NebuliPlayer
     /// <summary>
     /// Gets or sets if the player should ignore base-game friendly fire rules.
     /// </summary>
-    public bool IgnoreFFRules { get; set; } = true;
+    public bool IgnoreFFRules { get; set; } = false;
 
     /// <summary>
     /// Gets or sets the players <see cref="ScpSpawnPreferences.SpawnPreferences"/>.
@@ -273,7 +275,6 @@ public class NebuliPlayer
         {
             if (ScpSpawnPreferences.Preferences.TryGetValue(NetworkConnection.connectionId, out ScpSpawnPreferences.SpawnPreferences value))
                 return value;
-
             return default;
         }
         set => ScpSpawnPreferences.Preferences[NetworkConnection.connectionId] = value;
@@ -308,7 +309,7 @@ public class NebuliPlayer
     }
 
     /// <summary>
-    /// Gets or sets the players current scale.nwa
+    /// Gets or sets the players current scale.
     /// </summary>
     public Vector3 Scale
     {
@@ -461,7 +462,7 @@ public class NebuliPlayer
     {
         get
         {
-            if (ReferenceHub.playerStats.GetModule<HumeShieldStat>().TryGetHsModule(out var hsModuleBase))
+            if (ReferenceHub.playerStats.GetModule<HumeShieldStat>().TryGetHsModule(out HumeShieldModuleBase hsModuleBase))
                 return hsModuleBase.HsRegeneration;
 
             return 0;
@@ -502,6 +503,15 @@ public class NebuliPlayer
     {
         get => ReferenceHub.serverRoles._myColor;
         set => ReferenceHub.serverRoles.SetColor(value);
+    }
+
+    /// <summary>
+    /// Gets or sets the players rank color using <see cref="Enum.RankColorType"/>.
+    /// </summary>
+    public RankColorType RankColorType
+    {
+        get => ReferenceHub.serverRoles._myColor.ToRankColorType();
+        set => ReferenceHub.serverRoles.SetColor(value.ToColorString());
     }
 
     /// <summary>
@@ -584,6 +594,11 @@ public class NebuliPlayer
     /// Gets the player's nickname.
     /// </summary>
     public string Nickname => ReferenceHub.nicknameSync.Network_myNickSync;
+
+    /// <summary>
+    /// Gets if the player has a custom name.
+    /// </summary>
+    public bool HasCustomName => ReferenceHub.nicknameSync.HasCustomName;
 
     /// <summary>
     /// Gets the players IP adress.
