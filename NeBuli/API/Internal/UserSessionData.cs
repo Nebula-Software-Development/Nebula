@@ -22,6 +22,11 @@ public class UserSessionData
     /// Initializes a new instance of the <see cref="UserSessionData"/> class.
     /// </summary>
     public UserSessionData()
+    { }
+
+    ~UserSessionData() 
     {
+        DictionaryPool<object, object>.Instance.Return(SessionDictionary);
+        ListPool<object>.Instance.Return(SessionList);
     }
 }

@@ -35,6 +35,8 @@ public class DictionaryPool<TKey, TValue>
         }
 
         return CreateDictionary();
+
+
     }
 
     /// <summary>
@@ -62,6 +64,7 @@ public class DictionaryPool<TKey, TValue>
     {
         if (dictionary != null)
         {
+            dictionary.Clear();
             Pool.Enqueue(dictionary);
         }
     }

@@ -40,11 +40,7 @@ public class ListPool<T> : IPool<List<T>>
     /// Rents a <see cref="List{T}"/> from the pool.
     /// </summary>
     /// <returns>The rented <see cref="List{T}"/>.</returns>
-    public List<T> Rent()
-    {
-        List<T> rentedList = Get();
-        return rentedList;
-    }
+    public List<T> Rent() => Get();
 
     /// <summary>
     /// Returns a pooled <see cref="List{T}"/> instance to the pool.

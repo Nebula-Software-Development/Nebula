@@ -83,7 +83,6 @@ public class NebuliNpc : NebuliPlayer
 
             newNPC.IsNPC = true;
 
-            newNPC.Health = newNPC.ReferenceHub.playerStats.GetModule<HealthStat>().MaxValue;
             return newNPC;
         }
         catch (Exception e)
@@ -112,7 +111,7 @@ public class NebuliNpc : NebuliPlayer
     {
         Vector3 direction = position - Position;
         Quaternion quat = Quaternion.LookRotation(direction, Vector3.up);
-        var mouseLook = ((IFpcRole)ReferenceHub.roleManager.CurrentRole).FpcModule.MouseLook;
+        FpcMouseLook mouseLook = ((IFpcRole)ReferenceHub.roleManager.CurrentRole).FpcModule.MouseLook;
         (ushort horizontal, ushort vertical) = ToClientUShorts(quat);
         mouseLook.ApplySyncValues(horizontal, vertical);
     }
