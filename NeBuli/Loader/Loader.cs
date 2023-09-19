@@ -2,6 +2,7 @@
 using HarmonyLib;
 using MEC;
 using Nebuli.API.Features;
+using Nebuli.API.Features.Pools;
 using Nebuli.API.Interfaces;
 using Nebuli.Events;
 using Nebuli.Loader.CustomConverters;
@@ -91,11 +92,7 @@ public class Loader
 
         Log.Debug($"Dependency path is {Paths.DependenciesDirectory}");
 
-        if (Configuration.ShouldCheckForUpdates)
-        {
-            Updater updater = new();
-            updater.CheckForUpdates();
-        }
+        if (Configuration.ShouldCheckForUpdates) new Updater().CheckForUpdates();
 
         LoadDependencies(Paths.DependenciesDirectory.GetFiles("*.dll"));
 
@@ -178,6 +175,8 @@ public class Loader
     {
         Log.Info("Loading plugins...");
 
+        List<IPlugin<IConfiguration>> pluginsToLoad = ListPool<IPlugin<IConfiguration>>.Instance.Rent();
+
         EnabledPlugins.Clear();
         _plugins.Clear();
 
@@ -188,20 +187,7 @@ public class Loader
                 Assembly loadPlugin = Assembly.Load(File.ReadAllBytes(file.FullName));
                 IPlugin<IConfiguration> newPlugin = NewPlugin(loadPlugin);
 
-                if (IsPluginOutdated(newPlugin))
-                    continue;
-
-                IConfiguration config = SetupPluginConfig(newPlugin, Serializer, Deserializer);
-
-                if (!config.IsEnabled)
-                    continue;
-                newPlugin.LoadCommands();
-                newPlugin.OnEnabled();
-
-                Log.Info($"Plugin '{newPlugin.Name}' by '{newPlugin.Creator}', (v{newPlugin.Version}), has been successfully enabled!");
-
-                _plugins.Add(loadPlugin, newPlugin);
-                EnabledPlugins.Add(newPlugin, config);
+                pluginsToLoad.Add(newPlugin);
             }
             catch (Exception e)
             {
@@ -209,8 +195,38 @@ public class Loader
             }
         }
 
+        pluginsToLoad.Sort((p1, p2) => p1.LoadOrder.CompareTo(p2.LoadOrder));
+
+        foreach (IPlugin<IConfiguration> plugin in pluginsToLoad)
+        {
+            try
+            {
+                if (IsPluginOutdated(plugin))
+                    continue;
+
+                IConfiguration config = SetupPluginConfig(plugin);
+
+                if (!config.IsEnabled)
+                    continue;
+
+                plugin.LoadCommands();
+                plugin.OnEnabled();
+
+                Log.Info($"Plugin '{plugin.Name}' by '{plugin.Creator}', (v{plugin.Version}), has been successfully enabled!");
+
+                _plugins.Add(plugin.GetType().Assembly, plugin);
+                EnabledPlugins.Add(plugin, config);
+            }
+            catch (Exception e)
+            {
+                Log.Error($"Failed to load plugin {plugin.Name}. Full error : \n{e}");
+            }
+        }
+
         Log.Info("Plugins loaded!");
+        ListPool<IPlugin<IConfiguration>>.Instance.Return(pluginsToLoad);
     }
+
 
     private static IPlugin<IConfiguration> NewPlugin(Assembly assembly)
     {
@@ -285,7 +301,7 @@ public class Loader
         return pluginProperty?.GetValue(null) as IPlugin<IConfiguration>;
     }
 
-    private static IConfiguration SetupPluginConfig(IPlugin<IConfiguration> plugin, ISerializer serializer, IDeserializer deserializer)
+    private static IConfiguration SetupPluginConfig(IPlugin<IConfiguration> plugin)
     {
         string configPath = Path.Combine(Paths.PluginPortConfigDirectory.FullName, plugin.Name + $"-({Server.ServerPort})-Config.yml");
         try
@@ -294,14 +310,14 @@ public class Loader
             {
                 Log.Warning($"{plugin.Name} does not have configs! Generating...");
                 Log.Debug("Serializing new config and writing it to the path...");
-                File.WriteAllText(configPath, serializer.Serialize(plugin.Config));
+                File.WriteAllText(configPath, Serializer.Serialize(plugin.Config));
                 plugin.ConfigPath = configPath;
                 return plugin.Config;
             }
             else
             {
                 Log.Debug($"Deserializing {plugin.Name} config at {configPath}...");
-                IConfiguration config = (IConfiguration)deserializer.Deserialize(File.ReadAllText(configPath), plugin.Config.GetType());
+                IConfiguration config = (IConfiguration)Deserializer.Deserialize(File.ReadAllText(configPath), plugin.Config.GetType());
                 plugin.ConfigPath = configPath;
                 plugin.ReloadConfig(config);
                 return config;
@@ -328,7 +344,7 @@ public class Loader
             {
                 Log.Info($"Reloading plugin configs for {plugin.Name}...");
                 if (!File.Exists(plugin.ConfigPath))
-                    SetupPluginConfig(plugin, Serializer, Deserializer);
+                    SetupPluginConfig(plugin);
                 IConfiguration newConfig = (IConfiguration)Deserializer.Deserialize(File.ReadAllText(plugin.ConfigPath), plugin.Config.GetType());
                 plugin.ReloadConfig(newConfig);
             }

@@ -1,4 +1,5 @@
 ﻿using CommandSystem;
+using Nebuli.API.Features.Enum;
 using Nebuli.API.Features.Pools;
 using Nebuli.API.Interfaces;
 using RemoteAdmin;
@@ -35,6 +36,9 @@ public abstract class Plugin<TConfig> : IPlugin<TConfig> where TConfig : IConfig
     /// Gets the plugins current Nebulis version.
     /// </summary>
     public virtual Version NebuliVersion { get; }
+
+    /// <inheritdoc/>
+    public virtual LoadOrderType LoadOrder { get; } = LoadOrderType.NormalLoad;
 
     /// <summary>
     /// If true, skips checking if the plugins current Nebulis version lines up with the Nebulis version loading the plugin.

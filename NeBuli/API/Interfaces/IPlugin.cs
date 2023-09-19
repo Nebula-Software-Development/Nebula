@@ -1,4 +1,5 @@
-﻿using Nebuli.API.Interfaces;
+﻿using Nebuli.API.Features.Enum;
+using Nebuli.API.Interfaces;
 using System;
 using System.Reflection;
 
@@ -34,6 +35,11 @@ public interface IPlugin<out TConfig> where TConfig : IConfiguration
     /// Gets the plugins current Nebulis version.
     /// </summary>
     Version NebuliVersion { get; }
+
+    /// <summary>
+    /// Gets the plugins <see cref="LoadOrderType"/>.
+    /// </summary>
+    LoadOrderType LoadOrder { get; }
 
     /// <summary>
     /// If true, skips checking if the plugins current Nebulis version lines up with the Nebulis version loading the plugin.
