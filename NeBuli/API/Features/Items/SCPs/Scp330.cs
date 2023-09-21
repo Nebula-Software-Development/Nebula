@@ -4,7 +4,7 @@ using Scp330Base = InventorySystem.Items.Usables.Scp330.Scp330Bag;
 
 namespace Nebuli.API.Features.Items.SCPs;
 
-public class Scp330 : Item
+public class Scp330 : Usable
 {
     /// <summary>
     /// Gets the <see cref="Scp330Base"/> base.

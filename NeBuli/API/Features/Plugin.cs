@@ -15,7 +15,7 @@ namespace Nebuli.API.Features;
 /// <typeparam name="TConfig">The configuration type for the plugin.</typeparam>
 public abstract class Plugin<TConfig> : IPlugin<TConfig> where TConfig : IConfiguration, new()
 {
-    public Assembly Assembly { get; internal set; } = Assembly.GetCallingAssembly();
+    public Assembly Assembly { get; set; }
 
     /// <summary>
     /// Gets the plugins name.
@@ -30,12 +30,12 @@ public abstract class Plugin<TConfig> : IPlugin<TConfig> where TConfig : IConfig
     /// <summary>
     /// Gets the plugins current version.
     /// </summary>
-    public virtual Version Version { get; }
+    public virtual Version Version { get; } = new(0, 0, 0);
 
     /// <summary>
     /// Gets the plugins current Nebulis version.
     /// </summary>
-    public virtual Version NebuliVersion { get; }
+    public virtual Version NebuliVersion { get; } = new(0, 0, 0);
 
     /// <inheritdoc/>
     public virtual LoadOrderType LoadOrder { get; } = LoadOrderType.NormalLoad;

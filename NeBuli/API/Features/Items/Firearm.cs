@@ -47,7 +47,7 @@ namespace Nebuli.API.Features.Items
         /// <summary>
         /// Gets the type of the firearm.
         /// </summary>
-        public FirearmType Type => Base.ItemTypeId.ToFirearmType();
+        public FirearmType Type => ItemType.ToFirearmType();
 
         /// <summary>
         /// Gets the firearms max ammo.

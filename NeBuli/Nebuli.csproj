@@ -70,6 +70,7 @@
     <Reference Include="Mirror" HintPath="$(NEBULIREFERENCES)\Mirror-Publicized.dll" Private="false" />
     <Reference Include="NorthwoodLib" HintPath="$(NEBULIREFERENCES)\NorthwoodLib.dll" Private="false" />
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
@@ -153,6 +154,7 @@
     <Compile Include="API\Features\Items\Throwables\ExplosiveGrenade.cs" />
     <Compile Include="API\Features\Items\Throwables\FlashbangGrenade.cs" />
     <Compile Include="API\Features\Items\Throwables\Throwable.cs" />
+    <Compile Include="API\Features\Items\Usable.cs" />
     <Compile Include="API\Features\Items\Usables\Adrenaline.cs" />
     <Compile Include="API\Features\Items\Usables\Medkit.cs" />
     <Compile Include="API\Features\Items\Usables\Painkillers.cs" />

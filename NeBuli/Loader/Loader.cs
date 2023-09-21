@@ -25,6 +25,9 @@ public class Loader
     private Harmony _harmony;
     private static bool _loaded = false;
 
+    /// <summary>
+    /// Gets a shared instance of the loaders random number generator.
+    /// </summary>
     public static Random Random { get; } = new();
 
     private static Assembly _assemblyCache = null;
@@ -49,22 +52,20 @@ public class Loader
         }
     }
 
-    public static ISerializer Serializer { get; private set; } = new SerializerBuilder()
+    public static ISerializer Serializer { get; set; } = new SerializerBuilder()
         .WithTypeConverter(new CustomVectorsConverter())
-        .WithEmissionPhaseObjectGraphVisitor((EmissionPhaseObjectGraphVisitorArgs visitor)
-        => new CommentsObjectGraphVisitor(visitor.InnerVisitor)).WithTypeInspector((ITypeInspector typeInspector)
-        => new CommentGatheringTypeInspector(typeInspector))
+        .WithEmissionPhaseObjectGraphVisitor((EmissionPhaseObjectGraphVisitorArgs visitor) => new CommentsObjectGraphVisitor(visitor.InnerVisitor)).WithTypeInspector((ITypeInspector typeInspector) => new CommentGatheringTypeInspector(typeInspector))
         .WithNamingConvention(UnderscoredNamingConvention.Instance)
-            .DisableAliases()
-            .IgnoreFields()
-            .Build();
+        .DisableAliases()
+        .IgnoreFields()
+        .Build();
 
-    public static IDeserializer Deserializer { get; private set; } = new DeserializerBuilder()
+    public static IDeserializer Deserializer { get; set; } = new DeserializerBuilder()
         .WithTypeConverter(new CustomVectorsConverter())
         .WithNamingConvention(UnderscoredNamingConvention.Instance)
         .IgnoreUnmatchedProperties()
         .IgnoreFields()
-            .Build();
+        .Build();
 
     public static Dictionary<Assembly, IPlugin<IConfiguration>> _plugins { get; private set; } = new();
 
@@ -79,7 +80,7 @@ public class Loader
     {
         if (!Configuration.LoaderEnabled)
         {
-            Log.Info("Nebuli Loader is disabled, Nebuli will not load.");
+            Log.Info("Nebuli Loader is disabled, Nebuli will not load.", consoleColor: ConsoleColor.Red, prefix: "Loader");
             return;
         }
 
@@ -110,7 +111,7 @@ public class Loader
                 _harmony.PatchAll();
             }
             else
-                Log.Warning("Event patching is disabled, Events will not work");
+                Log.Warning("Event patching is disabled, Events will not work!");
         }
         catch (Exception e)
         {
@@ -140,7 +141,7 @@ public class Loader
     {
         DisablePlugins();
         _loaded = false;
-        _harmony.UnpatchAll(_harmony.Id);
+        _harmony?.UnpatchAll(_harmony.Id);
         _harmony = null;
 
         EventManager.UnRegisterBaseEvents();
@@ -186,7 +187,7 @@ public class Loader
             {
                 Assembly loadPlugin = Assembly.Load(File.ReadAllBytes(file.FullName));
                 IPlugin<IConfiguration> newPlugin = NewPlugin(loadPlugin);
-
+                newPlugin.Assembly = loadPlugin;
                 pluginsToLoad.Add(newPlugin);
             }
             catch (Exception e)
@@ -212,9 +213,11 @@ public class Loader
                 plugin.LoadCommands();
                 plugin.OnEnabled();
 
-                Log.Info($"Plugin '{plugin.Name}' by '{plugin.Creator}', (v{plugin.Version}), has been successfully enabled!");
+                string pluginName = string.IsNullOrEmpty(plugin.Name) ? plugin.Assembly.GetName().Name : plugin.Name;
 
-                _plugins.Add(plugin.GetType().Assembly, plugin);
+                Log.Info($"Plugin '{pluginName}' by '{plugin.Creator}', (v{plugin.Version}), has been successfully enabled!");
+
+                _plugins.Add(plugin.Assembly, plugin);
                 EnabledPlugins.Add(plugin, config);
             }
             catch (Exception e)
@@ -303,7 +306,9 @@ public class Loader
 
     private static IConfiguration SetupPluginConfig(IPlugin<IConfiguration> plugin)
     {
-        string configPath = Path.Combine(Paths.PluginPortConfigDirectory.FullName, plugin.Name + $"-({Server.ServerPort})-Config.yml");
+        string configPath = Path.Combine(Paths.PluginPortConfigDirectory.FullName, 
+            string.IsNullOrEmpty(plugin.Name) ? plugin.Assembly.GetName().Name + $"-({Server.ServerPort})-Config.yml"
+            : plugin.Name + $"-({Server.ServerPort})-Config.yml");
         try
         {
             if (!File.Exists(configPath))

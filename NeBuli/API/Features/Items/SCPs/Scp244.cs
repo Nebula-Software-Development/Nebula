@@ -2,7 +2,7 @@
 
 namespace Nebuli.API.Features.Items.SCPs;
 
-public class Scp244 : Item
+public class Scp244 : Usable
 {
     /// <summary>
     /// Gets the <see cref="Scp244Base"/> base.

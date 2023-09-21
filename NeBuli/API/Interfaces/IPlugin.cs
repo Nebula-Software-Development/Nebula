@@ -14,7 +14,7 @@ public interface IPlugin<out TConfig> where TConfig : IConfiguration
     /// <summary>
     /// Gets the plugins assembly.
     /// </summary>
-    Assembly Assembly { get; }
+    Assembly Assembly { get; set; }
 
     /// <summary>
     /// Gets the plugins name.

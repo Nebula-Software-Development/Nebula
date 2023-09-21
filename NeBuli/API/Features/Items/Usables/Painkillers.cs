@@ -2,7 +2,7 @@
 
 namespace Nebuli.API.Features.Items.Usables;
 
-public class Painkillers : Item
+public class Painkillers : Usable
 {
     /// <summary>
     /// Gets the <see cref="PainkillerBase"/> base.
@@ -23,13 +23,4 @@ public class Painkillers : Item
     /// Gets if the usable is ready to be activated.
     /// </summary>
     public bool ActivationReady => Base.ActivationReady;
-
-    /// <summary>
-    /// Gets or sets if the usable is ready to be used.
-    /// </summary>
-    public bool CanStartUsing
-    {
-        get => Base.CanStartUsing;
-        set => Base.CanStartUsing = value;
-    }
 }
