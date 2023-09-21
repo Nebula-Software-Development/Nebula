@@ -1,10 +1,10 @@
-using System.Collections.Generic;
-using System.Reflection.Emit;
 using HarmonyLib;
 using Nebuli.Events.EventArguments.SCPs.Scp939;
 using Nebuli.Events.Handlers;
 using NorthwoodLib.Pools;
 using PlayerRoles.PlayableScps.Scp939;
+using System.Collections.Generic;
+using System.Reflection.Emit;
 using static HarmonyLib.AccessTools;
 
 namespace Nebuli.Events.Patches.SCPs.Scp939;
@@ -18,7 +18,7 @@ internal class DogAttack
         List<CodeInstruction> newInstructions = EventManager.CheckPatchInstructions<DogAttack>(11, instructions);
 
         Label retLabel = generator.DefineLabel();
-        
+
         newInstructions.InsertRange(0, new CodeInstruction[]
         {
             new(OpCodes.Ldarg_0),
@@ -31,12 +31,12 @@ internal class DogAttack
             new(OpCodes.Callvirt, PropertyGetter(typeof(Scp939AttackEvent), nameof(Scp939AttackEvent.IsCancelled))),
             new(OpCodes.Brtrue_S, retLabel)
         });
-        
+
         newInstructions[newInstructions.Count - 1].labels.Add(retLabel);
-        
+
         foreach (CodeInstruction instruction in newInstructions)
             yield return instruction;
-        
+
         ListPool<CodeInstruction>.Shared.Return(newInstructions);
-    } 
+    }
 }

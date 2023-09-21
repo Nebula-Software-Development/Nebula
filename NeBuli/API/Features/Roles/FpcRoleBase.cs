@@ -12,6 +12,7 @@ public class FpcRoleBase : Role
     /// Gets the <see cref="FpcStandardRoleBase"/>.
     /// </summary>
     public new FpcStandardRoleBase Base { get; }
+
     internal FpcRoleBase(FpcStandardRoleBase fpcRole) : base(fpcRole)
     {
         Base = fpcRole;
@@ -86,5 +87,4 @@ public class FpcRoleBase : Role
         get => Owner.ReferenceHub.playerStats.GetModule<AdminFlagsStat>().HasFlag(AdminFlags.Noclip);
         set => Owner.ReferenceHub.playerStats.GetModule<AdminFlagsStat>().SetFlag(AdminFlags.Noclip, value);
     }
-
 }

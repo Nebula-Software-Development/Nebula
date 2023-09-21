@@ -91,5 +91,4 @@ public class Window
     /// <param name="breakableWindow"></param>
     /// <returns></returns>
     public static Window Get(WindowBase breakableWindow) => Dictionary.TryGetValue(breakableWindow, out Window window) ? window : new Window(breakableWindow);
-
 }

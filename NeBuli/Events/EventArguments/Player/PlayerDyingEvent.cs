@@ -8,12 +8,13 @@ public class PlayerDyingEvent : EventArgs, ICancellableEvent, IPlayerEvent
 {
     public PlayerDyingEvent(ReferenceHub target, DamageHandlerBase dmgB)
     {
-        Player = NebuliPlayer.Get(target);        
+        Player = NebuliPlayer.Get(target);
         DamageHandlerBase = dmgB;
         if (DamageHandlerBase is AttackerDamageHandler attackerDamageHandler)
             Killer = NebuliPlayer.Get(attackerDamageHandler.Attacker.Hub);
         IsCancelled = false;
     }
+
     /// <summary>
     /// The player thats dying.
     /// </summary>

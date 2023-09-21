@@ -1,13 +1,13 @@
-﻿using PlayerRoles;
+﻿using Mirror;
+using Nebuli.API.Extensions;
+using Nebuli.API.Features.Player;
+using PlayerRoles;
 using PlayerStatsSystem;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using Nebuli.API.Features.Player;
-using System;
 using Object = UnityEngine.Object;
-using Mirror;
-using Nebuli.API.Extensions;
 
 namespace Nebuli.API.Features;
 
@@ -181,11 +181,10 @@ public class Ragdoll
     /// <returns>The created <see cref="Ragdoll"/> instance, or <c>null</c> if creation failed.</returns>
     public static Ragdoll Create(string Nickname, RoleTypeId role, DamageHandlerBase damageHandlerBase, NebuliPlayer owner = null, Vector3 position = default, Quaternion rotation = default, double creationTime = default)
     {
-        if(Create(new RagdollData(owner.ReferenceHub ?? Server.NebuliHost.ReferenceHub, damageHandlerBase, roleType: role, position, rotation, Nickname, creationTime), out Ragdoll ragdoll))
+        if (Create(new RagdollData(owner.ReferenceHub ?? Server.NebuliHost.ReferenceHub, damageHandlerBase, roleType: role, position, rotation, Nickname, creationTime), out Ragdoll ragdoll))
             return ragdoll;
         return null;
     }
-
 
     /// <summary>
     /// Creates a new <see cref="Ragdoll"/> with the specified parameters and spawns it.
@@ -204,7 +203,7 @@ public class Ragdoll
         {
             ragdoll.Spawn();
             return ragdoll;
-        }         
+        }
         return null;
     }
 

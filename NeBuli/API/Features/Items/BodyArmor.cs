@@ -66,6 +66,4 @@ public class BodyArmor : Item
     /// <param name="bulletPenetrationPercent">The percentage of bullet penetration (0 to 100).</param>
     /// <returns>The processed damage value after considering the body armor's efficacy and bullet penetration.</returns>
     public static float ProcessDamage(int efficacy, float damage, int bulletPenetrationPercent) => BodyArmorUtils.ProcessDamage(efficacy, damage, bulletPenetrationPercent);
-
 }
-

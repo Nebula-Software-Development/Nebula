@@ -1,21 +1,21 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using UnityEngine;
-using Mirror;
+﻿using CameraShaking;
 using InventorySystem.Items;
 using InventorySystem.Items.Firearms;
-using InventorySystem.Items.Firearms.BasicMessages;
-using InventorySystem.Items.Firearms.Modules;
-using PlayerRoles;
-using RelativePositioning;
-using Nebuli.API.Features.Player;
-using Nebuli.API.Features.Enum;
-using Nebuli.API.Extensions;
-using Nebuli.API.Features.Structs;
 using InventorySystem.Items.Firearms.Attachments;
 using InventorySystem.Items.Firearms.Attachments.Components;
-using CameraShaking;
+using InventorySystem.Items.Firearms.BasicMessages;
+using InventorySystem.Items.Firearms.Modules;
+using Mirror;
+using Nebuli.API.Extensions;
+using Nebuli.API.Features.Enum;
+using Nebuli.API.Features.Player;
+using Nebuli.API.Features.Structs;
+using PlayerRoles;
+using RelativePositioning;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
 
 namespace Nebuli.API.Features.Items
 {
@@ -47,7 +47,7 @@ namespace Nebuli.API.Features.Items
         /// <summary>
         /// Gets the type of the firearm.
         /// </summary>
-        public FirearmType Type => Base.ItemTypeId.ToFirearmType();
+        public FirearmType Type => ItemType.ToFirearmType();
 
         /// <summary>
         /// Gets the firearms max ammo.
@@ -141,7 +141,7 @@ namespace Nebuli.API.Features.Items
         {
             get
             {
-                if(Base is AutomaticFirearm firearm)
+                if (Base is AutomaticFirearm firearm)
                 {
                     return (AutomaticAction)firearm.ActionModule;
                 }
@@ -152,14 +152,12 @@ namespace Nebuli.API.Features.Items
             }
             set
             {
-                if(Base is AutomaticFirearm firearm)
+                if (Base is AutomaticFirearm firearm)
                 {
                     firearm.ActionModule = value;
                 }
             }
         }
-
-
 
         /// <summary>
         /// Gets the faction affiliation of the firearm.
@@ -194,11 +192,10 @@ namespace Nebuli.API.Features.Items
         /// <summary>
         /// Gets the players firearms preferences.
         /// </summary>
-        public static IReadOnlyDictionary<NebuliPlayer, Dictionary<FirearmType, AttachmentIdentity[]>> PlayerPreferences 
-            => AttachmentsServerHandler.PlayerPreferences.Where(kvp => kvp.Key != null).ToDictionary(kvp => NebuliPlayer.Get(kvp.Key), kvp 
-                => kvp.Value.ToDictionary(subKvp => subKvp.Key.ToFirearmType(), subKvp 
+        public static IReadOnlyDictionary<NebuliPlayer, Dictionary<FirearmType, AttachmentIdentity[]>> PlayerPreferences
+            => AttachmentsServerHandler.PlayerPreferences.Where(kvp => kvp.Key != null).ToDictionary(kvp => NebuliPlayer.Get(kvp.Key), kvp
+                => kvp.Value.ToDictionary(subKvp => subKvp.Key.ToFirearmType(), subKvp
                     => subKvp.Key.ToFirearmType().GetAttachmentIdentifiers(subKvp.Value).ToArray()));
-
 
         /// <summary>
         /// Retrieves the attachment identities for enabled attachments of the firearm.
@@ -245,7 +242,11 @@ namespace Nebuli.API.Features.Items
             Base.ApplyAttachmentsCode((currentAttachmentsCode & ~toRemove) | newCode, true);
             Base.Status = new FirearmStatus(Math.Min(CurrentAmmo, MaxAmmo), Base.Status.Flags, currentAttachmentsCode);
         }
-
+        
+        /// <summary>
+        /// Adds a attachment to the firearm given a <see cref="AttachmentName"/>.
+        /// </summary>
+        public void AddAttachment(AttachmentName attachmentName) => AddAttachment(AttachmentIdentity.Get(Type, attachmentName));
 
         /// <summary>
         /// Fires a shot from the firearm.
@@ -346,4 +347,3 @@ namespace Nebuli.API.Features.Items
         }
     }
 }
-

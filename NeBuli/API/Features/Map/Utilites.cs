@@ -1,17 +1,17 @@
-﻿using Hazards;
-using PlayerRoles.PlayableScps.Scp173;
-using PlayerRoles;
-using Mirror;
-using RelativePositioning;
-using UnityEngine;
-using Object = UnityEngine.Object;
-using Decals;
+﻿using Decals;
+using Hazards;
 using InventorySystem.Items.Firearms.BasicMessages;
-using Utils.Networking;
-using Nebuli.API.Features.Items.Pickups;
-using System.Collections.Generic;
 using MapGeneration;
+using Mirror;
 using Nebuli.API.Features.AdminToys;
+using Nebuli.API.Features.Items.Pickups;
+using PlayerRoles;
+using PlayerRoles.PlayableScps.Scp173;
+using RelativePositioning;
+using System.Collections.Generic;
+using UnityEngine;
+using Utils.Networking;
+using Object = UnityEngine.Object;
 
 namespace Nebuli.API.Features.Map;
 
@@ -70,7 +70,6 @@ public static class Utilites
         }
     }
 
-
     /// <summary>
     /// Destroys all pickups in the Pickup List.
     /// </summary>
@@ -85,7 +84,7 @@ public static class Utilites
     /// </summary>
     public static void CleanAllRagdolls()
     {
-        foreach(Ragdoll ragdoll in Ragdoll.List)
+        foreach (Ragdoll ragdoll in Ragdoll.List)
             ragdoll.Destroy();
     }
 

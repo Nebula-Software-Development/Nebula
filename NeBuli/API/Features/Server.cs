@@ -178,9 +178,8 @@ public static class Server
     public static void RedirectPlayers(ushort port = default)
     {
         NetworkServer.SendToAll(new RoundRestartMessage(RoundRestartType.RedirectRestart, 0.3f, port, true, false));
-        RestartServer(NextRoundAction.Restart, false);   
+        RestartServer(NextRoundAction.Restart, false);
     }
-
 
     /// <summary>
     /// Gets or sets the server's name.

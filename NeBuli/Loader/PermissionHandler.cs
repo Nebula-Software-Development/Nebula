@@ -1,7 +1,6 @@
 ﻿using CommandSystem;
 using Nebuli.API.Features;
 using Nebuli.API.Features.Player;
-using NuGet.Protocol.Plugins;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -17,14 +16,14 @@ public static class PermissionsHandler
     {
         try
         {
-            if(!File.Exists(Paths.Permissions.FullName))
+            if (!File.Exists(Paths.Permissions.FullName))
             {
                 GenerateDefaultPermissionsFile(Paths.Permissions.FullName);
             }
 
             PermissionsConfig permissionsConfig = Loader.Loader.Deserializer.Deserialize<PermissionsConfig>(File.ReadAllText(Paths.Permissions.FullName));
 
-            foreach(string group in permissionsConfig.Permissions.Keys.ToList())
+            foreach (string group in permissionsConfig.Permissions.Keys.ToList())
             {
                 if (string.Equals(group, "user", StringComparison.OrdinalIgnoreCase) || ServerStatic.PermissionsHandler._groups.ContainsKey(group))
                     continue;
@@ -39,9 +38,8 @@ public static class PermissionsHandler
                 {
                     kvp.Value.GroupName = kvp.Key;
                     Groups.Add(kvp.Key, kvp.Value);
-                }            
+                }
             }
-
         }
         catch (Exception e)
         {
@@ -58,7 +56,6 @@ public static class PermissionsHandler
 
         try
         {
-
             string yaml = Loader.Loader.Serializer.Serialize(permissionsConfig);
             File.WriteAllText(Paths.Permissions.FullName, yaml);
         }
@@ -72,10 +69,10 @@ public static class PermissionsHandler
 
     public static bool HasPermission(this ICommandSender commandSender, string permission)
     {
-        if(commandSender is ServerConsoleSender) return true;
-        if (!NebuliPlayer.TryGet(commandSender, out NebuliPlayer ply)) return false; 
-        if (ply.ReferenceHub == ReferenceHub.HostHub || 
-            Groups.TryGetValue(ply.GroupName, out Group playerGroup) && 
+        if (commandSender is ServerConsoleSender) return true;
+        if (!NebuliPlayer.TryGet(commandSender, out NebuliPlayer ply)) return false;
+        if (ply.ReferenceHub == ReferenceHub.HostHub ||
+            Groups.TryGetValue(ply.GroupName, out Group playerGroup) &&
             (playerGroup.Permissions.Contains(".*") || playerGroup.Permissions.Contains(permission)))
         {
             return true;
@@ -97,7 +94,7 @@ public static class PermissionsHandler
         };
 
         try
-        {            
+        {
             File.WriteAllText(filePath, Loader.Loader.Serializer.Serialize(defaultPermissionsConfig));
         }
         catch (Exception e)

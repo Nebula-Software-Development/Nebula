@@ -2,6 +2,7 @@
 using HarmonyLib;
 using MEC;
 using Nebuli.API.Features;
+using Nebuli.API.Features.Pools;
 using Nebuli.API.Interfaces;
 using Nebuli.Events;
 using Nebuli.Loader.CustomConverters;
@@ -24,9 +25,13 @@ public class Loader
     private Harmony _harmony;
     private static bool _loaded = false;
 
+    /// <summary>
+    /// Gets a shared instance of the loaders random number generator.
+    /// </summary>
     public static Random Random { get; } = new();
 
     private static Assembly _assemblyCache = null;
+
     public static Assembly NebuliAssembly
     {
         get
@@ -47,26 +52,24 @@ public class Loader
         }
     }
 
-    public static ISerializer Serializer { get; private set; } = new SerializerBuilder()
+    public static ISerializer Serializer { get; set; } = new SerializerBuilder()
         .WithTypeConverter(new CustomVectorsConverter())
-        .WithEmissionPhaseObjectGraphVisitor((EmissionPhaseObjectGraphVisitorArgs visitor) 
-        => new CommentsObjectGraphVisitor(visitor.InnerVisitor)).WithTypeInspector((ITypeInspector typeInspector)
-        => new CommentGatheringTypeInspector(typeInspector))
+        .WithEmissionPhaseObjectGraphVisitor((EmissionPhaseObjectGraphVisitorArgs visitor) => new CommentsObjectGraphVisitor(visitor.InnerVisitor)).WithTypeInspector((ITypeInspector typeInspector) => new CommentGatheringTypeInspector(typeInspector))
         .WithNamingConvention(UnderscoredNamingConvention.Instance)
-            .DisableAliases()
-            .IgnoreFields()
-            .Build();
+        .DisableAliases()
+        .IgnoreFields()
+        .Build();
 
-    public static IDeserializer Deserializer { get; private set; } = new DeserializerBuilder()
+    public static IDeserializer Deserializer { get; set; } = new DeserializerBuilder()
         .WithTypeConverter(new CustomVectorsConverter())
         .WithNamingConvention(UnderscoredNamingConvention.Instance)
         .IgnoreUnmatchedProperties()
         .IgnoreFields()
-            .Build();
+        .Build();
 
-    public static readonly Dictionary<Assembly, IPlugin<IConfiguration>> _plugins = new();
+    public static Dictionary<Assembly, IPlugin<IConfiguration>> _plugins { get; private set; } = new();
 
-    public static readonly Dictionary<IPlugin<IConfiguration>, IConfiguration> EnabledPlugins = new();
+    public static Dictionary<IPlugin<IConfiguration>, IConfiguration> EnabledPlugins { get; private set; } = new();
 
     [PluginConfig]
     public static LoaderConfiguration Configuration;
@@ -77,9 +80,9 @@ public class Loader
     {
         if (!Configuration.LoaderEnabled)
         {
-            Log.Info("Nebuli Loader is disabled, Nebuli will not load.");
+            Log.Info("Nebuli Loader is disabled, Nebuli will not load.", consoleColor: ConsoleColor.Red, prefix: "Loader");
             return;
-        }       
+        }
 
         if (_loaded) return;
         else _loaded = true;
@@ -90,11 +93,7 @@ public class Loader
 
         Log.Debug($"Dependency path is {Paths.DependenciesDirectory}");
 
-        if (Configuration.ShouldCheckForUpdates)
-        {
-            Updater updater = new();
-            updater.CheckForUpdates();
-        }
+        if (Configuration.ShouldCheckForUpdates) new Updater().CheckForUpdates();
 
         LoadDependencies(Paths.DependenciesDirectory.GetFiles("*.dll"));
 
@@ -102,7 +101,7 @@ public class Loader
 
         LoadPlugins(Paths.PluginsPortDirectory.GetFiles("*.dll"));
 
-        EventManager.RegisterBaseEvents();     
+        EventManager.RegisterBaseEvents();
 
         try
         {
@@ -112,7 +111,7 @@ public class Loader
                 _harmony.PatchAll();
             }
             else
-                Log.Warning("Event patching is disabled, Events will not work");
+                Log.Warning("Event patching is disabled, Events will not work!");
         }
         catch (Exception e)
         {
@@ -126,7 +125,7 @@ public class Loader
                 Permissions.PermissionsHandler.LoadPermissions();
             });
         }
-        catch(Exception e) 
+        catch (Exception e)
         {
             Log.Error("Error occured while loading permission handler! Full error -->\n" + e);
         }
@@ -142,9 +141,9 @@ public class Loader
     {
         DisablePlugins();
         _loaded = false;
-        _harmony.UnpatchAll(_harmony.Id);
+        _harmony?.UnpatchAll(_harmony.Id);
         _harmony = null;
-        
+
         EventManager.UnRegisterBaseEvents();
     }
 
@@ -177,6 +176,8 @@ public class Loader
     {
         Log.Info("Loading plugins...");
 
+        List<IPlugin<IConfiguration>> pluginsToLoad = ListPool<IPlugin<IConfiguration>>.Instance.Rent();
+
         EnabledPlugins.Clear();
         _plugins.Clear();
 
@@ -186,21 +187,8 @@ public class Loader
             {
                 Assembly loadPlugin = Assembly.Load(File.ReadAllBytes(file.FullName));
                 IPlugin<IConfiguration> newPlugin = NewPlugin(loadPlugin);
-
-                if (IsPluginOutdated(newPlugin))
-                    continue;
-
-                IConfiguration config = SetupPluginConfig(newPlugin, Serializer, Deserializer);
-
-                if (!config.IsEnabled)
-                    continue;
-                newPlugin.LoadCommands();
-                newPlugin.OnEnabled();
-
-                Log.Info($"Plugin '{newPlugin.Name}' by '{newPlugin.Creator}', (v{newPlugin.Version}), has been successfully enabled!");
-
-                _plugins.Add(loadPlugin, newPlugin);
-                EnabledPlugins.Add(newPlugin, config);
+                newPlugin.Assembly = loadPlugin;
+                pluginsToLoad.Add(newPlugin);
             }
             catch (Exception e)
             {
@@ -208,8 +196,40 @@ public class Loader
             }
         }
 
-        Log.Info("Plugins loaded!");      
+        pluginsToLoad.Sort((p1, p2) => p1.LoadOrder.CompareTo(p2.LoadOrder));
+
+        foreach (IPlugin<IConfiguration> plugin in pluginsToLoad)
+        {
+            try
+            {
+                if (IsPluginOutdated(plugin))
+                    continue;
+
+                IConfiguration config = SetupPluginConfig(plugin);
+
+                if (!config.IsEnabled)
+                    continue;
+
+                plugin.LoadCommands();
+                plugin.OnEnabled();
+
+                string pluginName = string.IsNullOrEmpty(plugin.Name) ? plugin.Assembly.GetName().Name : plugin.Name;
+
+                Log.Info($"Plugin '{pluginName}' by '{plugin.Creator}', (v{plugin.Version}), has been successfully enabled!");
+
+                _plugins.Add(plugin.Assembly, plugin);
+                EnabledPlugins.Add(plugin, config);
+            }
+            catch (Exception e)
+            {
+                Log.Error($"Failed to load plugin {plugin.Name}. Full error : \n{e}");
+            }
+        }
+
+        Log.Info("Plugins loaded!");
+        ListPool<IPlugin<IConfiguration>>.Instance.Return(pluginsToLoad);
     }
+
 
     private static IPlugin<IConfiguration> NewPlugin(Assembly assembly)
     {
@@ -250,8 +270,10 @@ public class Loader
                 case -1:
                     Log.Warning($"{plugin.Name} is outdated and will not be loaded by Nebuli! (Plugin Version: {plugin.NebuliVersion} | Nebuli Version: {NebuliInfo.NebuliVersion})");
                     return true;
+
                 case 0:
                     return false;
+
                 case 1:
                     Log.Warning($"Nebuli is outdated! Please update Nebuli because it can cause plugin issues! ({plugin.Name} Version: {plugin.NebuliVersion} | Nebuli Version: {NebuliInfo.NebuliVersion})");
                     return false;
@@ -282,23 +304,25 @@ public class Loader
         return pluginProperty?.GetValue(null) as IPlugin<IConfiguration>;
     }
 
-    private static IConfiguration SetupPluginConfig(IPlugin<IConfiguration> plugin, ISerializer serializer, IDeserializer deserializer)
+    private static IConfiguration SetupPluginConfig(IPlugin<IConfiguration> plugin)
     {
-        string configPath = Path.Combine(Paths.PluginPortConfigDirectory.FullName, plugin.Name + $"-({Server.ServerPort})-Config.yml");
+        string configPath = Path.Combine(Paths.PluginPortConfigDirectory.FullName, 
+            string.IsNullOrEmpty(plugin.Name) ? plugin.Assembly.GetName().Name + $"-({Server.ServerPort})-Config.yml"
+            : plugin.Name + $"-({Server.ServerPort})-Config.yml");
         try
         {
             if (!File.Exists(configPath))
             {
                 Log.Warning($"{plugin.Name} does not have configs! Generating...");
                 Log.Debug("Serializing new config and writing it to the path...");
-                File.WriteAllText(configPath, serializer.Serialize(plugin.Config));
+                File.WriteAllText(configPath, Serializer.Serialize(plugin.Config));
                 plugin.ConfigPath = configPath;
                 return plugin.Config;
             }
             else
             {
                 Log.Debug($"Deserializing {plugin.Name} config at {configPath}...");
-                IConfiguration config = (IConfiguration)deserializer.Deserialize(File.ReadAllText(configPath), plugin.Config.GetType());
+                IConfiguration config = (IConfiguration)Deserializer.Deserialize(File.ReadAllText(configPath), plugin.Config.GetType());
                 plugin.ConfigPath = configPath;
                 plugin.ReloadConfig(config);
                 return config;
@@ -325,9 +349,9 @@ public class Loader
             {
                 Log.Info($"Reloading plugin configs for {plugin.Name}...");
                 if (!File.Exists(plugin.ConfigPath))
-                    SetupPluginConfig(plugin, Serializer, Deserializer);
+                    SetupPluginConfig(plugin);
                 IConfiguration newConfig = (IConfiguration)Deserializer.Deserialize(File.ReadAllText(plugin.ConfigPath), plugin.Config.GetType());
-                plugin.ReloadConfig(newConfig);               
+                plugin.ReloadConfig(newConfig);
             }
             catch (Exception e)
             {

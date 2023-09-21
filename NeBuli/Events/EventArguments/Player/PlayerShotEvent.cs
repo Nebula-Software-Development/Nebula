@@ -17,7 +17,7 @@ public class PlayerShotEventArgs : EventArgs, IPlayerEvent, ICancellableEvent
     /// <summary>
     /// Gets the <see cref="API.Features.Items.Firearm"/> base.
     /// </summary>
-    public Firearm Firearm  { get; }
+    public Firearm Firearm { get; }
 
     /// <summary>
     /// Gets or sets if the event is cancelled or not.

@@ -52,5 +52,4 @@ internal class PingingPatch
         pingAbility.AuxManager.CurrentAux -= ev.PowerCost;
         pingAbility._rateLimiter.RegisterInput();
     }
-
 }

@@ -17,38 +17,28 @@ namespace Nebuli.API.Features.Player;
 /// </summary>
 public class NebuliNpc : NebuliPlayer
 {
-    /// <summary>
-    /// Gets a dictionary of all the <see cref="ReferenceHub"/> and <see cref="NebuliNpc"/>.
-    /// </summary>
-    public static new readonly Dictionary<ReferenceHub, NebuliNpc> Dictionary = new();
 
     /// <summary>
     /// Creates a new <see cref="NebuliNpc"/> with a specified <see cref="ReferenceHub"/>.
     /// </summary>
     /// <param name="hub">The <see cref="ReferenceHub"/> to use to create the NPC.</param>
     internal NebuliNpc(ReferenceHub hub) : base(hub)
-    {
-        Dictionary.Add(hub, this);
-    }
+    { }
 
     /// <summary>
     /// Creates a new <see cref="NebuliNpc"/> with a specified <see cref="GameObject"/>.
     /// </summary>
     /// <param name="gameObject">The <see cref="GameObject"/> to use to create the NPC.</param>
-    internal NebuliNpc(GameObject gameObject) : base(gameObject) 
-    {      
-        Dictionary.Add(ReferenceHub, this);
-    }
-
-    /// <summary>
-    /// Gets a collection of all the <see cref="NebuliNpc"/> instances.
-    /// </summary>
-    public static new IEnumerable<NebuliNpc> Collection => Dictionary.Values;
+    internal NebuliNpc(GameObject gameObject) : base(gameObject)
+    { }
 
     /// <summary>
     /// Gets a list of all the <see cref="NebuliNpc"/> instances.
     /// </summary>
-    public static new List<NebuliNpc> List => Collection.ToList();
+    public static new List<NebuliNpc> List => 
+        NebuliPlayer.List.Where(player => player.IsNPC)
+        .Select(player => player as NebuliNpc)
+        .ToList();
 
     /// <summary>
     /// Creates a new NPC with the specified parameters.
@@ -93,10 +83,9 @@ public class NebuliNpc : NebuliPlayer
 
             newNPC.IsNPC = true;
 
-            newNPC.Health = newNPC.ReferenceHub.playerStats.GetModule<HealthStat>().MaxValue;
             return newNPC;
         }
-        catch(Exception e)
+        catch (Exception e)
         {
             Log.Error("Error while creating a NPC! Full error -->\n" + e);
             return null;
@@ -122,47 +111,26 @@ public class NebuliNpc : NebuliPlayer
     {
         Vector3 direction = position - Position;
         Quaternion quat = Quaternion.LookRotation(direction, Vector3.up);
-        var mouseLook = ((IFpcRole)ReferenceHub.roleManager.CurrentRole).FpcModule.MouseLook;
+        FpcMouseLook mouseLook = ((IFpcRole)ReferenceHub.roleManager.CurrentRole).FpcModule.MouseLook;
         (ushort horizontal, ushort vertical) = ToClientUShorts(quat);
         mouseLook.ApplySyncValues(horizontal, vertical);
     }
 
     private (ushort horizontal, ushort vertical) ToClientUShorts(Quaternion rotation)
     {
-        if (rotation.eulerAngles.z != 0f)
-        {
-            rotation = Quaternion.LookRotation(rotation * Vector3.forward, Vector3.up);
-        }
-        float outfHorizontal = rotation.eulerAngles.y;
-        float outfVertical = -rotation.eulerAngles.x;
+        rotation.Normalize();
 
-        if (outfVertical < -90f)
-        {
-            outfVertical += 360f;
-        }
-        else if (outfVertical > 270f)
-        {
-            outfVertical -= 360f;
-        }
+        float horizontal = rotation.eulerAngles.y;
+        float vertical = -rotation.eulerAngles.x;
 
-        return (ToHorizontal(outfHorizontal), ToVertical(outfVertical));
+        vertical = Mathf.Clamp(vertical, -88f, 88f) + 88f;
 
-        static ushort ToHorizontal(float horizontal)
-        {
-            const float ToHorizontal = 65535f / 360f;
+        const float ToHorizontal = 65535f / 360f;
+        const float ToVertical = 65535f / 176f;
 
-            horizontal = Mathf.Clamp(horizontal, 0f, 360f);
+        ushort horizontalUShort = (ushort)Mathf.RoundToInt(horizontal * ToHorizontal);
+        ushort verticalUShort = (ushort)Mathf.RoundToInt(vertical * ToVertical);
 
-            return (ushort)Mathf.RoundToInt(horizontal * ToHorizontal);
-        }
-
-        static ushort ToVertical(float vertical)
-        {
-            const float ToVertical = 65535f / 176f;
-
-            vertical = Mathf.Clamp(vertical, -88f, 88f) + 88f;
-
-            return (ushort)Mathf.RoundToInt(vertical * ToVertical);
-        }
+        return (horizontalUShort, verticalUShort);
     }
 }

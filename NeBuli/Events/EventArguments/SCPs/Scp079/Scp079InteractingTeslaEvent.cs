@@ -20,7 +20,7 @@ public class Scp079InteractingTeslaEvent : EventArgs, IPlayerEvent, ICancellable
     /// <summary>
     /// Gets if the event is cancelled.
     /// </summary>
-    public bool IsCancelled { get; set; } 
+    public bool IsCancelled { get; set; }
 
     /// <summary>
     /// Gets the Tesla Gate being triggered.

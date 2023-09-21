@@ -117,7 +117,6 @@ public enum CameraType
     /// </summary>
     EntranceZoneTwoStoryOffice,
 
-
     /// <summary>
     /// Camera in the armory area of Heavy Containment Zone, near SCP-049.
     /// </summary>
@@ -192,6 +191,7 @@ public enum CameraType
     /// Camera at the checkpoint for Entrance Zone from Heavy Containment Zone (Checkpoint EZ).
     /// </summary>
     HeavyContainmentZoneCheckpointEz,
+
     /// <summary>
     /// Camera at the checkpoint for Heavy Containment Zone from Entrance Zone (Checkpoint HCZ).
     /// </summary>
@@ -291,6 +291,7 @@ public enum CameraType
     /// Camera on the top level of the warhead control room in Heavy Containment Zone.
     /// </summary>
     HeavyContainmentZoneWarheadTop,
+
     /// <summary>
     /// Camera at the bottom of SCP-173's containment chamber in Light Containment Zone.
     /// </summary>

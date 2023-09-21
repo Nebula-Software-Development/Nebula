@@ -1,10 +1,10 @@
-﻿using System.Collections.Generic;
-using System.Reflection.Emit;
-using HarmonyLib;
+﻿using HarmonyLib;
 using Nebuli.Events.EventArguments.SCPs.Scp939;
 using Nebuli.Events.Handlers;
 using NorthwoodLib.Pools;
 using PlayerRoles.PlayableScps.Scp939;
+using System.Collections.Generic;
+using System.Reflection.Emit;
 using static HarmonyLib.AccessTools;
 
 namespace Nebuli.Events.Patches.SCPs.Scp939;
@@ -16,10 +16,10 @@ internal class PlaceCloud
     private static IEnumerable<CodeInstruction> OnPlacingCloud(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
         List<CodeInstruction> newInstructions = EventManager.CheckPatchInstructions<PlaceCloud>(30, instructions);
-        
+
         Label retLabel = generator.DefineLabel();
         int index = newInstructions.FindIndex(instruction => instruction.opcode == OpCodes.Ret) + 1;
-        
+
         newInstructions.InsertRange(index, new[]
         {
             new CodeInstruction(OpCodes.Ldarg_0).MoveLabelsFrom(newInstructions[index]),
@@ -30,12 +30,12 @@ internal class PlaceCloud
             new(OpCodes.Callvirt, PropertyGetter(typeof(Scp939PlaceCloudEvent), nameof(Scp939PlaceCloudEvent.IsCancelled))),
             new(OpCodes.Brtrue_S, retLabel),
         });
-        
+
         newInstructions[newInstructions.Count - 1].labels.Add(retLabel);
-        
+
         foreach (CodeInstruction instruction in newInstructions)
             yield return instruction;
-        
+
         ListPool<CodeInstruction>.Shared.Return(newInstructions);
     }
 }

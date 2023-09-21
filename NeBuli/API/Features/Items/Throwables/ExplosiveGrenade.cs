@@ -1,10 +1,10 @@
-﻿using InventorySystem.Items.Pickups;
-using InventorySystem.Items;
+﻿using InventorySystem.Items;
+using InventorySystem.Items.Pickups;
 using InventorySystem.Items.ThrowableProjectiles;
+using Nebuli.API.Features.Items.Pickups;
 using Nebuli.API.Features.Items.Projectiles;
 using Nebuli.API.Features.Player;
 using UnityEngine;
-using Nebuli.API.Features.Items.Pickups;
 
 namespace Nebuli.API.Features.Items.Throwables;
 
@@ -14,6 +14,7 @@ public class ExplosiveGrenade : Throwable
     /// Gets the <see cref="ExplosiveGrenadeProjectile"/> base.
     /// </summary>
     public new ExplosiveGrenadeProjectile Projectile { get; }
+
     internal ExplosiveGrenade(ThrowableItem itemBase) : base(itemBase)
     {
         Projectile = (ExplosiveGrenadeProjectile)((Throwable)this).Projectile;
@@ -67,5 +68,4 @@ public class ExplosiveGrenade : Throwable
         grenade.Base.gameObject.SetActive(true);
         return grenade;
     }
-
 }

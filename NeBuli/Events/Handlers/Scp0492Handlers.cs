@@ -10,7 +10,7 @@ public static class Scp0492Handlers
 
     public static event EventManager.CustomEventHandler<Scp0492AttackEvent> Attack;
 
-    public static event EventManager.CustomEventHandler<Scp0492BloodlustEvent> BloodLust; 
+    public static event EventManager.CustomEventHandler<Scp0492BloodlustEvent> BloodLust;
 
     internal static void OnConsumeCorpse(Scp0492ConsumeCorpseEvent ev) => ConsumeCorpse.CallEvent(ev);
 

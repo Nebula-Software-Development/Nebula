@@ -9,16 +9,18 @@ public class ExplosiveGrenadeProjectile : GrenadeEffectProjectile
     /// Gets the <see cref="ExplosionGrenade"/> base.
     /// </summary>
     public new ExplosionGrenade Base { get; }
+
     internal ExplosiveGrenadeProjectile(ExplosionGrenade itemBase) : base(itemBase)
     {
         Base = itemBase;
     }
+
     /// <summary>
     /// Gets or sets the grenades max radius.
     /// </summary>
     public float MaxRadius
     {
-        get => Base._maxRadius; 
+        get => Base._maxRadius;
         set => Base._maxRadius = value;
     }
 

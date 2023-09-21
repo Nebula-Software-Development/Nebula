@@ -1,10 +1,10 @@
-﻿using System.Collections.Generic;
-using System.Reflection.Emit;
-using HarmonyLib;
+﻿using HarmonyLib;
 using Nebuli.Events.EventArguments.Player;
 using Nebuli.Events.Handlers;
 using NorthwoodLib.Pools;
 using PlayerRoles;
+using System.Collections.Generic;
+using System.Reflection.Emit;
 using static HarmonyLib.AccessTools;
 
 namespace Nebuli.Events.Patches.Player;
@@ -16,10 +16,10 @@ internal class RoleChange
     private static IEnumerable<CodeInstruction> OnChangingRole(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
         List<CodeInstruction> newInstructions = EventManager.CheckPatchInstructions<RoleChange>(111, instructions);
-        
+
         Label retLabel = generator.DefineLabel();
         LocalBuilder @event = generator.DeclareLocal(typeof(PlayerRoleChangeEvent));
-        
+
         newInstructions.InsertRange(0, new CodeInstruction[]
         {
             new(OpCodes.Ldarg_0),
@@ -44,12 +44,12 @@ internal class RoleChange
             new(OpCodes.Callvirt, PropertyGetter(typeof(PlayerRoleChangeEvent), nameof(PlayerRoleChangeEvent.SpawnFlags))),
             new(OpCodes.Starg_S, 3),
         });
-        
+
         newInstructions[newInstructions.Count - 1].labels.Add(retLabel);
-        
+
         foreach (CodeInstruction instruction in newInstructions)
             yield return instruction;
-        
+
         ListPool<CodeInstruction>.Shared.Return(newInstructions);
     }
 }

@@ -53,5 +53,3 @@ internal class UpgradingItemPatch
         ListPool<CodeInstruction>.Shared.Return(newInstructions);
     }
 }
-
-

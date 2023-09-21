@@ -1,10 +1,10 @@
-using System.Collections.Generic;
-using System.Reflection.Emit;
 using HarmonyLib;
 using Nebuli.Events.EventArguments.SCPs.Scp0492;
 using Nebuli.Events.Handlers;
 using NorthwoodLib.Pools;
 using PlayerRoles.PlayableScps.Scp049.Zombies;
+using System.Collections.Generic;
+using System.Reflection.Emit;
 using static HarmonyLib.AccessTools;
 
 namespace Nebuli.Events.Patches.SCPs.Scp0492;
@@ -18,12 +18,12 @@ internal class CorpseConsumed
         List<CodeInstruction> newInstructions = EventManager.CheckPatchInstructions<CorpseConsumed>(18, instructions);
 
         int index = newInstructions.FindIndex(i => i.opcode == OpCodes.Ret) + 1;
-        
+
         LocalBuilder floatBuilder = generator.DeclareLocal(typeof(float));
         CodeInstruction i = newInstructions.Find(x => x.opcode == OpCodes.Ldc_R4);
         i.opcode = OpCodes.Ldloc_S;
         i.operand = floatBuilder.LocalIndex;
-        
+
         newInstructions.InsertRange(index, new CodeInstruction[]
         {
             new CodeInstruction(OpCodes.Ldarg_0).MoveLabelsFrom(newInstructions[index]),
@@ -36,10 +36,10 @@ internal class CorpseConsumed
             new(OpCodes.Callvirt, PropertyGetter(typeof(Scp0492CorpseConsumedEvent), nameof(Scp0492CorpseConsumedEvent.HealthToReceive))),
             new(OpCodes.Stloc_S, floatBuilder.LocalIndex),
         });
-        
+
         foreach (CodeInstruction instruction in newInstructions)
             yield return instruction;
-        
+
         ListPool<CodeInstruction>.Shared.Return(newInstructions);
     }
 }

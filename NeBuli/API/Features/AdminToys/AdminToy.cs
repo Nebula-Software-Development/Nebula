@@ -15,7 +15,7 @@ public class AdminToy
     /// <summary>
     /// Gets the <see cref="global::AdminToys.AdminToyBase"/> (base) of the <see cref="AdminToy"/>.
     /// </summary>
-    public SLAdminToy Base { get; } 
+    public SLAdminToy Base { get; }
 
     internal AdminToy(SLAdminToy adminToyBase, ToyType toyType)
     {
@@ -34,7 +34,7 @@ public class AdminToy
     /// </summary>
     public Vector3 Position
     {
-        get => Base.NetworkPosition; 
+        get => Base.NetworkPosition;
         set => Base.NetworkPosition = value;
     }
 
@@ -48,7 +48,7 @@ public class AdminToy
     /// </summary>
     public Vector3 Scale
     {
-        get => Base.NetworkScale; 
+        get => Base.NetworkScale;
         set => Base.NetworkScale = value;
     }
 
@@ -99,7 +99,7 @@ public class AdminToy
     /// </summary>
     public void DestroyToy()
     {
-        if(Utilites.AdminToys.Contains(this)) Utilites.AdminToys.Remove(this);
+        if (Utilites.AdminToys.Contains(this)) Utilites.AdminToys.Remove(this);
         NetworkServer.Destroy(GameObject);
     }
 }

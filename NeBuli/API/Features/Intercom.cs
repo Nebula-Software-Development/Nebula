@@ -26,7 +26,6 @@ public static class Intercom
     /// </summary>
     public static Transform Transform => IntercomDisplay._singleton.transform;
 
-
     /// <summary>
     /// Initiates the playback of the intercom sound.
     /// </summary>
@@ -35,14 +34,13 @@ public static class Intercom
 
     /// <summary>
     /// Resets the cooldown time for the intercom.
-    /// </summary> 
+    /// </summary>
     public static void ResetIntercomCooldown() => CurrentState = IntercomState.Ready;
 
     /// <summary>
     /// Times out the intercom operation.
     /// </summary>
     public static void TimeoutIntercom() => CurrentState = IntercomState.Cooldown;
-
 
     /// <summary>
     /// Gets or sets the text displayed on the IntercomDisplay.

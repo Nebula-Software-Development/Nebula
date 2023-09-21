@@ -1,10 +1,10 @@
-using System.Collections.Generic;
-using System.Reflection.Emit;
 using HarmonyLib;
 using Nebuli.Events.EventArguments.SCPs.Scp173;
 using Nebuli.Events.Handlers;
 using NorthwoodLib.Pools;
 using PlayerRoles.PlayableScps.Scp173;
+using System.Collections.Generic;
+using System.Reflection.Emit;
 using static HarmonyLib.AccessTools;
 
 namespace Nebuli.Events.Patches.SCPs.Scp173;
@@ -12,14 +12,14 @@ namespace Nebuli.Events.Patches.SCPs.Scp173;
 [HarmonyPatch(typeof(Scp173BreakneckSpeedsAbility), nameof(Scp173BreakneckSpeedsAbility.ServerProcessCmd))]
 internal class UseBreakneck
 {
-    [HarmonyTranspiler] 
+    [HarmonyTranspiler]
     private static IEnumerable<CodeInstruction> OnTogglingBreakneck(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
         List<CodeInstruction> newInstructions = EventManager.CheckPatchInstructions<UseBreakneck>(21, instructions);
 
         Label retLabel = generator.DefineLabel();
         int index = newInstructions.FindIndex(i => i.opcode == OpCodes.Ret) + 1;
-        
+
         newInstructions.InsertRange(index, new CodeInstruction[]
         {
             new CodeInstruction(OpCodes.Ldarg_0).MoveLabelsFrom(newInstructions[index]),
@@ -32,7 +32,7 @@ internal class UseBreakneck
         });
 
         index = newInstructions.FindIndex(i => i.opcode == OpCodes.Ldc_I4_1) - 1;
-        
+
         newInstructions.InsertRange(index, new CodeInstruction[]
         {
             new CodeInstruction(OpCodes.Ldarg_0).MoveLabelsFrom(newInstructions[index]),
@@ -48,7 +48,7 @@ internal class UseBreakneck
 
         foreach (CodeInstruction instruction in newInstructions)
             yield return instruction;
-        
+
         ListPool<CodeInstruction>.Shared.Return(newInstructions);
     }
 }

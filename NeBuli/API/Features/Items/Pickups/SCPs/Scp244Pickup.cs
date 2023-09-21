@@ -8,6 +8,7 @@ namespace Nebuli.API.Features.Items.Pickups.SCPs
         /// Gets the <see cref="Scp244Base"/> base.
         /// </summary>
         public new Scp244Base Base { get; }
+
         internal Scp244Pickup(Scp244Base pickupBase) : base(pickupBase)
         {
             Base = pickupBase;

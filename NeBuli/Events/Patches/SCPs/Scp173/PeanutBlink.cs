@@ -1,13 +1,12 @@
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection.Emit;
-using System.ServiceModel.Channels;
 using HarmonyLib;
 using Nebuli.API.Features.Player;
 using Nebuli.Events.EventArguments.SCPs.Scp173;
 using Nebuli.Events.Handlers;
 using NorthwoodLib.Pools;
 using PlayerRoles.PlayableScps.Scp173;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection.Emit;
 using static HarmonyLib.AccessTools;
 
 namespace Nebuli.Events.Patches.SCPs.Scp173;
@@ -19,7 +18,7 @@ internal class PeanutBlink
     private static IEnumerable<CodeInstruction> OnBlink(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
         List<CodeInstruction> newInstructions = EventManager.CheckPatchInstructions<PeanutBlink>(21, instructions);
-        
+
         LocalBuilder @event = generator.DeclareLocal(typeof(Scp173BlinkEvent));
         Label retLabel = generator.DefineLabel();
 
@@ -45,14 +44,14 @@ internal class PeanutBlink
             new(OpCodes.Callvirt, PropertyGetter(typeof(Scp173BlinkEvent), nameof(Scp173BlinkEvent.Position))),
             new(OpCodes.Starg_S, 1)
         });
-        
+
         newInstructions[newInstructions.Count - 1].labels.Add(retLabel);
-        
+
         foreach (CodeInstruction instruction in newInstructions)
             yield return instruction;
-        
-        ListPool<CodeInstruction>.Shared.Return(newInstructions);
 
+        ListPool<CodeInstruction>.Shared.Return(newInstructions);
     }
+
     private static List<NebuliPlayer> GetPlayersBlinking(HashSet<ReferenceHub> hubs) => hubs.Select(NebuliPlayer.Get).ToList();
 }

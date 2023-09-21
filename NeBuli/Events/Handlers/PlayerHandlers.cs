@@ -23,7 +23,7 @@ public static class PlayerHandlers
     public static event EventManager.CustomEventHandler<PlayerEscapingEvent> Escaping;
 
     public static event EventManager.CustomEventHandler<PlayerPickingUpItemEvent> PickingUpItem;
-     
+
     public static event EventManager.CustomEventHandler<PlayerDroppingItemEvent> DroppingItem;
 
     public static event EventManager.CustomEventHandler<PlayerPickingUpAmmoEvent> PickingUpAmmo;
@@ -49,6 +49,10 @@ public static class PlayerHandlers
     public static event EventManager.CustomEventHandler<PlayerEnteringPocketDimensionEvent> EnteringPocketDimension;
 
     public static event EventManager.CustomEventHandler<PlayerTogglingNoClipEvent> TogglingNoClip;
+
+    public static event EventManager.CustomEventHandler<PlayerChangedItemEvent> ChangedItem;
+
+    public static event EventManager.CustomEventHandler<PlayerChangingNicknameEvent> ChangingNickname;
 
     internal static void OnJoin(PlayerJoinEvent ev) => Join.CallEvent(ev);
 
@@ -76,7 +80,7 @@ public static class PlayerHandlers
 
     internal static void OnEscapingPocket(PlayerEscapingPocketEvent ev) => EscapingPocket.CallEvent(ev);
 
-    internal static void OnChangingUserGroup(PlayerChangingUserGroupEvent ev) => UserChangingUserGroup.CallEvent(ev); 
+    internal static void OnChangingUserGroup(PlayerChangingUserGroupEvent ev) => UserChangingUserGroup.CallEvent(ev);
 
     internal static void OnSpawningRagdoll(PlayerSpawningRagdollEvent ev) => SpawningRagdoll.CallEvent(ev);
 
@@ -95,4 +99,8 @@ public static class PlayerHandlers
     internal static void OnPlayerEnteringPocket(PlayerEnteringPocketDimensionEvent ev) => EnteringPocketDimension.CallEvent(ev);
 
     internal static void OnPlayerTogglingNoClip(PlayerTogglingNoClipEvent ev) => TogglingNoClip.CallEvent(ev);
+
+    internal static void OnChangedItem(PlayerChangedItemEvent ev) => ChangedItem.CallEvent(ev);
+
+    internal static void OnChangingNickname(PlayerChangingNicknameEvent ev) => ChangingNickname.CallEvent(ev); 
 }

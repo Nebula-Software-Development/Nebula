@@ -10,7 +10,7 @@ public static class Scp079Handlers
 
     public static event EventManager.CustomEventHandler<Scp079GainingExperienceEvent> GainingExperience;
 
-    public static event EventManager.CustomEventHandler<Scp079GainingLevelEvent > GainingLevel;
+    public static event EventManager.CustomEventHandler<Scp079GainingLevelEvent> GainingLevel;
 
     public static event EventManager.CustomEventHandler<Scp079ChangingCameraEvent> ChangingCamera;
 

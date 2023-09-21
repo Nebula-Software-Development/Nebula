@@ -8,6 +8,7 @@ public class TemporaryHazard : EnviormentHazard
     /// Gets the <see cref="TemporaryHazardBase"/> base.
     /// </summary>
     public new TemporaryHazardBase Base { get; }
+
     internal TemporaryHazard(TemporaryHazardBase hazardBase) : base(hazardBase)
     {
         Base = hazardBase;
@@ -23,7 +24,7 @@ public class TemporaryHazard : EnviormentHazard
     /// </summary>
     public bool Destroyed
     {
-        get => Base._destroyed; 
+        get => Base._destroyed;
         set => Base._destroyed = value;
     }
 

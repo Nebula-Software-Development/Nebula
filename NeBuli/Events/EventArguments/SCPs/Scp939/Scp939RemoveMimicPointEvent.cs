@@ -1,5 +1,5 @@
-﻿using System;
-using Nebuli.API.Features.Player;
+﻿using Nebuli.API.Features.Player;
+using System;
 
 namespace Nebuli.Events.EventArguments.SCPs.Scp939;
 

@@ -1,5 +1,4 @@
 ﻿using HarmonyLib;
-using InventorySystem.Items.Firearms.Modules;
 using InventorySystem.Searching;
 using Nebuli.Events.EventArguments.Player;
 using Nebuli.Events.Handlers;
@@ -33,7 +32,7 @@ internal class PickingUpItemPatch
             new(OpCodes.Brtrue_S, retLabel),
         });
 
-         newInstructions[newInstructions.Count - 1].labels.Add(retLabel);
+        newInstructions[newInstructions.Count - 1].labels.Add(retLabel);
 
         foreach (CodeInstruction instruction in newInstructions)
             yield return instruction;

@@ -9,6 +9,7 @@ public class Projectile : Pickup
     /// Gets the <see cref="ThrownProjectile"/> base.
     /// </summary>
     public new ThrownProjectile Base { get; }
+
     internal Projectile(ThrownProjectile thrownProjectile) : base(thrownProjectile)
     {
         Base = thrownProjectile;

@@ -33,7 +33,6 @@ public static class Paths
     /// </summary>
     public static DirectoryInfo PluginConfigDirectory { get; private set; }
 
-
     /// <summary>
     /// Gets the current port folder for the plugin configuration files.
     /// </summary>
@@ -51,13 +50,13 @@ public static class Paths
     {
         MainDirectory = Directory.CreateDirectory(Path.Combine(NwPaths.AppData, "Nebuli"));
         PluginsDirectory = MainDirectory.CreateSubdirectory("Plugins");
-        if(Loader.Loader.Configuration.SeperatePluginsByPort)
+        if (Loader.Loader.Configuration.SeperatePluginsByPort)
             PluginsPortDirectory = PluginsDirectory.CreateSubdirectory(Server.ServerPort.ToString() + "-Plugins");
         else
             PluginsPortDirectory = PluginsDirectory;
         PluginConfigDirectory = MainDirectory.CreateSubdirectory("Plugin-Configurations");
         PluginPortConfigDirectory = PluginConfigDirectory.CreateSubdirectory(Server.ServerPort.ToString());
         DependenciesDirectory = PluginsDirectory.CreateSubdirectory("Dependencies");
-        Permissions = new FileInfo(Path.Combine(MainDirectory.FullName, "Permissions.yml"));       
+        Permissions = new FileInfo(Path.Combine(MainDirectory.FullName, "Permissions.yml"));
     }
 }

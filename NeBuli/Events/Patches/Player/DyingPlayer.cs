@@ -35,7 +35,7 @@ internal class DyingPlayer
             new(OpCodes.Starg, 1),
             new(OpCodes.Callvirt, PropertyGetter(typeof(PlayerHurtEvent), nameof(PlayerHurtEvent.IsCancelled))),
             new(OpCodes.Brtrue_S, retLabel)
-        }) ;    
+        });
 
         newInstructions[newInstructions.Count - 1].labels.Add(retLabel);
 

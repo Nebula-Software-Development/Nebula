@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using CameraType = Nebuli.API.Features.Enum.CameraType;
 using CameraBase = PlayerRoles.PlayableScps.Scp079.Cameras.Scp079Camera;
+using CameraType = Nebuli.API.Features.Enum.CameraType;
 
 namespace Nebuli.API.Features.Map;
 

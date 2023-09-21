@@ -1,5 +1,5 @@
-﻿using InventorySystem.Items.Pickups;
-using InventorySystem.Items;
+﻿using InventorySystem.Items;
+using InventorySystem.Items.Pickups;
 using InventorySystem.Items.ThrowableProjectiles;
 using Nebuli.API.Features.Items.Pickups;
 using Nebuli.API.Features.Items.Projectiles;
@@ -14,6 +14,7 @@ public class FlashbangGrenade : Throwable
     /// Gets the <see cref="ThrowableItem"/> base.
     /// </summary>
     public new FlashbangProjectile Base { get; }
+
     internal FlashbangGrenade(ThrowableItem grenadeBase) : base(grenadeBase)
     {
         Base = (FlashbangProjectile)this.Projectile;

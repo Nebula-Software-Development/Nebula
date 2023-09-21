@@ -221,7 +221,7 @@ public class Item
         if (itemBase == null)
             return null;
 
-        if(Dictionary.ContainsKey(itemBase)) return Dictionary[itemBase];
+        if (Dictionary.ContainsKey(itemBase)) return Dictionary[itemBase];
 
         return itemBase switch
         {
@@ -242,7 +242,7 @@ public class Item
                 Painkillers painkillers => new Usables.Painkillers(painkillers),
                 Scp244Item scp244Item => new Scp244(scp244Item),
                 Scp1576Item scp1576 => new Scp1576(scp1576),
-                _ => new Item(usableItem),
+                _ => new Usable(usableItem),
             },
 
             ThrowableItem throwable => throwable.Projectile switch

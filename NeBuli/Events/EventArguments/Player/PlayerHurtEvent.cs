@@ -14,6 +14,14 @@ public class PlayerHurtEvent : EventArgs, IDamageEvent, ICancellableEvent
         IsCancelled = false;
     }
 
+    public PlayerHurtEvent(ReferenceHub attacker, ReferenceHub target, DamageHandlerBase dmgB)
+    {
+        Attacker = NebuliPlayer.Get(attacker);
+        Target = NebuliPlayer.Get(target);
+        DamageHandlerBase = dmgB;
+        IsCancelled = false;
+    }
+
     /// <summary>
     /// The attacker of the target.
     /// </summary>

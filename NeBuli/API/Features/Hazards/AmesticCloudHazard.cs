@@ -9,10 +9,11 @@ public class AmesticCloudHazard : TemporaryHazard
     /// Gets the <see cref="Scp939AmnesticCloudInstance"/> base.
     /// </summary>
     public new Scp939AmnesticCloudInstance Base { get; }
+
     internal AmesticCloudHazard(Scp939AmnesticCloudInstance hazardBase) : base(hazardBase)
     {
         Base = hazardBase;
-        Owner = NebuliPlayer.Get(Base._cloud.Owner);  
+        Owner = NebuliPlayer.Get(Base._cloud.Owner);
     }
 
     /// <summary>
@@ -39,7 +40,7 @@ public class AmesticCloudHazard : TemporaryHazard
     /// </summary>
     public Scp939AmnesticCloudInstance.CloudState State
     {
-        get => Base.State; 
+        get => Base.State;
         set => Base.State = value;
     }
 
@@ -48,7 +49,7 @@ public class AmesticCloudHazard : TemporaryHazard
     /// </summary>
     public float TargetDuration
     {
-        get => Base._targetDuration; 
+        get => Base._targetDuration;
         set => Base._targetDuration = value;
     }
 

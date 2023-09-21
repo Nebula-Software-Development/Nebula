@@ -10,10 +10,16 @@ public class ElevatorDoor : Door
     /// Gets the <see cref="ElevatorDoorBase"/> base.
     /// </summary>
     public new ElevatorDoorBase Base { get; }
+
     internal ElevatorDoor(ElevatorDoorBase door) : base(door)
     {
         Base = door;
     }
+
+    /// <summary>
+    /// Gets the last player that interacted with the elevator.
+    /// </summary>
+    public ReferenceHub LastPlayerInteracted => Base._triggerPlayer;
 
     /// <summary>
     /// Gets the elevators bottom position.
@@ -28,5 +34,5 @@ public class ElevatorDoor : Door
     /// <summary>
     /// Gets the elevators group.
     /// </summary>
-    public ElevatorGroup Group => Base.Group;   
+    public ElevatorGroup Group => Base.Group;
 }

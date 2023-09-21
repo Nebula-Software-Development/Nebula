@@ -17,7 +17,7 @@ public class Scp096PryingGateEvent : EventArgs, IPlayerEvent, ICancellableEvent
     /// Gets the player prying the door.
     /// </summary>
     public NebuliPlayer Player { get; }
-    
+
     /// <summary>
     /// Gets the <see cref="API.Features.Doors.PryableDoor"/> being pried.
     /// </summary>

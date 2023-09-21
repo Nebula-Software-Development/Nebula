@@ -12,8 +12,9 @@ public class Radio : Item
     /// Gets the <see cref="RadioItemBase"/> base.
     /// </summary>
     public new RadioItemBase Base { get; }
+
     internal Radio(RadioItemBase itemBase) : base(itemBase)
-    { 
+    {
         Base = itemBase;
     }
 
@@ -31,5 +32,4 @@ public class Radio : Item
     /// Gets the radios current <see cref="RadioRangeLevel"/>.
     /// </summary>
     public RadioRangeLevel CurrentRange => Base.RangeLevel;
-
 }

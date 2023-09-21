@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Concurrent;
+﻿using System.Collections.Concurrent;
 using System.Collections.Generic;
 
 namespace Nebuli.API.Features.Pools;
@@ -36,6 +35,8 @@ public class DictionaryPool<TKey, TValue>
         }
 
         return CreateDictionary();
+
+
     }
 
     /// <summary>
@@ -63,6 +64,7 @@ public class DictionaryPool<TKey, TValue>
     {
         if (dictionary != null)
         {
+            dictionary.Clear();
             Pool.Enqueue(dictionary);
         }
     }

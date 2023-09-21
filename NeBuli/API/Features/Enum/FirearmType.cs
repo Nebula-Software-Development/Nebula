@@ -80,4 +80,3 @@ public enum FirearmType
     /// </summary>
     ParticleDisruptor = ItemType.ParticleDisruptor,
 }
-

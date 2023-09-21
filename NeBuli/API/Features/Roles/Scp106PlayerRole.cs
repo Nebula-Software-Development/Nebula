@@ -1,6 +1,5 @@
 ﻿using PlayerRoles.PlayableScps.Scp106;
 
-
 namespace Nebuli.API.Features.Roles;
 
 public class Scp106PlayerRole : FpcRoleBase
@@ -9,6 +8,7 @@ public class Scp106PlayerRole : FpcRoleBase
     /// Gets the <see cref="Scp106Role"/> base.
     /// </summary>
     public new Scp106Role Base { get; }
+
     internal Scp106PlayerRole(Scp106Role scpRole) : base(scpRole)
     {
         Base = scpRole;

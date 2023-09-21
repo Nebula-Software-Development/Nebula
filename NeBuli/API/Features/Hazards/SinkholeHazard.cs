@@ -8,6 +8,7 @@ public class SinkholeHazard : EnviormentHazard
     /// Gets the <see cref="SinkholeHazardBase"/> base.
     /// </summary>
     public new SinkholeHazardBase Base { get; }
+
     internal SinkholeHazard(SinkholeHazardBase hazardBase) : base(hazardBase)
     {
         Base = hazardBase;

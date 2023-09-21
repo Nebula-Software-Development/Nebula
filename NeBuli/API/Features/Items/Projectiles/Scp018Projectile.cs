@@ -9,6 +9,7 @@ public class Scp018Projectile : TimedExplosiveProjectile
     /// Gets the <see cref="Scp018ProjectileBase"/> base.
     /// </summary>
     public new Scp018ProjectileBase Base { get; }
+
     internal Scp018Projectile(Scp018ProjectileBase scp018Base) : base(scp018Base)
     {
         Base = scp018Base;
@@ -99,7 +100,7 @@ public class Scp018Projectile : TimedExplosiveProjectile
     }
 
     /// <summary>
-    /// Gets or sets the activation time of SCP-018. 
+    /// Gets or sets the activation time of SCP-018.
     /// </summary>
     public double ActivationTime
     {
@@ -115,5 +116,4 @@ public class Scp018Projectile : TimedExplosiveProjectile
         get => Base._friendlyFireTime;
         set => Base._friendlyFireTime = value;
     }
-
 }

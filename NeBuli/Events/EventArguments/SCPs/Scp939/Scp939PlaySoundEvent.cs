@@ -1,5 +1,5 @@
-using System;
 using Nebuli.API.Features.Player;
+using System;
 
 namespace Nebuli.Events.EventArguments.SCPs.Scp939;
 
@@ -11,7 +11,7 @@ public class Scp939PlaySound : EventArgs, IPlayerEvent, ICancellableEvent
         SoundOption = option;
         IsCancelled = false;
     }
-    
+
     /// <summary>
     /// The player playing the sound.
     /// </summary>
@@ -21,7 +21,7 @@ public class Scp939PlaySound : EventArgs, IPlayerEvent, ICancellableEvent
     /// Gets or sets if the event is cancelled
     /// </summary>
     public bool IsCancelled { get; set; }
-    
+
     /// <summary>
     /// The sound to be played.
     /// </summary>

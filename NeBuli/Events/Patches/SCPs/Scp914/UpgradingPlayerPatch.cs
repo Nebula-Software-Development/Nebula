@@ -39,7 +39,7 @@ internal class UpgradingPlayerPatch
             new(OpCodes.Brtrue_S, retLabel),
             new(OpCodes.Ldloc_S, @event.LocalIndex),
             new(OpCodes.Callvirt, PropertyGetter(typeof(UpgradingPlayerEvent), nameof(UpgradingPlayerEvent.KnobSetting))),
-            new(OpCodes.Starg_S, 4),           
+            new(OpCodes.Starg_S, 4),
             new(OpCodes.Ldloc_S, @event.LocalIndex),
             new(OpCodes.Callvirt, PropertyGetter(typeof(UpgradingPlayerEvent), nameof(UpgradingPlayerEvent.UpgradeInventory))),
             new(OpCodes.Starg_S, 1),

@@ -11,6 +11,7 @@ public class PlayerEscapingPocketEvent : EventArgs, IPlayerEvent, ICancellableEv
         IsCancelled = false;
         Successful = successful;
     }
+
     /// <summary>
     /// The player calling the event.
     /// </summary>

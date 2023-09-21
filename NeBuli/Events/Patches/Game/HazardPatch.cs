@@ -16,4 +16,3 @@ internal class HazardPatchDestroy
     [HarmonyPostfix]
     private static void Destroy(EnvironmentalHazard __instance) => _ = API.Features.Hazards.EnviormentHazard.Dictionary.Remove(__instance);
 }
-

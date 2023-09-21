@@ -9,6 +9,7 @@ public class JailbirdPickup : Pickup
     /// Gets the <see cref="JailbirdPickupBase"/> base.
     /// </summary>
     public new JailbirdPickupBase Base { get; }
+
     internal JailbirdPickup(JailbirdPickupBase pickupBase) : base(pickupBase)
     {
         Base = pickupBase;

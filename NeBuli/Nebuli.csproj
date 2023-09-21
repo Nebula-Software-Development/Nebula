@@ -70,6 +70,7 @@
     <Reference Include="Mirror" HintPath="$(NEBULIREFERENCES)\Mirror-Publicized.dll" Private="false" />
     <Reference Include="NorthwoodLib" HintPath="$(NEBULIREFERENCES)\NorthwoodLib.dll" Private="false" />
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
@@ -82,6 +83,7 @@
     <Reference Include="UnityEngine.PhysicsModule" HintPath="$(NEBULIREFERENCES)\UnityEngine.PhysicsModule.dll" Private="false" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="API\Extensions\ReferenceHubExtensions.cs" />
     <Compile Include="API\Extensions\StatusEffectTypeExtension.cs" />
     <Compile Include="API\Extensions\ItemTypeExtension.cs" />
     <Compile Include="API\Extensions\RoleTypeExtensions.cs" />
@@ -93,7 +95,6 @@
     <Compile Include="API\Features\AdminToys\ToyUtilities.cs" />
     <Compile Include="API\Features\AlphaWarhead.cs" />
     <Compile Include="API\Features\Broadcast.cs" />
-    <Compile Include="API\Features\CustomHintManager.cs" />
     <Compile Include="API\Features\Decontamination.cs" />
     <Compile Include="API\Features\Doors\PryableDoor.cs" />
     <Compile Include="API\Features\Doors\BasicDoor.cs" />
@@ -104,12 +105,14 @@
     <Compile Include="API\Features\Enum\CameraType.cs" />
     <Compile Include="API\Features\Enum\CoinSide.cs" />
     <Compile Include="API\Features\Enum\DoorLockingType.cs" />
+    <Compile Include="API\Features\Enum\LoadOrderType.cs" />
+    <Compile Include="API\Features\Enum\MenuType.cs" />
+    <Compile Include="API\Features\Enum\RankColorType.cs" />
     <Compile Include="API\Features\Enum\RoomType.cs" />
     <Compile Include="API\Features\Enum\ShootingTargetToyType.cs" />
     <Compile Include="API\Features\Enum\StatusEffectType.cs" />
     <Compile Include="API\Features\Enum\EscapeType.cs" />
     <Compile Include="API\Features\Enum\FirearmType.cs" />
-    <Compile Include="API\Features\Enum\MenuType.cs" />
     <Compile Include="API\Features\Enum\Scp079PingType.cs" />
     <Compile Include="API\Features\Enum\ToyType.cs" />
     <Compile Include="API\Features\Hazards\AmesticCloudHazard.cs" />
@@ -151,6 +154,7 @@
     <Compile Include="API\Features\Items\Throwables\ExplosiveGrenade.cs" />
     <Compile Include="API\Features\Items\Throwables\FlashbangGrenade.cs" />
     <Compile Include="API\Features\Items\Throwables\Throwable.cs" />
+    <Compile Include="API\Features\Items\Usable.cs" />
     <Compile Include="API\Features\Items\Usables\Adrenaline.cs" />
     <Compile Include="API\Features\Items\Usables\Medkit.cs" />
     <Compile Include="API\Features\Items\Usables\Painkillers.cs" />
@@ -207,6 +211,8 @@
     <Compile Include="Events\EventArguments\ICancellableEvent.cs" />
     <Compile Include="Events\EventArguments\IDamageEvent.cs" />
     <Compile Include="Events\EventArguments\IPlayerEvent.cs" />
+    <Compile Include="Events\EventArguments\Player\PlayerChangedItemEvent.cs" />
+    <Compile Include="Events\EventArguments\Player\PlayerChangingNicknameEvent.cs" />
     <Compile Include="Events\EventArguments\Player\PlayerChangingUserGroupEvent.cs" />
     <Compile Include="Events\EventArguments\Player\PlayerDestroyingEvent.cs" />
     <Compile Include="Events\EventArguments\Player\PlayerDroppingItemEvent.cs" />
@@ -288,12 +294,15 @@
     <Compile Include="Events\Handlers\Scp914Handlers.cs" />
     <Compile Include="Events\Handlers\Scp939Handlers.cs" />
     <Compile Include="Events\Handlers\ServerHandlers.cs" />
+    <Compile Include="Events\Patches\Game\CustomFriendlyFireManager.cs" />
     <Compile Include="Events\Patches\Game\HazardPatch.cs" />
     <Compile Include="Events\Patches\Game\MapGeneratedPatch.cs" />
     <Compile Include="Events\Patches\Game\MoreEscapePatch.cs" />
     <Compile Include="Events\Patches\Game\NamePatch.cs" />
     <Compile Include="Events\Patches\Game\WeaponDysncFix.cs" />
     <Compile Include="Events\Patches\Player\BannedPlayer.cs" />
+    <Compile Include="Events\Patches\Player\ChangedItemPatch.cs" />
+    <Compile Include="Events\Patches\Player\ChangingNicknamePatch.cs" />
     <Compile Include="Events\Patches\Player\ChangingUserGroupPatch.cs" />
     <Compile Include="Events\Patches\Player\DestroyingPlayer.cs" />
     <Compile Include="Events\Patches\Player\DyingPlayer.cs" />

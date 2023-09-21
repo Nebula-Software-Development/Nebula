@@ -53,7 +53,6 @@ public class Pickup
             Base = Object.Instantiate(itemBase.PickupDropModel);
             Info = info;
         }
-
     }
 
     /// <summary>

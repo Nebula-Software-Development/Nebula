@@ -1,5 +1,4 @@
-﻿using Nebuli.API.Features;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using PluginAPI.Core;
 using PluginAPI.Loader;
 using System;
@@ -8,7 +7,6 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Security.Policy;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Log = Nebuli.API.Features.Log;
@@ -138,9 +136,10 @@ public class Updater
         [JsonProperty("browser_download_url")]
         public string BrowserDownloadUrl { get; set; }
     }
+
     public static string FindNebuliPath()
     {
-        KeyValuePair<Type, PluginHandler> nebuliPlugin = 
+        KeyValuePair<Type, PluginHandler> nebuliPlugin =
             AssemblyLoader.Plugins.SelectMany(assemblyEntry => assemblyEntry.Value)
             .FirstOrDefault(pluginEntry => pluginEntry.Value.PluginName == "Nebuli Loader" && pluginEntry.Value.PluginVersion == NebuliInfo.NebuliVersionConst);
         return nebuliPlugin.Value.PluginFilePath;

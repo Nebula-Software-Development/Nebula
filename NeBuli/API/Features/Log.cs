@@ -22,7 +22,6 @@ public static class Log
         return $"&7[&b&3Nebuli {messageType}&B&7] &7[&b&2{callingAssembly.GetName().Name}&B&7]&r {message}";
     }
 
-
     public static void Info(object message, string prefix = null, ConsoleColor consoleColor = ConsoleColor.Cyan) => AddLog(FormatLogMessage("Info", message, prefix, Assembly.GetCallingAssembly()), consoleColor);
 
     public static void Debug(object message, string prefix = null, ConsoleColor consoleColor = ConsoleColor.Green)
@@ -40,5 +39,6 @@ public static class Log
     }
 
     public static void Warning(object message, string prefix = null, ConsoleColor consoleColor = ConsoleColor.Magenta) => AddLog(FormatLogMessage("Warn", message, prefix, Assembly.GetCallingAssembly()), consoleColor);
+
     public static void Error(object message, string prefix = null, ConsoleColor consoleColor = ConsoleColor.Red) => AddLog(FormatLogMessage("Error", message, prefix, Assembly.GetCallingAssembly()), consoleColor);
 }

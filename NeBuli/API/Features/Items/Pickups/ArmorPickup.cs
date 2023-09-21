@@ -8,7 +8,8 @@ public class ArmorPickup : Pickup
     /// Gets the <see cref="BodyArmorPickupBase"/> base.
     /// </summary>
     public new BodyArmorPickupBase Base { get; }
-    internal ArmorPickup(BodyArmorPickupBase pickupBase) : base(pickupBase) 
+
+    internal ArmorPickup(BodyArmorPickupBase pickupBase) : base(pickupBase)
     {
         Base = pickupBase;
     }
