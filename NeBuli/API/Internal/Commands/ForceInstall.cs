@@ -24,8 +24,7 @@ public class ForceInstall : ICommand
                 return false;
             }
 
-            Updater fi = new();
-            fi.ForceInstall(arguments.Array[1]);
+            Updater.ForceInstall(arguments.Array[1]);
         }
         catch (Exception e)
         {

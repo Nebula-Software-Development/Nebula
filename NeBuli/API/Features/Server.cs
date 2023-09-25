@@ -215,7 +215,7 @@ public static class Server
     {
         foreach (NebuliPlayer ply in NebuliPlayer.List)
         {
-            Broadcast.TargetClearElements(ply.ReferenceHub.connectionToClient);
+            ply.ClearBroadcasts();
         }
     }
 

@@ -22,11 +22,6 @@ public class Scp173PlayerRole : FpcRoleBase
     }
 
     /// <summary>
-    /// Gets the roles <see cref="PlayerRoles.RoleTypeId"/>.
-    /// </summary>
-    public override RoleTypeId RoleTypeId => Base.RoleTypeId;
-
-    /// <summary>
     /// Gets the role's <see cref="HumeShieldModuleBase"/>.
     /// </summary>
     public HumeShieldModuleBase HumeShield => Base.HumeShieldModule;

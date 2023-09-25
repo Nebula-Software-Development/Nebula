@@ -154,11 +154,6 @@ public class Scp096PlayerRole : FpcRoleBase
     /// </summary>
     public Scp096PrygateAbility PrygateAbility { get; internal set; }
 
-    /// <summary>
-    /// Gets the RoleTypeId of the role.
-    /// </summary>
-    public override RoleTypeId RoleTypeId => Base.RoleTypeId;
-
     internal void SetupSubroutines()
     {
         try

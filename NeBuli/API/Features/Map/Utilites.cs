@@ -4,6 +4,7 @@ using InventorySystem.Items.Firearms.BasicMessages;
 using MapGeneration;
 using Mirror;
 using Nebuli.API.Features.AdminToys;
+using Nebuli.API.Features.Items;
 using Nebuli.API.Features.Items.Pickups;
 using PlayerRoles;
 using PlayerRoles.PlayableScps.Scp173;
@@ -71,7 +72,7 @@ public static class Utilites
     }
 
     /// <summary>
-    /// Destroys all pickups in the Pickup List.
+    /// Destroys all pickups in-game.
     /// </summary>
     public static void CleanAllPickups()
     {
@@ -80,12 +81,21 @@ public static class Utilites
     }
 
     /// <summary>
-    /// Destroys all ragdolls in the Ragdoll List.
+    /// Destroys all ragdolls in-game.
     /// </summary>
     public static void CleanAllRagdolls()
     {
         foreach (Ragdoll ragdoll in Ragdoll.List)
             ragdoll.Destroy();
+    }
+
+    /// <summary>
+    /// Destroys all items in-game.
+    /// </summary>
+    public static void RemoveAllItems()
+    {
+        foreach(Item item in Item.List)
+            item.Destroy();      
     }
 
     /// <summary>

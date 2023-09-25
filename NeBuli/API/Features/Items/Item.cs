@@ -70,6 +70,11 @@ public class Item
     public GameObject GameObject => Base.gameObject;
 
     /// <summary>
+    /// Gets the items <see cref="UnityEngine.Transform"/>.
+    /// </summary>
+    public Transform Transform => Base.transform;
+
+    /// <summary>
     /// Gets the room the <see cref="Item"/> is currently in.
     /// </summary>
     public Room Room => Room.Get(Position);
@@ -181,7 +186,7 @@ public class Item
     /// <summary>
     /// Removes and destroys the item from the owners inventory.
     /// </summary>
-    public void Destroy() => Owner.RemoveItem(this);
+    public void Destroy() => Owner.RemoveItem(this, true);
 
     /// <summary>
     /// Creates a item and gives it to the specified player.

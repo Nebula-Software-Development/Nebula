@@ -1,5 +1,6 @@
 ﻿using MEC;
 using Mirror;
+using Nebuli.API.Extensions;
 using Nebuli.API.Internal;
 using PlayerRoles;
 using PlayerRoles.FirstPersonControl;
@@ -17,7 +18,6 @@ namespace Nebuli.API.Features.Player;
 /// </summary>
 public class NebuliNpc : NebuliPlayer
 {
-
     /// <summary>
     /// Creates a new <see cref="NebuliNpc"/> with a specified <see cref="ReferenceHub"/>.
     /// </summary>
@@ -47,9 +47,8 @@ public class NebuliNpc : NebuliPlayer
     /// <param name="role">The <see cref="RoleTypeId"/> of the NPC.</param>
     /// <param name="ID">The ID of the NPC.</param>
     /// <param name="UserId">The UserID of the NPC.</param>
-    /// <param name="clientInstanceMode">The <see cref="ClientInstanceMode"/> of the NPC.</param>
-    /// <returns></returns>
-    public static NebuliNpc CreateNPC(string name, RoleTypeId role, int ID, string UserId = null, ClientInstanceMode clientInstanceMode = ClientInstanceMode.Host)
+    /// <returns>A newly created <see cref="NebuliNpc"/>.</returns>
+    public static NebuliNpc CreateNPC(string name, RoleTypeId role, int ID, string UserId = null)
     {
         try
         {
@@ -68,7 +67,6 @@ public class NebuliNpc : NebuliPlayer
             try
             {
                 newNPC.ReferenceHub.characterClassManager.UserId = UserId is not null ? UserId : null;
-                newNPC.ReferenceHub.characterClassManager.InstanceMode = clientInstanceMode;
             }
             catch (Exception e)
             {
@@ -112,25 +110,7 @@ public class NebuliNpc : NebuliPlayer
         Vector3 direction = position - Position;
         Quaternion quat = Quaternion.LookRotation(direction, Vector3.up);
         FpcMouseLook mouseLook = ((IFpcRole)ReferenceHub.roleManager.CurrentRole).FpcModule.MouseLook;
-        (ushort horizontal, ushort vertical) = ToClientUShorts(quat);
+        (ushort horizontal, ushort vertical) = quat.ToClientUShorts();
         mouseLook.ApplySyncValues(horizontal, vertical);
-    }
-
-    private (ushort horizontal, ushort vertical) ToClientUShorts(Quaternion rotation)
-    {
-        rotation.Normalize();
-
-        float horizontal = rotation.eulerAngles.y;
-        float vertical = -rotation.eulerAngles.x;
-
-        vertical = Mathf.Clamp(vertical, -88f, 88f) + 88f;
-
-        const float ToHorizontal = 65535f / 360f;
-        const float ToVertical = 65535f / 176f;
-
-        ushort horizontalUShort = (ushort)Mathf.RoundToInt(horizontal * ToHorizontal);
-        ushort verticalUShort = (ushort)Mathf.RoundToInt(vertical * ToVertical);
-
-        return (horizontalUShort, verticalUShort);
     }
 }

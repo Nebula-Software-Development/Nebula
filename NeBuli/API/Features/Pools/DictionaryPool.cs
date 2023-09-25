@@ -35,8 +35,6 @@ public class DictionaryPool<TKey, TValue>
         }
 
         return CreateDictionary();
-
-
     }
 
     /// <summary>
@@ -69,8 +67,5 @@ public class DictionaryPool<TKey, TValue>
         }
     }
 
-    private static Dictionary<TKey, TValue> CreateDictionary()
-    {
-        return new Dictionary<TKey, TValue>(DefaultInitialCapacity);
-    }
+    private static Dictionary<TKey, TValue> CreateDictionary() => new(DefaultInitialCapacity);
 }

@@ -1,5 +1,10 @@
 ﻿using Nebuli.API.Features.Roles;
 using PlayerRoles;
+using PlayerRoles.FirstPersonControl.Spawnpoints;
+using PlayerRoles.FirstPersonControl;
+using UnityEngine;
+using InventorySystem.Configs;
+using InventorySystem;
 
 namespace Nebuli.API.Extensions;
 
@@ -30,38 +35,45 @@ public static class RoleTypeExtensions
     }
 
     /// <summary>
-    /// Gets if the <see cref="Role"/> is a human role.
+    /// Gets if the <see cref="RoleTypeId"/> is any SCP role.
     /// </summary>
     /// <param name="role"></param>
     /// <returns></returns>
-    public static bool IsHuman(this Role role) => role.RoleTypeId.IsHuman();
+    public static bool IsSCP(this RoleTypeId role) => role.GetFaction() == Faction.SCP;
 
     /// <summary>
-    /// Gets if the <see cref="Role"/> is a alive role.
+    /// Gets if the <see cref="RoleTypeId"/> is apart of <see cref="Faction.FoundationStaff"/>.
     /// </summary>
-    public static bool IsAlive(this Role role) => role.RoleTypeId.IsAlive();
+    public static bool IsFoundationStaff(this RoleTypeId role) => role.GetFaction() == Faction.FoundationStaff;
 
     /// <summary>
-    /// Gets if the <see cref="Role"/> is any SCP role.
+    /// Checks if the specified <see cref="RoleTypeId"/> is a member of the Mobile Task Force (MTF).
     /// </summary>
-    /// <param name="role"></param>
-    /// <returns></returns>
-    public static bool IsSCP(this Role role) => role.RoleTypeId.GetFaction() == Faction.SCP;
+    /// <param name="role">The <see cref="RoleTypeId"/>  to check.</param>
+    /// <param name="includeGuards">Set to true to include guards as MTF members, false to exclude them.</param>
+    /// <returns>True if the <see cref="RoleTypeId"/>  is part of the MTF, false otherwise.</returns>
+    public static bool IsMTF(this RoleTypeId role, bool includeGuards = true)
+    {
+        if (includeGuards) return role.GetTeam() == Team.FoundationForces;
+        else return role != RoleTypeId.FacilityGuard && role.GetTeam() == Team.FoundationForces;
+    }
 
     /// <summary>
-    /// Gets if the <see cref="Role"/> is apart of <see cref="Faction.FoundationStaff"/>.
+    /// Checks if the <see cref="RoleTypeId"/>  is a member of the Chaos Insurgency (CI).
     /// </summary>
-    public static bool IsFoundationStaff(this Role role) => role.RoleTypeId.GetFaction() == Faction.FoundationStaff;
+    /// <param name="role">The <see cref="RoleTypeId"/>  to check.</param>
+    /// <returns>True if the <see cref="RoleTypeId"/>  is part of the Chaos Insurgency, false otherwise.</returns>
+    public static bool IsCI(this RoleTypeId role) => role.GetTeam() == Team.ChaosInsurgency;
 
     /// <summary>
-    /// Gets if the <see cref="Role"/> is apart of <see cref="Faction.FoundationEnemy"/>.
+    /// Gets if the <see cref="RoleTypeId"/> is apart of <see cref="Faction.FoundationEnemy"/>.
     /// </summary>
-    public static bool IsFoundationEnemy(this Role role) => role.RoleTypeId.GetFaction() == Faction.FoundationEnemy;
+    public static bool IsFoundationEnemy(this RoleTypeId role) => role.GetFaction() == Faction.FoundationEnemy;
 
     /// <summary>
-    /// Gets if the <see cref="Role"/> is apart of <see cref="Faction.Unclassified"/>.
+    /// Gets if the <see cref="RoleTypeId"/> is apart of <see cref="Faction.Unclassified"/>.
     /// </summary>
-    public static bool IsUnclassified(this Role role) => role.RoleTypeId.GetFaction() == Faction.Unclassified;
+    public static bool IsUnclassified(this RoleTypeId role) => role.GetFaction() == Faction.Unclassified;
 
     /// <summary>
     /// Gets the <see cref="RoleTypeId"/> full name.
@@ -82,4 +94,49 @@ public static class RoleTypeExtensions
     /// Tries to get a <see cref="PlayerRoleBase"/> from the specified <see cref="Role"/>.
     /// </summary>
     public static bool TryGetBaseRole(this Role role, out PlayerRoleBase playerRoleBase) => TryGetBaseRole(role.RoleTypeId, out playerRoleBase);
+
+    /// <summary>
+    /// Gets a random spawn position for the specified role type.
+    /// </summary>
+    /// <param name="roleType">The <see cref="RoleTypeId"/> to use.</param>
+    /// <returns>A random spawn position as a <see cref="Vector3"/> or <see cref="Vector3.zero"/> if no valid position is found.</returns>
+    public static Vector3 GetRandomSpawnPosition(this RoleTypeId roleType)
+    {
+        if (!PlayerRoleLoader.TryGetRoleTemplate(roleType, out PlayerRoleBase roleBase) || roleBase is not IFpcRole fpc)
+            return Vector3.zero;
+
+        ISpawnpointHandler spawn = fpc.SpawnpointHandler;
+        if (spawn == null || !spawn.TryGetSpawnpoint(out Vector3 pos, out float _))
+            return Vector3.zero;
+
+        return pos;
+    }
+
+    /// <summary>
+    /// Gets the default inventory for the specified role.
+    /// </summary>
+    /// <param name="role">The <see cref="RoleTypeId"/> to use.</param>
+    /// <returns>The default inventory if found, null otherwise.</returns>
+    public static InventoryRoleInfo? GetDefaultInventory(this RoleTypeId role) => TryGetDefaultInventory(role, out InventoryRoleInfo roleInfo) ? roleInfo : null;
+
+    /// <summary>
+    /// Tries to get the default inventory for the specified role.
+    /// </summary>
+    /// <param name="role">The <see cref="RoleTypeId"/> to use.</param>
+    /// <param name="inventoryRoleInfo">The inventory role information if found, otherwise null.</param>
+    /// <returns>True if the default inventory is found, false otherwise.</returns>
+    public static bool TryGetDefaultInventory(this RoleTypeId role, out InventoryRoleInfo inventoryRoleInfo) => StartingInventories.DefinedInventories.TryGetValue(role, out inventoryRoleInfo);
+
+    /// <summary>
+    /// Sets the default inventory for the specified role.
+    /// </summary>
+    /// <param name="role">The <see cref="RoleTypeId"/> to use.</param>
+    /// <param name="inventoryRoleInfo">The inventory role information to set.</param>
+    public static void SetDefaultInventory(this RoleTypeId role, InventoryRoleInfo inventoryRoleInfo)
+    {
+        if (StartingInventories.DefinedInventories.ContainsKey(role))
+            StartingInventories.DefinedInventories[role] = inventoryRoleInfo;
+        else
+            StartingInventories.DefinedInventories.Add(role, inventoryRoleInfo);
+    }
 }

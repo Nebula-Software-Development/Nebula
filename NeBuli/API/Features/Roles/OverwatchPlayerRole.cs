@@ -28,11 +28,6 @@ public class OverwatchPlayerRole : Role
     public NebuliPlayer LastTrackedPlayer => NebuliPlayer.Get(SpectatorTargetTracker.LastTrackedPlayer);
 
     /// <summary>
-    /// Gets the RoleTypeId of the role.
-    /// </summary>
-    public override RoleTypeId RoleTypeId => Base.RoleTypeId;
-
-    /// <summary>
     /// Gets the relative position of the player's death location.
     /// </summary>
     public RelativePosition DeathPosition => Base.DeathPosition;

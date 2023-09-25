@@ -6,6 +6,9 @@ using CameraType = Nebuli.API.Features.Enum.CameraType;
 
 namespace Nebuli.API.Features.Map;
 
+/// <summary>
+/// Provides a easy API interface to  <see cref="CameraBase"/>.
+/// </summary>
 public class Camera
 {
     /// <summary>
@@ -22,6 +25,7 @@ public class Camera
     {
         Base = cameraBase;
         Dictionary.Add(Base, this);
+        Type = GetCameraTypeFromName(Name);
     }
 
     /// <summary>
@@ -112,7 +116,7 @@ public class Camera
     /// <summary>
     /// Gets the <see cref="CameraType"/> of the camera.
     /// </summary>
-    public CameraType Type => GetCameraTypeFromName(Name);
+    public CameraType Type { get; }
 
     /// <summary>
     /// Tries to get a <see cref="Camera"/> with the specified <see cref="CameraBase"/>. If none are found, it creates one.

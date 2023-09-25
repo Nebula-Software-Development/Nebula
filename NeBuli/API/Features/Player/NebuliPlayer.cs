@@ -71,6 +71,14 @@ public class NebuliPlayer
     internal NebuliPlayer(GameObject gameObject)
     {
         ReferenceHub = ReferenceHub.GetHub(gameObject);
+
+        if (ReferenceHub is null)
+        {
+            Log.Error(gameObject.name + 
+                "does not have a ReferenceHub attached to it and therefor a NebuliPlayer cannot be made!");
+            return;
+        }
+
         GameObject = ReferenceHub.gameObject;
         Transform = ReferenceHub.transform;
         Create();
@@ -124,7 +132,7 @@ public class NebuliPlayer
     /// <summary>
     /// Gets or sets if the player is a NPC.
     /// </summary>
-    public bool IsNPC { get; set; }
+    public bool IsNPC { get; set; } = false;
 
     /// <summary>
     /// Gets the players <see cref="Mirror.NetworkIdentity"/>.
@@ -224,12 +232,18 @@ public class NebuliPlayer
     /// <summary>
     /// Gets the players current <see cref="RoleTypeId"/>.
     /// </summary>
-    public RoleTypeId CurrentRoleType => ReferenceHub.GetRoleId();
+    [Obsolete("Use 'RoleType' instead.")]
+    public RoleTypeId CurrentRoleType => RoleType;
+
+    /// <summary>
+    /// Gets the players current <see cref="RoleTypeId"/>.
+    /// </summary>
+    public RoleTypeId RoleType => ReferenceHub.GetRoleId();
 
     /// <summary>
     /// Gets the players current faction
     /// </summary>
-    public Faction Faction => CurrentRoleType.GetFaction();
+    public Faction Faction => RoleType.GetFaction();
 
     /// <summary>
     /// Gets the players <see cref="PlayerRoleManager"/>.
@@ -295,9 +309,13 @@ public class NebuliPlayer
     public Transform PlayerCamera => ReferenceHub.PlayerCameraReference;
 
     /// <summary>
-    /// Gets the players RelativePosition.
+    /// Gets or sets the players <see cref="RelativePositioning.RelativePosition"/>.
     /// </summary>
-    public RelativePosition RelativePosition => new(Position);
+    public RelativePosition RelativePosition
+    {
+        get => new(Position);
+        set => Position = value.Position;
+    }
 
     /// <summary>
     /// Gets or sets the players current rotation.
@@ -536,7 +554,7 @@ public class NebuliPlayer
         get => ReferenceHub.serverRoles.DoNotTrack;
         set
         {
-            if (ReferenceHub.serverRoles.DoNotTrack = value)
+            if (value == ReferenceHub.serverRoles.DoNotTrack)
                 return;
 
             ReferenceHub.serverRoles.DoNotTrack = value;
@@ -1206,16 +1224,23 @@ public class NebuliPlayer
     public bool IsDead => Role?.IsDead ?? false;
 
     /// <summary>
+    /// Gets if the player is part of a Mobile Task Force Unit.
+    /// </summary>
+    /// <param name="includeGuards">If being a <see cref="RoleTypeId.FacilityGuard"/> counts as MTF.</param>
+    public bool IsMTF(bool includeGuards = true) => RoleType.IsMTF(includeGuards);
+
+    /// <summary>
+    /// Gets if the player is part of the Chaos Insurgency.
+    /// </summary>
+    public bool IsCI() => RoleType.IsCI();
+
+    /// <summary>
     /// Gets or sets the current item held by the player.
     /// </summary>
     public Item CurrentItem
     {
         get => Item.Get(Inventory.CurInstance);
-        set
-        {
-            Inventory.ServerSelectItem(value.Serial);
-            Inventory.UserCode_CmdSelectItem__UInt16(value.Serial);
-        }
+        set => Inventory.ServerSelectItem(value.Serial);
     }
 
     /// <summary>
@@ -1232,7 +1257,7 @@ public class NebuliPlayer
     /// <param name="includeAmmo">If ammo should also be cleared.</param>
     public void ClearInventory(bool includeAmmo = true)
     {
-        if (includeAmmo) Inventory.UserInventory.ReserveAmmo.Clear();
+        if (includeAmmo) Ammo.Clear();
         foreach (ItemBase item in Inventory.UserInventory.Items.Values.ToList())
             Inventory.ServerRemoveItem(item.ItemSerial, item.PickupDropModel);
     }
@@ -1273,26 +1298,7 @@ public class NebuliPlayer
     /// Adds a item to the players inventory.
     /// </summary>
     /// <param name="item">The item to add.</param>
-    public Item AddItem(Item item)
-    {
-        if (item.ItemType.IsFirearmType())
-        {
-            Firearm firearm = Item.Get(Inventory.ServerAddItem(item.ItemType, item.Serial)) as Firearm;
-
-            if (Preferences is not null && Preferences.TryGetValue(item.ItemType.ToFirearmType(), out AttachmentIdentity[] attachments))
-                firearm.Base.ApplyAttachmentsCode((uint)attachments.Sum(attachment => attachment.Code), true);
-
-            FirearmStatusFlags flags = FirearmStatusFlags.MagazineInserted;
-
-            if (firearm.Attachments.Any(a => a.Name == AttachmentName.Flashlight))
-                flags |= FirearmStatusFlags.FlashlightEnabled;
-
-            firearm.Base.Status = new FirearmStatus(firearm.MaxAmmo, flags, firearm.Base.GetCurrentAttachmentsCode());
-            return firearm;
-        }
-
-        return Item.Get(Inventory.ServerAddItem(item.ItemType, item.Serial));
-    }
+    public Item AddItem(Item item) => AddItem(item.ItemType);
 
     /// <summary>
     /// Removes a <see cref="Item"/> from the players inventory.

@@ -26,6 +26,11 @@ public class Loader
     private static bool _loaded = false;
 
     /// <summary>
+    /// Gets the public instance of <see cref="Loader"/>.
+    /// </summary>
+    public static Loader LoaderInstance { get; private set; } = null;
+
+    /// <summary>
     /// Gets a shared instance of the loaders random number generator.
     /// </summary>
     public static Random Random { get; } = new();
@@ -78,6 +83,8 @@ public class Loader
     [PluginPriority(LoadPriority.Highest)]
     public void FrameworkLoader()
     {
+        LoaderInstance = this;
+
         if (!Configuration.LoaderEnabled)
         {
             Log.Info("Nebuli Loader is disabled, Nebuli will not load.", consoleColor: ConsoleColor.Red, prefix: "Loader");
@@ -143,8 +150,8 @@ public class Loader
         _loaded = false;
         _harmony?.UnpatchAll(_harmony.Id);
         _harmony = null;
-
         EventManager.UnRegisterBaseEvents();
+        LoaderInstance = null;
     }
 
     private void LoadDependencies(IEnumerable<FileInfo> files)

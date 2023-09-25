@@ -3,6 +3,9 @@ using static LightContainmentZoneDecontamination.DecontaminationController;
 
 namespace Nebuli.API.Features;
 
+/// <summary>
+/// Allows easy management of the <see cref="DecontaminationController"/>.
+/// </summary>
 public static class Decontamination
 {
     /// <summary>
@@ -14,6 +17,15 @@ public static class Decontamination
     /// Gets if <see cref="DecontaminationController"/> is currently decontaminating.
     /// </summary>
     public static bool IsDecontaminating => Controller.IsDecontaminating;
+
+    /// <summary>
+    /// Gets the round start time of the <see cref="Controller"/>.
+    /// </summary>
+    public static double RoundStartTime
+    {
+        get => Controller.RoundStartTime;
+        set => Controller.NetworkRoundStartTime = value;
+    }
 
     /// <summary>
     /// Disables the elevators.

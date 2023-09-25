@@ -1,8 +1,10 @@
+using Interactables.Interobjects.DoorUtils;
 using MapGeneration.Distributors;
 using Nebuli.API.Features.Enum;
 using Nebuli.API.Features.Player;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 
 namespace Nebuli.API.Features.Map;
 
@@ -35,6 +37,43 @@ public class Generator
     /// Gets the DropdownSpeed of the generator.
     /// </summary>
     public float DropdownSpeed => Base.DropdownSpeed;
+
+    /// <summary>
+    /// Gets or sets the position of the <see cref="Generator"/>.
+    /// </summary>
+    public Vector3 Position
+    {
+        get => GameObject.transform.position;
+        set => GameObject.transform.position = value;
+    }
+
+    /// <summary>
+    /// Gets or sets the rotation of the <see cref="Generator"/>.
+    /// </summary>
+    public Quaternion Rotation
+    {
+        get => GameObject.transform.rotation;
+        set => GameObject.transform.rotation = value;   
+    }
+
+    /// <summary>
+    /// Gets the <see cref="Generator"/> <see cref="UnityEngine.GameObject"/>.
+    /// </summary>
+    public GameObject GameObject => Base.gameObject;
+
+    /// <summary>
+    /// Gets the <see cref="Generator"/> <see cref="UnityEngine.Transform"/>.
+    /// </summary>
+    public Transform Transform => Base.transform;
+
+    /// <summary>
+    /// Gets or sets the <see cref="Generator"/> required <see cref="KeycardPermissions"/>.
+    /// </summary>
+    public KeycardPermissions RequiredPermission
+    {
+        get => Base._requiredPermission; 
+        set => Base._requiredPermission = value;
+    }
 
     /// <summary>
     /// Gets whether or not the generator is ready to be activated.

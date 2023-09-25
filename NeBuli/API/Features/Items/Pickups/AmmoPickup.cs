@@ -11,4 +11,18 @@ public class AmmoPickup : Pickup
     {
         Base = pickupBase;
     }
+
+    /// <summary>
+    /// Gets the max ammo of the <see cref="AmmoPickup"/>.
+    /// </summary>
+    public int MaxAmmo => Base.MaxAmmo;
+
+    /// <summary>
+    /// Gets or sets the current ammo of the <see cref="AmmoPickup"/>.
+    /// </summary>
+    public ushort CurrentAmmo
+    {
+        get => Base.NetworkSavedAmmo;
+        set => Base.NetworkSavedAmmo = value;
+    }
 }

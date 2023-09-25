@@ -26,7 +26,7 @@ public class Pickup
     /// <summary>
     /// Gets if the pickup is spawned or not.
     /// </summary>
-    public bool Spawned { get; private set; }
+    public bool Spawned => NetworkServer.spawned.ContainsValue(Base.netIdentity);
 
     /// <summary>
     /// Gets the <see cref="ItemPickupBase"/>.
@@ -96,6 +96,25 @@ public class Pickup
     {
         get => Base.Info.Serial;
         set => Base.Info.Serial = value;
+    }
+
+    /// <summary>
+    /// Gets or sets the pickups scale.
+    /// </summary>
+    public Vector3 Scale
+    {
+        get => Transform.localScale;
+        set
+        {
+            if(!Spawned)
+            {
+                Transform.localScale = value;
+                return;
+            }
+            Despawn();
+            Transform.localScale = value;
+            Spawn();
+        }
     }
 
     /// <summary>
@@ -269,11 +288,7 @@ public class Pickup
     /// </summary>
     public void Spawn()
     {
-        if (Spawned)
-            return;
-
         NetworkServer.Spawn(GameObject);
-        Spawned = true;
         return;
     }
 
@@ -282,10 +297,7 @@ public class Pickup
     /// </summary>
     public void Despawn()
     {
-        if (!Spawned)
-            return;
         NetworkServer.UnSpawn(GameObject);
-        Spawned = false;
         return;
     }
 

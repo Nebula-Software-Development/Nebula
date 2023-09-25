@@ -20,11 +20,10 @@ public class ReloadPlugins : ICommand
             if (!sender.HasPermission("reloadplugins"))
             {
                 response = "No permission! Permission needed : 'reloadplugins'.";
-                return false;
+                return false;   
             }
 
-            Loader.Loader loader = new();
-            loader.ReloadPlugins();
+            Loader.Loader.LoaderInstance.ReloadPlugins();
         }
         catch (Exception e)
         {
