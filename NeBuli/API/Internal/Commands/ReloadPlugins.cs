@@ -1,5 +1,6 @@
 ﻿using CommandSystem;
 using Nebuli.API.Features;
+using Nebuli.Loader;
 using Nebuli.Permissions;
 using System;
 
@@ -23,7 +24,7 @@ public class ReloadPlugins : ICommand
                 return false;   
             }
 
-            Loader.LoaderClass.LoaderInstance.ReloadPlugins();
+            LoaderClass.LoaderInstance.ReloadPlugins();
         }
         catch (Exception e)
         {

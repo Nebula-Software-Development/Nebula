@@ -1,4 +1,5 @@
 ﻿using Nebuli.API.Interfaces;
+using Nebuli.Loader;
 using System;
 using System.Reflection;
 using PluginAPILogger = PluginAPI.Core.Log;
@@ -12,7 +13,7 @@ public static class Log
     private static string FormatLogMessage(string messageType, object message, string prefix = null, Assembly callingAssembly = null)
     {
         callingAssembly ??= Assembly.GetCallingAssembly();
-        if (callingAssembly == Loader.LoaderClass.NebuliAssembly)
+        if (callingAssembly == LoaderClass.NebuliAssembly)
         {
             string text = $"&7[&b&3Nebuli&B&7] {message}";
             if (!string.IsNullOrEmpty(prefix))
@@ -39,12 +40,12 @@ public static class Log
     public static void Debug(object message, string prefix = null, ConsoleColor consoleColor = ConsoleColor.Green)
     {
         Assembly callingAssembly = Assembly.GetCallingAssembly();
-        if (callingAssembly == Loader.LoaderClass.NebuliAssembly && Loader.LoaderClass.Configuration.ShowDebugLogs)
+        if (callingAssembly == LoaderClass.NebuliAssembly && LoaderClass.Configuration.ShowDebugLogs)
         {
             AddLog(FormatLogMessage("Debug", message, prefix, callingAssembly), consoleColor);
             return;
         }
-        else if (!Loader.LoaderClass._plugins.TryGetValue(callingAssembly, out IPlugin<IConfiguration> plugin) || !plugin.Config.Debug)
+        else if (!LoaderClass._plugins.TryGetValue(callingAssembly, out IPlugin<IConfiguration> plugin) || !plugin.Config.Debug)
             return;
 
         AddLog(FormatLogMessage("Debug", message, prefix, callingAssembly), consoleColor);

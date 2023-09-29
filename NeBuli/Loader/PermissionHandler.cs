@@ -1,6 +1,7 @@
 ﻿using CommandSystem;
 using Nebuli.API.Features;
 using Nebuli.API.Features.Player;
+using Nebuli.Loader;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -21,7 +22,7 @@ public static class PermissionsHandler
                 GenerateDefaultPermissionsFile(Paths.Permissions.FullName);
             }
 
-            PermissionsConfig permissionsConfig = Loader.LoaderClass.Deserializer.Deserialize<PermissionsConfig>(File.ReadAllText(Paths.Permissions.FullName));
+            PermissionsConfig permissionsConfig = LoaderClass.Deserializer.Deserialize<PermissionsConfig>(File.ReadAllText(Paths.Permissions.FullName));
 
             foreach (string group in permissionsConfig.Permissions.Keys.ToList())
             {
@@ -56,7 +57,7 @@ public static class PermissionsHandler
 
         try
         {
-            string yaml = Loader.LoaderClass.Serializer.Serialize(permissionsConfig);
+            string yaml = LoaderClass.Serializer.Serialize(permissionsConfig);
             File.WriteAllText(Paths.Permissions.FullName, yaml);
         }
         catch (Exception e)
@@ -95,7 +96,7 @@ public static class PermissionsHandler
 
         try
         {
-            File.WriteAllText(filePath, Loader.LoaderClass.Serializer.Serialize(defaultPermissionsConfig));
+            File.WriteAllText(filePath, LoaderClass.Serializer.Serialize(defaultPermissionsConfig));
         }
         catch (Exception e)
         {

@@ -18,7 +18,7 @@ public class ForceInstall : ICommand
     {
         try
         {
-            if (!Loader.LoaderClass.Configuration.AllowExternalDownloadURLS)
+            if (!LoaderClass.Configuration.AllowExternalDownloadURLS)
             {
                 response = "External URL downloading isnt enabled in the config!";
                 return false;
