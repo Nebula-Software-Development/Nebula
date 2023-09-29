@@ -23,7 +23,7 @@ public class ReloadConfigurations : ICommand
                 return false;
             }
 
-            Loader.Loader.ReloadConfigs();
+            Loader.LoaderClass.ReloadConfigs();
         }
         catch (Exception e)
         {

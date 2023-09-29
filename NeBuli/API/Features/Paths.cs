@@ -50,7 +50,7 @@ public static class Paths
     {
         MainDirectory = Directory.CreateDirectory(Path.Combine(NwPaths.AppData, "Nebuli"));
         PluginsDirectory = MainDirectory.CreateSubdirectory("Plugins");
-        if (Loader.Loader.Configuration.SeperatePluginsByPort)
+        if (Loader.LoaderClass.Configuration.SeperatePluginsByPort)
             PluginsPortDirectory = PluginsDirectory.CreateSubdirectory(Server.ServerPort.ToString() + "-Plugins");
         else
             PluginsPortDirectory = PluginsDirectory;

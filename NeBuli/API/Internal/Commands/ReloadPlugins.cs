@@ -23,7 +23,7 @@ public class ReloadPlugins : ICommand
                 return false;   
             }
 
-            Loader.Loader.LoaderInstance.ReloadPlugins();
+            Loader.LoaderClass.LoaderInstance.ReloadPlugins();
         }
         catch (Exception e)
         {

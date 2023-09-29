@@ -108,9 +108,9 @@ public class Room
     public static Room GetRandomRoom(FacilityZone? zone = null)
     {
         if (zone is null)
-            return List[Loader.Loader.Random.Next(List.Count)];
+            return List[Loader.LoaderClass.Random.Next(List.Count)];
         else
-            return List.Where(room => room.Zone == zone).OrderBy(_ => Loader.Loader.Random.Next()).SelectRandom();
+            return List.Where(room => room.Zone == zone).OrderBy(_ => Loader.LoaderClass.Random.Next()).SelectRandom();
     }
 
     /// <summary>

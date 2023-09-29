@@ -368,7 +368,7 @@
     <Compile Include="Events\Patches\Server\SpawningItemPatch.cs" />
     <Compile Include="Events\Patches\Warhead\WarheadDetonatingPatch.cs" />
     <Compile Include="Loader\CustomConverters\CustomVectorsConverter.cs" />
-    <Compile Include="Loader\Loader.cs" />
+    <Compile Include="Loader\LoaderClass.cs" />
     <Compile Include="Loader\LoaderConfiguration.cs" />
     <Compile Include="Loader\NebuliInfo.cs" />
     <Compile Include="Loader\PermissionHandler.cs" />

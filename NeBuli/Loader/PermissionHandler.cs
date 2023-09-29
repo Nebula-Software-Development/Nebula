@@ -21,7 +21,7 @@ public static class PermissionsHandler
                 GenerateDefaultPermissionsFile(Paths.Permissions.FullName);
             }
 
-            PermissionsConfig permissionsConfig = Loader.Loader.Deserializer.Deserialize<PermissionsConfig>(File.ReadAllText(Paths.Permissions.FullName));
+            PermissionsConfig permissionsConfig = Loader.LoaderClass.Deserializer.Deserialize<PermissionsConfig>(File.ReadAllText(Paths.Permissions.FullName));
 
             foreach (string group in permissionsConfig.Permissions.Keys.ToList())
             {
@@ -56,7 +56,7 @@ public static class PermissionsHandler
 
         try
         {
-            string yaml = Loader.Loader.Serializer.Serialize(permissionsConfig);
+            string yaml = Loader.LoaderClass.Serializer.Serialize(permissionsConfig);
             File.WriteAllText(Paths.Permissions.FullName, yaml);
         }
         catch (Exception e)
@@ -95,7 +95,7 @@ public static class PermissionsHandler
 
         try
         {
-            File.WriteAllText(filePath, Loader.Loader.Serializer.Serialize(defaultPermissionsConfig));
+            File.WriteAllText(filePath, Loader.LoaderClass.Serializer.Serialize(defaultPermissionsConfig));
         }
         catch (Exception e)
         {

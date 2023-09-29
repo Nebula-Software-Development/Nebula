@@ -20,15 +20,15 @@ using YamlDotNet.Serialization.NamingConventions;
 
 namespace Nebuli.Loader;
 
-public class Loader
+public class LoaderClass
 {
     private Harmony _harmony;
     private static bool _loaded = false;
 
     /// <summary>
-    /// Gets the public instance of <see cref="Loader"/>.
+    /// Gets the public instance of <see cref="LoaderClass"/>.
     /// </summary>
-    public static Loader LoaderInstance { get; private set; } = null;
+    public static LoaderClass LoaderInstance { get; private set; } = null;
 
     /// <summary>
     /// Gets a shared instance of the loaders random number generator.
