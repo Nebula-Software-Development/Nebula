@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Nebuli.Loader;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -31,7 +32,7 @@ public static class GenericExtensions
     /// <typeparam name="T">The type of elements in the list.</typeparam>
     /// <param name="source">The list from which to select a random element.</param>
     /// <returns>The randomly selected element from the list.</returns>
-    public static T SelectRandom<T>(this List<T> source) => source[Loader.LoaderClass.Random.Next(source.Count)];
+    public static T SelectRandom<T>(this List<T> source) => source[LoaderClass.Random.Next(source.Count)];
 
     /// <summary>
     /// Selects a random element from the IEnumerable.
