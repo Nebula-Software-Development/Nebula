@@ -131,6 +131,7 @@ public static class EventManager
 
     private static void RoleChange(ReferenceHub userHub, PlayerRoleBase prevRole, PlayerRoleBase newRole)
     {
+
         API.Features.Roles.Role.CreateNew(newRole);
     }
 

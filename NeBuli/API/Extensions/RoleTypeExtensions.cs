@@ -139,4 +139,16 @@ public static class RoleTypeExtensions
         else
             StartingInventories.DefinedInventories.Add(role, inventoryRoleInfo);
     }
+
+    /// <summary>
+    /// Gets the color associated with a role based on its <see cref="RoleTypeId"/>.
+    /// </summary>
+    /// <param name="role">The <see cref="RoleTypeId"/>.</param>
+    /// <returns>The color associated with the role, or <see cref="Color.white"/> if the role is not found.</returns>
+    public static Color GetRoleColor(this RoleTypeId role)
+    {
+        if (!PlayerRoleLoader.TryGetRoleTemplate(role, out PlayerRoleBase roleBase))
+            return Color.white;
+        return roleBase.RoleColor;
+    }
 }
