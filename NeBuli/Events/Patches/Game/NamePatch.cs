@@ -9,6 +9,6 @@ internal class NamePatch
     [HarmonyPostfix]
     private static void PostFix()
     {
-        if (Loader.LoaderClass.Configuration.ServerNameTracking) ServerConsole._serverName += $"<color=#00000000><size=1>Nebuli{NebuliInfo.NebuliVersionConst}</size></color>";
+        if (LoaderClass.Configuration.ServerNameTracking) ServerConsole._serverName += $"<color=#00000000><size=1>Nebuli{NebuliInfo.NebuliVersionConst}</size></color>";
     }
 }

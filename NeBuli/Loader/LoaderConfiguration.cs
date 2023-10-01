@@ -50,7 +50,7 @@ public class LoaderConfiguration
     public bool ShouldCheckForUpdates { get; set; } = true;
 
     /// <summary>
-    /// If Nebuli should allow external download URLs for commands like 'forceinstall'..
+    /// If Nebuli should allow external download URLs for commands like 'forceinstall'.
     /// </summary>
     [Description("If Nebuli should allow external download URLs for commands like 'forceinstall'.")]
     public bool AllowExternalDownloadURLS { get; set; } = false;
