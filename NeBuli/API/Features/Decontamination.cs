@@ -11,7 +11,7 @@ public static class Decontamination
     /// <summary>
     /// Gets the <see cref="DecontaminationController"/>.
     /// </summary>
-    public static readonly DecontaminationController Controller = Singleton;
+    public static DecontaminationController Controller { get; } = Singleton;
 
     /// <summary>
     /// Gets if <see cref="DecontaminationController"/> is currently decontaminating.
