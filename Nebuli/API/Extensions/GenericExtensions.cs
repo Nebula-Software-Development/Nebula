@@ -27,18 +27,16 @@ public static class GenericExtensions
     }
 
     /// <summary>
-    /// Selects a random element from the list.
+    /// Selects a random element from a <see cref="IEnumerable{T}"/>.
     /// </summary>
-    /// <typeparam name="T">The type of elements in the list.</typeparam>
-    /// <param name="source">The list from which to select a random element.</param>
-    /// <returns>The randomly selected element from the list.</returns>
-    public static T SelectRandom<T>(this List<T> source) => source[LoaderClass.Random.Next(source.Count)];
+    /// <typeparam name="T">The type of elements in the <see cref="IEnumerable{T}"/>.</typeparam>
+    /// <param name="source">The <see cref="IEnumerable{T}"/> from which to select a random element.</param>
+    /// <returns>The randomly selected element from the <see cref="IEnumerable{T}"/>.</returns>
+    public static T SelectRandom<T>(this IEnumerable<T> source)
+    {
+        if (source is null || source.Count() == 0)
+            return default;
 
-    /// <summary>
-    /// Selects a random element from the IEnumerable.
-    /// </summary>
-    /// <typeparam name="T">The type of elements in the IEnumerable.</typeparam>
-    /// <param name="source">The IEnumerable from which to select a random element.</param>
-    /// <returns>The randomly selected element from the IEnumerable.</returns>
-    public static T SelectRandom<T>(this IEnumerable<T> source) => source.ToList().SelectRandom();
+        return source.ElementAt(LoaderClass.Random.Next(0, source.Count()));
+    }
 }
