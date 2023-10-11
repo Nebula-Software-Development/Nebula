@@ -102,7 +102,7 @@ public static class RoleTypeExtensions
     /// <returns>A random spawn position as a <see cref="Vector3"/> or <see cref="Vector3.zero"/> if no valid position is found.</returns>
     public static Vector3 GetRandomSpawnPosition(this RoleTypeId roleType)
     {
-        if (!PlayerRoleLoader.TryGetRoleTemplate(roleType, out PlayerRoleBase roleBase) || roleBase is not IFpcRole fpc)
+        if (!roleType.TryGetBaseRole(out PlayerRoleBase roleBase) || roleBase is not IFpcRole fpc)
             return Vector3.zero;
 
         ISpawnpointHandler spawn = fpc.SpawnpointHandler;
@@ -147,7 +147,7 @@ public static class RoleTypeExtensions
     /// <returns>The color associated with the role, or <see cref="Color.white"/> if the role is not found.</returns>
     public static Color GetRoleColor(this RoleTypeId role)
     {
-        if (!PlayerRoleLoader.TryGetRoleTemplate(role, out PlayerRoleBase roleBase))
+        if (!role.TryGetBaseRole(out PlayerRoleBase roleBase))
             return Color.white;
         return roleBase.RoleColor;
     }

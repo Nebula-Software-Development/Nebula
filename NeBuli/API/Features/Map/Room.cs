@@ -109,7 +109,7 @@ public class Room
     public static Room GetRandomRoom(FacilityZone? zone = null)
     {
         if (zone is null)
-            return List[LoaderClass.Random.Next(List.Count)];
+            return List.SelectRandom();
         else
             return List.Where(room => room.Zone == zone).OrderBy(_ => LoaderClass.Random.Next()).SelectRandom();
     }

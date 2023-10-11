@@ -15,7 +15,7 @@ public static class ReferenceHubExtensions
     /// </summary>
     /// <param name="referencehub"></param>
     /// <returns></returns>
-    public static NebuliPlayer ToNebuliPlayer(this ReferenceHub referencehub) => NebuliPlayer.Get(referencehub);
+    public static NebuliPlayer ToNebuliPlayer(this ReferenceHub referencehub) => referencehub == null ? null : NebuliPlayer.Get(referencehub);
 
     /// <summary>
     /// Converts a <see cref="RankColorType"/> enum value to its string representation.
