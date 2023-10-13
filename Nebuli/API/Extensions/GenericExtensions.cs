@@ -1,12 +1,16 @@
-﻿using Nebuli.Loader;
+﻿using CommandSystem;
+using Nebuli.Loader;
+using PluginAPI.Commands;
+using RemoteAdmin;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 
 namespace Nebuli.API.Extensions;
 
 /// <summary>
-/// Provides extension methods for working with strings.
+/// Provides extension methods for useful but hard to catagorize extensions.
 /// </summary>
 public static class GenericExtensions
 {
@@ -25,6 +29,17 @@ public static class GenericExtensions
             return input.Substring(0, index);
         return input;
     }
+
+    ///<summary>
+    /// A dictionary that maps command handler types to their corresponding <see cref="ICommandHandler"/>.
+    ///</summary>
+    /// <remarks>Valid types are <see cref="RemoteAdminCommandHandler"/>, <see cref="GameConsoleCommandHandler"/>, and <see cref="ClientCommandHandler"/>.</remarks>
+    public static readonly Dictionary<Type, ICommandHandler> CommandHandlers = new()
+    {
+    { typeof(RemoteAdminCommandHandler), CommandProcessor.RemoteAdminCommandHandler },
+    { typeof(GameConsoleCommandHandler), GameCore.Console.singleton.ConsoleCommandHandler },
+    { typeof(ClientCommandHandler), QueryProcessor.DotCommandHandler }
+    };
 
     /// <summary>
     /// Selects a random element from a <see cref="IEnumerable{T}"/>.
