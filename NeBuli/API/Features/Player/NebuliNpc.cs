@@ -62,8 +62,9 @@ public class NebuliNpc : NebuliPlayer
             {
                 Log.Debug("Safe to ignore, error caused by setting NPC role --->\n" + e);
             }
-            FakeConnection fakeConnection = new(ID);
-            NetworkServer.AddPlayerForConnection(fakeConnection, newPlayer);
+
+            NetworkServer.AddPlayerForConnection(new(ID), newPlayer);
+
             try
             {
                 newNPC.ReferenceHub.characterClassManager.UserId = UserId is not null ? UserId : null;

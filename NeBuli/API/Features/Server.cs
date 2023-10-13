@@ -124,7 +124,7 @@ public static class Server
     /// <summary>
     /// Gets the server's port.
     /// </summary>
-    public static ushort ServerPort => ServerStatic.ServerPort;
+    public static ushort ServerPort => ServerConsole.PortToReport;
 
     /// <summary>
     /// Gets the server's IP address.
