@@ -181,7 +181,8 @@ public class Ragdoll
     /// <returns>The created <see cref="Ragdoll"/> instance, or <c>null</c> if creation failed.</returns>
     public static Ragdoll Create(string Nickname, RoleTypeId role, DamageHandlerBase damageHandlerBase, NebuliPlayer owner = null, Vector3 position = default, Quaternion rotation = default, double creationTime = default)
     {
-        if (Create(new RagdollData(owner.ReferenceHub ?? Server.NebuliHost.ReferenceHub, damageHandlerBase, roleType: role, position, rotation, Nickname, creationTime), out Ragdoll ragdoll))
+        if (owner == null) owner = Server.NebuliHost;
+        if (Create(new RagdollData(owner.ReferenceHub, damageHandlerBase, roleType: role, position, rotation, Nickname, creationTime), out Ragdoll ragdoll))
             return ragdoll;
         return null;
     }
@@ -199,7 +200,8 @@ public class Ragdoll
     /// <returns>The created <see cref="Ragdoll"/> instance, or <c>null</c> if creation failed.</returns>
     public static Ragdoll CreateAndSpawn(string Nickname, RoleTypeId role, DamageHandlerBase damageHandlerBase, NebuliPlayer owner = null, Vector3 position = default, Quaternion rotation = default, double creationTime = default)
     {
-        if (Create(new RagdollData(owner.ReferenceHub ?? Server.NebuliHost.ReferenceHub, damageHandlerBase, roleType: role, position, rotation, Nickname, creationTime), out Ragdoll ragdoll))
+        if (owner == null) owner = Server.NebuliHost;
+        if (Create(new RagdollData(owner.ReferenceHub, damageHandlerBase, roleType: role, position, rotation, Nickname, creationTime), out Ragdoll ragdoll))
         {
             ragdoll.Spawn();
             return ragdoll;
