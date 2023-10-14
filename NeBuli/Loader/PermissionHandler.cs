@@ -1,6 +1,7 @@
 ﻿using CommandSystem;
 using Nebuli.API.Features;
 using Nebuli.API.Features.Player;
+using Nebuli.Loader;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -12,7 +13,7 @@ public static class PermissionsHandler
 {
     public static Dictionary<string, Group> Groups { get; internal set; } = new();
 
-    public static void LoadPermissions()
+    internal static void LoadPermissions()
     {
         try
         {
@@ -21,7 +22,7 @@ public static class PermissionsHandler
                 GenerateDefaultPermissionsFile(Paths.Permissions.FullName);
             }
 
-            PermissionsConfig permissionsConfig = Loader.Loader.Deserializer.Deserialize<PermissionsConfig>(File.ReadAllText(Paths.Permissions.FullName));
+            PermissionsConfig permissionsConfig = LoaderClass.Deserializer.Deserialize<PermissionsConfig>(File.ReadAllText(Paths.Permissions.FullName));
 
             foreach (string group in permissionsConfig.Permissions.Keys.ToList())
             {
@@ -47,7 +48,7 @@ public static class PermissionsHandler
         }
     }
 
-    public static void SavePermissions()
+    internal static void SavePermissions()
     {
         PermissionsConfig permissionsConfig = new()
         {
@@ -56,7 +57,7 @@ public static class PermissionsHandler
 
         try
         {
-            string yaml = Loader.Loader.Serializer.Serialize(permissionsConfig);
+            string yaml = LoaderClass.Serializer.Serialize(permissionsConfig);
             File.WriteAllText(Paths.Permissions.FullName, yaml);
         }
         catch (Exception e)
@@ -65,8 +66,14 @@ public static class PermissionsHandler
         }
     }
 
+    /// <summary>
+    /// Gets if the <see cref="NebuliPlayer"/> has the specified permission.
+    /// </summary>
     public static bool HasPermission(this NebuliPlayer ply, string permission) => HasPermission(ply.Sender, permission);
 
+    /// <summary>
+    /// Gets if the <see cref="ICommandSender"/> has the specified permission.
+    /// </summary>
     public static bool HasPermission(this ICommandSender commandSender, string permission)
     {
         if (commandSender is ServerConsoleSender) return true;
@@ -80,7 +87,7 @@ public static class PermissionsHandler
         return false;
     }
 
-    public static void GenerateDefaultPermissionsFile(string filePath)
+    internal static void GenerateDefaultPermissionsFile(string filePath)
     {
         PermissionsConfig defaultPermissionsConfig = new()
         {
@@ -95,7 +102,7 @@ public static class PermissionsHandler
 
         try
         {
-            File.WriteAllText(filePath, Loader.Loader.Serializer.Serialize(defaultPermissionsConfig));
+            File.WriteAllText(filePath, LoaderClass.Serializer.Serialize(defaultPermissionsConfig));
         }
         catch (Exception e)
         {
@@ -111,7 +118,7 @@ public class Group
     public List<string> Permissions { get; set; } = new List<string>();
 }
 
-public class PermissionsConfig
+internal class PermissionsConfig
 {
     public Dictionary<string, Group> Permissions { get; set; }
 }

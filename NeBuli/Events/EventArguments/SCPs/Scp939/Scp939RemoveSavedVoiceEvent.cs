@@ -3,6 +3,9 @@ using System;
 
 namespace Nebuli.Events.EventArguments.SCPs.Scp939;
 
+/// <summary>
+/// Triggered when SCP-939 removes a saved player voice.
+/// </summary>
 public class Scp939RemoveSavedVoiceEvent : EventArgs, IPlayerEvent, ICancellableEvent
 {
     public Scp939RemoveSavedVoiceEvent(ReferenceHub player, ReferenceHub target)

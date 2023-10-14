@@ -3,6 +3,9 @@ using System;
 
 namespace Nebuli.Events.EventArguments.SCPs.Scp173;
 
+/// <summary>
+/// Triggered when SCP-173 toggles its breakneck speed mode.
+/// </summary>
 public class Scp173ToggleBreakneckSpeedEvent : EventArgs, IPlayerEvent, ICancellableEvent
 {
     public Scp173ToggleBreakneckSpeedEvent(ReferenceHub player)

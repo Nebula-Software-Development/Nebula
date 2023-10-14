@@ -6,6 +6,9 @@ using Coin = InventorySystem.Items.Coin.Coin;
 
 namespace Nebuli.Events.EventArguments.Player;
 
+/// <summary>
+/// Triggered when a player flips a coin.
+/// </summary>
 public class PlayerFlippingCoinEvent : EventArgs, IPlayerEvent, ICancellableEvent
 {
     public PlayerFlippingCoinEvent(ReferenceHub ply, Coin item, bool tails)

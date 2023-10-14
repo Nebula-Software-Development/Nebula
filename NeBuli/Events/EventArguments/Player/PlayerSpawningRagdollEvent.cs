@@ -5,6 +5,9 @@ using System;
 
 namespace Nebuli.Events.EventArguments.Player;
 
+/// <summary>
+/// Triggered when a player spawns a ragdoll.
+/// </summary>
 public class PlayerSpawningRagdollEvent : EventArgs, IPlayerEvent, ICancellableEvent
 {
     public PlayerSpawningRagdollEvent(ReferenceHub owner, DamageHandlerBase damageHandlerBase, BasicRagdoll basicRagdoll)

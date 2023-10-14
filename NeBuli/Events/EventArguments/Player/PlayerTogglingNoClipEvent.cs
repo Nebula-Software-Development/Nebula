@@ -3,6 +3,9 @@ using System;
 
 namespace Nebuli.Events.EventArguments.Player;
 
+/// <summary>
+/// Triggered when a player toggles NoClip mode.
+/// </summary>
 public class PlayerTogglingNoClipEvent : EventArgs, IPlayerEvent, ICancellableEvent
 {
     public PlayerTogglingNoClipEvent(ReferenceHub player, bool newState, bool isPermitted)

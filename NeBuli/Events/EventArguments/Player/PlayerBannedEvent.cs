@@ -5,6 +5,9 @@ using System;
 
 namespace Nebuli.Events.EventArguments.Player;
 
+/// <summary>
+/// Triggered when a player is banned from the server.
+/// </summary>
 public class PlayerBannedEvent : EventArgs, IPlayerEvent, ICancellableEvent
 {
     public PlayerBannedEvent(Footprint target, ICommandSender issuer, string reason, long duration)

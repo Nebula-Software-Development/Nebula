@@ -87,7 +87,7 @@
     <Compile Include="API\Extensions\StatusEffectTypeExtension.cs" />
     <Compile Include="API\Extensions\ItemTypeExtension.cs" />
     <Compile Include="API\Extensions\RoleTypeExtensions.cs" />
-    <Compile Include="API\Extensions\StringExtensions.cs" />
+    <Compile Include="API\Extensions\GenericExtensions.cs" />
     <Compile Include="API\Features\AdminToys\AdminToy.cs" />
     <Compile Include="API\Features\AdminToys\LightToy.cs" />
     <Compile Include="API\Features\AdminToys\PrimitiveToy.cs" />
@@ -179,6 +179,7 @@
     <Compile Include="API\Features\Pools\ListPool.cs" />
     <Compile Include="API\Features\Ragdoll.cs" />
     <Compile Include="API\Features\Respawn.cs" />
+    <Compile Include="API\Features\Roles\FilmmakerRole.cs" />
     <Compile Include="API\Features\Roles\FpcRoleBase.cs" />
     <Compile Include="API\Features\Roles\HumanPlayerRole.cs" />
     <Compile Include="API\Features\Roles\OverwatchPlayerRole.cs" />
@@ -204,9 +205,7 @@
     <Compile Include="API\Internal\Commands\ReloadPerms.cs" />
     <Compile Include="API\Internal\Commands\ReloadPlugins.cs" />
     <Compile Include="API\Internal\CustomHealthManager.cs" />
-    <Compile Include="API\Internal\CustomHint.cs" />
     <Compile Include="API\Internal\FakeConnection.cs" />
-    <Compile Include="API\Internal\NebuliPatches\HintPatch.cs" />
     <Compile Include="API\Internal\UserSessionData.cs" />
     <Compile Include="Events\EventArguments\ICancellableEvent.cs" />
     <Compile Include="Events\EventArguments\IDamageEvent.cs" />
@@ -278,6 +277,7 @@
     <Compile Include="Events\EventArguments\SCPs\Scp939\Scp939SavePlayerVoiceEvent.cs" />
     <Compile Include="Events\EventArguments\SCPs\Scp939\Scp939ToggleFocusEvent.cs" />
     <Compile Include="Events\EventArguments\SCPs\Scp939\Scp939UseLungeEvent.cs" />
+    <Compile Include="Events\EventArguments\Server\SpawningBloodEvent.cs" />
     <Compile Include="Events\EventArguments\Server\SpawningItemEvent.cs" />
     <Compile Include="Events\EventArguments\Server\WarheadDetonatingEvent.cs" />
     <Compile Include="Events\EventManager.cs" />
@@ -299,6 +299,7 @@
     <Compile Include="Events\Patches\Game\MapGeneratedPatch.cs" />
     <Compile Include="Events\Patches\Game\MoreEscapePatch.cs" />
     <Compile Include="Events\Patches\Game\NamePatch.cs" />
+    <Compile Include="Events\Patches\Game\NpcInstanceModeFix.cs" />
     <Compile Include="Events\Patches\Game\WeaponDysncFix.cs" />
     <Compile Include="Events\Patches\Player\BannedPlayer.cs" />
     <Compile Include="Events\Patches\Player\ChangedItemPatch.cs" />
@@ -365,10 +366,11 @@
     <Compile Include="Events\Patches\SCPs\Scp049\StartRevive.cs" />
     <Compile Include="Events\Patches\SCPs\Scp049\TriggerCall.cs" />
     <Compile Include="Events\Patches\SCPs\Scp049\TriggerSense.cs" />
+    <Compile Include="Events\Patches\Server\SpawningBloodPatch.cs" />
     <Compile Include="Events\Patches\Server\SpawningItemPatch.cs" />
     <Compile Include="Events\Patches\Warhead\WarheadDetonatingPatch.cs" />
     <Compile Include="Loader\CustomConverters\CustomVectorsConverter.cs" />
-    <Compile Include="Loader\Loader.cs" />
+    <Compile Include="Loader\LoaderClass.cs" />
     <Compile Include="Loader\LoaderConfiguration.cs" />
     <Compile Include="Loader\NebuliInfo.cs" />
     <Compile Include="Loader\PermissionHandler.cs" />

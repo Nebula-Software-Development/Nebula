@@ -3,6 +3,9 @@ using System;
 
 namespace Nebuli.Events.EventArguments.SCPs.Scp0492;
 
+/// <summary>
+/// Triggered when SCP-049-2 goes into a bloodlust state.
+/// </summary>
 public class Scp0492BloodlustEvent : EventArgs, IPlayerEvent, ICancellableEvent
 {
     public Scp0492BloodlustEvent(ReferenceHub player, ReferenceHub observer)

@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using Nebuli.Loader;
+using System.IO;
 using NwPaths = PluginAPI.Helpers.Paths;
 
 namespace Nebuli.API.Features;
@@ -50,7 +51,7 @@ public static class Paths
     {
         MainDirectory = Directory.CreateDirectory(Path.Combine(NwPaths.AppData, "Nebuli"));
         PluginsDirectory = MainDirectory.CreateSubdirectory("Plugins");
-        if (Loader.Loader.Configuration.SeperatePluginsByPort)
+        if (LoaderClass.Configuration.SeperatePluginsByPort)
             PluginsPortDirectory = PluginsDirectory.CreateSubdirectory(Server.ServerPort.ToString() + "-Plugins");
         else
             PluginsPortDirectory = PluginsDirectory;

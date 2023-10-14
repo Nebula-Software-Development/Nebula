@@ -2,7 +2,7 @@
 
 namespace Nebuli.API.Features.Roles;
 
-public class Scp106PlayerRole : FpcRoleBase
+public class Scp106PlayerRole : Role
 {
     /// <summary>
     /// Gets the <see cref="Scp106Role"/> base.

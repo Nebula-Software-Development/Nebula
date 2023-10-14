@@ -5,6 +5,9 @@ using System;
 
 namespace Nebuli.Events.EventArguments.SCPs.Scp914;
 
+/// <summary>
+/// Triggered when a player is upgrading an item in SCP-914.
+/// </summary>
 public class UpgradingItemEvent : EventArgs, ICancellableEvent
 {
     public UpgradingItemEvent(ItemPickupBase pickup, bool upgradeDropped, Scp914KnobSetting knobSetting)

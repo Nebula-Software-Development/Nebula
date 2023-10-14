@@ -8,10 +8,13 @@ namespace Nebuli.API.Features;
 public static class Respawn
 {
     /// <summary>
-    /// Gets the current <see cref="RespawnManager.RespawnSequencePhase"/>.
+    /// Gets or sets the current <see cref="RespawnManager.RespawnSequencePhase"/>.
     /// </summary>
-    /// <returns></returns>
-    public static RespawnManager.RespawnSequencePhase CurrentRespawnSequence() => RespawnManager.CurrentSequence();
+    public static RespawnManager.RespawnSequencePhase RespawnSequencePhase
+    {
+        get => RespawnManager.CurrentSequence();
+        set => RespawnManager.Singleton._curSequence = value;
+    }
 
     /// <summary>
     /// Gets if a wave is currently respawning.
@@ -27,9 +30,13 @@ public static class Respawn
     }
 
     /// <summary>
-    /// Gets the next known team.
+    /// Gets or sets the next known team.
     /// </summary>
-    public static SpawnableTeamType NextKnownTeam => RespawnManager.Singleton.NextKnownTeam;
+    public static SpawnableTeamType NextKnownTeam
+    {
+        get => RespawnManager.Singleton.NextKnownTeam;
+        set => RespawnManager.Singleton.NextKnownTeam = value;
+    }
 
     /// <summary>
     /// Gets the current leading team.
@@ -37,9 +44,13 @@ public static class Respawn
     public static SpawnableTeamType LeadingTeam => RespawnTokensManager.DominatingTeam;
 
     /// <summary>
-    /// Gets the time, in seconds, until the next respawn.
+    /// Gets or sets the time, in seconds, until the next respawn.
     /// </summary>
-    public static int NextRespawnTime => RespawnManager.Singleton.TimeTillRespawn;
+    public static int NextRespawnTime
+    {
+        get => RespawnManager.Singleton.TimeTillRespawn;
+        set => RespawnManager.Singleton.TimeTillRespawn = value;
+    }
 
     /// <summary>
     /// Grants tokens to the specified team.
@@ -79,7 +90,7 @@ public static class Respawn
     public static float NineTailedFoxTokens
     {
         get => RespawnTokensManager.Counters[1].Amount;
-        set => GiveTickets(SpawnableTeamType.NineTailedFox, value);
+        set => RespawnTokensManager.Counters[1].Amount = value;
     }
 
     /// <summary>
@@ -94,6 +105,6 @@ public static class Respawn
     public static float ChaosInsurgencyTokens
     {
         get => RespawnTokensManager.Counters[0].Amount;
-        set => GiveTickets(SpawnableTeamType.ChaosInsurgency, value);
+        set => RespawnTokensManager.Counters[0].Amount = value;
     }
 }

@@ -23,7 +23,7 @@ public static class Server
     /// <summary>
     /// Gets the current player count of the server.
     /// </summary>
-    public static int PlayerCount => ReferenceHub.AllHubs.Count - 1;
+    public static int PlayerCount => NebuliPlayer.List.Count;
 
     /// <summary>
     /// Gets the servers <see cref="NebuliPlayer"/> Host.
@@ -124,7 +124,7 @@ public static class Server
     /// <summary>
     /// Gets the server's port.
     /// </summary>
-    public static ushort ServerPort => ServerStatic.ServerPort;
+    public static ushort ServerPort => ServerConsole.PortToReport;
 
     /// <summary>
     /// Gets the server's IP address.
@@ -215,7 +215,7 @@ public static class Server
     {
         foreach (NebuliPlayer ply in NebuliPlayer.List)
         {
-            Broadcast.TargetClearElements(ply.ReferenceHub.connectionToClient);
+            ply.ClearBroadcasts();
         }
     }
 

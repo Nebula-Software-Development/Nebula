@@ -3,6 +3,9 @@ using System;
 
 namespace Nebuli.Events.EventArguments.SCPs.Scp049;
 
+/// <summary>
+/// Triggered when SCP-049 uses its call ability.
+/// </summary>
 public class Scp049UseCallEvent : EventArgs, IPlayerEvent, ICancellableEvent
 {
     public Scp049UseCallEvent(ReferenceHub player)

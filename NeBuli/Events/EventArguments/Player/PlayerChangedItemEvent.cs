@@ -5,6 +5,9 @@ using System;
 
 namespace Nebuli.Events.EventArguments.Player;
 
+/// <summary>
+/// Triggered when a player changes their current item.
+/// </summary>
 public class PlayerChangedItemEvent : EventArgs, IPlayerEvent
 {
     public PlayerChangedItemEvent(ReferenceHub ply, ItemBase item)

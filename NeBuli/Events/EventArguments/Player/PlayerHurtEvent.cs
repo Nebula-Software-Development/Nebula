@@ -4,6 +4,9 @@ using System;
 
 namespace Nebuli.Events.EventArguments.Player;
 
+/// <summary>
+/// Triggered when a player is hurt.
+/// </summary>
 public class PlayerHurtEvent : EventArgs, IDamageEvent, ICancellableEvent
 {
     public PlayerHurtEvent(AttackerDamageHandler attacker, ReferenceHub target, DamageHandlerBase dmgB)

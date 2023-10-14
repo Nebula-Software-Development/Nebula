@@ -145,7 +145,7 @@ public class Updater
         return nebuliPlugin.Value.PluginFilePath;
     }
 
-    internal void ForceInstall(string url)
+    internal static void ForceInstall(string url)
     {
         if (!IsGitHubUrl(url))
         {
@@ -171,7 +171,7 @@ public class Updater
         Server.RestartServer();
     }
 
-    private bool IsGitHubUrl(string url)
+    private static bool IsGitHubUrl(string url)
     {
         string githubPattern = @"^(https?:\/\/)?(www\.)?github\.com\/.*";
         return Regex.IsMatch(url, githubPattern, RegexOptions.IgnoreCase);

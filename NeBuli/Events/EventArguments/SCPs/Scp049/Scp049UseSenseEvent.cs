@@ -3,6 +3,9 @@ using System;
 
 namespace Nebuli.Events.EventArguments.SCPs.Scp049;
 
+/// <summary>
+/// Triggered when SCP-049 uses its sense ability.
+/// </summary>
 public class Scp049UseSenseEvent : EventArgs, IPlayerEvent, ICancellableEvent
 {
     public Scp049UseSenseEvent(ReferenceHub player, ReferenceHub target, float distance)

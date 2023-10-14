@@ -43,7 +43,7 @@ public abstract class Role
     /// <summary>
     /// Gets the <see cref="PlayerRoles.RoleTypeId"/> of this role.
     /// </summary>
-    public abstract RoleTypeId RoleTypeId { get; }
+    public RoleTypeId RoleTypeId => Base.RoleTypeId;
 
     /// <summary>
     /// Gets the roles name.
@@ -102,7 +102,7 @@ public abstract class Role
     public void SetNewRole(RoleTypeId newRole, RoleChangeReason reason = RoleChangeReason.RemoteAdmin, RoleSpawnFlags roleSpawnFlags = RoleSpawnFlags.All)
         => Owner.SetRole(newRole, reason, roleSpawnFlags);
 
-    internal static Role CreateNew(PlayerRoleBase role)
+    public static Role CreateNew(PlayerRoleBase role)
     {
         return role switch
         {
@@ -115,6 +115,7 @@ public abstract class Role
             Scp049Role scp049 => new Scp049PlayerRole(scp049),
             OverwatchRole overwatch => new OverwatchPlayerRole(overwatch),
             SpectatorRole spectator => new SpectatorPlayerRole(spectator),
+            PlayerRoles.Filmmaker.FilmmakerRole filmmaker => new FilmmakerRole(filmmaker),
             _ => null,
         };
     }

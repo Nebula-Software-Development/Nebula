@@ -3,6 +3,9 @@ using System;
 
 namespace Nebuli.Events.EventArguments.Player;
 
+/// <summary>
+/// Triggered when a player joins the server.
+/// </summary>
 public class PlayerJoinEvent : EventArgs, IPlayerEvent
 {
     public PlayerJoinEvent(ServerRoles serverRoles)

@@ -7,6 +7,9 @@ using static Escape;
 
 namespace Nebuli.Events.EventArguments.Player;
 
+/// <summary>
+/// Triggered when a player escapes from the facility.
+/// </summary>
 public class PlayerEscapingEvent : EventArgs, IPlayerEvent, ICancellableEvent
 {
     public PlayerEscapingEvent(ReferenceHub player, RoleTypeId newRole, EscapeScenarioType escapeType, EscapeMessage escapeMessage, SpawnableTeamType team)

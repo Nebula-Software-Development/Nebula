@@ -4,6 +4,9 @@ using System;
 
 namespace Nebuli.Events.EventArguments.Player;
 
+/// <summary>
+/// Triggered when a player is dying.
+/// </summary>
 public class PlayerDyingEvent : EventArgs, ICancellableEvent, IPlayerEvent
 {
     public PlayerDyingEvent(ReferenceHub target, DamageHandlerBase dmgB)

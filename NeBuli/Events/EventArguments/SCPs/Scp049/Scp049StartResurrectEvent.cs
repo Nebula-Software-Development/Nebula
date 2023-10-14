@@ -4,6 +4,9 @@ using System;
 
 namespace Nebuli.Events.EventArguments.SCPs.Scp049;
 
+/// <summary>
+/// Triggered when SCP-049 starts the resurrection process.
+/// </summary>
 public class Scp049StartResurrectEvent : EventArgs, IPlayerEvent, IRadgollEvent, ICancellableEvent
 {
     public Scp049StartResurrectEvent(ReferenceHub player, BasicRagdoll baseRagdoll)

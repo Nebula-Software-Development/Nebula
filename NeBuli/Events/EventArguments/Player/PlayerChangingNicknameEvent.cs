@@ -3,6 +3,9 @@ using System;
 
 namespace Nebuli.Events.EventArguments.Player;
 
+/// <summary>
+/// Triggered when a player changes their nickname.
+/// </summary>
 public class PlayerChangingNicknameEvent : EventArgs, IPlayerEvent, ICancellableEvent
 {
     public PlayerChangingNicknameEvent(ReferenceHub ply, string newName)

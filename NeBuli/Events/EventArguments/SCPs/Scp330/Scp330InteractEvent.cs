@@ -4,6 +4,9 @@ using System;
 
 namespace Nebuli.Events.EventArguments.SCPs.Scp330;
 
+/// <summary>
+/// Triggered when a player is interacting with SCP-330.
+/// </summary>
 public class Scp330InteractEvent : EventArgs, IPlayerEvent, ICancellableEvent
 {
     public Scp330InteractEvent(ReferenceHub hub, int uses, CandyKindID candy)

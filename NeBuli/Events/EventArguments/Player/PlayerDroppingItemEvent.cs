@@ -5,6 +5,9 @@ using System;
 
 namespace Nebuli.Events.EventArguments.Player;
 
+/// <summary>
+/// Triggered when a player drops an item.
+/// </summary>
 public class PlayerDroppingItemEvent : EventArgs, IPlayerEvent, ICancellableEvent
 {
     public PlayerDroppingItemEvent(ReferenceHub player, ItemBase item)

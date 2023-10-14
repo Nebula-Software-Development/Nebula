@@ -3,6 +3,9 @@ using System;
 
 namespace Nebuli.Events.EventArguments.Player;
 
+/// <summary>
+/// Triggered when a player enters the pocket dimension.
+/// </summary>
 public class PlayerEnteringPocketDimensionEvent : EventArgs, IPlayerEvent, ICancellableEvent
 {
     public PlayerEnteringPocketDimensionEvent(NebuliPlayer player, NebuliPlayer target)

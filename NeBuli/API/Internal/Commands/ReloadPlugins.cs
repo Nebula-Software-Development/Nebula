@@ -1,5 +1,6 @@
 ﻿using CommandSystem;
 using Nebuli.API.Features;
+using Nebuli.Loader;
 using Nebuli.Permissions;
 using System;
 
@@ -20,11 +21,10 @@ public class ReloadPlugins : ICommand
             if (!sender.HasPermission("reloadplugins"))
             {
                 response = "No permission! Permission needed : 'reloadplugins'.";
-                return false;
+                return false;   
             }
 
-            Loader.Loader loader = new();
-            loader.ReloadPlugins();
+            LoaderClass.LoaderInstance.ReloadPlugins();
         }
         catch (Exception e)
         {

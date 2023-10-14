@@ -59,11 +59,6 @@ public class FpcRoleBase : Role
     /// </summary>
     public bool IsAFK => Base.IsAFK;
 
-    /// <summary>
-    /// Gets the RoleTypeId of the role.
-    /// </summary>
-    public override RoleTypeId RoleTypeId => Base.RoleTypeId;
-
     ///<summary>
     /// Gets the role's SpectatableModuleBase.
     /// </summary>

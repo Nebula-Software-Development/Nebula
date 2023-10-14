@@ -3,6 +3,9 @@ using System;
 
 namespace Nebuli.Events.EventArguments.SCPs.Scp939;
 
+/// <summary>
+/// Triggered when SCP-939 places a mimic point.
+/// </summary>
 public class Scp939PlaceMimicPointEvent : EventArgs, IPlayerEvent, ICancellableEvent
 {
     public Scp939PlaceMimicPointEvent(ReferenceHub player)

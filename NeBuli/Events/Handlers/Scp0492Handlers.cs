@@ -4,12 +4,24 @@ namespace Nebuli.Events.Handlers;
 
 public static class Scp0492Handlers
 {
+    /// <summary>
+    /// Triggered when SCP-049-2 consumes a corpse.
+    /// </summary>
     public static event EventManager.CustomEventHandler<Scp0492ConsumeCorpseEvent> ConsumeCorpse;
 
+    /// <summary>
+    /// Triggered when SCP-049-2 finishes consuming a corpse.
+    /// </summary>
     public static event EventManager.CustomEventHandler<Scp0492CorpseConsumedEvent> CorpseConsumed;
 
+    /// <summary>
+    /// Triggered when SCP-049-2 attacks a player.
+    /// </summary>
     public static event EventManager.CustomEventHandler<Scp0492AttackEvent> Attack;
 
+    /// <summary>
+    /// Triggered when SCP-049-2 goes into a bloodlust state.
+    /// </summary>
     public static event EventManager.CustomEventHandler<Scp0492BloodlustEvent> BloodLust;
 
     internal static void OnConsumeCorpse(Scp0492ConsumeCorpseEvent ev) => ConsumeCorpse.CallEvent(ev);

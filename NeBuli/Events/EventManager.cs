@@ -18,6 +18,7 @@ using Nebuli.API.Features.Player;
 using Nebuli.API.Features.Pools;
 using Nebuli.API.Features.Structs;
 using Nebuli.Events.Handlers;
+using Nebuli.Events.Patches.Game;
 using Nebuli.Loader;
 using PlayerRoles;
 using PlayerRoles.Ragdolls;
@@ -26,16 +27,31 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Runtime.InteropServices;
+using System.Runtime.Remoting.Lifetime;
 using UnityEngine.SceneManagement;
 using Object = UnityEngine.Object;
 
 namespace Nebuli.Events;
 
+/// <summary>
+/// Nebulis custom event management class.
+/// </summary>
 public static class EventManager
 {
+    /// <summary>
+    /// Represents a custom event handler delegate with event argument of type T.
+    /// </summary>
+    /// <typeparam name="T">The type of event arguments.</typeparam>
+    /// <param name="ev">The event argument.</param>
     public delegate void CustomEventHandler<in T>(T ev)
             where T : EventArgs;
 
+    /// <summary>
+    /// Invokes a custom event handler with event arguments of type T.
+    /// </summary>
+    /// <typeparam name="T">The type of event arguments.</typeparam>
+    /// <param name="eventHandler">The custom event handler delegate.</param>
+    /// <param name="args">The event arguments.</param>
     public static void CallEvent<T>(this CustomEventHandler<T> eventHandler, T args) where T : EventArgs
     {
         if (eventHandler is null)
@@ -54,8 +70,15 @@ public static class EventManager
         }
     }
 
+    /// <summary>
+    /// Represents a custom event handler delegate without event arguments.
+    /// </summary>
     public delegate void CustomEventHandler();
 
+    /// <summary>
+    /// Invokes a custom event handler without event arguments.
+    /// </summary>
+    /// <param name="eventHandler">The custom event handler delegate.</param>
     public static void CallEmptyEvent(this CustomEventHandler eventHandler)
     {
         if (eventHandler is null)
@@ -77,6 +100,7 @@ public static class EventManager
     internal static void RegisterBaseEvents()
     {
         SceneManager.sceneUnloaded += OnSceneUnLoaded;
+        CharacterClassManager.OnInstanceModeChanged += NpcInstanceModeFix.HandleInstanceModeChange;
         RagdollManager.OnRagdollSpawned += OnRagdollSpawned;
         RagdollManager.OnRagdollRemoved += OnRagdollDeSpawned;
         SeedSynchronizer.OnMapGenerated += OnMapGenerated;
@@ -93,6 +117,7 @@ public static class EventManager
     {
         SceneManager.sceneUnloaded -= OnSceneUnLoaded;
         RagdollManager.OnRagdollSpawned -= OnRagdollSpawned;
+        CharacterClassManager.OnInstanceModeChanged -= NpcInstanceModeFix.HandleInstanceModeChange;
         RagdollManager.OnRagdollRemoved -= OnRagdollDeSpawned;
         SeedSynchronizer.OnMapGenerated -= OnMapGenerated;
         ItemPickupBase.OnPickupAdded -= OnPickupAdded;
@@ -150,24 +175,18 @@ public static class EventManager
             Window.Get(breakableWindow);
         foreach (PlayerRoles.PlayableScps.Scp079.Cameras.Scp079Camera camera in Object.FindObjectsOfType<PlayerRoles.PlayableScps.Scp079.Cameras.Scp079Camera>())
             Camera.Get(camera);
-        Server.NebuliHost = new(ReferenceHub.HostHub);
+        if(ReferenceHub.TryGetHostHub(out ReferenceHub hub)) Server.NebuliHost = new(hub);
         GenerateAttachments();
     }
 
-    private static void OnPickupAdded(ItemPickupBase itemPickupBase)
-    {
-        Pickup.Get(itemPickupBase);
-    }
+    private static void OnPickupAdded(ItemPickupBase itemPickupBase) => Pickup.Get(itemPickupBase);
 
     private static void OnPickupRemoved(ItemPickupBase itemPickupBase)
     {
         if (Pickup.Dictionary.ContainsKey(itemPickupBase)) Pickup.Dictionary.Remove(itemPickupBase);
     }
 
-    private static void OnItemAdded(ReferenceHub hub, ItemBase ibase, ItemPickupBase ipbase)
-    {
-        Item.Get(ibase);
-    }
+    private static void OnItemAdded(ReferenceHub hub, ItemBase ibase, ItemPickupBase ipbase) => Item.Get(ibase);
 
     private static void OnItemRemoved(ReferenceHub hub, ItemBase ibase, ItemPickupBase ipbase)
     {

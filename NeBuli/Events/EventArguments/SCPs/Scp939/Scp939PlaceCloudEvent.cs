@@ -3,6 +3,9 @@ using System;
 
 namespace Nebuli.Events.EventArguments.SCPs.Scp939;
 
+/// <summary>
+/// Triggered when SCP-939 places a cloud of gas.
+/// </summary>
 public class Scp939PlaceCloudEvent : EventArgs, IPlayerEvent, ICancellableEvent
 {
     public Scp939PlaceCloudEvent(ReferenceHub player)

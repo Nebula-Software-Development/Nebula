@@ -4,6 +4,9 @@ using System;
 
 namespace Nebuli.Events.EventArguments.Player;
 
+/// <summary>
+/// Triggered when a player's role changes.
+/// </summary>
 public class PlayerRoleChangeEvent : EventArgs, IPlayerEvent, ICancellableEvent
 {
     public PlayerRoleChangeEvent(ReferenceHub ply, RoleTypeId newRole, RoleChangeReason roleChangeReason, RoleSpawnFlags roleSpawnFlags)

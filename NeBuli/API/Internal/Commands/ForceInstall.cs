@@ -18,14 +18,13 @@ public class ForceInstall : ICommand
     {
         try
         {
-            if (!Loader.Loader.Configuration.AllowExternalDownloadURLS)
+            if (!LoaderClass.Configuration.AllowExternalDownloadURLS)
             {
                 response = "External URL downloading isnt enabled in the config!";
                 return false;
             }
 
-            Updater fi = new();
-            fi.ForceInstall(arguments.Array[1]);
+            Updater.ForceInstall(arguments.Array[1]);
         }
         catch (Exception e)
         {

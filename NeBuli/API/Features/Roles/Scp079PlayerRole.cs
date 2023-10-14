@@ -54,11 +54,6 @@ public class Scp079PlayerRole : Role
     }
 
     /// <summary>
-    /// Gets the roles <see cref="PlayerRoles.RoleTypeId"/>.
-    /// </summary>
-    public override RoleTypeId RoleTypeId => Base.RoleTypeId;
-
-    /// <summary>
     /// Gets if the role is AFK.
     /// </summary>
     public bool IsAFK => Base.IsAFK;

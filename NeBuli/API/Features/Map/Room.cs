@@ -2,6 +2,7 @@ using MapGeneration;
 using Nebuli.API.Extensions;
 using Nebuli.API.Features.Doors;
 using Nebuli.API.Features.Enum;
+using Nebuli.Loader;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -108,9 +109,9 @@ public class Room
     public static Room GetRandomRoom(FacilityZone? zone = null)
     {
         if (zone is null)
-            return List[Loader.Loader.Random.Next(List.Count)];
+            return List.SelectRandom();
         else
-            return List.Where(room => room.Zone == zone).OrderBy(_ => Loader.Loader.Random.Next()).FirstOrDefault();
+            return List.Where(room => room.Zone == zone).OrderBy(_ => LoaderClass.Random.Next()).SelectRandom();
     }
 
     /// <summary>

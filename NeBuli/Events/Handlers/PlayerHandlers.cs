@@ -4,55 +4,131 @@ namespace Nebuli.Events.Handlers;
 
 public static class PlayerHandlers
 {
+    /// <summary>
+    /// Triggered when a player joins the server.
+    /// </summary>
     public static event EventManager.CustomEventHandler<PlayerJoinEvent> Join;
 
+    /// <summary>
+    /// Triggered when a player leaves the server.
+    /// </summary>
     public static event EventManager.CustomEventHandler<PlayerLeaveEvent> Leave;
 
+    /// <summary>
+    /// Triggered when a player is hurt.
+    /// </summary>
     public static event EventManager.CustomEventHandler<PlayerHurtEvent> Hurt;
 
+    /// <summary>
+    /// Triggered when a player is dying.
+    /// </summary>
     public static event EventManager.CustomEventHandler<PlayerDyingEvent> Dying;
 
+    /// <summary>
+    /// Triggered when a player is banned from the server.
+    /// </summary>
     public static event EventManager.CustomEventHandler<PlayerBannedEvent> Banned;
 
+    /// <summary>
+    /// Triggered when a player shoots a weapon.
+    /// </summary>
     public static event EventManager.CustomEventHandler<PlayerShotEventArgs> Shot;
 
+    /// <summary>
+    /// Triggered when a player's role changes.
+    /// </summary>
     public static event EventManager.CustomEventHandler<PlayerRoleChangeEvent> RoleChange;
 
+    /// <summary>
+    /// Triggered when a player triggers a Tesla gate.
+    /// </summary>
     public static event EventManager.CustomEventHandler<PlayerTriggeringTeslaEvent> TriggeringTesla;
 
+    /// <summary>
+    /// Triggered when a player escapes from the facility.
+    /// </summary>
     public static event EventManager.CustomEventHandler<PlayerEscapingEvent> Escaping;
 
+    /// <summary>
+    /// Triggered when a player picks up an item.
+    /// </summary>
     public static event EventManager.CustomEventHandler<PlayerPickingUpItemEvent> PickingUpItem;
 
+    /// <summary>
+    /// Triggered when a player drops an item.
+    /// </summary>
     public static event EventManager.CustomEventHandler<PlayerDroppingItemEvent> DroppingItem;
 
+    /// <summary>
+    /// Triggered when a player picks up ammo.
+    /// </summary>
     public static event EventManager.CustomEventHandler<PlayerPickingUpAmmoEvent> PickingUpAmmo;
 
+    /// <summary>
+    /// Triggered when a player escapes from the pocket dimension.
+    /// </summary>
     public static event EventManager.CustomEventHandler<PlayerEscapingPocketEvent> EscapingPocket;
 
+    /// <summary>
+    /// Triggered when a player changes their user group.
+    /// </summary>
     public static event EventManager.CustomEventHandler<PlayerChangingUserGroupEvent> UserChangingUserGroup;
 
+    /// <summary>
+    /// Triggered when a player spawns a ragdoll.
+    /// </summary>
     public static event EventManager.CustomEventHandler<PlayerSpawningRagdollEvent> SpawningRagdoll;
 
+    /// <summary>
+    /// Triggered when a player spawns in the game.
+    /// </summary>
     public static event EventManager.CustomEventHandler<PlayerSpawningEvent> Spawning;
 
+    /// <summary>
+    /// Triggered when a player uses a radio battery.
+    /// </summary>
     public static event EventManager.CustomEventHandler<PlayerUsingRadioBatteryEvent> UsingRadioBattery;
 
+    /// <summary>
+    /// Triggered when a player interacts with a door.
+    /// </summary>
     public static event EventManager.CustomEventHandler<PlayerInteractingDoorEvent> InteractingDoor;
 
+    /// <summary>
+    /// Triggered when a player picks up armor.
+    /// </summary>
     public static event EventManager.CustomEventHandler<PlayerPickingUpArmorEvent> PickingUpArmor;
 
+    /// <summary>
+    /// Triggered when a player is destroyed.
+    /// </summary>
     public static event EventManager.CustomEventHandler<PlayerDestroyingEvent> Destroying;
 
+    /// <summary>
+    /// Triggered when a player flips a coin.
+    /// </summary>
     public static event EventManager.CustomEventHandler<PlayerFlippingCoinEvent> FlippingCoin;
 
+    /// <summary>
+    /// Triggered when a player enters the pocket dimension.
+    /// </summary>
     public static event EventManager.CustomEventHandler<PlayerEnteringPocketDimensionEvent> EnteringPocketDimension;
 
+    /// <summary>
+    /// Triggered when a player toggles NoClip mode.
+    /// </summary>
     public static event EventManager.CustomEventHandler<PlayerTogglingNoClipEvent> TogglingNoClip;
 
+    /// <summary>
+    /// Triggered when a player changes their current item.
+    /// </summary>
     public static event EventManager.CustomEventHandler<PlayerChangedItemEvent> ChangedItem;
 
+    /// <summary>
+    /// Triggered when a player changes their nickname.
+    /// </summary>
     public static event EventManager.CustomEventHandler<PlayerChangingNicknameEvent> ChangingNickname;
+
 
     internal static void OnJoin(PlayerJoinEvent ev) => Join.CallEvent(ev);
 

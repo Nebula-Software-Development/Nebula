@@ -3,6 +3,9 @@ using System;
 
 namespace Nebuli.Events.EventArguments.SCPs.Scp939;
 
+/// <summary>
+/// Triggered when SCP-939 removes a mimic point.
+/// </summary>
 public class Scp939RemoveMimicPoint : EventArgs, IPlayerEvent, ICancellableEvent
 {
     public Scp939RemoveMimicPoint(ReferenceHub player)

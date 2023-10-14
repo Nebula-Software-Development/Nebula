@@ -3,6 +3,9 @@ using System;
 
 namespace Nebuli.Events.EventArguments.SCPs.Scp173;
 
+/// <summary>
+/// Triggered when SCP-173 attempts to place a tantrum.
+/// </summary>
 public class Scp173PlaceTantrumEvent : EventArgs, IPlayerEvent, ICancellableEvent
 {
     public Scp173PlaceTantrumEvent(ReferenceHub player)

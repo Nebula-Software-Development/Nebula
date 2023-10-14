@@ -4,6 +4,9 @@ using System.Collections.Generic;
 
 namespace Nebuli.Events.EventArguments.Round;
 
+/// <summary>
+/// Triggered when a team is respawning.
+/// </summary>
 public class RespawningTeamEvent : EventArgs, ICancellableEvent
 {
     public RespawningTeamEvent(List<ReferenceHub> respawningPlayers, SpawnableTeamType respawningTeam, int maxWaveSize)

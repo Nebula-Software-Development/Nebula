@@ -7,6 +7,9 @@ using UnityEngine;
 
 namespace Nebuli.Events.EventArguments.SCPs.Scp079;
 
+/// <summary>
+/// Triggered when SCP-079 is pings.
+/// </summary>
 public class Scp079PingingEvent : EventArgs, IPlayerEvent, ICancellableEvent
 {
     public Scp079PingingEvent(ReferenceHub player, RelativePosition pos, int powerCost, byte index, Vector3 syncPos)

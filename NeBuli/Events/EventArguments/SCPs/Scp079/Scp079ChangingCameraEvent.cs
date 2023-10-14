@@ -5,6 +5,9 @@ using System;
 
 namespace Nebuli.Events.EventArguments.SCPs.Scp079;
 
+/// <summary>
+/// Triggered when SCP-079 is changing its camera.
+/// </summary>
 public class Scp079ChangingCameraEvent : EventArgs, IPlayerEvent, ICancellableEvent
 {
     public Scp079ChangingCameraEvent(ReferenceHub player, float auxdrain, Scp079Camera camera)

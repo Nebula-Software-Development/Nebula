@@ -2,10 +2,11 @@
 using Nebuli.API.Features.Enum;
 using Nebuli.API.Features.Pools;
 using Nebuli.API.Interfaces;
-using RemoteAdmin;
+using Nebuli.API.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
+using System.Linq;
 
 namespace Nebuli.API.Features;
 
@@ -20,12 +21,12 @@ public abstract class Plugin<TConfig> : IPlugin<TConfig> where TConfig : IConfig
     /// <summary>
     /// Gets the plugins name.
     /// </summary>
-    public virtual string Name { get; }
+    public virtual string Name { get; } = "Undefined";
 
     /// <summary>
     /// Gets the plugin's creator.
     /// </summary>
-    public virtual string Creator { get; }
+    public virtual string Creator { get; } = "Undefined";
 
     /// <summary>
     /// Gets the plugins current version.
@@ -49,6 +50,11 @@ public abstract class Plugin<TConfig> : IPlugin<TConfig> where TConfig : IConfig
     /// Gets the plugins configuration file path.
     /// </summary>
     public virtual string ConfigurationPath { get; internal set; }
+
+    /// <summary>
+    /// Gets a list of registered commands for the plugin.
+    /// </summary>
+    public List<ICommand> RegisteredCommands => CommandDictionary.Values.SelectMany(list => list).ToList();
 
     /// <summary>
     /// The plugins config.
@@ -77,14 +83,7 @@ public abstract class Plugin<TConfig> : IPlugin<TConfig> where TConfig : IConfig
         Config = (TConfig)config;
     }
 
-    private readonly Dictionary<Type, ICommandHandler> CommandHandlers = new()
-    {
-    { typeof(RemoteAdminCommandHandler), CommandProcessor.RemoteAdminCommandHandler },
-    { typeof(GameConsoleCommandHandler), GameCore.Console.singleton.ConsoleCommandHandler },
-    { typeof(ClientCommandHandler), QueryProcessor.DotCommandHandler }
-    };
-
-    private readonly Dictionary<ICommandHandler, List<ICommand>> CommandDictionary = DictionaryPool<ICommandHandler, List<ICommand>>.Instance.Get();
+    internal readonly Dictionary<ICommandHandler, List<ICommand>> CommandDictionary = DictionaryPool<ICommandHandler, List<ICommand>>.Instance.Get();
 
     public void LoadCommands()
     {
@@ -105,7 +104,7 @@ public abstract class Plugin<TConfig> : IPlugin<TConfig> where TConfig : IConfig
 
                     commandHandlerType = (Type)customAttributeData.ConstructorArguments?[0].Value;
 
-                    if (CommandHandlers.TryGetValue(commandHandlerType, out ICommandHandler commandHandler))
+                    if (GenericExtensions.CommandHandlers.TryGetValue(commandHandlerType, out ICommandHandler commandHandler))
                     {
                         ICommand command = (ICommand)Activator.CreateInstance(type);
                         commandHandler.RegisterCommand(command);

@@ -4,6 +4,9 @@ using System;
 
 namespace Nebuli.Events.EventArguments.SCPs.Scp096;
 
+/// <summary>
+/// Triggered when SCP-096 is trying to pry open a gate.
+/// </summary>
 public class Scp096PryingGateEvent : EventArgs, IPlayerEvent, ICancellableEvent
 {
     public Scp096PryingGateEvent(ReferenceHub player, Interactables.Interobjects.PryableDoor door)

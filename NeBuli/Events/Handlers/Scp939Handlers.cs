@@ -4,27 +4,61 @@ namespace Nebuli.Events.Handlers;
 
 public static class Scp939Handlers
 {
+    /// <summary>
+    /// Triggered when SCP-939 places a cloud of gas.
+    /// </summary>
     public static event EventManager.CustomEventHandler<Scp939PlaceCloudEvent> PlaceCloud;
 
+    /// <summary>
+    /// Triggered when SCP-939 cancels cloud placement.
+    /// </summary>
     public static event EventManager.CustomEventHandler<Scp939CancelCloudPlacementEvent> CancelCloudPlacement;
 
+    /// <summary>
+    /// Triggered when SCP-939 places a mimic point.
+    /// </summary>
     public static event EventManager.CustomEventHandler<Scp939PlaceMimicPointEvent> PlaceMimicPoint;
 
+    /// <summary>
+    /// Triggered when SCP-939 removes a mimic point.
+    /// </summary>
     public static event EventManager.CustomEventHandler<Scp939RemoveMimicPoint> RemoveMimicPoint;
 
+    /// <summary>
+    /// Triggered when SCP-939 plays a sound.
+    /// </summary>
     public static event EventManager.CustomEventHandler<Scp939PlaySound> PlaySound;
 
+    /// <summary>
+    /// Triggered when SCP-939 plays a voice.
+    /// </summary>
     public static event EventManager.CustomEventHandler<Scp939PlayVoiceEvent> PlayVoice;
 
+    /// <summary>
+    /// Triggered when SCP-939 saves a player's voice.
+    /// </summary>
     public static event EventManager.CustomEventHandler<Scp939SavePlayerVoiceEvent> SaveVoice;
 
+    /// <summary>
+    /// Triggered when SCP-939 removes saved player voice.
+    /// </summary>
     public static event EventManager.CustomEventHandler<Scp939RemoveSavedVoiceEvent> RemoveVoice;
 
+    /// <summary>
+    /// Triggered when SCP-939 uses the lunge ability.
+    /// </summary>
     public static event EventManager.CustomEventHandler<Scp939UseLungeEvent> UseLunge;
 
+    /// <summary>
+    /// Triggered when SCP-939 toggles focus.
+    /// </summary>
     public static event EventManager.CustomEventHandler<Scp939ToggleFocusEvent> ToggleFocus;
 
+    /// <summary>
+    /// Triggered when SCP-939 attacks.
+    /// </summary>
     public static event EventManager.CustomEventHandler<Scp939AttackEvent> Attack;
+
 
     internal static void OnPlaceCloud(Scp939PlaceCloudEvent ev) => PlaceCloud.CallEvent(ev);
 

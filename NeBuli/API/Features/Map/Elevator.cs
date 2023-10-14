@@ -84,8 +84,5 @@ public class Elevator
     /// </summary>
     /// <param name="elevatorBase">The <see cref="ElevatorChamber"/> to use to make the wrapper.</param>
     /// <returns></returns>
-    public static Elevator Get(ElevatorChamber elevatorBase)
-    {
-        return Dictionary.TryGetValue(elevatorBase, out Elevator elevator) ? elevator : new(elevatorBase);
-    }
+    public static Elevator Get(ElevatorChamber elevatorBase) => Dictionary.TryGetValue(elevatorBase, out Elevator elevator) ? elevator : new(elevatorBase);
 }
