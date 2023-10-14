@@ -106,13 +106,21 @@ public abstract class Plugin<TConfig> : IPlugin<TConfig> where TConfig : IConfig
 
                     if (GenericExtensions.CommandHandlers.TryGetValue(commandHandlerType, out ICommandHandler commandHandler))
                     {
-                        ICommand command = (ICommand)Activator.CreateInstance(type);
-                        commandHandler.RegisterCommand(command);
-                        if (!CommandDictionary.ContainsKey(commandHandler))
-                            CommandDictionary[commandHandler] = new List<ICommand>();
-                        CommandDictionary[commandHandler].Add(command);
-                    }
-                }
+                        ICommand command = null;
+                        try
+                        {
+                            command = (ICommand)Activator.CreateInstance(type);
+                            commandHandler.RegisterCommand(command);
+                            if (!CommandDictionary.ContainsKey(commandHandler))
+                                CommandDictionary[commandHandler] = new List<ICommand>();
+                            CommandDictionary[commandHandler].Add(command);
+                        }
+                        catch (ArgumentException)
+                        { 
+                            Log.Error($"{Name} tried to register the command '{command?.Command}', which has already been registered!");
+                        }
+                    }                                          
+                }                
                 catch (Exception exception)
                 {
                     Log.Error($"An error occurred while registering a command: {exception}");
