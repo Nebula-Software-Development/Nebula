@@ -181,6 +181,11 @@ public class Door
     }
 
     /// <summary>
+    /// Gets if the door can be destroyed.
+    /// </summary>
+    public bool CanBeDestroyed => Base is IDamageableDoor door && !door.IsDestroyed;
+
+    /// <summary>
     /// Damages the door with the specified amount and <see cref="DoorDamageType"/>.
     /// </summary>
     public void Damage(float amount, DoorDamageType type)
