@@ -25,6 +25,7 @@ using PlayerRoles.PlayableScps.HumeShield;
 using PlayerRoles.RoleAssign;
 using PlayerRoles.Voice;
 using PlayerStatsSystem;
+using PluginAPI.Core;
 using RelativePositioning;
 using RemoteAdmin;
 using System;
@@ -263,6 +264,34 @@ public class NebuliPlayer
     {
         get => ReferenceHub.serverRoles.BypassMode;
         set => ReferenceHub.serverRoles.BypassMode = value;
+    }
+
+    /// <summary>
+    /// Gets or sets if the players badge is hidden or not.
+    /// </summary>
+    public bool IsBadgeHidden
+    {
+        get => !string.IsNullOrEmpty(ReferenceHub.serverRoles.HiddenBadge);
+        set
+        {
+            if (value) HideTag();
+            else ShowTag();
+        }
+    }
+
+    /// <summary>
+    /// Gets or sets if the player is muted.
+    /// </summary>
+    public bool IsMuted
+    {
+        get => VoiceChatMutes.IsMuted(ReferenceHub);
+        set
+        {
+            if (value)
+                VoiceChatMutes.IssueLocalMute(UserId);
+            else
+                VoiceChatMutes.RevokeLocalMute(UserId);
+        }
     }
 
     /// <summary>
@@ -832,16 +861,33 @@ public class NebuliPlayer
     public static NebuliPlayer Get(Footprint footprint) => Get(footprint.Hub);
 
     /// <summary>
-    /// Gets a <see cref="NebuliPlayer"/> by their nickname.
+    /// Gets a <see cref="NebuliPlayer"/> by a variable.
     /// </summary>
-    public static NebuliPlayer Get(string nickname)
+    /// <remarks>You can pass a <see cref="RawUserId"/>, a <see cref="UserId"/>, a <see cref="Id"/>, a <see cref="NetId"/>, and the players <see cref="Nickname"/>. Otherwise, null.</remarks>
+    public static NebuliPlayer Get(string variable)
     {
-        foreach (NebuliPlayer player in List)
+        if (string.IsNullOrEmpty(variable)) return null;
+
+        if (List.FirstOrDefault(ply => ply.RawUserId == variable || ply.UserId == variable) is NebuliPlayer ply)
         {
-            if (string.Equals(player.DisplayNickname, nickname, StringComparison.OrdinalIgnoreCase)
-                || player.DisplayNickname.ToLower() == nickname.ToLower())
-                return player;
+            return ply;
         }
+
+        if (int.TryParse(variable, out int ID) && TryGet(ID, out NebuliPlayer plyID))
+        {
+            return plyID;
+        }
+
+        if (uint.TryParse(variable, out uint NID) && TryGet(NID, out NebuliPlayer plyNID))
+        {
+            return plyNID;
+        }
+
+        if (List.FirstOrDefault(ply => ply.Nickname.Equals(variable, StringComparison.OrdinalIgnoreCase)) is NebuliPlayer plyByUsername)
+        {
+            return plyByUsername;
+        }
+
         return null;
     }
 
