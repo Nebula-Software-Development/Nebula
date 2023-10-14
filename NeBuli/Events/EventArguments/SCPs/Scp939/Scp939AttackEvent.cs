@@ -3,6 +3,9 @@ using System;
 
 namespace Nebuli.Events.EventArguments.SCPs.Scp939;
 
+/// <summary>
+/// Triggered when SCP-939 attacks.
+/// </summary>
 public class Scp939AttackEvent : EventArgs, IDamageEvent, ICancellableEvent
 {
     public Scp939AttackEvent(ReferenceHub player, uint netId)

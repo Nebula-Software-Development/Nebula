@@ -3,6 +3,9 @@ using System;
 
 namespace Nebuli.Events.EventArguments.SCPs.Scp096;
 
+/// <summary>
+/// Triggered when SCP-096 is entering an enraged state.
+/// </summary>
 public class Scp096EnragingEvent : EventArgs, IPlayerEvent, ICancellableEvent
 {
     public Scp096EnragingEvent(ReferenceHub player, float duration)

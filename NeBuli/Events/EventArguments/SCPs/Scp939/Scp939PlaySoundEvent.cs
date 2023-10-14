@@ -3,6 +3,9 @@ using System;
 
 namespace Nebuli.Events.EventArguments.SCPs.Scp939;
 
+/// <summary>
+/// Triggered when SCP-939 plays a sound.
+/// </summary>
 public class Scp939PlaySound : EventArgs, IPlayerEvent, ICancellableEvent
 {
     public Scp939PlaySound(ReferenceHub player, byte option)

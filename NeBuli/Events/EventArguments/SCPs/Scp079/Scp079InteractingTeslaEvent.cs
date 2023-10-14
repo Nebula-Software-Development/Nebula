@@ -3,6 +3,9 @@ using System;
 
 namespace Nebuli.Events.EventArguments.SCPs.Scp079;
 
+/// <summary>
+/// Triggered when SCP-079 is interacting with a Tesla gate.
+/// </summary>
 public class Scp079InteractingTeslaEvent : EventArgs, IPlayerEvent, ICancellableEvent
 {
     public Scp079InteractingTeslaEvent(ReferenceHub player, global::TeslaGate teslaGate)

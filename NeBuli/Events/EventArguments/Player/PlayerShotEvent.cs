@@ -4,6 +4,9 @@ using System;
 
 namespace Nebuli.Events.EventArguments.Player;
 
+/// <summary>
+/// Triggered when a player shoots a firearm.
+/// </summary>
 public class PlayerShotEventArgs : EventArgs, IPlayerEvent, ICancellableEvent
 {
     public PlayerShotEventArgs(ReferenceHub player, InventorySystem.Items.Firearms.Firearm firearm)

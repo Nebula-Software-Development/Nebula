@@ -5,6 +5,9 @@ using System;
 
 namespace Nebuli.Events.EventArguments.Player;
 
+/// <summary>
+/// Triggered when a player uses a radio battery.
+/// </summary>
 public class PlayerUsingRadioBatteryEvent : EventArgs, IPlayerEvent, ICancellableEvent
 {
     public PlayerUsingRadioBatteryEvent(ReferenceHub player, RadioItem item, float amt)

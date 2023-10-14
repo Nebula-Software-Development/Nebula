@@ -4,6 +4,9 @@ using System;
 
 namespace Nebuli.Events.EventArguments.SCPs.Scp079;
 
+/// <summary>
+/// Triggered when SCP-079 is gaining experience points.
+/// </summary>
 public class Scp079GainingExperienceEvent : EventArgs, IPlayerEvent, ICancellableEvent
 {
     public Scp079GainingExperienceEvent(ReferenceHub player, int amount, Scp079HudTranslation reason)

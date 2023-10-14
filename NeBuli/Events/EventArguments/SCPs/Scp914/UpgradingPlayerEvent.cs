@@ -5,6 +5,9 @@ using UnityEngine;
 
 namespace Nebuli.Events.EventArguments.SCPs.Scp914;
 
+/// <summary>
+/// Triggered when a player is being upgrading in SCP-914.
+/// </summary>
 public class UpgradingPlayerEvent : EventArgs, IPlayerEvent, ICancellableEvent
 {
     public UpgradingPlayerEvent(ReferenceHub ply, bool upgradeInventory, bool heldOnly, Scp914KnobSetting knobSetting, Vector3 moveVector)

@@ -7,6 +7,9 @@ using System;
 
 namespace Nebuli.Events.EventArguments.Player;
 
+/// <summary>
+/// Triggered when a player interacts with a door.
+/// </summary>
 public class PlayerInteractingDoorEvent : EventArgs, IPlayerEvent, ICancellableEvent
 {
     public PlayerInteractingDoorEvent(ReferenceHub ply, DoorVariant door, byte id)

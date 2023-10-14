@@ -3,6 +3,9 @@ using System;
 
 namespace Nebuli.Events.EventArguments.SCPs.Scp939;
 
+/// <summary>
+/// Triggered when SCP-939 saves a player's voice.
+/// </summary>
 public class Scp939SavePlayerVoiceEvent : EventArgs, IPlayerEvent, ICancellableEvent
 {
     public Scp939SavePlayerVoiceEvent(ReferenceHub player, ReferenceHub target)

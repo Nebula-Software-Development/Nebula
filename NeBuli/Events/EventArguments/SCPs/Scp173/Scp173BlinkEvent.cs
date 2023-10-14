@@ -5,6 +5,9 @@ using UnityEngine;
 
 namespace Nebuli.Events.EventArguments.SCPs.Scp173;
 
+/// <summary>
+/// Triggered when SCP-173 performs a blink.
+/// </summary>
 public class Scp173BlinkEvent : EventArgs, IPlayerEvent, ICancellableEvent
 {
     public Scp173BlinkEvent(ReferenceHub player, Vector3 position, List<NebuliPlayer> blinkers)

@@ -3,6 +3,9 @@ using System;
 
 namespace Nebuli.Events.EventArguments.SCPs.Scp0492;
 
+/// <summary>
+/// Triggered when SCP-049-2 attacks a player.
+/// </summary>
 public class Scp0492AttackEvent : EventArgs, IDamageEvent, ICancellableEvent
 {
     public Scp0492AttackEvent(ReferenceHub player, ReferenceHub target)

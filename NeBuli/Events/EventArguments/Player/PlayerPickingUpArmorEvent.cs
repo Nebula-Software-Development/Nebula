@@ -5,6 +5,9 @@ using System;
 
 namespace Nebuli.Events.EventArguments.Player;
 
+/// <summary>
+/// Triggered when a player picks up armor.
+/// </summary>
 public class PlayerPickingUpArmorEvent : EventArgs, IPlayerEvent, ICancellableEvent
 {
     public PlayerPickingUpArmorEvent(ReferenceHub player, ItemPickupBase armor)
@@ -16,6 +19,9 @@ public class PlayerPickingUpArmorEvent : EventArgs, IPlayerEvent, ICancellableEv
 
     public NebuliPlayer Player { get; }
 
+    /// <summary>
+    /// The <see cref="ArmorPickup"/> being picked up.
+    /// </summary>
     public ArmorPickup Armor { get; }
 
     public bool IsCancelled { get; set; }

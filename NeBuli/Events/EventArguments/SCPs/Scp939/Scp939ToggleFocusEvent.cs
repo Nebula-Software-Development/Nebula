@@ -3,6 +3,9 @@ using System;
 
 namespace Nebuli.Events.EventArguments.SCPs.Scp939;
 
+/// <summary>
+/// Triggered when SCP-939 toggles focus.
+/// </summary>
 public class Scp939ToggleFocusEvent : EventArgs, IPlayerEvent, ICancellableEvent
 {
     public Scp939ToggleFocusEvent(ReferenceHub player, bool state)

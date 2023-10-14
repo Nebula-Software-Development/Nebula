@@ -2,6 +2,9 @@
 
 namespace Nebuli.Events.EventArguments.Round;
 
+/// <summary>
+/// Triggered at the end of a round.
+/// </summary>
 public class RoundEndEvent : EventArgs
 {
     public RoundEndEvent(RoundSummary.LeadingTeam leadingTeam)

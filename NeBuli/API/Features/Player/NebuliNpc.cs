@@ -75,10 +75,7 @@ public class NebuliNpc : NebuliPlayer
             }
             newNPC.ReferenceHub.nicknameSync.Network_myNickSync = name;
 
-            Timing.CallDelayed(0.4f, () =>
-            {
-                newNPC.SetRole(role);
-            });
+            Timing.CallDelayed(0.4f, () => { newNPC.SetRole(role); });
 
             newNPC.IsNPC = true;
 

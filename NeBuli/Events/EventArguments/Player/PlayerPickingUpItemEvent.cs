@@ -5,6 +5,9 @@ using System;
 
 namespace Nebuli.Events.EventArguments.Player;
 
+/// <summary>
+/// Triggered when a player picks up an item.
+/// </summary>
 public class PlayerPickingUpItemEvent : EventArgs, IPlayerEvent, ICancellableEvent
 {
     public PlayerPickingUpItemEvent(ReferenceHub player, ItemPickupBase targetItem)

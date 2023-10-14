@@ -3,6 +3,9 @@ using System;
 
 namespace Nebuli.Events.EventArguments.SCPs.Scp939;
 
+/// <summary>
+/// Triggered when SCP-939 cancels cloud placement.
+/// </summary>
 public class Scp939CancelCloudPlacementEvent : EventArgs, IPlayerEvent
 {
     public Scp939CancelCloudPlacementEvent(ReferenceHub player)

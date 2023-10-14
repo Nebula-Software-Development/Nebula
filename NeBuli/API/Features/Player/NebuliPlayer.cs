@@ -50,7 +50,7 @@ public class NebuliPlayer
     /// <summary>
     /// Gets the dictionary that maps ReferenceHub to NebuliPlayer instances.
     /// </summary>
-    public static readonly Dictionary<ReferenceHub, NebuliPlayer> Dictionary = new();
+    public static readonly Dictionary<ReferenceHub, NebuliPlayer> Dictionary = new(Server.MaxPlayerCount);
 
     private readonly CustomHealthManager customHealthManager;
 

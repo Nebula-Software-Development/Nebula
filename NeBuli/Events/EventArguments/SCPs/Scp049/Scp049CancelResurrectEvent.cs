@@ -3,6 +3,9 @@ using System;
 
 namespace Nebuli.Events.EventArguments.SCPs.Scp049;
 
+/// <summary>
+/// Triggered when SCP-049 cancels the resurrection process.
+/// </summary>
 public class Scp049CancelResurrectEvent : EventArgs, IPlayerEvent
 {
     public Scp049CancelResurrectEvent(ReferenceHub player)

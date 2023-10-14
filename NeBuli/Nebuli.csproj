@@ -277,6 +277,7 @@
     <Compile Include="Events\EventArguments\SCPs\Scp939\Scp939SavePlayerVoiceEvent.cs" />
     <Compile Include="Events\EventArguments\SCPs\Scp939\Scp939ToggleFocusEvent.cs" />
     <Compile Include="Events\EventArguments\SCPs\Scp939\Scp939UseLungeEvent.cs" />
+    <Compile Include="Events\EventArguments\Server\SpawningBloodEvent.cs" />
     <Compile Include="Events\EventArguments\Server\SpawningItemEvent.cs" />
     <Compile Include="Events\EventArguments\Server\WarheadDetonatingEvent.cs" />
     <Compile Include="Events\EventManager.cs" />
@@ -365,6 +366,7 @@
     <Compile Include="Events\Patches\SCPs\Scp049\StartRevive.cs" />
     <Compile Include="Events\Patches\SCPs\Scp049\TriggerCall.cs" />
     <Compile Include="Events\Patches\SCPs\Scp049\TriggerSense.cs" />
+    <Compile Include="Events\Patches\Server\SpawningBloodPatch.cs" />
     <Compile Include="Events\Patches\Server\SpawningItemPatch.cs" />
     <Compile Include="Events\Patches\Warhead\WarheadDetonatingPatch.cs" />
     <Compile Include="Loader\CustomConverters\CustomVectorsConverter.cs" />

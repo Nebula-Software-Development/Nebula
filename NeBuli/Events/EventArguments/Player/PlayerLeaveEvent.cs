@@ -4,6 +4,9 @@ using System;
 
 namespace Nebuli.Events.EventArguments.Player;
 
+/// <summary>
+/// Triggered when a player leaves the server.
+/// </summary>
 public class PlayerLeaveEvent : EventArgs, IPlayerEvent
 {
     public PlayerLeaveEvent(NetworkConnection conn)

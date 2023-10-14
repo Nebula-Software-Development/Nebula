@@ -4,6 +4,9 @@ using System;
 
 namespace Nebuli.Events.EventArguments.SCPs.Scp0492;
 
+/// <summary>
+/// Triggered when SCP-049-2 finishes consuming a corpse.
+/// </summary>
 public class Scp0492CorpseConsumedEvent : EventArgs, IPlayerEvent, IRadgollEvent
 {
     public Scp0492CorpseConsumedEvent(ReferenceHub player, BasicRagdoll baseRagdoll)

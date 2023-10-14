@@ -4,6 +4,9 @@ using NebuliTeslaGate = Nebuli.API.Features.Map.TeslaGate;
 
 namespace Nebuli.Events.EventArguments.Player;
 
+/// <summary>
+/// Triggered when a player triggers a Tesla gate.
+/// </summary>
 public class PlayerTriggeringTeslaEvent : EventArgs, IPlayerEvent, ICancellableEvent
 {
     public PlayerTriggeringTeslaEvent(NebuliPlayer player, TeslaGate teslaGate)

@@ -3,6 +3,9 @@ using System;
 
 namespace Nebuli.Events.EventArguments.Player;
 
+/// <summary>
+/// Triggered when a player escapes from a pocket dimension.
+/// </summary>
 public class PlayerEscapingPocketEvent : EventArgs, IPlayerEvent, ICancellableEvent
 {
     public PlayerEscapingPocketEvent(ReferenceHub player, bool successful)

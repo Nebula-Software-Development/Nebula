@@ -4,6 +4,9 @@ using System;
 
 namespace Nebuli.Events.EventArguments.SCPs.Scp049;
 
+/// <summary>
+/// Triggered when SCP-049 successfully finishes resurrecting a player.
+/// </summary>
 public class Scp049FinishResurrectEvent : EventArgs, IPlayerEvent, IRadgollEvent, ICancellableEvent
 {
     public Scp049FinishResurrectEvent(ReferenceHub player, BasicRagdoll baseRagdoll)

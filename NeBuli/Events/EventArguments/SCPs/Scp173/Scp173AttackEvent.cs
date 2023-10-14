@@ -3,6 +3,9 @@ using System;
 
 namespace Nebuli.Events.EventArguments.SCPs.Scp173;
 
+/// <summary>
+/// Triggered when SCP-173 attacks a player.
+/// </summary>
 public class Scp173AttackEvent : EventArgs, IDamageEvent, ICancellableEvent
 {
     public Scp173AttackEvent(ReferenceHub player, ReferenceHub target)

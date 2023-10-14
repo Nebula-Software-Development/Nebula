@@ -3,6 +3,9 @@ using System;
 
 namespace Nebuli.Events.EventArguments.SCPs.Scp106;
 
+/// <summary>
+/// Triggered when SCP-106 is attacking a player.
+/// </summary>
 public class Scp106AttackingEvent : EventArgs, IPlayerEvent, ICancellableEvent
 {
     public Scp106AttackingEvent(ReferenceHub scp, ReferenceHub target)

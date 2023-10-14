@@ -4,6 +4,9 @@ using System;
 
 namespace Nebuli.Events.EventArguments.Server;
 
+/// <summary>
+/// Triggered before a item spawns.
+/// </summary>
 public class SpawningItemEvent : EventArgs, ICancellableEvent
 {
     public SpawningItemEvent(ItemPickupBase pickup)

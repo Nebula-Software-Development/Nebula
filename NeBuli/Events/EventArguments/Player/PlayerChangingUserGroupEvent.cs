@@ -3,6 +3,9 @@ using System;
 
 namespace Nebuli.Events.EventArguments.Player;
 
+/// <summary>
+/// Triggered when a player changes their user group.
+/// </summary>
 public class PlayerChangingUserGroupEvent : EventArgs, IPlayerEvent, ICancellableEvent
 {
     public PlayerChangingUserGroupEvent(ReferenceHub ply, UserGroup group)

@@ -3,6 +3,9 @@ using System;
 
 namespace Nebuli.Events.EventArguments.SCPs.Scp096;
 
+/// <summary>
+/// Triggered when SCP-096 is adding a target to its list.
+/// </summary>
 public class Scp096AddingTargetEvent : EventArgs, IPlayerEvent, ICancellableEvent
 {
     public Scp096AddingTargetEvent(ReferenceHub player, ReferenceHub looker, bool isForLooking)

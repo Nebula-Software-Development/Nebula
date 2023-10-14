@@ -3,6 +3,9 @@ using System;
 
 namespace Nebuli.Events.EventArguments.Player;
 
+/// <summary>
+/// Triggered when a player is destroyed.
+/// </summary>
 public class PlayerDestroyingEvent : EventArgs, IPlayerEvent
 {
     public PlayerDestroyingEvent(ReferenceHub player)

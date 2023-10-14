@@ -4,6 +4,9 @@ using System;
 
 namespace Nebuli.Events.EventArguments.SCPs.Scp079;
 
+/// <summary>
+/// Triggered when SCP-079 is losing its signal.
+/// </summary>
 public class Scp079LosingSignalEvent : EventArgs, IPlayerEvent, ICancellableEvent
 {
     public Scp079LosingSignalEvent(PlayerRoleBase player, float timeToLoseSignal)
