@@ -57,8 +57,7 @@ public class NebuliPlayer
     internal NebuliPlayer(ReferenceHub hub)
     {
         ReferenceHub = hub;
-        GameObject = ReferenceHub.gameObject;
-        Transform = ReferenceHub.transform;
+
         Create();
 
         if (ReferenceHub == ReferenceHub.HostHub)
@@ -70,24 +69,15 @@ public class NebuliPlayer
 
     internal NebuliPlayer(GameObject gameObject)
     {
-        ReferenceHub = ReferenceHub.GetHub(gameObject);
+        ReferenceHub hub = ReferenceHub.GetHub(gameObject);
 
-        if (ReferenceHub is null)
+        if (hub is null)
         {
-            Log.Error(gameObject.name + 
-                "does not have a ReferenceHub attached to it and therefor a NebuliPlayer cannot be made!");
+            Log.Error(gameObject.name +  "does not have a ReferenceHub attached to it and therefor a NebuliPlayer cannot be made!");
             return;
         }
 
-        GameObject = ReferenceHub.gameObject;
-        Transform = ReferenceHub.transform;
-        Create();
-
-        if (ReferenceHub == ReferenceHub.HostHub)
-            return;
-
-        ReferenceHub.playerStats._dictionarizedTypes[typeof(HealthStat)] = ReferenceHub.playerStats.StatModules[0] = customHealthManager = new CustomHealthManager { Hub = ReferenceHub };
-        Dictionary.Add(ReferenceHub, this);
+        new NebuliPlayer(hub);
     }
 
     ~NebuliPlayer()
@@ -151,12 +141,12 @@ public class NebuliPlayer
     /// <summary>
     /// The player's GameObject.
     /// </summary>
-    public GameObject GameObject { get; }
+    public GameObject GameObject => ReferenceHub.gameObject;
 
     /// <summary>
     /// The player' Transform.
     /// </summary>
-    public Transform Transform { get; }
+    public Transform Transform => ReferenceHub.transform;
 
     /// <summary>
     /// Gets if the player is cuffed.
@@ -844,12 +834,12 @@ public class NebuliPlayer
     /// <summary>
     /// Gets a <see cref="NebuliPlayer"/> by their nickname.
     /// </summary>
-    public static NebuliPlayer Get(string Nickname)
+    public static NebuliPlayer Get(string nickname)
     {
         foreach (NebuliPlayer player in List)
         {
-            if (string.Equals(player.DisplayNickname, Nickname, StringComparison.OrdinalIgnoreCase)
-                || player.DisplayNickname.ToLower() == Nickname.ToLower())
+            if (string.Equals(player.DisplayNickname, nickname, StringComparison.OrdinalIgnoreCase)
+                || player.DisplayNickname.ToLower() == nickname.ToLower())
                 return player;
         }
         return null;
@@ -1263,6 +1253,20 @@ public class NebuliPlayer
     }
 
     /// <summary>
+    /// Makes the player drop everything in their inventory.
+    /// </summary>
+    public void DropEverything() => Inventory.ServerDropEverything();
+
+    /// <summary>
+    /// Drops a specified amount of ammo of a given type.
+    /// </summary>
+    /// <param name="ammotype">The type of ammo to drop.</param>
+    /// <param name="amount">The amount of ammo to drop.</param>
+    /// <param name="checkMinimals">Optional. Specifies whether to check minimal conditions for dropping ammo. Defaults to false.</param>
+    public void DropAmmo(AmmoType ammotype, ushort amount, bool checkMinimals = false) => Inventory.ServerDropAmmo(ammotype.ConvertToItemType(), amount, checkMinimals);
+
+
+    /// <summary>
     /// Adds ammo to the players inventory.
     /// </summary>
     /// <param name="ammoType">The type of ammo to add.</param>
@@ -1278,19 +1282,8 @@ public class NebuliPlayer
         if (item.IsFirearmType())
         {
             Firearm firearm = Item.Get(Inventory.ServerAddItem(item)) as Firearm;
-
-            if (Preferences is not null && Preferences.TryGetValue(item.ToFirearmType(), out AttachmentIdentity[] attachments))
-                firearm.Base.ApplyAttachmentsCode((uint)attachments.Sum(attachment => attachment.Code), true);
-
-            FirearmStatusFlags flags = FirearmStatusFlags.MagazineInserted;
-
-            if (firearm.Attachments.Any(a => a.Name == AttachmentName.Flashlight))
-                flags |= FirearmStatusFlags.FlashlightEnabled;
-
-            firearm.Base.Status = new FirearmStatus(firearm.MaxAmmo, flags, firearm.Base.GetCurrentAttachmentsCode());
-            return firearm;
+            return firearm.AddPlayerAttachments(this);
         }
-
         return Item.Get(Inventory.ServerAddItem(item));
     }
 
