@@ -15,7 +15,7 @@ internal class DyingPlayer
     [HarmonyTranspiler]
     private static IEnumerable<CodeInstruction> OnDying(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
-        List<CodeInstruction> newInstructions = EventManager.CheckPatchInstructions<DyingPlayer>(37, instructions);
+        List<CodeInstruction> newInstructions = ListPool<CodeInstruction>.Shared.Rent(instructions);
 
         Label retLabel = generator.DefineLabel();
         LocalBuilder @event = generator.DeclareLocal(typeof(PlayerDyingEvent));

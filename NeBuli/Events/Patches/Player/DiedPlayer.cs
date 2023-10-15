@@ -15,7 +15,6 @@ namespace Nebuli.Events.Patches.Player
         [HarmonyTranspiler]
         private static IEnumerable<CodeInstruction> OnDied(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
         {
-            //Rely on the DyingPlayer patch for patch instruction count.
             List<CodeInstruction> newInstructions = ListPool<CodeInstruction>.Shared.Rent(instructions);
 
             int index = newInstructions.Count - 1;
