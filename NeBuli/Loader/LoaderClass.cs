@@ -98,13 +98,13 @@ public class LoaderClass
 
         SetupFilePaths();
 
-        Log.Debug($"Dependency path is {Paths.DependenciesDirectory}");
+        Log.Info($"Loading dependencies from {Paths.DependenciesDirectory.FullName}");
 
         if (Configuration.ShouldCheckForUpdates) new Updater().CheckForUpdates();
 
         LoadDependencies(Paths.DependenciesDirectory.GetFiles("*.dll"));
 
-        Log.Debug($"Plugin path is {Paths.PluginsPortDirectory}");
+        Log.Info($"Loading plugins from {Paths.PluginsPortDirectory.FullName}");
 
         LoadPlugins(Paths.PluginsPortDirectory.GetFiles("*.dll"));
 
