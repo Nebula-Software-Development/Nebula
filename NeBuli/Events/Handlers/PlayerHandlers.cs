@@ -129,6 +129,11 @@ public static class PlayerHandlers
     /// </summary>
     public static event EventManager.CustomEventHandler<PlayerChangingNicknameEvent> ChangingNickname;
 
+    /// <summary>
+    /// Triggered after the player has died.
+    /// </summary>
+    public static event EventManager.CustomEventHandler<PlayerDiedEvent> Died;
+
 
     internal static void OnJoin(PlayerJoinEvent ev) => Join.CallEvent(ev);
 
@@ -179,4 +184,6 @@ public static class PlayerHandlers
     internal static void OnChangedItem(PlayerChangedItemEvent ev) => ChangedItem.CallEvent(ev);
 
     internal static void OnChangingNickname(PlayerChangingNicknameEvent ev) => ChangingNickname.CallEvent(ev); 
+
+    internal static void OnDied(PlayerDiedEvent ev) => Died.CallEvent(ev);
 }
