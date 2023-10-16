@@ -1,5 +1,6 @@
 ﻿using Nebuli.API.Features.Enum;
 using Nebuli.API.Features.Player;
+using Nebuli.Events.EventArguments.Interfaces;
 using PlayerRoles;
 using Respawning;
 using System;

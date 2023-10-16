@@ -29,6 +29,11 @@ public static class ServerHandlers
     /// </summary>
     public static event EventManager.CustomEventHandler<SpawningBloodEvent> SpawningBlood;
 
+    /// <summary>
+    /// Triggered before the warhead starts its detonation sequence.
+    /// </summary>
+    public static event EventManager.CustomEventHandler<WarheadStartingEvent> WarheadStarting;
+
     internal static void OnWarheadDetonated(WarheadDetonatingEvent ev) => WarheadDetonated.CallEvent(ev);
 
     internal static void OnMapGenerated() => MapGenerated.CallEmptyEvent();
@@ -38,4 +43,6 @@ public static class ServerHandlers
     internal static void OnSpawningItem(SpawningItemEvent ev) => SpawningItem.CallEvent(ev);
 
     internal static void OnSpawningBlood(SpawningBloodEvent ev) => SpawningBlood.CallEvent(ev);
+
+    internal static void OnWarheadStarting(WarheadStartingEvent ev) => WarheadStarting.CallEvent(ev);
 }

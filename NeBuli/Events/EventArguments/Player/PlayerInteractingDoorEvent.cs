@@ -1,6 +1,7 @@
 ﻿using Interactables.Interobjects.DoorUtils;
 using Nebuli.API.Features.Doors;
 using Nebuli.API.Features.Player;
+using Nebuli.Events.EventArguments.Interfaces;
 using PlayerRoles;
 using PluginAPI.Events;
 using System;

@@ -207,9 +207,9 @@
     <Compile Include="API\Internal\CustomHealthManager.cs" />
     <Compile Include="API\Internal\FakeConnection.cs" />
     <Compile Include="API\Internal\UserSessionData.cs" />
-    <Compile Include="Events\EventArguments\ICancellableEvent.cs" />
-    <Compile Include="Events\EventArguments\IDamageEvent.cs" />
-    <Compile Include="Events\EventArguments\IPlayerEvent.cs" />
+    <Compile Include="Events\EventArguments\Interfaces\ICancellableEvent.cs" />
+    <Compile Include="Events\EventArguments\Interfaces\IDamageEvent.cs" />
+    <Compile Include="Events\EventArguments\Interfaces\IPlayerEvent.cs" />
     <Compile Include="Events\EventArguments\Player\PlayerChangedItemEvent.cs" />
     <Compile Include="Events\EventArguments\Player\PlayerChangingNicknameEvent.cs" />
     <Compile Include="Events\EventArguments\Player\PlayerChangingUserGroupEvent.cs" />
@@ -224,7 +224,7 @@
     <Compile Include="Events\EventArguments\Player\PlayerPickingUpAmmoEvent.cs" />
     <Compile Include="Events\EventArguments\Player\PlayerPickingUpArmorEvent.cs" />
     <Compile Include="Events\EventArguments\Player\PlayerPickingUpItemEvent.cs" />
-    <Compile Include="Events\EventArguments\IRadgollEvent.cs" />
+    <Compile Include="Events\EventArguments\Interfaces\IRadgollEvent.cs" />
     <Compile Include="Events\EventArguments\Player\PlayerRoleChangeEvent.cs" />
     <Compile Include="Events\EventArguments\Player\PlayerBannedEvent.cs" />
     <Compile Include="Events\EventArguments\Player\PlayerDyingEvent.cs" />
@@ -281,6 +281,7 @@
     <Compile Include="Events\EventArguments\Server\SpawningBloodEvent.cs" />
     <Compile Include="Events\EventArguments\Server\SpawningItemEvent.cs" />
     <Compile Include="Events\EventArguments\Server\WarheadDetonatingEvent.cs" />
+    <Compile Include="Events\EventArguments\Server\WarheadStartingEvent.cs" />
     <Compile Include="Events\EventManager.cs" />
     <Compile Include="Events\Handlers\Internal.cs" />
     <Compile Include="Events\Handlers\PlayerHandlers.cs" />
@@ -371,6 +372,7 @@
     <Compile Include="Events\Patches\Server\SpawningBloodPatch.cs" />
     <Compile Include="Events\Patches\Server\SpawningItemPatch.cs" />
     <Compile Include="Events\Patches\Warhead\WarheadDetonatingPatch.cs" />
+    <Compile Include="Events\Patches\Warhead\WarheadStartingPatch.cs" />
     <Compile Include="Loader\CustomConverters\CustomVectorsConverter.cs" />
     <Compile Include="Loader\LoaderClass.cs" />
     <Compile Include="Loader\LoaderConfiguration.cs" />

@@ -1,6 +1,7 @@
 ﻿using Nebuli.API.Features.Enum;
 using Nebuli.API.Features.Items;
 using Nebuli.API.Features.Player;
+using Nebuli.Events.EventArguments.Interfaces;
 using System;
 using Coin = InventorySystem.Items.Coin.Coin;
 

@@ -1,5 +1,6 @@
 ﻿using InventorySystem.Items.Usables.Scp330;
 using Nebuli.API.Features.Player;
+using Nebuli.Events.EventArguments.Interfaces;
 using System;
 
 namespace Nebuli.Events.EventArguments.SCPs.Scp330;

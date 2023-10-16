@@ -1,5 +1,6 @@
 ﻿using Nebuli.API.Features.Doors;
 using Nebuli.API.Features.Player;
+using Nebuli.Events.EventArguments.Interfaces;
 using System;
 
 namespace Nebuli.Events.EventArguments.SCPs.Scp096;

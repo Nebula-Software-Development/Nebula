@@ -1,5 +1,6 @@
 ﻿using Nebuli.API.Features.Map;
 using Nebuli.API.Features.Player;
+using Nebuli.Events.EventArguments.Interfaces;
 using PlayerRoles.PlayableScps.Scp079.Cameras;
 using System;
 
