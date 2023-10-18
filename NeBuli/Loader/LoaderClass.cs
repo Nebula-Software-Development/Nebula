@@ -237,7 +237,6 @@ public class LoaderClass
         ListPool<IPlugin<IConfiguration>>.Instance.Return(pluginsToLoad);
     }
 
-
     private static IPlugin<IConfiguration> NewPlugin(Assembly assembly)
     {
         try
@@ -313,7 +312,7 @@ public class LoaderClass
 
     private static IConfiguration SetupPluginConfig(IPlugin<IConfiguration> plugin)
     {
-        string configPath = Path.Combine(Paths.PluginPortConfigDirectory.FullName, 
+        string configPath = Path.Combine(Paths.PluginPortConfigDirectory.FullName,
             string.IsNullOrEmpty(plugin.Name) ? plugin.Assembly.GetName().Name + $"-({Server.ServerPort})-Config.yml"
             : plugin.Name + $"-({Server.ServerPort})-Config.yml");
         try
