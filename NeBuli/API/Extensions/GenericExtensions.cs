@@ -1,16 +1,14 @@
 ﻿using CommandSystem;
 using Nebuli.Loader;
-using PluginAPI.Commands;
 using RemoteAdmin;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEngine;
 
 namespace Nebuli.API.Extensions;
 
 /// <summary>
-/// Provides extension methods for useful but hard to catagorize extensions.
+/// Provides extension methods for useful but hard to categorize extensions.
 /// </summary>
 public static class GenericExtensions
 {

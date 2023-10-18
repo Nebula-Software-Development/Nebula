@@ -3,10 +3,8 @@ using InventorySystem.Items;
 using InventorySystem.Items.Firearms;
 using InventorySystem.Items.Firearms.Attachments;
 using Nebuli.API.Features.Enum;
-using Nebuli.API.Features.Items;
 using Nebuli.API.Features.Player;
 using Nebuli.API.Features.Structs;
-using PluginAPI.Core.Items;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -198,6 +196,6 @@ public static class ItemTypeExtension
         if (Firearm.BaseCodes.TryGetValue(type, out uint baseCode))
             return baseCode;
 
-        throw new KeyNotFoundException($"Basecode for weapon {type} not found!" + $" Stored BaseCodes:\nKeys: [{string.Join(", ", Firearm.BaseCodes.Keys)}]" + $" Values: [{string.Join(", ", Firearm.BaseCodes.Values)}]");
+        throw new KeyNotFoundException($"Base-code for weapon {type} not found!" + $" Stored BaseCodes:\nKeys: [{string.Join(", ", Firearm.BaseCodes.Keys)}]" + $" Values: [{string.Join(", ", Firearm.BaseCodes.Values)}]");
     }
 }

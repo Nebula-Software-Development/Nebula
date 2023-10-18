@@ -8,8 +8,6 @@ using Interactables.Interobjects.DoorUtils;
 using InventorySystem;
 using InventorySystem.Disarming;
 using InventorySystem.Items;
-using InventorySystem.Items.Firearms;
-using InventorySystem.Items.Firearms.Attachments;
 using MapGeneration;
 using Mirror;
 using Nebuli.API.Extensions;
@@ -25,7 +23,6 @@ using PlayerRoles.PlayableScps.HumeShield;
 using PlayerRoles.RoleAssign;
 using PlayerRoles.Voice;
 using PlayerStatsSystem;
-using PluginAPI.Core;
 using RelativePositioning;
 using RemoteAdmin;
 using System;
@@ -74,7 +71,7 @@ public class NebuliPlayer
 
         if (hub is null)
         {
-            Log.Error(gameObject.name +  "does not have a ReferenceHub attached to it and therefor a NebuliPlayer cannot be made!");
+            Log.Error(gameObject.name + "does not have a ReferenceHub attached to it and therefor a NebuliPlayer cannot be made!");
             return;
         }
 
@@ -1310,7 +1307,6 @@ public class NebuliPlayer
     /// <param name="amount">The amount of ammo to drop.</param>
     /// <param name="checkMinimals">Optional. Specifies whether to check minimal conditions for dropping ammo. Defaults to false.</param>
     public void DropAmmo(AmmoType ammotype, ushort amount, bool checkMinimals = false) => Inventory.ServerDropAmmo(ammotype.ConvertToItemType(), amount, checkMinimals);
-
 
     /// <summary>
     /// Adds ammo to the players inventory.

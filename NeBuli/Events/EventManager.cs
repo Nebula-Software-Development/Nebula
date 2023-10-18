@@ -27,7 +27,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Runtime.InteropServices;
-using System.Runtime.Remoting.Lifetime;
 using UnityEngine.SceneManagement;
 using Object = UnityEngine.Object;
 
@@ -175,7 +174,7 @@ public static class EventManager
             Window.Get(breakableWindow);
         foreach (PlayerRoles.PlayableScps.Scp079.Cameras.Scp079Camera camera in Object.FindObjectsOfType<PlayerRoles.PlayableScps.Scp079.Cameras.Scp079Camera>())
             Camera.Get(camera);
-        if(ReferenceHub.TryGetHostHub(out ReferenceHub hub)) Server.NebuliHost = new(hub);
+        if (ReferenceHub.TryGetHostHub(out ReferenceHub hub)) Server.NebuliHost = new(hub);
         GenerateAttachments();
     }
 

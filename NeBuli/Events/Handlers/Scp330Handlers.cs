@@ -9,6 +9,5 @@ public static class Scp330Handlers
     /// </summary>
     public static event EventManager.CustomEventHandler<Scp330InteractEvent> Interacting;
 
-
     internal static void OnInteracting(Scp330InteractEvent ev) => Interacting.CallEvent(ev);
 }

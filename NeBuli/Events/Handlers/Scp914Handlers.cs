@@ -14,7 +14,6 @@ public static class Scp914Handlers
     /// </summary>
     public static event EventManager.CustomEventHandler<UpgradingItemEvent> UpgradingItem;
 
-
     internal static void OnUpgradingPlayer(UpgradingPlayerEvent ev) => UpgradingPlayer.CallEvent(ev);
 
     internal static void OnUpgradingItem(UpgradingItemEvent ev) => UpgradingItem.CallEvent(ev);

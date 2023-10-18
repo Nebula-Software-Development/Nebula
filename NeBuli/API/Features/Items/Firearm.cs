@@ -242,7 +242,7 @@ namespace Nebuli.API.Features.Items
             Base.ApplyAttachmentsCode((currentAttachmentsCode & ~toRemove) | newCode, true);
             Base.Status = new FirearmStatus(Math.Min(CurrentAmmo, MaxAmmo), Base.Status.Flags, currentAttachmentsCode);
         }
-        
+
         /// <summary>
         /// Adds a attachment to the firearm given a <see cref="AttachmentName"/>.
         /// </summary>

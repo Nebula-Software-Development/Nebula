@@ -44,10 +44,9 @@ public readonly struct AttachmentIdentity
     /// <param name="type">The <see cref="FirearmType"/> the attachment belongs to.</param>
     /// <param name="name">The <see cref="AttachmentName"/> of the attachment.</param>
     /// <returns></returns>
-    public static AttachmentIdentity Get(FirearmType type, AttachmentName name) 
+    public static AttachmentIdentity Get(FirearmType type, AttachmentName name)
         => Items.Firearm.AvailableAttachments[type]
         .FirstOrDefault(identifier => identifier.Name == name);
-
 
     /// <summary>
     /// Compares two <see cref="AttachmentIdentity"/> objects with an <see cref="Attachment"/> object for equality.

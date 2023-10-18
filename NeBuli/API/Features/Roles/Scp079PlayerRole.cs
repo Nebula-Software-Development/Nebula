@@ -1,5 +1,4 @@
-﻿using PlayerRoles;
-using PlayerRoles.PlayableScps.Scp079;
+﻿using PlayerRoles.PlayableScps.Scp079;
 using PlayerRoles.PlayableScps.Scp079.Cameras;
 using PlayerRoles.PlayableScps.Scp079.Pinging;
 using PlayerRoles.PlayableScps.Scp079.Rewards;

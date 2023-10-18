@@ -1,4 +1,6 @@
-﻿using CommandSystem;
+﻿// Ignore Spelling: Respawn Modded
+
+using CommandSystem;
 using CustomPlayerEffects;
 using GameCore;
 using Mirror;
@@ -69,7 +71,7 @@ public static class Server
     }
 
     /// <summary>
-    /// Gets or sets whether the server is Transparently Modded or not.
+    /// Gets or sets whether the server is Transparently modded or not.
     /// </summary>
     public static bool TransparentlyModded
     {
@@ -78,9 +80,9 @@ public static class Server
     }
 
     /// <summary>
-    /// Gets or sets whether the server is whitelisted.
+    /// Gets or sets whether the server is white-listed.
     /// </summary>
-    public static bool Whitelisted
+    public static bool WhiteListed
     {
         get => ServerConsole.WhiteListEnabled;
         set => ServerConsole.WhiteListEnabled = value;

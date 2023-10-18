@@ -1,10 +1,8 @@
 ﻿using MEC;
 using Mirror;
 using Nebuli.API.Extensions;
-using Nebuli.API.Internal;
 using PlayerRoles;
 using PlayerRoles.FirstPersonControl;
-using PlayerStatsSystem;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -35,7 +33,7 @@ public class NebuliNpc : NebuliPlayer
     /// <summary>
     /// Gets a list of all the <see cref="NebuliNpc"/> instances.
     /// </summary>
-    public static new List<NebuliNpc> List => 
+    public new static List<NebuliNpc> List =>
         NebuliPlayer.List.Where(player => player.IsNPC)
         .Select(player => player as NebuliNpc)
         .ToList();
