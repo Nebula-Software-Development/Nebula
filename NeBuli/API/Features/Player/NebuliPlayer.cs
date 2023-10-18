@@ -1020,27 +1020,7 @@ public class NebuliPlayer
     /// </summary>
     public void ShowTag()
     {
-        //Fuck NW way
-        if (GlobalBadge != null && ReferenceHub.authManager.AuthenticationResponse.BadgeToken != null)
-        {
-            ReferenceHub.serverRoles.HiddenBadge = ReferenceHub.authManager.AuthenticationResponse.BadgeToken.BadgeText;
-            ReferenceHub.serverRoles.GlobalHidden = true;
-        }
-        else
-        {
-            if (!ReferenceHub.authManager.BypassBansFlagSet)
-            {
-                return;
-            }
-
-            ReferenceHub.serverRoles.GlobalHidden = false;
-            ReferenceHub.serverRoles.HiddenBadge = null;
-        }
-
-        ReferenceHub.serverRoles.NetworkGlobalBadge = null;
-        ReferenceHub.serverRoles.SetText(null);
-        ReferenceHub.serverRoles.SetColor(null);
-        ReferenceHub.serverRoles.RefreshHiddenTag();
+        ReferenceHub.serverRoles.RefreshLocalTag();
     }
 
     /// <summary>
@@ -1055,6 +1035,7 @@ public class NebuliPlayer
         ReferenceHub.serverRoles.SetText(null);
         ReferenceHub.serverRoles.SetColor(null);
         ReferenceHub.serverRoles.RefreshHiddenTag();
+
     }
 
     /// <summary>
