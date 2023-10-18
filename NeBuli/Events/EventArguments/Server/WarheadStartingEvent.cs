@@ -9,10 +9,10 @@ namespace Nebuli.Events.EventArguments.Server;
 /// </summary>
 public class WarheadStartingEvent : EventArgs, IPlayerEvent, ICancellableEvent
 {
-    public WarheadStartingEvent(bool automatic, bool supressSubtitles, ReferenceHub trigger)
+    public WarheadStartingEvent(bool automatic, bool suppressSubtitles, ReferenceHub trigger)
     {
         Player = trigger == null ? API.Features.Server.NebuliHost : NebuliPlayer.Get(trigger);
-        SuppressSubtitles = supressSubtitles;
+        SuppressSubtitles = suppressSubtitles;
         IsAutomatic = automatic;
         IsCancelled = false;
     }
@@ -23,7 +23,7 @@ public class WarheadStartingEvent : EventArgs, IPlayerEvent, ICancellableEvent
     public NebuliPlayer Player { get; }
 
     /// <summary>
-    /// Gets or sets if C.A.S.S.I.E should supress subtitles or not.
+    /// Gets or sets if C.A.S.S.I.E should suppress subtitles or not.
     /// </summary>
     public bool SuppressSubtitles { get; set; }
 
@@ -33,7 +33,7 @@ public class WarheadStartingEvent : EventArgs, IPlayerEvent, ICancellableEvent
     public bool IsAutomatic { get; set; }
 
     /// <summary>
-    /// Gets or sets if the event is cancelled.
+    /// Gets or sets if the event is canceled.
     /// </summary>
     public bool IsCancelled { get; set; }
 }

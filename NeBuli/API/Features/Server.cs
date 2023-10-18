@@ -1,6 +1,4 @@
-﻿// Ignore Spelling: Respawn Modded
-
-using CommandSystem;
+﻿using CommandSystem;
 using CustomPlayerEffects;
 using GameCore;
 using Mirror;

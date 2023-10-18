@@ -34,6 +34,11 @@ public static class ServerHandlers
     /// </summary>
     public static event EventManager.CustomEventHandler<WarheadStartingEvent> WarheadStarting;
 
+    /// <summary>
+    /// Triggered before the warhead stops its detonation sequence.
+    /// </summary>
+    public static event EventManager.CustomEventHandler<WarheadStoppingEvent> WarheadStopping;
+
     internal static void OnWarheadDetonated(WarheadDetonatingEvent ev) => WarheadDetonated.CallEvent(ev);
 
     internal static void OnMapGenerated() => MapGenerated.CallEmptyEvent();
@@ -45,4 +50,6 @@ public static class ServerHandlers
     internal static void OnSpawningBlood(SpawningBloodEvent ev) => SpawningBlood.CallEvent(ev);
 
     internal static void OnWarheadStarting(WarheadStartingEvent ev) => WarheadStarting.CallEvent(ev);
+
+    internal static void OnWarheadStopping(WarheadStoppingEvent ev) => WarheadStopping.CallEvent(ev);
 }

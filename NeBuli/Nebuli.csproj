@@ -282,6 +282,7 @@
     <Compile Include="Events\EventArguments\Server\SpawningItemEvent.cs" />
     <Compile Include="Events\EventArguments\Server\WarheadDetonatingEvent.cs" />
     <Compile Include="Events\EventArguments\Server\WarheadStartingEvent.cs" />
+    <Compile Include="Events\EventArguments\Server\WarheadStoppingEvent.cs" />
     <Compile Include="Events\EventManager.cs" />
     <Compile Include="Events\Handlers\Internal.cs" />
     <Compile Include="Events\Handlers\PlayerHandlers.cs" />
@@ -373,6 +374,7 @@
     <Compile Include="Events\Patches\Server\SpawningItemPatch.cs" />
     <Compile Include="Events\Patches\Warhead\WarheadDetonatingPatch.cs" />
     <Compile Include="Events\Patches\Warhead\WarheadStartingPatch.cs" />
+    <Compile Include="Events\Patches\Warhead\WarheadStoppingPatch.cs" />
     <Compile Include="Loader\CustomConverters\CustomVectorsConverter.cs" />
     <Compile Include="Loader\LoaderClass.cs" />
     <Compile Include="Loader\LoaderConfiguration.cs" />
