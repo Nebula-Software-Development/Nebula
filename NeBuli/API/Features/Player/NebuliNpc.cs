@@ -65,7 +65,7 @@ public class NebuliNpc : NebuliPlayer
 
             try
             {
-                newNPC.ReferenceHub.characterClassManager.UserId = UserId is not null ? UserId : null;
+                newNPC.UserId = UserId is not null ? UserId : null;
             }
             catch (Exception e)
             {

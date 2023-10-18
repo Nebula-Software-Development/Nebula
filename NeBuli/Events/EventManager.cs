@@ -99,7 +99,6 @@ public static class EventManager
     internal static void RegisterBaseEvents()
     {
         SceneManager.sceneUnloaded += OnSceneUnLoaded;
-        CharacterClassManager.OnInstanceModeChanged += NpcInstanceModeFix.HandleInstanceModeChange;
         RagdollManager.OnRagdollSpawned += OnRagdollSpawned;
         RagdollManager.OnRagdollRemoved += OnRagdollDeSpawned;
         SeedSynchronizer.OnMapGenerated += OnMapGenerated;
@@ -116,7 +115,6 @@ public static class EventManager
     {
         SceneManager.sceneUnloaded -= OnSceneUnLoaded;
         RagdollManager.OnRagdollSpawned -= OnRagdollSpawned;
-        CharacterClassManager.OnInstanceModeChanged -= NpcInstanceModeFix.HandleInstanceModeChange;
         RagdollManager.OnRagdollRemoved -= OnRagdollDeSpawned;
         SeedSynchronizer.OnMapGenerated -= OnMapGenerated;
         ItemPickupBase.OnPickupAdded -= OnPickupAdded;

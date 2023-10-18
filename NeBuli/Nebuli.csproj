@@ -64,7 +64,7 @@
     <ApplicationIcon>Loader\Icon\140282733.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Assembly-CSharp" HintPath="$(NEBULIREFERENCES)\Assembly-CSharp-Publicized.dll" Private="false" />
+    <Reference Include="Assembly-CSharp-Publicized" HintPath="$(NEBULIREFERENCES)\Assembly-CSharp-Publicized.dll" Private="false" />
     <Reference Include="Assembly-CSharp-Firstpass" HintPath="$(NEBULIREFERENCES)\Assembly-CSharp-Firstpass.dll" Private="false" />
     <Reference Include="CommandSystem.Core" HintPath="$(NEBULIREFERENCES)\CommandSystem.Core.dll" Private="false" />
     <Reference Include="Mirror" HintPath="$(NEBULIREFERENCES)\Mirror-Publicized.dll" Private="false" />
@@ -302,7 +302,6 @@
     <Compile Include="Events\Patches\Game\MapGeneratedPatch.cs" />
     <Compile Include="Events\Patches\Game\MoreEscapePatch.cs" />
     <Compile Include="Events\Patches\Game\NamePatch.cs" />
-    <Compile Include="Events\Patches\Game\NpcInstanceModeFix.cs" />
     <Compile Include="Events\Patches\Game\WeaponDysncFix.cs" />
     <Compile Include="Events\Patches\Player\BannedPlayer.cs" />
     <Compile Include="Events\Patches\Player\ChangedItemPatch.cs" />

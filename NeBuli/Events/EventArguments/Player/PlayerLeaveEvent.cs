@@ -11,8 +11,9 @@ namespace Nebuli.Events.EventArguments.Player;
 public class PlayerLeaveEvent : EventArgs, IPlayerEvent
 {
     public PlayerLeaveEvent(NetworkConnection conn)
-    {
+    {       
         Player = NebuliPlayer.Get(conn.identity);
+        if (Player != null && NebuliPlayer.Dictionary.ContainsValue(Player)) NebuliPlayer.Dictionary.Remove(Player.ReferenceHub);
     }
 
     /// <summary>

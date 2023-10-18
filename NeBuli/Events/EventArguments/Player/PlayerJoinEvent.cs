@@ -1,4 +1,5 @@
-﻿using Nebuli.API.Features.Player;
+﻿using CentralAuth;
+using Nebuli.API.Features.Player;
 using Nebuli.Events.EventArguments.Interfaces;
 using System;
 
@@ -9,9 +10,9 @@ namespace Nebuli.Events.EventArguments.Player;
 /// </summary>
 public class PlayerJoinEvent : EventArgs, IPlayerEvent
 {
-    public PlayerJoinEvent(ServerRoles serverRoles)
+    public PlayerJoinEvent(PlayerAuthenticationManager authManager)
     {
-        Player = new NebuliPlayer(serverRoles._hub);
+        Player = new NebuliPlayer(authManager._hub);
     }
 
     /// <summary>

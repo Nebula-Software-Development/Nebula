@@ -16,7 +16,7 @@ internal class BannedPlayer
     [HarmonyTranspiler]
     private static IEnumerable<CodeInstruction> OnBanning(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
-        List<CodeInstruction> newInstructions = EventManager.CheckPatchInstructions<BannedPlayer>(133, instructions);
+        List<CodeInstruction> newInstructions = EventManager.CheckPatchInstructions<BannedPlayer>(104, instructions);
 
         Label retLabel = generator.DefineLabel();
 

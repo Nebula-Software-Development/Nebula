@@ -14,10 +14,9 @@ internal class ChangingUserGroupPatch
     [HarmonyTranspiler]
     private static IEnumerable<CodeInstruction> OnChanging(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
-        List<CodeInstruction> newInstructions = EventManager.CheckPatchInstructions<ChangingUserGroupPatch>(448, instructions);
+        List<CodeInstruction> newInstructions = EventManager.CheckPatchInstructions<ChangingUserGroupPatch>(271, instructions);
 
         Label retLabel = generator.DefineLabel();
-
         int index = newInstructions.FindIndex(instruction => instruction.opcode == OpCodes.Ret) + 1;
 
         newInstructions.InsertRange(index, new CodeInstruction[]

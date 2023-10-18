@@ -48,7 +48,7 @@ public class NebuliPlayer
     /// <summary>
     /// Gets the dictionary that maps ReferenceHub to NebuliPlayer instances.
     /// </summary>
-    public static readonly Dictionary<ReferenceHub, NebuliPlayer> Dictionary = new(Server.MaxPlayerCount);
+    public static Dictionary<ReferenceHub, NebuliPlayer> Dictionary { get; internal set; } = new(Server.MaxPlayerCount);
 
     private readonly CustomHealthManager customHealthManager;
 
@@ -425,8 +425,8 @@ public class NebuliPlayer
     /// </summary>
     public string UserId
     {
-        get => ReferenceHub.characterClassManager.UserId;
-        set => ReferenceHub.characterClassManager.UserId = value;
+        get => ReferenceHub.authManager.UserId;
+        set => ReferenceHub.authManager.UserId = value;
     }
 
     /// <summary>
@@ -434,8 +434,8 @@ public class NebuliPlayer
     /// </summary>
     public string SyncedUserId
     {
-        get => ReferenceHub.characterClassManager.SyncedUserId;
-        set => ReferenceHub.characterClassManager.NetworkSyncedUserId = value;
+        get => ReferenceHub.authManager.SyncedUserId;
+        set => ReferenceHub.authManager.NetworkSyncedUserId = value;
     }
 
     /// <summary>
@@ -518,7 +518,7 @@ public class NebuliPlayer
     public UserGroup Group
     {
         get => ReferenceHub.serverRoles.Group;
-        set => ReferenceHub.serverRoles.SetGroup(value, false);
+        set => ReferenceHub.serverRoles.SetGroup(value);
     }
 
     /// <summary>
@@ -567,13 +567,13 @@ public class NebuliPlayer
     /// </summary>
     public bool DoNotTrack
     {
-        get => ReferenceHub.serverRoles.DoNotTrack;
+        get => ReferenceHub.authManager.DoNotTrack;
         set
         {
-            if (value == ReferenceHub.serverRoles.DoNotTrack)
+            if (value == ReferenceHub.authManager.DoNotTrack)
                 return;
 
-            ReferenceHub.serverRoles.DoNotTrack = value;
+            ReferenceHub.authManager.DoNotTrack = value;
             Broadcast($"<color=#2643EC>[</color><color=#2649EC>N</color><color=#264FEC>e</color><color=#2655EC>b</color><color=#265BEC>u</color><color=#2661EC>l</color><color=#2667EC>i</color> <color=#2673EC>U</color><color=#2679EC>s</color><color=#267FEC>e</color><color=#2685EC>r</color> <color=#2691EC>P</color><color=#2697EC>r</color><color=#269DEC>o</color><color=#26A3EC>t</color><color=#26A9EC>e</color><color=#26AFEC>c</color><color=#26B5EC>t</color><color=#26BBEC>i</color><color=#26C1EC>o</color><color=#26C7EC>n</color><color=#26CDEC>]</color> Your 'Do Not Track' settings have been changed to {value} by a server plugin!", 10, global::Broadcast.BroadcastFlags.Normal, true);
         }
     }
@@ -590,12 +590,12 @@ public class NebuliPlayer
     /// <summary>
     /// Gets a boolean determining if the player is a Northwood Studios staff member.
     /// </summary>
-    public bool IsNorthWoodStaff => ReferenceHub.serverRoles.Staff;
+    public bool IsNorthWoodStaff => ReferenceHub.authManager.NorthwoodStaff;
 
     /// <summary>
     /// Gets a boolean determining if the player is a Global Moderator.
     /// </summary>
-    public bool IsGlobalModerator => ReferenceHub.serverRoles.RaEverywhere;
+    public bool IsGlobalModerator => ReferenceHub.authManager.RemoteAdminGlobalAccess;
 
     /// <summary>
     /// Gets or sets the players custom info string.
@@ -1021,7 +1021,7 @@ public class NebuliPlayer
     /// <param name="global">Whether to show the name tag globally.</param>
     public void ShowTag(bool global = false)
     {
-        ReferenceHub.characterClassManager.UserCode_CmdRequestShowTag__Boolean(global);
+        ReferenceHub.serverRoles.TryHideTag();
     }
 
     /// <summary>
@@ -1029,7 +1029,7 @@ public class NebuliPlayer
     /// </summary>
     public void HideTag()
     {
-        ReferenceHub.characterClassManager.UserCode_CmdRequestHideTag();
+        ReferenceHub.serverRoles.TryHideTag();
     }
 
     /// <summary>
@@ -1408,7 +1408,7 @@ public class NebuliPlayer
     /// </summary>
     /// <param name="message">The message to send.</param>
     /// <param name="color">The color to send it in.</param>
-    public void SendConsoleMessage(string message, string color) => ReferenceHub.characterClassManager.ConsolePrint(message, color);
+    public void SendConsoleMessage(string message, string color) => ReferenceHub.gameConsoleTransmission.SendToClient(message, color);
 
     /// <summary>
     /// Gets or sets if the player has noclip permissions.

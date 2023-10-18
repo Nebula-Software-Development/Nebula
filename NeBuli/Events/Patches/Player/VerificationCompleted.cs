@@ -1,4 +1,5 @@
-﻿using HarmonyLib;
+﻿using CentralAuth;
+using HarmonyLib;
 using Nebuli.Events.EventArguments.Player;
 using Nebuli.Events.Handlers;
 using NorthwoodLib.Pools;
@@ -8,20 +9,20 @@ using static HarmonyLib.AccessTools;
 
 namespace Nebuli.Events.Patches.Player;
 
-[HarmonyPatch(typeof(ServerRoles), nameof(ServerRoles.UserCode_CmdServerSignatureComplete__String__String__String__Boolean))]
+[HarmonyPatch(typeof(PlayerAuthenticationManager), nameof(PlayerAuthenticationManager.FinalizeAuthentication))]
 internal class VerificationCompleted
 {
     [HarmonyTranspiler]
     private static IEnumerable<CodeInstruction> OnJoining(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
-        List<CodeInstruction> newInstructions = EventManager.CheckPatchInstructions<VerificationCompleted>(701, instructions);
+        List<CodeInstruction> newInstructions = EventManager.CheckPatchInstructions<VerificationCompleted>(142, instructions);
 
         Label retLabel = generator.DefineLabel();
-        int index = newInstructions.FindIndex(i => i.opcode == OpCodes.Pop) + 1;
+        int index = newInstructions.FindIndex(i => i.opcode == OpCodes.Stloc_0) - 7;
 
-        newInstructions.InsertRange(index, new CodeInstruction[]
+        newInstructions.InsertRange(index, new[]
         {
-            new(OpCodes.Ldarg_0),
+            new CodeInstruction(OpCodes.Ldarg_0).MoveLabelsFrom(newInstructions[index]),
             new(OpCodes.Callvirt, PropertyGetter(typeof(ServerRoles), nameof(ServerRoles.isLocalPlayer))),
             new(OpCodes.Brtrue_S, retLabel),
             new(OpCodes.Ldarg_0),
