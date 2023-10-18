@@ -204,7 +204,7 @@ public static class Server
     {
         foreach (NebuliPlayer ply in NebuliPlayer.List)
         {
-            Broadcast.TargetAddElement(ply.ReferenceHub.connectionToClient, message, duration, broadcastFlags);
+            Broadcast.TargetAddElement(ply.NetworkConnection, message, duration, broadcastFlags);
         }
     }
 

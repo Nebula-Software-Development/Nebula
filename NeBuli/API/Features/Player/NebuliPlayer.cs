@@ -198,12 +198,12 @@ public class NebuliPlayer
     public void Disconnect(string reason = null) => ServerConsole.Disconnect(NetworkConnection, reason ?? string.Empty);
 
     /// <summary>
-    /// The players RawUserId.
+    /// The players RawUserId, or the <see cref="UserId"/> without the '@'.
     /// </summary>
     public string RawUserId { get; private set; }
 
     /// <summary>
-    /// Gets the <see cref="NebuliPlayer"/> footprint.
+    /// Gets a <see cref="NebuliPlayer"/> footprint.
     /// </summary>
     public Footprint Footprint => new(ReferenceHub);
 
@@ -1447,37 +1447,6 @@ public class NebuliPlayer
             if (player.HasPlayerPermission(perm))
                 return true;
         return false;
-    }
-
-    /// <summary>
-    /// Forces a menu scene to open on the player.
-    /// </summary>
-    /// <param name="menu">The <see cref="MenuType"/> to send.</param>
-    public void OpenMenu(MenuType menu)
-    {
-        string menutype = string.Empty;
-
-        switch (menu)
-        {
-            case MenuType.Menu:
-                menutype = "NewMainMenu";
-                break;
-
-            case MenuType.OldFastMenu:
-                menutype = "FastMenu";
-                break;
-
-            case MenuType.OldMenu:
-                menutype = "MainMenuRemastered";
-                break;
-        }
-
-        ReferenceHub.connectionToClient.Send(new SceneMessage
-        {
-            sceneName = menutype,
-            sceneOperation = SceneOperation.Normal,
-            customHandling = false
-        });
     }
 
     /// <summary>
