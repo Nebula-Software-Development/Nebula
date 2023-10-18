@@ -1018,10 +1018,29 @@ public class NebuliPlayer
     /// <summary>
     /// Shows the player's tag.
     /// </summary>
-    /// <param name="global">Whether to show the name tag globally.</param>
-    public void ShowTag(bool global = false)
+    public void ShowTag()
     {
-        ReferenceHub.serverRoles.TryHideTag();
+        //Fuck NW way
+        if (GlobalBadge != null && ReferenceHub.authManager.AuthenticationResponse.BadgeToken != null)
+        {
+            ReferenceHub.serverRoles.HiddenBadge = ReferenceHub.authManager.AuthenticationResponse.BadgeToken.BadgeText;
+            ReferenceHub.serverRoles.GlobalHidden = true;
+        }
+        else
+        {
+            if (!ReferenceHub.authManager.BypassBansFlagSet)
+            {
+                return;
+            }
+
+            ReferenceHub.serverRoles.GlobalHidden = false;
+            ReferenceHub.serverRoles.HiddenBadge = null;
+        }
+
+        ReferenceHub.serverRoles.NetworkGlobalBadge = null;
+        ReferenceHub.serverRoles.SetText(null);
+        ReferenceHub.serverRoles.SetColor(null);
+        ReferenceHub.serverRoles.RefreshHiddenTag();
     }
 
     /// <summary>
@@ -1029,7 +1048,13 @@ public class NebuliPlayer
     /// </summary>
     public void HideTag()
     {
-        ReferenceHub.serverRoles.TryHideTag();
+        //Fuck NW way
+        ReferenceHub.serverRoles.GlobalHidden = ReferenceHub.serverRoles.GlobalSet;
+        ReferenceHub.serverRoles.HiddenBadge = ReferenceHub.serverRoles.MyText;
+        ReferenceHub.serverRoles.NetworkGlobalBadge = null;
+        ReferenceHub.serverRoles.SetText(null);
+        ReferenceHub.serverRoles.SetColor(null);
+        ReferenceHub.serverRoles.RefreshHiddenTag();
     }
 
     /// <summary>
