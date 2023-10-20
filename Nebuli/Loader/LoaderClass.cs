@@ -35,27 +35,11 @@ public class LoaderClass
     /// </summary>
     public static Random Random { get; } = new();
 
-    private static Assembly _assemblyCache = null;
+    /// <summary>
+    /// Nebuli's <see cref="Assembly"/>.
+    /// </summary>
+    public static Assembly NebuliAssembly { get; } = typeof(LoaderClass).Assembly;
 
-    public static Assembly NebuliAssembly
-    {
-        get
-        {
-            if (_assemblyCache != null)
-                return _assemblyCache;
-
-            foreach (Assembly assembly in PluginAPI.Loader.AssemblyLoader.Plugins.Keys)
-            {
-                if (PluginAPI.Loader.AssemblyLoader.Plugins[assembly].Any(plugin => plugin.Value.PluginName == "Nebuli Loader"))
-                {
-                    _assemblyCache = assembly;
-                    break;
-                }
-            }
-
-            return _assemblyCache;
-        }
-    }
 
     public static ISerializer Serializer { get; set; } = new SerializerBuilder()
         .WithTypeConverter(new CustomVectorsConverter())
@@ -181,8 +165,6 @@ public class LoaderClass
 
     private void LoadPlugins(IEnumerable<FileInfo> files)
     {
-        Log.Info("Loading plugins...");
-
         List<IPlugin<IConfiguration>> pluginsToLoad = ListPool<IPlugin<IConfiguration>>.Instance.Rent();
 
         EnabledPlugins.Clear();
