@@ -1,12 +1,12 @@
 ﻿using CommandSystem;
+using Nebuli.API.Extensions;
 using Nebuli.API.Features.Enum;
 using Nebuli.API.Features.Pools;
 using Nebuli.API.Interfaces;
-using Nebuli.API.Extensions;
 using System;
 using System.Collections.Generic;
-using System.Reflection;
 using System.Linq;
+using System.Reflection;
 
 namespace Nebuli.API.Features;
 
@@ -116,11 +116,11 @@ public abstract class Plugin<TConfig> : IPlugin<TConfig> where TConfig : IConfig
                             CommandDictionary[commandHandler].Add(command);
                         }
                         catch (ArgumentException)
-                        { 
+                        {
                             Log.Error($"{Name} tried to register the command '{command?.Command}', which has already been registered!");
                         }
-                    }                                          
-                }                
+                    }
+                }
                 catch (Exception exception)
                 {
                     Log.Error($"An error occurred while registering a command: {exception}");

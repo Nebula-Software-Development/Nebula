@@ -53,7 +53,7 @@ public class Generator
     public Quaternion Rotation
     {
         get => GameObject.transform.rotation;
-        set => GameObject.transform.rotation = value;   
+        set => GameObject.transform.rotation = value;
     }
 
     /// <summary>
@@ -71,7 +71,7 @@ public class Generator
     /// </summary>
     public KeycardPermissions RequiredPermission
     {
-        get => Base._requiredPermission; 
+        get => Base._requiredPermission;
         set => Base._requiredPermission = value;
     }
 

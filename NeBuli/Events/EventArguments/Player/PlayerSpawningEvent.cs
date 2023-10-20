@@ -1,4 +1,5 @@
 ﻿using Nebuli.API.Features.Player;
+using Nebuli.Events.EventArguments.Interfaces;
 using PlayerRoles;
 using System;
 using UnityEngine;

@@ -52,8 +52,6 @@ internal class InteractingDoorEventPatch
 
     private static void TriggerDoorAction(DoorVariant door, ReferenceHub player, byte id, PlayerInteractingDoorEvent @event)
     {
-        if (!Door.CanChangeState(door)) return;
-
         if (@event.IsCancelled)
         {
             door.PermissionsDenied(player, id);

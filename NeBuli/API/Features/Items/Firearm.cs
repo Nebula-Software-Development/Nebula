@@ -64,9 +64,13 @@ namespace Nebuli.API.Features.Items
         }
 
         /// <summary>
-        /// Gets the attachments of the firearm.
+        /// Gets or sets the attachments of the firearm.
         /// </summary>
-        public Attachment[] Attachments => Base.Attachments;
+        public Attachment[] Attachments
+        {
+            get => Base.Attachments;
+            set => Base.Attachments = value;
+        }
 
         /// <summary>
         /// Gets the base stats of the firearm.
@@ -170,9 +174,13 @@ namespace Nebuli.API.Features.Items
         public bool IsEmittingLight => Base.IsEmittingLight;
 
         /// <summary>
-        /// Gets the status of the firearm.
+        /// Gets or sets the status of the firearm.
         /// </summary>
-        public FirearmStatus Status => Base.Status;
+        public FirearmStatus Status
+        {
+            get => Base.Status;
+            set => Base.Status = value;
+        }
 
         /// <summary>
         /// Gets the action module of the firearm.
@@ -242,7 +250,7 @@ namespace Nebuli.API.Features.Items
             Base.ApplyAttachmentsCode((currentAttachmentsCode & ~toRemove) | newCode, true);
             Base.Status = new FirearmStatus(Math.Min(CurrentAmmo, MaxAmmo), Base.Status.Flags, currentAttachmentsCode);
         }
-        
+
         /// <summary>
         /// Adds a attachment to the firearm given a <see cref="AttachmentName"/>.
         /// </summary>
@@ -261,15 +269,15 @@ namespace Nebuli.API.Features.Items
 
             ShotMessage message = new()
             {
-                ShooterCameraRotation = Owner.ReferenceHub.PlayerCameraReference.transform.rotation,
-                ShooterPosition = new RelativePosition(Owner.ReferenceHub.PlayerCameraReference.transform.position),
-                ShooterWeaponSerial = Owner.CurrentItem.Serial,
+                ShooterCameraRotation = Owner.PlayerCamera.rotation,
+                ShooterPosition = Owner.RelativePosition,
+                ShooterWeaponSerial = Serial,
                 TargetNetId = 0,
                 TargetPosition = default,
                 TargetRotation = Quaternion.identity,
             };
 
-            Physics.Raycast(Owner.ReferenceHub.PlayerCameraReference.transform.position, Owner.ReferenceHub.PlayerCameraReference.transform.forward, out RaycastHit hit, 100f, StandardHitregBase.HitregMask);
+            Physics.Raycast(Owner.Position, Owner.PlayerCamera.forward, out RaycastHit hit, 100f, StandardHitregBase.HitregMask);
 
             if (hit.transform && hit.transform.TryGetComponentInParent(out NetworkIdentity networkIdentity) && networkIdentity)
             {
@@ -282,7 +290,7 @@ namespace Nebuli.API.Features.Items
                 message.TargetPosition = new RelativePosition(hit.transform.position);
                 message.TargetRotation = hit.transform.rotation;
             }
-            FirearmBasicMessagesHandler.ServerShotReceived(Owner.ReferenceHub.connectionToClient, message);
+            FirearmBasicMessagesHandler.ServerShotReceived(Owner.NetworkConnection, message);
         }
 
         /// <summary>
@@ -297,7 +305,7 @@ namespace Nebuli.API.Features.Items
                 return;
 
             RequestMessage message = new(Serial, RequestType.Reload);
-            FirearmBasicMessagesHandler.ServerRequestReceived(Owner.ReferenceHub.connectionToClient, message);
+            FirearmBasicMessagesHandler.ServerRequestReceived(Owner.NetworkConnection, message);
         }
 
         /// <summary>
@@ -312,7 +320,7 @@ namespace Nebuli.API.Features.Items
                 return;
 
             RequestMessage message = new(Serial, RequestType.ToggleFlashlight);
-            FirearmBasicMessagesHandler.ServerRequestReceived(Owner.ReferenceHub.connectionToClient, message);
+            FirearmBasicMessagesHandler.ServerRequestReceived(Owner.NetworkConnection, message);
         }
 
         /// <summary>
@@ -327,7 +335,7 @@ namespace Nebuli.API.Features.Items
                 return;
 
             RequestMessage message = new(Serial, RequestType.Unload);
-            FirearmBasicMessagesHandler.ServerRequestReceived(Owner.ReferenceHub.connectionToClient, message);
+            FirearmBasicMessagesHandler.ServerRequestReceived(Owner.NetworkConnection, message);
         }
 
         /// <summary>
@@ -343,7 +351,7 @@ namespace Nebuli.API.Features.Items
                 return;
 
             RequestMessage message = new(Serial, shouldADS ? RequestType.AdsIn : RequestType.AdsOut);
-            FirearmBasicMessagesHandler.ServerRequestReceived(Owner.ReferenceHub.connectionToClient, message);
+            FirearmBasicMessagesHandler.ServerRequestReceived(Owner.NetworkConnection, message);
         }
     }
 }

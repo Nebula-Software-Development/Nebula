@@ -21,7 +21,7 @@ public class ReloadPlugins : ICommand
             if (!sender.HasPermission("reloadplugins"))
             {
                 response = "No permission! Permission needed : 'reloadplugins'.";
-                return false;   
+                return false;
             }
 
             LoaderClass.LoaderInstance.ReloadPlugins();

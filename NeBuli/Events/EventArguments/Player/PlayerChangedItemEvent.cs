@@ -1,6 +1,7 @@
 ﻿using InventorySystem.Items;
 using Nebuli.API.Features.Items;
 using Nebuli.API.Features.Player;
+using Nebuli.Events.EventArguments.Interfaces;
 using System;
 
 namespace Nebuli.Events.EventArguments.Player;
@@ -23,12 +24,12 @@ public class PlayerChangedItemEvent : EventArgs, IPlayerEvent
     public NebuliPlayer Player { get; }
 
     /// <summary>
-    /// Gets the <see cref="Item"/> the player now has, or <c>null</c> if none. 
+    /// Gets the <see cref="Item"/> the player now has, or <c>null</c> if none.
     /// </summary>
     public Item NewItem { get; }
 
     /// <summary>
-    /// Gets the <see cref="Item"/> being switched from, or <c>null</c> if none. 
+    /// Gets the <see cref="Item"/> being switched from, or <c>null</c> if none.
     /// </summary>
     public Item PreviousItem { get; }
 }

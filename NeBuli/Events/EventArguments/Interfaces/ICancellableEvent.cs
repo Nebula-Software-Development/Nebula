@@ -1,4 +1,4 @@
-namespace Nebuli.Events.EventArguments;
+namespace Nebuli.Events.EventArguments.Interfaces;
 
 public interface ICancellableEvent
 {

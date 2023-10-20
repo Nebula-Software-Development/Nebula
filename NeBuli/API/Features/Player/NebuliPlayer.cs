@@ -8,8 +8,6 @@ using Interactables.Interobjects.DoorUtils;
 using InventorySystem;
 using InventorySystem.Disarming;
 using InventorySystem.Items;
-using InventorySystem.Items.Firearms;
-using InventorySystem.Items.Firearms.Attachments;
 using MapGeneration;
 using Mirror;
 using Nebuli.API.Extensions;
@@ -25,7 +23,6 @@ using PlayerRoles.PlayableScps.HumeShield;
 using PlayerRoles.RoleAssign;
 using PlayerRoles.Voice;
 using PlayerStatsSystem;
-using PluginAPI.Core;
 using RelativePositioning;
 using RemoteAdmin;
 using System;
@@ -51,7 +48,7 @@ public class NebuliPlayer
     /// <summary>
     /// Gets the dictionary that maps ReferenceHub to NebuliPlayer instances.
     /// </summary>
-    public static readonly Dictionary<ReferenceHub, NebuliPlayer> Dictionary = new(Server.MaxPlayerCount);
+    public static Dictionary<ReferenceHub, NebuliPlayer> Dictionary { get; internal set; } = new(Server.MaxPlayerCount);
 
     private readonly CustomHealthManager customHealthManager;
 
@@ -74,7 +71,7 @@ public class NebuliPlayer
 
         if (hub is null)
         {
-            Log.Error(gameObject.name +  "does not have a ReferenceHub attached to it and therefor a NebuliPlayer cannot be made!");
+            Log.Error(gameObject.name + "does not have a ReferenceHub attached to it and therefor a NebuliPlayer cannot be made!");
             return;
         }
 
@@ -201,12 +198,12 @@ public class NebuliPlayer
     public void Disconnect(string reason = null) => ServerConsole.Disconnect(NetworkConnection, reason ?? string.Empty);
 
     /// <summary>
-    /// The players RawUserId.
+    /// The players RawUserId, or the <see cref="UserId"/> without the '@'.
     /// </summary>
     public string RawUserId { get; private set; }
 
     /// <summary>
-    /// Gets the <see cref="NebuliPlayer"/> footprint.
+    /// Gets a <see cref="NebuliPlayer"/> footprint.
     /// </summary>
     public Footprint Footprint => new(ReferenceHub);
 
@@ -428,8 +425,8 @@ public class NebuliPlayer
     /// </summary>
     public string UserId
     {
-        get => ReferenceHub.characterClassManager.UserId;
-        set => ReferenceHub.characterClassManager.UserId = value;
+        get => ReferenceHub.authManager.UserId;
+        set => ReferenceHub.authManager.UserId = value;
     }
 
     /// <summary>
@@ -437,8 +434,8 @@ public class NebuliPlayer
     /// </summary>
     public string SyncedUserId
     {
-        get => ReferenceHub.characterClassManager.SyncedUserId;
-        set => ReferenceHub.characterClassManager.NetworkSyncedUserId = value;
+        get => ReferenceHub.authManager.SyncedUserId;
+        set => ReferenceHub.authManager.NetworkSyncedUserId = value;
     }
 
     /// <summary>
@@ -521,7 +518,7 @@ public class NebuliPlayer
     public UserGroup Group
     {
         get => ReferenceHub.serverRoles.Group;
-        set => ReferenceHub.serverRoles.SetGroup(value, false);
+        set => ReferenceHub.serverRoles.SetGroup(value);
     }
 
     /// <summary>
@@ -570,13 +567,13 @@ public class NebuliPlayer
     /// </summary>
     public bool DoNotTrack
     {
-        get => ReferenceHub.serverRoles.DoNotTrack;
+        get => ReferenceHub.authManager.DoNotTrack;
         set
         {
-            if (value == ReferenceHub.serverRoles.DoNotTrack)
+            if (value == ReferenceHub.authManager.DoNotTrack)
                 return;
 
-            ReferenceHub.serverRoles.DoNotTrack = value;
+            ReferenceHub.authManager.DoNotTrack = value;
             Broadcast($"<color=#2643EC>[</color><color=#2649EC>N</color><color=#264FEC>e</color><color=#2655EC>b</color><color=#265BEC>u</color><color=#2661EC>l</color><color=#2667EC>i</color> <color=#2673EC>U</color><color=#2679EC>s</color><color=#267FEC>e</color><color=#2685EC>r</color> <color=#2691EC>P</color><color=#2697EC>r</color><color=#269DEC>o</color><color=#26A3EC>t</color><color=#26A9EC>e</color><color=#26AFEC>c</color><color=#26B5EC>t</color><color=#26BBEC>i</color><color=#26C1EC>o</color><color=#26C7EC>n</color><color=#26CDEC>]</color> Your 'Do Not Track' settings have been changed to {value} by a server plugin!", 10, global::Broadcast.BroadcastFlags.Normal, true);
         }
     }
@@ -593,12 +590,12 @@ public class NebuliPlayer
     /// <summary>
     /// Gets a boolean determining if the player is a Northwood Studios staff member.
     /// </summary>
-    public bool IsNorthWoodStaff => ReferenceHub.serverRoles.Staff;
+    public bool IsNorthWoodStaff => ReferenceHub.authManager.NorthwoodStaff;
 
     /// <summary>
     /// Gets a boolean determining if the player is a Global Moderator.
     /// </summary>
-    public bool IsGlobalModerator => ReferenceHub.serverRoles.RaEverywhere;
+    public bool IsGlobalModerator => ReferenceHub.authManager.RemoteAdminGlobalAccess;
 
     /// <summary>
     /// Gets or sets the players custom info string.
@@ -1021,10 +1018,9 @@ public class NebuliPlayer
     /// <summary>
     /// Shows the player's tag.
     /// </summary>
-    /// <param name="global">Whether to show the name tag globally.</param>
-    public void ShowTag(bool global = false)
+    public void ShowTag()
     {
-        ReferenceHub.characterClassManager.UserCode_CmdRequestShowTag__Boolean(global);
+        ReferenceHub.serverRoles.RefreshLocalTag();
     }
 
     /// <summary>
@@ -1032,7 +1028,14 @@ public class NebuliPlayer
     /// </summary>
     public void HideTag()
     {
-        ReferenceHub.characterClassManager.UserCode_CmdRequestHideTag();
+        //Fuck NW way
+        ReferenceHub.serverRoles.GlobalHidden = ReferenceHub.serverRoles.GlobalSet;
+        ReferenceHub.serverRoles.HiddenBadge = ReferenceHub.serverRoles.MyText;
+        ReferenceHub.serverRoles.NetworkGlobalBadge = null;
+        ReferenceHub.serverRoles.SetText(null);
+        ReferenceHub.serverRoles.SetColor(null);
+        ReferenceHub.serverRoles.RefreshHiddenTag();
+
     }
 
     /// <summary>
@@ -1311,7 +1314,6 @@ public class NebuliPlayer
     /// <param name="checkMinimals">Optional. Specifies whether to check minimal conditions for dropping ammo. Defaults to false.</param>
     public void DropAmmo(AmmoType ammotype, ushort amount, bool checkMinimals = false) => Inventory.ServerDropAmmo(ammotype.ConvertToItemType(), amount, checkMinimals);
 
-
     /// <summary>
     /// Adds ammo to the players inventory.
     /// </summary>
@@ -1412,7 +1414,7 @@ public class NebuliPlayer
     /// </summary>
     /// <param name="message">The message to send.</param>
     /// <param name="color">The color to send it in.</param>
-    public void SendConsoleMessage(string message, string color) => ReferenceHub.characterClassManager.ConsolePrint(message, color);
+    public void SendConsoleMessage(string message, string color) => ReferenceHub.gameConsoleTransmission.SendToClient(message, color);
 
     /// <summary>
     /// Gets or sets if the player has noclip permissions.
@@ -1445,37 +1447,6 @@ public class NebuliPlayer
             if (player.HasPlayerPermission(perm))
                 return true;
         return false;
-    }
-
-    /// <summary>
-    /// Forces a menu scene to open on the player.
-    /// </summary>
-    /// <param name="menu">The <see cref="MenuType"/> to send.</param>
-    public void OpenMenu(MenuType menu)
-    {
-        string menutype = string.Empty;
-
-        switch (menu)
-        {
-            case MenuType.Menu:
-                menutype = "NewMainMenu";
-                break;
-
-            case MenuType.OldFastMenu:
-                menutype = "FastMenu";
-                break;
-
-            case MenuType.OldMenu:
-                menutype = "MainMenuRemastered";
-                break;
-        }
-
-        ReferenceHub.connectionToClient.Send(new SceneMessage
-        {
-            sceneName = menutype,
-            sceneOperation = SceneOperation.Normal,
-            customHandling = false
-        });
     }
 
     /// <summary>

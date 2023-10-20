@@ -59,7 +59,6 @@ public static class Scp939Handlers
     /// </summary>
     public static event EventManager.CustomEventHandler<Scp939AttackEvent> Attack;
 
-
     internal static void OnPlaceCloud(Scp939PlaceCloudEvent ev) => PlaceCloud.CallEvent(ev);
 
     internal static void OnCancelCloudPlacement(Scp939CancelCloudPlacementEvent ev) => CancelCloudPlacement.CallEvent(ev);

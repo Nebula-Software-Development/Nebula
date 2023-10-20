@@ -1,10 +1,10 @@
-﻿using Nebuli.API.Features.Roles;
-using PlayerRoles;
-using PlayerRoles.FirstPersonControl.Spawnpoints;
-using PlayerRoles.FirstPersonControl;
-using UnityEngine;
+﻿using InventorySystem;
 using InventorySystem.Configs;
-using InventorySystem;
+using Nebuli.API.Features.Roles;
+using PlayerRoles;
+using PlayerRoles.FirstPersonControl;
+using PlayerRoles.FirstPersonControl.Spawnpoints;
+using UnityEngine;
 
 namespace Nebuli.API.Extensions;
 
@@ -14,7 +14,7 @@ namespace Nebuli.API.Extensions;
 public static class RoleTypeExtensions
 {
     /// <summary>
-    /// Unsafley casts a role to a specific type.
+    /// Unsafely casts a role to a specific type.
     /// </summary>
     /// <typeparam name="T">The type to cast the role to.</typeparam>
     /// <param name="role">The role to cast.</param>

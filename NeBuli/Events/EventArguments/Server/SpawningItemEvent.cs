@@ -1,5 +1,6 @@
 ﻿using InventorySystem.Items.Pickups;
 using Nebuli.API.Features.Items.Pickups;
+using Nebuli.Events.EventArguments.Interfaces;
 using System;
 
 namespace Nebuli.Events.EventArguments.Server;

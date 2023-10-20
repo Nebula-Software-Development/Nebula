@@ -106,7 +106,7 @@ public class Pickup
         get => Transform.localScale;
         set
         {
-            if(!Spawned)
+            if (!Spawned)
             {
                 Transform.localScale = value;
                 return;

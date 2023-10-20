@@ -1,5 +1,6 @@
 ﻿using Nebuli.API.Features;
 using Nebuli.API.Features.Player;
+using Nebuli.Events.EventArguments.Interfaces;
 using PlayerStatsSystem;
 using System;
 

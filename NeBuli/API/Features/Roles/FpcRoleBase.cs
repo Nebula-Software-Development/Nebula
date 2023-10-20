@@ -1,5 +1,4 @@
-﻿using PlayerRoles;
-using PlayerRoles.FirstPersonControl;
+﻿using PlayerRoles.FirstPersonControl;
 using PlayerRoles.FirstPersonControl.Spawnpoints;
 using PlayerRoles.Voice;
 using PlayerStatsSystem;

@@ -1,6 +1,7 @@
 ﻿using Nebuli.API.Features.Enum;
 using Nebuli.API.Features.Map;
 using Nebuli.API.Features.Player;
+using Nebuli.Events.EventArguments.Interfaces;
 using RelativePositioning;
 using System;
 using UnityEngine;

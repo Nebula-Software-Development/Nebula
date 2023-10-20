@@ -1,6 +1,7 @@
 ﻿using CommandSystem;
 using Footprinting;
 using Nebuli.API.Features.Player;
+using Nebuli.Events.EventArguments.Interfaces;
 using System;
 
 namespace Nebuli.Events.EventArguments.Player;

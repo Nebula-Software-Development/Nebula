@@ -18,7 +18,6 @@ using Nebuli.API.Features.Player;
 using Nebuli.API.Features.Pools;
 using Nebuli.API.Features.Structs;
 using Nebuli.Events.Handlers;
-using Nebuli.Events.Patches.Game;
 using Nebuli.Loader;
 using PlayerRoles;
 using PlayerRoles.Ragdolls;
@@ -27,7 +26,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Runtime.InteropServices;
-using System.Runtime.Remoting.Lifetime;
 using UnityEngine.SceneManagement;
 using Object = UnityEngine.Object;
 
@@ -100,7 +98,6 @@ public static class EventManager
     internal static void RegisterBaseEvents()
     {
         SceneManager.sceneUnloaded += OnSceneUnLoaded;
-        CharacterClassManager.OnInstanceModeChanged += NpcInstanceModeFix.HandleInstanceModeChange;
         RagdollManager.OnRagdollSpawned += OnRagdollSpawned;
         RagdollManager.OnRagdollRemoved += OnRagdollDeSpawned;
         SeedSynchronizer.OnMapGenerated += OnMapGenerated;
@@ -117,7 +114,6 @@ public static class EventManager
     {
         SceneManager.sceneUnloaded -= OnSceneUnLoaded;
         RagdollManager.OnRagdollSpawned -= OnRagdollSpawned;
-        CharacterClassManager.OnInstanceModeChanged -= NpcInstanceModeFix.HandleInstanceModeChange;
         RagdollManager.OnRagdollRemoved -= OnRagdollDeSpawned;
         SeedSynchronizer.OnMapGenerated -= OnMapGenerated;
         ItemPickupBase.OnPickupAdded -= OnPickupAdded;
@@ -175,7 +171,7 @@ public static class EventManager
             Window.Get(breakableWindow);
         foreach (PlayerRoles.PlayableScps.Scp079.Cameras.Scp079Camera camera in Object.FindObjectsOfType<PlayerRoles.PlayableScps.Scp079.Cameras.Scp079Camera>())
             Camera.Get(camera);
-        if(ReferenceHub.TryGetHostHub(out ReferenceHub hub)) Server.NebuliHost = new(hub);
+        if (ReferenceHub.TryGetHostHub(out ReferenceHub hub)) Server.NebuliHost = new(hub);
         GenerateAttachments();
     }
 

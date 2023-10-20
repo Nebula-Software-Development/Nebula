@@ -11,6 +11,7 @@ public class Usable : Item
     /// Gets the <see cref="UsableBase"/> base.
     /// </summary>
     public new UsableBase Base { get; }
+
     public Usable(UsableBase usableBase) : base(usableBase)
     {
         Base = usableBase;
@@ -38,7 +39,7 @@ public class Usable : Item
     /// Gets or sets the <see cref="Usable"/> max cancellable time.
     /// </summary>
     public float MaxCancellableTime
-    { 
+    {
         get => Base.MaxCancellableTime;
         set => Base.MaxCancellableTime = value;
     }

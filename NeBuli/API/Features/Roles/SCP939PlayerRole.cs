@@ -1,5 +1,4 @@
 ﻿using Nebuli.API.Features.Player;
-using PlayerRoles;
 using PlayerRoles.FirstPersonControl;
 using PlayerRoles.PlayableScps.HumeShield;
 using PlayerRoles.PlayableScps.Scp939;

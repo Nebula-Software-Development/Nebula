@@ -1,9 +1,11 @@
 ﻿using HarmonyLib;
+using Nebuli.API.Features.Player;
 using Nebuli.Events.EventArguments.Player;
 using Nebuli.Events.Handlers;
 using NorthwoodLib.Pools;
 using PlayerRoles.FirstPersonControl;
 using PlayerRoles.FirstPersonControl.NetworkMessages;
+using PlayerStatsSystem;
 using System.Collections.Generic;
 using System.Reflection.Emit;
 using static HarmonyLib.AccessTools;
@@ -19,27 +21,22 @@ internal class NoClipTogglePatch
         List<CodeInstruction> newInstructions = EventManager.CheckPatchInstructions<NoClipTogglePatch>(28, instructions);
 
         Label retLabel = generator.DefineLabel();
-        LocalBuilder @event = generator.DeclareLocal(typeof(PlayerTogglingNoClipEvent));
         int index = newInstructions.FindIndex(i => i.opcode == OpCodes.Ldloc_0);
-        Label newLabel = newInstructions[index].ExtractLabels()[0];
 
-        newInstructions.RemoveRange(index, 4);
-
-        newInstructions.InsertRange(index, new CodeInstruction[]
+        newInstructions.InsertRange(index, new[]
         {
-            new CodeInstruction(OpCodes.Ldloc_0).WithLabels(newLabel),
-            new(OpCodes.Ldloc_0),
-            new(OpCodes.Call, Method(typeof(NoClipTogglePatch), nameof(GetReverseStatus))),
-            new(OpCodes.Ldloc_0),
+            new CodeInstruction(OpCodes.Ldloc_0).MoveLabelsFrom(newInstructions[index]),
             new(OpCodes.Call, Method(typeof(FpcNoclip), nameof(FpcNoclip.IsPermitted))),
+            new(OpCodes.Ldloc_0),
+            new(OpCodes.Call, Method(typeof(NebuliPlayer), nameof(NebuliPlayer.Get), new[] { typeof(ReferenceHub) } )),
+            new(OpCodes.Dup),
+            new(OpCodes.Call, PropertyGetter(typeof(NebuliPlayer), nameof(NebuliPlayer.HasNoClip))),
             new(OpCodes.Newobj, GetDeclaredConstructors(typeof(PlayerTogglingNoClipEvent))[0]),
-            new(OpCodes.Stloc_S, @event.LocalIndex),
-            new(OpCodes.Ldloc_S, @event.LocalIndex),
+            new(OpCodes.Dup),
             new(OpCodes.Call, Method(typeof(PlayerHandlers), nameof(PlayerHandlers.OnPlayerTogglingNoClip))),
-            new(OpCodes.Ldloc_S, @event.LocalIndex),
             new(OpCodes.Callvirt, PropertyGetter(typeof(PlayerTogglingNoClipEvent), nameof(PlayerTogglingNoClipEvent.IsCancelled))),
-            new(OpCodes.Brtrue_S, retLabel),
-        });
+            new(OpCodes.Brtrue_S, retLabel),           
+        });;
 
         newInstructions[newInstructions.Count - 1].labels.Add(retLabel);
 
@@ -47,7 +44,5 @@ internal class NoClipTogglePatch
             yield return instruction;
 
         ListPool<CodeInstruction>.Shared.Return(newInstructions);
-    }
-
-    private static bool GetReverseStatus(ReferenceHub player) => player.roleManager.CurrentRole is IFpcRole fpc && !fpc.FpcModule.Noclip.IsActive;
+    }  
 }

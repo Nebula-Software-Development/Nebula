@@ -1,4 +1,5 @@
-﻿using Respawning;
+﻿using Nebuli.Events.EventArguments.Interfaces;
+using Respawning;
 using System;
 using System.Collections.Generic;
 

@@ -1,6 +1,7 @@
 ﻿using InventorySystem.Items.Radio;
 using Nebuli.API.Features.Items;
 using Nebuli.API.Features.Player;
+using Nebuli.Events.EventArguments.Interfaces;
 using System;
 
 namespace Nebuli.Events.EventArguments.Player;

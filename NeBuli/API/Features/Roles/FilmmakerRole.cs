@@ -25,7 +25,7 @@ public class FilmmakerRole : Role
     /// </summary>
     public Vector3 CameraPosition
     {
-        get => Base.CameraPosition; 
+        get => Base.CameraPosition;
         set => Base.CameraPosition = value;
     }
 

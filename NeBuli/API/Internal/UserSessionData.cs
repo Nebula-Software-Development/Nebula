@@ -24,10 +24,10 @@ public class UserSessionData
     public UserSessionData()
     {
         SessionDictionary = DictionaryPool<object, object>.Instance.Get();
-        SessionList = ListPool<object>.Instance.Get();      
+        SessionList = ListPool<object>.Instance.Get();
     }
 
-    ~UserSessionData() 
+    ~UserSessionData()
     {
         DictionaryPool<object, object>.Instance.Return(SessionDictionary);
         ListPool<object>.Instance.Return(SessionList);

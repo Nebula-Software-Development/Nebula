@@ -94,8 +94,8 @@ public static class Utilites
     /// </summary>
     public static void RemoveAllItems()
     {
-        foreach(Item item in Item.List)
-            item.Destroy();      
+        foreach (Item item in Item.List)
+            item.Destroy();
     }
 
     /// <summary>
