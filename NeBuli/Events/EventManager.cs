@@ -18,7 +18,6 @@ using Nebuli.API.Features.Player;
 using Nebuli.API.Features.Pools;
 using Nebuli.API.Features.Structs;
 using Nebuli.Events.Handlers;
-using Nebuli.Events.Patches.Game;
 using Nebuli.Loader;
 using PlayerRoles;
 using PlayerRoles.Ragdolls;

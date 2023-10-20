@@ -9,11 +9,11 @@ namespace Nebuli.Events.EventArguments.Player;
 /// </summary>
 public class PlayerTogglingNoClipEvent : EventArgs, IPlayerEvent, ICancellableEvent
 {
-    public PlayerTogglingNoClipEvent(ReferenceHub player, bool newState, bool isPermitted)
+    public PlayerTogglingNoClipEvent(bool isPermitted, NebuliPlayer player, bool oldState)
     {
-        Player = NebuliPlayer.Get(player);
+        Player = player;
         IsCancelled = false;
-        NewState = newState;
+        NewState = !oldState;
         IsPermitted = isPermitted;
     }
 

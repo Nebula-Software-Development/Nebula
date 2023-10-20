@@ -24,6 +24,11 @@ public class Updater
     {
         Log.Info("Checking for updates...", "Updater");
         NeubliPath = FindNebuliPath();
+        if(string.IsNullOrEmpty(NeubliPath)) 
+        {
+            Log.Error("Could not find the file path for Nebuli! Skipping updates...", "Updater");
+            return;
+        }
         Task.Run(CheckForUpdatesAsync);
     }
 
@@ -33,7 +38,7 @@ public class Updater
         {
             Timeout = TimeSpan.FromSeconds(480)
         };
-        client.DefaultRequestHeaders.Add("User-Agent", $"NebuliUpdater (https://github.com/NotIntense/Nebuli,{NebuliInfo.NebuliVersion})");
+        client.DefaultRequestHeaders.Add("User-Agent", $"NebuliUpdater (https://github.com/Nebuli-Team/Nebuli{NebuliInfo.NebuliVersion})");
         return client;
     }
 
@@ -137,12 +142,13 @@ public class Updater
         public string BrowserDownloadUrl { get; set; }
     }
 
-    public static string FindNebuliPath()
+    internal static string FindNebuliPath()
     {
-        KeyValuePair<Type, PluginHandler> nebuliPlugin =
-            AssemblyLoader.Plugins.SelectMany(assemblyEntry => assemblyEntry.Value)
-            .FirstOrDefault(pluginEntry => pluginEntry.Value.PluginName == "Nebuli Loader" && pluginEntry.Value.PluginVersion == NebuliInfo.NebuliVersionConst);
-        return nebuliPlugin.Value.PluginFilePath;
+        if(AssemblyLoader.Plugins.TryGetValue(LoaderClass.NebuliAssembly, out Dictionary<Type, PluginHandler> plugin)) 
+        {
+            return plugin.Values.Where(x => x.PluginName == "Nebuli Loader").FirstOrDefault().PluginFilePath;
+        }
+        return string.Empty;
     }
 
     internal static void ForceInstall(string url)
