@@ -107,19 +107,7 @@ public class LoaderClass
         catch (Exception e)
         {
             Log.Error($"A error has occured while patching! Full error: \n{e}", "Patching");
-        }
-
-        try
-        {
-            Timing.CallDelayed(5, () =>
-            {
-                Permissions.PermissionsHandler.LoadPermissions();
-            });
-        }
-        catch (Exception e)
-        {
-            Log.Error("Error occured while loading permission handler! Full error -->\n" + e);
-        }
+        }      
 
         CustomNetworkManager.Modded = true;
         BuildInfoCommand.ModDescription = $"Framework : Nebuli\nFramework Version : {NebuliInfo.NebuliVersion}\nCopyright : Copyright (c) 2023 Nebuli Team";

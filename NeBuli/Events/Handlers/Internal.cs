@@ -21,11 +21,21 @@ internal class Internal
                 foreach (MapGeneration.Distributors.Locker locker in Object.FindObjectsOfType<MapGeneration.Distributors.Locker>())
                     Locker.Get(locker);
                 ServerHandlers.OnWaitingForPlayers();
+
             });
         }
         catch (Exception e)
         {
             Log.Error("Error occured while handling internal Nebuli wrappers! Full error -->\n" + e);
+        }
+
+        try
+        {
+            Permissions.PermissionsHandler.LoadPermissions();
+        }
+        catch (Exception e)
+        {
+            Log.Error("Error occured while loading permission handler! Full error -->\n" + e);
         }
     }
 }
