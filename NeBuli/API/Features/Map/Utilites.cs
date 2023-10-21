@@ -3,6 +3,7 @@ using Hazards;
 using InventorySystem.Items.Firearms.BasicMessages;
 using MapGeneration;
 using Mirror;
+using Nebuli.API.Extensions;
 using Nebuli.API.Features.AdminToys;
 using Nebuli.API.Features.Items;
 using Nebuli.API.Features.Items.Pickups;
@@ -34,7 +35,7 @@ public static class Utilites
         {
             if (cachedTantrumPrefab is not null)
                 return cachedTantrumPrefab;
-            if (PlayerRoleLoader.TryGetRoleTemplate(RoleTypeId.Scp173, out PlayerRoleBase scp173RoleBase) && scp173RoleBase is Scp173Role scp173Role)
+            if (RoleTypeId.Scp173.GetBaseRole() is Scp173Role scp173Role)
                 if (scp173Role.SubroutineModule.TryGetSubroutine(out Scp173TantrumAbility tantrumAbility)) return cachedTantrumPrefab = tantrumAbility._tantrumPrefab;
             return null;
         }

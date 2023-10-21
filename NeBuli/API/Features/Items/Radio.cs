@@ -19,9 +19,13 @@ public class Radio : Item
     }
 
     /// <summary>
-    /// Gets the radios current battery percentage.
+    /// Gets or sets the radios current battery percentage.
     /// </summary>
-    public byte BatteryPercent => Base.BatteryPercent;
+    public byte BatteryPercent
+    {
+        get => Base.BatteryPercent; 
+        set => Base.BatteryPercent = value;
+    }
 
     /// <summary>
     /// Gets if the radio is usable.
