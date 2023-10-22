@@ -42,7 +42,8 @@ public class Ragdoll
 
     internal Ragdoll(BasicRagdoll basicRagdoll)
     {
-        if (basicRagdoll.NetworkInfo.OwnerHub is null) return;
+        if (basicRagdoll.NetworkInfo.OwnerHub is null) ReferenceHub = Server.NebuliHost.ReferenceHub;
+        else ReferenceHub = basicRagdoll.NetworkInfo.OwnerHub;
         Base = basicRagdoll;
         Dictionary.Add(basicRagdoll, this);
     }
@@ -57,7 +58,7 @@ public class Ragdoll
     /// <summary>
     /// Gets the owner's ReferenceHub of the ragdoll.
     /// </summary>
-    public ReferenceHub ReferenceHub => Base.NetworkInfo.OwnerHub;
+    public ReferenceHub ReferenceHub { get; }
 
     /// <summary>
     /// Get or set if the Ragdoll is frozen or not.
