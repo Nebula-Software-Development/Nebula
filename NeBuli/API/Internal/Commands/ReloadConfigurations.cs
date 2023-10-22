@@ -18,7 +18,7 @@ public class ReloadConfigurations : ICommand
     {
         try
         {
-            if (!sender.HasNWAPIPermission("reloadconfig"))
+            if (!sender.HasPermission("reloadconfig"))
             {
                 response = "No permission! Permission needed : 'reloadconfig'.";
                 return false;
