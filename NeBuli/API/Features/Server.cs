@@ -31,7 +31,7 @@ public static class Server
     public static NebuliPlayer NebuliHost { get; internal set; } = null;
 
     /// <summary>
-    /// Gets the servers GameConsoleCommandHandler.
+    /// Gets the servers <see cref="CommandSystem.GameConsoleCommandHandler"/>.
     /// </summary>
     public static GameConsoleCommandHandler GameConsoleCommandHandler => GameCore.Console.singleton.ConsoleCommandHandler;
 
