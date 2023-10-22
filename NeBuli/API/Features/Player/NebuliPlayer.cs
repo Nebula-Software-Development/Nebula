@@ -1020,7 +1020,18 @@ public class NebuliPlayer
     /// </summary>
     public void ShowTag()
     {
-        ReferenceHub.serverRoles.RefreshLocalTag();
+        switch(ReferenceHub.serverRoles.UserBadgePreferences)
+        {
+            case ServerRoles.BadgePreferences.PreferLocal:
+                ReferenceHub.serverRoles.RefreshLocalTag();
+                break;
+            case ServerRoles.BadgePreferences.PreferGlobal:
+                ReferenceHub.serverRoles.RefreshGlobalTag();
+                break;
+            case ServerRoles.BadgePreferences.NoPreference:
+                ReferenceHub.serverRoles.RefreshLocalTag();
+                break;
+        }
     }
 
     /// <summary>
@@ -1035,7 +1046,6 @@ public class NebuliPlayer
         ReferenceHub.serverRoles.SetText(null);
         ReferenceHub.serverRoles.SetColor(null);
         ReferenceHub.serverRoles.RefreshHiddenTag();
-
     }
 
     /// <summary>
@@ -1170,7 +1180,7 @@ public class NebuliPlayer
     }
 
     /// <summary>
-    /// Gets or sets the players firearm preferences.
+    /// Gets the players firearm preferences.
     /// </summary>
     public Dictionary<FirearmType, AttachmentIdentity[]> Preferences
     {
@@ -1207,7 +1217,7 @@ public class NebuliPlayer
     /// </summary>
     public void ClearBroadcasts()
     {
-        Server.Broadcast.TargetClearElements(ReferenceHub.connectionToClient);
+        Server.Broadcast.TargetClearElements(NetworkConnection);
     }
 
     /// <summary>

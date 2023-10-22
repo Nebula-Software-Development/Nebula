@@ -58,8 +58,6 @@ public static class ItemTypeExtension
     /// <summary>
     /// Gets the max ammo for the <see cref="FirearmType"/>.
     /// </summary>
-    /// <param name="firearmType"></param>
-    /// <returns></returns>
     public static byte MaxAmmo(this FirearmType firearmType)
     {
         if (InventoryItemLoader.AvailableItems.TryGetValue(firearmType.ConvertToItemType(), out ItemBase itemBase) && itemBase is InventorySystem.Items.Firearms.Firearm firearm)
@@ -67,6 +65,11 @@ public static class ItemTypeExtension
         else
             return 0;
     }
+
+    /// <summary>
+    /// Gets the max ammo for the <see cref="ItemType"/>.
+    /// </summary>
+    public static byte MaxAmmo(this ItemType itemType) => (byte)(itemType.ToFirearmType() != FirearmType.None ? MaxAmmo(itemType.ToFirearmType()) : 0);
 
     /// <summary>
     /// Gets the <see cref="ItemType"/> base.

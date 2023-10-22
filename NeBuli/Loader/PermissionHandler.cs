@@ -6,11 +6,15 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
+using Log = Nebuli.API.Features.Log;
 
 namespace Nebuli.Permissions;
 
 public static class PermissionsHandler
 {
+    private static Assembly _nwapiPermissionCache = null;
+    private static MethodInfo _nwapiMethodCache = null;
     public static Dictionary<string, Group> Groups { get; internal set; } = new();
 
     internal static void LoadPermissions()
@@ -69,12 +73,18 @@ public static class PermissionsHandler
     /// <summary>
     /// Gets if the <see cref="NebuliPlayer"/> has the specified permission.
     /// </summary>
-    public static bool HasPermission(this NebuliPlayer ply, string permission) => HasPermission(ply.Sender, permission);
+    public static bool HasPermission(this NebuliPlayer ply, string permission, bool checkNWAPI = true) => HasPermission(ply.Sender, permission, checkNWAPI);
+
+    /// <summary>
+    /// Gets if the <see cref="NebuliPlayer"/> has the specified NWAPI permission.
+    /// </summary>
+    /// <remarks>Requires the NWAPIPermissionSystem be loaded by NWAPI, if it cannot be found, the method returns <c>false</c></remarks>
+    public static bool HasNWAPIPermission(this NebuliPlayer ply, string permission) => HasNWAPIPermission(ply.Sender, permission);
 
     /// <summary>
     /// Gets if the <see cref="ICommandSender"/> has the specified permission.
     /// </summary>
-    public static bool HasPermission(this ICommandSender commandSender, string permission)
+    public static bool HasPermission(this ICommandSender commandSender, string permission, bool checkNWAPI = true)
     {
         if (commandSender is ServerConsoleSender) return true;
         if (!NebuliPlayer.TryGet(commandSender, out NebuliPlayer ply)) return false;
@@ -84,7 +94,55 @@ public static class PermissionsHandler
         {
             return true;
         }
-        return false;
+
+        if (checkNWAPI) return HasNWAPIPermission(commandSender, permission);
+
+        return false;      
+    }
+
+    /// <summary>
+    /// Gets if the <see cref="ICommandSender"/> has the specified NWAPI permission.
+    /// </summary>
+    /// <remarks>Requires the NWAPIPermissionSystem be loaded by NWAPI, if it cannot be found, the method returns <c>false</c></remarks>
+    public static bool HasNWAPIPermission(this ICommandSender sender, string permission)
+    {
+        bool found = false;
+        if (_nwapiPermissionCache == null)
+        {           
+            foreach (Assembly assemblyPlugin in PluginAPI.Loader.AssemblyLoader.Plugins.Keys)
+            {
+                if(assemblyPlugin.GetName().Name == "NWAPIPermissionSystem")
+                {
+                    _nwapiPermissionCache = assemblyPlugin;
+                    found = true;
+                    break;
+                }
+            }
+        }
+        else found = true;
+
+        if (!found)
+        {
+            Log.Debug("Could not find NWAPIPermissionSystem! This likely means the NWAPIPermissionSystem is not installed and a plugin tried to use it!");
+            return false;
+        }
+
+        if (_nwapiMethodCache == null)
+        {
+            Type permissionHandlerType = _nwapiPermissionCache.GetType("NWAPIPermissionSystem.PermissionHandler");
+
+            if (permissionHandlerType != null)
+            {
+                _nwapiMethodCache = permissionHandlerType.GetMethod("CheckPermission", new[] {typeof(ICommandSender), typeof(string)});
+            }
+            else
+            {
+                Log.Debug("Unable to find 'NWAPIPermissionSystem.PermissionHandler'!");
+                return false;
+            }
+        }   
+
+        return (bool)_nwapiMethodCache.Invoke(null, new object[] { sender, permission });
     }
 
     internal static void GenerateDefaultPermissionsFile(string filePath)
