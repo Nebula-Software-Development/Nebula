@@ -2,6 +2,7 @@
 using Nebuli.API.Extensions;
 using Nebuli.API.Features.Player;
 using PlayerRoles;
+using PlayerRoles.Ragdolls;
 using PlayerStatsSystem;
 using System;
 using System.Collections.Generic;

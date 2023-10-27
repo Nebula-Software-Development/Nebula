@@ -49,12 +49,6 @@ public static class Round
     public static int CountTeam(Team team) => RoundSummary.singleton.CountTeam(team);
 
     /// <summary>
-    /// Adds the specified <see cref="Team"/> to the list of spawned teams.
-    /// </summary>
-    /// <param name="team">The <see cref="Team"/> to add.</param>
-    public static void AddSpawnedTeam(Team team) => RoundSummary.singleton.AddSpawnedTeam(team);
-
-    /// <summary>
     /// Gets the total number of D-Class personnel that have escaped during the round.
     /// </summary>
     public static int TotalEscapedDClass => RoundSummary.EscapedClassD;

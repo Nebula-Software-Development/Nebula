@@ -5,6 +5,7 @@ using PlayerRoles.PlayableScps.Scp079;
 using PlayerRoles.PlayableScps.Scp096;
 using PlayerRoles.PlayableScps.Scp106;
 using PlayerRoles.PlayableScps.Scp173;
+using PlayerRoles.PlayableScps.Scp3114;
 using PlayerRoles.PlayableScps.Scp939;
 using PlayerRoles.Spectating;
 using UnityEngine;
@@ -102,6 +103,9 @@ public abstract class Role
     public void SetNewRole(RoleTypeId newRole, RoleChangeReason reason = RoleChangeReason.RemoteAdmin, RoleSpawnFlags roleSpawnFlags = RoleSpawnFlags.All)
         => Owner.SetRole(newRole, reason, roleSpawnFlags);
 
+    /// <summary>
+    /// Creates a new <see cref="Role"/> given the <see cref="PlayerRoleBase"/>.
+    /// </summary>
     public static Role CreateNew(PlayerRoleBase role)
     {
         return role switch
@@ -113,6 +117,7 @@ public abstract class Role
             Scp173Role scp173 => new Scp173PlayerRole(scp173),
             Scp106Role scp106 => new Scp106PlayerRole(scp106),
             Scp049Role scp049 => new Scp049PlayerRole(scp049),
+            Scp3114Role scp3114 => new Scp3114PlayerRole(scp3114),
             OverwatchRole overwatch => new OverwatchPlayerRole(overwatch),
             SpectatorRole spectator => new SpectatorPlayerRole(spectator),
             PlayerRoles.Filmmaker.FilmmakerRole filmmaker => new FilmmakerRole(filmmaker),

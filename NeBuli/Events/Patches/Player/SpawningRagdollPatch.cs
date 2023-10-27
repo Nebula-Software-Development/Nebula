@@ -15,7 +15,7 @@ internal class SpawningRagdollPatch
     [HarmonyTranspiler]
     private static IEnumerable<CodeInstruction> OnSpawningRagdoll(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
-        List<CodeInstruction> newInstructions = EventManager.CheckPatchInstructions<SpawningRagdollPatch>(45, instructions);
+        List<CodeInstruction> newInstructions = EventManager.CheckPatchInstructions<SpawningRagdollPatch>(53, instructions);
 
         int index = newInstructions.FindLastIndex(i => i.opcode == OpCodes.Ldnull);
 

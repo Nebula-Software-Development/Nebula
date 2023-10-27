@@ -2,6 +2,7 @@
 using PlayerRoles.FirstPersonControl.Spawnpoints;
 using PlayerRoles.Voice;
 using PlayerStatsSystem;
+using UnityEngine;
 
 namespace Nebuli.API.Features.Roles;
 
@@ -15,8 +16,17 @@ public class FpcRoleBase : Role
     internal FpcRoleBase(FpcStandardRoleBase fpcRole) : base(fpcRole)
     {
         Base = fpcRole;
-        Ragdoll = Ragdoll.Get(Base.Ragdoll);
-    }
+        Ragdoll = Ragdoll.Get(Base.Ragdoll);    }
+
+    /// <summary>
+    /// Forces the <see cref="FpcRoleBase"/> look at the direction of the <see cref="Vector3"/>.
+    /// </summary>
+    public void LookAtDirection(Vector3 direction, float lerp = 1) => Base.LookAtDirection(direction, lerp);
+
+    /// <summary>
+    /// Forces the <see cref="FpcRoleBase"/> look at the position of the <see cref="Vector3"/>.
+    /// </summary>
+    public void LookAtPoint(Vector3 position, float lerp = 1) => Base.LookAtPoint(position, lerp);
 
     /// <summary>
     /// Gets the ambient light level of the role.

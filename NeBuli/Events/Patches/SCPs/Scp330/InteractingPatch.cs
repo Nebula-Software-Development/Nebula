@@ -17,7 +17,7 @@ internal class InteractingPatch
     [HarmonyTranspiler]
     private static IEnumerable<CodeInstruction> OnInteracting(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
-        List<CodeInstruction> newInstructions = EventManager.CheckPatchInstructions<InteractingPatch>(93, instructions);
+        List<CodeInstruction> newInstructions = EventManager.CheckPatchInstructions<InteractingPatch>(97, instructions);
 
         int index = newInstructions.FindLastIndex(i => i.Calls(typeof(Scp330Bag).GetMethod(nameof(Scp330Bag.ServerProcessPickup)))) - 2;
 
