@@ -189,6 +189,7 @@
     <Compile Include="API\Features\Roles\Scp096PlayerRole.cs" />
     <Compile Include="API\Features\Roles\Scp106PlayerRole.cs" />
     <Compile Include="API\Features\Roles\Scp173PlayerRole.cs" />
+    <Compile Include="API\Features\Roles\Scp3114PlayerRole.cs" />
     <Compile Include="API\Features\Roles\Scp939PlayerRole.cs" />
     <Compile Include="API\Features\Roles\SpectatorPlayerRole.cs" />
     <Compile Include="API\Features\Round.cs" />
