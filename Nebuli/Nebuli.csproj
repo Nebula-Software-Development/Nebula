@@ -401,15 +401,12 @@
     <PackageReference Include="Newtonsoft.Json">
       <Version>13.0.3</Version>
     </PackageReference>
-    <PackageReference Include="Northwood.PluginAPI" Version="13.1.0" />
+    <PackageReference Include="Northwood.PluginAPI" Version="13.1.1" />
     <PackageReference Include="NuGet.PackageManagement">
       <Version>6.6.1</Version>
     </PackageReference>
     <PackageReference Include="NuGet.Packaging">
       <Version>6.6.1</Version>
-    </PackageReference>
-    <PackageReference Include="Octokit">
-      <Version>7.0.1</Version>
     </PackageReference>
     <PackageReference Include="System.Net.Http.Formatting.Extension">
       <Version>5.2.3</Version>
