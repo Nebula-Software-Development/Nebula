@@ -35,6 +35,7 @@ using UnityEngine;
 using Utils;
 using Utils.Networking;
 using VoiceChat;
+using YamlDotNet.Core.Tokens;
 using static Broadcast;
 using Firearm = Nebuli.API.Features.Items.Firearm;
 
@@ -51,6 +52,7 @@ public class NebuliPlayer
     public static Dictionary<ReferenceHub, NebuliPlayer> Dictionary { get; internal set; } = new(Server.MaxPlayerCount);
 
     private readonly CustomHealthManager customHealthManager;
+    private static int healthStatIndex = -1;
 
     internal NebuliPlayer(ReferenceHub hub)
     {
@@ -61,20 +63,23 @@ public class NebuliPlayer
         if (ReferenceHub == ReferenceHub.HostHub)
             return;
 
-        ReferenceHub.playerStats._dictionarizedTypes[typeof(HealthStat)] = ReferenceHub.playerStats.StatModules[0] = customHealthManager = new CustomHealthManager { Hub = ReferenceHub };
+        if(healthStatIndex == -1)
+            healthStatIndex = Array.FindIndex(ReferenceHub.playerStats.StatModules, module => module.GetType() == typeof(HealthStat));
+
+        ReferenceHub.playerStats._dictionarizedTypes[typeof(HealthStat)] =
+                    ReferenceHub.playerStats.StatModules[healthStatIndex] = customHealthManager = new CustomHealthManager { Hub = ReferenceHub };
+        
         Dictionary.Add(hub, this);
     }
 
     internal NebuliPlayer(GameObject gameObject)
     {
         ReferenceHub hub = ReferenceHub.GetHub(gameObject);
-
         if (hub is null)
         {
             Log.Error(gameObject.name + "does not have a ReferenceHub attached to it and therefor a NebuliPlayer cannot be made!");
             return;
         }
-
         new NebuliPlayer(hub);
     }
 
