@@ -1,6 +1,7 @@
 using Nebuli.API.Features;
 using Nebuli.API.Features.Player;
 using Nebuli.Events.EventArguments.Interfaces;
+using PlayerRoles.Ragdolls;
 using System;
 
 namespace Nebuli.Events.EventArguments.SCPs.Scp049;

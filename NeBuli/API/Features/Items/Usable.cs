@@ -18,13 +18,9 @@ public class Usable : Item
     }
 
     /// <summary>
-    /// Gets or sets if the <see cref="Usable"/> can be used.
+    /// Gets if the <see cref="Usable"/> can be used.
     /// </summary>
-    public bool CanStartUsing
-    {
-        get => Base.CanStartUsing;
-        set => Base.CanStartUsing = value;
-    }
+    public bool CanStartUsing => Base.CanStartUsing;
 
     /// <summary>
     /// Gets or sets if the <see cref="Usable"/> is being used.

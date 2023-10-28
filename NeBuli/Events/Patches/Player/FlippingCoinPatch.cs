@@ -17,7 +17,7 @@ internal class FlippingCoinPatch
     [HarmonyTranspiler]
     private static IEnumerable<CodeInstruction> OnFlipping(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
-        List<CodeInstruction> newInstructions = EventManager.CheckPatchInstructions<FlippingCoinPatch>(67, instructions);
+        List<CodeInstruction> newInstructions = EventManager.CheckPatchInstructions<FlippingCoinPatch>(73, instructions);
 
         int index = newInstructions.FindLastIndex(i => i.opcode == OpCodes.Ldarg_0) - 10;
 

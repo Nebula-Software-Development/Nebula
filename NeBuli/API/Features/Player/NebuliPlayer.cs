@@ -51,6 +51,7 @@ public class NebuliPlayer
     public static Dictionary<ReferenceHub, NebuliPlayer> Dictionary { get; internal set; } = new(Server.MaxPlayerCount);
 
     private readonly CustomHealthManager customHealthManager;
+    private static int healthStatIndex = -1;
 
     internal NebuliPlayer(ReferenceHub hub)
     {
@@ -61,20 +62,23 @@ public class NebuliPlayer
         if (ReferenceHub == ReferenceHub.HostHub)
             return;
 
-        ReferenceHub.playerStats._dictionarizedTypes[typeof(HealthStat)] = ReferenceHub.playerStats.StatModules[0] = customHealthManager = new CustomHealthManager { Hub = ReferenceHub };
+        if(healthStatIndex == -1)
+            healthStatIndex = Array.FindIndex(ReferenceHub.playerStats.StatModules, module => module.GetType() == typeof(HealthStat));
+
+        ReferenceHub.playerStats._dictionarizedTypes[typeof(HealthStat)] =
+                    ReferenceHub.playerStats.StatModules[healthStatIndex] = customHealthManager = new CustomHealthManager { Hub = ReferenceHub };
+        
         Dictionary.Add(hub, this);
     }
 
     internal NebuliPlayer(GameObject gameObject)
     {
         ReferenceHub hub = ReferenceHub.GetHub(gameObject);
-
         if (hub is null)
         {
             Log.Error(gameObject.name + "does not have a ReferenceHub attached to it and therefor a NebuliPlayer cannot be made!");
             return;
         }
-
         new NebuliPlayer(hub);
     }
 
@@ -334,12 +338,49 @@ public class NebuliPlayer
     }
 
     /// <summary>
+    /// Forces the <see cref="NebuliPlayer"/> to look at the position of the <see cref="Vector3"/>.
+    /// </summary>
+    /// <param name="position">The <see cref="Vector3"/> position to look at.</param>
+    /// <param name="lerp">The lerping speed of the camera.</param>
+    /// <returns>True if the players role is a <see cref="FpcRoleBase"/>, otherwise false.</returns>
+    public bool LookAtPosition(Vector3 position, float lerp = 1)
+    {
+        if(Role is FpcRoleBase fpc)
+        {
+            fpc.LookAtPoint(position, lerp);
+            return true;
+        }
+        return false;
+    }
+
+    /// <summary>
+    /// Forces the <see cref="NebuliPlayer"/> to look at the direction of the <see cref="Vector3"/>.
+    /// </summary>
+    /// <param name="direction">The <see cref="Vector3"/> direction to look at.</param>
+    /// <param name="lerp">The lerping speed of the camera.</param>
+    /// <returns>True if the players role is a <see cref="FpcRoleBase"/>, otherwise false.</returns>
+    public bool LookAtDirection(Vector3 direction, float lerp = 1)
+    {
+        if(Role is FpcRoleBase fpc)
+        {
+            fpc.LookAtDirection(direction, lerp);
+            return true;
+        }
+        return false;
+    }
+
+    /// <summary>
     /// Gets or sets the players current rotation.
     /// </summary>
     public Vector3 Rotation
     {
         get => Transform.eulerAngles;
-        set => ReferenceHub.TryOverridePosition(Position, value);
+        set
+        {
+            if(Role is FpcRoleBase fpcRole)
+                fpcRole.LookAtDirection(Rotation);
+            return;
+        }
     }
 
     /// <summary>
@@ -1156,7 +1197,7 @@ public class NebuliPlayer
     /// <param name="size">The size of the hit marker. (Optional)</param>
     public void SendHitMarker(float size = 2.55f)
     {
-        Hitmarker.SendHitmarker(ReferenceHub, size);
+        Hitmarker.SendHitmarkerDirectly(ReferenceHub, size);
     }
 
     /// <summary>

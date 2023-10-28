@@ -33,10 +33,12 @@ public class NebuliNpc : NebuliPlayer
     /// <summary>
     /// Gets a list of all the <see cref="NebuliNpc"/> instances.
     /// </summary>
-    public new static List<NebuliNpc> List =>
-        NebuliPlayer.List.Where(player => player.IsNPC)
-        .Select(player => player as NebuliNpc)
-        .ToList();
+    public new static List<NebuliNpc> List => 
+    NebuliPlayer.List
+    .Where(player => player is NebuliNpc)
+    .Cast<NebuliNpc>()
+    .ToList();
+
 
     /// <summary>
     /// Creates a new NPC with the specified parameters.
@@ -97,16 +99,10 @@ public class NebuliNpc : NebuliPlayer
         Dictionary.Remove(ReferenceHub);
     }
 
+    [Obsolete("Use LookAtPosition")]
     /// <summary>
     /// Makes the NPC look at the specified position.
     /// </summary>
     /// <param name="position">The position to look at.</param>
-    public void LookAt(Vector3 position)
-    {
-        Vector3 direction = position - Position;
-        Quaternion quat = Quaternion.LookRotation(direction, Vector3.up);
-        FpcMouseLook mouseLook = ((IFpcRole)ReferenceHub.roleManager.CurrentRole).FpcModule.MouseLook;
-        (ushort horizontal, ushort vertical) = quat.ToClientUShorts();
-        mouseLook.ApplySyncValues(horizontal, vertical);
-    }
+    public void LookAt(Vector3 position) => LookAtPosition(position);
 }

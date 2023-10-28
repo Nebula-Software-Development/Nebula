@@ -1,4 +1,4 @@
-﻿using FlashlightBase = InventorySystem.Items.Flashlight.FlashlightItem;
+﻿using FlashlightBase = InventorySystem.Items.SwitchableLightSources.Flashlight.FlashlightItem;
 
 namespace Nebuli.API.Features.Items;
 

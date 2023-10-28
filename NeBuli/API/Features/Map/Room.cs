@@ -3,9 +3,11 @@ using Nebuli.API.Extensions;
 using Nebuli.API.Features.Doors;
 using Nebuli.API.Features.Enum;
 using Nebuli.Loader;
+using PluginAPI.Core.Zones;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using FacilityZone = MapGeneration.FacilityZone;
 
 namespace Nebuli.API.Features.Map;
 
@@ -24,13 +26,18 @@ public class Room
         Base = identifier;
         Dictionary.Add(identifier, this);
         LightController = GameObject.GetComponentInChildren<RoomLightController>();
-        Type = FindType(identifier.gameObject);
+        Type = FindType(GameObject);
     }
 
     /// <summary>
     /// Gets the rooms base.
     /// </summary>
     public RoomIdentifier Base { get; }
+
+    /// <summary>
+    /// Gets the rooms <see cref="PluginAPI.Core.Zones.FacilityRoom"/>.
+    /// </summary>
+    public FacilityRoom FacilityRoom => Base.ApiRoom;
 
     /// <summary>
     /// Gets all the doors that belong this this <see cref="Room"/>.

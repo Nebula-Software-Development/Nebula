@@ -153,36 +153,28 @@ public class Scp939PlayerRole : FpcRoleBase
             ManagerModule = Base.SubroutineModule;
             HumeShieldModule = Base.HumeShieldModule;
 
-            Scp939ClawAbility sp939ClawAbility;
-            if (ManagerModule.TryGetSubroutine(out sp939ClawAbility))
+            if (ManagerModule.TryGetSubroutine(out Scp939ClawAbility sp939ClawAbility))
                 ClawAbility = sp939ClawAbility;
 
-            Scp939FocusAbility scp939FocusAbility;
-            if (ManagerModule.TryGetSubroutine(out scp939FocusAbility))
+            if (ManagerModule.TryGetSubroutine(out Scp939FocusAbility scp939FocusAbility))
                 FocusAbility = scp939FocusAbility;
 
-            Scp939LungeAbility scp939LungeAbility;
-            if (ManagerModule.TryGetSubroutine(out scp939LungeAbility))
+            if (ManagerModule.TryGetSubroutine(out Scp939LungeAbility scp939LungeAbility))
                 LungeAbility = scp939LungeAbility;
 
-            Scp939AmnesticCloudAbility scp939AmnesticCloudAbility;
-            if (ManagerModule.TryGetSubroutine(out scp939AmnesticCloudAbility))
+            if (ManagerModule.TryGetSubroutine(out Scp939AmnesticCloudAbility scp939AmnesticCloudAbility))
                 AmnesticCloudAbility = scp939AmnesticCloudAbility;
 
-            EnvironmentalMimicry environmentalMimicry;
-            if (ManagerModule.TryGetSubroutine(out environmentalMimicry))
+            if (ManagerModule.TryGetSubroutine(out EnvironmentalMimicry environmentalMimicry))
                 EnvironmentalMimicry = environmentalMimicry;
 
-            MimicryRecorder mimicryRecorder;
-            if (ManagerModule.TryGetSubroutine(out mimicryRecorder))
+            if (ManagerModule.TryGetSubroutine(out MimicryRecorder mimicryRecorder))
                 MimicryRecorder = mimicryRecorder;
 
-            FootstepRippleTrigger footstepRippleTrigger;
-            if (ManagerModule.TryGetSubroutine(out footstepRippleTrigger))
+            if (ManagerModule.TryGetSubroutine(out FootstepRippleTrigger footstepRippleTrigger))
                 FootstepRippleTrigger = footstepRippleTrigger;
 
-            FirearmRippleTrigger firearmRippleTrigger;
-            if (ManagerModule.TryGetSubroutine(out firearmRippleTrigger))
+            if (ManagerModule.TryGetSubroutine(out FirearmRippleTrigger firearmRippleTrigger))
                 FirearmRippleTrigger = firearmRippleTrigger;
         }
         catch (Exception e)
