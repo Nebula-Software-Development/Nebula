@@ -226,7 +226,7 @@ public class Ragdoll
     /// <summary>
     /// Destroys the ragdoll.
     /// </summary>
-    public void Destroy() => Object.Destroy(GameObject);
+    public void Destroy() => NetworkServer.Destroy(GameObject);
 
     /// <summary>
     /// Spawns the ragdoll.

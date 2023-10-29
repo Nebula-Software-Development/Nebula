@@ -234,7 +234,11 @@ public class Door
     /// <summary>
     /// Gets if the door is locked.
     /// </summary>
-    public bool IsLocked => (DoorLockingType)Base.NetworkActiveLocks is not DoorLockingType.None;
+    public bool IsLocked
+    {
+        get => (DoorLockingType)Base.NetworkActiveLocks is not DoorLockingType.None;
+        set => LockDoor();
+    }
 
     /// <summary>
     /// Simulates a permission denied action on the door.

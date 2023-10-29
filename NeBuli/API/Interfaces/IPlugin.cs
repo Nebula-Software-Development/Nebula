@@ -47,6 +47,11 @@ public interface IPlugin<out TConfig> where TConfig : IConfiguration
     bool SkipVersionCheck { get; }
 
     /// <summary>
+    /// Gets the plugins configuration file path.
+    /// </summary>
+    string ConfigPath { get; internal set; }
+
+    /// <summary>
     /// Called after loading the plugin succesfully.
     /// </summary>
     void OnEnabled();
@@ -69,9 +74,4 @@ public interface IPlugin<out TConfig> where TConfig : IConfiguration
     void LoadCommands();
 
     void UnLoadCommands();
-
-    /// <summary>
-    /// Gets the plugins configuration file path.
-    /// </summary>
-    string ConfigPath { get; internal set; }
 }

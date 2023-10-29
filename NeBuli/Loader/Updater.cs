@@ -119,7 +119,7 @@ public class Updater
         }
         catch (Exception ex)
         {
-            Log.Error($"{nameof(Update)} throw an exception");
+            Log.Error($"{nameof(Update)} threw an exception!");
             Log.Error(ex);
         }
     }

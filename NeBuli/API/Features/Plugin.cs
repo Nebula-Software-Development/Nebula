@@ -54,7 +54,7 @@ public abstract class Plugin<TConfig> : IPlugin<TConfig> where TConfig : IConfig
     /// <summary>
     /// Gets the plugins configuration file path.
     /// </summary>
-    public virtual string ConfigurationPath { get; internal set; }
+    public virtual string ConfigPath { get; set; } = string.Empty;
 
     /// <summary>
     /// Gets a list of registered commands for the plugin.
@@ -147,6 +147,4 @@ public abstract class Plugin<TConfig> : IPlugin<TConfig> where TConfig : IConfig
         CommandDictionary.Clear();
         DictionaryPool<ICommandHandler, List<ICommand>>.Instance.Return(CommandDictionary);
     }
-
-    string IPlugin<TConfig>.ConfigPath { get => ConfigurationPath; set => ConfigurationPath = value; }
 }
