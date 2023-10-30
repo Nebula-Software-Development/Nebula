@@ -1,8 +1,10 @@
-﻿using PlayerRoles.FirstPersonControl;
+﻿using Nebuli.API.Features.Player;
+using PlayerRoles.FirstPersonControl;
 using PlayerRoles.PlayableScps.HumeShield;
 using PlayerRoles.PlayableScps.Scp096;
 using PlayerRoles.PlayableScps.Subroutines;
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Nebuli.API.Features.Roles;
@@ -31,17 +33,17 @@ public class Scp096PlayerRole : FpcRoleBase
     public bool CanAttack => AttackAbility.AttackPossible;
 
     /// <summary>
-    /// Removes a <see cref="Player"/> from the target list.
+    /// Removes a <see cref="NebuliPlayer"/> from the target list.
     /// </summary>
-    /// <param name="player">The <see cref="Player"/> to remove.</param>
-    public bool RemoveTarget(Player player) => TargetsTracker.RemoveTarget(player.ReferenceHub);
+    /// <param name="player">The <see cref="NebuliPlayer"/> to remove.</param>
+    public bool RemoveTarget(NebuliPlayer player) => TargetsTracker.RemoveTarget(player.ReferenceHub);
 
     /// <summary>
     /// Gets if the <see cref="Player"/> is looking at SCP-096.
     /// </summary>
-    /// <param name="player">The <see cref="Player"/> to check.</param>
+    /// <param name="player">The <see cref="NebuliPlayer"/> to check.</param>
     /// <returns>True if the player is looking, otherwise false.</returns>
-    public bool IsPlayerLooking(Player player) => TargetsTracker.IsObservedBy(player.ReferenceHub);
+    public bool IsPlayerLooking(NebuliPlayer player) => TargetsTracker.IsObservedBy(player.ReferenceHub);
 
     /// <summary>
     /// Gets a <see cref="HashSet{T}"/> of current targets.
@@ -49,11 +51,11 @@ public class Scp096PlayerRole : FpcRoleBase
     public HashSet<ReferenceHub> Targets => TargetsTracker.Targets;
 
     /// <summary>
-    /// Gets if the <see cref="Player"/> is a current target.
+    /// Gets if the <see cref="NebuliPlayer"/> is a current target.
     /// </summary>
-    /// <param name="player">The <see cref="Player"/> to check.</param>
+    /// <param name="player">The <see cref="NebuliPlayer"/> to check.</param>
     /// <returns>True if the player is a target, otherwise false.</returns>
-    public bool IsATarget(Player player) => TargetsTracker.HasTarget(player.ReferenceHub);
+    public bool IsATarget(NebuliPlayer player) => TargetsTracker.HasTarget(player.ReferenceHub);
 
     /// <summary>
     /// Clears all of SCP-096's targets.
@@ -63,10 +65,10 @@ public class Scp096PlayerRole : FpcRoleBase
     /// <summary>
     /// Adds a target to SCP-096's current target tracker.
     /// </summary>
-    /// <param name="player">The <see cref="Player"/> to add.</param>
+    /// <param name="player">The <see cref="NebuliPlayer"/> to add.</param>
     /// <param name="isForLooking">If the target looked at SCP-096 to get added.</param>
     /// <returns></returns>
-    public bool AddTarget(Player player, bool isForLooking) => TargetsTracker.AddTarget(player.ReferenceHub, isForLooking);
+    public bool AddTarget(NebuliPlayer player, bool isForLooking) => TargetsTracker.AddTarget(player.ReferenceHub, isForLooking);
 
     /// <summary>
     /// Gets if SCP-096 can charge.
