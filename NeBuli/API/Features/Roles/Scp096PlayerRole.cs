@@ -152,6 +152,31 @@ public class Scp096PlayerRole : FpcRoleBase
     /// Gets SCP-096's PrygateAbility.
     /// </summary>
     public Scp096PrygateAbility PrygateAbility { get; internal set; }
+    
+    /// <summary>
+    /// Gets SCP-096's ChargeAbility.
+    /// </summary>
+    public Scp096ChargeAbility ChargeAbility { get; internal set; }
+    
+    /// <summary>
+    /// Gets SCP-096's TryNotToCryAbility.
+    /// </summary>
+    public Scp096TryNotToCryAbility TryNotToCryAbility { get; internal set; }
+    
+    /// <summary>
+    /// Gets SCP-096's TargetsTracker.
+    /// </summary>
+    public Scp096TargetsTracker TargetsTracker { get; internal set; }
+    
+    /// <summary>
+    /// Gets SCP-096's AttackAbility.
+    /// </summary>
+    public Scp096AttackAbility AttackAbility { get; internal set; }
+    
+    /// <summary>
+    /// Gets SCP-096's RageCycleAbility.
+    /// </summary>
+    public Scp096RageCycleAbility RageCycleAbility { get; internal set; }
 
     internal void SetupSubroutines()
     {
@@ -159,16 +184,30 @@ public class Scp096PlayerRole : FpcRoleBase
         {
             ManagerModule = Base.SubroutineModule;
             HumeShieldModule = Base.HumeShieldModule;
-
-            Scp096RageManager rageManager;
-            if (ManagerModule.TryGetSubroutine(out rageManager))
+            
+            if (ManagerModule.TryGetSubroutine(out Scp096RageManager rageManager))
                 RageManager = rageManager;
-            Scp096StateController controller;
-            if (ManagerModule.TryGetSubroutine(out controller))
+            
+            if (ManagerModule.TryGetSubroutine(out Scp096StateController controller))
                 StateController = controller;
-            Scp096PrygateAbility prygateAbility;
-            if (ManagerModule.TryGetSubroutine(out prygateAbility))
+            
+            if (ManagerModule.TryGetSubroutine(out Scp096PrygateAbility prygateAbility))
                 PrygateAbility = prygateAbility;
+
+            if (ManagerModule.TryGetSubroutine(out Scp096ChargeAbility chargeAbility))
+                ChargeAbility = chargeAbility;
+            
+            if (ManagerModule.TryGetSubroutine(out Scp096TryNotToCryAbility tryNotToCryAbility))
+                TryNotToCryAbility = tryNotToCryAbility;
+            
+            if (ManagerModule.TryGetSubroutine(out Scp096TargetsTracker targetsTracker))
+                TargetsTracker = targetsTracker;
+            
+            if (ManagerModule.TryGetSubroutine(out Scp096AttackAbility attackAbility))
+                AttackAbility = attackAbility;
+            
+            if (ManagerModule.TryGetSubroutine(out Scp096RageCycleAbility rageCycleAbility))
+                RageCycleAbility = rageCycleAbility;
         }
         catch (Exception e)
         {
