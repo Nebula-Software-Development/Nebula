@@ -29,7 +29,7 @@ public abstract class Role
     /// <summary>
     /// Gets the roles position.
     /// </summary>
-    public Vector3 Position => Owner.Position;
+    public Vector3 Position => Base.transform.position;
 
     /// <summary>
     /// Gets the <see cref="PlayerRoleBase"/>.
