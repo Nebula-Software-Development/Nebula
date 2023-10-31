@@ -110,6 +110,7 @@ public abstract class Role
     {
         return role switch
         {
+            NoneRole noneRole => new NonePlayerRole(noneRole),
             HumanRole human => new HumanPlayerRole(human),
             Scp939Role scp939 => new Scp939PlayerRole(scp939),
             Scp079Role scp079 => new Scp079PlayerRole(scp079),
