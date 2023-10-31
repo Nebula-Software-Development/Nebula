@@ -182,6 +182,7 @@
     <Compile Include="API\Features\Roles\FilmmakerRole.cs" />
     <Compile Include="API\Features\Roles\FpcRoleBase.cs" />
     <Compile Include="API\Features\Roles\HumanPlayerRole.cs" />
+    <Compile Include="API\Features\Roles\NonePlayerRole.cs" />
     <Compile Include="API\Features\Roles\OverwatchPlayerRole.cs" />
     <Compile Include="API\Features\Roles\Role.cs" />
     <Compile Include="API\Features\Roles\Scp049PlayerRole.cs" />
