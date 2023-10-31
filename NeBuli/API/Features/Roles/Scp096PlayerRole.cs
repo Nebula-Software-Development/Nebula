@@ -140,7 +140,7 @@ public class Scp096PlayerRole : FpcRoleBase
     /// Increases the duration of SCP-096's rage.
     /// </summary>
     /// <param name="increaseAmount">The amount to increase the rage duration.</param>
-    public void IncreaseRageDuration(float increaseAmount) => RageManager.ServerIncreaseDuration(increaseAmount);
+    public void IncreaseRageDuration(float increaseAmount = 3) => RageManager.ServerIncreaseDuration(increaseAmount);
 
     /// <summary>
     /// Enrages SCP-096 for a specified duration.
@@ -152,7 +152,7 @@ public class Scp096PlayerRole : FpcRoleBase
     /// Forces the end of SCP-096's rage.
     /// </summary>
     /// <param name="clearTime">Whether to clear the rage time or not.</param>
-    public void ForceEndRage(bool clearTime) => RageManager.ServerEndEnrage(clearTime);
+    public void ForceEndRage(bool clearTime = true) => RageManager.ServerEndEnrage(clearTime);
 
     /// <summary>
     /// Returns a boolean value indicating if the current role's <see cref="Scp096AbilityState"/> matches the provided <see cref="Scp096AbilityState"/>.
