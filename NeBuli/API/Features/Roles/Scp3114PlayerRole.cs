@@ -121,6 +121,7 @@ public class Scp3114PlayerRole : FpcRoleBase
     /// <summary>
     /// Gets SCP-3114's Slap module.
     /// </summary>
+    /// <remarks>Bitch slap that mf</remarks>
     public Scp3114Slap Slap { get; internal set; }
 
     /// <summary>
