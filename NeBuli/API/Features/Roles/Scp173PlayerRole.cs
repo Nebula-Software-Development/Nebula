@@ -133,13 +133,11 @@ public class Scp173PlayerRole : FpcRoleBase
     /// <summary>
     /// Gets the blink timer for SCP-173.
     /// </summary>
-
     public Scp173BlinkTimer BlinkTimer { get; internal set; }
 
     /// <summary>
     /// Gets the blink timer for SCP-173.
     /// </summary>
-
     public Scp173AudioPlayer AudioPlayer { get; internal set; }
 
     internal void SetupSubroutines()
