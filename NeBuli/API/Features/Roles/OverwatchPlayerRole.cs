@@ -1,9 +1,14 @@
-﻿using Nebuli.API.Features.Player;
+﻿using Nebuli.API.Extensions;
+using Nebuli.API.Features.Player;
+using PlayerRoles;
 using PlayerRoles.Spectating;
 using RelativePositioning;
 
 namespace Nebuli.API.Features.Roles;
 
+/// <summary>
+/// Represents the <see cref="RoleTypeId.Overwatch"/> role in-game.
+/// </summary>
 public class OverwatchPlayerRole : Role
 {
     /// <summary>
@@ -57,12 +62,11 @@ public class OverwatchPlayerRole : Role
     /// <param name="target">The target to switch to.</param>
     public static void SetCurrentTarget(NebuliPlayer player, NebuliPlayer target)
     {
-        if (player.Role is not SpectatorPlayerRole)
+        if (!player.Role.TryCastTo(out SpectatorPlayerRole srole))
             return;
-        if (target.Role is not FpcRoleBase)
+        if (!target.Role.TryCastTo(out FpcRoleBase frole))
             return;
-        SpectatorPlayerRole spectator = player.Role as SpectatorPlayerRole;
-        FpcRoleBase targetToSwitchTo = target.Role as FpcRoleBase;
-        spectator.CurrentTarget = targetToSwitchTo.SpectatableModuleBase;
+
+        srole.CurrentTarget = frole.SpectatableModuleBase;
     }
 }

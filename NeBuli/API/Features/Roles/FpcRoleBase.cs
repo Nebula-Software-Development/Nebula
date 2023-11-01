@@ -6,6 +6,9 @@ using UnityEngine;
 
 namespace Nebuli.API.Features.Roles;
 
+/// <summary>
+/// Represents any role with <see cref="FpcStandardRoleBase"/> in-game.
+/// </summary>
 public class FpcRoleBase : Role
 {
     /// <summary>

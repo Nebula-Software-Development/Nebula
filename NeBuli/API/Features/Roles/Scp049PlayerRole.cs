@@ -1,13 +1,18 @@
 ﻿using Nebuli.API.Features.Player;
+using PlayerRoles;
 using PlayerRoles.PlayableScps.HumeShield;
 using PlayerRoles.PlayableScps.Scp049;
 using PlayerRoles.PlayableScps.Subroutines;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
 namespace Nebuli.API.Features.Roles;
 
+/// <summary>
+/// Represents the <see cref="RoleTypeId.Scp049"/> role in-game.
+/// </summary>
 public class Scp049PlayerRole : FpcRoleBase
 {
     /// <summary>
@@ -24,7 +29,7 @@ public class Scp049PlayerRole : FpcRoleBase
     /// <summary>
     /// Gets the total amount of resurrections SCP-049 has completed.
     /// </summary>
-    public int GetTotalRessurections => Scp049ResurrectAbility.GetResurrectionsNumber(Owner.ReferenceHub);
+    public int GetTotalRessurections => Base.TryGetOwner(out ReferenceHub hub) ? Scp049ResurrectAbility.GetResurrectionsNumber(hub) : 0;
 
     /// <summary>
     /// Forces SCP-049 to lose its current sense target.
@@ -46,9 +51,14 @@ public class Scp049PlayerRole : FpcRoleBase
     public List<NebuliPlayer> DeadTargets => SenseAbility.DeadTargets.Select(x => NebuliPlayer.Get(x)).ToList();
 
     /// <summary>
-    /// Gets a list a list of alive zombies.
+    /// Gets a list of the players alive zombies.
     /// </summary>
     public List <NebuliPlayer> Zombies => Scp049ResurrectAbility.ResurrectedPlayers.Keys.Select(x => NebuliPlayer.Get(x)).ToList();
+
+    /// <summary>
+    /// Gets a list of the players dead zombies.
+    /// </summary>
+    public List<NebuliPlayer> DeadZombies => Scp049ResurrectAbility.DeadZombies.Select(x => NebuliPlayer.Get(x)).ToList();
 
     /// <summary>
     /// Gets or sets the cooldown of the sense ability.
@@ -166,16 +176,23 @@ public class Scp049PlayerRole : FpcRoleBase
         ManagerModule = Base.SubroutineModule;
         HumeShield = Base.HumeShieldModule;
 
-        if(ManagerModule.TryGetSubroutine(out Scp049ResurrectAbility resurrectAbility))
-            ResurrectAbility = resurrectAbility;
+        try
+        {
+            if (ManagerModule.TryGetSubroutine(out Scp049ResurrectAbility resurrectAbility))
+                ResurrectAbility = resurrectAbility;
 
-        if(ManagerModule.TryGetSubroutine(out Scp049CallAbility callAbility))
-            CallAbility = callAbility;
+            if (ManagerModule.TryGetSubroutine(out Scp049CallAbility callAbility))
+                CallAbility = callAbility;
 
-        if(ManagerModule.TryGetSubroutine(out Scp049AttackAbility attackAbility))
-            AttackAbility = attackAbility;
+            if (ManagerModule.TryGetSubroutine(out Scp049AttackAbility attackAbility))
+                AttackAbility = attackAbility;
 
-        if(ManagerModule.TryGetSubroutine(out Scp049SenseAbility senseAbility))
-            SenseAbility = senseAbility;       
+            if (ManagerModule.TryGetSubroutine(out Scp049SenseAbility senseAbility))
+                SenseAbility = senseAbility;
+        }
+        catch (Exception e)
+        {
+            Log.Error("An error occurred setting up SCP-049 subroutines! Full error --> \n" + e);
+        }      
     }
 }

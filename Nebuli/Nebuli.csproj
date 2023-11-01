@@ -185,6 +185,7 @@
     <Compile Include="API\Features\Roles\NonePlayerRole.cs" />
     <Compile Include="API\Features\Roles\OverwatchPlayerRole.cs" />
     <Compile Include="API\Features\Roles\Role.cs" />
+    <Compile Include="API\Features\Roles\Scp0492PlayerRole.cs" />
     <Compile Include="API\Features\Roles\Scp049PlayerRole.cs" />
     <Compile Include="API\Features\Roles\Scp079PlayerRole.cs" />
     <Compile Include="API\Features\Roles\Scp096PlayerRole.cs" />

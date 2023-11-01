@@ -1,4 +1,4 @@
-﻿using Nebuli.API.Interfaces;
+﻿using PlayerRoles;
 using PlayerRoles.PlayableScps.Scp079;
 using PlayerRoles.PlayableScps.Scp079.Cameras;
 using PlayerRoles.PlayableScps.Scp079.Pinging;
@@ -10,6 +10,9 @@ using Camera = Nebuli.API.Features.Map.Camera;
 
 namespace Nebuli.API.Features.Roles;
 
+/// <summary>
+/// Represents the <see cref="RoleTypeId.Scp079"/> role in-game.
+/// </summary>
 public class Scp079PlayerRole : Role
 {
     /// <summary>

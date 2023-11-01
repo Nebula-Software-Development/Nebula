@@ -10,6 +10,9 @@ using Scp3114RoleBase = PlayerRoles.PlayableScps.Scp3114.Scp3114Role;
 
 namespace Nebuli.API.Features.Roles;
 
+/// <summary>
+/// Represents the <see cref="RoleTypeId.Scp3114"/> role in-game.
+/// </summary>
 public class Scp3114PlayerRole : FpcRoleBase
 {
     /// <summary>

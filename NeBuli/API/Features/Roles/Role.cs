@@ -1,6 +1,7 @@
 ﻿using Nebuli.API.Features.Player;
 using PlayerRoles;
 using PlayerRoles.PlayableScps.Scp049;
+using PlayerRoles.PlayableScps.Scp049.Zombies;
 using PlayerRoles.PlayableScps.Scp079;
 using PlayerRoles.PlayableScps.Scp096;
 using PlayerRoles.PlayableScps.Scp106;
@@ -12,6 +13,9 @@ using UnityEngine;
 
 namespace Nebuli.API.Features.Roles;
 
+/// <summary>
+/// Represents a base class for Nebuli game roles.
+/// </summary>
 public abstract class Role
 {
     protected Role(PlayerRoleBase roleBase)
@@ -118,6 +122,7 @@ public abstract class Role
             Scp173Role scp173 => new Scp173PlayerRole(scp173),
             Scp106Role scp106 => new Scp106PlayerRole(scp106),
             Scp049Role scp049 => new Scp049PlayerRole(scp049),
+            ZombieRole zombie => new Scp0492PlayerRole(zombie),
             Scp3114Role scp3114 => new Scp3114PlayerRole(scp3114),
             OverwatchRole overwatch => new OverwatchPlayerRole(overwatch),
             SpectatorRole spectator => new SpectatorPlayerRole(spectator),

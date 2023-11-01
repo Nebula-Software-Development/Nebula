@@ -3,6 +3,9 @@ using Respawning;
 
 namespace Nebuli.API.Features.Roles;
 
+/// <summary>
+/// Represents any human role in-game.
+/// </summary>
 public class HumanPlayerRole : FpcRoleBase
 {
     internal HumanPlayerRole(HumanRole role) : base(role)

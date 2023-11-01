@@ -1,4 +1,5 @@
 ﻿using Nebuli.API.Features.Player;
+using PlayerRoles;
 using PlayerRoles.FirstPersonControl;
 using PlayerRoles.PlayableScps.HumeShield;
 using PlayerRoles.PlayableScps.Scp096;
@@ -9,6 +10,9 @@ using UnityEngine;
 
 namespace Nebuli.API.Features.Roles;
 
+/// <summary>
+/// Represents the <see cref="RoleTypeId.Scp096"/> role in-game.
+/// </summary>
 public class Scp096PlayerRole : FpcRoleBase
 {
     /// <summary>

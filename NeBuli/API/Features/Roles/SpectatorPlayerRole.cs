@@ -1,9 +1,13 @@
 ﻿using Nebuli.API.Features.Player;
+using PlayerRoles;
 using PlayerRoles.Spectating;
 using RelativePositioning;
 
 namespace Nebuli.API.Features.Roles;
 
+/// <summary>
+/// Represents the <see cref="RoleTypeId.Spectator"/> role in-game.
+/// </summary>
 public class SpectatorPlayerRole : Role
 {
     /// <summary>

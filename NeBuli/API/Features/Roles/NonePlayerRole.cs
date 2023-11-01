@@ -2,6 +2,9 @@
 
 namespace Nebuli.API.Features.Roles;
 
+/// <summary>
+/// Represents the <see cref="RoleTypeId.None"/> role in-game.
+/// </summary>
 public class NonePlayerRole : Role
 {
     /// <summary>
