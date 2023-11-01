@@ -151,4 +151,16 @@ public static class RoleTypeExtensions
             return Color.white;
         return roleBase.RoleColor;
     }
+
+    /// <summary>
+    /// Gets the roles full name colored with the <see cref="RoleTypeId"/> color.
+    /// </summary>
+    /// <param name="role">The <see cref="RoleTypeId"/>.</param>
+    /// <returns>The string with the roles name and already color formatted, or a empty string if the <see cref="PlayerRoleBase"/> cannot be found.</returns>
+    public static string GetColoredName(this RoleTypeId role)
+    {
+        if(!role.TryGetBaseRole(out PlayerRoleBase roleBase))
+            return string.Empty;
+        return roleBase.GetColoredName();
+    }
 }

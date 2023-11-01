@@ -125,6 +125,13 @@ public class Camera
     /// <returns></returns>
     public static Camera Get(CameraBase camera) => Dictionary.TryGetValue(camera, out Camera baseCamera) ? baseCamera : new Camera(camera);
 
+    /// <summary>
+    /// Gets a <see cref="Camera"/> with the specified <see cref="CameraType"/>.
+    /// </summary>
+    /// <param name="cameraType">The <see cref="CameraType"/>.</param>
+    /// <returns>The first camera found in the list with the specified <see cref="CameraType"/>.</returns>
+    public static Camera GetType(CameraType cameraType) => List.FirstOrDefault(x => x.Type == cameraType);
+
     internal static CameraType GetCameraTypeFromName(string cameraName)
     {
         return cameraName switch

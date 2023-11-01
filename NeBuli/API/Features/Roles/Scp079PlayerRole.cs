@@ -1,13 +1,18 @@
-﻿using PlayerRoles.PlayableScps.Scp079;
+﻿using PlayerRoles;
+using PlayerRoles.PlayableScps.Scp079;
 using PlayerRoles.PlayableScps.Scp079.Cameras;
 using PlayerRoles.PlayableScps.Scp079.Pinging;
 using PlayerRoles.PlayableScps.Scp079.Rewards;
 using PlayerRoles.PlayableScps.Subroutines;
 using PlayerRoles.Voice;
 using System;
+using Camera = Nebuli.API.Features.Map.Camera;
 
 namespace Nebuli.API.Features.Roles;
 
+/// <summary>
+/// Represents the <see cref="RoleTypeId.Scp079"/> role in-game.
+/// </summary>
 public class Scp079PlayerRole : Role
 {
     /// <summary>
@@ -32,15 +37,33 @@ public class Scp079PlayerRole : Role
     public bool ZoneBlackoutReady => BlackoutZoneAbility.IsReady;
 
     /// <summary>
+    /// Gets if SCP-079 can transmit to a speaker.
+    /// </summary>
+    public bool CanTransmit => SpeakerAbility.CanTransmit;
+
+    /// <summary>
     /// Grants the role experience.
     /// </summary>
     /// <param name="amount">The amount of experience to give.</param>
     public void GrantExperience(int amount) => TierManager.ServerGrantExperience(amount, Scp079HudTranslation.Experience);
 
     /// <summary>
-    /// Gets the roles tier level.
+    /// Gets or sets the roles tier level.
     /// </summary>
-    public int TierLevel => TierManager.AccessTierLevel;
+    public int TierLevel
+    {
+        get => TierManager.AccessTierLevel;
+        set => Experience = value <= 1 ? 0 : TierManager.AbsoluteThresholds[Math.Max(value - 2, 0)];
+    }
+
+    /// <summary>
+    /// Gets or sets the roles total experience.
+    /// </summary>
+    public int Experience
+    {
+        get => TierManager.TotalExp;
+        set => TierManager.TotalExp = value;
+    }
 
     /// <summary>
     /// Forces SCP-079 to lose singal for the specified duration.
@@ -75,6 +98,34 @@ public class Scp079PlayerRole : Role
     public float HorizontalRotation => Base.HorizontalRotation;
 
     /// <summary>
+    /// Gets if SCP-079 is currently using a speaker.
+    /// </summary>
+    public bool IsUsingSpeaker => SpeakerAbility.IsUsingSpeaker;
+
+    /// <summary>
+    /// Gets or sets SCP-079's current energy amount.
+    /// </summary>
+    public float CurrentEnergy
+    {
+        get => AuxManager.CurrentAux;
+        set => AuxManager.CurrentAux = value;
+    }
+
+    /// <summary>
+    /// Gets or sets the max energy SCP-079 can have for its <c>current</c> level.
+    /// </summary>
+    public float MaxEnergy
+    {
+        get => AuxManager.MaxAux;
+        set => AuxManager._maxPerTier[TierManager.AccessTierIndex] = value;
+    }
+
+    /// <summary>
+    /// Gets the current speaker used by SCP-079, can be null if none.
+    /// </summary>
+    public Scp079Speaker CurrentSpeaker => Scp079Speaker.TryGetSpeaker(Camera.Base, out Scp079Speaker speaker) ? speaker : null;
+
+    /// <summary>
     /// Gets the roles current vertical rotation.
     /// </summary>
     public float VerticalRotation => Base.VerticalRotation;
@@ -85,9 +136,17 @@ public class Scp079PlayerRole : Role
     public bool CanActivateTeslaShock => Base.CanActivateShock;
 
     /// <summary>
-    /// Gets the current camera the role is on.
+    /// Gets or sets the current camera the role is on.
     /// </summary>
-    public Scp079Camera Camera => Base.CurrentCamera;
+    public Camera Camera
+    {
+        get
+        {
+            Base._curCamSync.TryGetCurrentCamera(out Scp079Camera cam);
+            return Camera.Get(cam);
+        }
+        set => Base._curCamSync.CurrentCamera = value?.Base;
+    }
 
     /// <summary>
     /// Gets the roles <see cref="VoiceModuleBase"/>.
@@ -154,42 +213,49 @@ public class Scp079PlayerRole : Role
     /// </summary>
     public Scp079TeslaAbility TeslaAbility { get; internal set; }
 
+    /// <summary>
+    /// Gets the SCP-070 SpeakerAbility.
+    /// </summary>
+    public Scp079SpeakerAbility SpeakerAbility { get; internal set; }
+
     internal void SetupSubroutines()
     {
         try
         {
             ManagerModule = Base.SubroutineModule;
 
-            Scp079AuxManager scp079AuxManager;
-            if (ManagerModule.TryGetSubroutine(out scp079AuxManager))
+            if (ManagerModule.TryGetSubroutine(out Scp079AuxManager scp079AuxManager))
                 AuxManager = scp079AuxManager;
-            Scp079TierManager scp079TierManager;
-            if (ManagerModule.TryGetSubroutine(out scp079TierManager))
+
+            if (ManagerModule.TryGetSubroutine(out Scp079TierManager scp079TierManager))
                 TierManager = scp079TierManager;
-            Scp079RewardManager scp079RewardManager;
-            if (ManagerModule.TryGetSubroutine(out scp079RewardManager))
+
+            if (ManagerModule.TryGetSubroutine(out Scp079RewardManager scp079RewardManager))
                 RewardManager = scp079RewardManager;
-            Scp079LockdownRoomAbility scp079LockdownRoomAbility;
-            if (ManagerModule.TryGetSubroutine(out scp079LockdownRoomAbility))
+
+            if (ManagerModule.TryGetSubroutine(out Scp079LockdownRoomAbility scp079LockdownRoomAbility))
                 LockdownRoomAbility = scp079LockdownRoomAbility;
-            Scp079BlackoutRoomAbility scp079BlackoutRoomAbility;
-            if (ManagerModule.TryGetSubroutine(out scp079BlackoutRoomAbility))
+
+            if (ManagerModule.TryGetSubroutine(out Scp079BlackoutRoomAbility scp079BlackoutRoomAbility))
                 BlackoutRoomAbility = scp079BlackoutRoomAbility;
-            Scp079BlackoutZoneAbility scp079BlackoutZoneAbility;
-            if (ManagerModule.TryGetSubroutine(out scp079BlackoutZoneAbility))
+
+            if (ManagerModule.TryGetSubroutine(out Scp079BlackoutZoneAbility scp079BlackoutZoneAbility))
                 BlackoutZoneAbility = scp079BlackoutZoneAbility;
-            Scp079LostSignalHandler scp079LostSignalHandler;
-            if (ManagerModule.TryGetSubroutine(out scp079LostSignalHandler))
+
+            if (ManagerModule.TryGetSubroutine(out Scp079LostSignalHandler scp079LostSignalHandler))
                 LostSignalHandler = scp079LostSignalHandler;
-            Scp079CurrentCameraSync cameraSync;
-            if (ManagerModule.TryGetSubroutine(out cameraSync))
+
+            if (ManagerModule.TryGetSubroutine(out Scp079CurrentCameraSync cameraSync))
                 CurrentCameraSync = cameraSync;
-            Scp079PingAbility scp079PingAbility;
-            if (ManagerModule.TryGetSubroutine(out scp079PingAbility))
+
+            if (ManagerModule.TryGetSubroutine(out Scp079PingAbility scp079PingAbility))
                 PingAbility = scp079PingAbility;
-            Scp079TeslaAbility scp079TeslaAbility;
-            if (ManagerModule.TryGetSubroutine(out scp079TeslaAbility))
+
+            if (ManagerModule.TryGetSubroutine(out Scp079TeslaAbility scp079TeslaAbility))
                 TeslaAbility = scp079TeslaAbility;
+
+            if(ManagerModule.TryGetSubroutine(out Scp079SpeakerAbility scp079SpeakerAbility))
+                SpeakerAbility = scp079SpeakerAbility;
         }
         catch (Exception e)
         {

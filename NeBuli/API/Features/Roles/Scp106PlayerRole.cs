@@ -1,7 +1,11 @@
-﻿using PlayerRoles.PlayableScps.Scp106;
+﻿using PlayerRoles;
+using PlayerRoles.PlayableScps.Scp106;
 
 namespace Nebuli.API.Features.Roles;
 
+/// <summary>
+/// Represents the <see cref="RoleTypeId.Scp106"/> role in-game.
+/// </summary>
 public class Scp106PlayerRole : Role
 {
     /// <summary>

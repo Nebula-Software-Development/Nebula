@@ -28,6 +28,11 @@ public class Ragdoll
     public BasicRagdoll Base { get; }
 
     /// <summary>
+    /// Gets if the ragdoll is a <see cref="DynamicRagdoll"/>.
+    /// </summary>
+    public bool IsDynamic { get; } = false;
+
+    /// <summary>
     /// Gets or sets the RagdollData from the <see cref="BasicRagdoll"/>.
     /// </summary>
     public RagdollData RagdollData
@@ -47,6 +52,7 @@ public class Ragdoll
         else ReferenceHub = basicRagdoll.NetworkInfo.OwnerHub;
         Base = basicRagdoll;
         Dictionary.Add(basicRagdoll, this);
+        if (basicRagdoll is DynamicRagdoll) IsDynamic = true;
     }
 
     public static IEnumerable<Ragdoll> Collection => Dictionary.Values;
@@ -183,7 +189,7 @@ public class Ragdoll
     /// <returns>The created <see cref="Ragdoll"/> instance, or <c>null</c> if creation failed.</returns>
     public static Ragdoll Create(string Nickname, RoleTypeId role, DamageHandlerBase damageHandlerBase, NebuliPlayer owner = null, Vector3 position = default, Quaternion rotation = default, double creationTime = default)
     {
-        if (owner == null) owner = Server.NebuliHost;
+        owner ??= Server.NebuliHost;
         if (Create(new RagdollData(owner.ReferenceHub, damageHandlerBase, roleType: role, position, rotation, Nickname, creationTime), out Ragdoll ragdoll))
             return ragdoll;
         return null;
@@ -202,7 +208,7 @@ public class Ragdoll
     /// <returns>The created <see cref="Ragdoll"/> instance, or <c>null</c> if creation failed.</returns>
     public static Ragdoll CreateAndSpawn(string Nickname, RoleTypeId role, DamageHandlerBase damageHandlerBase, NebuliPlayer owner = null, Vector3 position = default, Quaternion rotation = default, double creationTime = default)
     {
-        if (owner == null) owner = Server.NebuliHost;
+        owner ??= Server.NebuliHost;
         if (Create(new RagdollData(owner.ReferenceHub, damageHandlerBase, roleType: role, position, rotation, Nickname, creationTime), out Ragdoll ragdoll))
         {
             ragdoll.Spawn();
@@ -226,7 +232,7 @@ public class Ragdoll
     /// <summary>
     /// Destroys the ragdoll.
     /// </summary>
-    public void Destroy() => Object.Destroy(GameObject);
+    public void Destroy() => NetworkServer.Destroy(GameObject);
 
     /// <summary>
     /// Spawns the ragdoll.

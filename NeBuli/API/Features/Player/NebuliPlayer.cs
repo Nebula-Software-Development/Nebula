@@ -657,18 +657,13 @@ public class NebuliPlayer
     }
 
     /// <summary>
-    /// Gets or sets the players real nickname.
+    /// Gets or sets the players nickname.
     /// </summary>
-    public string RealNickname
+    public string Nickname
     {
-        get => ReferenceHub.nicknameSync._myNickSync;
-        set => ReferenceHub.nicknameSync._myNickSync = value;
+        get => ReferenceHub.nicknameSync.Network_myNickSync;
+        set => ReferenceHub.nicknameSync.Network_myNickSync = value;
     }
-
-    /// <summary>
-    /// Gets the player's nickname.
-    /// </summary>
-    public string Nickname => ReferenceHub.nicknameSync.Network_myNickSync;
 
     /// <summary>
     /// Gets if the player has a custom name.
@@ -803,6 +798,7 @@ public class NebuliPlayer
         return false;
     }
 
+
     /// <summary>
     /// Tries to get a NebuliPlayer instance based on their <see cref="ICommandSender"/>.
     /// </summary>
@@ -902,31 +898,41 @@ public class NebuliPlayer
     /// Gets a <see cref="NebuliPlayer"/> by a variable.
     /// </summary>
     /// <remarks>You can pass a <see cref="RawUserId"/>, a <see cref="UserId"/>, a <see cref="Id"/>, a <see cref="NetId"/>, and the players <see cref="Nickname"/>. Otherwise, null.</remarks>
-    public static NebuliPlayer Get(string variable)
+    public static NebuliPlayer Get(string variable) => TryGet(variable, out NebuliPlayer player) ? player : null;
+
+    /// <summary>
+    /// Tries to get a <see cref="NebuliPlayer"/> by a variable.
+    /// </summary>
+    /// <remarks>You can pass a <see cref="RawUserId"/>, a <see cref="UserId"/>, a <see cref="Id"/>, a <see cref="NetId"/>, and the players <see cref="Nickname"/>. Otherwise, null.</remarks>
+    public static bool TryGet(string variable, out NebuliPlayer player)
     {
-        if (string.IsNullOrEmpty(variable)) return null;
+        player = null;
+        if (string.IsNullOrEmpty(variable)) return false;
 
         if (List.FirstOrDefault(ply => ply.RawUserId == variable || ply.UserId == variable) is NebuliPlayer ply)
         {
-            return ply;
+            player = ply;
+            return true;
         }
 
         if (int.TryParse(variable, out int ID) && TryGet(ID, out NebuliPlayer plyID))
         {
-            return plyID;
+            player = plyID;
+            return true;
         }
 
         if (uint.TryParse(variable, out uint NID) && TryGet(NID, out NebuliPlayer plyNID))
         {
-            return plyNID;
+            player = plyNID;
+            return true;
         }
 
         if (List.FirstOrDefault(ply => ply.Nickname.Equals(variable, StringComparison.OrdinalIgnoreCase)) is NebuliPlayer plyByUsername)
         {
-            return plyByUsername;
+            player = plyByUsername;
+            return true;
         }
-
-        return null;
+        return false;
     }
 
     /// <summary>

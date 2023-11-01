@@ -1,8 +1,12 @@
-﻿using UnityEngine;
+﻿using PlayerRoles;
+using UnityEngine;
 using FilmmakerRoleBase = PlayerRoles.Filmmaker.FilmmakerRole;
 
 namespace Nebuli.API.Features.Roles;
 
+/// <summary>
+/// Represents the <see cref="RoleTypeId.Filmmaker"/> role in-game.
+/// </summary>
 public class FilmmakerRole : Role
 {
     /// <summary>

@@ -1,12 +1,18 @@
-﻿using PlayerRoles.FirstPersonControl;
+﻿using Nebuli.API.Features.Player;
+using PlayerRoles;
+using PlayerRoles.FirstPersonControl;
 using PlayerRoles.PlayableScps.HumeShield;
 using PlayerRoles.PlayableScps.Scp096;
 using PlayerRoles.PlayableScps.Subroutines;
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Nebuli.API.Features.Roles;
 
+/// <summary>
+/// Represents the <see cref="RoleTypeId.Scp096"/> role in-game.
+/// </summary>
 public class Scp096PlayerRole : FpcRoleBase
 {
     /// <summary>
@@ -19,6 +25,59 @@ public class Scp096PlayerRole : FpcRoleBase
         Base = role;
         SetupSubroutines();
     }
+
+    /// <summary>
+    /// Forces SCP-096 to attack.
+    /// </summary>
+    public void Attack() => AttackAbility.ServerAttack();
+
+    /// <summary>
+    /// Gets if SCP-096 can attack.
+    /// </summary>
+    public bool CanAttack => AttackAbility.AttackPossible;
+
+    /// <summary>
+    /// Removes a <see cref="NebuliPlayer"/> from the target list.
+    /// </summary>
+    /// <param name="player">The <see cref="NebuliPlayer"/> to remove.</param>
+    public bool RemoveTarget(NebuliPlayer player) => TargetsTracker.RemoveTarget(player.ReferenceHub);
+
+    /// <summary>
+    /// Gets if the <see cref="Player"/> is looking at SCP-096.
+    /// </summary>
+    /// <param name="player">The <see cref="NebuliPlayer"/> to check.</param>
+    /// <returns>True if the player is looking, otherwise false.</returns>
+    public bool IsPlayerLooking(NebuliPlayer player) => TargetsTracker.IsObservedBy(player.ReferenceHub);
+
+    /// <summary>
+    /// Gets a <see cref="HashSet{T}"/> of current targets.
+    /// </summary>
+    public HashSet<ReferenceHub> Targets => TargetsTracker.Targets;
+
+    /// <summary>
+    /// Gets if the <see cref="NebuliPlayer"/> is a current target.
+    /// </summary>
+    /// <param name="player">The <see cref="NebuliPlayer"/> to check.</param>
+    /// <returns>True if the player is a target, otherwise false.</returns>
+    public bool IsATarget(NebuliPlayer player) => TargetsTracker.HasTarget(player.ReferenceHub);
+
+    /// <summary>
+    /// Clears all of SCP-096's targets.
+    /// </summary>
+    public void ClearAllTargets() => TargetsTracker.ClearAllTargets();
+
+    /// <summary>
+    /// Adds a target to SCP-096's current target tracker.
+    /// </summary>
+    /// <param name="player">The <see cref="NebuliPlayer"/> to add.</param>
+    /// <param name="isForLooking">If the target looked at SCP-096 to get added.</param>
+    /// <returns></returns>
+    public bool AddTarget(NebuliPlayer player, bool isForLooking) => TargetsTracker.AddTarget(player.ReferenceHub, isForLooking);
+
+    /// <summary>
+    /// Gets if SCP-096 can charge.
+    /// </summary>
+    public bool CanCharge => ChargeAbility.CanCharge;
 
     /// <summary>
     /// Gets or sets the current Hume shield value for SCP-096.
@@ -85,7 +144,7 @@ public class Scp096PlayerRole : FpcRoleBase
     /// Increases the duration of SCP-096's rage.
     /// </summary>
     /// <param name="increaseAmount">The amount to increase the rage duration.</param>
-    public void IncreaseRageDuration(float increaseAmount) => RageManager.ServerIncreaseDuration(increaseAmount);
+    public void IncreaseRageDuration(float increaseAmount = 3) => RageManager.ServerIncreaseDuration(increaseAmount);
 
     /// <summary>
     /// Enrages SCP-096 for a specified duration.
@@ -97,7 +156,7 @@ public class Scp096PlayerRole : FpcRoleBase
     /// Forces the end of SCP-096's rage.
     /// </summary>
     /// <param name="clearTime">Whether to clear the rage time or not.</param>
-    public void ForceEndRage(bool clearTime) => RageManager.ServerEndEnrage(clearTime);
+    public void ForceEndRage(bool clearTime = true) => RageManager.ServerEndEnrage(clearTime);
 
     /// <summary>
     /// Returns a boolean value indicating if the current role's <see cref="Scp096AbilityState"/> matches the provided <see cref="Scp096AbilityState"/>.
@@ -152,6 +211,31 @@ public class Scp096PlayerRole : FpcRoleBase
     /// Gets SCP-096's PrygateAbility.
     /// </summary>
     public Scp096PrygateAbility PrygateAbility { get; internal set; }
+    
+    /// <summary>
+    /// Gets SCP-096's ChargeAbility.
+    /// </summary>
+    public Scp096ChargeAbility ChargeAbility { get; internal set; }
+    
+    /// <summary>
+    /// Gets SCP-096's TryNotToCryAbility.
+    /// </summary>
+    public Scp096TryNotToCryAbility TryNotToCryAbility { get; internal set; }
+    
+    /// <summary>
+    /// Gets SCP-096's TargetsTracker.
+    /// </summary>
+    public Scp096TargetsTracker TargetsTracker { get; internal set; }
+    
+    /// <summary>
+    /// Gets SCP-096's AttackAbility.
+    /// </summary>
+    public Scp096AttackAbility AttackAbility { get; internal set; }
+    
+    /// <summary>
+    /// Gets SCP-096's RageCycleAbility.
+    /// </summary>
+    public Scp096RageCycleAbility RageCycleAbility { get; internal set; }
 
     internal void SetupSubroutines()
     {
@@ -159,16 +243,30 @@ public class Scp096PlayerRole : FpcRoleBase
         {
             ManagerModule = Base.SubroutineModule;
             HumeShieldModule = Base.HumeShieldModule;
-
-            Scp096RageManager rageManager;
-            if (ManagerModule.TryGetSubroutine(out rageManager))
+            
+            if (ManagerModule.TryGetSubroutine(out Scp096RageManager rageManager))
                 RageManager = rageManager;
-            Scp096StateController controller;
-            if (ManagerModule.TryGetSubroutine(out controller))
+            
+            if (ManagerModule.TryGetSubroutine(out Scp096StateController controller))
                 StateController = controller;
-            Scp096PrygateAbility prygateAbility;
-            if (ManagerModule.TryGetSubroutine(out prygateAbility))
+            
+            if (ManagerModule.TryGetSubroutine(out Scp096PrygateAbility prygateAbility))
                 PrygateAbility = prygateAbility;
+
+            if (ManagerModule.TryGetSubroutine(out Scp096ChargeAbility chargeAbility))
+                ChargeAbility = chargeAbility;
+            
+            if (ManagerModule.TryGetSubroutine(out Scp096TryNotToCryAbility tryNotToCryAbility))
+                TryNotToCryAbility = tryNotToCryAbility;
+            
+            if (ManagerModule.TryGetSubroutine(out Scp096TargetsTracker targetsTracker))
+                TargetsTracker = targetsTracker;
+            
+            if (ManagerModule.TryGetSubroutine(out Scp096AttackAbility attackAbility))
+                AttackAbility = attackAbility;
+            
+            if (ManagerModule.TryGetSubroutine(out Scp096RageCycleAbility rageCycleAbility))
+                RageCycleAbility = rageCycleAbility;
         }
         catch (Exception e)
         {

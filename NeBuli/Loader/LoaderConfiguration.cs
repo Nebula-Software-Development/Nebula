@@ -5,7 +5,7 @@ namespace Nebuli.Loader;
 /// <summary>
 /// The loaders configuration class.
 /// </summary>
-public class LoaderConfiguration
+public sealed class LoaderConfiguration
 {
     /// <summary>
     /// Determines if the Loader is enabled or not.

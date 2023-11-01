@@ -1,9 +1,13 @@
 ﻿using Nebuli.API.Features.Player;
+using PlayerRoles;
 using PlayerRoles.Spectating;
 using RelativePositioning;
 
 namespace Nebuli.API.Features.Roles;
 
+/// <summary>
+/// Represents the <see cref="RoleTypeId.Spectator"/> role in-game.
+/// </summary>
 public class SpectatorPlayerRole : Role
 {
     /// <summary>
@@ -27,9 +31,13 @@ public class SpectatorPlayerRole : Role
     public NebuliPlayer LastTrackedPlayer => NebuliPlayer.Get(SpectatorTargetTracker.LastTrackedPlayer);
 
     /// <summary>
-    /// Gets the relative position of the player's death location.
+    /// Gets or sets the relative position of the player's death location.
     /// </summary>
-    public RelativePosition DeathPosition => Base.DeathPosition;
+    public RelativePosition DeathPosition
+    {
+        get => Base.DeathPosition;
+        set => Base.DeathPosition = value;
+    }
 
     /// <summary>
     /// Gets a value indicating whether the spectator is ready to respawn.
