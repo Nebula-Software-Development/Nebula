@@ -3,6 +3,7 @@ using InventorySystem;
 using InventorySystem.Items;
 using InventorySystem.Items.Pickups;
 using Mirror;
+using Nebuli.API.Extensions;
 using Nebuli.API.Features.Items.Pickups.SCPs;
 using Nebuli.API.Features.Items.Projectiles;
 using Nebuli.API.Features.Map;
@@ -36,8 +37,7 @@ public class Pickup
     internal Pickup(ItemPickupBase pickupBase)
     {
         Base = pickupBase;
-        if (!Dictionary.ContainsKey(pickupBase)) Dictionary.Add(pickupBase, this);
-        else return;
+        Dictionary.AddIfMissing(pickupBase, this);
     }
 
     internal Pickup(ItemType type)
@@ -52,7 +52,9 @@ public class Pickup
             };
             Base = Object.Instantiate(itemBase.PickupDropModel);
             Info = info;
-        }
+
+            Dictionary.AddIfMissing(Base, this);
+        }   
     }
 
     /// <summary>
@@ -231,13 +233,13 @@ public class Pickup
     }
 
     /// <summary>
-    /// Spawns a pickup at the specified position and rotation with an optional previous owner.
+    /// Spawns a pickup at a given position and rotation with an optional previous owner.
     /// </summary>
     /// <param name="pickup">The <see cref="Pickup"/> to spawn.</param>
     /// <param name="position">The position where the pickup should spawn.</param>
     /// <param name="rotation">The rotation of the pickup when spawned.</param>
     /// <param name="oldOwner">The previous owner of the pickup. If null, the server's host player will be the previous owner.</param>
-    public static void SpawnPickup(Pickup pickup, Vector3 position, Quaternion rotation, NebuliPlayer oldOwner = null)
+    public static void SpawnPickup(Pickup pickup, Vector3 position = default, Quaternion rotation = default, NebuliPlayer oldOwner = null)
     {
         oldOwner ??= Server.NebuliHost;
         pickup.Position = position;
@@ -251,7 +253,7 @@ public class Pickup
     /// </summary>
     public void Destroy()
     {
-        Dictionary.Remove(Base);
+        Dictionary.RemoveIfContains(Base);
         Base.DestroySelf();
     }
 
@@ -271,6 +273,11 @@ public class Pickup
     /// Creates a pickup given the ItemType.
     /// </summary>
     public static Pickup Create(ItemType type) => new(type);
+
+    /// <summary>
+    /// Creates a pickup given the <see cref="Item"/>.
+    /// </summary>
+    public static Pickup Create(Item item) => new(item.Base.PickupDropModel);
 
     /// <summary>
     /// Creates and spawns a pickup given the ItemType.

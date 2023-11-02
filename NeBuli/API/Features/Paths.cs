@@ -40,24 +40,48 @@ public static class Paths
     public static DirectoryInfo PluginPortConfigDirectory { get; private set; }
 
     /// <summary>
-    ///
+    /// The <see cref="FileInfo"/> for the permissions file.
     /// </summary>
     public static FileInfo Permissions { get; private set; }
 
-    /// <summary>
-    ///
-    /// </summary>
     internal static void LoadPaths()
     {
-        MainDirectory = Directory.CreateDirectory(Path.Combine(NwPaths.AppData, "Nebuli"));
-        PluginsDirectory = MainDirectory.CreateSubdirectory("Plugins");
+        MainDirectory = CreateDirectory(NwPaths.AppData, "Nebuli");
+        PluginsDirectory = CreateDirectory(MainDirectory, "Plugins");
+
         if (LoaderClass.Configuration.SeperatePluginsByPort)
-            PluginsPortDirectory = PluginsDirectory.CreateSubdirectory(Server.ServerPort.ToString() + "-Plugins");
+            PluginsPortDirectory = CreateDirectory(PluginsDirectory, Server.ServerPort + "-Plugins");
         else
             PluginsPortDirectory = PluginsDirectory;
-        PluginConfigDirectory = MainDirectory.CreateSubdirectory("Plugin-Configurations");
-        PluginPortConfigDirectory = PluginConfigDirectory.CreateSubdirectory(Server.ServerPort.ToString());
-        DependenciesDirectory = PluginsDirectory.CreateSubdirectory("Dependencies");
+
+        PluginConfigDirectory = CreateDirectory(MainDirectory, "Plugin-Configurations");
+        PluginPortConfigDirectory = CreateDirectory(PluginConfigDirectory, Server.ServerPort.ToString());
+        DependenciesDirectory = CreateDirectory(PluginsDirectory, "Dependencies");
+
         Permissions = new FileInfo(Path.Combine(MainDirectory.FullName, "Permissions.yml"));
+    }
+
+    /// <summary>
+    /// Creates a directory with the specified name within the parent directory specified by <paramref name="parentPath"/>.
+    /// </summary>
+    /// <param name="parentPath">The path to the parent directory where the new directory will be created.</param>
+    /// <param name="directoryName">The name of the new directory to create.</param>
+    /// <returns>A <see cref="DirectoryInfo"/> representing the newly created directory.</returns>
+    public static DirectoryInfo CreateDirectory(string parentPath, string directoryName)
+    {
+        string fullPath = Path.Combine(parentPath, directoryName);
+        return Directory.CreateDirectory(fullPath);
+    }
+
+    /// <summary>
+    /// Creates a directory with the specified name within the parent directory specified by <paramref name="parentDirectory"/>.
+    /// </summary>
+    /// <param name="parentDirectory">The parent directory where the new directory will be created.</param>
+    /// <param name="directoryName">The name of the new directory to create.</param>
+    /// <returns>A <see cref="DirectoryInfo"/> representing the newly created directory.</returns>
+    public static DirectoryInfo CreateDirectory(DirectoryInfo parentDirectory, string directoryName)
+    {
+        string fullPath = Path.Combine(parentDirectory.FullName, directoryName);
+        return Directory.CreateDirectory(fullPath);
     }
 }

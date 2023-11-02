@@ -132,13 +132,7 @@ public static class RoleTypeExtensions
     /// </summary>
     /// <param name="role">The <see cref="RoleTypeId"/> to use.</param>
     /// <param name="inventoryRoleInfo">The inventory role information to set.</param>
-    public static void SetDefaultInventory(this RoleTypeId role, InventoryRoleInfo inventoryRoleInfo)
-    {
-        if (StartingInventories.DefinedInventories.ContainsKey(role))
-            StartingInventories.DefinedInventories[role] = inventoryRoleInfo;
-        else
-            StartingInventories.DefinedInventories.Add(role, inventoryRoleInfo);
-    }
+    public static void SetDefaultInventory(this RoleTypeId role, InventoryRoleInfo inventoryRoleInfo) => StartingInventories.DefinedInventories.UpdateOrAdd(role, inventoryRoleInfo);
 
     /// <summary>
     /// Gets the color associated with a role based on its <see cref="RoleTypeId"/>.

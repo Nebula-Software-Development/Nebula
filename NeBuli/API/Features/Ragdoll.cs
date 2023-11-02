@@ -51,7 +51,7 @@ public class Ragdoll
         if (basicRagdoll.NetworkInfo.OwnerHub is null) ReferenceHub = Server.NebuliHost.ReferenceHub;
         else ReferenceHub = basicRagdoll.NetworkInfo.OwnerHub;
         Base = basicRagdoll;
-        Dictionary.Add(basicRagdoll, this);
+        Dictionary.UpdateOrAdd(basicRagdoll, this);
         if (basicRagdoll is DynamicRagdoll) IsDynamic = true;
     }
 
