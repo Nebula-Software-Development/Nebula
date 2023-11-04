@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -269,6 +269,7 @@
     <Compile Include="Events\EventArguments\SCPs\Scp173\Scp173ToggleBreakneckSpeedEvent.cs" />
     <Compile Include="Events\EventArguments\SCPs\Scp3114\Scp3114DisguisedEvent.cs" />
     <Compile Include="Events\EventArguments\SCPs\Scp3114\Scp3114DisguisingEvent.cs" />
+    <Compile Include="Events\EventArguments\SCPs\Scp3114\Scp3114RevealedEvent.cs" />
     <Compile Include="Events\EventArguments\SCPs\Scp3114\Scp3114RevealEvent.cs" />
     <Compile Include="Events\EventArguments\SCPs\Scp3114\Scp3114StranglingEvent.cs" />
     <Compile Include="Events\EventArguments\SCPs\Scp330\Scp330InteractEvent.cs" />

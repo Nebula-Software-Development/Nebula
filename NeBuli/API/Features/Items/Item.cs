@@ -10,6 +10,7 @@ using InventorySystem.Items.Usables;
 using InventorySystem.Items.Usables.Scp1576;
 using InventorySystem.Items.Usables.Scp244;
 using InventorySystem.Items.Usables.Scp330;
+using Nebuli.API.Extensions;
 using Nebuli.API.Features.Items.Pickups;
 using Nebuli.API.Features.Items.SCPs;
 using Nebuli.API.Features.Items.Throwables;
@@ -51,7 +52,7 @@ public class Item
     internal Item(ItemBase itemBase)
     {
         Base = itemBase;
-        if (!Dictionary.ContainsKey(itemBase)) Dictionary.Add(itemBase, this);
+        Dictionary.UpdateOrAdd(itemBase, this);
     }
 
     /// <summary>

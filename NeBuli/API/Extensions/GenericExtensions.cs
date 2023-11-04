@@ -52,4 +52,77 @@ public static class GenericExtensions
 
         return source.ElementAt(LoaderClass.Random.Next(0, source.Count()));
     }
+
+    /// <summary>
+    /// Adds a key-value pair to the dictionary if the key is not already present.
+    /// </summary>
+    /// <typeparam name="TKey">The type of keys in the dictionary.</typeparam>
+    /// <typeparam name="TValue">The type of values in the dictionary.</typeparam>
+    /// <param name="dictionary">The dictionary to add the key-value pair to.</param>
+    /// <param name="key">The key to add.</param>
+    /// <param name="value">The value associated with the key.</param>
+    /// <returns>
+    ///   <c>True</c> if the key is already present in the dictionary; otherwise, <c>false</c>.
+    /// </returns>
+    public static bool AddIfMissing<TKey, TValue>(this Dictionary<TKey, TValue> dictionary, TKey key, TValue value)
+    {
+        if(!dictionary.ContainsKey(key))
+        {
+            dictionary.Add(key, value);
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+    }
+
+    /// <summary>
+    /// Updates the value for an existing key in the dictionary or adds the key-value pair if the key doesn't exist.
+    /// </summary>
+    /// <typeparam name="TKey">The type of keys in the dictionary.</typeparam>
+    /// <typeparam name="TValue">The type of values in the dictionary.</typeparam>
+    /// <param name="dictionary">The dictionary to update or add the key-value pair to.</param>
+    /// <param name="key">The key to update or add.</param>
+    /// <param name="value">The new value associated with the key.</param>
+    /// <returns>
+    ///   <c>True</c> if the key was updated (it already existed), <c>false</c> if the key-value pair was added (it didn't exist).
+    /// </returns>
+    public static bool UpdateOrAdd<TKey, TValue>(this Dictionary<TKey, TValue> dictionary, TKey key, TValue value)
+    {
+        if (dictionary.ContainsKey(key))
+        {
+            dictionary[key] = value;
+            return true;
+        }
+        else
+        {
+            dictionary.Add(key, value);
+            return false;
+        }
+    }
+
+    /// <summary>
+    /// Removes a key and its associated value from the dictionary if the key is present.
+    /// </summary>
+    /// <typeparam name="TKey">The type of keys in the dictionary.</typeparam>
+    /// <typeparam name="TValue">The type of values in the dictionary.</typeparam>
+    /// <param name="dictionary">The dictionary to remove the key-value pair from.</param>
+    /// <param name="key">The key to remove.</param>
+    /// <returns>
+    ///   <c>True</c> if the key was found and removed; otherwise, <c>false</c>.
+    /// </returns>
+    public static bool RemoveIfContains<TKey, TValue>(this Dictionary<TKey, TValue> dictionary, TKey key)
+    {
+        if (dictionary.ContainsKey(key))
+        {
+            dictionary.Remove(key);
+            return true;
+        }
+        else
+        {
+            return false; 
+        }
+    }
+
 }
