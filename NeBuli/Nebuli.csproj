@@ -203,6 +203,7 @@
     <Compile Include="API\Features\Enum\DoorType.cs" />
     <Compile Include="API\Features\Enum\GeneratorState.cs" />
     <Compile Include="API\Internal\Commands\ForceInstall.cs" />
+    <Compile Include="API\Internal\Commands\PluginList.cs" />
     <Compile Include="API\Internal\Commands\Reload.cs" />
     <Compile Include="API\Internal\Commands\ReloadConfigurations.cs" />
     <Compile Include="API\Internal\Commands\ReloadPerms.cs" />
