@@ -52,6 +52,9 @@ internal class InteractingDoorEventPatch
 
     private static void TriggerDoorAction(DoorVariant door, ReferenceHub player, byte id, PlayerInteractingDoorEvent @event)
     {
+        if (!@event.allowedInteracting) return;
+        if(@event.bypassDenied) { door.LockBypassDenied(player, id); return; } 
+
         if (@event.IsCancelled)
         {
             door.PermissionsDenied(player, id);

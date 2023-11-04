@@ -35,10 +35,11 @@ public class PlayerInteractingDoorEvent : EventArgs, IPlayerEvent, ICancellableE
     /// </summary>
     public bool IsCancelled { get; set; }
 
+    internal bool bypassDenied;
+    internal bool allowedInteracting = true;
+
     private bool CalculateIsCancelled(ReferenceHub ply, DoorVariant door, byte colliderId)
     {
-        bool isCancelled = false;
-
         if (door.ActiveLocks > 0 && !ply.serverRoles.BypassMode)
         {
             DoorLockMode mode = DoorLockUtils.GetMode((DoorLockReason)door.ActiveLocks);
@@ -48,23 +49,24 @@ public class PlayerInteractingDoorEvent : EventArgs, IPlayerEvent, ICancellableE
                 (!door.TargetState && !mode.HasFlagFast(DoorLockMode.CanOpen))))
             {
                 PluginAPI.Events.EventManager.ExecuteEvent(new PlayerInteractDoorEvent(ply, door, false));
-                door.LockBypassDenied(ply, colliderId);
-                isCancelled = true;
+                bypassDenied = true;
+                return true;
             }
         }
-        else if (!door.AllowInteracting(ply, colliderId))
+
+        if (!door.AllowInteracting(ply, colliderId))
         {
-            isCancelled = true;
+            allowedInteracting = false;
+            return true;
         }
-        else
+
+        bool flag = ply.GetRoleId() == RoleTypeId.Scp079 || door.RequiredPermissions.CheckPermissions(ply.inventory.CurInstance, ply);
+        PluginAPI.Events.EventManager.ExecuteEvent(new PlayerInteractDoorEvent(ply, door, flag));
+        if (!flag)
         {
-            bool flag = ply.GetRoleId() == RoleTypeId.Scp079 || door.RequiredPermissions.CheckPermissions(ply.inventory.CurInstance, ply);
-            PluginAPI.Events.EventManager.ExecuteEvent(new PlayerInteractDoorEvent(ply, door, flag));
-            if (!flag)
-            {
-                isCancelled = true;
-            }
+            return true;
         }
-        return isCancelled;
+
+        return false;
     }
 }
