@@ -6,23 +6,17 @@ using System;
 namespace Nebuli.Events.EventArguments.SCPs.Scp3114;
 
 /// <summary>
-/// Triggered before SCP-3114 reveals.
+/// Triggered after SCP-3114 reveals.
 /// </summary>
-public class Scp3114RevealEvent : EventArgs, IPlayerEvent, ICancellableEvent
+public class Scp3114RevealedEvent : EventArgs, IPlayerEvent
 {
-    public Scp3114RevealEvent(ReferenceHub hub)
+    public Scp3114RevealedEvent(ReferenceHub hub)
     {
         Player = NebuliPlayer.Get(hub);
-        IsCancelled = false;
     }
 
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
     public NebuliPlayer Player { get; }
-
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    public bool IsCancelled { get; set; }
 }

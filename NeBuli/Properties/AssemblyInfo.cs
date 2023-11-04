@@ -2,7 +2,7 @@
 using System.Runtime.InteropServices;
 
 [assembly: AssemblyTitle("Nebuli")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("A Powerful Plugin Framework for SCP : Secret Labratory servers.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Nebuli Team")]
 [assembly: AssemblyProduct("Nebuli")]
@@ -10,5 +10,5 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 [assembly: ComVisible(false)]
-[assembly: AssemblyVersion("1.0.0.0")]
-[assembly: AssemblyFileVersion("1.0.0.0")]
+[assembly: AssemblyVersion(Nebuli.Loader.NebuliInfo.NebuliVersionConst)]
+[assembly: AssemblyFileVersion(Nebuli.Loader.NebuliInfo.NebuliVersionConst)]

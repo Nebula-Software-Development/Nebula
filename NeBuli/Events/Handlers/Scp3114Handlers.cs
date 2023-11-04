@@ -24,6 +24,11 @@ public static class Scp3114Handlers
     /// </summary>
     public static event EventManager.CustomEventHandler<Scp3114RevealEvent> Reveal;
 
+    /// <summary>
+    /// Triggered after SCP-3114 reveals.
+    /// </summary>
+    public static event EventManager.CustomEventHandler<Scp3114RevealedEvent> Revealed;
+
     internal static void OnDisguising(Scp3114DisguisingEvent ev) => Disguising.CallEvent(ev);
 
     internal static void OnDisguised(Scp3114DisguisedEvent ev) => Disguised.CallEvent(ev);
@@ -31,4 +36,6 @@ public static class Scp3114Handlers
     internal static void OnStrangle(Scp3114StranglingEvent ev) => Strangling.CallEvent(ev);
 
     internal static void OnReveal(Scp3114RevealEvent ev) => Reveal.CallEvent(ev);
+
+    internal static void OnRevealed(Scp3114RevealedEvent ev) => Revealed.CallEvent(ev);
 }
