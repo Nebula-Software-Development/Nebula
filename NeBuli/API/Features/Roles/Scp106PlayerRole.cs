@@ -1,4 +1,11 @@
-﻿using PlayerRoles;
+﻿// -----------------------------------------------------------------------
+// <copyright file=Scp106PlayerRole.cs company="NebuliTeam">
+// Copyright (c) NebuliTeam. All rights reserved.
+// Licensed under the MIT license.
+// See LICENSE file in the project root for full license information.
+// -----------------------------------------------------------------------
+
+using PlayerRoles;
 using PlayerRoles.PlayableScps.Scp106;
 
 namespace Nebuli.API.Features.Roles;

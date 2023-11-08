@@ -1,4 +1,11 @@
-﻿using InventorySystem;
+﻿// -----------------------------------------------------------------------
+// <copyright file=RoleTypeExtensions.cs company="NebuliTeam">
+// Copyright (c) NebuliTeam. All rights reserved.
+// Licensed under the MIT license.
+// See LICENSE file in the project root for full license information.
+// -----------------------------------------------------------------------
+
+using InventorySystem;
 using InventorySystem.Configs;
 using Nebuli.API.Features.Roles;
 using PlayerRoles;

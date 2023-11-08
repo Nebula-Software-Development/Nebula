@@ -1,4 +1,11 @@
-﻿using Footprinting;
+﻿// -----------------------------------------------------------------------
+// <copyright file=WarheadDetonatingPatch.cs company="NebuliTeam">
+// Copyright (c) NebuliTeam. All rights reserved.
+// Licensed under the MIT license.
+// See LICENSE file in the project root for full license information.
+// -----------------------------------------------------------------------
+
+using Footprinting;
 using HarmonyLib;
 using Nebuli.Events.EventArguments.Server;
 using Nebuli.Events.Handlers;

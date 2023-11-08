@@ -1,4 +1,11 @@
-﻿using Nebuli.API.Features.Map;
+﻿// -----------------------------------------------------------------------
+// <copyright file=Scp079ChangingCameraEvent.cs company="NebuliTeam">
+// Copyright (c) NebuliTeam. All rights reserved.
+// Licensed under the MIT license.
+// See LICENSE file in the project root for full license information.
+// -----------------------------------------------------------------------
+
+using Nebuli.API.Features.Map;
 using Nebuli.API.Features.Player;
 using Nebuli.Events.EventArguments.Interfaces;
 using PlayerRoles.PlayableScps.Scp079.Cameras;

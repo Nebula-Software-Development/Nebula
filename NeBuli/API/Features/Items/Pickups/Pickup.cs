@@ -1,4 +1,11 @@
-﻿using Footprinting;
+﻿// -----------------------------------------------------------------------
+// <copyright file=Pickup.cs company="NebuliTeam">
+// Copyright (c) NebuliTeam. All rights reserved.
+// Licensed under the MIT license.
+// See LICENSE file in the project root for full license information.
+// -----------------------------------------------------------------------
+
+using Footprinting;
 using InventorySystem;
 using InventorySystem.Items;
 using InventorySystem.Items.Pickups;

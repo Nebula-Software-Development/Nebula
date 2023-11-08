@@ -1,4 +1,11 @@
-﻿namespace Nebuli.API.Features.Enum;
+﻿// -----------------------------------------------------------------------
+// <copyright file=RoomType.cs company="NebuliTeam">
+// Copyright (c) NebuliTeam. All rights reserved.
+// Licensed under the MIT license.
+// See LICENSE file in the project root for full license information.
+// -----------------------------------------------------------------------
+
+namespace Nebuli.API.Features.Enum;
 
 public enum RoomType
 {

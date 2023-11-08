@@ -1,4 +1,11 @@
-﻿using CommandSystem.Commands.Shared;
+﻿// -----------------------------------------------------------------------
+// <copyright file=LoaderClass.cs company="NebuliTeam">
+// Copyright (c) NebuliTeam. All rights reserved.
+// Licensed under the MIT license.
+// See LICENSE file in the project root for full license information.
+// -----------------------------------------------------------------------
+
+using CommandSystem.Commands.Shared;
 using HarmonyLib;
 using MEC;
 using Nebuli.API.Features;
@@ -20,13 +27,16 @@ using YamlDotNet.Serialization.NamingConventions;
 
 namespace Nebuli.Loader;
 
+/// <summary>
+/// Nebuli's loader class for loading itself, plugins, 
+/// </summary>
 public class LoaderClass
 {
     private Harmony _harmony;
     private static bool _loaded = false;
 
     /// <summary>
-    /// Gets the public instance of <see cref="LoaderClass"/>.
+    /// Gets the public static instance of <see cref="LoaderClass"/>.
     /// </summary>
     public static LoaderClass LoaderInstance { get; private set; } = null;
 
@@ -36,36 +46,51 @@ public class LoaderClass
     public static Random Random { get; } = new();
 
     /// <summary>
-    /// Nebuli's <see cref="Assembly"/>.
+    /// Gets a static instance of Nebuli's <see cref="Assembly"/>.
     /// </summary>
     public static Assembly NebuliAssembly { get; } = typeof(LoaderClass).Assembly;
 
-
+    /// <summary>
+    /// Gets the loaders <see cref="ISerializer"/>.
+    /// </summary>
     public static ISerializer Serializer { get; set; } = new SerializerBuilder()
         .WithTypeConverter(new CustomVectorsConverter())
         .WithEmissionPhaseObjectGraphVisitor((EmissionPhaseObjectGraphVisitorArgs visitor) => new CommentsObjectGraphVisitor(visitor.InnerVisitor)).WithTypeInspector((ITypeInspector typeInspector) => new CommentGatheringTypeInspector(typeInspector))
         .WithNamingConvention(UnderscoredNamingConvention.Instance)
+        .WithNamingConvention(PascalCaseNamingConvention.Instance)
+        .WithNamingConvention(HyphenatedNamingConvention.Instance)
         .DisableAliases()
         .IgnoreFields()
         .Build();
 
+    /// <summary>
+    /// Gets the loaders <see cref="IDeserializer"/>.
+    /// </summary>
     public static IDeserializer Deserializer { get; set; } = new DeserializerBuilder()
         .WithTypeConverter(new CustomVectorsConverter())
         .WithNamingConvention(UnderscoredNamingConvention.Instance)
+        .WithNamingConvention(PascalCaseNamingConvention.Instance)
+        .WithNamingConvention(HyphenatedNamingConvention.Instance)
         .IgnoreUnmatchedProperties()
         .IgnoreFields()
         .Build();
 
-    public static Dictionary<Assembly, IPlugin<IConfiguration>> _plugins { get; private set; } = new();
+    /// <summary>
+    /// Gets a dictionary off all loaded <see cref="Assembly"/> with their <see cref="IPlugin{TConfig}"/>.
+    /// </summary>
+    public static Dictionary<Assembly, IPlugin<IConfiguration>> Plugins { get; private set; } = new();
 
-    public static Dictionary<IPlugin<IConfiguration>, IConfiguration> EnabledPlugins { get; private set; } = new();
+    /// <summary>
+    /// Gets a list of all succesfully enabled plugins.
+    /// </summary>
+    public static List<IPlugin<IConfiguration>> EnabledPlugins { get; private set; } = new();
 
     [PluginConfig]
-    public static LoaderConfiguration Configuration;
+    internal static LoaderConfiguration Configuration;
 
-    [PluginEntryPoint("Nebuli Loader", $"{NebuliInfo.NebuliVersionConst}", "Nebuli Plugin Framework", "Nebuli Team")]
+    [PluginEntryPoint("Nebuli Loader", NebuliInfo.NebuliVersionConst, "Nebuli Plugin Framework", "Nebuli Team")]
     [PluginPriority(LoadPriority.Highest)]
-    public void FrameworkLoader()
+    internal void FrameworkLoader()
     {
         LoaderInstance = this;
 
@@ -78,17 +103,12 @@ public class LoaderClass
         if (_loaded) return;
         else _loaded = true;
 
-        Log.Info($"Nebuli Version {NebuliInfo.NebuliVersion} loading...", consoleColor: ConsoleColor.Red, prefix: "Loader");
+        Log.Info($"Nebuli Version {NebuliInfo.NebuliVersion} loading...", consoleColor: ConsoleColor.Red, prefix: "Loader");       
 
-        SetupFilePaths();
+        if (Configuration.ShouldCheckForUpdates) 
+            Updater.CheckForUpdates();
 
-        Log.Info($"Loading dependencies from {Paths.DependenciesDirectory.FullName}");
-
-        if (Configuration.ShouldCheckForUpdates) new Updater().CheckForUpdates();
-
-        LoadDependencies(Paths.DependenciesDirectory.GetFiles("*.dll"));
-
-        Log.Info($"Loading plugins from {Paths.PluginsPortDirectory.FullName}");
+        LoadDependencies(Paths.DependenciesDirectory.GetFiles("*.dll"));      
 
         LoadPlugins(Paths.PluginsPortDirectory.GetFiles("*.dll"));
 
@@ -99,7 +119,7 @@ public class LoaderClass
             if (Configuration.PatchEvents)
             {
                 _harmony = new("nebuli.patching.core");
-                _harmony.PatchAll();
+                _harmony.PatchAll(NebuliAssembly);
             }
             else
                 Log.Warning("Event patching is disabled, Events will not work!");
@@ -116,7 +136,7 @@ public class LoaderClass
     }
 
     [PluginUnload]
-    public void UnLoad()
+    internal void UnLoad()
     {
         DisablePlugins();
         _loaded = false;
@@ -128,7 +148,7 @@ public class LoaderClass
 
     private void LoadDependencies(IEnumerable<FileInfo> files)
     {
-        Log.Info("Loading dependencies...");
+        Log.Info($"Loading dependencies from {Paths.DependenciesDirectory.FullName}");
 
         foreach (FileInfo file in files)
         {
@@ -145,18 +165,14 @@ public class LoaderClass
         Log.Info("Dependencies loaded!");
     }
 
-    private void SetupFilePaths()
-    {
-        Log.Debug("Loading file paths...");
-        Paths.LoadPaths();
-    }
-
     private void LoadPlugins(IEnumerable<FileInfo> files)
     {
+        Log.Info($"Loading plugins from {Paths.PluginsPortDirectory.FullName}");
+
         List<IPlugin<IConfiguration>> pluginsToLoad = ListPool<IPlugin<IConfiguration>>.Instance.Rent();
 
         EnabledPlugins.Clear();
-        _plugins.Clear();
+        Plugins.Clear();
 
         foreach (FileInfo file in files)
         {
@@ -194,8 +210,8 @@ public class LoaderClass
 
                 Log.Info($"Plugin '{pluginName}' by '{plugin.Creator}', (v{plugin.Version}), has been successfully enabled!");
 
-                _plugins.Add(plugin.Assembly, plugin);
-                EnabledPlugins.Add(plugin, config);
+                Plugins.Add(plugin.Assembly, plugin);
+                EnabledPlugins.Add(plugin);
             }
             catch (Exception e)
             {
@@ -319,7 +335,7 @@ public class LoaderClass
     internal static void ReloadConfigs()
     {
         Log.Info("Reloading plugin configs...");
-        foreach (IPlugin<IConfiguration> plugin in EnabledPlugins.Keys.ToList())
+        foreach (IPlugin<IConfiguration> plugin in EnabledPlugins)
         {
             try
             {
@@ -345,12 +361,12 @@ public class LoaderClass
 
     internal static void DisablePlugins()
     {
-        foreach (IPlugin<IConfiguration> plugin in EnabledPlugins.Keys)
+        foreach (IPlugin<IConfiguration> plugin in EnabledPlugins)
         {
             plugin.OnDisabled();
             plugin.UnLoadCommands();
         }
         EnabledPlugins.Clear();
-        _plugins.Clear();
+        Plugins.Clear();
     }
 }

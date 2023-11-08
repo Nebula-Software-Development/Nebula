@@ -1,4 +1,11 @@
-﻿using SinkholeHazardBase = Hazards.SinkholeEnvironmentalHazard;
+﻿// -----------------------------------------------------------------------
+// <copyright file=SinkholeHazard.cs company="NebuliTeam">
+// Copyright (c) NebuliTeam. All rights reserved.
+// Licensed under the MIT license.
+// See LICENSE file in the project root for full license information.
+// -----------------------------------------------------------------------
+
+using SinkholeHazardBase = Hazards.SinkholeEnvironmentalHazard;
 
 namespace Nebuli.API.Features.Hazards;
 

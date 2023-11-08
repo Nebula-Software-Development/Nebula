@@ -1,4 +1,11 @@
-﻿using Nebuli.API.Features.Player;
+﻿// -----------------------------------------------------------------------
+// <copyright file=AmesticCloudHazard.cs company="NebuliTeam">
+// Copyright (c) NebuliTeam. All rights reserved.
+// Licensed under the MIT license.
+// See LICENSE file in the project root for full license information.
+// -----------------------------------------------------------------------
+
+using Nebuli.API.Features.Player;
 using PlayerRoles.PlayableScps.Scp939;
 
 namespace Nebuli.API.Features.Hazards;

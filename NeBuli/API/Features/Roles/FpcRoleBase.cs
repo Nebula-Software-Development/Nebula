@@ -1,4 +1,11 @@
-﻿using PlayerRoles.FirstPersonControl;
+﻿// -----------------------------------------------------------------------
+// <copyright file=FpcRoleBase.cs company="NebuliTeam">
+// Copyright (c) NebuliTeam. All rights reserved.
+// Licensed under the MIT license.
+// See LICENSE file in the project root for full license information.
+// -----------------------------------------------------------------------
+
+using PlayerRoles.FirstPersonControl;
 using PlayerRoles.FirstPersonControl.Spawnpoints;
 using PlayerRoles.Voice;
 using PlayerStatsSystem;

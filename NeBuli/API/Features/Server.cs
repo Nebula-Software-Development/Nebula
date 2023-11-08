@@ -1,4 +1,11 @@
-﻿using CommandSystem;
+﻿// -----------------------------------------------------------------------
+// <copyright file=Server.cs company="NebuliTeam">
+// Copyright (c) NebuliTeam. All rights reserved.
+// Licensed under the MIT license.
+// See LICENSE file in the project root for full license information.
+// -----------------------------------------------------------------------
+
+using CommandSystem;
 using CustomPlayerEffects;
 using GameCore;
 using Mirror;

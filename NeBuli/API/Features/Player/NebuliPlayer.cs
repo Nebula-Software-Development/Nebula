@@ -1,4 +1,11 @@
-﻿using Achievements;
+﻿// -----------------------------------------------------------------------
+// <copyright file=NebuliPlayer.cs company="NebuliTeam">
+// Copyright (c) NebuliTeam. All rights reserved.
+// Licensed under the MIT license.
+// See LICENSE file in the project root for full license information.
+// -----------------------------------------------------------------------
+
+using Achievements;
 using CommandSystem;
 using CustomPlayerEffects;
 using Footprinting;

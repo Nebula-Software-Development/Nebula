@@ -1,4 +1,11 @@
-﻿using CommandSystem;
+﻿// -----------------------------------------------------------------------
+// <copyright file=PluginList.cs company="NebuliTeam">
+// Copyright (c) NebuliTeam. All rights reserved.
+// Licensed under the MIT license.
+// See LICENSE file in the project root for full license information.
+// -----------------------------------------------------------------------
+
+using CommandSystem;
 using Nebuli.API.Features;
 using Nebuli.API.Interfaces;
 using System;
@@ -29,7 +36,7 @@ public class PluginList : ICommand
 
         StringBuilder pluginList = NorthwoodLib.Pools.StringBuilderPool.Shared.Rent();
 
-        foreach (IPlugin<IConfiguration> plugin in Loader.LoaderClass.EnabledPlugins.Keys)
+        foreach (IPlugin<IConfiguration> plugin in Loader.LoaderClass.EnabledPlugins)
         {
             string creator = plugin.Creator.Length > maxCreatorWidth ? plugin.Creator.Substring(0, maxCreatorWidth - 3) + "..." : plugin.Creator;
             string name = plugin.Name.Length > maxNameWidth ? plugin.Name.Substring(0, maxNameWidth - 3) + "..." : plugin.Name;

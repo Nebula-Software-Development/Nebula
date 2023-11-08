@@ -1,4 +1,11 @@
-﻿using InventorySystem.Items.Pickups;
+﻿// -----------------------------------------------------------------------
+// <copyright file=PlayerPickingUpAmmoEvent.cs company="NebuliTeam">
+// Copyright (c) NebuliTeam. All rights reserved.
+// Licensed under the MIT license.
+// See LICENSE file in the project root for full license information.
+// -----------------------------------------------------------------------
+
+using InventorySystem.Items.Pickups;
 using Nebuli.API.Features.Items.Pickups;
 using Nebuli.API.Features.Player;
 using Nebuli.Events.EventArguments.Interfaces;

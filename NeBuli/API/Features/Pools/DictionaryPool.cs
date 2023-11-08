@@ -1,4 +1,11 @@
-﻿using System.Collections.Concurrent;
+﻿// -----------------------------------------------------------------------
+// <copyright file=DictionaryPool.cs company="NebuliTeam">
+// Copyright (c) NebuliTeam. All rights reserved.
+// Licensed under the MIT license.
+// See LICENSE file in the project root for full license information.
+// -----------------------------------------------------------------------
+
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 
 namespace Nebuli.API.Features.Pools;

@@ -1,3 +1,10 @@
+// -----------------------------------------------------------------------
+// <copyright file=Generator.cs company="NebuliTeam">
+// Copyright (c) NebuliTeam. All rights reserved.
+// Licensed under the MIT license.
+// See LICENSE file in the project root for full license information.
+// -----------------------------------------------------------------------
+
 using Interactables.Interobjects.DoorUtils;
 using MapGeneration.Distributors;
 using Nebuli.API.Features.Enum;
