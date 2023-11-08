@@ -125,7 +125,7 @@ public class Room
         if (zone is null)
             return List.SelectRandom();
         else
-            return List.Where(room => room.Zone == zone).OrderBy(_ => LoaderClass.Random.Next()).SelectRandom();
+            return List.Where(room => room.Zone == zone).SelectRandom();
     }
 
     /// <summary>

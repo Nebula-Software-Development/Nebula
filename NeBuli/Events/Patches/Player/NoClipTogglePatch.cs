@@ -12,7 +12,6 @@ using Nebuli.Events.Handlers;
 using NorthwoodLib.Pools;
 using PlayerRoles.FirstPersonControl;
 using PlayerRoles.FirstPersonControl.NetworkMessages;
-using PlayerStatsSystem;
 using System.Collections.Generic;
 using System.Reflection.Emit;
 using static HarmonyLib.AccessTools;

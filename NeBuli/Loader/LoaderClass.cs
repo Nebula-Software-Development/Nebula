@@ -7,7 +7,6 @@
 
 using CommandSystem.Commands.Shared;
 using HarmonyLib;
-using MEC;
 using Nebuli.API.Features;
 using Nebuli.API.Features.Pools;
 using Nebuli.API.Interfaces;

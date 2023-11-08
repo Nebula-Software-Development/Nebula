@@ -7,9 +7,7 @@
 
 using MEC;
 using Mirror;
-using Nebuli.API.Extensions;
 using PlayerRoles;
-using PlayerRoles.FirstPersonControl;
 using System;
 using System.Collections.Generic;
 using System.Linq;
