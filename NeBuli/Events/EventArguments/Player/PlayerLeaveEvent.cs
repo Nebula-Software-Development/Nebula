@@ -6,6 +6,7 @@
 // -----------------------------------------------------------------------
 
 using Mirror;
+using Nebuli.API.Extensions;
 using Nebuli.API.Features.Player;
 using Nebuli.Events.EventArguments.Interfaces;
 using System;
@@ -20,7 +21,7 @@ public class PlayerLeaveEvent : EventArgs, IPlayerEvent
     public PlayerLeaveEvent(NetworkConnection conn)
     {       
         Player = NebuliPlayer.Get(conn.identity);
-        if (Player != null && NebuliPlayer.Dictionary.ContainsValue(Player)) NebuliPlayer.Dictionary.Remove(Player.ReferenceHub);
+        NebuliPlayer.Dictionary.RemoveIfContains(Player.ReferenceHub);
     }
 
     /// <summary>

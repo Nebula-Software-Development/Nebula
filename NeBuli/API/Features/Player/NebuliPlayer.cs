@@ -10,6 +10,7 @@ using CommandSystem;
 using CustomPlayerEffects;
 using Footprinting;
 using GameCore;
+using HarmonyLib;
 using Hints;
 using Interactables.Interobjects.DoorUtils;
 using InventorySystem;
@@ -38,6 +39,7 @@ using System.Data;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.InteropServices.ComTypes;
 using UnityEngine;
 using Utils;
 using Utils.Networking;
@@ -75,7 +77,7 @@ public class NebuliPlayer
         ReferenceHub.playerStats._dictionarizedTypes[typeof(HealthStat)] =
                     ReferenceHub.playerStats.StatModules[healthStatIndex] = customHealthManager = new CustomHealthManager { Hub = ReferenceHub };
         
-        Dictionary.Add(hub, this);
+        Dictionary.AddIfMissing(hub, this);
     }
 
     internal NebuliPlayer(GameObject gameObject)
@@ -422,22 +424,47 @@ public class NebuliPlayer
         set
         {
             string path = ConfigSharing.Paths[3] + "UserIDReservedSlots.txt";
+
             if (value)
             {
+                //Taken from NW's reload method.
                 ReservedSlot.Reload();
-                using StreamWriter streamWriter = new(path);
-                streamWriter.WriteLine(UserId);
+                List<string> lines = Pools.ListPool<string>.Instance.Get();
+                using (StreamReader streamReader = new(path))
+                {
+                    string text;
+                    while ((text = streamReader.ReadLine()) != null)
+                    {
+                        if (!string.IsNullOrWhiteSpace(text) && !text.TrimStart().StartsWith("#", StringComparison.Ordinal) && text.Contains("@"))
+                        {
+                            lines.Add(text.Trim());
+                        }
+                    }
+                }
+                lines.Add(UserId);
+                File.WriteAllLines(path, lines);
                 ReservedSlot.Users.Add(UserId);
+                Pools.ListPool<string>.Instance.Return(lines);
             }
             else
             {
-                string[] lines = File.ReadAllLines(path);
-                List<string> newLines = new();
-                foreach (string line in lines.Where(line => !line.Contains(UserId)))
-                    newLines.Add(line);
-                File.WriteAllLines(path, newLines);
                 ReservedSlot.Reload();
+                List<string> lines = Pools.ListPool<string>.Instance.Get();
+                using (StreamReader streamReader = new(path))
+                {
+                    string text;
+                    while ((text = streamReader.ReadLine()) != null)
+                    {
+                        if (!string.IsNullOrWhiteSpace(text) && !text.TrimStart().StartsWith("#", StringComparison.Ordinal) && text.Contains("@") && !text.Trim().Equals(UserId, StringComparison.OrdinalIgnoreCase))
+                        {
+                            lines.Add(text.Trim());
+                        }
+                    }
+                }
+                File.WriteAllLines(path, lines);
+                Pools.ListPool<string>.Instance.Return(lines);
             }
+
         }
     }
 
@@ -611,19 +638,11 @@ public class NebuliPlayer
     public Vector3 Velocity => ReferenceHub.GetVelocity();
 
     /// <summary>
-    /// Gets or sets whether the player has DoNotTrack enabled or not.
+    /// Gets whether the player has DoNotTrack enabled or not.
     /// </summary>
     public bool DoNotTrack
     {
         get => ReferenceHub.authManager.DoNotTrack;
-        set
-        {
-            if (value == ReferenceHub.authManager.DoNotTrack)
-                return;
-
-            ReferenceHub.authManager.DoNotTrack = value;
-            Broadcast($"<color=#2643EC>[</color><color=#2649EC>N</color><color=#264FEC>e</color><color=#2655EC>b</color><color=#265BEC>u</color><color=#2661EC>l</color><color=#2667EC>i</color> <color=#2673EC>U</color><color=#2679EC>s</color><color=#267FEC>e</color><color=#2685EC>r</color> <color=#2691EC>P</color><color=#2697EC>r</color><color=#269DEC>o</color><color=#26A3EC>t</color><color=#26A9EC>e</color><color=#26AFEC>c</color><color=#26B5EC>t</color><color=#26BBEC>i</color><color=#26C1EC>o</color><color=#26C7EC>n</color><color=#26CDEC>]</color> Your 'Do Not Track' settings have been changed to {value} by a server plugin!", 10, global::Broadcast.BroadcastFlags.Normal, true);
-        }
     }
 
     /// <summary>
@@ -1113,9 +1132,9 @@ public class NebuliPlayer
     }
 
     /// <summary>
-    /// Shows a custom hint to the player.
+    /// Shows a <see cref="Hint"/> to the player.
     /// </summary>
-    /// <param name="hint">The custom hint to show.</param>
+    /// <param name="hint">The <see cref="Hint"/> to show.</param>
     public void ShowHint(Hint hint)
     {
         ReferenceHub.hints.Show(hint);
@@ -1256,7 +1275,7 @@ public class NebuliPlayer
     public void Broadcast(string message, ushort duration = 5, BroadcastFlags broadcastFlags = BroadcastFlags.Normal, bool clearCurrent = true)
     {
         if (clearCurrent) ClearBroadcasts();
-        Server.Broadcast.TargetAddElement(ReferenceHub.connectionToClient, message, duration, broadcastFlags);
+        Server.Broadcast.TargetAddElement(NetworkConnection, message, duration, broadcastFlags);
     }
 
     /// <summary>
@@ -1437,9 +1456,7 @@ public class NebuliPlayer
     public void AddItems(List<Item> items)
     {
         foreach (Item item in items)
-        {
             AddItem(item);
-        }
     }
 
     /// <summary>
@@ -1499,6 +1516,12 @@ public class NebuliPlayer
     /// Explodes the player.
     /// </summary>
     public void Explode() => ExplosionUtils.ServerExplode(ReferenceHub);
+
+    /// <summary>
+    /// Vaporizes the player with the <see cref="DisruptorDamageHandler"/>.
+    /// </summary>
+    /// <param name="damageHandler">The <see cref="DisruptorDamageHandler"/> to use for vaporizing the player.</param>
+    public void Vaporize(DisruptorDamageHandler damageHandler = default) => Kill(damageHandler);
 
     /// <summary>
     /// Checks if the player has any permission in <see cref="PlayerPermissions"/>.

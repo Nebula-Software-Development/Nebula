@@ -19,6 +19,7 @@ public class PlayerChangingNicknameEvent : EventArgs, IPlayerEvent, ICancellable
     public PlayerChangingNicknameEvent(ReferenceHub ply, string newName)
     {
         Player = NebuliPlayer.Get(ply);
+        OldName = Player.DisplayNickname;
         NewName = newName;
         IsCancelled = false;
     }
@@ -32,6 +33,11 @@ public class PlayerChangingNicknameEvent : EventArgs, IPlayerEvent, ICancellable
     /// Gets or sets the new nickname.
     /// </summary>
     public string NewName { get; set; }
+
+    /// <summary>
+    /// Gets the players current name.
+    /// </summary>
+    public string OldName { get; }
 
     /// <summary>
     /// Gets or sets if the event is cancelled or not.

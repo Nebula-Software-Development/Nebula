@@ -85,7 +85,7 @@ public class LoaderClass
     public static List<IPlugin<IConfiguration>> EnabledPlugins { get; private set; } = new();
 
     [PluginConfig]
-    internal static LoaderConfiguration Configuration;
+    public static LoaderConfiguration Configuration;
 
     [PluginEntryPoint("Nebuli Loader", NebuliInfo.NebuliVersionConst, "Nebuli Plugin Framework", "Nebuli Team")]
     [PluginPriority(LoadPriority.Highest)]
