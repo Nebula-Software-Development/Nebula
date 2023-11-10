@@ -384,12 +384,7 @@ public class NebuliPlayer
     public Vector3 Rotation
     {
         get => Transform.eulerAngles;
-        set
-        {
-            if(Role is FpcRoleBase fpcRole)
-                fpcRole.LookAtDirection(Rotation);
-            return;
-        }
+        set => LookAtDirection(value);
     }
 
     /// <summary>
