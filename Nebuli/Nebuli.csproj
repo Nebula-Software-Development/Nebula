@@ -125,7 +125,8 @@
     <Compile Include="API\Features\Items\BodyArmor.cs" />
     <Compile Include="API\Features\Items\Coin.cs" />
     <Compile Include="API\Features\Items\Firearm.cs" />
-    <Compile Include="API\Features\Items\Flashlight.cs" />
+    <Compile Include="API\Features\Items\LightSources\Flashlight.cs" />
+    <Compile Include="API\Features\Items\LightSources\Lantern.cs" />
     <Compile Include="API\Features\Items\SCPs\Jailbird.cs" />
     <Compile Include="API\Features\Items\Keycard.cs" />
     <Compile Include="API\Features\Items\MicroHID.cs" />
@@ -133,7 +134,7 @@
     <Compile Include="API\Features\Items\Pickups\ArmorPickup.cs" />
     <Compile Include="API\Features\Items\Pickups\FirearmPickup.cs" />
     <Compile Include="API\Features\Items\Item.cs" />
-    <Compile Include="API\Features\Items\Pickups\JailbirdPickup.cs" />
+    <Compile Include="API\Features\Items\Pickups\SCPs\JailbirdPickup.cs" />
     <Compile Include="API\Features\Items\Pickups\KeycardPickup.cs" />
     <Compile Include="API\Features\Items\Pickups\MicroHIDPickup.cs" />
     <Compile Include="API\Features\Items\Pickups\RadioPickup.cs" />
