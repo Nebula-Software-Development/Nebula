@@ -10,6 +10,7 @@ using PlayerRoles;
 using PlayerRoles.PlayableScps.HumeShield;
 using PlayerRoles.PlayableScps.Scp049;
 using PlayerRoles.PlayableScps.Subroutines;
+using PlayerRoles.Subroutines;
 using System;
 using System.Collections.Generic;
 using System.Linq;

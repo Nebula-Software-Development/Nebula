@@ -11,6 +11,7 @@ using PlayerRoles.FirstPersonControl;
 using PlayerRoles.PlayableScps.HumeShield;
 using PlayerRoles.PlayableScps.Scp096;
 using PlayerRoles.PlayableScps.Subroutines;
+using PlayerRoles.Subroutines;
 using System;
 using System.Collections.Generic;
 using UnityEngine;

@@ -5,7 +5,7 @@
 // See LICENSE file in the project root for full license information.
 // -----------------------------------------------------------------------
 
-using FlashlightBase = InventorySystem.Items.SwitchableLightSources.Flashlight.FlashlightItem;
+using FlashlightBase = InventorySystem.Items.ToggleableLights.Flashlight.FlashlightItem;
 
 namespace Nebuli.API.Features.Items;
 

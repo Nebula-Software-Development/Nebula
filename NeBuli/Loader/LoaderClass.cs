@@ -27,7 +27,7 @@ using YamlDotNet.Serialization.NamingConventions;
 namespace Nebuli.Loader;
 
 /// <summary>
-/// Nebuli's loader class for loading itself, plugins, 
+/// Nebuli's loader class for loading itself, plugins, and configuration files.
 /// </summary>
 public class LoaderClass
 {

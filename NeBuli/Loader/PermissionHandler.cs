@@ -196,7 +196,6 @@ public static class PermissionsHandler
 }
 
 //this is here becaus i wanted to.
-
 public class Group
 {
     public string GroupName { get; set; } = string.Empty;

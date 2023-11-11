@@ -21,7 +21,7 @@ using Server = Nebuli.API.Features.Server;
 
 namespace Nebuli.Loader;
 
-public class Updater
+internal class Updater
 {
     internal static FileStream PendingUpdate = null;
     internal static Stream Stream = null;
