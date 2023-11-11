@@ -1,28 +1,27 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file=Flashlight.cs company="NebuliTeam">
+// <copyright file=Lantern.cs company="NebuliTeam">
 // Copyright (c) NebuliTeam. All rights reserved.
 // Licensed under the MIT license.
 // See LICENSE file in the project root for full license information.
 // -----------------------------------------------------------------------
 
-using FlashlightBase = InventorySystem.Items.ToggleableLights.Flashlight.FlashlightItem;
+using LanternBase = InventorySystem.Items.ToggleableLights.Lantern.LanternItem;
 
-namespace Nebuli.API.Features.Items;
+namespace Nebuli.API.Features.Items.LightSources;
 
-public class Flashlight : Item
+public class Lantern : Item
 {
     /// <summary>
-    /// Gets the <see cref="FlashlightBase"/> base.
+    /// Gets the <see cref="LanternBase"/> base.
     /// </summary>
-    public new FlashlightBase Base { get; }
-
-    internal Flashlight(FlashlightBase itemBase) : base(itemBase)
+    public new LanternBase Base { get; }
+    internal Lantern(LanternBase itemBase) : base(itemBase)
     {
         Base = itemBase;
     }
 
     /// <summary>
-    /// Gets or sets if the flashlight is emitting light.
+    /// Gets or sets if the lantern is emitting light.
     /// </summary>
     public bool IsEmittingLight
     {

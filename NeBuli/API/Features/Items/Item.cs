@@ -18,6 +18,7 @@ using InventorySystem.Items.Usables.Scp1576;
 using InventorySystem.Items.Usables.Scp244;
 using InventorySystem.Items.Usables.Scp330;
 using Nebuli.API.Extensions;
+using Nebuli.API.Features.Items.LightSources;
 using Nebuli.API.Features.Items.Pickups;
 using Nebuli.API.Features.Items.SCPs;
 using Nebuli.API.Features.Items.Throwables;
@@ -242,7 +243,8 @@ public class Item
             InventorySystem.Items.Keycards.KeycardItem keycard => new Keycard(keycard),
             InventorySystem.Items.Coin.Coin coin => new Coin(coin),
             InventorySystem.Items.Armor.BodyArmor armor => new BodyArmor(armor),
-            InventorySystem.Items.SwitchableLightSources.Flashlight.FlashlightItem flashlight => new Flashlight(flashlight),
+            InventorySystem.Items.ToggleableLights.Flashlight.FlashlightItem flashlight => new Flashlight(flashlight),
+            InventorySystem.Items.ToggleableLights.Lantern.LanternItem latern => new Lantern(latern),
             InventorySystem.Items.MicroHID.MicroHIDItem microHID => new MicroHID(microHID),
             InventorySystem.Items.Firearms.Ammo.AmmoItem ammo => new Ammo(ammo),
             InventorySystem.Items.Radio.RadioItem radio => new Radio(radio),

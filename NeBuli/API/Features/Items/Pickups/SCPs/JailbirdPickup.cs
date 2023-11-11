@@ -8,7 +8,7 @@
 using InventorySystem.Items.Jailbird;
 using JailbirdPickupBase = InventorySystem.Items.Jailbird.JailbirdPickup;
 
-namespace Nebuli.API.Features.Items.Pickups;
+namespace Nebuli.API.Features.Items.Pickups.SCPs;
 
 public class JailbirdPickup : Pickup
 {
