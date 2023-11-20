@@ -1,4 +1,11 @@
-﻿using Newtonsoft.Json;
+﻿// -----------------------------------------------------------------------
+// <copyright file=Updater.cs company="NebuliTeam">
+// Copyright (c) NebuliTeam. All rights reserved.
+// Licensed under the MIT license.
+// See LICENSE file in the project root for full license information.
+// -----------------------------------------------------------------------
+
+using Newtonsoft.Json;
 using PluginAPI.Core;
 using PluginAPI.Loader;
 using System;
@@ -14,13 +21,13 @@ using Server = Nebuli.API.Features.Server;
 
 namespace Nebuli.Loader;
 
-public class Updater
+internal class Updater
 {
     internal static FileStream PendingUpdate = null;
     internal static Stream Stream = null;
     internal static string NeubliPath;
 
-    public void CheckForUpdates()
+    public static void CheckForUpdates()
     {
         Log.Info("Checking for updates...", "Updater");
         NeubliPath = FindNebuliPath();
@@ -32,7 +39,7 @@ public class Updater
         Task.Run(CheckForUpdatesAsync);
     }
 
-    private HttpClient CreateHttpClient()
+    private static HttpClient CreateHttpClient()
     {
         HttpClient client = new()
         {
@@ -42,7 +49,7 @@ public class Updater
         return client;
     }
 
-    private async Task CheckForUpdatesAsync()
+    private static async Task CheckForUpdatesAsync()
     {
         try
         {
@@ -82,7 +89,7 @@ public class Updater
         }
     }
 
-    private string GetDllDownloadUrl(string assetsUrl, HttpClient client)
+    private static string GetDllDownloadUrl(string assetsUrl, HttpClient client)
     {
         try
         {
@@ -104,7 +111,7 @@ public class Updater
         return null;
     }
 
-    private void Update(HttpClient client, string dllDownloadUrl)
+    private static void Update(HttpClient client, string dllDownloadUrl)
     {
         try
         {

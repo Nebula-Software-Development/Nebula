@@ -1,4 +1,11 @@
-﻿using HarmonyLib;
+﻿// -----------------------------------------------------------------------
+// <copyright file=StranglingPatch.cs company="NebuliTeam">
+// Copyright (c) NebuliTeam. All rights reserved.
+// Licensed under the MIT license.
+// See LICENSE file in the project root for full license information.
+// -----------------------------------------------------------------------
+
+using HarmonyLib;
 using Nebuli.Events.EventArguments.SCPs.Scp3114;
 using Nebuli.Events.Handlers;
 using NorthwoodLib.Pools;
@@ -15,7 +22,7 @@ internal class StranglingPatch
     [HarmonyTranspiler]
     private static IEnumerable<CodeInstruction> OnStrangling(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
-        List<CodeInstruction> newInstructions = EventManager.CheckPatchInstructions<StranglingPatch>(106, instructions);
+        List<CodeInstruction> newInstructions = EventManager.CheckPatchInstructions<StranglingPatch>(102, instructions);
 
         Label retLabel = generator.DefineLabel();
         int index = newInstructions.FindIndex(i => i.opcode == OpCodes.Ldloc_3);

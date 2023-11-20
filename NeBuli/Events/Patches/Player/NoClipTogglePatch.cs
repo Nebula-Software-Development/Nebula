@@ -1,11 +1,17 @@
-﻿using HarmonyLib;
+﻿// -----------------------------------------------------------------------
+// <copyright file=NoClipTogglePatch.cs company="NebuliTeam">
+// Copyright (c) NebuliTeam. All rights reserved.
+// Licensed under the MIT license.
+// See LICENSE file in the project root for full license information.
+// -----------------------------------------------------------------------
+
+using HarmonyLib;
 using Nebuli.API.Features.Player;
 using Nebuli.Events.EventArguments.Player;
 using Nebuli.Events.Handlers;
 using NorthwoodLib.Pools;
 using PlayerRoles.FirstPersonControl;
 using PlayerRoles.FirstPersonControl.NetworkMessages;
-using PlayerStatsSystem;
 using System.Collections.Generic;
 using System.Reflection.Emit;
 using static HarmonyLib.AccessTools;

@@ -1,4 +1,11 @@
-﻿using System.ComponentModel;
+﻿// -----------------------------------------------------------------------
+// <copyright file=LoaderConfiguration.cs company="NebuliTeam">
+// Copyright (c) NebuliTeam. All rights reserved.
+// Licensed under the MIT license.
+// See LICENSE file in the project root for full license information.
+// -----------------------------------------------------------------------
+
+using System.ComponentModel;
 
 namespace Nebuli.Loader;
 

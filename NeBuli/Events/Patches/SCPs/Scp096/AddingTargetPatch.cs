@@ -1,9 +1,17 @@
-﻿using HarmonyLib;
+﻿// -----------------------------------------------------------------------
+// <copyright file=AddingTargetPatch.cs company="NebuliTeam">
+// Copyright (c) NebuliTeam. All rights reserved.
+// Licensed under the MIT license.
+// See LICENSE file in the project root for full license information.
+// -----------------------------------------------------------------------
+
+using HarmonyLib;
 using Nebuli.Events.EventArguments.SCPs.Scp096;
 using Nebuli.Events.Handlers;
 using NorthwoodLib.Pools;
 using PlayerRoles.PlayableScps.Scp096;
 using PlayerRoles.PlayableScps.Subroutines;
+using PlayerRoles.Subroutines;
 using System.Collections.Generic;
 using System.Reflection.Emit;
 using static HarmonyLib.AccessTools;
@@ -25,7 +33,7 @@ internal class AddingTargetPatch
         newInstructions.InsertRange(index, new CodeInstruction[]
         {
            new CodeInstruction(OpCodes.Ldarg_0).MoveLabelsFrom(newInstructions[index]),
-           new(OpCodes.Call, PropertyGetter(typeof(ScpStandardSubroutine<Scp096Role>), nameof(ScpStandardSubroutine<Scp096Role>.Owner))),
+           new(OpCodes.Call, PropertyGetter(typeof(StandardSubroutine<Scp096Role>), nameof(StandardSubroutine<Scp096Role>.Owner))),
            new(OpCodes.Ldarg_1),
            new(OpCodes.Ldarg_2),
            new(OpCodes.Newobj, GetDeclaredConstructors(typeof(Scp096AddingTargetEvent))[0]),

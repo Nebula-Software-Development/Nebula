@@ -1,4 +1,11 @@
-﻿using Nebuli.API.Features.Player;
+﻿// -----------------------------------------------------------------------
+// <copyright file=Scp939PlayerRole.cs company="NebuliTeam">
+// Copyright (c) NebuliTeam. All rights reserved.
+// Licensed under the MIT license.
+// See LICENSE file in the project root for full license information.
+// -----------------------------------------------------------------------
+
+using Nebuli.API.Features.Player;
 using PlayerRoles;
 using PlayerRoles.FirstPersonControl;
 using PlayerRoles.PlayableScps.HumeShield;
@@ -6,6 +13,7 @@ using PlayerRoles.PlayableScps.Scp939;
 using PlayerRoles.PlayableScps.Scp939.Mimicry;
 using PlayerRoles.PlayableScps.Scp939.Ripples;
 using PlayerRoles.PlayableScps.Subroutines;
+using PlayerRoles.Subroutines;
 using System;
 using UnityEngine;
 

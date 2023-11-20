@@ -1,4 +1,11 @@
-﻿using AdminToys;
+﻿// -----------------------------------------------------------------------
+// <copyright file=ToyUtilities.cs company="NebuliTeam">
+// Copyright (c) NebuliTeam. All rights reserved.
+// Licensed under the MIT license.
+// See LICENSE file in the project root for full license information.
+// -----------------------------------------------------------------------
+
+using AdminToys;
 using Mirror;
 using System.Collections.Generic;
 using UnityEngine;

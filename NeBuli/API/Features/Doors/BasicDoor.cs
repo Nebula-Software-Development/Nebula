@@ -1,4 +1,11 @@
-﻿using BasicDoorBase = Interactables.Interobjects.BasicDoor;
+﻿// -----------------------------------------------------------------------
+// <copyright file=BasicDoor.cs company="NebuliTeam">
+// Copyright (c) NebuliTeam. All rights reserved.
+// Licensed under the MIT license.
+// See LICENSE file in the project root for full license information.
+// -----------------------------------------------------------------------
+
+using BasicDoorBase = Interactables.Interobjects.BasicDoor;
 
 namespace Nebuli.API.Features.Doors;
 

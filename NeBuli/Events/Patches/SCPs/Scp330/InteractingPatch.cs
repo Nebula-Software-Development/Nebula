@@ -1,4 +1,11 @@
-﻿using HarmonyLib;
+﻿// -----------------------------------------------------------------------
+// <copyright file=InteractingPatch.cs company="NebuliTeam">
+// Copyright (c) NebuliTeam. All rights reserved.
+// Licensed under the MIT license.
+// See LICENSE file in the project root for full license information.
+// -----------------------------------------------------------------------
+
+using HarmonyLib;
 using Interactables.Interobjects;
 using InventorySystem;
 using InventorySystem.Items.Usables.Scp330;

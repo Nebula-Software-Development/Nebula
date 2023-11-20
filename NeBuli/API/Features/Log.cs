@@ -1,4 +1,11 @@
-﻿using Nebuli.API.Interfaces;
+﻿// -----------------------------------------------------------------------
+// <copyright file=Log.cs company="NebuliTeam">
+// Copyright (c) NebuliTeam. All rights reserved.
+// Licensed under the MIT license.
+// See LICENSE file in the project root for full license information.
+// -----------------------------------------------------------------------
+
+using Nebuli.API.Interfaces;
 using Nebuli.Loader;
 using System;
 using System.Reflection;
@@ -6,6 +13,9 @@ using PluginAPILogger = PluginAPI.Core.Log;
 
 namespace Nebuli.API.Features;
 
+/// <summary>
+/// Utility class for easily logging stuff into the server console.
+/// </summary>
 public static class Log
 {
     private static void AddLog(string message, ConsoleColor consoleColor) => ServerConsole.AddLog(PluginAPILogger.FormatText(message, "7"), consoleColor);
@@ -45,7 +55,7 @@ public static class Log
             AddLog(FormatLogMessage("Debug", message, prefix, callingAssembly), consoleColor);
             return;
         }
-        else if (!LoaderClass._plugins.TryGetValue(callingAssembly, out IPlugin<IConfiguration> plugin) || !plugin.Config.Debug)
+        else if (!LoaderClass.Plugins.TryGetValue(callingAssembly, out IPlugin<IConfiguration> plugin) || !plugin.Config.Debug)
             return;
 
         AddLog(FormatLogMessage("Debug", message, prefix, callingAssembly), consoleColor);

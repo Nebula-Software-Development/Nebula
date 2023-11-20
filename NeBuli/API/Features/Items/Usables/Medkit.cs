@@ -1,4 +1,11 @@
-﻿using MedkitBase = InventorySystem.Items.Usables.Medkit;
+﻿// -----------------------------------------------------------------------
+// <copyright file=Medkit.cs company="NebuliTeam">
+// Copyright (c) NebuliTeam. All rights reserved.
+// Licensed under the MIT license.
+// See LICENSE file in the project root for full license information.
+// -----------------------------------------------------------------------
+
+using MedkitBase = InventorySystem.Items.Usables.Medkit;
 
 namespace Nebuli.API.Features.Items.Usables;
 

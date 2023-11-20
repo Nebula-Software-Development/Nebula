@@ -1,4 +1,11 @@
-﻿using System.Collections.Generic;
+﻿// -----------------------------------------------------------------------
+// <copyright file=Camera.cs company="NebuliTeam">
+// Copyright (c) NebuliTeam. All rights reserved.
+// Licensed under the MIT license.
+// See LICENSE file in the project root for full license information.
+// -----------------------------------------------------------------------
+
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using CameraBase = PlayerRoles.PlayableScps.Scp079.Cameras.Scp079Camera;

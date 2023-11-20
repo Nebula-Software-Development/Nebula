@@ -1,4 +1,11 @@
-﻿using HarmonyLib;
+﻿// -----------------------------------------------------------------------
+// <copyright file=UpgradingPlayerPatch.cs company="NebuliTeam">
+// Copyright (c) NebuliTeam. All rights reserved.
+// Licensed under the MIT license.
+// See LICENSE file in the project root for full license information.
+// -----------------------------------------------------------------------
+
+using HarmonyLib;
 using Nebuli.Events.EventArguments.SCPs.Scp914;
 using Nebuli.Events.Handlers;
 using NorthwoodLib.Pools;

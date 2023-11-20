@@ -1,7 +1,15 @@
-﻿using PlayerRoles;
+﻿// -----------------------------------------------------------------------
+// <copyright file=Scp3114PlayerRole.cs company="NebuliTeam">
+// Copyright (c) NebuliTeam. All rights reserved.
+// Licensed under the MIT license.
+// See LICENSE file in the project root for full license information.
+// -----------------------------------------------------------------------
+
+using PlayerRoles;
 using PlayerRoles.PlayableScps.HumeShield;
 using PlayerRoles.PlayableScps.Scp3114;
 using PlayerRoles.PlayableScps.Subroutines;
+using PlayerRoles.Subroutines;
 using System;
 using System.Collections.Generic;
 using UnityEngine;

@@ -1,4 +1,11 @@
-﻿using Nebuli.Events.EventArguments.Player;
+﻿// -----------------------------------------------------------------------
+// <copyright file=PlayerHandlers.cs company="NebuliTeam">
+// Copyright (c) NebuliTeam. All rights reserved.
+// Licensed under the MIT license.
+// See LICENSE file in the project root for full license information.
+// -----------------------------------------------------------------------
+
+using Nebuli.Events.EventArguments.Player;
 
 namespace Nebuli.Events.Handlers;
 

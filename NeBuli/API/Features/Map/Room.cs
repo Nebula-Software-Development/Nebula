@@ -1,3 +1,10 @@
+// -----------------------------------------------------------------------
+// <copyright file=Room.cs company="NebuliTeam">
+// Copyright (c) NebuliTeam. All rights reserved.
+// Licensed under the MIT license.
+// See LICENSE file in the project root for full license information.
+// -----------------------------------------------------------------------
+
 using MapGeneration;
 using Nebuli.API.Extensions;
 using Nebuli.API.Features.Doors;
@@ -118,7 +125,7 @@ public class Room
         if (zone is null)
             return List.SelectRandom();
         else
-            return List.Where(room => room.Zone == zone).OrderBy(_ => LoaderClass.Random.Next()).SelectRandom();
+            return List.Where(room => room.Zone == zone).SelectRandom();
     }
 
     /// <summary>

@@ -1,4 +1,11 @@
-﻿using Hazards;
+﻿// -----------------------------------------------------------------------
+// <copyright file=EnviormentHazard.cs company="NebuliTeam">
+// Copyright (c) NebuliTeam. All rights reserved.
+// Licensed under the MIT license.
+// See LICENSE file in the project root for full license information.
+// -----------------------------------------------------------------------
+
+using Hazards;
 using Nebuli.API.Features.Map;
 using Nebuli.API.Features.Player;
 using System.Collections.Generic;

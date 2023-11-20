@@ -1,4 +1,11 @@
-﻿using CommandSystem;
+﻿// -----------------------------------------------------------------------
+// <copyright file=PermissionHandler.cs company="NebuliTeam">
+// Copyright (c) NebuliTeam. All rights reserved.
+// Licensed under the MIT license.
+// See LICENSE file in the project root for full license information.
+// -----------------------------------------------------------------------
+
+using CommandSystem;
 using Nebuli.API.Features;
 using Nebuli.API.Features.Player;
 using Nebuli.Loader;
@@ -15,6 +22,10 @@ public static class PermissionsHandler
 {
     private static Assembly _nwapiPermissionCache = null;
     private static MethodInfo _nwapiMethodCache = null;
+
+    /// <summary>
+    /// Gets a dictionary of SL group names with their corresponding <see cref="Group"/>.
+    /// </summary>
     public static Dictionary<string, Group> Groups { get; internal set; } = new();
 
     internal static void LoadPermissions()
@@ -91,7 +102,7 @@ public static class PermissionsHandler
     /// Gets if the <see cref="ICommandSender"/> has the either a specified Nebuli permission OR a specified NWAPI permission.
     /// </summary>
     /// <remarks>Requires the NWAPIPermissionSystem be loaded by NWAPI, if it cannot be found and the player has no Nebuli permission, the method returns <c>false</c></remarks>
-    internal static bool HasPermissionAnywhere(ICommandSender sender, string permission)
+    public static bool HasPermissionAnywhere(this ICommandSender sender, string permission)
     {
         if(HasPermission(sender, permission)) return true;
         if(HasNWAPIPermission(sender, permission)) return true;
@@ -184,6 +195,7 @@ public static class PermissionsHandler
     }
 }
 
+//this is here becaus i wanted to.
 public class Group
 {
     public string GroupName { get; set; } = string.Empty;

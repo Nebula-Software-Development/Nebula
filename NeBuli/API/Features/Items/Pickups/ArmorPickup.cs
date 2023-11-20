@@ -1,4 +1,11 @@
-﻿using BodyArmorPickupBase = InventorySystem.Items.Armor.BodyArmorPickup;
+﻿// -----------------------------------------------------------------------
+// <copyright file=ArmorPickup.cs company="NebuliTeam">
+// Copyright (c) NebuliTeam. All rights reserved.
+// Licensed under the MIT license.
+// See LICENSE file in the project root for full license information.
+// -----------------------------------------------------------------------
+
+using BodyArmorPickupBase = InventorySystem.Items.Armor.BodyArmorPickup;
 
 namespace Nebuli.API.Features.Items.Pickups;
 

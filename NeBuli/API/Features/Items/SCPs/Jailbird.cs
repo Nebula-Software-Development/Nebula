@@ -1,4 +1,11 @@
-﻿using JailbirdBase = InventorySystem.Items.Jailbird.JailbirdItem;
+﻿// -----------------------------------------------------------------------
+// <copyright file=Jailbird.cs company="NebuliTeam">
+// Copyright (c) NebuliTeam. All rights reserved.
+// Licensed under the MIT license.
+// See LICENSE file in the project root for full license information.
+// -----------------------------------------------------------------------
+
+using JailbirdBase = InventorySystem.Items.Jailbird.JailbirdItem;
 
 namespace Nebuli.API.Features.Items.SCPs;
 

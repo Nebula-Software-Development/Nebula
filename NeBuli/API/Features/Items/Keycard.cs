@@ -1,4 +1,11 @@
-﻿using Interactables.Interobjects.DoorUtils;
+﻿// -----------------------------------------------------------------------
+// <copyright file=Keycard.cs company="NebuliTeam">
+// Copyright (c) NebuliTeam. All rights reserved.
+// Licensed under the MIT license.
+// See LICENSE file in the project root for full license information.
+// -----------------------------------------------------------------------
+
+using Interactables.Interobjects.DoorUtils;
 
 namespace Nebuli.API.Features.Items;
 

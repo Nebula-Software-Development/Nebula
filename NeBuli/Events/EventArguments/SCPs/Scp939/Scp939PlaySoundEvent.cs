@@ -1,3 +1,10 @@
+// -----------------------------------------------------------------------
+// <copyright file=Scp939PlaySoundEvent.cs company="NebuliTeam">
+// Copyright (c) NebuliTeam. All rights reserved.
+// Licensed under the MIT license.
+// See LICENSE file in the project root for full license information.
+// -----------------------------------------------------------------------
+
 using Nebuli.API.Features.Player;
 using Nebuli.Events.EventArguments.Interfaces;
 using System;

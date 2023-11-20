@@ -1,10 +1,18 @@
-﻿using Mirror;
+﻿// -----------------------------------------------------------------------
+// <copyright file=Scp173PlayerRole.cs company="NebuliTeam">
+// Copyright (c) NebuliTeam. All rights reserved.
+// Licensed under the MIT license.
+// See LICENSE file in the project root for full license information.
+// -----------------------------------------------------------------------
+
+using Mirror;
 using Nebuli.API.Features.Player;
 using PlayerRoles;
 using PlayerRoles.FirstPersonControl;
 using PlayerRoles.PlayableScps.HumeShield;
 using PlayerRoles.PlayableScps.Scp173;
 using PlayerRoles.PlayableScps.Subroutines;
+using PlayerRoles.Subroutines;
 using System;
 using System.Collections.Generic;
 using System.Linq;

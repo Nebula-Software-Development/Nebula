@@ -1,4 +1,11 @@
-﻿using Nebuli.API.Features.Player;
+﻿// -----------------------------------------------------------------------
+// <copyright file=PlayerChangingNicknameEvent.cs company="NebuliTeam">
+// Copyright (c) NebuliTeam. All rights reserved.
+// Licensed under the MIT license.
+// See LICENSE file in the project root for full license information.
+// -----------------------------------------------------------------------
+
+using Nebuli.API.Features.Player;
 using Nebuli.Events.EventArguments.Interfaces;
 using System;
 
@@ -12,6 +19,7 @@ public class PlayerChangingNicknameEvent : EventArgs, IPlayerEvent, ICancellable
     public PlayerChangingNicknameEvent(ReferenceHub ply, string newName)
     {
         Player = NebuliPlayer.Get(ply);
+        OldName = Player.DisplayNickname;
         NewName = newName;
         IsCancelled = false;
     }
@@ -25,6 +33,11 @@ public class PlayerChangingNicknameEvent : EventArgs, IPlayerEvent, ICancellable
     /// Gets or sets the new nickname.
     /// </summary>
     public string NewName { get; set; }
+
+    /// <summary>
+    /// Gets the players current name.
+    /// </summary>
+    public string OldName { get; }
 
     /// <summary>
     /// Gets or sets if the event is cancelled or not.

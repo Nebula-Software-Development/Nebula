@@ -1,3 +1,10 @@
+// -----------------------------------------------------------------------
+// <copyright file=Scp0492Handlers.cs company="NebuliTeam">
+// Copyright (c) NebuliTeam. All rights reserved.
+// Licensed under the MIT license.
+// See LICENSE file in the project root for full license information.
+// -----------------------------------------------------------------------
+
 using Nebuli.Events.EventArguments.SCPs.Scp0492;
 
 namespace Nebuli.Events.Handlers;

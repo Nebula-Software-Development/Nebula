@@ -1,4 +1,11 @@
-﻿using Respawning;
+﻿// -----------------------------------------------------------------------
+// <copyright file=Respawn.cs company="NebuliTeam">
+// Copyright (c) NebuliTeam. All rights reserved.
+// Licensed under the MIT license.
+// See LICENSE file in the project root for full license information.
+// -----------------------------------------------------------------------
+
+using Respawning;
 
 namespace Nebuli.API.Features;
 

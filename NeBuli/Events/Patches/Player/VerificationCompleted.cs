@@ -1,4 +1,11 @@
-﻿using CentralAuth;
+﻿// -----------------------------------------------------------------------
+// <copyright file=VerificationCompleted.cs company="NebuliTeam">
+// Copyright (c) NebuliTeam. All rights reserved.
+// Licensed under the MIT license.
+// See LICENSE file in the project root for full license information.
+// -----------------------------------------------------------------------
+
+using CentralAuth;
 using HarmonyLib;
 using Nebuli.Events.EventArguments.Player;
 using Nebuli.Events.Handlers;

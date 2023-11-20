@@ -1,4 +1,11 @@
-﻿using AdrenalineBase = InventorySystem.Items.Usables.Adrenaline;
+﻿// -----------------------------------------------------------------------
+// <copyright file=Adrenaline.cs company="NebuliTeam">
+// Copyright (c) NebuliTeam. All rights reserved.
+// Licensed under the MIT license.
+// See LICENSE file in the project root for full license information.
+// -----------------------------------------------------------------------
+
+using AdrenalineBase = InventorySystem.Items.Usables.Adrenaline;
 
 namespace Nebuli.API.Features.Items.Usables;
 

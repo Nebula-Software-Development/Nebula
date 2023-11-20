@@ -1,4 +1,11 @@
-﻿using InventorySystem.Items.Coin;
+﻿// -----------------------------------------------------------------------
+// <copyright file=CoinSide.cs company="NebuliTeam">
+// Copyright (c) NebuliTeam. All rights reserved.
+// Licensed under the MIT license.
+// See LICENSE file in the project root for full license information.
+// -----------------------------------------------------------------------
+
+using InventorySystem.Items.Coin;
 using System;
 
 namespace Nebuli.API.Features.Enum;

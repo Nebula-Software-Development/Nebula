@@ -1,4 +1,11 @@
-﻿using Nebuli.API.Features.Enum;
+﻿// -----------------------------------------------------------------------
+// <copyright file=PrimitiveToy.cs company="NebuliTeam">
+// Copyright (c) NebuliTeam. All rights reserved.
+// Licensed under the MIT license.
+// See LICENSE file in the project root for full license information.
+// -----------------------------------------------------------------------
+
+using Nebuli.API.Features.Enum;
 using Nebuli.API.Features.Map;
 using System.Linq;
 using UnityEngine;

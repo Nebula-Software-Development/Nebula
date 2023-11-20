@@ -1,4 +1,11 @@
-﻿using Nebuli.Events.EventArguments.Interfaces;
+﻿// -----------------------------------------------------------------------
+// <copyright file=RespawningTeamEvent.cs company="NebuliTeam">
+// Copyright (c) NebuliTeam. All rights reserved.
+// Licensed under the MIT license.
+// See LICENSE file in the project root for full license information.
+// -----------------------------------------------------------------------
+
+using Nebuli.Events.EventArguments.Interfaces;
 using Respawning;
 using System;
 using System.Collections.Generic;

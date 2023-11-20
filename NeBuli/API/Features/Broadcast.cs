@@ -1,4 +1,11 @@
-﻿using static Broadcast;
+﻿// -----------------------------------------------------------------------
+// <copyright file=Broadcast.cs company="NebuliTeam">
+// Copyright (c) NebuliTeam. All rights reserved.
+// Licensed under the MIT license.
+// See LICENSE file in the project root for full license information.
+// -----------------------------------------------------------------------
+
+using static Broadcast;
 
 namespace Nebuli.API.Features;
 
@@ -11,7 +18,12 @@ public class Broadcast
     /// Creates a new <see cref="Broadcast"/> class.
     /// </summary>
     public Broadcast()
-    { }
+    {
+        Message = string.Empty;
+        Duration = 0;
+        BroadcastFlags = BroadcastFlags.Normal;
+        ClearCurrent = false;
+    }
 
     /// <summary>
     /// Creates a new <see cref="Broadcast"/> class.

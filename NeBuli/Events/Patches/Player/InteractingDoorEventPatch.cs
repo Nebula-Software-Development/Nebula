@@ -1,4 +1,11 @@
-﻿using HarmonyLib;
+﻿// -----------------------------------------------------------------------
+// <copyright file=InteractingDoorEventPatch.cs company="NebuliTeam">
+// Copyright (c) NebuliTeam. All rights reserved.
+// Licensed under the MIT license.
+// See LICENSE file in the project root for full license information.
+// -----------------------------------------------------------------------
+
+using HarmonyLib;
 using Interactables.Interobjects.DoorUtils;
 using Nebuli.API.Features.Doors;
 using Nebuli.Events.EventArguments.Player;

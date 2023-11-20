@@ -1,4 +1,11 @@
-﻿using Nebuli.Events.EventArguments.SCPs.Scp330;
+﻿// -----------------------------------------------------------------------
+// <copyright file=Scp330Handlers.cs company="NebuliTeam">
+// Copyright (c) NebuliTeam. All rights reserved.
+// Licensed under the MIT license.
+// See LICENSE file in the project root for full license information.
+// -----------------------------------------------------------------------
+
+using Nebuli.Events.EventArguments.SCPs.Scp330;
 
 namespace Nebuli.Events.Handlers;
 
