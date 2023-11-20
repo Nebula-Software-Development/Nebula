@@ -23,6 +23,7 @@ using System.Reflection;
 using YamlDotNet.Core;
 using YamlDotNet.Serialization;
 using YamlDotNet.Serialization.NamingConventions;
+using YamlDotNet.Serialization.ObjectGraphVisitors;
 
 namespace Nebuli.Loader;
 
@@ -54,7 +55,7 @@ public class LoaderClass
     /// </summary>
     public static ISerializer Serializer { get; set; } = new SerializerBuilder()
         .WithTypeConverter(new CustomVectorsConverter())
-        .WithEmissionPhaseObjectGraphVisitor((EmissionPhaseObjectGraphVisitorArgs visitor) => new CommentsObjectGraphVisitor(visitor.InnerVisitor)).WithTypeInspector((ITypeInspector typeInspector) => new CommentGatheringTypeInspector(typeInspector))
+        .WithEmissionPhaseObjectGraphVisitor((EmissionPhaseObjectGraphVisitorArgs visitor) => new Serialization.CommentsObjectGraphVisitor(visitor.InnerVisitor)).WithTypeInspector((ITypeInspector typeInspector) => new CommentGatheringTypeInspector(typeInspector))
         .WithNamingConvention(UnderscoredNamingConvention.Instance)
         .WithNamingConvention(PascalCaseNamingConvention.Instance)
         .WithNamingConvention(HyphenatedNamingConvention.Instance)
@@ -188,9 +189,7 @@ public class LoaderClass
             }
         }
 
-        pluginsToLoad.Sort((p1, p2) => p1.LoadOrder.CompareTo(p2.LoadOrder));
-
-        foreach (IPlugin<IConfiguration> plugin in pluginsToLoad)
+        foreach (IPlugin<IConfiguration> plugin in pluginsToLoad.OrderBy(x => x.LoadOrder))
         {
             try
             {

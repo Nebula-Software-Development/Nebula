@@ -13,6 +13,7 @@ using NorthwoodLib.Pools;
 using System.Collections.Generic;
 using System.Reflection.Emit;
 using static HarmonyLib.AccessTools;
+using static HarmonyLib.Code;
 
 namespace Nebuli.Events.Patches.Warhead;
 
@@ -29,10 +30,8 @@ internal class WarheadDetonatingPatch
         newInstructions.InsertRange(0, new CodeInstruction[]
         {
             new(OpCodes.Callvirt, PropertyGetter(typeof(AlphaWarheadController), nameof(AlphaWarheadController.Singleton))),
-            new(OpCodes.Ldfld, Field(typeof(AlphaWarheadController), nameof(AlphaWarheadController._triggeringPlayer))),
-            new(OpCodes.Ldfld, Field(typeof(Footprint), nameof(Footprint.Hub))),
+            new(OpCodes.Callvirt, PropertyGetter(typeof(AlphaWarheadController), nameof(AlphaWarheadController.WarheadTriggeredby))),
             new(OpCodes.Newobj, GetDeclaredConstructors(typeof(WarheadDetonatingEvent))[0]),
-            new(OpCodes.Dup),
             new(OpCodes.Call, Method(typeof(ServerHandlers), nameof(ServerHandlers.OnWarheadDetonated))),
             new(OpCodes.Callvirt, PropertyGetter(typeof(WarheadDetonatingEvent), nameof(WarheadDetonatingEvent.IsCancelled))),
             new(OpCodes.Brtrue_S, retLabel)

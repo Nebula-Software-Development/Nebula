@@ -22,7 +22,7 @@ internal class StranglingPatch
     [HarmonyTranspiler]
     private static IEnumerable<CodeInstruction> OnStrangling(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
-        List<CodeInstruction> newInstructions = EventManager.CheckPatchInstructions<StranglingPatch>(106, instructions);
+        List<CodeInstruction> newInstructions = EventManager.CheckPatchInstructions<StranglingPatch>(102, instructions);
 
         Label retLabel = generator.DefineLabel();
         int index = newInstructions.FindIndex(i => i.opcode == OpCodes.Ldloc_3);
