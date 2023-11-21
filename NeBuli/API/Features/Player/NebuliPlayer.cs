@@ -59,8 +59,8 @@ public class NebuliPlayer
     /// </summary>
     public static Dictionary<ReferenceHub, NebuliPlayer> Dictionary { get; internal set; } = new(Server.MaxPlayerCount);
 
-    private readonly CustomHealthManager customHealthManager;
-    private static int healthStatIndex = -1;
+    private readonly CustomHealthManager _customHealthManager;
+    private static int _healthStatIndex = -1;
 
     internal NebuliPlayer(ReferenceHub hub)
     {
@@ -71,11 +71,11 @@ public class NebuliPlayer
         if (ReferenceHub == ReferenceHub.HostHub)
             return;
 
-        if(healthStatIndex == -1)
-            healthStatIndex = Array.FindIndex(ReferenceHub.playerStats.StatModules, module => module.GetType() == typeof(HealthStat));
+        if(_healthStatIndex == -1)
+            _healthStatIndex = Array.FindIndex(ReferenceHub.playerStats.StatModules, module => module.GetType() == typeof(HealthStat));
 
         ReferenceHub.playerStats._dictionarizedTypes[typeof(HealthStat)] =
-                    ReferenceHub.playerStats.StatModules[healthStatIndex] = customHealthManager = new CustomHealthManager { Hub = ReferenceHub };
+                    ReferenceHub.playerStats.StatModules[_healthStatIndex] = _customHealthManager = new CustomHealthManager { Hub = ReferenceHub };
         
         Dictionary.AddIfMissing(hub, this);
     }
@@ -527,8 +527,8 @@ public class NebuliPlayer
     /// </summary>
     public float MaxHealth
     {
-        get => customHealthManager.MaxValue;
-        set => customHealthManager.MaxHealth = value;
+        get => _customHealthManager.MaxValue;
+        set => _customHealthManager.MaxHealth = value;
     }
 
     /// <summary>
@@ -536,8 +536,8 @@ public class NebuliPlayer
     /// </summary>
     public float MinHealth
     {
-        get => customHealthManager.MinValue;
-        set => customHealthManager.MinHealth = value;
+        get => _customHealthManager.MinValue;
+        set => _customHealthManager.MinHealth = value;
     }
 
     /// <summary>
@@ -1003,7 +1003,7 @@ public class NebuliPlayer
         if (exceedMaxHealth)
             Health += amount;
         else
-            customHealthManager.ServerHeal(amount);
+            _customHealthManager.ServerHeal(amount);
     }
 
     /// <summary>
