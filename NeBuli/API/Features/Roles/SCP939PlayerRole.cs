@@ -5,7 +5,6 @@
 // See LICENSE file in the project root for full license information.
 // -----------------------------------------------------------------------
 
-using Nebuli.API.Features.Player;
 using PlayerRoles;
 using PlayerRoles.FirstPersonControl;
 using PlayerRoles.PlayableScps.HumeShield;
@@ -144,7 +143,7 @@ public class Scp939PlayerRole : FpcRoleBase
     /// Saves a recording of the specified player.
     /// </summary>
     /// <param name="player">The player to save the recording of.</param>
-    public void SaveRecording(NebuliPlayer player) => MimicryRecorder.SaveRecording(player.ReferenceHub);
+    public void SaveRecording(Player player) => MimicryRecorder.SaveRecording(player.ReferenceHub);
 
     /// <summary>
     /// Removes all recordings of the specified referencehub.
@@ -156,7 +155,7 @@ public class Scp939PlayerRole : FpcRoleBase
     /// Removes all recordings of the specified player.
     /// </summary>
     /// <param name="player">The player to remove all recordings for.</param>
-    public void RemoveRecordingOfPlayer(NebuliPlayer player) => MimicryRecorder.RemoveRecordingsOfPlayer(player.ReferenceHub);
+    public void RemoveRecordingOfPlayer(Player player) => MimicryRecorder.RemoveRecordingsOfPlayer(player.ReferenceHub);
 
     internal void SetupSubroutines()
     {

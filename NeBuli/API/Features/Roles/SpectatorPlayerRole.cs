@@ -5,7 +5,6 @@
 // See LICENSE file in the project root for full license information.
 // -----------------------------------------------------------------------
 
-using Nebuli.API.Features.Player;
 using PlayerRoles;
 using PlayerRoles.Spectating;
 using RelativePositioning;
@@ -35,7 +34,7 @@ public class SpectatorPlayerRole : Role
     /// <summary>
     /// Gets the last tracked player by the spectator.
     /// </summary>
-    public NebuliPlayer LastTrackedPlayer => NebuliPlayer.Get(SpectatorTargetTracker.LastTrackedPlayer);
+    public Player LastTrackedPlayer => Player.Get(SpectatorTargetTracker.LastTrackedPlayer);
 
     /// <summary>
     /// Gets or sets the relative position of the player's death location.
@@ -70,7 +69,7 @@ public class SpectatorPlayerRole : Role
     /// </summary>
     /// <param name="player">The spectator to switch.</param>
     /// <param name="target">The target to switch to.</param>
-    public static void SetCurrentTarget(NebuliPlayer player, NebuliPlayer target)
+    public static void SetCurrentTarget(Player player, Player target)
     {
         if (player.Role is not SpectatorPlayerRole)
             return;

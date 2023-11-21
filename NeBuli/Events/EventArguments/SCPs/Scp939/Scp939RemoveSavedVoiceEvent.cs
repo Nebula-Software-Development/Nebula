@@ -5,9 +5,9 @@
 // See LICENSE file in the project root for full license information.
 // -----------------------------------------------------------------------
 
-using Nebuli.API.Features.Player;
 using Nebuli.Events.EventArguments.Interfaces;
 using System;
+using Nebuli.API.Features;
 
 namespace Nebuli.Events.EventArguments.SCPs.Scp939;
 
@@ -18,20 +18,20 @@ public class Scp939RemoveSavedVoiceEvent : EventArgs, IPlayerEvent, ICancellable
 {
     public Scp939RemoveSavedVoiceEvent(ReferenceHub player, ReferenceHub target)
     {
-        Player = NebuliPlayer.Get(player);
-        Target = NebuliPlayer.Get(target);
+        Player = API.Features.Player.Get(player);
+        Target = API.Features.Player.Get(target);
         IsCancelled = false;
     }
 
     /// <summary>
     /// Gets the player removing the saved voice.
     /// </summary>
-    public NebuliPlayer Player { get; }
+    public API.Features.Player Player { get; }
 
     /// <summary>
     /// Gets the voices owner.
     /// </summary>
-    public NebuliPlayer Target { get; }
+    public API.Features.Player Target { get; }
 
     /// <summary>
     /// Gets or sets if the event is cancelled.

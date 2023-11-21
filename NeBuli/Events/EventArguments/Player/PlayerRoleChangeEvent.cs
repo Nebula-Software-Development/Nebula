@@ -5,10 +5,10 @@
 // See LICENSE file in the project root for full license information.
 // -----------------------------------------------------------------------
 
-using Nebuli.API.Features.Player;
 using Nebuli.Events.EventArguments.Interfaces;
 using PlayerRoles;
 using System;
+using Nebuli.API.Features;
 
 namespace Nebuli.Events.EventArguments.Player;
 
@@ -19,7 +19,7 @@ public class PlayerRoleChangeEvent : EventArgs, IPlayerEvent, ICancellableEvent
 {
     public PlayerRoleChangeEvent(ReferenceHub ply, RoleTypeId newRole, RoleChangeReason roleChangeReason, RoleSpawnFlags roleSpawnFlags)
     {
-        Player = NebuliPlayer.Get(ply);
+        Player = API.Features.Player.Get(ply);
         NewRole = newRole;
         Reason = roleChangeReason;
         SpawnFlags = roleSpawnFlags;
@@ -29,7 +29,7 @@ public class PlayerRoleChangeEvent : EventArgs, IPlayerEvent, ICancellableEvent
     /// <summary>
     /// Gets the player that triggered the event.
     /// </summary>
-    public NebuliPlayer Player { get; }
+    public API.Features.Player Player { get; }
 
     /// <summary>
     /// Gets or sets the new role.

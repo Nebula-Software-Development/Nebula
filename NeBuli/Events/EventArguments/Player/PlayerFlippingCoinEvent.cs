@@ -7,9 +7,9 @@
 
 using Nebuli.API.Features.Enum;
 using Nebuli.API.Features.Items;
-using Nebuli.API.Features.Player;
 using Nebuli.Events.EventArguments.Interfaces;
 using System;
+using Nebuli.API.Features;
 using Coin = InventorySystem.Items.Coin.Coin;
 
 namespace Nebuli.Events.EventArguments.Player;
@@ -21,7 +21,7 @@ public class PlayerFlippingCoinEvent : EventArgs, IPlayerEvent, ICancellableEven
 {
     public PlayerFlippingCoinEvent(ReferenceHub ply, Coin item, bool tails)
     {
-        Player = NebuliPlayer.Get(ply);
+        Player = API.Features.Player.Get(ply);
         Coin = (API.Features.Items.Coin)Item.Get(item);
         Side = tails ? CoinSide.Heads : CoinSide.Tails;
         IsCancelled = false;
@@ -30,7 +30,7 @@ public class PlayerFlippingCoinEvent : EventArgs, IPlayerEvent, ICancellableEven
     /// <summary>
     /// Gets the player flipping the coin.
     /// </summary>
-    public NebuliPlayer Player { get; }
+    public API.Features.Player Player { get; }
 
     /// <summary>
     /// Gets the <see cref="API.Features.Items.Coin"/> being flipped.

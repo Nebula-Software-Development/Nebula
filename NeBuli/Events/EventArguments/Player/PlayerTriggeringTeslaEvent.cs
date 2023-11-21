@@ -5,9 +5,9 @@
 // See LICENSE file in the project root for full license information.
 // -----------------------------------------------------------------------
 
-using Nebuli.API.Features.Player;
 using Nebuli.Events.EventArguments.Interfaces;
 using System;
+using Nebuli.API.Features;
 using NebuliTeslaGate = Nebuli.API.Features.Map.TeslaGate;
 
 namespace Nebuli.Events.EventArguments.Player;
@@ -17,7 +17,7 @@ namespace Nebuli.Events.EventArguments.Player;
 /// </summary>
 public class PlayerTriggeringTeslaEvent : EventArgs, IPlayerEvent, ICancellableEvent
 {
-    public PlayerTriggeringTeslaEvent(NebuliPlayer player, TeslaGate teslaGate)
+    public PlayerTriggeringTeslaEvent(API.Features.Player player, TeslaGate teslaGate)
     {
         Player = player;
         TeslaGate = NebuliTeslaGate.Get(teslaGate);
@@ -34,7 +34,7 @@ public class PlayerTriggeringTeslaEvent : EventArgs, IPlayerEvent, ICancellableE
     /// <summary>
     /// Gets the player triggering the tesla gate.
     /// </summary>
-    public NebuliPlayer Player { get; }
+    public API.Features.Player Player { get; }
 
     /// <summary>
     /// Gets the <see cref="NebuliTeslaGate"/> being triggered.

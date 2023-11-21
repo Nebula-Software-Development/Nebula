@@ -6,9 +6,9 @@
 // -----------------------------------------------------------------------
 
 using InventorySystem.Items.Usables.Scp330;
-using Nebuli.API.Features.Player;
 using Nebuli.Events.EventArguments.Interfaces;
 using System;
+using Nebuli.API.Features;
 
 namespace Nebuli.Events.EventArguments.SCPs.Scp330;
 
@@ -19,7 +19,7 @@ public class Scp330InteractEvent : EventArgs, IPlayerEvent, ICancellableEvent
 {
     public Scp330InteractEvent(ReferenceHub hub, int uses, CandyKindID candy)
     {
-        Player = NebuliPlayer.Get(hub);
+        Player = API.Features.Player.Get(hub);
         Candy = candy;
         IsCancelled = false;
         Uses = uses;
@@ -28,7 +28,7 @@ public class Scp330InteractEvent : EventArgs, IPlayerEvent, ICancellableEvent
     /// <summary>
     /// Gets the player interacting with SCP-330.
     /// </summary>
-    public NebuliPlayer Player { get; }
+    public API.Features.Player Player { get; }
 
     /// <summary>
     /// Gets or sets the <see cref="CandyKindID"/> being given.

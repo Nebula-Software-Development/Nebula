@@ -5,9 +5,9 @@
 // See LICENSE file in the project root for full license information.
 // -----------------------------------------------------------------------
 
-using Nebuli.API.Features.Player;
 using Nebuli.Events.EventArguments.Interfaces;
 using System;
+using Nebuli.API.Features;
 
 namespace Nebuli.Events.EventArguments.SCPs.Scp096;
 
@@ -18,8 +18,8 @@ public class Scp096AddingTargetEvent : EventArgs, IPlayerEvent, ICancellableEven
 {
     public Scp096AddingTargetEvent(ReferenceHub player, ReferenceHub looker, bool isForLooking)
     {
-        Player = NebuliPlayer.Get(player);
-        Target = NebuliPlayer.Get(looker);
+        Player = API.Features.Player.Get(player);
+        Target = API.Features.Player.Get(looker);
         LookedAt096 = isForLooking;
         IsCancelled = false;
     }
@@ -27,12 +27,12 @@ public class Scp096AddingTargetEvent : EventArgs, IPlayerEvent, ICancellableEven
     /// <summary>
     /// Gets the player playing as SCP-096.
     /// </summary>
-    public NebuliPlayer Player { get; }
+    public API.Features.Player Player { get; }
 
     /// <summary>
     /// Gets the target being added.
     /// </summary>
-    public NebuliPlayer Target { get; }
+    public API.Features.Player Target { get; }
 
     /// <summary>
     /// Gets if the player looked at SCP-096, will be false if the target triggered 096 by other means.

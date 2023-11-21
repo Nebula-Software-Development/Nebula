@@ -5,9 +5,9 @@
 // See LICENSE file in the project root for full license information.
 // -----------------------------------------------------------------------
 
-using Nebuli.API.Features.Player;
 using Nebuli.Events.EventArguments.Interfaces;
 using System;
+using Nebuli.API.Features;
 
 namespace Nebuli.Events.EventArguments.SCPs.Scp3114;
 
@@ -18,11 +18,11 @@ public class Scp3114RevealedEvent : EventArgs, IPlayerEvent
 {
     public Scp3114RevealedEvent(ReferenceHub hub)
     {
-        Player = NebuliPlayer.Get(hub);
+        Player = API.Features.Player.Get(hub);
     }
 
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    public NebuliPlayer Player { get; }
+    public API.Features.Player Player { get; }
 }

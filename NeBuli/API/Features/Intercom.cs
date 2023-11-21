@@ -6,7 +6,6 @@
 // -----------------------------------------------------------------------
 
 using Mirror;
-using Nebuli.API.Features.Player;
 using PlayerRoles.Voice;
 using UnityEngine;
 using BaseIntercom = PlayerRoles.Voice.Intercom;
@@ -75,7 +74,7 @@ public static class Intercom
     /// <summary>
     /// Gets the current speaker using the intercom, or returns null if no speaker is active.
     /// </summary>
-    public static NebuliPlayer CurrentIntercomSpeaker => !IsIntercomInUse ? null : NebuliPlayer.Get(BaseIntercom._singleton._curSpeaker);
+    public static Player CurrentIntercomSpeaker => !IsIntercomInUse ? null : Player.Get(BaseIntercom._singleton._curSpeaker);
 
     /// <summary>
     /// Gets or sets the remaining cooldown time for the intercom.

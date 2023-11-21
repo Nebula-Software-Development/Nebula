@@ -6,7 +6,6 @@
 // -----------------------------------------------------------------------
 
 using Nebuli.API.Extensions;
-using Nebuli.API.Features.Player;
 using PlayerRoles;
 using PlayerRoles.Spectating;
 using RelativePositioning;
@@ -36,7 +35,7 @@ public class OverwatchPlayerRole : Role
     /// <summary>
     /// Gets the last tracked player by the overwatcher.
     /// </summary>
-    public NebuliPlayer LastTrackedPlayer => NebuliPlayer.Get(SpectatorTargetTracker.LastTrackedPlayer);
+    public Player LastTrackedPlayer => Player.Get(SpectatorTargetTracker.LastTrackedPlayer);
 
     /// <summary>
     /// Gets the relative position of the player's death location.
@@ -67,7 +66,7 @@ public class OverwatchPlayerRole : Role
     /// </summary>
     /// <param name="player">The overwatcher to switch.</param>
     /// <param name="target">The target to switch to.</param>
-    public static void SetCurrentTarget(NebuliPlayer player, NebuliPlayer target)
+    public static void SetCurrentTarget(Player player, Player target)
     {
         if (!player.Role.TryCastTo(out SpectatorPlayerRole srole))
             return;

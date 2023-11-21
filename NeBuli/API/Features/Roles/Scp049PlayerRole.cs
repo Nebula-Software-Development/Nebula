@@ -5,7 +5,6 @@
 // See LICENSE file in the project root for full license information.
 // -----------------------------------------------------------------------
 
-using Nebuli.API.Features.Player;
 using PlayerRoles;
 using PlayerRoles.PlayableScps.HumeShield;
 using PlayerRoles.PlayableScps.Scp049;
@@ -56,17 +55,17 @@ public class Scp049PlayerRole : FpcRoleBase
     /// <summary>
     /// Gets a list of dead targets.
     /// </summary>
-    public List<NebuliPlayer> DeadTargets => SenseAbility.DeadTargets.Select(x => NebuliPlayer.Get(x)).ToList();
+    public List<Player> DeadTargets => SenseAbility.DeadTargets.Select(x => Player.Get(x)).ToList();
 
     /// <summary>
     /// Gets a list of the players alive zombies.
     /// </summary>
-    public List <NebuliPlayer> Zombies => Scp049ResurrectAbility.ResurrectedPlayers.Keys.Select(x => NebuliPlayer.Get(x)).ToList();
+    public List <Player> Zombies => Scp049ResurrectAbility.ResurrectedPlayers.Keys.Select(x => Player.Get(x)).ToList();
 
     /// <summary>
     /// Gets a list of the players dead zombies.
     /// </summary>
-    public List<NebuliPlayer> DeadZombies => Scp049ResurrectAbility.DeadZombies.Select(x => NebuliPlayer.Get(x)).ToList();
+    public List<Player> DeadZombies => Scp049ResurrectAbility.DeadZombies.Select(x => Player.Get(x)).ToList();
 
     /// <summary>
     /// Gets or sets the cooldown of the sense ability.
@@ -84,17 +83,17 @@ public class Scp049PlayerRole : FpcRoleBase
     /// <summary>
     /// Gets a bool if SCP-049 can find a target, and if true, gives the target found.
     /// </summary>
-    public bool CanFindTarget(out NebuliPlayer player)
+    public bool CanFindTarget(out Player player)
     {
         bool flag = SenseAbility.CanFindTarget(out ReferenceHub foundplayer);
-        player = NebuliPlayer.Get(foundplayer);
+        player = Player.Get(foundplayer);
         return flag;
     }
 
     /// <summary>
-    /// Gets if SCP-049 can reach/hit the specified <see cref="NebuliPlayer"/>.
+    /// Gets if SCP-049 can reach/hit the specified <see cref="Player"/>.
     /// </summary>
-    public bool CanHitTarget(NebuliPlayer player) => AttackAbility.IsTargetValid(player.ReferenceHub);
+    public bool CanHitTarget(Player player) => AttackAbility.IsTargetValid(player.ReferenceHub);
 
     /// <summary>
     /// Gets or sets the cooldown of the call ability.

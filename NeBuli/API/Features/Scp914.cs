@@ -5,7 +5,6 @@
 // See LICENSE file in the project root for full license information.
 // -----------------------------------------------------------------------
 
-using Nebuli.API.Features.Player;
 using Scp914;
 using UnityEngine;
 
@@ -98,5 +97,5 @@ public static class Scp914
     /// <summary>
     /// Starts SCP-914.
     /// </summary>
-    public static void Start(NebuliPlayer player, Scp914InteractCode scp914InteractCode = Scp914InteractCode.Activate) => Scp914Controller.ServerInteract(player?.ReferenceHub, (byte)scp914InteractCode);
+    public static void Start(Player player, Scp914InteractCode scp914InteractCode = Scp914InteractCode.Activate) => Scp914Controller.ServerInteract(player?.ReferenceHub, (byte)scp914InteractCode);
 }

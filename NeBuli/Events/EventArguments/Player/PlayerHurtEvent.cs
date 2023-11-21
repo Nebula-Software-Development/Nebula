@@ -5,10 +5,10 @@
 // See LICENSE file in the project root for full license information.
 // -----------------------------------------------------------------------
 
-using Nebuli.API.Features.Player;
 using Nebuli.Events.EventArguments.Interfaces;
 using PlayerStatsSystem;
 using System;
+using Nebuli.API.Features;
 
 namespace Nebuli.Events.EventArguments.Player;
 
@@ -19,16 +19,16 @@ public class PlayerHurtEvent : EventArgs, IDamageEvent, ICancellableEvent
 {
     public PlayerHurtEvent(AttackerDamageHandler attacker, ReferenceHub target, DamageHandlerBase dmgB)
     {
-        Attacker = NebuliPlayer.Get(attacker.Attacker.Hub);
-        Target = NebuliPlayer.Get(target);
+        Attacker = API.Features.Player.Get(attacker.Attacker.Hub);
+        Target = API.Features.Player.Get(target);
         DamageHandlerBase = dmgB;
         IsCancelled = false;
     }
 
     public PlayerHurtEvent(ReferenceHub attacker, ReferenceHub target, DamageHandlerBase dmgB)
     {
-        Attacker = NebuliPlayer.Get(attacker);
-        Target = NebuliPlayer.Get(target);
+        Attacker = API.Features.Player.Get(attacker);
+        Target = API.Features.Player.Get(target);
         DamageHandlerBase = dmgB;
         IsCancelled = false;
     }
@@ -36,12 +36,12 @@ public class PlayerHurtEvent : EventArgs, IDamageEvent, ICancellableEvent
     /// <summary>
     /// The attacker of the target.
     /// </summary>
-    public NebuliPlayer Attacker { get; }
+    public API.Features.Player Attacker { get; }
 
     /// <summary>
     /// The player being attacked.
     /// </summary>
-    public NebuliPlayer Target { get; }
+    public API.Features.Player Target { get; }
 
     /// <summary>
     /// The <see cref="PlayerStatsSystem.DamageHandlerBase"/> of the player being attacked.

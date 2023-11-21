@@ -5,10 +5,10 @@
 // See LICENSE file in the project root for full license information.
 // -----------------------------------------------------------------------
 
-using Nebuli.API.Features.Player;
 using Nebuli.Events.EventArguments.Interfaces;
 using PlayerRoles.PlayableScps.Scp079;
 using System;
+using Nebuli.API.Features;
 
 namespace Nebuli.Events.EventArguments.SCPs.Scp079;
 
@@ -19,7 +19,7 @@ public class Scp079GainingExperienceEvent : EventArgs, IPlayerEvent, ICancellabl
 {
     public Scp079GainingExperienceEvent(ReferenceHub player, int amount, Scp079HudTranslation reason)
     {
-        Player = NebuliPlayer.Get(player);
+        Player = API.Features.Player.Get(player);
         Amount = amount;
         Reason = reason;
         IsCancelled = false;
@@ -28,7 +28,7 @@ public class Scp079GainingExperienceEvent : EventArgs, IPlayerEvent, ICancellabl
     /// <summary>
     /// Gets the player triggering the event.
     /// </summary>
-    public NebuliPlayer Player { get; }
+    public API.Features.Player Player { get; }
 
     /// <summary>
     /// Gets or sets if the event is cancelled.

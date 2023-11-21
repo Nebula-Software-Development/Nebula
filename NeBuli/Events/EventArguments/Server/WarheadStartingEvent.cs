@@ -5,9 +5,9 @@
 // See LICENSE file in the project root for full license information.
 // -----------------------------------------------------------------------
 
-using Nebuli.API.Features.Player;
 using Nebuli.Events.EventArguments.Interfaces;
 using System;
+using Nebuli.API.Features;
 
 namespace Nebuli.Events.EventArguments.Server;
 
@@ -18,7 +18,7 @@ public class WarheadStartingEvent : EventArgs, IPlayerEvent, ICancellableEvent
 {
     public WarheadStartingEvent(bool automatic, bool suppressSubtitles, ReferenceHub trigger)
     {
-        Player = trigger == null ? API.Features.Server.NebuliHost : NebuliPlayer.Get(trigger);
+        Player = trigger == null ? API.Features.Server.Host : API.Features.Player.Get(trigger);
         SuppressSubtitles = suppressSubtitles;
         IsAutomatic = automatic;
         IsCancelled = false;
@@ -27,7 +27,7 @@ public class WarheadStartingEvent : EventArgs, IPlayerEvent, ICancellableEvent
     /// <summary>
     /// Gets the player triggering the Alpha Warhead.
     /// </summary>
-    public NebuliPlayer Player { get; }
+    public API.Features.Player Player { get; }
 
     /// <summary>
     /// Gets or sets if C.A.S.S.I.E should suppress subtitles or not.

@@ -7,9 +7,9 @@
 
 using InventorySystem.Items;
 using Nebuli.API.Features.Items;
-using Nebuli.API.Features.Player;
 using Nebuli.Events.EventArguments.Interfaces;
 using System;
+using Nebuli.API.Features;
 
 namespace Nebuli.Events.EventArguments.Player;
 
@@ -20,7 +20,7 @@ public class PlayerChangedItemEvent : EventArgs, IPlayerEvent
 {
     public PlayerChangedItemEvent(ReferenceHub ply, ItemBase item)
     {
-        Player = NebuliPlayer.Get(ply);
+        Player = API.Features.Player.Get(ply);
         NewItem = Player.CurrentItem;
         PreviousItem = Item.Get(item);
     }
@@ -28,7 +28,7 @@ public class PlayerChangedItemEvent : EventArgs, IPlayerEvent
     /// <summary>
     /// Gets the player triggering the event.
     /// </summary>
-    public NebuliPlayer Player { get; }
+    public API.Features.Player Player { get; }
 
     /// <summary>
     /// Gets the <see cref="Item"/> the player now has, or <c>null</c> if none.

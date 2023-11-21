@@ -9,7 +9,6 @@ using CommandSystem;
 using CustomPlayerEffects;
 using GameCore;
 using Mirror;
-using Nebuli.API.Features.Player;
 using PlayerRoles.RoleAssign;
 using RoundRestarting;
 using System;
@@ -30,12 +29,12 @@ public static class Server
     /// <summary>
     /// Gets the current player count of the server.
     /// </summary>
-    public static int PlayerCount => NebuliPlayer.List.Count;
+    public static int PlayerCount => Player.List.Count;
 
     /// <summary>
-    /// Gets the servers <see cref="NebuliPlayer"/> Host.
+    /// Gets the servers <see cref="Player"/> Host.
     /// </summary>
-    public static NebuliPlayer NebuliHost { get; internal set; } = null;
+    public static Player Host { get; internal set; } = null;
 
     /// <summary>
     /// Gets the servers <see cref="CommandSystem.GameConsoleCommandHandler"/>.
@@ -112,9 +111,9 @@ public static class Server
     /// </summary>
     /// <param name="command">The command to send.</param>
     /// <param name="sender">The player sending the command.</param>
-    public static void RunServerCommand(string command, NebuliPlayer sender = null)
+    public static void RunServerCommand(string command, Player sender = null)
     {
-        sender ??= NebuliHost;
+        sender ??= Host;
         ServerConsole.EnterCommand(command, sender.Sender);
     }
 
@@ -209,7 +208,7 @@ public static class Server
     /// <param name="broadcastFlags">The <see cref="BroadcastFlags"/> to show.</param>
     public static void BroadcastAll(string message, ushort duration = 5, BroadcastFlags broadcastFlags = BroadcastFlags.Normal)
     {
-        foreach (NebuliPlayer ply in NebuliPlayer.List)
+        foreach (Player ply in Player.List)
         {
             Broadcast.TargetAddElement(ply.NetworkConnection, message, duration, broadcastFlags);
         }
@@ -220,7 +219,7 @@ public static class Server
     /// </summary>
     public static void ClearAllBroadcasts()
     {
-        foreach (NebuliPlayer ply in NebuliPlayer.List)
+        foreach (Player ply in Player.List)
         {
             ply.ClearBroadcasts();
         }

@@ -10,7 +10,6 @@ using InventorySystem.Items.Pickups;
 using InventorySystem.Items.ThrowableProjectiles;
 using Nebuli.API.Features.Items.Pickups;
 using Nebuli.API.Features.Items.Projectiles;
-using Nebuli.API.Features.Player;
 using UnityEngine;
 
 namespace Nebuli.API.Features.Items.Throwables;
@@ -33,7 +32,7 @@ public class ExplosiveGrenade : Throwable
     /// <param name="position"></param>
     /// <param name="owner"></param>
     /// <returns></returns>
-    public ExplosiveGrenadeProjectile SpawnAndActivate(Vector3 position, NebuliPlayer owner = null)
+    public ExplosiveGrenadeProjectile SpawnAndActivate(Vector3 position, Player owner = null)
     {
         ItemPickupBase newGrenade = Object.Instantiate(Projectile.Base, position, Quaternion.identity);
         newGrenade.Info = new PickupSyncInfo(Base.ItemTypeId, Base.Weight, ItemSerialGenerator.GenerateNext());
@@ -45,7 +44,7 @@ public class ExplosiveGrenade : Throwable
         grenade.DetectionMask = Projectile.DetectionMask;
         grenade.SCPDamageMultiplier = Projectile.SCPDamageMultiplier;
         grenade.FuzeTime = Projectile.FuzeTime;
-        grenade.PreviousOwner = owner ?? Server.NebuliHost;
+        grenade.PreviousOwner = owner ?? Server.Host;
         grenade.Spawn();
         grenade.Base.gameObject.SetActive(true);
         grenade.Base.ServerActivate();
@@ -58,7 +57,7 @@ public class ExplosiveGrenade : Throwable
     /// <param name="position"></param>
     /// <param name="owner"></param>
     /// <returns></returns>
-    public ExplosiveGrenadeProjectile Spawn(Vector3 position, NebuliPlayer owner = null)
+    public ExplosiveGrenadeProjectile Spawn(Vector3 position, Player owner = null)
     {
         ItemPickupBase newGrenade = Object.Instantiate(Projectile.Base, position, Quaternion.identity);
         newGrenade.Info = new PickupSyncInfo(Base.ItemTypeId, Base.Weight, ItemSerialGenerator.GenerateNext());
@@ -70,7 +69,7 @@ public class ExplosiveGrenade : Throwable
         grenade.DetectionMask = Projectile.DetectionMask;
         grenade.SCPDamageMultiplier = Projectile.SCPDamageMultiplier;
         grenade.FuzeTime = Projectile.FuzeTime;
-        grenade.PreviousOwner = owner ?? Server.NebuliHost;
+        grenade.PreviousOwner = owner ?? Server.Host;
         grenade.Spawn();
         grenade.Base.gameObject.SetActive(true);
         return grenade;

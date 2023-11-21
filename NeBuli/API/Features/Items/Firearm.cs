@@ -15,7 +15,6 @@ using InventorySystem.Items.Firearms.Modules;
 using Mirror;
 using Nebuli.API.Extensions;
 using Nebuli.API.Features.Enum;
-using Nebuli.API.Features.Player;
 using Nebuli.API.Features.Structs;
 using PlayerRoles;
 using RelativePositioning;
@@ -207,8 +206,8 @@ namespace Nebuli.API.Features.Items
         /// <summary>
         /// Gets the players firearms preferences.
         /// </summary>
-        public static IReadOnlyDictionary<NebuliPlayer, Dictionary<FirearmType, AttachmentIdentity[]>> PlayerPreferences
-            => AttachmentsServerHandler.PlayerPreferences.Where(kvp => kvp.Key != null).ToDictionary(kvp => NebuliPlayer.Get(kvp.Key), kvp
+        public static IReadOnlyDictionary<Player, Dictionary<FirearmType, AttachmentIdentity[]>> PlayerPreferences
+            => AttachmentsServerHandler.PlayerPreferences.Where(kvp => kvp.Key != null).ToDictionary(kvp => Player.Get(kvp.Key), kvp
                 => kvp.Value.ToDictionary(subKvp => subKvp.Key.ToFirearmType(), subKvp
                     => subKvp.Key.ToFirearmType().GetAttachmentIdentifiers(subKvp.Value).ToArray()));
 

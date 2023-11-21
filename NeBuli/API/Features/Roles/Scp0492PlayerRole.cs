@@ -5,7 +5,6 @@
 // See LICENSE file in the project root for full license information.
 // -----------------------------------------------------------------------
 
-using Nebuli.API.Features.Player;
 using PlayerRoles;
 using PlayerRoles.PlayableScps.HumeShield;
 using PlayerRoles.PlayableScps.Scp049.Zombies;
@@ -64,7 +63,7 @@ public class Scp0492PlayerRole : FpcRoleBase
     /// <summary>
     /// Gets a list of detected players by SCP-049-2.
     /// </summary>
-    public List<NebuliPlayer> DetectedPlayers => AttackAbility.DetectedPlayers.Select(x => NebuliPlayer.Get(x)).ToList();
+    public List<Player> DetectedPlayers => AttackAbility.DetectedPlayers.Select(x => Player.Get(x)).ToList();
 
     /// <summary>
     /// Forces SCP-049-2 to attack.

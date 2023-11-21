@@ -6,7 +6,6 @@
 // -----------------------------------------------------------------------
 
 using HarmonyLib;
-using Nebuli.API.Features.Player;
 using Nebuli.Events.EventArguments.SCPs.Scp173;
 using Nebuli.Events.Handlers;
 using NorthwoodLib.Pools;
@@ -14,6 +13,7 @@ using PlayerRoles.PlayableScps.Scp173;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection.Emit;
+using Nebuli.API.Features;
 using static HarmonyLib.AccessTools;
 
 namespace Nebuli.Events.Patches.SCPs.Scp173;
@@ -60,5 +60,5 @@ internal class PeanutBlink
         ListPool<CodeInstruction>.Shared.Return(newInstructions);
     }
 
-    private static List<NebuliPlayer> GetPlayersBlinking(HashSet<ReferenceHub> hubs) => hubs.Select(NebuliPlayer.Get).ToList();
+    private static List<API.Features.Player> GetPlayersBlinking(HashSet<ReferenceHub> hubs) => hubs.Select(API.Features.Player.Get).ToList();
 }

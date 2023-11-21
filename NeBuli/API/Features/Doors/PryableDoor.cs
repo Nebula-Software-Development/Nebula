@@ -5,7 +5,6 @@
 // See LICENSE file in the project root for full license information.
 // -----------------------------------------------------------------------
 
-using Nebuli.API.Features.Player;
 using PryableDoorBase = Interactables.Interobjects.PryableDoor;
 
 namespace Nebuli.API.Features.Doors;
@@ -45,5 +44,5 @@ public class PryableDoor : Door
     /// </summary>
     /// <param name="player"></param>
     /// <returns></returns>
-    public bool TryPryGate(NebuliPlayer player) => Base.TryPryGate(player.ReferenceHub);
+    public bool TryPryGate(Player player) => Base.TryPryGate(player.ReferenceHub);
 }

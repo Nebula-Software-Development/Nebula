@@ -5,10 +5,10 @@
 // See LICENSE file in the project root for full license information.
 // -----------------------------------------------------------------------
 
-using Nebuli.API.Features.Player;
 using Nebuli.Events.EventArguments.Interfaces;
 using PlayerRoles;
 using System;
+using Nebuli.API.Features;
 using UnityEngine;
 
 namespace Nebuli.Events.EventArguments.Player;
@@ -20,7 +20,7 @@ public class PlayerSpawningEvent : EventArgs, IPlayerEvent
 {
     public PlayerSpawningEvent(ReferenceHub player, PlayerRoleBase oldRole, PlayerRoleBase newRole, Vector3 position, float oldRotation)
     {
-        Player = NebuliPlayer.Get(player);
+        Player = API.Features.Player.Get(player);
         NewRole = newRole.RoleTypeId;
         OldRole = oldRole.RoleTypeId;
         HorizontalRotation = oldRotation;
@@ -30,7 +30,7 @@ public class PlayerSpawningEvent : EventArgs, IPlayerEvent
     /// <summary>
     /// Gets the player triggering the event.
     /// </summary>
-    public NebuliPlayer Player { get; }
+    public API.Features.Player Player { get; }
 
     /// <summary>
     /// Gets the position the player will be spawned at.

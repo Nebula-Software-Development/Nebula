@@ -6,9 +6,9 @@
 // -----------------------------------------------------------------------
 
 using Nebuli.API.Features.Doors;
-using Nebuli.API.Features.Player;
 using Nebuli.Events.EventArguments.Interfaces;
 using System;
+using Nebuli.API.Features;
 
 namespace Nebuli.Events.EventArguments.SCPs.Scp096;
 
@@ -19,7 +19,7 @@ public class Scp096PryingGateEvent : EventArgs, IPlayerEvent, ICancellableEvent
 {
     public Scp096PryingGateEvent(ReferenceHub player, Interactables.Interobjects.PryableDoor door)
     {
-        Player = NebuliPlayer.Get(player);
+        Player = API.Features.Player.Get(player);
         PryableDoor = (PryableDoor)Door.Get(door);
         IsCancelled = false;
     }
@@ -27,7 +27,7 @@ public class Scp096PryingGateEvent : EventArgs, IPlayerEvent, ICancellableEvent
     /// <summary>
     /// Gets the player prying the door.
     /// </summary>
-    public NebuliPlayer Player { get; }
+    public API.Features.Player Player { get; }
 
     /// <summary>
     /// Gets the <see cref="API.Features.Doors.PryableDoor"/> being pried.

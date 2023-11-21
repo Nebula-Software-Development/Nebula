@@ -6,9 +6,9 @@
 // -----------------------------------------------------------------------
 
 using Nebuli.API.Features.Items;
-using Nebuli.API.Features.Player;
 using Nebuli.Events.EventArguments.Interfaces;
 using System;
+using Nebuli.API.Features;
 
 namespace Nebuli.Events.EventArguments.Player;
 
@@ -19,7 +19,7 @@ public class PlayerShotEventArgs : EventArgs, IPlayerEvent, ICancellableEvent
 {
     public PlayerShotEventArgs(ReferenceHub player, InventorySystem.Items.Firearms.Firearm firearm)
     {
-        Player = NebuliPlayer.Get(player);
+        Player = API.Features.Player.Get(player);
         Firearm = Item.Get(firearm) as Firearm;
         IsCancelled = false;
         Item = Item.Get(firearm);
@@ -36,9 +36,9 @@ public class PlayerShotEventArgs : EventArgs, IPlayerEvent, ICancellableEvent
     public bool IsCancelled { get; set; }
 
     /// <summary>
-    /// Gets the <see cref="NebuliPlayer"/> triggering the event.
+    /// Gets the <see cref="API.Features.Player"/> triggering the event.
     /// </summary>
-    public NebuliPlayer Player { get; }
+    public API.Features.Player Player { get; }
 
     /// <summary>
     /// Gets the <see cref="API.Features.Items.Item"/> wrapper class for this item.

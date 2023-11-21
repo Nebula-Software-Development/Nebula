@@ -5,7 +5,6 @@
 // See LICENSE file in the project root for full license information.
 // -----------------------------------------------------------------------
 
-using Nebuli.API.Features.Player;
 using PlayerRoles.PlayableScps.Scp939;
 
 namespace Nebuli.API.Features.Hazards;
@@ -20,13 +19,13 @@ public class AmesticCloudHazard : TemporaryHazard
     internal AmesticCloudHazard(Scp939AmnesticCloudInstance hazardBase) : base(hazardBase)
     {
         Base = hazardBase;
-        Owner = NebuliPlayer.Get(Base._cloud.Owner);
+        Owner = Player.Get(Base._cloud.Owner);
     }
 
     /// <summary>
     /// Gets the owner of the <see cref="AmesticCloudHazard"/>.
     /// </summary>
-    public NebuliPlayer Owner { get; }
+    public Player Owner { get; }
 
     /// <summary>
     /// Gets if the <see cref="AmesticCloudHazard"/> is already created.

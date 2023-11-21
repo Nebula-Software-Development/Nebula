@@ -6,7 +6,7 @@
 // -----------------------------------------------------------------------
 
 using HarmonyLib;
-using Nebuli.API.Features.Player;
+using Nebuli.API.Features;
 using PlayerRoles;
 using PlayerStatsSystem;
 
@@ -22,7 +22,7 @@ internal class CustomFriendlyFireManager
         if (attacker == victim)
             return true;
 
-        if (NebuliPlayer.Get(attacker).IgnoreFFRules || NebuliPlayer.Get(victim).IgnoreFFRules)
+        if (API.Features.Player.Get(attacker).IgnoreFFRules || API.Features.Player.Get(victim).IgnoreFFRules)
             return true;
 
         Team attackerTeam = attacker.GetTeam();

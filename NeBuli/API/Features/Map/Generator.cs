@@ -8,7 +8,6 @@
 using Interactables.Interobjects.DoorUtils;
 using MapGeneration.Distributors;
 using Nebuli.API.Features.Enum;
-using Nebuli.API.Features.Player;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -148,7 +147,7 @@ public class Generator
     /// </summary>
     /// <param name="player">The player that will interact.</param>
     /// <param name="colliderId">The collider ID.</param>
-    public void Interact(NebuliPlayer player, byte colliderId) => Base.ServerInteract(player.ReferenceHub, colliderId);
+    public void Interact(Player player, byte colliderId) => Base.ServerInteract(player.ReferenceHub, colliderId);
 
     public void HasFlag(byte flags, Scp079Generator.GeneratorFlags flag) => Base.HasFlag(flags, flag);
 

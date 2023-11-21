@@ -7,7 +7,6 @@
 
 using Interactables.Interobjects.DoorUtils;
 using MapGeneration.Distributors;
-using Nebuli.API.Features.Player;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -55,7 +54,7 @@ public class Locker
     /// <param name="permissions"></param>
     /// <param name="player"></param>
     /// <returns></returns>
-    public bool CheckLockerPerms(KeycardPermissions permissions, NebuliPlayer player) => Base.CheckPerms(permissions, player.ReferenceHub);
+    public bool CheckLockerPerms(KeycardPermissions permissions, Player player) => Base.CheckPerms(permissions, player.ReferenceHub);
 
     /// <summary>
     /// Fills the specified <see cref="LockerChamber"/>.

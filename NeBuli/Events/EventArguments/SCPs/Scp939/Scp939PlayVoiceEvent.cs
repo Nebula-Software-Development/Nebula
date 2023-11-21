@@ -5,9 +5,9 @@
 // See LICENSE file in the project root for full license information.
 // -----------------------------------------------------------------------
 
-using Nebuli.API.Features.Player;
 using Nebuli.Events.EventArguments.Interfaces;
 using System;
+using Nebuli.API.Features;
 
 namespace Nebuli.Events.EventArguments.SCPs.Scp939;
 
@@ -18,20 +18,20 @@ public class Scp939PlayVoiceEvent : EventArgs, IPlayerEvent, ICancellableEvent
 {
     public Scp939PlayVoiceEvent(ReferenceHub player, ReferenceHub target)
     {
-        Player = NebuliPlayer.Get(player);
-        VoicePlayer = NebuliPlayer.Get(target);
+        Player = API.Features.Player.Get(player);
+        VoicePlayer = API.Features.Player.Get(target);
         IsCancelled = false;
     }
 
     /// <summary>
     /// Gets the player playing the voice.
     /// </summary>
-    public NebuliPlayer Player { get; }
+    public API.Features.Player Player { get; }
 
     /// <summary>
     /// Gets the voices player owner.
     /// </summary>
-    public NebuliPlayer VoicePlayer { get; }
+    public API.Features.Player VoicePlayer { get; }
 
     /// <summary>
     /// Gets or sets if the event is cancelled.

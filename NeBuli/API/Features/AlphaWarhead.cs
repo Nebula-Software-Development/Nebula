@@ -5,7 +5,6 @@
 // See LICENSE file in the project root for full license information.
 // -----------------------------------------------------------------------
 
-using Nebuli.API.Features.Player;
 using UnityEngine;
 
 namespace Nebuli.API.Features;
@@ -71,7 +70,7 @@ public static class AlphaWarhead
     /// <summary>
     /// Cancels the warhead detonation sequence.
     /// </summary>
-    public static void CancelDetonation(NebuliPlayer disabler = null) => Controller.CancelDetonation(disabler?.ReferenceHub);
+    public static void CancelDetonation(Player disabler = null) => Controller.CancelDetonation(disabler?.ReferenceHub);
 
     /// <summary>
     /// Gets the total amount of deaths caused by the warhead.

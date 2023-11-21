@@ -7,7 +7,6 @@
 
 using Mirror;
 using Nebuli.API.Extensions;
-using Nebuli.API.Features.Player;
 using PlayerRoles;
 using PlayerRoles.Ragdolls;
 using PlayerStatsSystem;
@@ -51,11 +50,11 @@ public class Ragdoll
     /// <summary>
     /// Tries to get the player assosiated with the ragdoll.
     /// </summary>
-    public NebuliPlayer OwnerPlayer => NebuliPlayer.Get(ReferenceHub);
+    public Player OwnerPlayer => Player.Get(ReferenceHub);
 
     internal Ragdoll(BasicRagdoll basicRagdoll)
     {
-        if (basicRagdoll.NetworkInfo.OwnerHub is null) ReferenceHub = Server.NebuliHost.ReferenceHub;
+        if (basicRagdoll.NetworkInfo.OwnerHub is null) ReferenceHub = Server.Host.ReferenceHub;
         else ReferenceHub = basicRagdoll.NetworkInfo.OwnerHub;
         Base = basicRagdoll;
         Dictionary.UpdateOrAdd(basicRagdoll, this);
@@ -189,14 +188,14 @@ public class Ragdoll
     /// <param name="Nickname">The nickname associated with the ragdoll.</param>
     /// <param name="role">The <see cref="PlayerRoles.RoleTypeId"/> of the ragdoll's role.</param>
     /// <param name="damageHandlerBase">The <see cref="PlayerStatsSystem.DamageHandlerBase"/> for the ragdoll.</param>
-    /// <param name="owner">The optional <see cref="NebuliPlayer"/> owner of the ragdoll.</param>
+    /// <param name="owner">The optional <see cref="Player"/> owner of the ragdoll.</param>
     /// <param name="position">The optional position of the ragdoll.</param>
     /// <param name="rotation">The optional rotation of the ragdoll.</param>
     /// <param name="creationTime">The optional creation time of the ragdoll.</param>
     /// <returns>The created <see cref="Ragdoll"/> instance, or <c>null</c> if creation failed.</returns>
-    public static Ragdoll Create(string Nickname, RoleTypeId role, DamageHandlerBase damageHandlerBase, NebuliPlayer owner = null, Vector3 position = default, Quaternion rotation = default, double creationTime = default)
+    public static Ragdoll Create(string Nickname, RoleTypeId role, DamageHandlerBase damageHandlerBase, Player owner = null, Vector3 position = default, Quaternion rotation = default, double creationTime = default)
     {
-        owner ??= Server.NebuliHost;
+        owner ??= Server.Host;
         if (Create(new RagdollData(owner.ReferenceHub, damageHandlerBase, roleType: role, position, rotation, Nickname, creationTime), out Ragdoll ragdoll))
             return ragdoll;
         return null;
@@ -208,14 +207,14 @@ public class Ragdoll
     /// /// <param name="Nickname">The nickname associated with the ragdoll.</param>
     /// <param name="role">The <see cref="PlayerRoles.RoleTypeId"/> of the ragdoll's role.</param>
     /// <param name="damageHandlerBase">The <see cref="PlayerStatsSystem.DamageHandlerBase"/> for the ragdoll.</param>
-    /// <param name="owner">The optional <see cref="NebuliPlayer"/> owner of the ragdoll.</param>
+    /// <param name="owner">The optional <see cref="Player"/> owner of the ragdoll.</param>
     /// <param name="position">The optional position of the ragdoll.</param>
     /// <param name="rotation">The optional rotation of the ragdoll.</param>
     /// <param name="creationTime">The optional creation time of the ragdoll.</param>
     /// <returns>The created <see cref="Ragdoll"/> instance, or <c>null</c> if creation failed.</returns>
-    public static Ragdoll CreateAndSpawn(string Nickname, RoleTypeId role, DamageHandlerBase damageHandlerBase, NebuliPlayer owner = null, Vector3 position = default, Quaternion rotation = default, double creationTime = default)
+    public static Ragdoll CreateAndSpawn(string Nickname, RoleTypeId role, DamageHandlerBase damageHandlerBase, Player owner = null, Vector3 position = default, Quaternion rotation = default, double creationTime = default)
     {
-        owner ??= Server.NebuliHost;
+        owner ??= Server.Host;
         if (Create(new RagdollData(owner.ReferenceHub, damageHandlerBase, roleType: role, position, rotation, Nickname, creationTime), out Ragdoll ragdoll))
         {
             ragdoll.Spawn();

@@ -1,16 +1,20 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file=NebuliPlayer.cs company="NebuliTeam">
+// <copyright file=Player.cs company="NebuliTeam">
 // Copyright (c) NebuliTeam. All rights reserved.
 // Licensed under the MIT license.
 // See LICENSE file in the project root for full license information.
 // -----------------------------------------------------------------------
 
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Reflection;
 using Achievements;
 using CommandSystem;
 using CustomPlayerEffects;
 using Footprinting;
 using GameCore;
-using HarmonyLib;
 using Hints;
 using Interactables.Interobjects.DoorUtils;
 using InventorySystem;
@@ -33,13 +37,6 @@ using PlayerRoles.Voice;
 using PlayerStatsSystem;
 using RelativePositioning;
 using RemoteAdmin;
-using System;
-using System.Collections.Generic;
-using System.Data;
-using System.IO;
-using System.Linq;
-using System.Reflection;
-using System.Runtime.InteropServices.ComTypes;
 using UnityEngine;
 using Utils;
 using Utils.Networking;
@@ -47,22 +44,22 @@ using VoiceChat;
 using static Broadcast;
 using Firearm = Nebuli.API.Features.Items.Firearm;
 
-namespace Nebuli.API.Features.Player;
+namespace Nebuli.API.Features;
 
 /// <summary>
 /// Represents a player in the Nebuli framework.
 /// </summary>
-public class NebuliPlayer
+public class Player
 {
     /// <summary>
-    /// Gets the dictionary that maps ReferenceHub to NebuliPlayer instances.
+    /// Gets the dictionary that maps ReferenceHub to Player instances.
     /// </summary>
-    public static Dictionary<ReferenceHub, NebuliPlayer> Dictionary { get; internal set; } = new(Server.MaxPlayerCount);
+    public static Dictionary<ReferenceHub, Player> Dictionary { get; internal set; } = new(Server.MaxPlayerCount);
 
     private readonly CustomHealthManager _customHealthManager;
     private static int _healthStatIndex = -1;
 
-    internal NebuliPlayer(ReferenceHub hub)
+    internal Player(ReferenceHub hub)
     {
         ReferenceHub = hub;
 
@@ -80,34 +77,34 @@ public class NebuliPlayer
         Dictionary.AddIfMissing(hub, this);
     }
 
-    internal NebuliPlayer(GameObject gameObject)
+    internal Player(GameObject gameObject)
     {
         ReferenceHub hub = ReferenceHub.GetHub(gameObject);
         if (hub is null)
         {
-            Log.Error(gameObject.name + "does not have a ReferenceHub attached to it and therefor a NebuliPlayer cannot be made!");
+            Log.Error(gameObject.name + "does not have a ReferenceHub attached to it and therefor a Player cannot be made!");
             return;
         }
-        new NebuliPlayer(hub);
+        new Player(hub);
     }
 
-    ~NebuliPlayer()
+    ~Player()
     { }
 
     /// <summary>
-    /// Gets a collection of <see cref="NebuliPlayer"/> instances.
+    /// Gets a collection of <see cref="Player"/> instances.
     /// </summary>
-    public static IEnumerable<NebuliPlayer> Collection => Dictionary.Values;
+    public static IEnumerable<Player> Collection => Dictionary.Values;
 
     /// <summary>
     /// Gets a list of all the player's on the server.
     /// </summary>
-    public static List<NebuliPlayer> List => Collection.ToList();
+    public static List<Player> List => Collection.ToList();
 
     /// <summary>
     /// Gets a list of all online staff. This is determined by if the have Remote Admin access or not.
     /// </summary>
-    public static List<NebuliPlayer> OnlineStaff => List.Where(ply => ply.ReferenceHub.serverRoles.RemoteAdmin).ToList();
+    public static List<Player> OnlineStaff => List.Where(ply => ply.ReferenceHub.serverRoles.RemoteAdmin).ToList();
 
     /// <summary>
     /// Gives the player the specified <see cref="AchievementName"/>.
@@ -177,12 +174,12 @@ public class NebuliPlayer
     /// Disarms the player.
     /// </summary>
     /// <param name="disarmer">The player disarming.</param>
-    public void Disarm(NebuliPlayer disarmer) => Inventory.SetDisarmedStatus(disarmer.Inventory);
+    public void Disarm(Player disarmer) => Inventory.SetDisarmedStatus(disarmer.Inventory);
 
     /// <summary>
     /// Gets or sets a disarmer of the player, or null if none.
     /// </summary>
-    public NebuliPlayer Disarmer
+    public Player Disarmer
     {
         get => Get(DisarmedPlayers.Entries.FirstOrDefault(e => e.DisarmedPlayer == NetId).Disarmer);
         set
@@ -216,12 +213,12 @@ public class NebuliPlayer
     public string RawUserId { get; private set; }
 
     /// <summary>
-    /// Gets a <see cref="NebuliPlayer"/> footprint.
+    /// Gets a <see cref="Player"/> footprint.
     /// </summary>
     public Footprint Footprint => new(ReferenceHub);
 
     /// <summary>
-    /// Gets the <see cref="NebuliPlayer"/> <see cref="PlayerCommandSender"/>.
+    /// Gets the <see cref="Player"/> <see cref="PlayerCommandSender"/>.
     /// </summary>
     public PlayerCommandSender Sender => ReferenceHub.queryProcessor._sender;
 
@@ -347,7 +344,7 @@ public class NebuliPlayer
     }
 
     /// <summary>
-    /// Forces the <see cref="NebuliPlayer"/> to look at the position of the <see cref="Vector3"/>.
+    /// Forces the <see cref="Player"/> to look at the position of the <see cref="Vector3"/>.
     /// </summary>
     /// <param name="position">The <see cref="Vector3"/> position to look at.</param>
     /// <param name="lerp">The lerping speed of the camera.</param>
@@ -363,7 +360,7 @@ public class NebuliPlayer
     }
 
     /// <summary>
-    /// Forces the <see cref="NebuliPlayer"/> to look at the direction of the <see cref="Vector3"/>.
+    /// Forces the <see cref="Player"/> to look at the direction of the <see cref="Vector3"/>.
     /// </summary>
     /// <param name="direction">The <see cref="Vector3"/> direction to look at.</param>
     /// <param name="lerp">The lerping speed of the camera.</param>
@@ -400,7 +397,7 @@ public class NebuliPlayer
             try
             {
                 ReferenceHub.transform.localScale = value;
-                foreach (NebuliPlayer player in List)
+                foreach (Player player in List)
                     Server.SendSpawnMessage?.Invoke(null, new object[] { NetworkIdentity, player.NetworkConnection });
             }
             catch (Exception exception)
@@ -732,14 +729,14 @@ public class NebuliPlayer
     }
 
     /// <summary>
-    /// Trys to get a <see cref="NebuliPlayer"/> with the provided Referencehub.
+    /// Trys to get a <see cref="Player"/> with the provided Referencehub.
     /// </summary>
     /// <param name="hub">The players referencehub.</param>
     /// <param name="player">The player that will be returned, if found.</param>
     /// <returns>True if found, otherwise false.</returns>
-    public static bool TryGet(ReferenceHub hub, out NebuliPlayer player)
+    public static bool TryGet(ReferenceHub hub, out Player player)
     {
-        if (hub is not null && Dictionary.TryGetValue(hub, out NebuliPlayer value))
+        if (hub is not null && Dictionary.TryGetValue(hub, out Player value))
         {
             player = value;
             return true;
@@ -750,12 +747,12 @@ public class NebuliPlayer
     }
 
     /// <summary>
-    /// Trys to get a <see cref="NebuliPlayer"/> with the provided GameObject.
+    /// Trys to get a <see cref="Player"/> with the provided GameObject.
     /// </summary>
     /// <param name="gameobject">The players GameObject.</param>
     /// <param name="player">The player that will be returned, if found.</param>
     /// <returns>True if found, otherwise false.</returns>
-    public static bool TryGet(GameObject gameobject, out NebuliPlayer player)
+    public static bool TryGet(GameObject gameobject, out Player player)
     {
         foreach (var ply in Collection)
         {
@@ -771,28 +768,28 @@ public class NebuliPlayer
     }
 
     /// <summary>
-    /// Trys to get a <see cref="NebuliPlayer"/> with the provided MonoBehavior component.
+    /// Trys to get a <see cref="Player"/> with the provided MonoBehavior component.
     /// </summary>
     /// <param name="component">The players Monobehavior component.</param>
     /// <param name="player">The player that will be returned, if found.</param>
     /// <returns>True if found, otherwise false.</returns>
-    public static bool TryGet(MonoBehaviour component, out NebuliPlayer player) => TryGet(component.gameObject, out player);
+    public static bool TryGet(MonoBehaviour component, out Player player) => TryGet(component.gameObject, out player);
 
     /// <summary>
-    /// Trys to get a <see cref="NebuliPlayer"/> with the provided <see cref="NetworkIdentity"/> component.
+    /// Trys to get a <see cref="Player"/> with the provided <see cref="NetworkIdentity"/> component.
     /// </summary>
     /// <param name="identity">The players <see cref="NetworkIdentity"/> component.</param>
     /// <param name="player">The player that will be returned, if found.</param>
     /// <returns>True if found, otherwise false.</returns>
-    public static bool TryGet(NetworkIdentity identity, out NebuliPlayer player) => TryGet(identity.gameObject, out player);
+    public static bool TryGet(NetworkIdentity identity, out Player player) => TryGet(identity.gameObject, out player);
 
     /// <summary>
-    /// Tries to get a NebuliPlayer instance based on their PlayerId.
+    /// Tries to get a Player instance based on their PlayerId.
     /// </summary>
     /// <param name="id">The PlayerId of the player.</param>
-    /// <param name="player">When this method returns, contains the NebuliPlayer instance if found; otherwise, null.</param>
-    /// <returns>True if the NebuliPlayer instance was found; otherwise, false.</returns>
-    public static bool TryGet(int id, out NebuliPlayer player)
+    /// <param name="player">When this method returns, contains the Player instance if found; otherwise, null.</param>
+    /// <returns>True if the Player instance was found; otherwise, false.</returns>
+    public static bool TryGet(int id, out Player player)
     {
         foreach (ReferenceHub hub in ReferenceHub.AllHubs)
         {
@@ -805,12 +802,12 @@ public class NebuliPlayer
     }
 
     /// <summary>
-    /// Tries to get a NebuliPlayer instance based on their NetworkId.
+    /// Tries to get a Player instance based on their NetworkId.
     /// </summary>
     /// <param name="netId">The NetworkId of the player.</param>
-    /// <param name="player">When this method returns, contains the NebuliPlayer instance if found; otherwise, null.</param>
-    /// <returns>True if the NebuliPlayer instance was found; otherwise, false.</returns>
-    public static bool TryGet(uint netId, out NebuliPlayer player)
+    /// <param name="player">When this method returns, contains the Player instance if found; otherwise, null.</param>
+    /// <returns>True if the Player instance was found; otherwise, false.</returns>
+    public static bool TryGet(uint netId, out Player player)
     {
         if (ReferenceHub.TryGetHubNetID(netId, out ReferenceHub hub))
             return TryGet(hub, out player);
@@ -821,14 +818,14 @@ public class NebuliPlayer
 
 
     /// <summary>
-    /// Tries to get a NebuliPlayer instance based on their <see cref="ICommandSender"/>.
+    /// Tries to get a Player instance based on their <see cref="ICommandSender"/>.
     /// </summary>
     /// <param name="sender">The <see cref="ICommandSender"/> of the player.</param>
-    /// <param name="player">When this method returns, contains the NebuliPlayer instance if found; otherwise, null.</param>
-    /// <returns>True if the NebuliPlayer instance was found; otherwise, false.</returns>
-    public static bool TryGet(ICommandSender sender, out NebuliPlayer player)
+    /// <param name="player">When this method returns, contains the Player instance if found; otherwise, null.</param>
+    /// <returns>True if the Player instance was found; otherwise, false.</returns>
+    public static bool TryGet(ICommandSender sender, out Player player)
     {
-        foreach (NebuliPlayer ply in Collection)
+        foreach (Player ply in Collection)
         {
             if (ply.Sender != sender)
                 continue;
@@ -842,113 +839,113 @@ public class NebuliPlayer
     }
 
     /// <summary>
-    /// Gets a NebuliPlayer instance based on a ReferenceHub.
+    /// Gets a Player instance based on a ReferenceHub.
     /// </summary>
     /// <param name="hub">The ReferenceHub of the player.</param>
-    /// <returns>The NebuliPlayer instance if found; otherwise, null.</returns>
-    public static NebuliPlayer Get(ReferenceHub hub)
+    /// <returns>The Player instance if found; otherwise, null.</returns>
+    public static Player Get(ReferenceHub hub)
     {
-        return TryGet(hub, out NebuliPlayer player) ? player : null;
+        return TryGet(hub, out Player player) ? player : null;
     }
 
     /// <summary>
-    /// Gets a NebuliPlayer instance based on a GameObject.
+    /// Gets a Player instance based on a GameObject.
     /// </summary>
     /// <param name="go">The GameObject of the player.</param>
-    /// <returns>The NebuliPlayer instance if found; otherwise, null.</returns>
-    public static NebuliPlayer Get(GameObject go)
+    /// <returns>The Player instance if found; otherwise, null.</returns>
+    public static Player Get(GameObject go)
     {
-        return TryGet(go, out NebuliPlayer player) ? player : null;
+        return TryGet(go, out Player player) ? player : null;
     }
 
     /// <summary>
-    /// Gets a NebuliPlayer instance based on a MonoBehaviour component.
+    /// Gets a Player instance based on a MonoBehaviour component.
     /// </summary>
     /// <param name="component">The MonoBehaviour component of the player.</param>
-    /// <returns>The NebuliPlayer instance if found; otherwise, null.</returns>
-    public static NebuliPlayer Get(MonoBehaviour component)
+    /// <returns>The Player instance if found; otherwise, null.</returns>
+    public static Player Get(MonoBehaviour component)
     {
-        return TryGet(component, out NebuliPlayer player) ? player : null;
+        return TryGet(component, out Player player) ? player : null;
     }
 
     /// <summary>
-    /// Gets a NebuliPlayer instance based on a NetworkIdentity.
+    /// Gets a Player instance based on a NetworkIdentity.
     /// </summary>
     /// <param name="identity">The NetworkIdentity of the player.</param>
-    /// <returns>The NebuliPlayer instance if found; otherwise, null.</returns>
-    public static NebuliPlayer Get(NetworkIdentity identity)
+    /// <returns>The Player instance if found; otherwise, null.</returns>
+    public static Player Get(NetworkIdentity identity)
     {
-        return TryGet(identity, out NebuliPlayer player) ? player : null;
+        return TryGet(identity, out Player player) ? player : null;
     }
 
     /// <summary>
-    /// Gets a NebuliPlayer instance based on their PlayerId.
+    /// Gets a Player instance based on their PlayerId.
     /// </summary>
     /// <param name="id">The PlayerId of the player.</param>
-    /// <returns>The NebuliPlayer instance if found; otherwise, null.</returns>
-    public static NebuliPlayer Get(int id)
+    /// <returns>The Player instance if found; otherwise, null.</returns>
+    public static Player Get(int id)
     {
-        return TryGet(id, out NebuliPlayer player) ? player : null;
+        return TryGet(id, out Player player) ? player : null;
     }
 
     /// <summary>
-    /// Gets a NebuliPlayer instance based on their NetworkId.
+    /// Gets a Player instance based on their NetworkId.
     /// </summary>
     /// <param name="netId">The NetworkId of the player.</param>
-    /// <returns>The NebuliPlayer instance if found; otherwise, null.</returns>
-    public static NebuliPlayer Get(uint netId)
+    /// <returns>The Player instance if found; otherwise, null.</returns>
+    public static Player Get(uint netId)
     {
-        return TryGet(netId, out NebuliPlayer player) ? player : null;
+        return TryGet(netId, out Player player) ? player : null;
     }
 
     /// <summary>
-    /// Gets a <see cref="NebuliPlayer"/> with the <see cref="ICommandSender"/>.
+    /// Gets a <see cref="Player"/> with the <see cref="ICommandSender"/>.
     /// </summary>
-    /// <param name="sender">The <see cref="ICommandSender"/> to get the <see cref="NebuliPlayer"/> with.</param>
+    /// <param name="sender">The <see cref="ICommandSender"/> to get the <see cref="Player"/> with.</param>
     /// <returns></returns>
-    public static NebuliPlayer Get(ICommandSender sender) => TryGet(sender, out NebuliPlayer player) ? player : null;
+    public static Player Get(ICommandSender sender) => TryGet(sender, out Player player) ? player : null;
 
     /// <summary>
-    /// Gets a <see cref="NebuliPlayer"/> with the specified <see cref="Footprinting.Footprint"/>.
+    /// Gets a <see cref="Player"/> with the specified <see cref="Footprinting.Footprint"/>.
     /// </summary>
-    /// <param name="footprint">The <see cref="Footprinting.Footprint"/> to use to find the <see cref="NebuliPlayer"/>.</param>
+    /// <param name="footprint">The <see cref="Footprinting.Footprint"/> to use to find the <see cref="Player"/>.</param>
     /// <returns></returns>
-    public static NebuliPlayer Get(Footprint footprint) => Get(footprint.Hub);
+    public static Player Get(Footprint footprint) => Get(footprint.Hub);
 
     /// <summary>
-    /// Gets a <see cref="NebuliPlayer"/> by a variable.
+    /// Gets a <see cref="Player"/> by a variable.
     /// </summary>
     /// <remarks>You can pass a <see cref="RawUserId"/>, a <see cref="UserId"/>, a <see cref="Id"/>, a <see cref="NetId"/>, and the players <see cref="Nickname"/>. Otherwise, null.</remarks>
-    public static NebuliPlayer Get(string variable) => TryGet(variable, out NebuliPlayer player) ? player : null;
+    public static Player Get(string variable) => TryGet(variable, out Player player) ? player : null;
 
     /// <summary>
-    /// Tries to get a <see cref="NebuliPlayer"/> by a variable.
+    /// Tries to get a <see cref="Player"/> by a variable.
     /// </summary>
     /// <remarks>You can pass a <see cref="RawUserId"/>, a <see cref="UserId"/>, a <see cref="Id"/>, a <see cref="NetId"/>, and the players <see cref="Nickname"/>. Otherwise, null.</remarks>
-    public static bool TryGet(string variable, out NebuliPlayer player)
+    public static bool TryGet(string variable, out Player player)
     {
         player = null;
         if (string.IsNullOrEmpty(variable)) return false;
 
-        if (List.FirstOrDefault(ply => ply.RawUserId == variable || ply.UserId == variable) is NebuliPlayer ply)
+        if (List.FirstOrDefault(ply => ply.RawUserId == variable || ply.UserId == variable) is Player ply)
         {
             player = ply;
             return true;
         }
 
-        if (int.TryParse(variable, out int ID) && TryGet(ID, out NebuliPlayer plyID))
+        if (int.TryParse(variable, out int ID) && TryGet(ID, out Player plyID))
         {
             player = plyID;
             return true;
         }
 
-        if (uint.TryParse(variable, out uint NID) && TryGet(NID, out NebuliPlayer plyNID))
+        if (uint.TryParse(variable, out uint NID) && TryGet(NID, out Player plyNID))
         {
             player = plyNID;
             return true;
         }
 
-        if (List.FirstOrDefault(ply => ply.Nickname.Equals(variable, StringComparison.OrdinalIgnoreCase)) is NebuliPlayer plyByUsername)
+        if (List.FirstOrDefault(ply => ply.Nickname.Equals(variable, StringComparison.OrdinalIgnoreCase)) is Player plyByUsername)
         {
             player = plyByUsername;
             return true;
@@ -1431,7 +1428,7 @@ public class NebuliPlayer
         else
         {
             item.Base.OnRemoved(null);
-            item.Base.Owner = Server.NebuliHost.ReferenceHub;
+            item.Base.Owner = Server.Host.ReferenceHub;
             item.Base.OnAdded(null);
             if (CurrentItem is not null && CurrentItem.Serial == item.Serial)
             {
@@ -1523,7 +1520,7 @@ public class NebuliPlayer
     /// </summary>
     /// <param name="player">The player to check.</param>
     /// <returns></returns>
-    public static bool HasAnyPermission(NebuliPlayer player)
+    public static bool HasAnyPermission(Player player)
     {
         foreach (PlayerPermissions perm in PermissionsHandler.PermissionCodes.Keys)
             if (player.HasPlayerPermission(perm))

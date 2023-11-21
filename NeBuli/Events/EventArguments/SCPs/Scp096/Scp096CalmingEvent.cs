@@ -5,9 +5,9 @@
 // See LICENSE file in the project root for full license information.
 // -----------------------------------------------------------------------
 
-using Nebuli.API.Features.Player;
 using Nebuli.Events.EventArguments.Interfaces;
 using System;
+using Nebuli.API.Features;
 
 namespace Nebuli.Events.EventArguments.SCPs.Scp096;
 
@@ -18,7 +18,7 @@ public class Scp096CalmingEvent : EventArgs, IPlayerEvent, ICancellableEvent
 {
     public Scp096CalmingEvent(ReferenceHub player, bool clearingTime)
     {
-        Player = NebuliPlayer.Get(player);
+        Player = API.Features.Player.Get(player);
         ClearingTime = clearingTime;
         IsCancelled = false;
     }
@@ -26,7 +26,7 @@ public class Scp096CalmingEvent : EventArgs, IPlayerEvent, ICancellableEvent
     /// <summary>
     /// Gets the player triggering the event.
     /// </summary>
-    public NebuliPlayer Player { get; }
+    public API.Features.Player Player { get; }
 
     /// <summary>
     /// Gets or sets if the remaining time will be cleared or not.

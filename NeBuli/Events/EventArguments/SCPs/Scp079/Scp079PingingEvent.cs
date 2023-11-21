@@ -7,10 +7,10 @@
 
 using Nebuli.API.Features.Enum;
 using Nebuli.API.Features.Map;
-using Nebuli.API.Features.Player;
 using Nebuli.Events.EventArguments.Interfaces;
 using RelativePositioning;
 using System;
+using Nebuli.API.Features;
 using UnityEngine;
 
 namespace Nebuli.Events.EventArguments.SCPs.Scp079;
@@ -22,7 +22,7 @@ public class Scp079PingingEvent : EventArgs, IPlayerEvent, ICancellableEvent
 {
     public Scp079PingingEvent(ReferenceHub player, RelativePosition pos, int powerCost, byte index, Vector3 syncPos)
     {
-        Player = NebuliPlayer.Get(player);
+        Player = API.Features.Player.Get(player);
         Room = Room.Get(pos.Position);
         PingType = (Scp079PingType)index;
         PowerCost = powerCost;
@@ -34,7 +34,7 @@ public class Scp079PingingEvent : EventArgs, IPlayerEvent, ICancellableEvent
     /// <summary>
     /// Gets the player triggering the event.
     /// </summary>
-    public NebuliPlayer Player { get; }
+    public API.Features.Player Player { get; }
 
     /// <summary>
     /// Gets the <see cref="API.Features.Map.Room"/> the ping is in.

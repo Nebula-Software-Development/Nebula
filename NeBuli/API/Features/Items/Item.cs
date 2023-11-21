@@ -23,7 +23,6 @@ using Nebuli.API.Features.Items.Pickups;
 using Nebuli.API.Features.Items.SCPs;
 using Nebuli.API.Features.Items.Throwables;
 using Nebuli.API.Features.Map;
-using Nebuli.API.Features.Player;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -49,9 +48,9 @@ public class Item
     public ReferenceHub OwnerRefHub => Base.Owner;
 
     /// <summary>
-    /// Tries to get the <see cref="NebuliPlayer"/> (owner) of the Item.
+    /// Tries to get the <see cref="Player"/> (owner) of the Item.
     /// </summary>
-    public NebuliPlayer Owner => NebuliPlayer.Get(OwnerRefHub);
+    public Player Owner => Player.Get(OwnerRefHub);
 
     /// <summary>
     /// Creates a new item by wrapping a <see cref="ItemBase"/>.
@@ -169,7 +168,7 @@ public class Item
     /// <param name="itemType">The type of the new item.</param>
     public static Item Create(ItemType itemType)
     {
-        return Get(Server.NebuliHost.ReferenceHub.inventory.CreateItemInstance(new(itemType, 0), false));
+        return Get(Server.Host.ReferenceHub.inventory.CreateItemInstance(new(itemType, 0), false));
     }
 
     /// <summary>
@@ -190,7 +189,7 @@ public class Item
     /// <summary>
     /// Gives the item to a player.
     /// </summary>
-    public void Give(NebuliPlayer ply) => ply.AddItem(this);
+    public void Give(Player ply) => ply.AddItem(this);
 
     /// <summary>
     /// Removes and destroys the item from the owners inventory.
@@ -203,7 +202,7 @@ public class Item
     /// <param name="itemType">The ItemType to give. </param>>
     /// <param name="owner">The owner of the item.</param>
     /// <param name="attachments">The attachments on the weapon.</param>
-    public static Item CreateAndGive(ItemType itemType, NebuliPlayer owner, Attachment[] attachments = null)
+    public static Item CreateAndGive(ItemType itemType, Player owner, Attachment[] attachments = null)
     {
         ItemBase item = owner.Inventory.ServerAddItem(itemType);
         if (item is InventorySystem.Items.Firearms.Firearm firearm)

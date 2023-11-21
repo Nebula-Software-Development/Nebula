@@ -10,7 +10,6 @@ using InventorySystem.Items.Pickups;
 using InventorySystem.Items.ThrowableProjectiles;
 using Nebuli.API.Features.Items.Pickups;
 using Nebuli.API.Features.Items.Projectiles;
-using Nebuli.API.Features.Player;
 using UnityEngine;
 
 namespace Nebuli.API.Features.Items.Throwables;
@@ -33,7 +32,7 @@ public class FlashbangGrenade : Throwable
     /// <param name="position"></param>
     /// <param name="owner"></param>
     /// <returns></returns>
-    public FlashbangProjectile SpawnAndActivate(Vector3 position, NebuliPlayer owner = null)
+    public FlashbangProjectile SpawnAndActivate(Vector3 position, Player owner = null)
     {
         ItemPickupBase newGrenade = Object.Instantiate(Projectile.Base, position, Quaternion.identity);
         newGrenade.Info = new PickupSyncInfo(Base.ItemType, Base.ItemWeightKg, ItemSerialGenerator.GenerateNext());
@@ -42,7 +41,7 @@ public class FlashbangGrenade : Throwable
         grenade.AdditionalBlurDuration = Base.AdditionalBlurDuration;
         grenade.SurfaceZoneDistanceIntensifier = Base.SurfaceZoneDistanceIntensifier;
         grenade.FuzeTime = Base.FuzeTime;
-        grenade.PreviousOwner = owner ?? Server.NebuliHost;
+        grenade.PreviousOwner = owner ?? Server.Host;
         grenade.Spawn();
         grenade.Base.gameObject.SetActive(true);
         grenade.Base.ServerActivate();
@@ -55,7 +54,7 @@ public class FlashbangGrenade : Throwable
     /// <param name="position"></param>
     /// <param name="owner"></param>
     /// <returns></returns>
-    public FlashbangProjectile Spawn(Vector3 position, NebuliPlayer owner = null)
+    public FlashbangProjectile Spawn(Vector3 position, Player owner = null)
     {
         ItemPickupBase newGrenade = Object.Instantiate(Projectile.Base, position, Quaternion.identity);
         newGrenade.Info = new PickupSyncInfo(Base.ItemType, Base.ItemWeightKg, ItemSerialGenerator.GenerateNext());
@@ -64,7 +63,7 @@ public class FlashbangGrenade : Throwable
         grenade.AdditionalBlurDuration = Base.AdditionalBlurDuration;
         grenade.SurfaceZoneDistanceIntensifier = Base.SurfaceZoneDistanceIntensifier;
         grenade.FuzeTime = Base.FuzeTime;
-        grenade.PreviousOwner = owner ?? Server.NebuliHost;
+        grenade.PreviousOwner = owner ?? Server.Host;
         grenade.Spawn();
         grenade.Base.gameObject.SetActive(true);
         return grenade;

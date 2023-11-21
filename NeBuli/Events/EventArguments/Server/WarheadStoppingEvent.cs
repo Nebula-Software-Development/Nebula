@@ -5,9 +5,9 @@
 // See LICENSE file in the project root for full license information.
 // -----------------------------------------------------------------------
 
-using Nebuli.API.Features.Player;
 using Nebuli.Events.EventArguments.Interfaces;
 using System;
+using Nebuli.API.Features;
 
 namespace Nebuli.Events.EventArguments.Server;
 
@@ -18,14 +18,14 @@ public class WarheadStoppingEvent : EventArgs, IPlayerEvent, ICancellableEvent
 {
     public WarheadStoppingEvent(ReferenceHub player)
     {
-        Player = player == null ? API.Features.Server.NebuliHost : NebuliPlayer.Get(player);
+        Player = player == null ? API.Features.Server.Host : API.Features.Player.Get(player);
         IsCancelled = false;
     }
 
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    public NebuliPlayer Player { get; }
+    public API.Features.Player Player { get; }
 
     /// <summary>
     /// <inheritdoc/>

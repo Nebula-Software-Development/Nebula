@@ -6,7 +6,6 @@
 // -----------------------------------------------------------------------
 
 using Nebuli.API.Features;
-using Nebuli.API.Features.Player;
 using Nebuli.Events.EventArguments.Interfaces;
 using PlayerRoles.Ragdolls;
 using System;
@@ -20,7 +19,7 @@ public class Scp049FinishResurrectEvent : EventArgs, IPlayerEvent, IRadgollEvent
 {
     public Scp049FinishResurrectEvent(ReferenceHub player, BasicRagdoll baseRagdoll)
     {
-        Player = NebuliPlayer.Get(player);
+        Player = API.Features.Player.Get(player);
         Ragdoll = Ragdoll.Get(baseRagdoll);
         IsCancelled = false;
     }
@@ -28,7 +27,7 @@ public class Scp049FinishResurrectEvent : EventArgs, IPlayerEvent, IRadgollEvent
     /// <summary>
     /// Gets the player triggering the event.
     /// </summary>
-    public NebuliPlayer Player { get; }
+    public API.Features.Player Player { get; }
 
     /// <summary>
     /// Gets the <see cref="API.Features.Ragdoll"/> that was resurrected.

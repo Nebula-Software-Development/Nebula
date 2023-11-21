@@ -5,8 +5,8 @@
 // See LICENSE file in the project root for full license information.
 // -----------------------------------------------------------------------
 
+using Nebuli.API.Features;
 using Nebuli.API.Features.Enum;
-using Nebuli.API.Features.Player;
 
 namespace Nebuli.API.Extensions;
 
@@ -16,11 +16,11 @@ namespace Nebuli.API.Extensions;
 public static class ReferenceHubExtensions
 {
     /// <summary>
-    /// Converts a <see cref="ReferenceHub"/> into a <see cref="NebuliPlayer"/>.
+    /// Converts a <see cref="ReferenceHub"/> into a <see cref="Player"/>.
     /// </summary>
     /// <param name="referenceHub"></param>
     /// <returns></returns>
-    public static NebuliPlayer ToNebuliPlayer(this ReferenceHub referenceHub) => referenceHub == null ? null : NebuliPlayer.Get(referenceHub);
+    public static Player ToNebuliPlayer(this ReferenceHub referenceHub) => referenceHub == null ? null : Player.Get(referenceHub);
 
     /// <summary>
     /// Converts a <see cref="RankColorType"/> enum value to its string representation.

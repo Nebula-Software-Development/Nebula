@@ -5,9 +5,9 @@
 // See LICENSE file in the project root for full license information.
 // -----------------------------------------------------------------------
 
-using Nebuli.API.Features.Player;
 using Nebuli.Events.EventArguments.Interfaces;
 using System;
+using Nebuli.API.Features;
 
 namespace Nebuli.Events.EventArguments.Player;
 
@@ -16,7 +16,7 @@ namespace Nebuli.Events.EventArguments.Player;
 /// </summary>
 public class PlayerTogglingNoClipEvent : EventArgs, IPlayerEvent, ICancellableEvent
 {
-    public PlayerTogglingNoClipEvent(bool isPermitted, NebuliPlayer player, bool oldState)
+    public PlayerTogglingNoClipEvent(bool isPermitted, API.Features.Player player, bool oldState)
     {
         Player = player;
         IsCancelled = false;
@@ -27,7 +27,7 @@ public class PlayerTogglingNoClipEvent : EventArgs, IPlayerEvent, ICancellableEv
     /// <summary>
     /// Gets the player triggering the event.
     /// </summary>
-    public NebuliPlayer Player { get; }
+    public API.Features.Player Player { get; }
 
     /// <summary>
     /// Gets or sets if the event is cancelled.

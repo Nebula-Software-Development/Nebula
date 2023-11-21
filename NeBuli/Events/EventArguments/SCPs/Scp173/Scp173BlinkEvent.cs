@@ -5,10 +5,10 @@
 // See LICENSE file in the project root for full license information.
 // -----------------------------------------------------------------------
 
-using Nebuli.API.Features.Player;
 using Nebuli.Events.EventArguments.Interfaces;
 using System;
 using System.Collections.Generic;
+using Nebuli.API.Features;
 using UnityEngine;
 
 namespace Nebuli.Events.EventArguments.SCPs.Scp173;
@@ -18,9 +18,9 @@ namespace Nebuli.Events.EventArguments.SCPs.Scp173;
 /// </summary>
 public class Scp173BlinkEvent : EventArgs, IPlayerEvent, ICancellableEvent
 {
-    public Scp173BlinkEvent(ReferenceHub player, Vector3 position, List<NebuliPlayer> blinkers)
+    public Scp173BlinkEvent(ReferenceHub player, Vector3 position, List<API.Features.Player> blinkers)
     {
-        Player = NebuliPlayer.Get(player);
+        Player = API.Features.Player.Get(player);
         Position = position;
         IsCancelled = false;
         Blinkers = blinkers;
@@ -29,7 +29,7 @@ public class Scp173BlinkEvent : EventArgs, IPlayerEvent, ICancellableEvent
     /// <summary>
     /// The player triggering the event.
     /// </summary>
-    public NebuliPlayer Player { get; }
+    public API.Features.Player Player { get; }
 
     /// <summary>
     /// The position 173 will be teleported to.
@@ -44,5 +44,5 @@ public class Scp173BlinkEvent : EventArgs, IPlayerEvent, ICancellableEvent
     /// <summary>
     /// Gets the players blinking.
     /// </summary>
-    public List<NebuliPlayer> Blinkers { get; }
+    public List<API.Features.Player> Blinkers { get; }
 }

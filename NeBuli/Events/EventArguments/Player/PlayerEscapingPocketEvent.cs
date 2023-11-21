@@ -5,9 +5,9 @@
 // See LICENSE file in the project root for full license information.
 // -----------------------------------------------------------------------
 
-using Nebuli.API.Features.Player;
 using Nebuli.Events.EventArguments.Interfaces;
 using System;
+using Nebuli.API.Features;
 
 namespace Nebuli.Events.EventArguments.Player;
 
@@ -18,7 +18,7 @@ public class PlayerEscapingPocketEvent : EventArgs, IPlayerEvent, ICancellableEv
 {
     public PlayerEscapingPocketEvent(ReferenceHub player, bool successful)
     {
-        Player = NebuliPlayer.Get(player);
+        Player = API.Features.Player.Get(player);
         IsCancelled = false;
         Successful = successful;
     }
@@ -26,7 +26,7 @@ public class PlayerEscapingPocketEvent : EventArgs, IPlayerEvent, ICancellableEv
     /// <summary>
     /// The player calling the event.
     /// </summary>
-    public NebuliPlayer Player { get; }
+    public API.Features.Player Player { get; }
 
     /// <summary>
     /// If the escape was succesful or not.

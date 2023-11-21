@@ -1,47 +1,47 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file=NebuliNpc.cs company="NebuliTeam">
+// <copyright file=Npc.cs company="NebuliTeam">
 // Copyright (c) NebuliTeam. All rights reserved.
 // Licensed under the MIT license.
 // See LICENSE file in the project root for full license information.
 // -----------------------------------------------------------------------
 
-using MEC;
-using Mirror;
-using PlayerRoles;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using MEC;
+using Mirror;
+using PlayerRoles;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
-namespace Nebuli.API.Features.Player;
+namespace Nebuli.API.Features;
 
 /// <summary>
-/// Class for handling <see cref="NebuliNpc"/> easily in-game.
+/// Class for handling <see cref="Npc"/> easily in-game.
 /// </summary>
-public class NebuliNpc : NebuliPlayer
+public class Npc : Player
 {
     /// <summary>
-    /// Creates a new <see cref="NebuliNpc"/> with a specified <see cref="ReferenceHub"/>.
+    /// Creates a new <see cref="Npc"/> with a specified <see cref="ReferenceHub"/>.
     /// </summary>
     /// <param name="hub">The <see cref="ReferenceHub"/> to use to create the NPC.</param>
-    internal NebuliNpc(ReferenceHub hub) : base(hub)
+    internal Npc(ReferenceHub hub) : base(hub)
     { }
 
     /// <summary>
-    /// Creates a new <see cref="NebuliNpc"/> with a specified <see cref="GameObject"/>.
+    /// Creates a new <see cref="Npc"/> with a specified <see cref="GameObject"/>.
     /// </summary>
     /// <param name="gameObject">The <see cref="GameObject"/> to use to create the NPC.</param>
-    internal NebuliNpc(GameObject gameObject) : base(gameObject)
+    internal Npc(GameObject gameObject) : base(gameObject)
     { }
 
     /// <summary>
-    /// Gets a list of all the <see cref="NebuliNpc"/> instances.
+    /// Gets a list of all the <see cref="Npc"/> instances.
     /// </summary>
-    public new static List<NebuliNpc> List => 
-    NebuliPlayer.List
-    .Where(player => player is NebuliNpc)
-    .Cast<NebuliNpc>()
+    public new static List<Npc> List => 
+    Player.List
+    .Where(player => player is Npc)
+    .Cast<Npc>()
     .ToList();
 
 
@@ -52,13 +52,13 @@ public class NebuliNpc : NebuliPlayer
     /// <param name="role">The <see cref="RoleTypeId"/> of the NPC.</param>
     /// <param name="ID">The ID of the NPC.</param>
     /// <param name="UserId">The UserID of the NPC.</param>
-    /// <returns>A newly created <see cref="NebuliNpc"/>.</returns>
-    public static NebuliNpc CreateNPC(string name, RoleTypeId role, int ID, string UserId = null)
+    /// <returns>A newly created <see cref="Npc"/>.</returns>
+    public static Npc CreateNPC(string name, RoleTypeId role, int ID, string UserId = null)
     {
         try
         {
             GameObject newPlayer = Object.Instantiate(NetworkManager.singleton.playerPrefab);
-            NebuliNpc newNPC = new(newPlayer);
+            Npc newNPC = new(newPlayer);
             try
             {
                 newNPC.ReferenceHub.roleManager.InitializeNewRole(RoleTypeId.None, RoleChangeReason.None);

@@ -6,7 +6,6 @@
 // -----------------------------------------------------------------------
 
 using Nebuli.API.Features;
-using Nebuli.API.Features.Player;
 using Nebuli.Events.EventArguments.Interfaces;
 using PlayerRoles.Ragdolls;
 using PlayerStatsSystem;
@@ -21,7 +20,7 @@ public class PlayerSpawningRagdollEvent : EventArgs, IPlayerEvent, ICancellableE
 {
     public PlayerSpawningRagdollEvent(ReferenceHub owner, DamageHandlerBase damageHandlerBase, BasicRagdoll basicRagdoll)
     {
-        Player = NebuliPlayer.Get(owner);
+        Player = API.Features.Player.Get(owner);
         Ragdoll = Ragdoll.Get(basicRagdoll);
         DamageHandler = damageHandlerBase;
         IsCancelled = false;
@@ -30,7 +29,7 @@ public class PlayerSpawningRagdollEvent : EventArgs, IPlayerEvent, ICancellableE
     /// <summary>
     /// Gets the owner of the ragdoll.
     /// </summary>
-    public NebuliPlayer Player { get; }
+    public API.Features.Player Player { get; }
 
     /// <summary>
     /// Gets or sets if the event is cancelled.

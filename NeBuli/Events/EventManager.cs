@@ -21,7 +21,6 @@ using Nebuli.API.Features.Enum;
 using Nebuli.API.Features.Items;
 using Nebuli.API.Features.Items.Pickups;
 using Nebuli.API.Features.Map;
-using Nebuli.API.Features.Player;
 using Nebuli.API.Features.Pools;
 using Nebuli.API.Features.Structs;
 using Nebuli.Events.Handlers;
@@ -154,7 +153,7 @@ public static class EventManager
     {
         if (scene.name != "Facility")
             return;
-        NebuliPlayer.Dictionary.Clear();
+        Player.Dictionary.Clear();
         Ragdoll.Dictionary.Clear();
         Generator.Dictionary.Clear();
         Room.Dictionary.Clear();
@@ -178,7 +177,7 @@ public static class EventManager
             Window.Get(breakableWindow);
         foreach (PlayerRoles.PlayableScps.Scp079.Cameras.Scp079Camera camera in Object.FindObjectsOfType<PlayerRoles.PlayableScps.Scp079.Cameras.Scp079Camera>())
             Camera.Get(camera);
-        if (ReferenceHub.TryGetHostHub(out ReferenceHub hub)) Server.NebuliHost = new(hub);
+        if (ReferenceHub.TryGetHostHub(out ReferenceHub hub)) Server.Host = new(hub);
         GenerateAttachments();
     }
 

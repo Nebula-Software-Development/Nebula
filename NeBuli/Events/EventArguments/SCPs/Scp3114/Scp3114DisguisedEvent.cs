@@ -6,7 +6,6 @@
 // -----------------------------------------------------------------------
 
 using Nebuli.API.Features;
-using Nebuli.API.Features.Player;
 using Nebuli.Events.EventArguments.Interfaces;
 using PlayerRoles.Ragdolls;
 using System;
@@ -20,14 +19,14 @@ public class Scp3114DisguisedEvent : EventArgs, IPlayerEvent
 {
     public Scp3114DisguisedEvent(ReferenceHub player, DynamicRagdoll ragdoll)
     {
-        Player = NebuliPlayer.Get(player);
+        Player = API.Features.Player.Get(player);
         Ragdoll = Ragdoll.Get(ragdoll);
     }
 
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    public NebuliPlayer Player { get; }
+    public API.Features.Player Player { get; }
 
     /// <summary>
     /// The ragdoll that was disgused into.

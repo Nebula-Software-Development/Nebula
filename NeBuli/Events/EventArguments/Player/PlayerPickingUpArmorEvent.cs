@@ -7,9 +7,9 @@
 
 using InventorySystem.Items.Pickups;
 using Nebuli.API.Features.Items.Pickups;
-using Nebuli.API.Features.Player;
 using Nebuli.Events.EventArguments.Interfaces;
 using System;
+using Nebuli.API.Features;
 
 namespace Nebuli.Events.EventArguments.Player;
 
@@ -20,12 +20,12 @@ public class PlayerPickingUpArmorEvent : EventArgs, IPlayerEvent, ICancellableEv
 {
     public PlayerPickingUpArmorEvent(ReferenceHub player, ItemPickupBase armor)
     {
-        Player = NebuliPlayer.Get(player);
+        Player = API.Features.Player.Get(player);
         Armor = (ArmorPickup)Pickup.Get(armor);
         IsCancelled = false;
     }
 
-    public NebuliPlayer Player { get; }
+    public API.Features.Player Player { get; }
 
     /// <summary>
     /// The <see cref="ArmorPickup"/> being picked up.

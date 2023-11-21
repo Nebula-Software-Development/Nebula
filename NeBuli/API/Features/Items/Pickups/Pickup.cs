@@ -14,7 +14,6 @@ using Nebuli.API.Extensions;
 using Nebuli.API.Features.Items.Pickups.SCPs;
 using Nebuli.API.Features.Items.Projectiles;
 using Nebuli.API.Features.Map;
-using Nebuli.API.Features.Player;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -139,7 +138,7 @@ public class Pickup
     /// Sets the search time needed to pick this item up by the specified player.
     /// </summary>
     /// <param name="player">The player to set it to.</param>
-    public void SearchTime(NebuliPlayer player) => Base.SearchTimeForPlayer(player.ReferenceHub);
+    public void SearchTime(Player player) => Base.SearchTimeForPlayer(player.ReferenceHub);
 
     /// <summary>
     /// Sets the search time needed to pick this item up by the specified ReferenceHub.
@@ -213,11 +212,11 @@ public class Pickup
     }
 
     /// <summary>
-    /// Gets the previous owner as a <see cref="NebuliPlayer"/>.
+    /// Gets the previous owner as a <see cref="Player"/>.
     /// </summary>
-    public NebuliPlayer PreviousOwner
+    public Player PreviousOwner
     {
-        get => NebuliPlayer.Get(Base.PreviousOwner);
+        get => Player.Get(Base.PreviousOwner);
         set => Base.PreviousOwner = value.Footprint;
     }
 
@@ -246,9 +245,9 @@ public class Pickup
     /// <param name="position">The position where the pickup should spawn.</param>
     /// <param name="rotation">The rotation of the pickup when spawned.</param>
     /// <param name="oldOwner">The previous owner of the pickup. If null, the server's host player will be the previous owner.</param>
-    public static void SpawnPickup(Pickup pickup, Vector3 position = default, Quaternion rotation = default, NebuliPlayer oldOwner = null)
+    public static void SpawnPickup(Pickup pickup, Vector3 position = default, Quaternion rotation = default, Player oldOwner = null)
     {
-        oldOwner ??= Server.NebuliHost;
+        oldOwner ??= Server.Host;
         pickup.Position = position;
         pickup.Rotation = rotation;
         pickup.PreviousOwner = oldOwner;

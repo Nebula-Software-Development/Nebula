@@ -6,11 +6,11 @@
 // -----------------------------------------------------------------------
 
 using Nebuli.API.Features.Enum;
-using Nebuli.API.Features.Player;
 using Nebuli.Events.EventArguments.Interfaces;
 using PlayerRoles;
 using Respawning;
 using System;
+using Nebuli.API.Features;
 using static Escape;
 
 namespace Nebuli.Events.EventArguments.Player;
@@ -22,7 +22,7 @@ public class PlayerEscapingEvent : EventArgs, IPlayerEvent, ICancellableEvent
 {
     public PlayerEscapingEvent(ReferenceHub player, RoleTypeId newRole, EscapeScenarioType escapeType, EscapeMessage escapeMessage, SpawnableTeamType team)
     {
-        Player = NebuliPlayer.Get(player);
+        Player = API.Features.Player.Get(player);
         NewRole = newRole;
         EscapeMessage = escapeMessage;
         OldRole = player.GetRoleId();
@@ -36,7 +36,7 @@ public class PlayerEscapingEvent : EventArgs, IPlayerEvent, ICancellableEvent
     /// <summary>
     /// The player that is escaping.
     /// </summary>
-    public NebuliPlayer Player { get; }
+    public API.Features.Player Player { get; }
 
     /// <summary>
     /// Gets the <see cref="Escape.EscapeMessage"/> for the event.

@@ -5,9 +5,9 @@
 // See LICENSE file in the project root for full license information.
 // -----------------------------------------------------------------------
 
-using Nebuli.API.Features.Player;
 using Nebuli.Events.EventArguments.Interfaces;
 using System;
+using Nebuli.API.Features;
 
 namespace Nebuli.Events.EventArguments.SCPs.Scp049;
 
@@ -18,8 +18,8 @@ public class Scp049UseSenseEvent : EventArgs, IPlayerEvent, ICancellableEvent
 {
     public Scp049UseSenseEvent(ReferenceHub player, ReferenceHub target, float distance)
     {
-        Player = NebuliPlayer.Get(player);
-        Target = NebuliPlayer.Get(target);
+        Player = API.Features.Player.Get(player);
+        Target = API.Features.Player.Get(target);
         Distance = distance;
         IsCancelled = false;
     }
@@ -27,12 +27,12 @@ public class Scp049UseSenseEvent : EventArgs, IPlayerEvent, ICancellableEvent
     /// <summary>
     /// Gets the player triggering the event.
     /// </summary>
-    public NebuliPlayer Player { get; }
+    public API.Features.Player Player { get; }
 
     /// <summary>
     /// Gets the events target.
     /// </summary>
-    public NebuliPlayer Target { get; }
+    public API.Features.Player Target { get; }
 
     /// <summary>
     /// Gets or sets the distance from SCP-049 to the target.

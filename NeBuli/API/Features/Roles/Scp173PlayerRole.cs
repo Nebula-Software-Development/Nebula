@@ -6,7 +6,6 @@
 // -----------------------------------------------------------------------
 
 using Mirror;
-using Nebuli.API.Features.Player;
 using PlayerRoles;
 using PlayerRoles.FirstPersonControl;
 using PlayerRoles.PlayableScps.HumeShield;
@@ -75,9 +74,9 @@ public class Scp173PlayerRole : FpcRoleBase
     }
 
     /// <summary>
-    /// Gets a list of <see cref="NebuliPlayer"/>'s who are watching SCP-173.
+    /// Gets a list of <see cref="Player"/>'s who are watching SCP-173.
     /// </summary>
-    public List<NebuliPlayer> PlayersWatching => ObserversTracker.Observers.Select(p => NebuliPlayer.Get(p)).ToList();
+    public List<Player> PlayersWatching => ObserversTracker.Observers.Select(p => Player.Get(p)).ToList();
 
     /// <summary>
     /// Checks if SCP-173 is currently being watched.
@@ -85,12 +84,12 @@ public class Scp173PlayerRole : FpcRoleBase
     public bool IsBeingWatched => ObserversTracker.IsObserved;
 
     /// <summary>
-    /// Checks if SCP-173 is being watched by a specific <see cref="NebuliPlayer"/>.
+    /// Checks if SCP-173 is being watched by a specific <see cref="Player"/>.
     /// </summary>
-    /// <param name="player">The <see cref="NebuliPlayer"/> to check against.</param>
+    /// <param name="player">The <see cref="Player"/> to check against.</param>
     /// <param name="widthMultiplier">The optional width multiplier.</param>
-    /// <returns>Returns true if SCP-173 is being watched by the specified <see cref="NebuliPlayer"/>; otherwise, false.</returns>
-    public bool IsBeingWatchedBy(NebuliPlayer player, float widthMultiplier = 1) => ObserversTracker.IsObservedBy(player.ReferenceHub, widthMultiplier);
+    /// <returns>Returns true if SCP-173 is being watched by the specified <see cref="Player"/>; otherwise, false.</returns>
+    public bool IsBeingWatchedBy(Player player, float widthMultiplier = 1) => ObserversTracker.IsObservedBy(player.ReferenceHub, widthMultiplier);
 
     /// <summary>
     /// Gets the role's <see cref="HumeShieldModuleBase"/>.

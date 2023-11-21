@@ -5,9 +5,9 @@
 // See LICENSE file in the project root for full license information.
 // -----------------------------------------------------------------------
 
-using Nebuli.API.Features.Player;
 using Nebuli.Events.EventArguments.Interfaces;
 using System;
+using Nebuli.API.Features;
 
 namespace Nebuli.Events.EventArguments.SCPs.Scp939;
 
@@ -18,7 +18,7 @@ public class Scp939ToggleFocusEvent : EventArgs, IPlayerEvent, ICancellableEvent
 {
     public Scp939ToggleFocusEvent(ReferenceHub player, bool state)
     {
-        Player = NebuliPlayer.Get(player);
+        Player = API.Features.Player.Get(player);
         State = state;
         IsCancelled = false;
     }
@@ -26,7 +26,7 @@ public class Scp939ToggleFocusEvent : EventArgs, IPlayerEvent, ICancellableEvent
     /// <summary>
     /// Gets the player toggeling focus mode.
     /// </summary>
-    public NebuliPlayer Player { get; }
+    public API.Features.Player Player { get; }
 
     /// <summary>
     /// Gets or sets if the event is cancelled.

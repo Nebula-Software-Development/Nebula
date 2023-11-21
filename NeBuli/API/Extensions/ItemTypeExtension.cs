@@ -10,11 +10,11 @@ using InventorySystem.Items;
 using InventorySystem.Items.Firearms;
 using InventorySystem.Items.Firearms.Attachments;
 using Nebuli.API.Features.Enum;
-using Nebuli.API.Features.Player;
 using Nebuli.API.Features.Structs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Nebuli.API.Features;
 using Firearm = Nebuli.API.Features.Items.Firearm;
 using Item = Nebuli.API.Features.Items.Item;
 
@@ -94,9 +94,9 @@ public static class ItemTypeExtension
     /// Adds a players preferred attachments for the firearm.
     /// </summary>
     /// <param name="firearm">The <see cref="Firearm"/> to add attachments to.</param>
-    /// <param name="player">The <see cref="NebuliPlayer"/> to base the attachment preferences off of.</param>
+    /// <param name="player">The <see cref="Player"/> to base the attachment preferences off of.</param>
     /// <returns>The <see cref="Firearm"/> with the added attachments.</returns>
-    public static Firearm AddPlayerAttachments(this Firearm firearm, NebuliPlayer player)
+    public static Firearm AddPlayerAttachments(this Firearm firearm, Player player)
     {
         if (player.Preferences is not null && player.Preferences.TryGetValue(firearm.Type, out AttachmentIdentity[] attachments))
             firearm.Base.ApplyAttachmentsCode((uint)attachments.Sum(attachment => attachment.Code), true);

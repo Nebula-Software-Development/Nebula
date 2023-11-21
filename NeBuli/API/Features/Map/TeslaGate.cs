@@ -5,7 +5,6 @@
 // See LICENSE file in the project root for full license information.
 // -----------------------------------------------------------------------
 
-using Nebuli.API.Features.Player;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -70,14 +69,14 @@ namespace Nebuli.API.Features.Map
         /// </summary>
         /// <param name="player"></param>
         /// <returns></returns>
-        public bool IsPlayerInHurtingRange(NebuliPlayer player) => Base.PlayerInRange(player.ReferenceHub);
+        public bool IsPlayerInHurtingRange(Player player) => Base.PlayerInRange(player.ReferenceHub);
 
         /// <summary>
         /// Gets if the specified player is in the idle range of the tesla gate.
         /// </summary>
         /// <param name="player"></param>
         /// <returns></returns>
-        public bool IsPlayerInIdleRange(NebuliPlayer player) => Base.IsInIdleRange(player.ReferenceHub);
+        public bool IsPlayerInIdleRange(Player player) => Base.IsInIdleRange(player.ReferenceHub);
 
         /// <summary>
         /// Gets if the Vector3 position is in range of the tesla gate.

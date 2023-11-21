@@ -5,7 +5,6 @@
 // See LICENSE file in the project root for full license information.
 // -----------------------------------------------------------------------
 
-using Nebuli.API.Features.Player;
 using PlayerRoles;
 using PlayerStatsSystem;
 using System.Collections.Generic;
@@ -74,9 +73,9 @@ public class Window
     public Transform Transform => Base.transform;
 
     /// <summary>
-    /// Gets the last attacker of this GameObject as a <see cref="NebuliPlayer"/>.
+    /// Gets the last attacker of this GameObject as a <see cref="Player"/>.
     /// </summary>
-    public NebuliPlayer LastAttacker => NebuliPlayer.Get(Base.LastAttacker);
+    public Player LastAttacker => Player.Get(Base.LastAttacker);
 
     /// <summary>
     /// Gets a value indicating whether the GameObject is currently broken.

@@ -6,13 +6,13 @@
 // -----------------------------------------------------------------------
 
 using HarmonyLib;
-using Nebuli.API.Features.Player;
 using Nebuli.Events.EventArguments.Player;
 using Nebuli.Events.Handlers;
 using NorthwoodLib.Pools;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection.Emit;
+using Nebuli.API.Features;
 using static HarmonyLib.AccessTools;
 
 namespace Nebuli.Events.Patches.Player;
@@ -45,7 +45,7 @@ internal class TriggeringTesla
 
     private static void ProcessEvent(TeslaGate teslaGate, ref bool inIdleRange, ref bool isTriggerable)
     {
-        foreach (NebuliPlayer player in NebuliPlayer.List.Where(ply => teslaGate.IsInIdleRange(ply.ReferenceHub)))
+        foreach (API.Features.Player player in API.Features.Player.List.Where(ply => teslaGate.IsInIdleRange(ply.ReferenceHub)))
         {
             PlayerTriggeringTeslaEvent args = new(player, teslaGate);
             PlayerHandlers.OnTriggerTesla(args);

@@ -6,7 +6,6 @@
 // -----------------------------------------------------------------------
 
 using HarmonyLib;
-using Nebuli.API.Features.Player;
 using Nebuli.Events.EventArguments.Player;
 using Nebuli.Events.Handlers;
 using NorthwoodLib.Pools;
@@ -14,6 +13,7 @@ using PlayerRoles.FirstPersonControl;
 using PlayerRoles.FirstPersonControl.NetworkMessages;
 using System.Collections.Generic;
 using System.Reflection.Emit;
+using Nebuli.API.Features;
 using static HarmonyLib.AccessTools;
 
 namespace Nebuli.Events.Patches.Player;
@@ -34,9 +34,9 @@ internal class NoClipTogglePatch
             new CodeInstruction(OpCodes.Ldloc_0).MoveLabelsFrom(newInstructions[index]),
             new(OpCodes.Call, Method(typeof(FpcNoclip), nameof(FpcNoclip.IsPermitted))),
             new(OpCodes.Ldloc_0),
-            new(OpCodes.Call, Method(typeof(NebuliPlayer), nameof(NebuliPlayer.Get), new[] { typeof(ReferenceHub) } )),
+            new(OpCodes.Call, Method(typeof(API.Features.Player), nameof(API.Features.Player.Get), new[] { typeof(ReferenceHub) } )),
             new(OpCodes.Dup),
-            new(OpCodes.Call, PropertyGetter(typeof(NebuliPlayer), nameof(NebuliPlayer.HasNoClip))),
+            new(OpCodes.Call, PropertyGetter(typeof(API.Features.Player), nameof(API.Features.Player.HasNoClip))),
             new(OpCodes.Newobj, GetDeclaredConstructors(typeof(PlayerTogglingNoClipEvent))[0]),
             new(OpCodes.Dup),
             new(OpCodes.Call, Method(typeof(PlayerHandlers), nameof(PlayerHandlers.OnPlayerTogglingNoClip))),

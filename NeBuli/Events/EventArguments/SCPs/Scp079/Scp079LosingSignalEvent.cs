@@ -5,10 +5,10 @@
 // See LICENSE file in the project root for full license information.
 // -----------------------------------------------------------------------
 
-using Nebuli.API.Features.Player;
 using Nebuli.Events.EventArguments.Interfaces;
 using PlayerRoles;
 using System;
+using Nebuli.API.Features;
 
 namespace Nebuli.Events.EventArguments.SCPs.Scp079;
 
@@ -21,7 +21,7 @@ public class Scp079LosingSignalEvent : EventArgs, IPlayerEvent, ICancellableEven
     {
         if (player.TryGetOwner(out ReferenceHub hub))
         {
-            Player = NebuliPlayer.Get(hub);
+            Player = API.Features.Player.Get(hub);
         }
         DurationOfSignalLoss = timeToLoseSignal;
         IsCancelled = false;
@@ -30,7 +30,7 @@ public class Scp079LosingSignalEvent : EventArgs, IPlayerEvent, ICancellableEven
     /// <summary>
     /// Gets the player losing signal.
     /// </summary>
-    public NebuliPlayer Player { get; }
+    public API.Features.Player Player { get; }
 
     /// <summary>
     /// Gets or sets if the event is cancelled.

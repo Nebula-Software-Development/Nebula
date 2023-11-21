@@ -6,7 +6,6 @@
 // -----------------------------------------------------------------------
 
 using Nebuli.API.Features;
-using Nebuli.API.Features.Player;
 using Nebuli.Events.EventArguments.Interfaces;
 using PlayerRoles.Ragdolls;
 using System;
@@ -20,7 +19,7 @@ public class Scp3114DisguisingEvent : EventArgs, IPlayerEvent, ICancellableEvent
 {
     public Scp3114DisguisingEvent(ReferenceHub player, BasicRagdoll ragdoll)
     {
-        Player = NebuliPlayer.Get(player);
+        Player = API.Features.Player.Get(player);
         Ragdoll = Ragdoll.Get(ragdoll as DynamicRagdoll);
         IsCancelled = false;
     }
@@ -28,7 +27,7 @@ public class Scp3114DisguisingEvent : EventArgs, IPlayerEvent, ICancellableEvent
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    public NebuliPlayer Player { get; }
+    public API.Features.Player Player { get; }
 
     /// <summary>
     /// The ragdoll being disguised into. CAN BE NULL.

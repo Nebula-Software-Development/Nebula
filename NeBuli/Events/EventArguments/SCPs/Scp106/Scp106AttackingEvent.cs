@@ -5,9 +5,9 @@
 // See LICENSE file in the project root for full license information.
 // -----------------------------------------------------------------------
 
-using Nebuli.API.Features.Player;
 using Nebuli.Events.EventArguments.Interfaces;
 using System;
+using Nebuli.API.Features;
 
 namespace Nebuli.Events.EventArguments.SCPs.Scp106;
 
@@ -18,20 +18,20 @@ public class Scp106AttackingEvent : EventArgs, IPlayerEvent, ICancellableEvent
 {
     public Scp106AttackingEvent(ReferenceHub scp, ReferenceHub target)
     {
-        Player = NebuliPlayer.Get(scp);
-        Target = NebuliPlayer.Get(target);
+        Player = API.Features.Player.Get(scp);
+        Target = API.Features.Player.Get(target);
         IsCancelled = false;
     }
 
     /// <summary>
     /// Gets the player triggering the event.
     /// </summary>
-    public NebuliPlayer Player { get; }
+    public API.Features.Player Player { get; }
 
     /// <summary>
     /// Gets the player being attacked.
     /// </summary>
-    public NebuliPlayer Target { get; }
+    public API.Features.Player Target { get; }
 
     /// <summary>
     /// Gets or sets if the event is cancelled.

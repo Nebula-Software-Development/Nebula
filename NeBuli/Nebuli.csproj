@@ -187,10 +187,10 @@
     <Compile Include="API\Features\Map\TeslaGate.cs" />
     <Compile Include="API\Features\Map\Utilites.cs" />
     <Compile Include="API\Features\Map\Window.cs" />
+    <Compile Include="API\Features\Npc.cs" />
+    <Compile Include="API\Features\Player.cs" />
     <Compile Include="API\Features\Paths.cs" />
     <Compile Include="API\Features\Items\Pickups\Pickup.cs" />
-    <Compile Include="API\Features\Player\NebuliPlayer.cs" />
-    <Compile Include="API\Features\Player\NebuliNpc.cs" />
     <Compile Include="API\Features\Plugin.cs" />
     <Compile Include="API\Features\Pools\DictionaryPool.cs" />
     <Compile Include="API\Features\Pools\HashsetPool.cs" />
@@ -461,7 +461,9 @@
       <PackagePath>content</PackagePath>
     </None>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="API\Features\Player\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
          Other similar extension points exist, see Microsoft.Common.targets.

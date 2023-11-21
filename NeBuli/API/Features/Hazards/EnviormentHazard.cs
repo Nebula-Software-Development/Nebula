@@ -7,7 +7,6 @@
 
 using Hazards;
 using Nebuli.API.Features.Map;
-using Nebuli.API.Features.Player;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -119,7 +118,7 @@ public class EnviormentHazard
     /// <summary>
     /// Gets a list of currently affected players of the hazard.
     /// </summary>
-    public List<NebuliPlayer> AffectedPlayers => Base.AffectedPlayers.Select(hub => NebuliPlayer.Get(hub)).ToList();
+    public List<Player> AffectedPlayers => Base.AffectedPlayers.Select(hub => Player.Get(hub)).ToList();
 
     /// <summary>
     /// Gets if the position is in the area of the hazard.

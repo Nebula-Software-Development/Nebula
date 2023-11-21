@@ -7,9 +7,9 @@
 
 using InventorySystem.Items;
 using Nebuli.API.Features.Items;
-using Nebuli.API.Features.Player;
 using Nebuli.Events.EventArguments.Interfaces;
 using System;
+using Nebuli.API.Features;
 
 namespace Nebuli.Events.EventArguments.Player;
 
@@ -20,7 +20,7 @@ public class PlayerDroppingItemEvent : EventArgs, IPlayerEvent, ICancellableEven
 {
     public PlayerDroppingItemEvent(ReferenceHub player, ItemBase item)
     {
-        Player = NebuliPlayer.Get(player);
+        Player = API.Features.Player.Get(player);
         Item = Item.Get(item);
         IsCancelled = false;
     }
@@ -28,7 +28,7 @@ public class PlayerDroppingItemEvent : EventArgs, IPlayerEvent, ICancellableEven
     /// <summary>
     /// The player dropping the item.
     /// </summary>
-    public NebuliPlayer Player { get; }
+    public API.Features.Player Player { get; }
 
     /// <summary>
     /// The <see cref="API.Features.Items.Item"/> being dropped.

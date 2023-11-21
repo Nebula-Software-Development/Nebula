@@ -7,9 +7,9 @@
 
 using InventorySystem.Items.Radio;
 using Nebuli.API.Features.Items;
-using Nebuli.API.Features.Player;
 using Nebuli.Events.EventArguments.Interfaces;
 using System;
+using Nebuli.API.Features;
 
 namespace Nebuli.Events.EventArguments.Player;
 
@@ -20,7 +20,7 @@ public class PlayerUsingRadioBatteryEvent : EventArgs, IPlayerEvent, ICancellabl
 {
     public PlayerUsingRadioBatteryEvent(ReferenceHub player, RadioItem item, float amt)
     {
-        Player = NebuliPlayer.Get(player);
+        Player = API.Features.Player.Get(player);
         Radio = (Radio)Item.Get(item);
         DrainAmount = amt;
         IsCancelled = false;
@@ -29,7 +29,7 @@ public class PlayerUsingRadioBatteryEvent : EventArgs, IPlayerEvent, ICancellabl
     /// <summary>
     /// Gets the player triggering the radio.
     /// </summary>
-    public NebuliPlayer Player { get; }
+    public API.Features.Player Player { get; }
 
     /// <summary>
     /// Gets the <see cref="API.Features.Items.Radio"/> being drained.

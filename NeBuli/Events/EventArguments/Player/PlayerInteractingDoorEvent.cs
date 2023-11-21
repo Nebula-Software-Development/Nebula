@@ -7,11 +7,11 @@
 
 using Interactables.Interobjects.DoorUtils;
 using Nebuli.API.Features.Doors;
-using Nebuli.API.Features.Player;
 using Nebuli.Events.EventArguments.Interfaces;
 using PlayerRoles;
 using PluginAPI.Events;
 using System;
+using Nebuli.API.Features;
 
 namespace Nebuli.Events.EventArguments.Player;
 
@@ -22,7 +22,7 @@ public class PlayerInteractingDoorEvent : EventArgs, IPlayerEvent, ICancellableE
 {
     public PlayerInteractingDoorEvent(ReferenceHub ply, DoorVariant door, byte id)
     {
-        Player = NebuliPlayer.Get(ply);
+        Player = API.Features.Player.Get(ply);
         Door = Door.Get(door);
         IsCancelled = CalculateIsCancelled(ply, door, id);
     }
@@ -30,7 +30,7 @@ public class PlayerInteractingDoorEvent : EventArgs, IPlayerEvent, ICancellableE
     /// <summary>
     /// Gets the player interacting with the door.
     /// </summary>
-    public NebuliPlayer Player { get; }
+    public API.Features.Player Player { get; }
 
     /// <summary>
     /// Gets the <see cref="API.Features.Doors.Door"/> being interacted with.

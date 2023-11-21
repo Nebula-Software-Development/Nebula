@@ -6,7 +6,6 @@
 // -----------------------------------------------------------------------
 
 using Nebuli.API.Features;
-using Nebuli.API.Features.Player;
 using Nebuli.Events.EventArguments.Interfaces;
 using PlayerRoles.Ragdolls;
 using System;
@@ -20,7 +19,7 @@ public class Scp0492CorpseConsumedEvent : EventArgs, IPlayerEvent, IRadgollEvent
 {
     public Scp0492CorpseConsumedEvent(ReferenceHub player, BasicRagdoll baseRagdoll)
     {
-        Player = NebuliPlayer.Get(player);
+        Player = API.Features.Player.Get(player);
         Ragdoll = Ragdoll.Get(baseRagdoll);
         HealthToReceive = 100;
     }
@@ -33,7 +32,7 @@ public class Scp0492CorpseConsumedEvent : EventArgs, IPlayerEvent, IRadgollEvent
     /// <summary>
     /// Gets the player that consumed the corpse.
     /// </summary>
-    public NebuliPlayer Player { get; }
+    public API.Features.Player Player { get; }
 
     /// <summary>
     /// The health amount the player will recieve.

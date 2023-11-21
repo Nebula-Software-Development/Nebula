@@ -5,7 +5,6 @@
 // See LICENSE file in the project root for full license information.
 // -----------------------------------------------------------------------
 
-using Nebuli.API.Features.Player;
 using PlayerRoles;
 using PlayerRoles.PlayableScps.Scp049;
 using PlayerRoles.PlayableScps.Scp049.Zombies;
@@ -28,14 +27,14 @@ public abstract class Role
     protected Role(PlayerRoleBase roleBase)
     {
         if (roleBase.TryGetOwner(out ReferenceHub hub))
-            Owner = NebuliPlayer.TryGet(hub, out NebuliPlayer ply) ? ply : null;
+            Owner = Player.TryGet(hub, out Player ply) ? ply : null;
         Base = roleBase;
     }
 
     /// <summary>
     /// Gets the owner of this <see cref="PlayerRoleBase"/>.
     /// </summary>
-    public NebuliPlayer Owner { get; }
+    public Player Owner { get; }
 
     /// <summary>
     /// Gets the roles position.

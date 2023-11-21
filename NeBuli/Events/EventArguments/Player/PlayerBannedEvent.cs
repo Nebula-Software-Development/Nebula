@@ -7,9 +7,9 @@
 
 using CommandSystem;
 using Footprinting;
-using Nebuli.API.Features.Player;
 using Nebuli.Events.EventArguments.Interfaces;
 using System;
+using Nebuli.API.Features;
 
 namespace Nebuli.Events.EventArguments.Player;
 
@@ -20,8 +20,8 @@ public class PlayerBannedEvent : EventArgs, IPlayerEvent, ICancellableEvent
 {
     public PlayerBannedEvent(Footprint target, ICommandSender issuer, string reason, long duration)
     {
-        Player = NebuliPlayer.Get(target.Hub);
-        Issuer = NebuliPlayer.Get(issuer);
+        Player = API.Features.Player.Get(target.Hub);
+        Issuer = API.Features.Player.Get(issuer);
         Reason = reason;
         Duration = duration;
         IsCancelled = false;
@@ -35,12 +35,12 @@ public class PlayerBannedEvent : EventArgs, IPlayerEvent, ICancellableEvent
     /// <summary>
     /// The player being banned.
     /// </summary>
-    public NebuliPlayer Player { get; }
+    public API.Features.Player Player { get; }
 
     /// <summary>
     /// The player issuing the ban.
     /// </summary>
-    public NebuliPlayer Issuer { get; }
+    public API.Features.Player Issuer { get; }
 
     /// <summary>
     /// The reason for the ban.

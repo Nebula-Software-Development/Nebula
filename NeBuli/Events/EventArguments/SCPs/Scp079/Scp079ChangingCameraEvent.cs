@@ -6,10 +6,10 @@
 // -----------------------------------------------------------------------
 
 using Nebuli.API.Features.Map;
-using Nebuli.API.Features.Player;
 using Nebuli.Events.EventArguments.Interfaces;
 using PlayerRoles.PlayableScps.Scp079.Cameras;
 using System;
+using Nebuli.API.Features;
 
 namespace Nebuli.Events.EventArguments.SCPs.Scp079;
 
@@ -20,7 +20,7 @@ public class Scp079ChangingCameraEvent : EventArgs, IPlayerEvent, ICancellableEv
 {
     public Scp079ChangingCameraEvent(ReferenceHub player, float auxdrain, Scp079Camera camera)
     {
-        Player = NebuliPlayer.Get(player);
+        Player = API.Features.Player.Get(player);
         AuxDrain = auxdrain;
         Camera = Camera.Get(camera);
         IsCancelled = false;
@@ -29,7 +29,7 @@ public class Scp079ChangingCameraEvent : EventArgs, IPlayerEvent, ICancellableEv
     /// <summary>
     /// Gets the player changing the camera.
     /// </summary>
-    public NebuliPlayer Player { get; }
+    public API.Features.Player Player { get; }
 
     /// <summary>
     /// Gets the amount of power that will be drained.

@@ -10,7 +10,6 @@ using Interactables.Interobjects.DoorUtils;
 using MapGeneration;
 using Nebuli.API.Extensions;
 using Nebuli.API.Features.Enum;
-using Nebuli.API.Features.Player;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -252,12 +251,12 @@ public class Door
     /// </summary>
     /// <param name="player"></param>
     /// <param name="colliderId"></param>
-    public void PermissionDenied(NebuliPlayer player, byte colliderId) => Base.PermissionsDenied(player.ReferenceHub, colliderId);
+    public void PermissionDenied(Player player, byte colliderId) => Base.PermissionsDenied(player.ReferenceHub, colliderId);
 
     /// <summary>
     /// Triggers a door action.
     /// </summary>
-    public void TriggerDoorAction(DoorVariant door, DoorAction action, NebuliPlayer player) => TriggerDoorAction(door, action, player.ReferenceHub);
+    public void TriggerDoorAction(DoorVariant door, DoorAction action, Player player) => TriggerDoorAction(door, action, player.ReferenceHub);
 
     /// <summary>
     /// Triggers a door action.

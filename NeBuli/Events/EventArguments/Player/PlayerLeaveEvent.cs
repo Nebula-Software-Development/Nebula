@@ -7,9 +7,9 @@
 
 using Mirror;
 using Nebuli.API.Extensions;
-using Nebuli.API.Features.Player;
 using Nebuli.Events.EventArguments.Interfaces;
 using System;
+using Nebuli.API.Features;
 
 namespace Nebuli.Events.EventArguments.Player;
 
@@ -20,12 +20,12 @@ public class PlayerLeaveEvent : EventArgs, IPlayerEvent
 {
     public PlayerLeaveEvent(NetworkConnection conn)
     {       
-        Player = NebuliPlayer.Get(conn.identity);
-        NebuliPlayer.Dictionary.RemoveIfContains(Player.ReferenceHub);
+        Player = API.Features.Player.Get(conn.identity);
+        API.Features.Player.Dictionary.RemoveIfContains(Player.ReferenceHub);
     }
 
     /// <summary>
     /// The player calling the event.
     /// </summary>
-    public NebuliPlayer Player { get; }
+    public API.Features.Player Player { get; }
 }

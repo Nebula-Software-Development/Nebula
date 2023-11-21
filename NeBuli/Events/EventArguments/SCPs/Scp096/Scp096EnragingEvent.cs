@@ -5,9 +5,9 @@
 // See LICENSE file in the project root for full license information.
 // -----------------------------------------------------------------------
 
-using Nebuli.API.Features.Player;
 using Nebuli.Events.EventArguments.Interfaces;
 using System;
+using Nebuli.API.Features;
 
 namespace Nebuli.Events.EventArguments.SCPs.Scp096;
 
@@ -18,7 +18,7 @@ public class Scp096EnragingEvent : EventArgs, IPlayerEvent, ICancellableEvent
 {
     public Scp096EnragingEvent(ReferenceHub player, float duration)
     {
-        Player = NebuliPlayer.Get(player);
+        Player = API.Features.Player.Get(player);
         Duration = duration;
         IsCancelled = false;
     }
@@ -26,7 +26,7 @@ public class Scp096EnragingEvent : EventArgs, IPlayerEvent, ICancellableEvent
     /// <summary>
     /// Gets the player enraging.
     /// </summary>
-    public NebuliPlayer Player { get; }
+    public API.Features.Player Player { get; }
 
     /// <summary>
     /// Gets or sets the initial duration of the rage.

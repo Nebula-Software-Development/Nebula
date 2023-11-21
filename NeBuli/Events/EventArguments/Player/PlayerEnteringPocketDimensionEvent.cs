@@ -5,9 +5,9 @@
 // See LICENSE file in the project root for full license information.
 // -----------------------------------------------------------------------
 
-using Nebuli.API.Features.Player;
 using Nebuli.Events.EventArguments.Interfaces;
 using System;
+using Nebuli.API.Features;
 
 namespace Nebuli.Events.EventArguments.Player;
 
@@ -16,7 +16,7 @@ namespace Nebuli.Events.EventArguments.Player;
 /// </summary>
 public class PlayerEnteringPocketDimensionEvent : EventArgs, IPlayerEvent, ICancellableEvent
 {
-    public PlayerEnteringPocketDimensionEvent(NebuliPlayer player, NebuliPlayer target)
+    public PlayerEnteringPocketDimensionEvent(API.Features.Player player, API.Features.Player target)
     {
         Player = player;
         Target = target;
@@ -26,12 +26,12 @@ public class PlayerEnteringPocketDimensionEvent : EventArgs, IPlayerEvent, ICanc
     /// <summary>
     /// Gets the player teleporting the target, or SCP-106.
     /// </summary>
-    public NebuliPlayer Player { get; }
+    public API.Features.Player Player { get; }
 
     /// <summary>
     /// Gets the player being teleported.
     /// </summary>
-    public NebuliPlayer Target { get; }
+    public API.Features.Player Target { get; }
 
     /// <summary>
     /// Gets or sets if the event is cancelled.

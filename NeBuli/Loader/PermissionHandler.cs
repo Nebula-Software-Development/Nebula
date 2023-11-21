@@ -7,7 +7,6 @@
 
 using CommandSystem;
 using Nebuli.API.Features;
-using Nebuli.API.Features.Player;
 using Nebuli.Loader;
 using System;
 using System.Collections.Generic;
@@ -82,21 +81,21 @@ public static class PermissionsHandler
     }
 
     /// <summary>
-    /// Gets if the <see cref="NebuliPlayer"/> has the specified permission.
+    /// Gets if the <see cref="Player"/> has the specified permission.
     /// </summary>
-    public static bool HasPermission(this NebuliPlayer ply, string permission) => HasPermission(ply.Sender, permission);
+    public static bool HasPermission(this Player ply, string permission) => HasPermission(ply.Sender, permission);
 
     /// <summary>
-    /// Gets if the <see cref="NebuliPlayer"/> has the specified NWAPI permission.
+    /// Gets if the <see cref="Player"/> has the specified NWAPI permission.
     /// </summary>
     /// <remarks>Requires the NWAPIPermissionSystem be loaded by NWAPI, if it cannot be found, the method returns <c>false</c></remarks>
-    public static bool HasNWAPIPermission(this NebuliPlayer ply, string permission) => HasNWAPIPermission(ply.Sender, permission);
+    public static bool HasNWAPIPermission(this Player ply, string permission) => HasNWAPIPermission(ply.Sender, permission);
 
     /// <summary>
-    /// Gets if the <see cref="NebuliPlayer"/> has the either a specified Nebuli permission OR a specified NWAPI permission.
+    /// Gets if the <see cref="Player"/> has the either a specified Nebuli permission OR a specified NWAPI permission.
     /// </summary>
     /// <remarks>Requires the NWAPIPermissionSystem be loaded by NWAPI, if it cannot be found and the player has no Nebuli permission, the method returns <c>false</c></remarks>
-    public static bool HasPermissionAnywhere(this NebuliPlayer player, string permission) => HasPermissionAnywhere(player.Sender, permission);
+    public static bool HasPermissionAnywhere(this Player player, string permission) => HasPermissionAnywhere(player.Sender, permission);
 
     /// <summary>
     /// Gets if the <see cref="ICommandSender"/> has the either a specified Nebuli permission OR a specified NWAPI permission.
@@ -115,7 +114,7 @@ public static class PermissionsHandler
     public static bool HasPermission(this ICommandSender commandSender, string permission)
     {
         if (commandSender is ServerConsoleSender) return true;
-        if (!NebuliPlayer.TryGet(commandSender, out NebuliPlayer ply)) return false;
+        if (!Player.TryGet(commandSender, out Player ply)) return false;
         if (ply.ReferenceHub == ReferenceHub.HostHub ||
             Groups.TryGetValue(ply.GroupName, out Group playerGroup) &&
             (playerGroup.Permissions.Contains(".*") || playerGroup.Permissions.Contains(permission)))
