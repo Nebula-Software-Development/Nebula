@@ -8,6 +8,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using JetBrains.Annotations;
 using Mirror;
 using Nebuli.API.Extensions;
 using PlayerRoles;
@@ -30,14 +31,7 @@ namespace Nebuli.API.Features
 
         internal Ragdoll(BasicRagdoll basicRagdoll)
         {
-            if (basicRagdoll.NetworkInfo.OwnerHub is null)
-            {
-                ReferenceHub = Server.Host.ReferenceHub;
-            }
-            else
-            {
-                ReferenceHub = basicRagdoll.NetworkInfo.OwnerHub;
-            }
+            ReferenceHub = basicRagdoll.NetworkInfo.OwnerHub ? basicRagdoll.NetworkInfo.OwnerHub : Server.Host.ReferenceHub;
 
             Base = basicRagdoll;
             Dictionary.UpdateOrAdd(basicRagdoll, this);
@@ -67,7 +61,7 @@ namespace Nebuli.API.Features
         }
 
         /// <summary>
-        ///     Tries to get the player assosiated with the ragdoll.
+        ///     Tries to get the player associated with the ragdoll.
         /// </summary>
         public Player OwnerPlayer => Player.Get(ReferenceHub);
 
@@ -181,7 +175,7 @@ namespace Nebuli.API.Features
         /// </summary>
         /// <param name="networkInfo">The data associated with the ragdoll.</param>
         /// <param name="ragdoll">The ragdoll created.</param>
-        public static bool Create(RagdollData networkInfo, out Ragdoll ragdoll)
+        public static bool Create(RagdollData networkInfo, [CanBeNull] out Ragdoll ragdoll)
         {
             ragdoll = null;
 
@@ -211,7 +205,7 @@ namespace Nebuli.API.Features
         /// <summary>
         ///     Creates a new <see cref="Ragdoll" /> with the specified parameters.
         /// </summary>
-        /// <param name="Nickname">The nickname associated with the ragdoll.</param>
+        /// <param name="nickname">The nickname associated with the ragdoll.</param>
         /// <param name="role">The <see cref="PlayerRoles.RoleTypeId" /> of the ragdoll's role.</param>
         /// <param name="damageHandlerBase">The <see cref="PlayerStatsSystem.DamageHandlerBase" /> for the ragdoll.</param>
         /// <param name="owner">The optional <see cref="Player" /> owner of the ragdoll.</param>
@@ -219,19 +213,14 @@ namespace Nebuli.API.Features
         /// <param name="rotation">The optional rotation of the ragdoll.</param>
         /// <param name="creationTime">The optional creation time of the ragdoll.</param>
         /// <returns>The created <see cref="Ragdoll" /> instance, or <c>null</c> if creation failed.</returns>
-        public static Ragdoll Create(string Nickname, RoleTypeId role, DamageHandlerBase damageHandlerBase,
+        public static Ragdoll Create(string nickname, RoleTypeId role, DamageHandlerBase damageHandlerBase,
             Player owner = null, Vector3 position = default, Quaternion rotation = default,
             double creationTime = default)
         {
             owner ??= Server.Host;
-            if (Create(
-                    new RagdollData(owner.ReferenceHub, damageHandlerBase, role, position, rotation, Nickname,
-                        creationTime), out Ragdoll ragdoll))
-            {
-                return ragdoll;
-            }
-
-            return null;
+            return Create(
+                new RagdollData(owner.ReferenceHub, damageHandlerBase, role, position, rotation, nickname,
+                    creationTime), out Ragdoll ragdoll) ? ragdoll : null;
         }
 
         /// <summary>
@@ -251,15 +240,21 @@ namespace Nebuli.API.Features
             double creationTime = default)
         {
             owner ??= Server.Host;
-            if (Create(
+            if (!Create(
                     new RagdollData(owner.ReferenceHub, damageHandlerBase, role, position, rotation, Nickname,
                         creationTime), out Ragdoll ragdoll))
             {
-                ragdoll.Spawn();
-                return ragdoll;
+                return null;
             }
 
-            return null;
+            if (ragdoll == null)
+            {
+                return null;
+            }
+
+            ragdoll.Spawn();
+            return ragdoll;
+
         }
 
         /// <summary>

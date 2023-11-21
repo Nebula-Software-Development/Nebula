@@ -1118,7 +1118,7 @@ namespace Nebuli.API.Features
                 return true;
             }
 
-            if (int.TryParse(variable, out int ID) && TryGet(ID, out Player plyID))
+            if (int.TryParse(variable, out int id) && TryGet(id, out Player plyID))
             {
                 player = plyID;
                 return true;
