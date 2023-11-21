@@ -5,36 +5,36 @@
 // See LICENSE file in the project root for full license information.
 // -----------------------------------------------------------------------
 
-using Nebuli.Events.EventArguments.Interfaces;
 using System;
-using Nebuli.API.Features;
+using Nebuli.Events.EventArguments.Interfaces;
 
-namespace Nebuli.Events.EventArguments.SCPs.Scp939;
-
-/// <summary>
-/// Triggered when SCP-939 plays a sound.
-/// </summary>
-public class Scp939PlaySound : EventArgs, IPlayerEvent, ICancellableEvent
+namespace Nebuli.Events.EventArguments.SCPs.Scp939
 {
-    public Scp939PlaySound(ReferenceHub player, byte option)
+    /// <summary>
+    ///     Triggered when SCP-939 plays a sound.
+    /// </summary>
+    public class Scp939PlaySound : EventArgs, IPlayerEvent, ICancellableEvent
     {
-        Player = API.Features.Player.Get(player);
-        SoundOption = option;
-        IsCancelled = false;
+        public Scp939PlaySound(ReferenceHub player, byte option)
+        {
+            Player = API.Features.Player.Get(player);
+            SoundOption = option;
+            IsCancelled = false;
+        }
+
+        /// <summary>
+        ///     The sound to be played.
+        /// </summary>
+        public byte SoundOption { get; }
+
+        /// <summary>
+        ///     Gets or sets if the event is cancelled
+        /// </summary>
+        public bool IsCancelled { get; set; }
+
+        /// <summary>
+        ///     The player playing the sound.
+        /// </summary>
+        public API.Features.Player Player { get; }
     }
-
-    /// <summary>
-    /// The player playing the sound.
-    /// </summary>
-    public API.Features.Player Player { get; }
-
-    /// <summary>
-    /// Gets or sets if the event is cancelled
-    /// </summary>
-    public bool IsCancelled { get; set; }
-
-    /// <summary>
-    /// The sound to be played.
-    /// </summary>
-    public byte SoundOption { get; }
 }

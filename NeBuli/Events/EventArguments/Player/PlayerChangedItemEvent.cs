@@ -5,38 +5,38 @@
 // See LICENSE file in the project root for full license information.
 // -----------------------------------------------------------------------
 
+using System;
 using InventorySystem.Items;
 using Nebuli.API.Features.Items;
 using Nebuli.Events.EventArguments.Interfaces;
-using System;
-using Nebuli.API.Features;
 
-namespace Nebuli.Events.EventArguments.Player;
-
-/// <summary>
-/// Triggered when a player changes their current item.
-/// </summary>
-public class PlayerChangedItemEvent : EventArgs, IPlayerEvent
+namespace Nebuli.Events.EventArguments.Player
 {
-    public PlayerChangedItemEvent(ReferenceHub ply, ItemBase item)
+    /// <summary>
+    ///     Triggered when a player changes their current item.
+    /// </summary>
+    public class PlayerChangedItemEvent : EventArgs, IPlayerEvent
     {
-        Player = API.Features.Player.Get(ply);
-        NewItem = Player.CurrentItem;
-        PreviousItem = Item.Get(item);
+        public PlayerChangedItemEvent(ReferenceHub ply, ItemBase item)
+        {
+            Player = API.Features.Player.Get(ply);
+            NewItem = Player.CurrentItem;
+            PreviousItem = Item.Get(item);
+        }
+
+        /// <summary>
+        ///     Gets the <see cref="Item" /> the player now has, or <c>null</c> if none.
+        /// </summary>
+        public Item NewItem { get; }
+
+        /// <summary>
+        ///     Gets the <see cref="Item" /> being switched from, or <c>null</c> if none.
+        /// </summary>
+        public Item PreviousItem { get; }
+
+        /// <summary>
+        ///     Gets the player triggering the event.
+        /// </summary>
+        public API.Features.Player Player { get; }
     }
-
-    /// <summary>
-    /// Gets the player triggering the event.
-    /// </summary>
-    public API.Features.Player Player { get; }
-
-    /// <summary>
-    /// Gets the <see cref="Item"/> the player now has, or <c>null</c> if none.
-    /// </summary>
-    public Item NewItem { get; }
-
-    /// <summary>
-    /// Gets the <see cref="Item"/> being switched from, or <c>null</c> if none.
-    /// </summary>
-    public Item PreviousItem { get; }
 }

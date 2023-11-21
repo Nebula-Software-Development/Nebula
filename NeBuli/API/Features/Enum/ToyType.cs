@@ -5,25 +5,26 @@
 // See LICENSE file in the project root for full license information.
 // -----------------------------------------------------------------------
 
-namespace Nebuli.API.Features.Enum;
-
-/// <summary>
-/// Enum for different kinds of primitives.
-/// </summary>
-public enum ToyType
+namespace Nebuli.API.Features.Enum
 {
     /// <summary>
-    /// A primitive object.
+    ///     Enum for different kinds of primitives.
     /// </summary>
-    Primitive,
+    public enum ToyType
+    {
+        /// <summary>
+        ///     A primitive object.
+        /// </summary>
+        Primitive,
 
-    /// <summary>
-    /// A shooting target object.
-    /// </summary>
-    ShootingTarget,
+        /// <summary>
+        ///     A shooting target object.
+        /// </summary>
+        ShootingTarget,
 
-    /// <summary>
-    /// A lightsource object.
-    /// </summary>
-    Light,
+        /// <summary>
+        ///     A lightsource object.
+        /// </summary>
+        Light
+    }
 }

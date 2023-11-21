@@ -5,36 +5,36 @@
 // See LICENSE file in the project root for full license information.
 // -----------------------------------------------------------------------
 
-using Nebuli.Events.EventArguments.Interfaces;
 using System;
-using Nebuli.API.Features;
+using Nebuli.Events.EventArguments.Interfaces;
 
-namespace Nebuli.Events.EventArguments.SCPs.Scp079;
-
-/// <summary>
-/// Triggered when SCP-079 is interacting with a Tesla gate.
-/// </summary>
-public class Scp079InteractingTeslaEvent : EventArgs, IPlayerEvent, ICancellableEvent
+namespace Nebuli.Events.EventArguments.SCPs.Scp079
 {
-    public Scp079InteractingTeslaEvent(ReferenceHub player, global::TeslaGate teslaGate)
+    /// <summary>
+    ///     Triggered when SCP-079 is interacting with a Tesla gate.
+    /// </summary>
+    public class Scp079InteractingTeslaEvent : EventArgs, IPlayerEvent, ICancellableEvent
     {
-        Player = API.Features.Player.Get(player);
-        TeslaGate = API.Features.Map.TeslaGate.Get(teslaGate);
-        IsCancelled = false;
+        public Scp079InteractingTeslaEvent(ReferenceHub player, TeslaGate teslaGate)
+        {
+            Player = API.Features.Player.Get(player);
+            TeslaGate = API.Features.Map.TeslaGate.Get(teslaGate);
+            IsCancelled = false;
+        }
+
+        /// <summary>
+        ///     Gets the Tesla Gate being triggered.
+        /// </summary>
+        public API.Features.Map.TeslaGate TeslaGate { get; }
+
+        /// <summary>
+        ///     Gets if the event is cancelled.
+        /// </summary>
+        public bool IsCancelled { get; set; }
+
+        /// <summary>
+        ///     Gets the player triggering the event.
+        /// </summary>
+        public API.Features.Player Player { get; }
     }
-
-    /// <summary>
-    /// Gets the player triggering the event.
-    /// </summary>
-    public API.Features.Player Player { get; }
-
-    /// <summary>
-    /// Gets if the event is cancelled.
-    /// </summary>
-    public bool IsCancelled { get; set; }
-
-    /// <summary>
-    /// Gets the Tesla Gate being triggered.
-    /// </summary>
-    public API.Features.Map.TeslaGate TeslaGate { get; }
 }

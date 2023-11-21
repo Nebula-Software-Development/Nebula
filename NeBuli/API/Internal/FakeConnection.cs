@@ -5,20 +5,21 @@
 // See LICENSE file in the project root for full license information.
 // -----------------------------------------------------------------------
 
-using Mirror;
 using System;
+using Mirror;
 
-namespace Nebuli.API.Internal;
-
-internal class FakeConnection : NetworkConnectionToClient
+namespace Nebuli.API.Internal
 {
-    public override void Send(ArraySegment<byte> segment, int channelId = 0)
+    internal class FakeConnection : NetworkConnectionToClient
     {
-    }
+        public FakeConnection(int networkConnectionId) : base(networkConnectionId)
+        {
+        }
 
-    public override string address => "localhost";
+        public override string address => "localhost";
 
-    public FakeConnection(int networkConnectionId) : base(networkConnectionId)
-    {
+        public override void Send(ArraySegment<byte> segment, int channelId = 0)
+        {
+        }
     }
 }

@@ -5,45 +5,51 @@
 // See LICENSE file in the project root for full license information.
 // -----------------------------------------------------------------------
 
+using System.Collections.Generic;
+using System.Reflection.Emit;
 using HarmonyLib;
 using InventorySystem.Searching;
 using Nebuli.Events.EventArguments.Player;
 using Nebuli.Events.Handlers;
 using NorthwoodLib.Pools;
-using System.Collections.Generic;
-using System.Reflection.Emit;
 using static HarmonyLib.AccessTools;
 
-namespace Nebuli.Events.Patches.Player;
-
-[HarmonyPatch(typeof(ItemSearchCompletor), nameof(ItemSearchCompletor.Complete))]
-internal class PickingUpItemPatch
+namespace Nebuli.Events.Patches.Player
 {
-    [HarmonyTranspiler]
-    private static IEnumerable<CodeInstruction> OnPickingupItem(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
+    [HarmonyPatch(typeof(ItemSearchCompletor), nameof(ItemSearchCompletor.Complete))]
+    internal class PickingUpItemPatch
     {
-        List<CodeInstruction> newInstructions = EventManager.CheckPatchInstructions<PickingUpItemPatch>(29, instructions);
-
-        Label retLabel = generator.DefineLabel();
-
-        newInstructions.InsertRange(0, new CodeInstruction[]
+        [HarmonyTranspiler]
+        private static IEnumerable<CodeInstruction> OnPickingupItem(IEnumerable<CodeInstruction> instructions,
+            ILGenerator generator)
         {
-            new(OpCodes.Ldarg_0),
-            new(OpCodes.Ldfld, Field(typeof(ItemSearchCompletor), nameof(ItemSearchCompletor.Hub))),
-            new(OpCodes.Ldarg_0),
-            new(OpCodes.Ldfld, Field(typeof(ItemSearchCompletor), nameof(ItemSearchCompletor.TargetPickup))),
-            new(OpCodes.Newobj, GetDeclaredConstructors(typeof(PlayerPickingUpItemEvent))[0]),
-            new(OpCodes.Dup),
-            new(OpCodes.Call, Method(typeof(PlayerHandlers), nameof(PlayerHandlers.OnPickingupItem))),
-            new(OpCodes.Callvirt, PropertyGetter(typeof(PlayerPickingUpItemEvent), nameof(PlayerPickingUpItemEvent.IsCancelled))),
-            new(OpCodes.Brtrue_S, retLabel),
-        });
+            List<CodeInstruction> newInstructions =
+                EventManager.CheckPatchInstructions<PickingUpItemPatch>(29, instructions);
 
-        newInstructions[newInstructions.Count - 1].labels.Add(retLabel);
+            Label retLabel = generator.DefineLabel();
 
-        foreach (CodeInstruction instruction in newInstructions)
-            yield return instruction;
+            newInstructions.InsertRange(0, new CodeInstruction[]
+            {
+                new(OpCodes.Ldarg_0),
+                new(OpCodes.Ldfld, Field(typeof(ItemSearchCompletor), nameof(ItemSearchCompletor.Hub))),
+                new(OpCodes.Ldarg_0),
+                new(OpCodes.Ldfld, Field(typeof(ItemSearchCompletor), nameof(ItemSearchCompletor.TargetPickup))),
+                new(OpCodes.Newobj, GetDeclaredConstructors(typeof(PlayerPickingUpItemEvent))[0]),
+                new(OpCodes.Dup),
+                new(OpCodes.Call, Method(typeof(PlayerHandlers), nameof(PlayerHandlers.OnPickingupItem))),
+                new(OpCodes.Callvirt,
+                    PropertyGetter(typeof(PlayerPickingUpItemEvent), nameof(PlayerPickingUpItemEvent.IsCancelled))),
+                new(OpCodes.Brtrue_S, retLabel)
+            });
 
-        ListPool<CodeInstruction>.Shared.Return(newInstructions);
+            newInstructions[newInstructions.Count - 1].labels.Add(retLabel);
+
+            foreach (CodeInstruction instruction in newInstructions)
+            {
+                yield return instruction;
+            }
+
+            ListPool<CodeInstruction>.Shared.Return(newInstructions);
+        }
     }
 }

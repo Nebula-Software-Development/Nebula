@@ -5,41 +5,43 @@
 // See LICENSE file in the project root for full license information.
 // -----------------------------------------------------------------------
 
+using System;
 using CommandSystem;
 using Nebuli.API.Features;
 using Nebuli.Loader;
 using Nebuli.Permissions;
-using System;
 
-namespace Nebuli.API.Internal.Commands;
-
-public class ReloadPlugins : ICommand
+namespace Nebuli.API.Internal.Commands
 {
-    public string Command { get; } = "plugins";
-
-    public string[] Aliases { get; } = new[] { "plugin" };
-
-    public string Description { get; } = "Reloads plugins.";
-
-    public bool Execute(ArraySegment<string> arguments, ICommandSender sender, out string response)
+    public class ReloadPlugins : ICommand
     {
-        try
+        public string Command { get; } = "plugins";
+
+        public string[] Aliases { get; } = { "plugin" };
+
+        public string Description { get; } = "Reloads plugins.";
+
+        public bool Execute(ArraySegment<string> arguments, ICommandSender sender, out string response)
         {
-            if (!sender.HasPermission("reloadplugins"))
+            try
             {
-                response = "No permission! Permission needed : 'reloadplugins'.";
+                if (!sender.HasPermission("reloadplugins"))
+                {
+                    response = "No permission! Permission needed : 'reloadplugins'.";
+                    return false;
+                }
+
+                LoaderClass.LoaderInstance.ReloadPlugins();
+            }
+            catch (Exception e)
+            {
+                Log.Error($"Error occured while reloading plugins! Full error --> \n{e}");
+                response = e.Message;
                 return false;
             }
 
-            LoaderClass.LoaderInstance.ReloadPlugins();
+            response = "Plugins reloaded!";
+            return true;
         }
-        catch (Exception e)
-        {
-            Log.Error($"Error occured while reloading plugins! Full error --> \n{e}");
-            response = e.Message;
-            return false;
-        }
-        response = "Plugins reloaded!";
-        return true;
     }
 }

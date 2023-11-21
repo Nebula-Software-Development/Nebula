@@ -5,17 +5,18 @@
 // See LICENSE file in the project root for full license information.
 // -----------------------------------------------------------------------
 
-namespace Nebuli.API.Features.Items;
-
-public class Coin : Item
+namespace Nebuli.API.Features.Items
 {
-    /// <summary>
-    /// Gets the coins base.
-    /// </summary>
-    public new InventorySystem.Items.Coin.Coin Base { get; }
-
-    internal Coin(InventorySystem.Items.Coin.Coin itemBase) : base(itemBase)
+    public class Coin : Item
     {
-        Base = itemBase;
+        internal Coin(InventorySystem.Items.Coin.Coin itemBase) : base(itemBase)
+        {
+            Base = itemBase;
+        }
+
+        /// <summary>
+        ///     Gets the coins base.
+        /// </summary>
+        public new InventorySystem.Items.Coin.Coin Base { get; }
     }
 }

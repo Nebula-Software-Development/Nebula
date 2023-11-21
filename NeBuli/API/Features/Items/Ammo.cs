@@ -5,26 +5,29 @@
 // See LICENSE file in the project root for full license information.
 // -----------------------------------------------------------------------
 
-namespace Nebuli.API.Features.Items;
+using InventorySystem.Items.Firearms.Ammo;
 
-public class Ammo : Item
+namespace Nebuli.API.Features.Items
 {
-    /// <summary>
-    /// Gets the <see cref="InventorySystem.Items.Firearms.Ammo.AmmoItem"/> base.
-    /// </summary>
-    public new InventorySystem.Items.Firearms.Ammo.AmmoItem Base { get; }
-
-    internal Ammo(InventorySystem.Items.Firearms.Ammo.AmmoItem itemBase) : base(itemBase)
+    public class Ammo : Item
     {
-        Base = itemBase;
-    }
+        internal Ammo(AmmoItem itemBase) : base(itemBase)
+        {
+            Base = itemBase;
+        }
 
-    /// <summary>
-    /// Gets or sets the ammo's unit price.
-    /// </summary>
-    public int UnitPrice
-    {
-        get => Base.UnitPrice;
-        set => Base.UnitPrice = value;
+        /// <summary>
+        ///     Gets the <see cref="InventorySystem.Items.Firearms.Ammo.AmmoItem" /> base.
+        /// </summary>
+        public new AmmoItem Base { get; }
+
+        /// <summary>
+        ///     Gets or sets the ammo's unit price.
+        /// </summary>
+        public int UnitPrice
+        {
+            get => Base.UnitPrice;
+            set => Base.UnitPrice = value;
+        }
     }
 }

@@ -5,43 +5,43 @@
 // See LICENSE file in the project root for full license information.
 // -----------------------------------------------------------------------
 
-using Nebuli.Events.EventArguments.Interfaces;
 using System;
-using Nebuli.API.Features;
+using Nebuli.Events.EventArguments.Interfaces;
 using static PlayerRoles.PlayableScps.Scp3114.Scp3114Strangle;
 
-namespace Nebuli.Events.EventArguments.SCPs.Scp3114;
-
-/// <summary>
-/// Triggered when SCP-3114 starts to strangle.
-/// </summary>
-public class Scp3114StranglingEvent : EventArgs, IPlayerEvent, ICancellableEvent
+namespace Nebuli.Events.EventArguments.SCPs.Scp3114
 {
-    public Scp3114StranglingEvent(ReferenceHub player, StrangleTarget target)
+    /// <summary>
+    ///     Triggered when SCP-3114 starts to strangle.
+    /// </summary>
+    public class Scp3114StranglingEvent : EventArgs, IPlayerEvent, ICancellableEvent
     {
-        Player = API.Features.Player.Get(player);
-        Target = API.Features.Player.Get(target.Target);
-        StrangleTarget = target;
-        IsCancelled = false;
+        public Scp3114StranglingEvent(ReferenceHub player, StrangleTarget target)
+        {
+            Player = API.Features.Player.Get(player);
+            Target = API.Features.Player.Get(target.Target);
+            StrangleTarget = target;
+            IsCancelled = false;
+        }
+
+        /// <summary>
+        ///     The player being strangled.
+        /// </summary>
+        public API.Features.Player Target { get; }
+
+        /// <summary>
+        ///     The <see cref="PlayerRoles.PlayableScps.Scp3114.Scp3114Strangle.StrangleTarget" /> of the event.
+        /// </summary>
+        public StrangleTarget StrangleTarget { get; set; }
+
+        /// <summary>
+        ///     <inheritdoc />
+        /// </summary>
+        public bool IsCancelled { get; set; }
+
+        /// <summary>
+        ///     <inheritdoc />
+        /// </summary>
+        public API.Features.Player Player { get; }
     }
-
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    public API.Features.Player Player { get; }
-
-    /// <summary>
-    /// The player being strangled.
-    /// </summary>
-    public API.Features.Player Target { get; }
-
-    /// <summary>
-    /// The <see cref="PlayerRoles.PlayableScps.Scp3114.Scp3114Strangle.StrangleTarget"/> of the event.
-    /// </summary>
-    public StrangleTarget StrangleTarget { get; set; }
-
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    public bool IsCancelled { get; set; } = false;
 }

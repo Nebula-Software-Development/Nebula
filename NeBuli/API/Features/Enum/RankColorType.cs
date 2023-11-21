@@ -5,125 +5,126 @@
 // See LICENSE file in the project root for full license information.
 // -----------------------------------------------------------------------
 
-namespace Nebuli.API.Features.Enum;
-
-/// <summary>
-/// Enumeration representing various <c>valid</c> rank color types.
-/// </summary>
-public enum RankColorType
+namespace Nebuli.API.Features.Enum
 {
     /// <summary>
-    /// Default color.
+    ///     Enumeration representing various <c>valid</c> rank color types.
     /// </summary>
-    Default,
+    public enum RankColorType
+    {
+        /// <summary>
+        ///     Default color.
+        /// </summary>
+        Default,
 
-    /// <summary>
-    /// Pink color.
-    /// </summary>
-    Pink,
+        /// <summary>
+        ///     Pink color.
+        /// </summary>
+        Pink,
 
-    /// <summary>
-    /// Red color.
-    /// </summary>
-    Red,
+        /// <summary>
+        ///     Red color.
+        /// </summary>
+        Red,
 
-    /// <summary>
-    /// Brown color.
-    /// </summary>
-    Brown,
+        /// <summary>
+        ///     Brown color.
+        /// </summary>
+        Brown,
 
-    /// <summary>
-    /// Silver color.
-    /// </summary>
-    Silver,
+        /// <summary>
+        ///     Silver color.
+        /// </summary>
+        Silver,
 
-    /// <summary>
-    /// Light green color.
-    /// </summary>
-    LightGreen,
+        /// <summary>
+        ///     Light green color.
+        /// </summary>
+        LightGreen,
 
-    /// <summary>
-    /// Crimson color.
-    /// </summary>
-    Crimson,
+        /// <summary>
+        ///     Crimson color.
+        /// </summary>
+        Crimson,
 
-    /// <summary>
-    /// Cyan color.
-    /// </summary>
-    Cyan,
+        /// <summary>
+        ///     Cyan color.
+        /// </summary>
+        Cyan,
 
-    /// <summary>
-    /// Aqua color.
-    /// </summary>
-    Aqua,
+        /// <summary>
+        ///     Aqua color.
+        /// </summary>
+        Aqua,
 
-    /// <summary>
-    /// Deep pink color.
-    /// </summary>
-    DeepPink,
+        /// <summary>
+        ///     Deep pink color.
+        /// </summary>
+        DeepPink,
 
-    /// <summary>
-    /// Tomato color.
-    /// </summary>
-    Tomato,
+        /// <summary>
+        ///     Tomato color.
+        /// </summary>
+        Tomato,
 
-    /// <summary>
-    /// Yellow color.
-    /// </summary>
-    Yellow,
+        /// <summary>
+        ///     Yellow color.
+        /// </summary>
+        Yellow,
 
-    /// <summary>
-    /// Magenta color.
-    /// </summary>
-    Magenta,
+        /// <summary>
+        ///     Magenta color.
+        /// </summary>
+        Magenta,
 
-    /// <summary>
-    /// Blue-green color.
-    /// </summary>
-    BlueGreen,
+        /// <summary>
+        ///     Blue-green color.
+        /// </summary>
+        BlueGreen,
 
-    /// <summary>
-    /// Orange color.
-    /// </summary>
-    Orange,
+        /// <summary>
+        ///     Orange color.
+        /// </summary>
+        Orange,
 
-    /// <summary>
-    /// Lime color.
-    /// </summary>
-    Lime,
+        /// <summary>
+        ///     Lime color.
+        /// </summary>
+        Lime,
 
-    /// <summary>
-    /// Green color.
-    /// </summary>
-    Green,
+        /// <summary>
+        ///     Green color.
+        /// </summary>
+        Green,
 
-    /// <summary>
-    /// Emerald color.
-    /// </summary>
-    Emerald,
+        /// <summary>
+        ///     Emerald color.
+        /// </summary>
+        Emerald,
 
-    /// <summary>
-    /// Carmine color.
-    /// </summary>
-    Carmine,
+        /// <summary>
+        ///     Carmine color.
+        /// </summary>
+        Carmine,
 
-    /// <summary>
-    /// Nickel color.
-    /// </summary>
-    Nickel,
+        /// <summary>
+        ///     Nickel color.
+        /// </summary>
+        Nickel,
 
-    /// <summary>
-    /// Mint color.
-    /// </summary>
-    Mint,
+        /// <summary>
+        ///     Mint color.
+        /// </summary>
+        Mint,
 
-    /// <summary>
-    /// Army green color.
-    /// </summary>
-    ArmyGreen,
+        /// <summary>
+        ///     Army green color.
+        /// </summary>
+        ArmyGreen,
 
-    /// <summary>
-    /// Pumpkin color.
-    /// </summary>
-    Pumpkin
+        /// <summary>
+        ///     Pumpkin color.
+        /// </summary>
+        Pumpkin
+    }
 }

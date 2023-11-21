@@ -7,17 +7,18 @@
 
 using ItemBase = InventorySystem.Items.Usables.Scp1576.Scp1576Pickup;
 
-namespace Nebuli.API.Features.Items.Pickups.SCPs;
-
-public class Scp1576Pickup : Pickup
+namespace Nebuli.API.Features.Items.Pickups.SCPs
 {
-    /// <summary>
-    /// Gets the <see cref="ItemBase"/> base.
-    /// </summary>
-    public new ItemBase Base { get; }
-
-    internal Scp1576Pickup(ItemBase itemBase) : base(itemBase)
+    public class Scp1576Pickup : Pickup
     {
-        Base = itemBase;
+        internal Scp1576Pickup(ItemBase itemBase) : base(itemBase)
+        {
+            Base = itemBase;
+        }
+
+        /// <summary>
+        ///     Gets the <see cref="ItemBase" /> base.
+        /// </summary>
+        public new ItemBase Base { get; }
     }
 }

@@ -9,43 +9,44 @@ using PlayerRoles;
 using UnityEngine;
 using FilmmakerRoleBase = PlayerRoles.Filmmaker.FilmmakerRole;
 
-namespace Nebuli.API.Features.Roles;
-
-/// <summary>
-/// Represents the <see cref="RoleTypeId.Filmmaker"/> role in-game.
-/// </summary>
-public class FilmmakerRole : Role
+namespace Nebuli.API.Features.Roles
 {
     /// <summary>
-    /// Gets the <see cref="FilmmakerRoleBase"/> base.
+    ///     Represents the <see cref="RoleTypeId.Filmmaker" /> role in-game.
     /// </summary>
-    public new FilmmakerRoleBase Base { get; }
-
-    internal FilmmakerRole(FilmmakerRoleBase role) : base(role)
+    public class FilmmakerRole : Role
     {
-        Base = role;
-    }
+        internal FilmmakerRole(FilmmakerRoleBase role) : base(role)
+        {
+            Base = role;
+        }
 
-    /// <summary>
-    /// Gets the <see cref="FilmmakerRoleBase"/> custom role name.
-    /// </summary>
-    public string CustomRoleName => Base.CustomRoleName;
+        /// <summary>
+        ///     Gets the <see cref="FilmmakerRoleBase" /> base.
+        /// </summary>
+        public new FilmmakerRoleBase Base { get; }
 
-    /// <summary>
-    /// Gets the <see cref="FilmmakerRoleBase"/> camera position.
-    /// </summary>
-    public Vector3 CameraPosition
-    {
-        get => Base.CameraPosition;
-        set => Base.CameraPosition = value;
-    }
+        /// <summary>
+        ///     Gets the <see cref="FilmmakerRoleBase" /> custom role name.
+        /// </summary>
+        public string CustomRoleName => Base.CustomRoleName;
 
-    /// <summary>
-    /// Gets the <see cref="FilmmakerRoleBase"/> camera rotation.
-    /// </summary>
-    public Quaternion CameraRotation
-    {
-        get => Base.CameraRotation;
-        set => Base.CameraRotation = value;
+        /// <summary>
+        ///     Gets the <see cref="FilmmakerRoleBase" /> camera position.
+        /// </summary>
+        public Vector3 CameraPosition
+        {
+            get => Base.CameraPosition;
+            set => Base.CameraPosition = value;
+        }
+
+        /// <summary>
+        ///     Gets the <see cref="FilmmakerRoleBase" /> camera rotation.
+        /// </summary>
+        public Quaternion CameraRotation
+        {
+            get => Base.CameraRotation;
+            set => Base.CameraRotation = value;
+        }
     }
 }

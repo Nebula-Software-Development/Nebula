@@ -5,14 +5,13 @@
 // See LICENSE file in the project root for full license information.
 // -----------------------------------------------------------------------
 
-using Nebuli.API.Features;
-
-namespace Nebuli.Events.EventArguments.Interfaces;
-
-public interface IPlayerEvent
+namespace Nebuli.Events.EventArguments.Interfaces
 {
-    /// <summary>
-    /// The player triggering the event.
-    /// </summary>
-    public API.Features.Player Player { get; }
+    public interface IPlayerEvent
+    {
+        /// <summary>
+        ///     The player triggering the event.
+        /// </summary>
+        public API.Features.Player Player { get; }
+    }
 }

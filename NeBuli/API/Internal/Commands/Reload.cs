@@ -5,33 +5,38 @@
 // See LICENSE file in the project root for full license information.
 // -----------------------------------------------------------------------
 
-using CommandSystem;
 using System;
+using CommandSystem;
 
-namespace Nebuli.API.Internal.Commands;
-
-[CommandHandler(typeof(RemoteAdminCommandHandler))]
-[CommandHandler(typeof(GameConsoleCommandHandler))]
-public class Reload : ParentCommand
+namespace Nebuli.API.Internal.Commands
 {
-    public Reload() => LoadGeneratedCommands();
-
-    public override string Command { get; } = "reload";
-
-    public override string[] Aliases { get; } = new[] { "rld" };
-
-    public override string Description { get; } = "Allows easier reloading of plugin-specific stuff.";
-
-    public override void LoadGeneratedCommands()
+    [CommandHandler(typeof(RemoteAdminCommandHandler))]
+    [CommandHandler(typeof(GameConsoleCommandHandler))]
+    public class Reload : ParentCommand
     {
-        RegisterCommand(new ReloadConfigurations());
-        RegisterCommand(new ReloadPlugins());
-        RegisterCommand(new ReloadPerms());
-    }
+        public Reload()
+        {
+            LoadGeneratedCommands();
+        }
 
-    protected override bool ExecuteParent(ArraySegment<string> arguments, ICommandSender sender, out string response)
-    {
-        response = "Invalid subcommand! Valid subcommands : configs, permissions, plugins";
-        return false;
+        public override string Command { get; } = "reload";
+
+        public override string[] Aliases { get; } = { "rld" };
+
+        public override string Description { get; } = "Allows easier reloading of plugin-specific stuff.";
+
+        public override void LoadGeneratedCommands()
+        {
+            RegisterCommand(new ReloadConfigurations());
+            RegisterCommand(new ReloadPlugins());
+            RegisterCommand(new ReloadPerms());
+        }
+
+        protected override bool ExecuteParent(ArraySegment<string> arguments, ICommandSender sender,
+            out string response)
+        {
+            response = "Invalid subcommand! Valid subcommands : configs, permissions, plugins";
+            return false;
+        }
     }
 }

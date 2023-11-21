@@ -12,66 +12,67 @@ using Nebuli.API.Features.Items.Pickups;
 using Nebuli.API.Features.Items.Projectiles;
 using UnityEngine;
 
-namespace Nebuli.API.Features.Items.Throwables;
-
-public class ExplosiveGrenade : Throwable
+namespace Nebuli.API.Features.Items.Throwables
 {
-    /// <summary>
-    /// Gets the <see cref="ExplosiveGrenadeProjectile"/> base.
-    /// </summary>
-    public new ExplosiveGrenadeProjectile Projectile { get; }
-
-    internal ExplosiveGrenade(ThrowableItem itemBase) : base(itemBase)
+    public class ExplosiveGrenade : Throwable
     {
-        Projectile = (ExplosiveGrenadeProjectile)((Throwable)this).Projectile;
-    }
+        internal ExplosiveGrenade(ThrowableItem itemBase) : base(itemBase)
+        {
+            Projectile = (ExplosiveGrenadeProjectile)((Throwable)this).Projectile;
+        }
 
-    /// <summary>
-    /// Spawns and activates a grenade.
-    /// </summary>
-    /// <param name="position"></param>
-    /// <param name="owner"></param>
-    /// <returns></returns>
-    public ExplosiveGrenadeProjectile SpawnAndActivate(Vector3 position, Player owner = null)
-    {
-        ItemPickupBase newGrenade = Object.Instantiate(Projectile.Base, position, Quaternion.identity);
-        newGrenade.Info = new PickupSyncInfo(Base.ItemTypeId, Base.Weight, ItemSerialGenerator.GenerateNext());
-        ExplosiveGrenadeProjectile grenade = (ExplosiveGrenadeProjectile)Pickup.Get(newGrenade);
-        grenade.MaxRadius = Projectile.MaxRadius;
-        grenade.BurnedDuration = Projectile.BurnedDuration;
-        grenade.DeafenedDuration = Projectile.DeafenedDuration;
-        grenade.ConcussedDuration = Projectile.ConcussedDuration;
-        grenade.DetectionMask = Projectile.DetectionMask;
-        grenade.SCPDamageMultiplier = Projectile.SCPDamageMultiplier;
-        grenade.FuzeTime = Projectile.FuzeTime;
-        grenade.PreviousOwner = owner ?? Server.Host;
-        grenade.Spawn();
-        grenade.Base.gameObject.SetActive(true);
-        grenade.Base.ServerActivate();
-        return grenade;
-    }
+        /// <summary>
+        ///     Gets the <see cref="ExplosiveGrenadeProjectile" /> base.
+        /// </summary>
+        public new ExplosiveGrenadeProjectile Projectile { get; }
 
-    /// <summary>
-    /// Spawns a grenade.
-    /// </summary>
-    /// <param name="position"></param>
-    /// <param name="owner"></param>
-    /// <returns></returns>
-    public ExplosiveGrenadeProjectile Spawn(Vector3 position, Player owner = null)
-    {
-        ItemPickupBase newGrenade = Object.Instantiate(Projectile.Base, position, Quaternion.identity);
-        newGrenade.Info = new PickupSyncInfo(Base.ItemTypeId, Base.Weight, ItemSerialGenerator.GenerateNext());
-        ExplosiveGrenadeProjectile grenade = (ExplosiveGrenadeProjectile)Pickup.Get(newGrenade);
-        grenade.MaxRadius = Projectile.MaxRadius;
-        grenade.BurnedDuration = Projectile.BurnedDuration;
-        grenade.DeafenedDuration = Projectile.DeafenedDuration;
-        grenade.ConcussedDuration = Projectile.ConcussedDuration;
-        grenade.DetectionMask = Projectile.DetectionMask;
-        grenade.SCPDamageMultiplier = Projectile.SCPDamageMultiplier;
-        grenade.FuzeTime = Projectile.FuzeTime;
-        grenade.PreviousOwner = owner ?? Server.Host;
-        grenade.Spawn();
-        grenade.Base.gameObject.SetActive(true);
-        return grenade;
+        /// <summary>
+        ///     Spawns and activates a grenade.
+        /// </summary>
+        /// <param name="position"></param>
+        /// <param name="owner"></param>
+        /// <returns></returns>
+        public ExplosiveGrenadeProjectile SpawnAndActivate(Vector3 position, Player owner = null)
+        {
+            ItemPickupBase newGrenade = Object.Instantiate(Projectile.Base, position, Quaternion.identity);
+            newGrenade.Info = new PickupSyncInfo(Base.ItemTypeId, Base.Weight, ItemSerialGenerator.GenerateNext());
+            ExplosiveGrenadeProjectile grenade = (ExplosiveGrenadeProjectile)Pickup.Get(newGrenade);
+            grenade.MaxRadius = Projectile.MaxRadius;
+            grenade.BurnedDuration = Projectile.BurnedDuration;
+            grenade.DeafenedDuration = Projectile.DeafenedDuration;
+            grenade.ConcussedDuration = Projectile.ConcussedDuration;
+            grenade.DetectionMask = Projectile.DetectionMask;
+            grenade.SCPDamageMultiplier = Projectile.SCPDamageMultiplier;
+            grenade.FuzeTime = Projectile.FuzeTime;
+            grenade.PreviousOwner = owner ?? Server.Host;
+            grenade.Spawn();
+            grenade.Base.gameObject.SetActive(true);
+            grenade.Base.ServerActivate();
+            return grenade;
+        }
+
+        /// <summary>
+        ///     Spawns a grenade.
+        /// </summary>
+        /// <param name="position"></param>
+        /// <param name="owner"></param>
+        /// <returns></returns>
+        public ExplosiveGrenadeProjectile Spawn(Vector3 position, Player owner = null)
+        {
+            ItemPickupBase newGrenade = Object.Instantiate(Projectile.Base, position, Quaternion.identity);
+            newGrenade.Info = new PickupSyncInfo(Base.ItemTypeId, Base.Weight, ItemSerialGenerator.GenerateNext());
+            ExplosiveGrenadeProjectile grenade = (ExplosiveGrenadeProjectile)Pickup.Get(newGrenade);
+            grenade.MaxRadius = Projectile.MaxRadius;
+            grenade.BurnedDuration = Projectile.BurnedDuration;
+            grenade.DeafenedDuration = Projectile.DeafenedDuration;
+            grenade.ConcussedDuration = Projectile.ConcussedDuration;
+            grenade.DetectionMask = Projectile.DetectionMask;
+            grenade.SCPDamageMultiplier = Projectile.SCPDamageMultiplier;
+            grenade.FuzeTime = Projectile.FuzeTime;
+            grenade.PreviousOwner = owner ?? Server.Host;
+            grenade.Spawn();
+            grenade.Base.gameObject.SetActive(true);
+            return grenade;
+        }
     }
 }

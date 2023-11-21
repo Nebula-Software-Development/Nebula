@@ -5,41 +5,43 @@
 // See LICENSE file in the project root for full license information.
 // -----------------------------------------------------------------------
 
+using System;
 using CommandSystem;
 using Nebuli.API.Features;
 using Nebuli.Loader;
 using Nebuli.Permissions;
-using System;
 
-namespace Nebuli.API.Internal.Commands;
-
-public class ReloadConfigurations : ICommand
+namespace Nebuli.API.Internal.Commands
 {
-    public string Command => "configs";
-
-    public string[] Aliases => Array.Empty<string>();
-
-    public string Description => "Config reloading.";
-
-    public bool Execute(ArraySegment<string> arguments, ICommandSender sender, out string response)
+    public class ReloadConfigurations : ICommand
     {
-        try
+        public string Command => "configs";
+
+        public string[] Aliases => Array.Empty<string>();
+
+        public string Description => "Config reloading.";
+
+        public bool Execute(ArraySegment<string> arguments, ICommandSender sender, out string response)
         {
-            if (!sender.HasPermission("reloadconfig"))
+            try
             {
-                response = "No permission! Permission needed : 'reloadconfig'.";
+                if (!sender.HasPermission("reloadconfig"))
+                {
+                    response = "No permission! Permission needed : 'reloadconfig'.";
+                    return false;
+                }
+
+                LoaderClass.ReloadConfigs();
+            }
+            catch (Exception e)
+            {
+                Log.Error($"Error occured while reloading plugin configs! Full error --> \n{e}");
+                response = e.Message;
                 return false;
             }
 
-            LoaderClass.ReloadConfigs();
+            response = "Plugin configs reloaded!";
+            return true;
         }
-        catch (Exception e)
-        {
-            Log.Error($"Error occured while reloading plugin configs! Full error --> \n{e}");
-            response = e.Message;
-            return false;
-        }
-        response = "Plugin configs reloaded!";
-        return true;
     }
 }

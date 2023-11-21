@@ -8,30 +8,31 @@
 using PlayerRoles;
 using Respawning;
 
-namespace Nebuli.API.Features.Roles;
-
-/// <summary>
-/// Represents any human role in-game.
-/// </summary>
-public class HumanPlayerRole : FpcRoleBase
+namespace Nebuli.API.Features.Roles
 {
-    internal HumanPlayerRole(HumanRole role) : base(role)
+    /// <summary>
+    ///     Represents any human role in-game.
+    /// </summary>
+    public class HumanPlayerRole : FpcRoleBase
     {
-        Base = role;
+        internal HumanPlayerRole(HumanRole role) : base(role)
+        {
+            Base = role;
+        }
+
+        /// <summary>
+        ///     Gets the <see cref="HumanRole" /> base.
+        /// </summary>
+        public new HumanRole Base { get; }
+
+        /// <summary>
+        ///     Gets the roles assigned <see cref="SpawnableTeamType" />.
+        /// </summary>
+        public SpawnableTeamType AssingedSpawnAbleTeam => Base.AssignedSpawnableTeam;
+
+        /// <summary>
+        ///     Gets if the role uses unit names.
+        /// </summary>
+        public bool UsesUnitName => Base.UsesUnitNames;
     }
-
-    /// <summary>
-    /// Gets the <see cref="HumanRole"/> base.
-    /// </summary>
-    public new HumanRole Base { get; }
-
-    /// <summary>
-    /// Gets the roles assigned <see cref="SpawnableTeamType"/>.
-    /// </summary>
-    public SpawnableTeamType AssingedSpawnAbleTeam => Base.AssignedSpawnableTeam;
-
-    /// <summary>
-    /// Gets if the role uses unit names.
-    /// </summary>
-    public bool UsesUnitName => Base.UsesUnitNames;
 }

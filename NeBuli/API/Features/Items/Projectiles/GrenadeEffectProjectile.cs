@@ -7,17 +7,18 @@
 
 using InventorySystem.Items.ThrowableProjectiles;
 
-namespace Nebuli.API.Features.Items.Projectiles;
-
-public class GrenadeEffectProjectile : TimedExplosiveProjectile
+namespace Nebuli.API.Features.Items.Projectiles
 {
-    /// <summary>
-    /// Gets the <see cref="EffectGrenade"/> base.
-    /// </summary>
-    public new EffectGrenade Base { get; }
-
-    internal GrenadeEffectProjectile(EffectGrenade timeGrenade) : base(timeGrenade)
+    public class GrenadeEffectProjectile : TimedExplosiveProjectile
     {
-        Base = timeGrenade;
+        internal GrenadeEffectProjectile(EffectGrenade timeGrenade) : base(timeGrenade)
+        {
+            Base = timeGrenade;
+        }
+
+        /// <summary>
+        ///     Gets the <see cref="EffectGrenade" /> base.
+        /// </summary>
+        public new EffectGrenade Base { get; }
     }
 }

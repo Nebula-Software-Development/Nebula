@@ -5,38 +5,38 @@
 // See LICENSE file in the project root for full license information.
 // -----------------------------------------------------------------------
 
+using System;
 using InventorySystem.Items.Pickups;
 using Nebuli.API.Features.Items.Pickups;
 using Nebuli.Events.EventArguments.Interfaces;
-using System;
-using Nebuli.API.Features;
 
-namespace Nebuli.Events.EventArguments.Player;
-
-/// <summary>
-/// Triggered when a player picks up an item.
-/// </summary>
-public class PlayerPickingUpItemEvent : EventArgs, IPlayerEvent, ICancellableEvent
+namespace Nebuli.Events.EventArguments.Player
 {
-    public PlayerPickingUpItemEvent(ReferenceHub player, ItemPickupBase targetItem)
+    /// <summary>
+    ///     Triggered when a player picks up an item.
+    /// </summary>
+    public class PlayerPickingUpItemEvent : EventArgs, IPlayerEvent, ICancellableEvent
     {
-        Player = API.Features.Player.Get(player);
-        Item = Pickup.Get(targetItem);
-        IsCancelled = false;
+        public PlayerPickingUpItemEvent(ReferenceHub player, ItemPickupBase targetItem)
+        {
+            Player = API.Features.Player.Get(player);
+            Item = Pickup.Get(targetItem);
+            IsCancelled = false;
+        }
+
+        /// <summary>
+        ///     The <see cref="Pickup" /> being picked up.
+        /// </summary>
+        public Pickup Item { get; }
+
+        /// <summary>
+        ///     Gets or sets if the event is cancelled.
+        /// </summary>
+        public bool IsCancelled { get; set; }
+
+        /// <summary>
+        ///     The player picking up the item.
+        /// </summary>
+        public API.Features.Player Player { get; }
     }
-
-    /// <summary>
-    /// The player picking up the item.
-    /// </summary>
-    public API.Features.Player Player { get; }
-
-    /// <summary>
-    /// The <see cref="Pickup"/> being picked up.
-    /// </summary>
-    public Pickup Item { get; }
-
-    /// <summary>
-    /// Gets or sets if the event is cancelled.
-    /// </summary>
-    public bool IsCancelled { get; set; }
 }

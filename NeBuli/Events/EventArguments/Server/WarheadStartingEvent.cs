@@ -5,42 +5,42 @@
 // See LICENSE file in the project root for full license information.
 // -----------------------------------------------------------------------
 
-using Nebuli.Events.EventArguments.Interfaces;
 using System;
-using Nebuli.API.Features;
+using Nebuli.Events.EventArguments.Interfaces;
 
-namespace Nebuli.Events.EventArguments.Server;
-
-/// <summary>
-/// Triggered before the warhead starts its detonation sequence.
-/// </summary>
-public class WarheadStartingEvent : EventArgs, IPlayerEvent, ICancellableEvent
+namespace Nebuli.Events.EventArguments.Server
 {
-    public WarheadStartingEvent(bool automatic, bool suppressSubtitles, ReferenceHub trigger)
+    /// <summary>
+    ///     Triggered before the warhead starts its detonation sequence.
+    /// </summary>
+    public class WarheadStartingEvent : EventArgs, IPlayerEvent, ICancellableEvent
     {
-        Player = trigger == null ? API.Features.Server.Host : API.Features.Player.Get(trigger);
-        SuppressSubtitles = suppressSubtitles;
-        IsAutomatic = automatic;
-        IsCancelled = false;
+        public WarheadStartingEvent(bool automatic, bool suppressSubtitles, ReferenceHub trigger)
+        {
+            Player = trigger == null ? API.Features.Server.Host : API.Features.Player.Get(trigger);
+            SuppressSubtitles = suppressSubtitles;
+            IsAutomatic = automatic;
+            IsCancelled = false;
+        }
+
+        /// <summary>
+        ///     Gets or sets if C.A.S.S.I.E should suppress subtitles or not.
+        /// </summary>
+        public bool SuppressSubtitles { get; set; }
+
+        /// <summary>
+        ///     Gets or sets if the detonation is a automatic detonation.
+        /// </summary>
+        public bool IsAutomatic { get; set; }
+
+        /// <summary>
+        ///     Gets or sets if the event is canceled.
+        /// </summary>
+        public bool IsCancelled { get; set; }
+
+        /// <summary>
+        ///     Gets the player triggering the Alpha Warhead.
+        /// </summary>
+        public API.Features.Player Player { get; }
     }
-
-    /// <summary>
-    /// Gets the player triggering the Alpha Warhead.
-    /// </summary>
-    public API.Features.Player Player { get; }
-
-    /// <summary>
-    /// Gets or sets if C.A.S.S.I.E should suppress subtitles or not.
-    /// </summary>
-    public bool SuppressSubtitles { get; set; }
-
-    /// <summary>
-    /// Gets or sets if the detonation is a automatic detonation.
-    /// </summary>
-    public bool IsAutomatic { get; set; }
-
-    /// <summary>
-    /// Gets or sets if the event is canceled.
-    /// </summary>
-    public bool IsCancelled { get; set; }
 }

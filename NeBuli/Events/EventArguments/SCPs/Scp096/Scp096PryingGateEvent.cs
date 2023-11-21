@@ -5,37 +5,38 @@
 // See LICENSE file in the project root for full license information.
 // -----------------------------------------------------------------------
 
+using System;
 using Nebuli.API.Features.Doors;
 using Nebuli.Events.EventArguments.Interfaces;
-using System;
-using Nebuli.API.Features;
+using PryableDoor = Interactables.Interobjects.PryableDoor;
 
-namespace Nebuli.Events.EventArguments.SCPs.Scp096;
-
-/// <summary>
-/// Triggered when SCP-096 is trying to pry open a gate.
-/// </summary>
-public class Scp096PryingGateEvent : EventArgs, IPlayerEvent, ICancellableEvent
+namespace Nebuli.Events.EventArguments.SCPs.Scp096
 {
-    public Scp096PryingGateEvent(ReferenceHub player, Interactables.Interobjects.PryableDoor door)
+    /// <summary>
+    ///     Triggered when SCP-096 is trying to pry open a gate.
+    /// </summary>
+    public class Scp096PryingGateEvent : EventArgs, IPlayerEvent, ICancellableEvent
     {
-        Player = API.Features.Player.Get(player);
-        PryableDoor = (PryableDoor)Door.Get(door);
-        IsCancelled = false;
+        public Scp096PryingGateEvent(ReferenceHub player, PryableDoor door)
+        {
+            Player = API.Features.Player.Get(player);
+            PryableDoor = (API.Features.Doors.PryableDoor)Door.Get(door);
+            IsCancelled = false;
+        }
+
+        /// <summary>
+        ///     Gets the <see cref="API.Features.Doors.PryableDoor" /> being pried.
+        /// </summary>
+        public API.Features.Doors.PryableDoor PryableDoor { get; }
+
+        /// <summary>
+        ///     Gets or sets if the event is cancelled.
+        /// </summary>
+        public bool IsCancelled { get; set; }
+
+        /// <summary>
+        ///     Gets the player prying the door.
+        /// </summary>
+        public API.Features.Player Player { get; }
     }
-
-    /// <summary>
-    /// Gets the player prying the door.
-    /// </summary>
-    public API.Features.Player Player { get; }
-
-    /// <summary>
-    /// Gets the <see cref="API.Features.Doors.PryableDoor"/> being pried.
-    /// </summary>
-    public PryableDoor PryableDoor { get; }
-
-    /// <summary>
-    /// Gets or sets if the event is cancelled.
-    /// </summary>
-    public bool IsCancelled { get; set; }
 }

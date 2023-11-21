@@ -5,30 +5,30 @@
 // See LICENSE file in the project root for full license information.
 // -----------------------------------------------------------------------
 
-using Nebuli.Events.EventArguments.Interfaces;
 using System;
-using Nebuli.API.Features;
+using Nebuli.Events.EventArguments.Interfaces;
 
-namespace Nebuli.Events.EventArguments.SCPs.Scp939;
-
-/// <summary>
-/// Triggered when SCP-939 places a cloud of gas.
-/// </summary>
-public class Scp939PlaceCloudEvent : EventArgs, IPlayerEvent, ICancellableEvent
+namespace Nebuli.Events.EventArguments.SCPs.Scp939
 {
-    public Scp939PlaceCloudEvent(ReferenceHub player)
+    /// <summary>
+    ///     Triggered when SCP-939 places a cloud of gas.
+    /// </summary>
+    public class Scp939PlaceCloudEvent : EventArgs, IPlayerEvent, ICancellableEvent
     {
-        Player = API.Features.Player.Get(player);
-        IsCancelled = false;
+        public Scp939PlaceCloudEvent(ReferenceHub player)
+        {
+            Player = API.Features.Player.Get(player);
+            IsCancelled = false;
+        }
+
+        /// <summary>
+        ///     Gets or sets if the event is cancelled.
+        /// </summary>
+        public bool IsCancelled { get; set; }
+
+        /// <summary>
+        ///     The player placing the cloud.
+        /// </summary>
+        public API.Features.Player Player { get; }
     }
-
-    /// <summary>
-    /// The player placing the cloud.
-    /// </summary>
-    public API.Features.Player Player { get; }
-
-    /// <summary>
-    /// Gets or sets if the event is cancelled.
-    /// </summary>
-    public bool IsCancelled { get; set; }
 }

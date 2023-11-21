@@ -5,36 +5,36 @@
 // See LICENSE file in the project root for full license information.
 // -----------------------------------------------------------------------
 
-using Nebuli.Events.EventArguments.Interfaces;
 using System;
-using Nebuli.API.Features;
+using Nebuli.Events.EventArguments.Interfaces;
 
-namespace Nebuli.Events.EventArguments.Player;
-
-/// <summary>
-/// Triggered when a player enters the pocket dimension.
-/// </summary>
-public class PlayerEnteringPocketDimensionEvent : EventArgs, IPlayerEvent, ICancellableEvent
+namespace Nebuli.Events.EventArguments.Player
 {
-    public PlayerEnteringPocketDimensionEvent(API.Features.Player player, API.Features.Player target)
+    /// <summary>
+    ///     Triggered when a player enters the pocket dimension.
+    /// </summary>
+    public class PlayerEnteringPocketDimensionEvent : EventArgs, IPlayerEvent, ICancellableEvent
     {
-        Player = player;
-        Target = target;
-        IsCancelled = false;
+        public PlayerEnteringPocketDimensionEvent(API.Features.Player player, API.Features.Player target)
+        {
+            Player = player;
+            Target = target;
+            IsCancelled = false;
+        }
+
+        /// <summary>
+        ///     Gets the player being teleported.
+        /// </summary>
+        public API.Features.Player Target { get; }
+
+        /// <summary>
+        ///     Gets or sets if the event is cancelled.
+        /// </summary>
+        public bool IsCancelled { get; set; }
+
+        /// <summary>
+        ///     Gets the player teleporting the target, or SCP-106.
+        /// </summary>
+        public API.Features.Player Player { get; }
     }
-
-    /// <summary>
-    /// Gets the player teleporting the target, or SCP-106.
-    /// </summary>
-    public API.Features.Player Player { get; }
-
-    /// <summary>
-    /// Gets the player being teleported.
-    /// </summary>
-    public API.Features.Player Target { get; }
-
-    /// <summary>
-    /// Gets or sets if the event is cancelled.
-    /// </summary>
-    public bool IsCancelled { get; set; }
 }

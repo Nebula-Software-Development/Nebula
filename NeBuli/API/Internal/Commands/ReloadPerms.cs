@@ -5,40 +5,42 @@
 // See LICENSE file in the project root for full license information.
 // -----------------------------------------------------------------------
 
+using System;
 using CommandSystem;
 using Nebuli.API.Features;
 using Nebuli.Permissions;
-using System;
 
-namespace Nebuli.API.Internal.Commands;
-
-public class ReloadPerms : ICommand
+namespace Nebuli.API.Internal.Commands
 {
-    public string Command { get; } = "permissions";
-
-    public string[] Aliases { get; } = new[] { "perm", "Permissions", "permission" };
-
-    public string Description { get; } = "Reloads permissions.";
-
-    public bool Execute(ArraySegment<string> arguments, ICommandSender sender, out string response)
+    public class ReloadPerms : ICommand
     {
-        try
+        public string Command { get; } = "permissions";
+
+        public string[] Aliases { get; } = { "perm", "Permissions", "permission" };
+
+        public string Description { get; } = "Reloads permissions.";
+
+        public bool Execute(ArraySegment<string> arguments, ICommandSender sender, out string response)
         {
-            if (!sender.HasPermission("reloadpermission"))
+            try
             {
-                response = "No permission! Permission needed : 'reloadpermission'.";
+                if (!sender.HasPermission("reloadpermission"))
+                {
+                    response = "No permission! Permission needed : 'reloadpermission'.";
+                    return false;
+                }
+
+                Permissions.PermissionsHandler.LoadPermissions();
+            }
+            catch (Exception e)
+            {
+                Log.Error($"Error occured while reloading permissions! Full error --> \n{e}");
+                response = e.Message;
                 return false;
             }
 
-            Permissions.PermissionsHandler.LoadPermissions();
+            response = "Permissions reloaded!";
+            return true;
         }
-        catch (Exception e)
-        {
-            Log.Error($"Error occured while reloading permissions! Full error --> \n{e}");
-            response = e.Message;
-            return false;
-        }
-        response = "Permissions reloaded!";
-        return true;
     }
 }
