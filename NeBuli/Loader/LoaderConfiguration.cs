@@ -32,7 +32,7 @@ namespace Nebuli.Loader
         /// </summary>
         [Description("Determines if Loader's debug logs show or not.")]
         public bool ShowDebugLogs { get; set; } = false;
-
+        
         /// <summary>
         ///     If true, allows the server to be tracked and counted with the total number of Nebuli servers via server name.
         /// </summary>

@@ -18,10 +18,7 @@ namespace Nebuli.Loader.CustomConverters
 {
     public sealed class CustomVectorsConverter : IYamlTypeConverter
     {
-        public bool Accepts(Type type)
-        {
-            return type == typeof(Vector2) || type == typeof(Vector3) || type == typeof(Vector4);
-        }
+        public bool Accepts(Type type) => type == typeof(Vector2) || type == typeof(Vector3) || type == typeof(Vector4);
 
         public object ReadYaml(IParser parser, Type type)
         {
@@ -52,11 +49,11 @@ namespace Nebuli.Loader.CustomConverters
 
             object vector = type switch
             {
-                Type t when t == typeof(Vector2) && coordinates.Count == 2 => new Vector2(coordinates[0],
+                not null when type == typeof(Vector2) && coordinates.Count == 2 => new Vector2(coordinates[0],
                     coordinates[1]),
-                Type t when t == typeof(Vector3) && coordinates.Count == 3 => new Vector3(coordinates[0],
+                not null when type == typeof(Vector3) && coordinates.Count == 3 => new Vector3(coordinates[0],
                     coordinates[1], coordinates[2]),
-                Type t when t == typeof(Vector4) && coordinates.Count == 4 => new Vector4(coordinates[0],
+                not null when type == typeof(Vector4) && coordinates.Count == 4 => new Vector4(coordinates[0],
                     coordinates[1], coordinates[2], coordinates[3]),
                 _ => throw new InvalidDataException($"Invalid type or number of coordinates for {type.FullName}.")
             };

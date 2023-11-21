@@ -13,12 +13,12 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "NotIntense"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;NotIntense&quot;
   }
-}]]></component>
+}</component>
   <component name="GithubProjectSettings">
     <option name="branchProtectionPatterns">
       <list>
@@ -38,15 +38,41 @@
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/ILViewer/484d5de69a5d40dd9b2f5bb6b09bca0175a00/d1/62263842/020000D4pdb79High.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/ILViewer/484d5de69a5d40dd9b2f5bb6b09bca0175a00/d1/62263842/020000D4pdb79Low.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/327b633fa7dc4975991be196b55f7e7626c400/43/d4118a12/IntercomDisplay.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Users/mbro8/OneDrive/Documents/GitHub/NebuliTeam/NeBuli/API/Features/Player/NebuliPlayer.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/327b633fa7dc4975991be196b55f7e7626c400/43/d4118a12/IntercomDisplay.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/e5b0d74b925e473b8252fd9b5920f4ed35c00/69/ff882003/IYamlTypeConverter.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Users/mbro8/OneDrive/Documents/GitHub/NebuliTeam/NeBuli/API/Extensions/GenericExtensions.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Users/mbro8/OneDrive/Documents/GitHub/NebuliTeam/NeBuli/API/Features/Hazards/EnviormentHazard.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/NeBuli/API/Features/Intercom.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/NeBuli/API/Features/Items/BodyArmor.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/NeBuli/API/Features/Items/Coin.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="mock://C:/Users/mbro8/OneDrive/Documents/GitHub/NebuliTeam/NeBuli/API/Features/Items/Item.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/NeBuli/API/Features/Items/LightSources/Lantern.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="mock://C:/Users/mbro8/OneDrive/Documents/GitHub/NebuliTeam/NeBuli/API/Features/Items/Pickups/FirearmPickup.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Users/mbro8/OneDrive/Documents/GitHub/NebuliTeam/NeBuli/API/Features/Items/Pickups/Pickup.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Users/mbro8/OneDrive/Documents/GitHub/NebuliTeam/NeBuli/API/Features/Map/Utilites.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Users/mbro8/OneDrive/Documents/GitHub/NebuliTeam/NeBuli/API/Features/Map/Window.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/NeBuli/API/Features/Npc.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="mock://C:/Users/mbro8/OneDrive/Documents/GitHub/NebuliTeam/NeBuli/API/Features/Npc.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Users/mbro8/OneDrive/Documents/GitHub/NebuliTeam/NeBuli/API/Features/Player.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/NeBuli/API/Features/Pools/HashsetPool.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/NeBuli/API/Features/Roles/FilmmakerRole.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/NeBuli/API/Features/Roles/NonePlayerRole.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/NeBuli/API/Features/Roles/Role.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/NeBuli/API/Features/Roles/Scp106PlayerRole.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/NeBuli/Loader/CustomConverters/CustomVectorsConverter.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="mock://C:/Users/mbro8/OneDrive/Documents/GitHub/NebuliTeam/NeBuli/Loader/CustomConverters/CustomVectorsConverter.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Users/mbro8/OneDrive/Documents/GitHub/NebuliTeam/NeBuli/Loader/LoaderConfiguration.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/NeBuli/Loader/LoaderConfiguration.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/NeBuli/Loader/NebuliInfo.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="mock://C:/Users/mbro8/OneDrive/Documents/GitHub/NebuliTeam/NeBuli/Loader/PermissionHandler.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Users/mbro8/OneDrive/Documents/GitHub/NebuliTeam/NeBuli/Loader/Updater.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
   <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
   <component name="ProblemsViewState">
-    <option name="selectedTabId" value="CurrentFile" />
+    <option name="selectedTabId" value="Toolset" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;customColor&quot;: &quot;&quot;,
@@ -62,15 +88,15 @@
     "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "dev",
     "ignore.virus.scanning.warn.message": "true",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "settings.editor.selected.configurable": "preferences.sourceCode.C#",
     "vue.rearranger.settings.migration": "true"
   },
   "keyToStringList": {
@@ -103,6 +129,10 @@
       <updated>1700572133126</updated>
       <workItem from="1700572136725" duration="84000" />
       <workItem from="1700572239901" duration="3251000" />
+      <workItem from="1700576853349" duration="1212000" />
+      <workItem from="1700578091877" duration="33000" />
+      <workItem from="1700578143846" duration="168000" />
+      <workItem from="1700596055129" duration="881000" />
     </task>
     <task id="LOCAL-00001" summary="so real rn">
       <option name="closed" value="true" />
@@ -112,7 +142,15 @@
       <option name="project" value="LOCAL" />
       <updated>1700572655285</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Rider go hard">
+      <option name="closed" value="true" />
+      <created>1700596938692</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1700596938692</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -133,7 +171,8 @@
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
     <MESSAGE value="so real rn" />
-    <option name="LAST_COMMIT_MESSAGE" value="so real rn" />
+    <MESSAGE value="Rider go hard" />
+    <option name="LAST_COMMIT_MESSAGE" value="Rider go hard" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -150,6 +189,19 @@
             </endOffsets>
           </properties>
           <option name="timeStamp" value="2" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/NeBuli/API/Features/Player.cs</url>
+          <line>1103</line>
+          <properties documentPath="C:\Users\mbro8\OneDrive\Documents\GitHub\NebuliTeam\NeBuli\API\Features\Player.cs" initialLine="1103" containingFunctionPresentation="Method 'TryGet'">
+            <startOffsets>
+              <option value="38550" />
+            </startOffsets>
+            <endOffsets>
+              <option value="38564" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="3" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
