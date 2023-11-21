@@ -5,19 +5,18 @@
 // See LICENSE file in the project root for full license information.
 // -----------------------------------------------------------------------
 
-using Nebuli.API.Features.Player;
-
-namespace Nebuli.Events.EventArguments.Interfaces;
-
-public interface IDamageEvent
+namespace Nebuli.Events.EventArguments.Interfaces
 {
-    /// <summary>
-    /// The attacker of the damage handler.
-    /// </summary>
-    public NebuliPlayer Attacker { get; }
+    public interface IDamageEvent
+    {
+        /// <summary>
+        ///     The attacker of the damage handler.
+        /// </summary>
+        public API.Features.Player Attacker { get; }
 
-    /// <summary>
-    /// The Target of the damage handler.
-    /// </summary>
-    public NebuliPlayer Target { get; }
+        /// <summary>
+        ///     The Target of the damage handler.
+        /// </summary>
+        public API.Features.Player Target { get; }
+    }
 }

@@ -7,25 +7,27 @@
 
 using LanternBase = InventorySystem.Items.ToggleableLights.Lantern.LanternItem;
 
-namespace Nebuli.API.Features.Items.LightSources;
-
-public class Lantern : Item
+namespace Nebuli.API.Features.Items.LightSources
 {
-    /// <summary>
-    /// Gets the <see cref="LanternBase"/> base.
-    /// </summary>
-    public new LanternBase Base { get; }
-    internal Lantern(LanternBase itemBase) : base(itemBase)
+    public class Lantern : Item
     {
-        Base = itemBase;
-    }
+        internal Lantern(LanternBase itemBase) : base(itemBase)
+        {
+            Base = itemBase;
+        }
 
-    /// <summary>
-    /// Gets or sets if the lantern is emitting light.
-    /// </summary>
-    public bool IsEmittingLight
-    {
-        get => Base.IsEmittingLight;
-        set => Base.IsEmittingLight = value;
+        /// <summary>
+        ///     Gets the <see cref="LanternBase" /> base.
+        /// </summary>
+        public new LanternBase Base { get; }
+
+        /// <summary>
+        ///     Gets or sets if the lantern is emitting light.
+        /// </summary>
+        public bool IsEmittingLight
+        {
+            get => Base.IsEmittingLight;
+            set => Base.IsEmittingLight = value;
+        }
     }
 }

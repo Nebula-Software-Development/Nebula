@@ -5,43 +5,48 @@
 // See LICENSE file in the project root for full license information.
 // -----------------------------------------------------------------------
 
+using System.Collections.Generic;
+using System.Reflection.Emit;
 using CentralAuth;
 using HarmonyLib;
 using Nebuli.Events.EventArguments.Player;
 using Nebuli.Events.Handlers;
 using NorthwoodLib.Pools;
-using System.Collections.Generic;
-using System.Reflection.Emit;
 using static HarmonyLib.AccessTools;
 
-namespace Nebuli.Events.Patches.Player;
-
-[HarmonyPatch(typeof(PlayerAuthenticationManager), nameof(PlayerAuthenticationManager.FinalizeAuthentication))]
-internal class VerificationCompleted
+namespace Nebuli.Events.Patches.Player
 {
-    [HarmonyTranspiler]
-    private static IEnumerable<CodeInstruction> OnJoining(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
+    [HarmonyPatch(typeof(PlayerAuthenticationManager), nameof(PlayerAuthenticationManager.FinalizeAuthentication))]
+    internal class VerificationCompleted
     {
-        List<CodeInstruction> newInstructions = EventManager.CheckPatchInstructions<VerificationCompleted>(142, instructions);
-
-        Label retLabel = generator.DefineLabel();
-        int index = newInstructions.FindIndex(i => i.opcode == OpCodes.Stloc_0) - 7;
-
-        newInstructions.InsertRange(index, new[]
+        [HarmonyTranspiler]
+        private static IEnumerable<CodeInstruction> OnJoining(IEnumerable<CodeInstruction> instructions,
+            ILGenerator generator)
         {
-            new CodeInstruction(OpCodes.Ldarg_0).MoveLabelsFrom(newInstructions[index]),
-            new(OpCodes.Callvirt, PropertyGetter(typeof(ServerRoles), nameof(ServerRoles.isLocalPlayer))),
-            new(OpCodes.Brtrue_S, retLabel),
-            new(OpCodes.Ldarg_0),
-            new(OpCodes.Newobj, GetDeclaredConstructors(typeof(PlayerJoinEvent))[0]),
-            new(OpCodes.Call, Method(typeof(PlayerHandlers), nameof(PlayerHandlers.OnJoin))),
-        });
+            List<CodeInstruction> newInstructions =
+                EventManager.CheckPatchInstructions<VerificationCompleted>(142, instructions);
 
-        newInstructions[newInstructions.Count - 1].labels.Add(retLabel);
+            Label retLabel = generator.DefineLabel();
+            int index = newInstructions.FindIndex(i => i.opcode == OpCodes.Stloc_0) - 7;
 
-        foreach (CodeInstruction instruction in newInstructions)
-            yield return instruction;
+            newInstructions.InsertRange(index, new[]
+            {
+                new CodeInstruction(OpCodes.Ldarg_0).MoveLabelsFrom(newInstructions[index]),
+                new(OpCodes.Callvirt, PropertyGetter(typeof(ServerRoles), nameof(ServerRoles.isLocalPlayer))),
+                new(OpCodes.Brtrue_S, retLabel),
+                new(OpCodes.Ldarg_0),
+                new(OpCodes.Newobj, GetDeclaredConstructors(typeof(PlayerJoinEvent))[0]),
+                new(OpCodes.Call, Method(typeof(PlayerHandlers), nameof(PlayerHandlers.OnJoin)))
+            });
 
-        ListPool<CodeInstruction>.Shared.Return(newInstructions);
+            newInstructions[newInstructions.Count - 1].labels.Add(retLabel);
+
+            foreach (CodeInstruction instruction in newInstructions)
+            {
+                yield return instruction;
+            }
+
+            ListPool<CodeInstruction>.Shared.Return(newInstructions);
+        }
     }
 }

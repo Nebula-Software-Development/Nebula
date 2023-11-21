@@ -5,9 +5,6 @@
 // See LICENSE file in the project root for full license information.
 // -----------------------------------------------------------------------
 
-using Newtonsoft.Json;
-using PluginAPI.Core;
-using PluginAPI.Loader;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -16,177 +13,186 @@ using System.Net;
 using System.Net.Http;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
+using PluginAPI.Core;
+using PluginAPI.Loader;
 using Log = Nebuli.API.Features.Log;
 using Server = Nebuli.API.Features.Server;
 
-namespace Nebuli.Loader;
-
-internal class Updater
+namespace Nebuli.Loader
 {
-    internal static FileStream PendingUpdate = null;
-    internal static Stream Stream = null;
-    internal static string NeubliPath;
-
-    public static void CheckForUpdates()
+    internal class Updater
     {
-        Log.Info("Checking for updates...", "Updater");
-        NeubliPath = FindNebuliPath();
-        if(string.IsNullOrEmpty(NeubliPath)) 
-        {
-            Log.Error("Could not find the file path for Nebuli! Skipping updates...", "Updater");
-            return;
-        }
-        Task.Run(CheckForUpdatesAsync);
-    }
+        internal static FileStream PendingUpdate;
+        internal static Stream Stream = null;
+        internal static string NeubliPath;
 
-    private static HttpClient CreateHttpClient()
-    {
-        HttpClient client = new()
+        public static void CheckForUpdates()
         {
-            Timeout = TimeSpan.FromSeconds(480)
-        };
-        client.DefaultRequestHeaders.Add("User-Agent", $"NebuliUpdater (https://github.com/Nebuli-Team/Nebuli{NebuliInfo.NebuliVersion})");
-        return client;
-    }
-
-    private static async Task CheckForUpdatesAsync()
-    {
-        try
-        {
-            using HttpClient client = CreateHttpClient();
-            string latestReleaseUrl = "https://api.github.com/repos/Nebuli-Team/Nebuli/releases/latest";
-            string responseBody = await client.GetStringAsync(latestReleaseUrl);
-
-            GitHubRelease latestRelease = JsonConvert.DeserializeObject<GitHubRelease>(responseBody);
-            if (latestRelease == null || string.IsNullOrEmpty(latestRelease.AssetsUrl))
+            Log.Info("Checking for updates...", "Updater");
+            NeubliPath = FindNebuliPath();
+            if (string.IsNullOrEmpty(NeubliPath))
             {
-                Log.Error("Failed to get the latest release information from GitHub.", "Updater");
-                return;
-            }
-            string dllDownloadUrl = GetDllDownloadUrl(latestRelease.AssetsUrl, client);
-            if (dllDownloadUrl == null)
-            {
-                Log.Error("Failed to get the DLL download URL from the latest release.", "Updater");
+                Log.Error("Could not find the file path for Nebuli! Skipping updates...", "Updater");
                 return;
             }
 
-            string latestVersion = latestRelease.TagName.Replace("-alpha", "");
-
-            if (Version.Parse(latestVersion) > NebuliInfo.NebuliVersion)
-            {
-                Log.Info($"A new Nebuli version, ({latestRelease.TagName}), is available on GitHub. Preparing download...", "Updater");
-                Update(client, dllDownloadUrl);
-            }
-            else
-            {
-                Log.Info("Nebuli is up-to-date!", "Updater");
-                return;
-            }
+            Task.Run(CheckForUpdatesAsync);
         }
-        catch (Exception ex)
-        {
-            Log.Error($"Error occurred while checking for updates: {ex}", "Updater");
-        }
-    }
 
-    private static string GetDllDownloadUrl(string assetsUrl, HttpClient client)
-    {
-        try
+        private static HttpClient CreateHttpClient()
         {
-            string responseBody = client.GetStringAsync(assetsUrl).GetAwaiter().GetResult();
-            GitHubAsset[] assets = JsonConvert.DeserializeObject<GitHubAsset[]>(responseBody);
-            foreach (GitHubAsset asset in assets)
+            HttpClient client = new()
             {
-                if (asset.Name.EndsWith(".dll", StringComparison.OrdinalIgnoreCase))
+                Timeout = TimeSpan.FromSeconds(480)
+            };
+            client.DefaultRequestHeaders.Add("User-Agent",
+                $"NebuliUpdater (https://github.com/Nebuli-Team/Nebuli{NebuliInfo.NebuliVersion})");
+            return client;
+        }
+
+        private static async Task CheckForUpdatesAsync()
+        {
+            try
+            {
+                using HttpClient client = CreateHttpClient();
+                string latestReleaseUrl = "https://api.github.com/repos/Nebuli-Team/Nebuli/releases/latest";
+                string responseBody = await client.GetStringAsync(latestReleaseUrl);
+
+                GitHubRelease latestRelease = JsonConvert.DeserializeObject<GitHubRelease>(responseBody);
+                if (latestRelease == null || string.IsNullOrEmpty(latestRelease.AssetsUrl))
                 {
-                    return asset.BrowserDownloadUrl;
+                    Log.Error("Failed to get the latest release information from GitHub.", "Updater");
+                    return;
+                }
+
+                string dllDownloadUrl = GetDllDownloadUrl(latestRelease.AssetsUrl, client);
+                if (dllDownloadUrl == null)
+                {
+                    Log.Error("Failed to get the DLL download URL from the latest release.", "Updater");
+                    return;
+                }
+
+                string latestVersion = latestRelease.TagName.Replace("-alpha", "");
+
+                if (Version.Parse(latestVersion) > NebuliInfo.NebuliVersion)
+                {
+                    Log.Info(
+                        $"A new Nebuli version, ({latestRelease.TagName}), is available on GitHub. Preparing download...",
+                        "Updater");
+                    Update(client, dllDownloadUrl);
+                }
+                else
+                {
+                    Log.Info("Nebuli is up-to-date!", "Updater");
                 }
             }
+            catch (Exception ex)
+            {
+                Log.Error($"Error occurred while checking for updates: {ex}", "Updater");
+            }
         }
-        catch (Exception ex)
+
+        private static string GetDllDownloadUrl(string assetsUrl, HttpClient client)
         {
-            Log.Error($"Failed to get the DLL download URL: {ex}", "Updater");
+            try
+            {
+                string responseBody = client.GetStringAsync(assetsUrl).GetAwaiter().GetResult();
+                GitHubAsset[] assets = JsonConvert.DeserializeObject<GitHubAsset[]>(responseBody);
+                foreach (GitHubAsset asset in assets)
+                {
+                    if (asset.Name.EndsWith(".dll", StringComparison.OrdinalIgnoreCase))
+                    {
+                        return asset.BrowserDownloadUrl;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.Error($"Failed to get the DLL download URL: {ex}", "Updater");
+            }
+
+            return null;
         }
 
-        return null;
-    }
-
-    private static void Update(HttpClient client, string dllDownloadUrl)
-    {
-        try
+        private static void Update(HttpClient client, string dllDownloadUrl)
         {
-            Log.Info("Prepare complete! Downloading new update...");
-            using HttpResponseMessage installer = client.GetAsync(dllDownloadUrl).ConfigureAwait(false).GetAwaiter().GetResult();
-            Log.Info("Downloaded!");
-            using Stream installerStream = installer.Content.ReadAsStreamAsync().ConfigureAwait(false).GetAwaiter().GetResult();
-            using FileStream fs = new(NeubliPath, FileMode.Create, FileAccess.Write, FileShare.None);
-            PendingUpdate = fs;
-            installerStream.CopyTo(fs);
-            Log.Info("Auto-update complete! It will be installed once the server restarts!");
+            try
+            {
+                Log.Info("Prepare complete! Downloading new update...");
+                using HttpResponseMessage installer =
+                    client.GetAsync(dllDownloadUrl).ConfigureAwait(false).GetAwaiter().GetResult();
+                Log.Info("Downloaded!");
+                using Stream installerStream = installer.Content.ReadAsStreamAsync().ConfigureAwait(false).GetAwaiter()
+                    .GetResult();
+                using FileStream fs = new(NeubliPath, FileMode.Create, FileAccess.Write, FileShare.None);
+                PendingUpdate = fs;
+                installerStream.CopyTo(fs);
+                Log.Info("Auto-update complete! It will be installed once the server restarts!");
+            }
+            catch (Exception ex)
+            {
+                Log.Error($"{nameof(Update)} threw an exception!");
+                Log.Error(ex);
+            }
         }
-        catch (Exception ex)
+
+        internal static string FindNebuliPath()
         {
-            Log.Error($"{nameof(Update)} threw an exception!");
-            Log.Error(ex);
+            if (AssemblyLoader.Plugins.TryGetValue(LoaderClass.NebuliAssembly,
+                    out Dictionary<Type, PluginHandler> plugin))
+            {
+                return plugin.Values.Where(x => x.PluginName == "Nebuli Loader").FirstOrDefault().PluginFilePath;
+            }
+
+            return string.Empty;
         }
-    }
 
-    private class GitHubRelease
-    {
-        [JsonProperty("tag_name")]
-        public string TagName { get; set; }
-
-        [JsonProperty("assets_url")]
-        public string AssetsUrl { get; set; }
-    }
-
-    private class GitHubAsset
-    {
-        [JsonProperty("name")]
-        public string Name { get; set; }
-
-        [JsonProperty("browser_download_url")]
-        public string BrowserDownloadUrl { get; set; }
-    }
-
-    internal static string FindNebuliPath()
-    {
-        if(AssemblyLoader.Plugins.TryGetValue(LoaderClass.NebuliAssembly, out Dictionary<Type, PluginHandler> plugin)) 
+        internal static void ForceInstall(string url)
         {
-            return plugin.Values.Where(x => x.PluginName == "Nebuli Loader").FirstOrDefault().PluginFilePath;
-        }
-        return string.Empty;
-    }
+            if (!IsGitHubUrl(url))
+            {
+                Log.Info(
+                    "The provided URL is not a valid GitHub URL. Only Github URLs are allowed for security reasons.");
+                return;
+            }
 
-    internal static void ForceInstall(string url)
-    {
-        if (!IsGitHubUrl(url))
+            Log.Info($"Force installing Nebuli from {url}...");
+            using WebClient client = new();
+            string filePath = FindNebuliPath();
+
+            try
+            {
+                client.DownloadFile(url, filePath);
+                Log.Info($"DLL downloaded and saved at: {filePath}");
+            }
+            catch (Exception ex)
+            {
+                Log.Info($"An error occurred while downloading the DLL: {ex}");
+            }
+
+            Log.Info("Download complete! Restarting server...");
+            Server.RestartServer();
+        }
+
+        private static bool IsGitHubUrl(string url)
         {
-            Log.Info("The provided URL is not a valid GitHub URL. Only Github URLs are allowed for security reasons.");
-            return;
+            string githubPattern = @"^(https?:\/\/)?(www\.)?github\.com\/.*";
+            return Regex.IsMatch(url, githubPattern, RegexOptions.IgnoreCase);
         }
 
-        Log.Info($"Force installing Nebuli from {url}...");
-        using WebClient client = new();
-        string filePath = FindNebuliPath();
-
-        try
+        private class GitHubRelease
         {
-            client.DownloadFile(url, filePath);
-            Log.Info($"DLL downloaded and saved at: {filePath}");
+            [JsonProperty("tag_name")] public string TagName { get; set; }
+
+            [JsonProperty("assets_url")] public string AssetsUrl { get; set; }
         }
-        catch (Exception ex)
+
+        private class GitHubAsset
         {
-            Log.Info($"An error occurred while downloading the DLL: {ex}");
+            [JsonProperty("name")] public string Name { get; set; }
+
+            [JsonProperty("browser_download_url")] public string BrowserDownloadUrl { get; set; }
         }
-
-        Log.Info("Download complete! Restarting server...");
-        Server.RestartServer();
-    }
-
-    private static bool IsGitHubUrl(string url)
-    {
-        string githubPattern = @"^(https?:\/\/)?(www\.)?github\.com\/.*";
-        return Regex.IsMatch(url, githubPattern, RegexOptions.IgnoreCase);
     }
 }

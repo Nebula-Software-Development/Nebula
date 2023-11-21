@@ -5,38 +5,40 @@
 // See LICENSE file in the project root for full license information.
 // -----------------------------------------------------------------------
 
-using Nebuli.API.Features.Player;
+using System;
 using Nebuli.Events.EventArguments.Interfaces;
 using PlayerStatsSystem;
-using System;
 
-namespace Nebuli.Events.EventArguments.Player;
-
-/// <summary>
-/// Triggered after the player has died.
-/// </summary>
-public class PlayerDiedEvent : EventArgs, IPlayerEvent
+namespace Nebuli.Events.EventArguments.Player
 {
-    public PlayerDiedEvent(ReferenceHub target, DamageHandlerBase dmgB)
+    /// <summary>
+    ///     Triggered after the player has died.
+    /// </summary>
+    public class PlayerDiedEvent : EventArgs, IPlayerEvent
     {
-        Player = NebuliPlayer.Get(target);
-        DamageHandlerBase = dmgB;
-        if (DamageHandlerBase is AttackerDamageHandler attackerDamageHandler)
-            Killer = NebuliPlayer.Get(attackerDamageHandler.Attacker.Hub);
+        public PlayerDiedEvent(ReferenceHub target, DamageHandlerBase dmgB)
+        {
+            Player = API.Features.Player.Get(target);
+            DamageHandlerBase = dmgB;
+            if (DamageHandlerBase is AttackerDamageHandler attackerDamageHandler)
+            {
+                Killer = API.Features.Player.Get(attackerDamageHandler.Attacker.Hub);
+            }
+        }
+
+        /// <summary>
+        ///     The <see cref="PlayerStatsSystem.DamageHandlerBase" /> of the event.
+        /// </summary>
+        public DamageHandlerBase DamageHandlerBase { get; }
+
+        /// <summary>
+        ///     Gets the killer of the event, if any.
+        /// </summary>
+        public API.Features.Player Killer { get; }
+
+        /// <summary>
+        ///     Gets the player that died.
+        /// </summary>
+        public API.Features.Player Player { get; }
     }
-
-    /// <summary>
-    /// Gets the player that died.
-    /// </summary>
-    public NebuliPlayer Player { get; }
-
-    /// <summary>
-    /// The <see cref="PlayerStatsSystem.DamageHandlerBase"/> of the event.
-    /// </summary>
-    public DamageHandlerBase DamageHandlerBase { get; }
-
-    /// <summary>
-    /// Gets the killer of the event, if any.
-    /// </summary>
-    public NebuliPlayer Killer { get; }
 }

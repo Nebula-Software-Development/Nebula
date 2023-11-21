@@ -9,37 +9,38 @@ using UnityEngine;
 using static Interactables.Interobjects.ElevatorManager;
 using ElevatorDoorBase = Interactables.Interobjects.ElevatorDoor;
 
-namespace Nebuli.API.Features.Doors;
-
-public class ElevatorDoor : Door
+namespace Nebuli.API.Features.Doors
 {
-    /// <summary>
-    /// Gets the <see cref="ElevatorDoorBase"/> base.
-    /// </summary>
-    public new ElevatorDoorBase Base { get; }
-
-    internal ElevatorDoor(ElevatorDoorBase door) : base(door)
+    public class ElevatorDoor : Door
     {
-        Base = door;
+        internal ElevatorDoor(ElevatorDoorBase door) : base(door)
+        {
+            Base = door;
+        }
+
+        /// <summary>
+        ///     Gets the <see cref="ElevatorDoorBase" /> base.
+        /// </summary>
+        public new ElevatorDoorBase Base { get; }
+
+        /// <summary>
+        ///     Gets the last player that interacted with the elevator.
+        /// </summary>
+        public ReferenceHub LastPlayerInteracted => Base._triggerPlayer;
+
+        /// <summary>
+        ///     Gets the elevators bottom position.
+        /// </summary>
+        public Vector3 BottomPosition => Base.BottomPosition;
+
+        /// <summary>
+        ///     Gets the elevators top position.
+        /// </summary>
+        public Vector3 TopPosition => Base.TopPosition;
+
+        /// <summary>
+        ///     Gets the elevators group.
+        /// </summary>
+        public ElevatorGroup Group => Base.Group;
     }
-
-    /// <summary>
-    /// Gets the last player that interacted with the elevator.
-    /// </summary>
-    public ReferenceHub LastPlayerInteracted => Base._triggerPlayer;
-
-    /// <summary>
-    /// Gets the elevators bottom position.
-    /// </summary>
-    public Vector3 BottomPosition => Base.BottomPosition;
-
-    /// <summary>
-    /// Gets the elevators top position.
-    /// </summary>
-    public Vector3 TopPosition => Base.TopPosition;
-
-    /// <summary>
-    /// Gets the elevators group.
-    /// </summary>
-    public ElevatorGroup Group => Base.Group;
 }

@@ -5,24 +5,24 @@
 // See LICENSE file in the project root for full license information.
 // -----------------------------------------------------------------------
 
-using Nebuli.API.Features.Player;
-using Nebuli.Events.EventArguments.Interfaces;
 using System;
+using Nebuli.Events.EventArguments.Interfaces;
 
-namespace Nebuli.Events.EventArguments.SCPs.Scp939;
-
-/// <summary>
-/// Triggered when SCP-939 uses the lunge ability.
-/// </summary>
-public class Scp939UseLungeEvent : EventArgs, IPlayerEvent
+namespace Nebuli.Events.EventArguments.SCPs.Scp939
 {
-    public Scp939UseLungeEvent(ReferenceHub player)
-    {
-        Player = NebuliPlayer.Get(player);
-    }
-
     /// <summary>
-    /// Gets the player lunging.
+    ///     Triggered when SCP-939 uses the lunge ability.
     /// </summary>
-    public NebuliPlayer Player { get; }
+    public class Scp939UseLungeEvent : EventArgs, IPlayerEvent
+    {
+        public Scp939UseLungeEvent(ReferenceHub player)
+        {
+            Player = API.Features.Player.Get(player);
+        }
+
+        /// <summary>
+        ///     Gets the player lunging.
+        /// </summary>
+        public API.Features.Player Player { get; }
+    }
 }

@@ -5,44 +5,50 @@
 // See LICENSE file in the project root for full license information.
 // -----------------------------------------------------------------------
 
+using System;
 using MapGeneration.Distributors;
 using MEC;
 using Nebuli.API.Features;
 using Nebuli.API.Features.Map;
-using System;
-using Locker = Nebuli.API.Features.Map.Locker;
+using Locker = MapGeneration.Distributors.Locker;
 using Object = UnityEngine.Object;
 
-namespace Nebuli.Events.Handlers;
-
-internal class Internal
+namespace Nebuli.Events.Handlers
 {
-    internal static void Handler()
+    internal class Internal
     {
-        try
+        internal static void Handler()
         {
-            Timing.CallDelayed(0.8f, () =>
+            try
             {
-                foreach (Scp079Generator generator in Object.FindObjectsOfType<Scp079Generator>())
-                    Generator.Get(generator);
-                foreach (MapGeneration.Distributors.Locker locker in Object.FindObjectsOfType<MapGeneration.Distributors.Locker>())
-                    Locker.Get(locker);
-                ServerHandlers.OnWaitingForPlayers();
+                Timing.CallDelayed(0.8f, () =>
+                {
+                    foreach (Scp079Generator generator in Object.FindObjectsOfType<Scp079Generator>())
+                    {
+                        Generator.Get(generator);
+                    }
 
-            });
-        }
-        catch (Exception e)
-        {
-            Log.Error("Error occured while handling internal Nebuli wrappers! Full error -->\n" + e);
-        }
+                    foreach (Locker locker in Object.FindObjectsOfType<Locker>())
+                    {
+                        API.Features.Map.Locker.Get(locker);
+                    }
 
-        try
-        {
-            Permissions.PermissionsHandler.LoadPermissions();
-        }
-        catch (Exception e)
-        {
-            Log.Error("Error occured while loading permission handler! Full error -->\n" + e);
+                    ServerHandlers.OnWaitingForPlayers();
+                });
+            }
+            catch (Exception e)
+            {
+                Log.Error("Error occured while handling internal Nebuli wrappers! Full error -->\n" + e);
+            }
+
+            try
+            {
+                Permissions.PermissionsHandler.LoadPermissions();
+            }
+            catch (Exception e)
+            {
+                Log.Error("Error occured while loading permission handler! Full error -->\n" + e);
+            }
         }
     }
 }

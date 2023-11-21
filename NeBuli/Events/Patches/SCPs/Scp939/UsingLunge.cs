@@ -5,36 +5,40 @@
 // See LICENSE file in the project root for full license information.
 // -----------------------------------------------------------------------
 
+using System.Collections.Generic;
+using System.Reflection.Emit;
 using HarmonyLib;
 using Nebuli.Events.EventArguments.SCPs.Scp939;
 using Nebuli.Events.Handlers;
 using NorthwoodLib.Pools;
 using PlayerRoles.PlayableScps.Scp939;
-using System.Collections.Generic;
-using System.Reflection.Emit;
 using static HarmonyLib.AccessTools;
 
-namespace Nebuli.Events.Patches.SCPs.Scp939;
-
-[HarmonyPatch(typeof(Scp939LungeAbility), nameof(Scp939LungeAbility.TriggerLunge))]
-internal class UsingLunge
+namespace Nebuli.Events.Patches.SCPs.Scp939
 {
-    [HarmonyTranspiler]
-    private static IEnumerable<CodeInstruction> OnUsingLunge(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
+    [HarmonyPatch(typeof(Scp939LungeAbility), nameof(Scp939LungeAbility.TriggerLunge))]
+    internal class UsingLunge
     {
-        List<CodeInstruction> newInstructions = EventManager.CheckPatchInstructions<UsingLunge>(8, instructions);
-
-        newInstructions.InsertRange(0, new CodeInstruction[]
+        [HarmonyTranspiler]
+        private static IEnumerable<CodeInstruction> OnUsingLunge(IEnumerable<CodeInstruction> instructions,
+            ILGenerator generator)
         {
-            new(OpCodes.Ldarg_0),
-            new(OpCodes.Callvirt, PropertyGetter(typeof(Scp939LungeAbility), nameof(Scp939LungeAbility.Owner))),
-            new(OpCodes.Newobj, GetDeclaredConstructors(typeof(Scp939UseLungeEvent))[0]),
-            new(OpCodes.Call, Method(typeof(Scp939Handlers), nameof(Scp939Handlers.OnUseLunge))),
-        });
+            List<CodeInstruction> newInstructions = EventManager.CheckPatchInstructions<UsingLunge>(8, instructions);
 
-        foreach (CodeInstruction instruction in newInstructions)
-            yield return instruction;
+            newInstructions.InsertRange(0, new CodeInstruction[]
+            {
+                new(OpCodes.Ldarg_0),
+                new(OpCodes.Callvirt, PropertyGetter(typeof(Scp939LungeAbility), nameof(Scp939LungeAbility.Owner))),
+                new(OpCodes.Newobj, GetDeclaredConstructors(typeof(Scp939UseLungeEvent))[0]),
+                new(OpCodes.Call, Method(typeof(Scp939Handlers), nameof(Scp939Handlers.OnUseLunge)))
+            });
 
-        ListPool<CodeInstruction>.Shared.Return(newInstructions);
+            foreach (CodeInstruction instruction in newInstructions)
+            {
+                yield return instruction;
+            }
+
+            ListPool<CodeInstruction>.Shared.Return(newInstructions);
+        }
     }
 }

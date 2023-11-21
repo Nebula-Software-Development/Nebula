@@ -5,25 +5,25 @@
 // See LICENSE file in the project root for full license information.
 // -----------------------------------------------------------------------
 
-using CentralAuth;
-using Nebuli.API.Features.Player;
-using Nebuli.Events.EventArguments.Interfaces;
 using System;
+using CentralAuth;
+using Nebuli.Events.EventArguments.Interfaces;
 
-namespace Nebuli.Events.EventArguments.Player;
-
-/// <summary>
-/// Triggered when a player joins the server.
-/// </summary>
-public class PlayerJoinEvent : EventArgs, IPlayerEvent
+namespace Nebuli.Events.EventArguments.Player
 {
-    public PlayerJoinEvent(PlayerAuthenticationManager authManager)
-    {
-        Player = new NebuliPlayer(authManager._hub);
-    }
-
     /// <summary>
-    /// The player calling the event.
+    ///     Triggered when a player joins the server.
     /// </summary>
-    public NebuliPlayer Player { get; }
+    public class PlayerJoinEvent : EventArgs, IPlayerEvent
+    {
+        public PlayerJoinEvent(PlayerAuthenticationManager authManager)
+        {
+            Player = new API.Features.Player(authManager._hub);
+        }
+
+        /// <summary>
+        ///     The player calling the event.
+        /// </summary>
+        public API.Features.Player Player { get; }
+    }
 }

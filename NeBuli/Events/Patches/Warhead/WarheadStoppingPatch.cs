@@ -5,43 +5,50 @@
 // See LICENSE file in the project root for full license information.
 // -----------------------------------------------------------------------
 
+using System.Collections.Generic;
+using System.Reflection.Emit;
 using HarmonyLib;
 using Nebuli.Events.EventArguments.Server;
 using Nebuli.Events.Handlers;
 using NorthwoodLib.Pools;
-using System.Collections.Generic;
-using System.Reflection.Emit;
 using static HarmonyLib.AccessTools;
 
-namespace Nebuli.Events.Patches.Warhead;
-
-[HarmonyPatch(typeof(AlphaWarheadController), nameof(AlphaWarheadController.CancelDetonation), typeof(ReferenceHub))]
-internal class WarheadStoppingPatch
+namespace Nebuli.Events.Patches.Warhead
 {
-    [HarmonyTranspiler]
-    private static IEnumerable<CodeInstruction> OnStopping(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
+    [HarmonyPatch(typeof(AlphaWarheadController), nameof(AlphaWarheadController.CancelDetonation),
+        typeof(ReferenceHub))]
+    internal class WarheadStoppingPatch
     {
-        List<CodeInstruction> newInstructions = EventManager.CheckPatchInstructions<WarheadStoppingPatch>(113, instructions);
-
-        Label retLabel = generator.DefineLabel();
-
-        int index = newInstructions.FindIndex(i => i.opcode == OpCodes.Ret) + 1;
-
-        newInstructions.InsertRange(index, new[]
+        [HarmonyTranspiler]
+        private static IEnumerable<CodeInstruction> OnStopping(IEnumerable<CodeInstruction> instructions,
+            ILGenerator generator)
         {
-            new CodeInstruction(OpCodes.Ldarg_1).MoveLabelsFrom(newInstructions[index]),
-            new(OpCodes.Newobj, GetDeclaredConstructors(typeof(WarheadStoppingEvent))[0]),
-            new(OpCodes.Dup),
-            new(OpCodes.Call, Method(typeof(ServerHandlers), nameof(ServerHandlers.OnWarheadStopping))),
-            new(OpCodes.Callvirt, PropertyGetter(typeof(WarheadStoppingEvent), nameof(WarheadStoppingEvent.IsCancelled))),
-            new(OpCodes.Brtrue_S, retLabel)
-        });
+            List<CodeInstruction> newInstructions =
+                EventManager.CheckPatchInstructions<WarheadStoppingPatch>(113, instructions);
 
-        newInstructions[newInstructions.Count - 1].labels.Add(retLabel);
+            Label retLabel = generator.DefineLabel();
 
-        foreach (CodeInstruction instruction in newInstructions)
-            yield return instruction;
+            int index = newInstructions.FindIndex(i => i.opcode == OpCodes.Ret) + 1;
 
-        ListPool<CodeInstruction>.Shared.Return(newInstructions);
+            newInstructions.InsertRange(index, new[]
+            {
+                new CodeInstruction(OpCodes.Ldarg_1).MoveLabelsFrom(newInstructions[index]),
+                new(OpCodes.Newobj, GetDeclaredConstructors(typeof(WarheadStoppingEvent))[0]),
+                new(OpCodes.Dup),
+                new(OpCodes.Call, Method(typeof(ServerHandlers), nameof(ServerHandlers.OnWarheadStopping))),
+                new(OpCodes.Callvirt,
+                    PropertyGetter(typeof(WarheadStoppingEvent), nameof(WarheadStoppingEvent.IsCancelled))),
+                new(OpCodes.Brtrue_S, retLabel)
+            });
+
+            newInstructions[newInstructions.Count - 1].labels.Add(retLabel);
+
+            foreach (CodeInstruction instruction in newInstructions)
+            {
+                yield return instruction;
+            }
+
+            ListPool<CodeInstruction>.Shared.Return(newInstructions);
+        }
     }
 }

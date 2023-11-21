@@ -5,30 +5,30 @@
 // See LICENSE file in the project root for full license information.
 // -----------------------------------------------------------------------
 
-using Nebuli.API.Features.Player;
-using Nebuli.Events.EventArguments.Interfaces;
 using System;
+using Nebuli.Events.EventArguments.Interfaces;
 
-namespace Nebuli.Events.EventArguments.SCPs.Scp3114;
-
-/// <summary>
-/// Triggered before SCP-3114 reveals.
-/// </summary>
-public class Scp3114RevealEvent : EventArgs, IPlayerEvent, ICancellableEvent
+namespace Nebuli.Events.EventArguments.SCPs.Scp3114
 {
-    public Scp3114RevealEvent(ReferenceHub hub)
+    /// <summary>
+    ///     Triggered before SCP-3114 reveals.
+    /// </summary>
+    public class Scp3114RevealEvent : EventArgs, IPlayerEvent, ICancellableEvent
     {
-        Player = NebuliPlayer.Get(hub);
-        IsCancelled = false;
+        public Scp3114RevealEvent(ReferenceHub hub)
+        {
+            Player = API.Features.Player.Get(hub);
+            IsCancelled = false;
+        }
+
+        /// <summary>
+        ///     <inheritdoc />
+        /// </summary>
+        public bool IsCancelled { get; set; }
+
+        /// <summary>
+        ///     <inheritdoc />
+        /// </summary>
+        public API.Features.Player Player { get; }
     }
-
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    public NebuliPlayer Player { get; }
-
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    public bool IsCancelled { get; set; }
 }

@@ -7,17 +7,18 @@
 
 using Scp244Base = InventorySystem.Items.Usables.Scp244.Scp244Item;
 
-namespace Nebuli.API.Features.Items.SCPs;
-
-public class Scp244 : Usable
+namespace Nebuli.API.Features.Items.SCPs
 {
-    /// <summary>
-    /// Gets the <see cref="Scp244Base"/> base.
-    /// </summary>
-    public new Scp244Base Base { get; }
-
-    internal Scp244(Scp244Base itemBase) : base(itemBase)
+    public class Scp244 : Usable
     {
-        Base = itemBase;
+        internal Scp244(Scp244Base itemBase) : base(itemBase)
+        {
+            Base = itemBase;
+        }
+
+        /// <summary>
+        ///     Gets the <see cref="Scp244Base" /> base.
+        /// </summary>
+        public new Scp244Base Base { get; }
     }
 }

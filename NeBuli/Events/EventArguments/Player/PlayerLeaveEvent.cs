@@ -5,27 +5,27 @@
 // See LICENSE file in the project root for full license information.
 // -----------------------------------------------------------------------
 
+using System;
 using Mirror;
 using Nebuli.API.Extensions;
-using Nebuli.API.Features.Player;
 using Nebuli.Events.EventArguments.Interfaces;
-using System;
 
-namespace Nebuli.Events.EventArguments.Player;
-
-/// <summary>
-/// Triggered when a player leaves the server.
-/// </summary>
-public class PlayerLeaveEvent : EventArgs, IPlayerEvent
+namespace Nebuli.Events.EventArguments.Player
 {
-    public PlayerLeaveEvent(NetworkConnection conn)
-    {       
-        Player = NebuliPlayer.Get(conn.identity);
-        NebuliPlayer.Dictionary.RemoveIfContains(Player.ReferenceHub);
-    }
-
     /// <summary>
-    /// The player calling the event.
+    ///     Triggered when a player leaves the server.
     /// </summary>
-    public NebuliPlayer Player { get; }
+    public class PlayerLeaveEvent : EventArgs, IPlayerEvent
+    {
+        public PlayerLeaveEvent(NetworkConnection conn)
+        {
+            Player = API.Features.Player.Get(conn.identity);
+            API.Features.Player.Dictionary.RemoveIfContains(Player.ReferenceHub);
+        }
+
+        /// <summary>
+        ///     The player calling the event.
+        /// </summary>
+        public API.Features.Player Player { get; }
+    }
 }

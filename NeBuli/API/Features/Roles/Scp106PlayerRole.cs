@@ -8,30 +8,31 @@
 using PlayerRoles;
 using PlayerRoles.PlayableScps.Scp106;
 
-namespace Nebuli.API.Features.Roles;
-
-/// <summary>
-/// Represents the <see cref="RoleTypeId.Scp106"/> role in-game.
-/// </summary>
-public class Scp106PlayerRole : Role
+namespace Nebuli.API.Features.Roles
 {
     /// <summary>
-    /// Gets the <see cref="Scp106Role"/> base.
+    ///     Represents the <see cref="RoleTypeId.Scp106" /> role in-game.
     /// </summary>
-    public new Scp106Role Base { get; }
-
-    internal Scp106PlayerRole(Scp106Role scpRole) : base(scpRole)
+    public class Scp106PlayerRole : Role
     {
-        Base = scpRole;
+        internal Scp106PlayerRole(Scp106Role scpRole) : base(scpRole)
+        {
+            Base = scpRole;
+        }
+
+        /// <summary>
+        ///     Gets the <see cref="Scp106Role" /> base.
+        /// </summary>
+        public new Scp106Role Base { get; }
+
+        /// <summary>
+        ///     Gets if SCP-106 is submerged.
+        /// </summary>
+        public bool IsSubmerged => Base.IsSubmerged;
+
+        /// <summary>
+        ///     Gets if SCP-106 can trigger a tesla gate shock.
+        /// </summary>
+        public bool CanActivateTeslaShock => Base.CanActivateShock;
     }
-
-    /// <summary>
-    /// Gets if SCP-106 is submerged.
-    /// </summary>
-    public bool IsSubmerged => Base.IsSubmerged;
-
-    /// <summary>
-    /// Gets if SCP-106 can trigger a tesla gate shock.
-    /// </summary>
-    public bool CanActivateTeslaShock => Base.CanActivateShock;
 }

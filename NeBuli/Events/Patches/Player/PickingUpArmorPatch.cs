@@ -5,45 +5,51 @@
 // See LICENSE file in the project root for full license information.
 // -----------------------------------------------------------------------
 
+using System.Collections.Generic;
+using System.Reflection.Emit;
 using HarmonyLib;
 using InventorySystem.Searching;
 using Nebuli.Events.EventArguments.Player;
 using Nebuli.Events.Handlers;
 using NorthwoodLib.Pools;
-using System.Collections.Generic;
-using System.Reflection.Emit;
 using static HarmonyLib.AccessTools;
 
-namespace Nebuli.Events.Patches.Player;
-
-[HarmonyPatch(typeof(ArmorSearchCompletor), nameof(ArmorSearchCompletor.Complete))]
-internal class PickingUpArmorPatch
+namespace Nebuli.Events.Patches.Player
 {
-    [HarmonyTranspiler]
-    private static IEnumerable<CodeInstruction> OnPickingupArmor(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
+    [HarmonyPatch(typeof(ArmorSearchCompletor), nameof(ArmorSearchCompletor.Complete))]
+    internal class PickingUpArmorPatch
     {
-        List<CodeInstruction> newInstructions = EventManager.CheckPatchInstructions<PickingUpArmorPatch>(51, instructions);
-
-        Label retLabel = generator.DefineLabel();
-
-        newInstructions.InsertRange(0, new CodeInstruction[]
+        [HarmonyTranspiler]
+        private static IEnumerable<CodeInstruction> OnPickingupArmor(IEnumerable<CodeInstruction> instructions,
+            ILGenerator generator)
         {
-            new(OpCodes.Ldarg_0),
-            new(OpCodes.Ldfld, Field(typeof(ArmorSearchCompletor), nameof(ArmorSearchCompletor.Hub))),
-            new(OpCodes.Ldarg_0),
-            new(OpCodes.Ldfld, Field(typeof(ArmorSearchCompletor), nameof(ArmorSearchCompletor.TargetPickup))),
-            new(OpCodes.Newobj, GetDeclaredConstructors(typeof(PlayerPickingUpArmorEvent))[0]),
-            new(OpCodes.Dup),
-            new(OpCodes.Call, Method(typeof(PlayerHandlers), nameof(PlayerHandlers.OnPlayerPickingUpArmor))),
-            new(OpCodes.Callvirt, PropertyGetter(typeof(PlayerPickingUpArmorEvent), nameof(PlayerPickingUpArmorEvent.IsCancelled))),
-            new(OpCodes.Brtrue_S, retLabel),
-        });
+            List<CodeInstruction> newInstructions =
+                EventManager.CheckPatchInstructions<PickingUpArmorPatch>(51, instructions);
 
-        newInstructions[newInstructions.Count - 1].labels.Add(retLabel);
+            Label retLabel = generator.DefineLabel();
 
-        foreach (CodeInstruction instruction in newInstructions)
-            yield return instruction;
+            newInstructions.InsertRange(0, new CodeInstruction[]
+            {
+                new(OpCodes.Ldarg_0),
+                new(OpCodes.Ldfld, Field(typeof(ArmorSearchCompletor), nameof(ArmorSearchCompletor.Hub))),
+                new(OpCodes.Ldarg_0),
+                new(OpCodes.Ldfld, Field(typeof(ArmorSearchCompletor), nameof(ArmorSearchCompletor.TargetPickup))),
+                new(OpCodes.Newobj, GetDeclaredConstructors(typeof(PlayerPickingUpArmorEvent))[0]),
+                new(OpCodes.Dup),
+                new(OpCodes.Call, Method(typeof(PlayerHandlers), nameof(PlayerHandlers.OnPlayerPickingUpArmor))),
+                new(OpCodes.Callvirt,
+                    PropertyGetter(typeof(PlayerPickingUpArmorEvent), nameof(PlayerPickingUpArmorEvent.IsCancelled))),
+                new(OpCodes.Brtrue_S, retLabel)
+            });
 
-        ListPool<CodeInstruction>.Shared.Return(newInstructions);
+            newInstructions[newInstructions.Count - 1].labels.Add(retLabel);
+
+            foreach (CodeInstruction instruction in newInstructions)
+            {
+                yield return instruction;
+            }
+
+            ListPool<CodeInstruction>.Shared.Return(newInstructions);
+        }
     }
 }

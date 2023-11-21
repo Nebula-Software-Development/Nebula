@@ -7,17 +7,18 @@
 
 using SinkholeHazardBase = Hazards.SinkholeEnvironmentalHazard;
 
-namespace Nebuli.API.Features.Hazards;
-
-public class SinkholeHazard : EnviormentHazard
+namespace Nebuli.API.Features.Hazards
 {
-    /// <summary>
-    /// Gets the <see cref="SinkholeHazardBase"/> base.
-    /// </summary>
-    public new SinkholeHazardBase Base { get; }
-
-    internal SinkholeHazard(SinkholeHazardBase hazardBase) : base(hazardBase)
+    public class SinkholeHazard : EnviormentHazard
     {
-        Base = hazardBase;
+        internal SinkholeHazard(SinkholeHazardBase hazardBase) : base(hazardBase)
+        {
+            Base = hazardBase;
+        }
+
+        /// <summary>
+        ///     Gets the <see cref="SinkholeHazardBase" /> base.
+        /// </summary>
+        public new SinkholeHazardBase Base { get; }
     }
 }

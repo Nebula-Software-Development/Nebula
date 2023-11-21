@@ -5,50 +5,50 @@
 // See LICENSE file in the project root for full license information.
 // -----------------------------------------------------------------------
 
+using System;
 using CommandSystem;
 using Footprinting;
-using Nebuli.API.Features.Player;
 using Nebuli.Events.EventArguments.Interfaces;
-using System;
 
-namespace Nebuli.Events.EventArguments.Player;
-
-/// <summary>
-/// Triggered when a player is banned from the server.
-/// </summary>
-public class PlayerBannedEvent : EventArgs, IPlayerEvent, ICancellableEvent
+namespace Nebuli.Events.EventArguments.Player
 {
-    public PlayerBannedEvent(Footprint target, ICommandSender issuer, string reason, long duration)
+    /// <summary>
+    ///     Triggered when a player is banned from the server.
+    /// </summary>
+    public class PlayerBannedEvent : EventArgs, IPlayerEvent, ICancellableEvent
     {
-        Player = NebuliPlayer.Get(target.Hub);
-        Issuer = NebuliPlayer.Get(issuer);
-        Reason = reason;
-        Duration = duration;
-        IsCancelled = false;
+        public PlayerBannedEvent(Footprint target, ICommandSender issuer, string reason, long duration)
+        {
+            Player = API.Features.Player.Get(target.Hub);
+            Issuer = API.Features.Player.Get(issuer);
+            Reason = reason;
+            Duration = duration;
+            IsCancelled = false;
+        }
+
+        /// <summary>
+        ///     The player issuing the ban.
+        /// </summary>
+        public API.Features.Player Issuer { get; }
+
+        /// <summary>
+        ///     The reason for the ban.
+        /// </summary>
+        public string Reason { get; set; }
+
+        /// <summary>
+        ///     The duration of the ban.
+        /// </summary>
+        public long Duration { get; set; }
+
+        /// <summary>
+        ///     If the event is cancelled or not.
+        /// </summary>
+        public bool IsCancelled { get; set; }
+
+        /// <summary>
+        ///     The player being banned.
+        /// </summary>
+        public API.Features.Player Player { get; }
     }
-
-    /// <summary>
-    /// If the event is cancelled or not.
-    /// </summary>
-    public bool IsCancelled { get; set; }
-
-    /// <summary>
-    /// The player being banned.
-    /// </summary>
-    public NebuliPlayer Player { get; }
-
-    /// <summary>
-    /// The player issuing the ban.
-    /// </summary>
-    public NebuliPlayer Issuer { get; }
-
-    /// <summary>
-    /// The reason for the ban.
-    /// </summary>
-    public string Reason { get; set; }
-
-    /// <summary>
-    /// The duration of the ban.
-    /// </summary>
-    public long Duration { get; set; }
 }

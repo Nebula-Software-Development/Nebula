@@ -5,75 +5,77 @@
 // See LICENSE file in the project root for full license information.
 // -----------------------------------------------------------------------
 
+using System;
 using Interactables.Interobjects.DoorUtils;
 using Nebuli.API.Features.Doors;
-using Nebuli.API.Features.Player;
 using Nebuli.Events.EventArguments.Interfaces;
 using PlayerRoles;
 using PluginAPI.Events;
-using System;
 
-namespace Nebuli.Events.EventArguments.Player;
-
-/// <summary>
-/// Triggered when a player interacts with a door.
-/// </summary>
-public class PlayerInteractingDoorEvent : EventArgs, IPlayerEvent, ICancellableEvent
+namespace Nebuli.Events.EventArguments.Player
 {
-    public PlayerInteractingDoorEvent(ReferenceHub ply, DoorVariant door, byte id)
+    /// <summary>
+    ///     Triggered when a player interacts with a door.
+    /// </summary>
+    public class PlayerInteractingDoorEvent : EventArgs, IPlayerEvent, ICancellableEvent
     {
-        Player = NebuliPlayer.Get(ply);
-        Door = Door.Get(door);
-        IsCancelled = CalculateIsCancelled(ply, door, id);
-    }
+        internal bool allowedInteracting = true;
 
-    /// <summary>
-    /// Gets the player interacting with the door.
-    /// </summary>
-    public NebuliPlayer Player { get; }
+        internal bool bypassDenied;
 
-    /// <summary>
-    /// Gets the <see cref="API.Features.Doors.Door"/> being interacted with.
-    /// </summary>
-    public Door Door { get; }
-
-    /// <summary>
-    /// Gets or sets if the event is cancelled.
-    /// </summary>
-    public bool IsCancelled { get; set; }
-
-    internal bool bypassDenied;
-    internal bool allowedInteracting = true;
-
-    private bool CalculateIsCancelled(ReferenceHub ply, DoorVariant door, byte colliderId)
-    {
-        if (door.ActiveLocks > 0 && !ply.serverRoles.BypassMode)
+        public PlayerInteractingDoorEvent(ReferenceHub ply, DoorVariant door, byte id)
         {
-            DoorLockMode mode = DoorLockUtils.GetMode((DoorLockReason)door.ActiveLocks);
-            if ((!mode.HasFlagFast(DoorLockMode.CanClose) || !mode.HasFlagFast(DoorLockMode.CanOpen)) &&
-                (!mode.HasFlagFast(DoorLockMode.ScpOverride) || !ply.IsSCP(true)) &&
-                (mode == DoorLockMode.FullLock || (door.TargetState && !mode.HasFlagFast(DoorLockMode.CanClose)) ||
-                (!door.TargetState && !mode.HasFlagFast(DoorLockMode.CanOpen))))
+            Player = API.Features.Player.Get(ply);
+            Door = Door.Get(door);
+            IsCancelled = CalculateIsCancelled(ply, door, id);
+        }
+
+        /// <summary>
+        ///     Gets the <see cref="API.Features.Doors.Door" /> being interacted with.
+        /// </summary>
+        public Door Door { get; }
+
+        /// <summary>
+        ///     Gets or sets if the event is cancelled.
+        /// </summary>
+        public bool IsCancelled { get; set; }
+
+        /// <summary>
+        ///     Gets the player interacting with the door.
+        /// </summary>
+        public API.Features.Player Player { get; }
+
+        private bool CalculateIsCancelled(ReferenceHub ply, DoorVariant door, byte colliderId)
+        {
+            if (door.ActiveLocks > 0 && !ply.serverRoles.BypassMode)
             {
-                PluginAPI.Events.EventManager.ExecuteEvent(new PlayerInteractDoorEvent(ply, door, false));
-                bypassDenied = true;
+                DoorLockMode mode = DoorLockUtils.GetMode((DoorLockReason)door.ActiveLocks);
+                if ((!mode.HasFlagFast(DoorLockMode.CanClose) || !mode.HasFlagFast(DoorLockMode.CanOpen)) &&
+                    (!mode.HasFlagFast(DoorLockMode.ScpOverride) || !ply.IsSCP()) &&
+                    (mode == DoorLockMode.FullLock || (door.TargetState && !mode.HasFlagFast(DoorLockMode.CanClose)) ||
+                     (!door.TargetState && !mode.HasFlagFast(DoorLockMode.CanOpen))))
+                {
+                    PluginAPI.Events.EventManager.ExecuteEvent(new PlayerInteractDoorEvent(ply, door, false));
+                    bypassDenied = true;
+                    return true;
+                }
+            }
+
+            if (!door.AllowInteracting(ply, colliderId))
+            {
+                allowedInteracting = false;
                 return true;
             }
-        }
 
-        if (!door.AllowInteracting(ply, colliderId))
-        {
-            allowedInteracting = false;
-            return true;
-        }
+            bool flag = ply.GetRoleId() == RoleTypeId.Scp079 ||
+                        door.RequiredPermissions.CheckPermissions(ply.inventory.CurInstance, ply);
+            PluginAPI.Events.EventManager.ExecuteEvent(new PlayerInteractDoorEvent(ply, door, flag));
+            if (!flag)
+            {
+                return true;
+            }
 
-        bool flag = ply.GetRoleId() == RoleTypeId.Scp079 || door.RequiredPermissions.CheckPermissions(ply.inventory.CurInstance, ply);
-        PluginAPI.Events.EventManager.ExecuteEvent(new PlayerInteractDoorEvent(ply, door, flag));
-        if (!flag)
-        {
-            return true;
+            return false;
         }
-
-        return false;
     }
 }

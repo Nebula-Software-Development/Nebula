@@ -6,27 +6,29 @@
 // -----------------------------------------------------------------------
 
 using Interactables.Interobjects.DoorUtils;
+using InventorySystem.Items.Keycards;
 
-namespace Nebuli.API.Features.Items;
-
-public class Keycard : Item
+namespace Nebuli.API.Features.Items
 {
-    /// <summary>
-    /// Gets the keycards base.
-    /// </summary>
-    public new InventorySystem.Items.Keycards.KeycardItem Base { get; }
-
-    internal Keycard(InventorySystem.Items.Keycards.KeycardItem itemBase) : base(itemBase)
+    public class Keycard : Item
     {
-        Base = itemBase;
-    }
+        internal Keycard(KeycardItem itemBase) : base(itemBase)
+        {
+            Base = itemBase;
+        }
 
-    /// <summary>
-    /// Gets or sets the keycards <see cref="KeycardPermissions"/>.
-    /// </summary>
-    public KeycardPermissions Permissions
-    {
-        get => Base.Permissions;
-        set => Base.Permissions = value;
+        /// <summary>
+        ///     Gets the keycards base.
+        /// </summary>
+        public new KeycardItem Base { get; }
+
+        /// <summary>
+        ///     Gets or sets the keycards <see cref="KeycardPermissions" />.
+        /// </summary>
+        public KeycardPermissions Permissions
+        {
+            get => Base.Permissions;
+            set => Base.Permissions = value;
+        }
     }
 }

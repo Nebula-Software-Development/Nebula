@@ -5,27 +5,28 @@
 // See LICENSE file in the project root for full license information.
 // -----------------------------------------------------------------------
 
-namespace Nebuli.API.Features.Enum;
-
-public enum ShootingTargetToyType
+namespace Nebuli.API.Features.Enum
 {
-    /// <summary>
-    /// Undefined target.
-    /// </summary>
-    Undefined,
+    public enum ShootingTargetToyType
+    {
+        /// <summary>
+        ///     Undefined target.
+        /// </summary>
+        Undefined,
 
-    /// <summary>
-    /// A sport target.
-    /// </summary>
-    Sport,
+        /// <summary>
+        ///     A sport target.
+        /// </summary>
+        Sport,
 
-    /// <summary>
-    /// A binary target.
-    /// </summary>
-    Binary,
+        /// <summary>
+        ///     A binary target.
+        /// </summary>
+        Binary,
 
-    /// <summary>
-    /// A D-Class target.
-    /// </summary>
-    DClass,
+        /// <summary>
+        ///     A D-Class target.
+        /// </summary>
+        DClass
+    }
 }

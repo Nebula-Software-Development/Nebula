@@ -5,44 +5,51 @@
 // See LICENSE file in the project root for full license information.
 // -----------------------------------------------------------------------
 
+using System.Collections.Generic;
+using System.Reflection.Emit;
 using HarmonyLib;
 using Nebuli.Events.EventArguments.SCPs.Scp939;
 using Nebuli.Events.Handlers;
 using NorthwoodLib.Pools;
 using PlayerRoles.PlayableScps.Scp939.Mimicry;
-using System.Collections.Generic;
-using System.Reflection.Emit;
 using static HarmonyLib.AccessTools;
 
-namespace Nebuli.Events.Patches.SCPs.Scp939;
-
-[HarmonyPatch(typeof(MimicryRecorder), nameof(MimicryRecorder.RemoveRecordingsOfPlayer))]
-internal class RemoveSavedVoice
+namespace Nebuli.Events.Patches.SCPs.Scp939
 {
-    [HarmonyTranspiler]
-    private static IEnumerable<CodeInstruction> OnRemoveSavedVoice(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
+    [HarmonyPatch(typeof(MimicryRecorder), nameof(MimicryRecorder.RemoveRecordingsOfPlayer))]
+    internal class RemoveSavedVoice
     {
-        List<CodeInstruction> newInstructions = EventManager.CheckPatchInstructions<RemoveSavedVoice>(34, instructions);
-
-        Label retLabel = generator.DefineLabel();
-
-        newInstructions.InsertRange(0, new CodeInstruction[]
+        [HarmonyTranspiler]
+        private static IEnumerable<CodeInstruction> OnRemoveSavedVoice(IEnumerable<CodeInstruction> instructions,
+            ILGenerator generator)
         {
-            new(OpCodes.Ldarg_0),
-            new(OpCodes.Callvirt, PropertyGetter(typeof(MimicryRecorder), nameof(MimicryRecorder.Owner))),
-            new(OpCodes.Ldarg_1),
-            new(OpCodes.Newobj, GetDeclaredConstructors(typeof(Scp939RemoveSavedVoiceEvent))[0]),
-            new(OpCodes.Dup),
-            new(OpCodes.Call, Method(typeof(Scp939Handlers), nameof(Scp939Handlers.OnRemoveVoice))),
-            new(OpCodes.Callvirt, PropertyGetter(typeof(Scp939RemoveSavedVoiceEvent), nameof(Scp939RemoveSavedVoiceEvent.IsCancelled))),
-            new(OpCodes.Brtrue_S, retLabel),
-        });
+            List<CodeInstruction> newInstructions =
+                EventManager.CheckPatchInstructions<RemoveSavedVoice>(34, instructions);
 
-        newInstructions[newInstructions.Count - 1].labels.Add(retLabel);
+            Label retLabel = generator.DefineLabel();
 
-        foreach (CodeInstruction instruction in newInstructions)
-            yield return instruction;
+            newInstructions.InsertRange(0, new CodeInstruction[]
+            {
+                new(OpCodes.Ldarg_0),
+                new(OpCodes.Callvirt, PropertyGetter(typeof(MimicryRecorder), nameof(MimicryRecorder.Owner))),
+                new(OpCodes.Ldarg_1),
+                new(OpCodes.Newobj, GetDeclaredConstructors(typeof(Scp939RemoveSavedVoiceEvent))[0]),
+                new(OpCodes.Dup),
+                new(OpCodes.Call, Method(typeof(Scp939Handlers), nameof(Scp939Handlers.OnRemoveVoice))),
+                new(OpCodes.Callvirt,
+                    PropertyGetter(typeof(Scp939RemoveSavedVoiceEvent),
+                        nameof(Scp939RemoveSavedVoiceEvent.IsCancelled))),
+                new(OpCodes.Brtrue_S, retLabel)
+            });
 
-        ListPool<CodeInstruction>.Shared.Return(newInstructions);
+            newInstructions[newInstructions.Count - 1].labels.Add(retLabel);
+
+            foreach (CodeInstruction instruction in newInstructions)
+            {
+                yield return instruction;
+            }
+
+            ListPool<CodeInstruction>.Shared.Return(newInstructions);
+        }
     }
 }

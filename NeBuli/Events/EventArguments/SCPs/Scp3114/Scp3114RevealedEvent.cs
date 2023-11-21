@@ -5,24 +5,24 @@
 // See LICENSE file in the project root for full license information.
 // -----------------------------------------------------------------------
 
-using Nebuli.API.Features.Player;
-using Nebuli.Events.EventArguments.Interfaces;
 using System;
+using Nebuli.Events.EventArguments.Interfaces;
 
-namespace Nebuli.Events.EventArguments.SCPs.Scp3114;
-
-/// <summary>
-/// Triggered after SCP-3114 reveals.
-/// </summary>
-public class Scp3114RevealedEvent : EventArgs, IPlayerEvent
+namespace Nebuli.Events.EventArguments.SCPs.Scp3114
 {
-    public Scp3114RevealedEvent(ReferenceHub hub)
-    {
-        Player = NebuliPlayer.Get(hub);
-    }
-
     /// <summary>
-    /// <inheritdoc/>
+    ///     Triggered after SCP-3114 reveals.
     /// </summary>
-    public NebuliPlayer Player { get; }
+    public class Scp3114RevealedEvent : EventArgs, IPlayerEvent
+    {
+        public Scp3114RevealedEvent(ReferenceHub hub)
+        {
+            Player = API.Features.Player.Get(hub);
+        }
+
+        /// <summary>
+        ///     <inheritdoc />
+        /// </summary>
+        public API.Features.Player Player { get; }
+    }
 }

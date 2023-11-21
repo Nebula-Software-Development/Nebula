@@ -5,13 +5,13 @@
 // See LICENSE file in the project root for full license information.
 // -----------------------------------------------------------------------
 
+using System.Collections.Generic;
+using System.Reflection.Emit;
 using HarmonyLib;
 using Nebuli.Events.EventArguments.Player;
 using Nebuli.Events.Handlers;
 using NorthwoodLib.Pools;
 using PlayerStatsSystem;
-using System.Collections.Generic;
-using System.Reflection.Emit;
 using static HarmonyLib.AccessTools;
 
 namespace Nebuli.Events.Patches.Player
@@ -20,7 +20,8 @@ namespace Nebuli.Events.Patches.Player
     internal class DiedPlayer
     {
         [HarmonyTranspiler]
-        private static IEnumerable<CodeInstruction> OnDied(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
+        private static IEnumerable<CodeInstruction> OnDied(IEnumerable<CodeInstruction> instructions,
+            ILGenerator generator)
         {
             List<CodeInstruction> newInstructions = ListPool<CodeInstruction>.Shared.Rent(instructions);
 
@@ -34,13 +35,15 @@ namespace Nebuli.Events.Patches.Player
                 new(OpCodes.Ldfld, Field(typeof(PlayerStats), nameof(PlayerStats._hub))),
                 new(OpCodes.Ldarg_1),
                 new(OpCodes.Newobj, GetDeclaredConstructors(typeof(PlayerDiedEvent))[0]),
-                new(OpCodes.Call, Method(typeof(PlayerHandlers), nameof(PlayerHandlers.OnDied))),
+                new(OpCodes.Call, Method(typeof(PlayerHandlers), nameof(PlayerHandlers.OnDied)))
             });
 
             newInstructions[newInstructions.Count - 1].labels.Add(retLabel);
 
             foreach (CodeInstruction instruction in newInstructions)
+            {
                 yield return instruction;
+            }
 
             ListPool<CodeInstruction>.Shared.Return(newInstructions);
         }

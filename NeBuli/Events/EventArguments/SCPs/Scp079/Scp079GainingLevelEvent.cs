@@ -5,24 +5,24 @@
 // See LICENSE file in the project root for full license information.
 // -----------------------------------------------------------------------
 
-using Nebuli.API.Features.Player;
-using Nebuli.Events.EventArguments.Interfaces;
 using System;
+using Nebuli.Events.EventArguments.Interfaces;
 
-namespace Nebuli.Events.EventArguments.SCPs.Scp079;
-
-/// <summary>
-/// Triggered when SCP-079 is gaining a new level.
-/// </summary>
-public class Scp079GainingLevelEvent : EventArgs, IPlayerEvent, ICancellableEvent
+namespace Nebuli.Events.EventArguments.SCPs.Scp079
 {
-    public Scp079GainingLevelEvent(ReferenceHub player)
+    /// <summary>
+    ///     Triggered when SCP-079 is gaining a new level.
+    /// </summary>
+    public class Scp079GainingLevelEvent : EventArgs, IPlayerEvent, ICancellableEvent
     {
-        Player = NebuliPlayer.Get(player);
-        IsCancelled = false;
+        public Scp079GainingLevelEvent(ReferenceHub player)
+        {
+            Player = API.Features.Player.Get(player);
+            IsCancelled = false;
+        }
+
+        public bool IsCancelled { get; set; }
+
+        public API.Features.Player Player { get; }
     }
-
-    public NebuliPlayer Player { get; }
-
-    public bool IsCancelled { get; set; }
 }
