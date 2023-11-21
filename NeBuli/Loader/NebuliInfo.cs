@@ -14,7 +14,7 @@ namespace Nebuli.Loader
     /// </summary>
     public static class NebuliInfo
     {
-        internal const string NebuliVersionConst = "1.3.5";
+        internal const string NebuliVersionConst = "1.3.6";
 
         /// <summary>
         ///     Gets a <see cref="Version" /> representing Nebuli's current build version.
