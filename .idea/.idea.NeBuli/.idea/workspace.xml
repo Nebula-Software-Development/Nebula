@@ -36,6 +36,8 @@
     </option>
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/ILViewer/484d5de69a5d40dd9b2f5bb6b09bca0175a00/d1/62263842/020000D4pdb79High.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/ILViewer/484d5de69a5d40dd9b2f5bb6b09bca0175a00/d1/62263842/020000D4pdb79Low.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock://C:/Users/mbro8/OneDrive/Documents/GitHub/NebuliTeam/NeBuli/API/Features/Player/NebuliPlayer.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
@@ -97,7 +99,7 @@
       <option name="presentableId" value="Default" />
       <updated>1700572133126</updated>
       <workItem from="1700572136725" duration="84000" />
-      <workItem from="1700572239901" duration="1728000" />
+      <workItem from="1700572239901" duration="2399000" />
     </task>
     <task id="LOCAL-00001" summary="so real rn">
       <option name="closed" value="true" />
