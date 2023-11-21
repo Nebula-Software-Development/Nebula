@@ -4,7 +4,23 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e20c4d76-9bff-48f4-839a-472ec87a97ae" name="Changes" comment="" />
+    <list default="true" id="e20c4d76-9bff-48f4-839a-472ec87a97ae" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.NeBuli/.idea/.name" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.NeBuli/.idea/.name" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.NeBuli/.idea/discord.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.NeBuli/.idea/indexLayout.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.NeBuli/.idea/projectSettingsUpdater.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.NeBuli/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.NeBuli/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.NeBuli/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NeBuli.sln" beforeDir="false" afterPath="$PROJECT_DIR$/Nebuli.sln" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NeBuli/API/Extensions/GenericExtensions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/NeBuli/API/Extensions/GenericExtensions.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NeBuli/API/Features/Npc.cs" beforeDir="false" afterPath="$PROJECT_DIR$/NeBuli/API/Features/Npc.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NeBuli/API/Features/Player.cs" beforeDir="false" afterPath="$PROJECT_DIR$/NeBuli/API/Features/Player.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NeBuli/Loader/CustomConverters/CustomVectorsConverter.cs" beforeDir="false" afterPath="$PROJECT_DIR$/NeBuli/Loader/CustomConverters/CustomVectorsConverter.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NeBuli/Loader/LoaderConfiguration.cs" beforeDir="false" afterPath="$PROJECT_DIR$/NeBuli/Loader/LoaderConfiguration.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NeBuli/Loader/PermissionHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/NeBuli/Loader/PermissionHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NeBuli/Loader/Updater.cs" beforeDir="false" afterPath="$PROJECT_DIR$/NeBuli/Loader/Updater.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NeBuli/Nebuli.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/NeBuli/Nebuli.csproj" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -13,12 +29,12 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "NotIntense"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;NotIntense&quot;
   }
-}]]></component>
+}</component>
   <component name="GithubProjectSettings">
     <option name="branchProtectionPatterns">
       <list>
@@ -38,15 +54,28 @@
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/ILViewer/484d5de69a5d40dd9b2f5bb6b09bca0175a00/d1/62263842/020000D4pdb79High.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/ILViewer/484d5de69a5d40dd9b2f5bb6b09bca0175a00/d1/62263842/020000D4pdb79Low.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/327b633fa7dc4975991be196b55f7e7626c400/43/d4118a12/IntercomDisplay.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Users/mbro8/OneDrive/Documents/GitHub/NebuliTeam/NeBuli/API/Features/Player/NebuliPlayer.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/327b633fa7dc4975991be196b55f7e7626c400/43/d4118a12/IntercomDisplay.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/e5b0d74b925e473b8252fd9b5920f4ed35c00/69/ff882003/IYamlTypeConverter.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/NeBuli/API/Features/Intercom.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/NeBuli/API/Features/Items/BodyArmor.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/NeBuli/API/Features/Items/Coin.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/NeBuli/API/Features/Items/LightSources/Lantern.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/NeBuli/API/Features/Npc.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/NeBuli/API/Features/Pools/HashsetPool.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/NeBuli/API/Features/Roles/FilmmakerRole.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/NeBuli/API/Features/Roles/NonePlayerRole.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/NeBuli/API/Features/Roles/Role.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/NeBuli/API/Features/Roles/Scp106PlayerRole.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/NeBuli/Loader/CustomConverters/CustomVectorsConverter.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/NeBuli/Loader/LoaderConfiguration.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/NeBuli/Loader/NebuliInfo.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
   <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
   <component name="ProblemsViewState">
-    <option name="selectedTabId" value="CurrentFile" />
+    <option name="selectedTabId" value="Toolset" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;customColor&quot;: &quot;&quot;,
@@ -62,15 +91,15 @@
     "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "dev",
     "ignore.virus.scanning.warn.message": "true",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "settings.editor.selected.configurable": "preferences.sourceCode.C#",
     "vue.rearranger.settings.migration": "true"
   },
   "keyToStringList": {
@@ -103,6 +132,10 @@
       <updated>1700572133126</updated>
       <workItem from="1700572136725" duration="84000" />
       <workItem from="1700572239901" duration="3251000" />
+      <workItem from="1700576853349" duration="1212000" />
+      <workItem from="1700578091877" duration="33000" />
+      <workItem from="1700578143846" duration="168000" />
+      <workItem from="1700596055129" duration="632000" />
     </task>
     <task id="LOCAL-00001" summary="so real rn">
       <option name="closed" value="true" />

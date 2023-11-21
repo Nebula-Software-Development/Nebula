@@ -55,7 +55,7 @@ namespace Nebuli.API.Features
 
         private readonly CustomHealthManager _customHealthManager;
 
-        private Role currentRole;
+        private Role _currentRole;
 
         internal Player(ReferenceHub hub)
         {
@@ -132,7 +132,7 @@ namespace Nebuli.API.Features
         /// <summary>
         ///     Gets or sets if the player is a NPC.
         /// </summary>
-        public bool IsNPC { get; set; } = false;
+        public bool IsNpc { get; set; } = false;
 
         /// <summary>
         ///     Gets the players <see cref="Mirror.NetworkIdentity" />.
@@ -227,12 +227,6 @@ namespace Nebuli.API.Features
         /// <summary>
         ///     Gets the players current <see cref="RoleTypeId" />.
         /// </summary>
-        [Obsolete("Use 'RoleType' instead.")]
-        public RoleTypeId CurrentRoleType => RoleType;
-
-        /// <summary>
-        ///     Gets the players current <see cref="RoleTypeId" />.
-        /// </summary>
         public RoleTypeId RoleType => ReferenceHub.GetRoleId();
 
         /// <summary>
@@ -252,14 +246,14 @@ namespace Nebuli.API.Features
         {
             get
             {
-                if (currentRole is null || currentRole.RoleTypeId != RoleManager.CurrentRole.RoleTypeId)
+                if (_currentRole is null || _currentRole.RoleTypeId != RoleManager.CurrentRole.RoleTypeId)
                 {
-                    currentRole = Role.CreateNew(RoleManager.CurrentRole);
+                    _currentRole = Role.CreateNew(RoleManager.CurrentRole);
                 }
 
-                return currentRole;
+                return _currentRole;
             }
-            set => currentRole = value;
+            set => _currentRole = value;
         }
 
         /// <summary>
@@ -317,11 +311,11 @@ namespace Nebuli.API.Features
         /// <summary>
         ///     Gets or sets the players <see cref="ScpSpawnPreferences.SpawnPreferences" />.
         /// </summary>
-        public ScpSpawnPreferences.SpawnPreferences SCPSpawnPreferences
+        public ScpSpawnPreferences.SpawnPreferences ScpSpawnPreferences
         {
             get
             {
-                if (ScpSpawnPreferences.Preferences.TryGetValue(NetworkConnection.connectionId,
+                if (PlayerRoles.RoleAssign.ScpSpawnPreferences.Preferences.TryGetValue(NetworkConnection.connectionId,
                         out ScpSpawnPreferences.SpawnPreferences value))
                 {
                     return value;
@@ -329,7 +323,7 @@ namespace Nebuli.API.Features
 
                 return default;
             }
-            set => ScpSpawnPreferences.Preferences[NetworkConnection.connectionId] = value;
+            set => PlayerRoles.RoleAssign.ScpSpawnPreferences.Preferences[NetworkConnection.connectionId] = value;
         }
 
         /// <summary>
@@ -519,7 +513,7 @@ namespace Nebuli.API.Features
         }
 
         /// <summary>
-        ///     Gets or setsthe players minimum possible health value.
+        ///     Gets or sets the players minimum possible health value.
         /// </summary>
         public float MinHealth
         {
@@ -679,7 +673,7 @@ namespace Nebuli.API.Features
         public bool HasCustomName => ReferenceHub.nicknameSync.HasCustomName;
 
         /// <summary>
-        ///     Gets the players IP adress.
+        ///     Gets the players IP address.
         /// </summary>
         public string Address => ReferenceHub.connectionToClient.address;
 
@@ -757,7 +751,7 @@ namespace Nebuli.API.Features
         /// <summary>
         ///     Gets the players <see cref="PlayerRoles.Team" />.
         /// </summary>
-        public Team Team => Role is not null ? Role.Team : Team.Dead;
+        public Team Team => Role?.Team ?? Team.Dead;
 
         /// <summary>
         ///     Gets if the player is alive or not.
@@ -783,7 +777,7 @@ namespace Nebuli.API.Features
         /// </summary>
         public List<Item> Items => Inventory.UserInventory.Items.Values
             .Where(itemBase => itemBase != null)
-            .Select(itemBase => Item.Get(itemBase))
+            .Select(Item.Get)
             .ToList();
 
         /// <summary>
@@ -858,13 +852,14 @@ namespace Nebuli.API.Features
         /// <returns>True if the players role is a <see cref="FpcRoleBase" />, otherwise false.</returns>
         public bool LookAtPosition(Vector3 position, float lerp = 1)
         {
-            if (Role is FpcRoleBase fpc)
+            if (Role is not FpcRoleBase fpc)
             {
-                fpc.LookAtPoint(position, lerp);
-                return true;
+                return false;
             }
 
-            return false;
+            fpc.LookAtPoint(position, lerp);
+            return true;
+
         }
 
         /// <summary>
@@ -1112,9 +1107,11 @@ namespace Nebuli.API.Features
                 return false;
             }
 
-            if (List.FirstOrDefault(ply => ply.RawUserId == variable || ply.UserId == variable) is Player ply)
+            Player first = List.FirstOrDefault(ply1 => ply1.RawUserId == variable || ply1.UserId == variable);
+
+            if (first != null)
             {
-                player = ply;
+                player = first;
                 return true;
             }
 
@@ -1124,20 +1121,20 @@ namespace Nebuli.API.Features
                 return true;
             }
 
-            if (uint.TryParse(variable, out uint NID) && TryGet(NID, out Player plyNID))
+            if (uint.TryParse(variable, result: out uint nid) && TryGet(nid, out Player plyNID))
             {
                 player = plyNID;
                 return true;
             }
 
-            if (List.FirstOrDefault(ply => ply.Nickname.Equals(variable, StringComparison.OrdinalIgnoreCase)) is Player
-                plyByUsername)
+            if (List.FirstOrDefault(ply => ply.Nickname.Equals(variable, StringComparison.OrdinalIgnoreCase)) is not { } plyByUsername)
             {
-                player = plyByUsername;
-                return true;
+                return false;
             }
 
-            return false;
+            player = plyByUsername;
+            return true;
+
         }
 
         /// <summary>

@@ -40,8 +40,9 @@ namespace Nebuli.Permissions
                     LoaderClass.Deserializer.Deserialize<PermissionsConfig>(
                         File.ReadAllText(Paths.Permissions.FullName));
 
-                foreach (string group in permissionsConfig.Permissions.Keys.ToList())
+                for (int index = 0; index < permissionsConfig.Permissions.Keys.ToList().Count; index++)
                 {
+                    string group = permissionsConfig.Permissions.Keys.ToList()[index];
                     if (string.Equals(group, "user", StringComparison.OrdinalIgnoreCase) ||
                         ServerStatic.PermissionsHandler._groups.ContainsKey(group))
                     {
@@ -52,14 +53,16 @@ namespace Nebuli.Permissions
                     permissionsConfig.Permissions.Remove(group);
                 }
 
-                if (permissionsConfig?.Permissions != null)
+                if (permissionsConfig?.Permissions == null)
                 {
-                    Groups.Clear();
-                    foreach (KeyValuePair<string, Group> kvp in permissionsConfig.Permissions)
-                    {
-                        kvp.Value.GroupName = kvp.Key;
-                        Groups.Add(kvp.Key, kvp.Value);
-                    }
+                    return;
+                }
+
+                Groups.Clear();
+                foreach (KeyValuePair<string, Group> kvp in permissionsConfig.Permissions)
+                {
+                    kvp.Value.GroupName = kvp.Key;
+                    Groups.Add(kvp.Key, kvp.Value);
                 }
             }
             catch (Exception e)
@@ -127,17 +130,7 @@ namespace Nebuli.Permissions
         /// </remarks>
         public static bool HasPermissionAnywhere(this ICommandSender sender, string permission)
         {
-            if (HasPermission(sender, permission))
-            {
-                return true;
-            }
-
-            if (HasNWAPIPermission(sender, permission))
-            {
-                return true;
-            }
-
-            return false;
+            return HasPermission(sender, permission) || HasNWAPIPermission(sender, permission);
         }
 
         /// <summary>
@@ -145,24 +138,12 @@ namespace Nebuli.Permissions
         /// </summary>
         public static bool HasPermission(this ICommandSender commandSender, string permission)
         {
-            if (commandSender is ServerConsoleSender)
-            {
-                return true;
-            }
-
-            if (!Player.TryGet(commandSender, out Player ply))
-            {
-                return false;
-            }
-
-            if (ply.ReferenceHub == ReferenceHub.HostHub ||
-                (Groups.TryGetValue(ply.GroupName, out Group playerGroup) &&
-                 (playerGroup.Permissions.Contains(".*") || playerGroup.Permissions.Contains(permission))))
-            {
-                return true;
-            }
-
-            return false;
+            return commandSender is ServerConsoleSender || Player.TryGet(commandSender, out Player ply) &&
+                (ply.ReferenceHub == ReferenceHub.HostHub ||
+                 (Groups.TryGetValue(ply.GroupName,
+                      out Group playerGroup) &&
+                  (playerGroup.Permissions.Contains(".*") ||
+                   playerGroup.Permissions.Contains(permission))));
         }
 
         /// <summary>
@@ -178,12 +159,14 @@ namespace Nebuli.Permissions
             {
                 foreach (Assembly assemblyPlugin in AssemblyLoader.Plugins.Keys)
                 {
-                    if (assemblyPlugin.GetName().Name == "NWAPIPermissionSystem")
+                    if (assemblyPlugin.GetName().Name != "NWAPIPermissionSystem")
                     {
-                        _nwapiPermissionCache = assemblyPlugin;
-                        found = true;
-                        break;
+                        continue;
                     }
+
+                    _nwapiPermissionCache = assemblyPlugin;
+                    found = true;
+                    break;
                 }
             }
             else
@@ -198,20 +181,22 @@ namespace Nebuli.Permissions
                 return false;
             }
 
-            if (_nwapiMethodCache == null)
+            if (_nwapiMethodCache != null)
             {
-                Type permissionHandlerType = _nwapiPermissionCache.GetType("NWAPIPermissionSystem.PermissionHandler");
+                return (bool)_nwapiMethodCache.Invoke(null, new object[] { sender, permission });
+            }
 
-                if (permissionHandlerType != null)
-                {
-                    _nwapiMethodCache = permissionHandlerType.GetMethod("CheckPermission",
-                        new[] { typeof(ICommandSender), typeof(string) });
-                }
-                else
-                {
-                    Log.Debug("Unable to find 'NWAPIPermissionSystem.PermissionHandler'!");
-                    return false;
-                }
+            Type permissionHandlerType = _nwapiPermissionCache.GetType("NWAPIPermissionSystem.PermissionHandler");
+
+            if (permissionHandlerType != null)
+            {
+                _nwapiMethodCache = permissionHandlerType.GetMethod("CheckPermission",
+                    new[] { typeof(ICommandSender), typeof(string) });
+            }
+            else
+            {
+                Log.Debug("Unable to find 'NWAPIPermissionSystem.PermissionHandler'!");
+                return false;
             }
 
             return (bool)_nwapiMethodCache.Invoke(null, new object[] { sender, permission });
@@ -241,7 +226,7 @@ namespace Nebuli.Permissions
         }
     }
 
-//this is here becaus i wanted to.
+//this is here because i wanted to.
     public class Group
     {
         public string GroupName { get; set; } = string.Empty;

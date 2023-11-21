@@ -46,12 +46,7 @@ namespace Nebuli.API.Extensions
         public static string GetSubstringBeforeCharacter(this string input, char character)
         {
             int index = input.IndexOf(character);
-            if (index != -1)
-            {
-                return input.Substring(0, index);
-            }
-
-            return input;
+            return index != -1 ? input.Substring(0, index) : input;
         }
 
         /// <summary>
@@ -62,12 +57,8 @@ namespace Nebuli.API.Extensions
         /// <returns>The randomly selected element from the <see cref="IEnumerable{T}" />.</returns>
         public static T SelectRandom<T>(this IEnumerable<T> source)
         {
-            if (source is null || source.Count() == 0)
-            {
-                return default;
-            }
-
-            return source.ElementAt(LoaderClass.Random.Next(0, source.Count()));
+            IEnumerable<T> enumerable = source as T[] ?? source.ToArray();
+            return !enumerable.Any() ? default : enumerable.ElementAt(LoaderClass.Random.Next(0, enumerable.Count()));
         }
 
         /// <summary>
@@ -83,13 +74,14 @@ namespace Nebuli.API.Extensions
         /// </returns>
         public static bool AddIfMissing<TKey, TValue>(this Dictionary<TKey, TValue> dictionary, TKey key, TValue value)
         {
-            if (!dictionary.ContainsKey(key))
+            if (dictionary.ContainsKey(key))
             {
-                dictionary.Add(key, value);
-                return false;
+                return true;
             }
 
-            return true;
+            dictionary.Add(key, value);
+            return false;
+
         }
 
         /// <summary>
@@ -128,13 +120,14 @@ namespace Nebuli.API.Extensions
         /// </returns>
         public static bool RemoveIfContains<TKey, TValue>(this Dictionary<TKey, TValue> dictionary, TKey key)
         {
-            if (dictionary.ContainsKey(key))
+            if (!dictionary.ContainsKey(key))
             {
-                dictionary.Remove(key);
-                return true;
+                return false;
             }
 
-            return false;
+            dictionary.Remove(key);
+            return true;
+
         }
     }
 }

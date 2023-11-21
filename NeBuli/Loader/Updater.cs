@@ -56,7 +56,7 @@ namespace Nebuli.Loader
             try
             {
                 using HttpClient client = CreateHttpClient();
-                string latestReleaseUrl = "https://api.github.com/repos/Nebuli-Team/Nebuli/releases/latest";
+                const string latestReleaseUrl = "https://api.github.com/repos/Nebuli-Team/Nebuli/releases/latest";
                 string responseBody = await client.GetStringAsync(latestReleaseUrl);
 
                 GitHubRelease latestRelease = JsonConvert.DeserializeObject<GitHubRelease>(responseBody);
@@ -142,7 +142,7 @@ namespace Nebuli.Loader
             if (AssemblyLoader.Plugins.TryGetValue(LoaderClass.NebuliAssembly,
                     out Dictionary<Type, PluginHandler> plugin))
             {
-                return plugin.Values.Where(x => x.PluginName == "Nebuli Loader").FirstOrDefault().PluginFilePath;
+                return plugin.Values.Where(x => x.PluginName == "Nebuli Loader").FirstOrDefault()?.PluginFilePath;
             }
 
             return string.Empty;

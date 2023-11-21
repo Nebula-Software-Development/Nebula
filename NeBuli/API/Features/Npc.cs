@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using MEC;
 using Mirror;
+using Nebuli.API.Extensions;
 using PlayerRoles;
 using UnityEngine;
 using Object = UnityEngine.Object;
@@ -52,42 +53,42 @@ namespace Nebuli.API.Features
         /// </summary>
         /// <param name="name">The name of the NPC.</param>
         /// <param name="role">The <see cref="RoleTypeId" /> of the NPC.</param>
-        /// <param name="ID">The ID of the NPC.</param>
-        /// <param name="UserId">The UserID of the NPC.</param>
+        /// <param name="id">The ID of the NPC.</param>
+        /// <param name="userId">The UserID of the NPC.</param>
         /// <returns>A newly created <see cref="Npc" />.</returns>
-        public static Npc CreateNPC(string name, RoleTypeId role, int ID, string UserId = null)
+        public static Npc CreateNPC(string name, RoleTypeId role, int id, string userId = null)
         {
             try
             {
                 GameObject newPlayer = Object.Instantiate(NetworkManager.singleton.playerPrefab);
-                Npc newNPC = new(newPlayer);
+                Npc newNpc = new(newPlayer);
                 try
                 {
-                    newNPC.ReferenceHub.roleManager.InitializeNewRole(RoleTypeId.None, RoleChangeReason.None);
+                    newNpc.ReferenceHub.roleManager.InitializeNewRole(RoleTypeId.None, RoleChangeReason.None);
                 }
                 catch (Exception e)
                 {
                     Log.Debug("Safe to ignore, error caused by setting NPC role --->\n" + e);
                 }
 
-                NetworkServer.AddPlayerForConnection(new NetworkConnectionToClient(ID), newPlayer);
+                NetworkServer.AddPlayerForConnection(new NetworkConnectionToClient(id), newPlayer);
 
                 try
                 {
-                    newNPC.UserId = UserId is not null ? UserId : null;
+                    newNpc.UserId = userId is not null ? userId : null;
                 }
                 catch (Exception e)
                 {
                     Log.Debug("Safe to ignore, error caused by setting NPC UserID --->\n" + e);
                 }
 
-                newNPC.ReferenceHub.nicknameSync.Network_myNickSync = name;
+                newNpc.ReferenceHub.nicknameSync.Network_myNickSync = name;
 
-                Timing.CallDelayed(0.4f, () => { newNPC.SetRole(role); });
+                Timing.CallDelayed(0.4f, () => { newNpc.SetRole(role); });
 
-                newNPC.IsNPC = true;
+                newNpc.IsNpc = true;
 
-                return newNPC;
+                return newNpc;
             }
             catch (Exception e)
             {
@@ -104,17 +105,7 @@ namespace Nebuli.API.Features
             NetworkServer.Destroy(GameObject);
             CustomNetworkManager.TypedSingleton.OnServerDisconnect(ReferenceHub.connectionToClient);
             ReferenceHub.OnDestroy();
-            Dictionary.Remove(ReferenceHub);
-        }
-
-        [Obsolete("Use LookAtPosition")]
-        /// <summary>
-        /// Makes the NPC look at the specified position.
-        /// </summary>
-        /// <param name="position">The position to look at.</param>
-        public void LookAt(Vector3 position)
-        {
-            LookAtPosition(position);
+            Dictionary.RemoveIfContains(ReferenceHub);
         }
     }
 }
