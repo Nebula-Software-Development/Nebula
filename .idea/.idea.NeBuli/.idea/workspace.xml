@@ -38,12 +38,16 @@
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/ILViewer/484d5de69a5d40dd9b2f5bb6b09bca0175a00/d1/62263842/020000D4pdb79High.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/ILViewer/484d5de69a5d40dd9b2f5bb6b09bca0175a00/d1/62263842/020000D4pdb79Low.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/327b633fa7dc4975991be196b55f7e7626c400/43/d4118a12/IntercomDisplay.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock://C:/Users/mbro8/OneDrive/Documents/GitHub/NebuliTeam/NeBuli/API/Features/Player/NebuliPlayer.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
   <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
   <component name="ProjectColorInfo">{
   &quot;customColor&quot;: &quot;&quot;,
   &quot;associatedIndex&quot;: 6
@@ -60,7 +64,6 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "dev",
     "ignore.virus.scanning.warn.message": "true",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
@@ -99,7 +102,7 @@
       <option name="presentableId" value="Default" />
       <updated>1700572133126</updated>
       <workItem from="1700572136725" duration="84000" />
-      <workItem from="1700572239901" duration="2916000" />
+      <workItem from="1700572239901" duration="3251000" />
     </task>
     <task id="LOCAL-00001" summary="so real rn">
       <option name="closed" value="true" />
@@ -131,6 +134,25 @@
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
     <MESSAGE value="so real rn" />
     <option name="LAST_COMMIT_MESSAGE" value="so real rn" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/NeBuli/API/Features/Roles/NonePlayerRole.cs</url>
+          <line>24</line>
+          <properties documentPath="C:\Users\mbro8\OneDrive\Documents\GitHub\NebuliTeam\NeBuli\API\Features\Roles\NonePlayerRole.cs" initialLine="24" containingFunctionPresentation="Property 'Base'">
+            <startOffsets>
+              <option value="830" />
+            </startOffsets>
+            <endOffsets>
+              <option value="834" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
