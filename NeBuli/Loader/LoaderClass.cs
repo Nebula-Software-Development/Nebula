@@ -1,6 +1,6 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file=LoaderClass.cs company="NebulaTeam">
-// Copyright (c) NebulaTeam. All rights reserved.
+// <copyright file=LoaderClass.cs company="Nebula-Software-Development">
+// Copyright (c) Nebula-Software-Development. All rights reserved.
 // Licensed under the MIT license.
 // See LICENSE file in the project root for full license information.
 // -----------------------------------------------------------------------
@@ -96,7 +96,7 @@ namespace Nebula.Loader
 
             if (!Configuration.LoaderEnabled)
             {
-                Log.Info("Nebula Loader is disabled, Nebula will not load.", consoleColor: ConsoleColor.Red,
+                Log.Print("Nebula Loader is disabled, Nebula will not load.", consoleColor: ConsoleColor.Red,
                     prefix: "Loader");
                 return;
             }
@@ -108,7 +108,7 @@ namespace Nebula.Loader
 
             _loaded = true;
 
-            Log.Info($"Nebula Version {NebulaInfo.NebulaVersion} loading...", consoleColor: ConsoleColor.Red,
+            Log.Print($"Nebula Version {NebulaInfo.NebulaVersion} loading...", consoleColor: ConsoleColor.Red,
                 prefix: "Loader");
 
             if (Configuration.ShouldCheckForUpdates)
@@ -143,7 +143,7 @@ namespace Nebula.Loader
             BuildInfoCommand.ModDescription =
                 $"Framework : Nebula\nFramework Version : {NebulaInfo.NebulaVersion}\nCopyright : Copyright (c) 2024 Nebula Team";
 
-            Log.Info(
+            Log.Print(
                 "Welcome to... \r\n███╗░░██╗███████╗██████╗░██╗░░░██╗██╗░░░░░░█████╗░\r\n████╗░██║██╔════╝██╔══██╗██║░░░██║██║░░░░░██╔══██╗\r\n██╔██╗██║█████╗░░██████╦╝██║░░░██║██║░░░░░███████║\r\n██║╚████║██╔══╝░░██╔══██╗██║░░░██║██║░░░░░██╔══██║\r\n██║░╚███║███████╗██████╦╝╚██████╔╝███████╗██║░░██║\r\n╚═╝░░╚══╝╚══════╝╚═════╝░░╚═════╝░╚══════╝╚═╝░░╚═╝");
         }
 
@@ -160,14 +160,14 @@ namespace Nebula.Loader
 
         private void LoadDependencies(IEnumerable<FileInfo> files)
         {
-            Log.Info($"Loading dependencies from {Paths.DependenciesDirectory.FullName}");
+            Log.Print($"Loading dependencies from {Paths.DependenciesDirectory.FullName}");
 
             foreach (FileInfo file in files)
             {
                 try
                 {
                     Assembly assembly = Assembly.Load(File.ReadAllBytes(file.FullName));
-                    Log.Info($"Dependency {assembly.GetName().Name} loaded!");
+                    Log.Print($"Dependency {assembly.GetName().Name} loaded!");
                 }
                 catch (Exception e)
                 {
@@ -175,12 +175,12 @@ namespace Nebula.Loader
                 }
             }
 
-            Log.Info("Dependencies loaded!");
+            Log.Print("Dependencies loaded!");
         }
 
         private void LoadPlugins(IEnumerable<FileInfo> files)
         {
-            Log.Info($"Loading plugins from {Paths.PluginsPortDirectory.FullName}");
+            Log.Print($"Loading plugins from {Paths.PluginsPortDirectory.FullName}");
 
             List<IPlugin<IConfiguration>> pluginsToLoad = ListPool<IPlugin<IConfiguration>>.Instance.Rent();
 
@@ -225,7 +225,7 @@ namespace Nebula.Loader
                         ? plugin.Assembly.GetName().Name
                         : plugin.Name;
 
-                    Log.Info(
+                    Log.Print(
                         $"Plugin '{pluginName}' by '{plugin.Creator}', (v{plugin.Version}), has been successfully enabled!");
 
                     Plugins.Add(plugin.Assembly, plugin);
@@ -237,7 +237,7 @@ namespace Nebula.Loader
                 }
             }
 
-            Log.Info("Plugins loaded!");
+            Log.Print("Plugins loaded!");
             ListPool<IPlugin<IConfiguration>>.Instance.Return(pluginsToLoad);
         }
 
@@ -367,12 +367,12 @@ namespace Nebula.Loader
 
         internal static void ReloadConfigs()
         {
-            Log.Info("Reloading plugin configs...");
+            Log.Print("Reloading plugin configs...");
             foreach (IPlugin<IConfiguration> plugin in EnabledPlugins)
             {
                 try
                 {
-                    Log.Info($"Reloading plugin configs for {plugin.Name}...");
+                    Log.Print($"Reloading plugin configs for {plugin.Name}...");
                     if (!File.Exists(plugin.ConfigPath))
                     {
                         SetupPluginConfig(plugin);

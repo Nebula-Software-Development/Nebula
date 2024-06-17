@@ -1,6 +1,6 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file=LoaderConfiguration.cs company="NebulaTeam">
-// Copyright (c) NebulaTeam. All rights reserved.
+// <copyright file=LoaderConfiguration.cs company="Nebula-Software-Development">
+// Copyright (c) Nebula-Software-Development. All rights reserved.
 // Licensed under the MIT license.
 // See LICENSE file in the project root for full license information.
 // -----------------------------------------------------------------------
@@ -59,11 +59,5 @@ namespace Nebula.Loader
         /// </summary>
         [Description("If Nebula should automatically check for updates.")]
         public bool ShouldCheckForUpdates { get; set; } = true;
-
-        /// <summary>
-        ///     If Nebula should allow external download URLs for commands like 'forceinstall'.
-        /// </summary>
-        [Description("If Nebula should allow external download URLs for commands like 'forceinstall'.")]
-        public bool AllowExternalDownloadURLS { get; set; } = false;
     }
 }

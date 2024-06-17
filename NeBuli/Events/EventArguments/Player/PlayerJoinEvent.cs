@@ -1,6 +1,6 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file=PlayerJoinEvent.cs company="NebulaTeam">
-// Copyright (c) NebulaTeam. All rights reserved.
+// <copyright file=PlayerJoinEvent.cs company="Nebula-Software-Development">
+// Copyright (c) Nebula-Software-Development. All rights reserved.
 // Licensed under the MIT license.
 // See LICENSE file in the project root for full license information.
 // -----------------------------------------------------------------------

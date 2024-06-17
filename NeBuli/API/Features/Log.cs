@@ -1,6 +1,6 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file=Log.cs company="NebulaTeam">
-// Copyright (c) NebulaTeam. All rights reserved.
+// <copyright file=Log.cs company="Nebula-Software-Development">
+// Copyright (c) Nebula-Software-Development. All rights reserved.
 // Licensed under the MIT license.
 // See LICENSE file in the project root for full license information.
 // -----------------------------------------------------------------------
@@ -47,9 +47,9 @@ namespace Nebula.API.Features
         /// <param name="message">The message to log.</param>
         /// <param name="prefix">An optional prefix for the log message.</param>
         /// <param name="consoleColor">The console color for displaying the log message.</param>
-        public static void Info(object message, string prefix = null, ConsoleColor consoleColor = ConsoleColor.Cyan)
+        public static void Print(object message, string prefix = null, ConsoleColor consoleColor = ConsoleColor.Cyan)
         {
-            AddLog(FormatLogMessage("Info", message, prefix, Assembly.GetCallingAssembly()), consoleColor);
+            AddLog(FormatLogMessage("Print", message, prefix, Assembly.GetCallingAssembly()), consoleColor);
         }
 
         /// <summary>

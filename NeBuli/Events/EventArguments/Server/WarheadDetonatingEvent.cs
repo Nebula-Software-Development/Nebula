@@ -1,12 +1,13 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file=WarheadDetonatingEvent.cs company="NebulaTeam">
-// Copyright (c) NebulaTeam. All rights reserved.
+// <copyright file=WarheadDetonatingEvent.cs company="Nebula-Software-Development">
+// Copyright (c) Nebula-Software-Development. All rights reserved.
 // Licensed under the MIT license.
 // See LICENSE file in the project root for full license information.
 // -----------------------------------------------------------------------
 
 using System;
 using Nebula.Events.EventArguments.Interfaces;
+using Nebula.API.Features;
 
 namespace Nebula.Events.EventArguments.Server
 {
@@ -17,6 +18,7 @@ namespace Nebula.Events.EventArguments.Server
     {
         public WarheadDetonatingEvent(ReferenceHub player)
         {
+            Log.Print("work");
             Player = API.Features.Player.TryGet(player, out API.Features.Player ply) ? ply : API.Features.Server.Host;
             IsCancelled = false;
         }
