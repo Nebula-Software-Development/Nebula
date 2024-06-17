@@ -112,9 +112,7 @@ namespace Nebula.Loader
                 prefix: "Loader");
 
             if (Configuration.ShouldCheckForUpdates)
-            {
                 Updater.CheckForUpdates();
-            }
 
             LoadDependencies(Paths.DependenciesDirectory.GetFiles("*.dll"));
 
