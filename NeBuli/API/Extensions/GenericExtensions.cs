@@ -1,6 +1,6 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file=GenericExtensions.cs company="NebuliTeam">
-// Copyright (c) NebuliTeam. All rights reserved.
+// <copyright file=GenericExtensions.cs company="NebulaTeam">
+// Copyright (c) NebulaTeam. All rights reserved.
 // Licensed under the MIT license.
 // See LICENSE file in the project root for full license information.
 // -----------------------------------------------------------------------
@@ -9,11 +9,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using CommandSystem;
-using Nebuli.Loader;
+using Nebula.Loader;
 using RemoteAdmin;
 using Console = GameCore.Console;
 
-namespace Nebuli.API.Extensions
+namespace Nebula.API.Extensions
 {
     /// <summary>
     ///     Provides extension methods for useful but hard to categorize extensions.

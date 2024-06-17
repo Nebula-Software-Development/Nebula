@@ -1,17 +1,17 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file=PlayerFlippingCoinEvent.cs company="NebuliTeam">
-// Copyright (c) NebuliTeam. All rights reserved.
+// <copyright file=PlayerFlippingCoinEvent.cs company="NebulaTeam">
+// Copyright (c) NebulaTeam. All rights reserved.
 // Licensed under the MIT license.
 // See LICENSE file in the project root for full license information.
 // -----------------------------------------------------------------------
 
 using System;
-using Nebuli.API.Features.Enum;
-using Nebuli.API.Features.Items;
-using Nebuli.Events.EventArguments.Interfaces;
+using Nebula.API.Features.Enum;
+using Nebula.API.Features.Items;
+using Nebula.Events.EventArguments.Interfaces;
 using Coin = InventorySystem.Items.Coin.Coin;
 
-namespace Nebuli.Events.EventArguments.Player
+namespace Nebula.Events.EventArguments.Player
 {
     /// <summary>
     ///     Triggered when a player flips a coin.

@@ -1,13 +1,13 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file=Scp914Handlers.cs company="NebuliTeam">
-// Copyright (c) NebuliTeam. All rights reserved.
+// <copyright file=Scp914Handlers.cs company="NebulaTeam">
+// Copyright (c) NebulaTeam. All rights reserved.
 // Licensed under the MIT license.
 // See LICENSE file in the project root for full license information.
 // -----------------------------------------------------------------------
 
-using Nebuli.Events.EventArguments.SCPs.Scp914;
+using Nebula.Events.EventArguments.SCPs.Scp914;
 
-namespace Nebuli.Events.Handlers
+namespace Nebula.Events.Handlers
 {
     public static class Scp914Handlers
     {

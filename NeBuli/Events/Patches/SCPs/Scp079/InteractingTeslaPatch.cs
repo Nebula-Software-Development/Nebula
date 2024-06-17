@@ -1,6 +1,6 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file=InteractingTeslaPatch.cs company="NebuliTeam">
-// Copyright (c) NebuliTeam. All rights reserved.
+// <copyright file=InteractingTeslaPatch.cs company="NebulaTeam">
+// Copyright (c) NebulaTeam. All rights reserved.
 // Licensed under the MIT license.
 // See LICENSE file in the project root for full license information.
 // -----------------------------------------------------------------------
@@ -8,14 +8,14 @@
 using System.Collections.Generic;
 using System.Reflection.Emit;
 using HarmonyLib;
-using Nebuli.Events.EventArguments.SCPs.Scp079;
-using Nebuli.Events.Handlers;
+using Nebula.Events.EventArguments.SCPs.Scp079;
+using Nebula.Events.Handlers;
 using NorthwoodLib.Pools;
 using PlayerRoles.PlayableScps.Scp079;
 using PlayerRoles.Subroutines;
 using static HarmonyLib.AccessTools;
 
-namespace Nebuli.Events.Patches.SCPs.Scp079
+namespace Nebula.Events.Patches.SCPs.Scp079
 {
     [HarmonyPatch(typeof(Scp079TeslaAbility), nameof(Scp079TeslaAbility.ServerProcessCmd))]
     internal class InteractingTeslaPatch

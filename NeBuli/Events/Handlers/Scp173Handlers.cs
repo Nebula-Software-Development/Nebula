@@ -1,13 +1,13 @@
 // -----------------------------------------------------------------------
-// <copyright file=Scp173Handlers.cs company="NebuliTeam">
-// Copyright (c) NebuliTeam. All rights reserved.
+// <copyright file=Scp173Handlers.cs company="NebulaTeam">
+// Copyright (c) NebulaTeam. All rights reserved.
 // Licensed under the MIT license.
 // See LICENSE file in the project root for full license information.
 // -----------------------------------------------------------------------
 
-using Nebuli.Events.EventArguments.SCPs.Scp173;
+using Nebula.Events.EventArguments.SCPs.Scp173;
 
-namespace Nebuli.Events.Handlers
+namespace Nebula.Events.Handlers
 {
     public static class Scp173Handlers
     {

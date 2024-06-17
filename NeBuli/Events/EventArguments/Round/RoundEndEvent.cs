@@ -1,13 +1,13 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file=RoundEndEvent.cs company="NebuliTeam">
-// Copyright (c) NebuliTeam. All rights reserved.
+// <copyright file=RoundEndEvent.cs company="NebulaTeam">
+// Copyright (c) NebulaTeam. All rights reserved.
 // Licensed under the MIT license.
 // See LICENSE file in the project root for full license information.
 // -----------------------------------------------------------------------
 
 using System;
 
-namespace Nebuli.Events.EventArguments.Round
+namespace Nebula.Events.EventArguments.Round
 {
     /// <summary>
     ///     Triggered at the end of a round.

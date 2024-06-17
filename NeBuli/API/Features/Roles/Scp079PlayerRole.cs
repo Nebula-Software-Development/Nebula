@@ -1,12 +1,12 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file=Scp079PlayerRole.cs company="NebuliTeam">
-// Copyright (c) NebuliTeam. All rights reserved.
+// <copyright file=Scp079PlayerRole.cs company="NebulaTeam">
+// Copyright (c) NebulaTeam. All rights reserved.
 // Licensed under the MIT license.
 // See LICENSE file in the project root for full license information.
 // -----------------------------------------------------------------------
 
 using System;
-using Nebuli.API.Features.Map;
+using Nebula.API.Features.Map;
 using PlayerRoles;
 using PlayerRoles.PlayableScps.Scp079;
 using PlayerRoles.PlayableScps.Scp079.Cameras;
@@ -15,7 +15,7 @@ using PlayerRoles.PlayableScps.Scp079.Rewards;
 using PlayerRoles.Subroutines;
 using PlayerRoles.Voice;
 
-namespace Nebuli.API.Features.Roles
+namespace Nebula.API.Features.Roles
 {
     /// <summary>
     ///     Represents the <see cref="RoleTypeId.Scp079" /> role in-game.

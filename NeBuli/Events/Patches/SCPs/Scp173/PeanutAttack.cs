@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------
-// <copyright file=PeanutAttack.cs company="NebuliTeam">
-// Copyright (c) NebuliTeam. All rights reserved.
+// <copyright file=PeanutAttack.cs company="NebulaTeam">
+// Copyright (c) NebulaTeam. All rights reserved.
 // Licensed under the MIT license.
 // See LICENSE file in the project root for full license information.
 // -----------------------------------------------------------------------
@@ -8,13 +8,13 @@
 using System.Collections.Generic;
 using System.Reflection.Emit;
 using HarmonyLib;
-using Nebuli.Events.EventArguments.SCPs.Scp173;
-using Nebuli.Events.Handlers;
+using Nebula.Events.EventArguments.SCPs.Scp173;
+using Nebula.Events.Handlers;
 using NorthwoodLib.Pools;
 using PlayerRoles.PlayableScps.Scp173;
 using static HarmonyLib.AccessTools;
 
-namespace Nebuli.Events.Patches.SCPs.Scp173
+namespace Nebula.Events.Patches.SCPs.Scp173
 {
     [HarmonyPatch(typeof(Scp173SnapAbility), nameof(Scp173SnapAbility.ServerProcessCmd))]
     internal class PeanutAttack

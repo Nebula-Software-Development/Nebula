@@ -1,16 +1,16 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file=SpawningItemEvent.cs company="NebuliTeam">
-// Copyright (c) NebuliTeam. All rights reserved.
+// <copyright file=SpawningItemEvent.cs company="NebulaTeam">
+// Copyright (c) NebulaTeam. All rights reserved.
 // Licensed under the MIT license.
 // See LICENSE file in the project root for full license information.
 // -----------------------------------------------------------------------
 
 using System;
 using InventorySystem.Items.Pickups;
-using Nebuli.API.Features.Items.Pickups;
-using Nebuli.Events.EventArguments.Interfaces;
+using Nebula.API.Features.Items.Pickups;
+using Nebula.Events.EventArguments.Interfaces;
 
-namespace Nebuli.Events.EventArguments.Server
+namespace Nebula.Events.EventArguments.Server
 {
     /// <summary>
     ///     Triggered before a item spawns.

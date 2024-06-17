@@ -1,16 +1,16 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file=PlayerShotEvent.cs company="NebuliTeam">
-// Copyright (c) NebuliTeam. All rights reserved.
+// <copyright file=PlayerShotEvent.cs company="NebulaTeam">
+// Copyright (c) NebulaTeam. All rights reserved.
 // Licensed under the MIT license.
 // See LICENSE file in the project root for full license information.
 // -----------------------------------------------------------------------
 
 using System;
-using Nebuli.API.Features.Items;
-using Nebuli.Events.EventArguments.Interfaces;
+using Nebula.API.Features.Items;
+using Nebula.Events.EventArguments.Interfaces;
 using Firearm = InventorySystem.Items.Firearms.Firearm;
 
-namespace Nebuli.Events.EventArguments.Player
+namespace Nebula.Events.EventArguments.Player
 {
     /// <summary>
     ///     Triggered when a player shoots a firearm.

@@ -1,6 +1,6 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file=Player.cs company="NebuliTeam">
-// Copyright (c) NebuliTeam. All rights reserved.
+// <copyright file=Player.cs company="NebulaTeam">
+// Copyright (c) NebulaTeam. All rights reserved.
 // Licensed under the MIT license.
 // See LICENSE file in the project root for full license information.
 // -----------------------------------------------------------------------
@@ -22,14 +22,14 @@ using InventorySystem.Disarming;
 using InventorySystem.Items;
 using MapGeneration;
 using Mirror;
-using Nebuli.API.Extensions;
-using Nebuli.API.Features.Enum;
-using Nebuli.API.Features.Items;
-using Nebuli.API.Features.Map;
-using Nebuli.API.Features.Pools;
-using Nebuli.API.Features.Roles;
-using Nebuli.API.Features.Structs;
-using Nebuli.API.Internal;
+using Nebula.API.Extensions;
+using Nebula.API.Features.Enum;
+using Nebula.API.Features.Items;
+using Nebula.API.Features.Map;
+using Nebula.API.Features.Pools;
+using Nebula.API.Features.Roles;
+using Nebula.API.Features.Structs;
+using Nebula.API.Internal;
 using PlayerRoles;
 using PlayerRoles.FirstPersonControl;
 using PlayerRoles.PlayableScps.HumeShield;
@@ -44,10 +44,10 @@ using Utils.Networking;
 using VoiceChat;
 using static Broadcast;
 
-namespace Nebuli.API.Features
+namespace Nebula.API.Features
 {
     /// <summary>
-    ///     Represents a player in the Nebuli framework.
+    ///     Represents a player in the Nebula framework.
     /// </summary>
     public class Player
     {
@@ -1472,7 +1472,7 @@ namespace Nebuli.API.Features
         {
             if (UserId is null)
             {
-                RawUserId = $"NebuliUserId-{PlayerCount}";
+                RawUserId = $"NebulaUserId-{PlayerCount}";
                 return;
             }
 

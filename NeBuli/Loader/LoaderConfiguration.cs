@@ -1,13 +1,13 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file=LoaderConfiguration.cs company="NebuliTeam">
-// Copyright (c) NebuliTeam. All rights reserved.
+// <copyright file=LoaderConfiguration.cs company="NebulaTeam">
+// Copyright (c) NebulaTeam. All rights reserved.
 // Licensed under the MIT license.
 // See LICENSE file in the project root for full license information.
 // -----------------------------------------------------------------------
 
 using System.ComponentModel;
 
-namespace Nebuli.Loader
+namespace Nebula.Loader
 {
     /// <summary>
     ///     The loaders configuration class.
@@ -34,36 +34,36 @@ namespace Nebuli.Loader
         public bool ShowDebugLogs { get; set; } = false;
         
         /// <summary>
-        ///     If true, allows the server to be tracked and counted with the total number of Nebuli servers via server name.
+        ///     If true, allows the server to be tracked and counted with the total number of Nebula servers via server name.
         /// </summary>
         [Description(
-            "If true, allows the server to be tracked and counted with the total number of Nebuli servers via server name.")]
+            "If true, allows the server to be tracked and counted with the total number of Nebula servers via server name.")]
         public bool ServerNameTracking { get; set; } = true;
 
         /// <summary>
-        ///     Determines if the Loader should load plugins where their major required version of Nebuli dosent match Nebulis
+        ///     Determines if the Loader should load plugins where their major required version of Nebula dosent match Nebulas
         ///     current major version.
         /// </summary>
         [Description(
-            "Determines if the Loader should load plugins where their major required version of Nebuli dosent match Nebulis current major version.")]
+            "Determines if the Loader should load plugins where their major required version of Nebula dosent match Nebulas current major version.")]
         public bool LoadOutDatedPlugins { get; set; } = false;
 
         /// <summary>
-        ///     Determines if the Nebuli should load plugins based on the current port folder its running on.
+        ///     Determines if the Nebula should load plugins based on the current port folder its running on.
         /// </summary>
-        [Description("Determines if the Nebuli should load plugins based on the current port folder its running on.")]
+        [Description("Determines if the Nebula should load plugins based on the current port folder its running on.")]
         public bool SeperatePluginsByPort { get; set; } = true;
 
         /// <summary>
-        ///     If Nebuli should automatically check for updates.
+        ///     If Nebula should automatically check for updates.
         /// </summary>
-        [Description("If Nebuli should automatically check for updates.")]
+        [Description("If Nebula should automatically check for updates.")]
         public bool ShouldCheckForUpdates { get; set; } = true;
 
         /// <summary>
-        ///     If Nebuli should allow external download URLs for commands like 'forceinstall'.
+        ///     If Nebula should allow external download URLs for commands like 'forceinstall'.
         /// </summary>
-        [Description("If Nebuli should allow external download URLs for commands like 'forceinstall'.")]
+        [Description("If Nebula should allow external download URLs for commands like 'forceinstall'.")]
         public bool AllowExternalDownloadURLS { get; set; } = false;
     }
 }

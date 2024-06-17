@@ -1,15 +1,15 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file=Paths.cs company="NebuliTeam">
-// Copyright (c) NebuliTeam. All rights reserved.
+// <copyright file=Paths.cs company="NebulaTeam">
+// Copyright (c) NebulaTeam. All rights reserved.
 // Licensed under the MIT license.
 // See LICENSE file in the project root for full license information.
 // -----------------------------------------------------------------------
 
 using System.IO;
-using Nebuli.Loader;
+using Nebula.Loader;
 using NwPaths = PluginAPI.Helpers.Paths;
 
-namespace Nebuli.API.Features
+namespace Nebula.API.Features
 {
     /// <summary>
     ///     A set of paths that the loader uses.
@@ -19,7 +19,7 @@ namespace Nebuli.API.Features
         /// <summary>
         ///     The main directory for the framework.
         /// </summary>
-        public static DirectoryInfo MainDirectory { get; } = CreateDirectory(NwPaths.AppData, "Nebuli");
+        public static DirectoryInfo MainDirectory { get; } = CreateDirectory(NwPaths.AppData, "Nebula");
 
         /// <summary>
         ///     The plugin directory for the framework.

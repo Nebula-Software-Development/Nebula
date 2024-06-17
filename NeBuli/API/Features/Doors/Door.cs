@@ -1,6 +1,6 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file=Door.cs company="NebuliTeam">
-// Copyright (c) NebuliTeam. All rights reserved.
+// <copyright file=Door.cs company="NebulaTeam">
+// Copyright (c) NebulaTeam. All rights reserved.
 // Licensed under the MIT license.
 // See LICENSE file in the project root for full license information.
 // -----------------------------------------------------------------------
@@ -10,13 +10,13 @@ using System.Linq;
 using Interactables.Interobjects;
 using Interactables.Interobjects.DoorUtils;
 using MapGeneration;
-using Nebuli.API.Extensions;
-using Nebuli.API.Features.Enum;
-using Nebuli.API.Features.Map;
+using Nebula.API.Extensions;
+using Nebula.API.Features.Enum;
+using Nebula.API.Features.Map;
 using UnityEngine;
 using static Interactables.Interobjects.ElevatorManager;
 
-namespace Nebuli.API.Features.Doors
+namespace Nebula.API.Features.Doors
 {
     /// <summary>
     ///     Allows easier use of doors by wrapping the <see cref="DoorVariant" /> class.

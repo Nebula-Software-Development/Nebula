@@ -1,6 +1,6 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file=InteractingDoorEventPatch.cs company="NebuliTeam">
-// Copyright (c) NebuliTeam. All rights reserved.
+// <copyright file=InteractingDoorEventPatch.cs company="NebulaTeam">
+// Copyright (c) NebulaTeam. All rights reserved.
 // Licensed under the MIT license.
 // See LICENSE file in the project root for full license information.
 // -----------------------------------------------------------------------
@@ -9,13 +9,13 @@ using System.Collections.Generic;
 using System.Reflection.Emit;
 using HarmonyLib;
 using Interactables.Interobjects.DoorUtils;
-using Nebuli.API.Features.Doors;
-using Nebuli.Events.EventArguments.Player;
-using Nebuli.Events.Handlers;
+using Nebula.API.Features.Doors;
+using Nebula.Events.EventArguments.Player;
+using Nebula.Events.Handlers;
 using NorthwoodLib.Pools;
 using static HarmonyLib.AccessTools;
 
-namespace Nebuli.Events.Patches.Player
+namespace Nebula.Events.Patches.Player
 {
     [HarmonyPatch(typeof(DoorVariant), nameof(DoorVariant.ServerInteract), typeof(ReferenceHub), typeof(byte))]
     internal class InteractingDoorEventPatch

@@ -1,6 +1,6 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file=MoreEscapePatch.cs company="NebuliTeam">
-// Copyright (c) NebuliTeam. All rights reserved.
+// <copyright file=MoreEscapePatch.cs company="NebulaTeam">
+// Copyright (c) NebulaTeam. All rights reserved.
 // Licensed under the MIT license.
 // See LICENSE file in the project root for full license information.
 // -----------------------------------------------------------------------
@@ -11,7 +11,7 @@ using HarmonyLib;
 using NorthwoodLib.Pools;
 using Respawning;
 
-namespace Nebuli.Events.Patches.Game
+namespace Nebula.Events.Patches.Game
 {
     [HarmonyPatch(typeof(Escape), nameof(Escape.ServerGetScenario))]
     internal class GetScenario

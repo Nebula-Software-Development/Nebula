@@ -1,14 +1,14 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file=Scp3114RevealedEvent.cs company="NebuliTeam">
-// Copyright (c) NebuliTeam. All rights reserved.
+// <copyright file=Scp3114RevealedEvent.cs company="NebulaTeam">
+// Copyright (c) NebulaTeam. All rights reserved.
 // Licensed under the MIT license.
 // See LICENSE file in the project root for full license information.
 // -----------------------------------------------------------------------
 
 using System;
-using Nebuli.Events.EventArguments.Interfaces;
+using Nebula.Events.EventArguments.Interfaces;
 
-namespace Nebuli.Events.EventArguments.SCPs.Scp3114
+namespace Nebula.Events.EventArguments.SCPs.Scp3114
 {
     /// <summary>
     ///     Triggered after SCP-3114 reveals.

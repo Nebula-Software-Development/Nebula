@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Nebuli.Properties {
+namespace Nebula.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]

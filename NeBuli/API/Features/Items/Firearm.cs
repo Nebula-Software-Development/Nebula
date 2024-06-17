@@ -1,6 +1,6 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file=Firearm.cs company="NebuliTeam">
-// Copyright (c) NebuliTeam. All rights reserved.
+// <copyright file=Firearm.cs company="NebulaTeam">
+// Copyright (c) NebulaTeam. All rights reserved.
 // Licensed under the MIT license.
 // See LICENSE file in the project root for full license information.
 // -----------------------------------------------------------------------
@@ -16,14 +16,14 @@ using InventorySystem.Items.Firearms.Attachments.Components;
 using InventorySystem.Items.Firearms.BasicMessages;
 using InventorySystem.Items.Firearms.Modules;
 using Mirror;
-using Nebuli.API.Extensions;
-using Nebuli.API.Features.Enum;
-using Nebuli.API.Features.Structs;
+using Nebula.API.Extensions;
+using Nebula.API.Features.Enum;
+using Nebula.API.Features.Structs;
 using PlayerRoles;
 using RelativePositioning;
 using UnityEngine;
 
-namespace Nebuli.API.Features.Items
+namespace Nebula.API.Features.Items
 {
     /// <summary>
     ///     Represents a firearm item in the game.

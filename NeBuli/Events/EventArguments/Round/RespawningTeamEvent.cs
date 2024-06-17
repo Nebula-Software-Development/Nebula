@@ -1,16 +1,16 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file=RespawningTeamEvent.cs company="NebuliTeam">
-// Copyright (c) NebuliTeam. All rights reserved.
+// <copyright file=RespawningTeamEvent.cs company="NebulaTeam">
+// Copyright (c) NebulaTeam. All rights reserved.
 // Licensed under the MIT license.
 // See LICENSE file in the project root for full license information.
 // -----------------------------------------------------------------------
 
 using System;
 using System.Collections.Generic;
-using Nebuli.Events.EventArguments.Interfaces;
+using Nebula.Events.EventArguments.Interfaces;
 using Respawning;
 
-namespace Nebuli.Events.EventArguments.Round
+namespace Nebula.Events.EventArguments.Round
 {
     /// <summary>
     ///     Triggered when a team is respawning.

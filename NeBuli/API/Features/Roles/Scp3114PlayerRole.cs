@@ -1,6 +1,6 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file=Scp3114PlayerRole.cs company="NebuliTeam">
-// Copyright (c) NebuliTeam. All rights reserved.
+// <copyright file=Scp3114PlayerRole.cs company="NebulaTeam">
+// Copyright (c) NebulaTeam. All rights reserved.
 // Licensed under the MIT license.
 // See LICENSE file in the project root for full license information.
 // -----------------------------------------------------------------------
@@ -15,7 +15,7 @@ using UnityEngine;
 using static PlayerRoles.PlayableScps.Scp3114.Scp3114Identity;
 using Scp3114RoleBase = PlayerRoles.PlayableScps.Scp3114.Scp3114Role;
 
-namespace Nebuli.API.Features.Roles
+namespace Nebula.API.Features.Roles
 {
     /// <summary>
     ///     Represents the <see cref="RoleTypeId.Scp3114" /> role in-game.

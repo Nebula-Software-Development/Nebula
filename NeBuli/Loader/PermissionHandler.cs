@@ -1,6 +1,6 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file=PermissionHandler.cs company="NebuliTeam">
-// Copyright (c) NebuliTeam. All rights reserved.
+// <copyright file=PermissionHandler.cs company="NebulaTeam">
+// Copyright (c) NebulaTeam. All rights reserved.
 // Licensed under the MIT license.
 // See LICENSE file in the project root for full license information.
 // -----------------------------------------------------------------------
@@ -11,11 +11,11 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using CommandSystem;
-using Nebuli.API.Features;
-using Nebuli.Loader;
+using Nebula.API.Features;
+using Nebula.Loader;
 using PluginAPI.Loader;
 
-namespace Nebuli.Permissions
+namespace Nebula.Permissions
 {
     public static class PermissionsHandler
     {
@@ -109,10 +109,10 @@ namespace Nebuli.Permissions
         }
 
         /// <summary>
-        ///     Gets if the <see cref="Player" /> has the either a specified Nebuli permission OR a specified NWAPI permission.
+        ///     Gets if the <see cref="Player" /> has the either a specified Nebula permission OR a specified NWAPI permission.
         /// </summary>
         /// <remarks>
-        ///     Requires the NWAPIPermissionSystem be loaded by NWAPI, if it cannot be found and the player has no Nebuli
+        ///     Requires the NWAPIPermissionSystem be loaded by NWAPI, if it cannot be found and the player has no Nebula
         ///     permission, the method returns <c>false</c>
         /// </remarks>
         public static bool HasPermissionAnywhere(this Player player, string permission)
@@ -121,11 +121,11 @@ namespace Nebuli.Permissions
         }
 
         /// <summary>
-        ///     Gets if the <see cref="ICommandSender" /> has the either a specified Nebuli permission OR a specified NWAPI
+        ///     Gets if the <see cref="ICommandSender" /> has the either a specified Nebula permission OR a specified NWAPI
         ///     permission.
         /// </summary>
         /// <remarks>
-        ///     Requires the NWAPIPermissionSystem be loaded by NWAPI, if it cannot be found and the player has no Nebuli
+        ///     Requires the NWAPIPermissionSystem be loaded by NWAPI, if it cannot be found and the player has no Nebula
         ///     permission, the method returns <c>false</c>
         /// </remarks>
         public static bool HasPermissionAnywhere(this ICommandSender sender, string permission)

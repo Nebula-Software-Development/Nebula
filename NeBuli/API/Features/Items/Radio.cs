@@ -1,6 +1,6 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file=Radio.cs company="NebuliTeam">
-// Copyright (c) NebuliTeam. All rights reserved.
+// <copyright file=Radio.cs company="NebulaTeam">
+// Copyright (c) NebulaTeam. All rights reserved.
 // Licensed under the MIT license.
 // See LICENSE file in the project root for full license information.
 // -----------------------------------------------------------------------
@@ -8,7 +8,7 @@
 using static InventorySystem.Items.Radio.RadioMessages;
 using RadioItemBase = InventorySystem.Items.Radio.RadioItem;
 
-namespace Nebuli.API.Features.Items
+namespace Nebula.API.Features.Items
 {
     /// <summary>
     ///     Wrapper class for Radios.

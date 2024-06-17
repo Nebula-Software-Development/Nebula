@@ -1,6 +1,6 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file=RoundEndPatch.cs company="NebuliTeam">
-// Copyright (c) NebuliTeam. All rights reserved.
+// <copyright file=RoundEndPatch.cs company="NebulaTeam">
+// Copyright (c) NebulaTeam. All rights reserved.
 // Licensed under the MIT license.
 // See LICENSE file in the project root for full license information.
 // -----------------------------------------------------------------------
@@ -8,12 +8,12 @@
 using System.Collections.Generic;
 using System.Reflection.Emit;
 using HarmonyLib;
-using Nebuli.Events.EventArguments.Round;
-using Nebuli.Events.Handlers;
+using Nebula.Events.EventArguments.Round;
+using Nebula.Events.Handlers;
 using NorthwoodLib.Pools;
 using static HarmonyLib.AccessTools;
 
-namespace Nebuli.Events.Patches.Round
+namespace Nebula.Events.Patches.Round
 {
     [HarmonyPatch(typeof(RoundSummary), nameof(RoundSummary.RpcShowRoundSummary))]
     internal class RoundEndPatch

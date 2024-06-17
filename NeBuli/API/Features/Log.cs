@@ -1,17 +1,17 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file=Log.cs company="NebuliTeam">
-// Copyright (c) NebuliTeam. All rights reserved.
+// <copyright file=Log.cs company="NebulaTeam">
+// Copyright (c) NebulaTeam. All rights reserved.
 // Licensed under the MIT license.
 // See LICENSE file in the project root for full license information.
 // -----------------------------------------------------------------------
 
 using System;
 using System.Reflection;
-using Nebuli.API.Interfaces;
-using Nebuli.Loader;
+using Nebula.API.Interfaces;
+using Nebula.Loader;
 using PluginAPILogger = PluginAPI.Core.Log;
 
-namespace Nebuli.API.Features
+namespace Nebula.API.Features
 {
     /// <summary>
     ///     Utility class for easily logging stuff into the server console.
@@ -27,18 +27,18 @@ namespace Nebuli.API.Features
             Assembly callingAssembly = null)
         {
             callingAssembly ??= Assembly.GetCallingAssembly();
-            if (callingAssembly == LoaderClass.NebuliAssembly)
+            if (callingAssembly == LoaderClass.NebulaAssembly)
             {
-                string text = $"&7[&b&3Nebuli&B&7] {message}";
+                string text = $"&7[&b&3Nebula&B&7] {message}";
                 if (!string.IsNullOrEmpty(prefix))
                 {
-                    return $"&7[&b&3Nebuli {prefix}&B&7] {message}";
+                    return $"&7[&b&3Nebula {prefix}&B&7] {message}";
                 }
 
                 return text;
             }
 
-            return $"&7[&b&3Nebuli {messageType}&B&7] &7[&b&2{callingAssembly.GetName().Name}&B&7]&r {message}";
+            return $"&7[&b&3Nebula {messageType}&B&7] &7[&b&2{callingAssembly.GetName().Name}&B&7]&r {message}";
         }
 
         /// <summary>
@@ -61,7 +61,7 @@ namespace Nebuli.API.Features
         public static void Debug(object message, string prefix = null, ConsoleColor consoleColor = ConsoleColor.Green)
         {
             Assembly callingAssembly = Assembly.GetCallingAssembly();
-            if (callingAssembly == LoaderClass.NebuliAssembly && LoaderClass.Configuration.ShowDebugLogs)
+            if (callingAssembly == LoaderClass.NebulaAssembly && LoaderClass.Configuration.ShowDebugLogs)
             {
                 AddLog(FormatLogMessage("Debug", message, prefix, callingAssembly), consoleColor);
                 return;

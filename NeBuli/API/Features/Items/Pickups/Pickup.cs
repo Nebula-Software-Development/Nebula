@@ -1,6 +1,6 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file=Pickup.cs company="NebuliTeam">
-// Copyright (c) NebuliTeam. All rights reserved.
+// <copyright file=Pickup.cs company="NebulaTeam">
+// Copyright (c) NebulaTeam. All rights reserved.
 // Licensed under the MIT license.
 // See LICENSE file in the project root for full license information.
 // -----------------------------------------------------------------------
@@ -15,10 +15,10 @@ using InventorySystem.Items.Pickups;
 using InventorySystem.Items.ThrowableProjectiles;
 using InventorySystem.Items.Usables.Scp244;
 using Mirror;
-using Nebuli.API.Extensions;
-using Nebuli.API.Features.Items.Pickups.SCPs;
-using Nebuli.API.Features.Items.Projectiles;
-using Nebuli.API.Features.Map;
+using Nebula.API.Extensions;
+using Nebula.API.Features.Items.Pickups.SCPs;
+using Nebula.API.Features.Items.Projectiles;
+using Nebula.API.Features.Map;
 using UnityEngine;
 using JailbirdPickup = InventorySystem.Items.Jailbird.JailbirdPickup;
 using Scp018Projectile = InventorySystem.Items.ThrowableProjectiles.Scp018Projectile;
@@ -26,7 +26,7 @@ using Scp1576Pickup = InventorySystem.Items.Usables.Scp1576.Scp1576Pickup;
 using Scp2176Projectile = InventorySystem.Items.ThrowableProjectiles.Scp2176Projectile;
 using Scp330Pickup = InventorySystem.Items.Usables.Scp330.Scp330Pickup;
 
-namespace Nebuli.API.Features.Items.Pickups
+namespace Nebula.API.Features.Items.Pickups
 {
     /// <summary>
     ///     Wrapper class for handling <see cref="ItemPickupBase" />.

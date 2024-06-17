@@ -1,16 +1,16 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file=UpgradingPlayerEvent.cs company="NebuliTeam">
-// Copyright (c) NebuliTeam. All rights reserved.
+// <copyright file=UpgradingPlayerEvent.cs company="NebulaTeam">
+// Copyright (c) NebulaTeam. All rights reserved.
 // Licensed under the MIT license.
 // See LICENSE file in the project root for full license information.
 // -----------------------------------------------------------------------
 
 using System;
-using Nebuli.Events.EventArguments.Interfaces;
+using Nebula.Events.EventArguments.Interfaces;
 using Scp914;
 using UnityEngine;
 
-namespace Nebuli.Events.EventArguments.SCPs.Scp914
+namespace Nebula.Events.EventArguments.SCPs.Scp914
 {
     /// <summary>
     ///     Triggered when a player is being upgrading in SCP-914.

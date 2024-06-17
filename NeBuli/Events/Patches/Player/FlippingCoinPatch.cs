@@ -1,6 +1,6 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file=FlippingCoinPatch.cs company="NebuliTeam">
-// Copyright (c) NebuliTeam. All rights reserved.
+// <copyright file=FlippingCoinPatch.cs company="NebulaTeam">
+// Copyright (c) NebulaTeam. All rights reserved.
 // Licensed under the MIT license.
 // See LICENSE file in the project root for full license information.
 // -----------------------------------------------------------------------
@@ -10,13 +10,13 @@ using System.Reflection.Emit;
 using HarmonyLib;
 using InventorySystem.Items;
 using InventorySystem.Items.Coin;
-using Nebuli.API.Features.Enum;
-using Nebuli.Events.EventArguments.Player;
-using Nebuli.Events.Handlers;
+using Nebula.API.Features.Enum;
+using Nebula.Events.EventArguments.Player;
+using Nebula.Events.Handlers;
 using NorthwoodLib.Pools;
 using static HarmonyLib.AccessTools;
 
-namespace Nebuli.Events.Patches.Player
+namespace Nebula.Events.Patches.Player
 {
     [HarmonyPatch(typeof(Coin), nameof(Coin.ServerProcessCmd))]
     internal class FlippingCoinPatch

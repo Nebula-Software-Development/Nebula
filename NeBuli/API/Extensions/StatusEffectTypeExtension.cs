@@ -1,6 +1,6 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file=StatusEffectTypeExtension.cs company="NebuliTeam">
-// Copyright (c) NebuliTeam. All rights reserved.
+// <copyright file=StatusEffectTypeExtension.cs company="NebulaTeam">
+// Copyright (c) NebulaTeam. All rights reserved.
 // Licensed under the MIT license.
 // See LICENSE file in the project root for full license information.
 // -----------------------------------------------------------------------
@@ -8,9 +8,9 @@
 using System;
 using CustomPlayerEffects;
 using InventorySystem.Items.Usables.Scp244.Hypothermia;
-using Nebuli.API.Features.Enum;
+using Nebula.API.Features.Enum;
 
-namespace Nebuli.API.Extensions
+namespace Nebula.API.Extensions
 {
     /// <summary>
     ///     Extension methods for <see cref="StatusEffect" />.

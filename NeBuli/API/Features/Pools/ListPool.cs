@@ -1,6 +1,6 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file=ListPool.cs company="NebuliTeam">
-// Copyright (c) NebuliTeam. All rights reserved.
+// <copyright file=ListPool.cs company="NebulaTeam">
+// Copyright (c) NebulaTeam. All rights reserved.
 // Licensed under the MIT license.
 // See LICENSE file in the project root for full license information.
 // -----------------------------------------------------------------------
@@ -9,7 +9,7 @@ using System;
 using System.Collections.Generic;
 using NorthwoodLib.Pools;
 
-namespace Nebuli.API.Features.Pools
+namespace Nebula.API.Features.Pools
 {
     /// <summary>
     ///     Provides pooling functionality for <see cref="List{T}" /> objects.

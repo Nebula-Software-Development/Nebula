@@ -1,14 +1,14 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file=ReferenceHubExtensions.cs company="NebuliTeam">
-// Copyright (c) NebuliTeam. All rights reserved.
+// <copyright file=ReferenceHubExtensions.cs company="NebulaTeam">
+// Copyright (c) NebulaTeam. All rights reserved.
 // Licensed under the MIT license.
 // See LICENSE file in the project root for full license information.
 // -----------------------------------------------------------------------
 
-using Nebuli.API.Features;
-using Nebuli.API.Features.Enum;
+using Nebula.API.Features;
+using Nebula.API.Features.Enum;
 
-namespace Nebuli.API.Extensions
+namespace Nebula.API.Extensions
 {
     /// <summary>
     ///     Extension methods for <see cref="ReferenceHub" />.
@@ -20,7 +20,7 @@ namespace Nebuli.API.Extensions
         /// </summary>
         /// <param name="referenceHub"></param>
         /// <returns></returns>
-        public static Player ToNebuliPlayer(this ReferenceHub referenceHub)
+        public static Player ToNebulaPlayer(this ReferenceHub referenceHub)
         {
             return referenceHub == null ? null : Player.Get(referenceHub);
         }

@@ -1,19 +1,19 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file=IPlugin.cs company="NebuliTeam">
-// Copyright (c) NebuliTeam. All rights reserved.
+// <copyright file=IPlugin.cs company="NebulaTeam">
+// Copyright (c) NebulaTeam. All rights reserved.
 // Licensed under the MIT license.
 // See LICENSE file in the project root for full license information.
 // -----------------------------------------------------------------------
 
 using System;
 using System.Reflection;
-using Nebuli.API.Features.Enum;
-using Nebuli.API.Interfaces;
+using Nebula.API.Features.Enum;
+using Nebula.API.Interfaces;
 
-namespace Nebuli.API.Features
+namespace Nebula.API.Features
 {
     /// <summary>
-    ///     The default plugin interface for Nebuli.
+    ///     The default plugin interface for Nebula.
     /// </summary>
     /// <typeparam name="TConfig">The plugins config.</typeparam>
     public interface IPlugin<out TConfig> where TConfig : IConfiguration
@@ -39,9 +39,9 @@ namespace Nebuli.API.Features
         Version Version { get; }
 
         /// <summary>
-        ///     Gets the plugins current Nebulis version.
+        ///     Gets the plugins current Nebulas version.
         /// </summary>
-        Version NebuliVersion { get; }
+        Version NebulaVersion { get; }
 
         /// <summary>
         ///     Gets the plugins <see cref="LoadOrderType" />.
@@ -49,7 +49,7 @@ namespace Nebuli.API.Features
         LoadOrderType LoadOrder { get; }
 
         /// <summary>
-        ///     If true, skips checking if the plugins current Nebulis version lines up with the Nebulis version loading the
+        ///     If true, skips checking if the plugins current Nebulas version lines up with the Nebulas version loading the
         ///     plugin.
         /// </summary>
         bool SkipVersionCheck { get; }

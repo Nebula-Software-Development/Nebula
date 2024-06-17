@@ -1,6 +1,6 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file=EventManager.cs company="NebuliTeam">
-// Copyright (c) NebuliTeam. All rights reserved.
+// <copyright file=EventManager.cs company="NebulaTeam">
+// Copyright (c) NebulaTeam. All rights reserved.
 // Licensed under the MIT license.
 // See LICENSE file in the project root for full license information.
 // -----------------------------------------------------------------------
@@ -19,17 +19,17 @@ using InventorySystem.Items.Firearms.Attachments;
 using InventorySystem.Items.Firearms.Attachments.Components;
 using InventorySystem.Items.Pickups;
 using MapGeneration;
-using Nebuli.API.Extensions;
-using Nebuli.API.Features;
-using Nebuli.API.Features.Doors;
-using Nebuli.API.Features.Enum;
-using Nebuli.API.Features.Items;
-using Nebuli.API.Features.Items.Pickups;
-using Nebuli.API.Features.Map;
-using Nebuli.API.Features.Roles;
-using Nebuli.API.Features.Structs;
-using Nebuli.Events.Handlers;
-using Nebuli.Loader;
+using Nebula.API.Extensions;
+using Nebula.API.Features;
+using Nebula.API.Features.Doors;
+using Nebula.API.Features.Enum;
+using Nebula.API.Features.Items;
+using Nebula.API.Features.Items.Pickups;
+using Nebula.API.Features.Map;
+using Nebula.API.Features.Roles;
+using Nebula.API.Features.Structs;
+using Nebula.Events.Handlers;
+using Nebula.Loader;
 using NorthwoodLib.Pools;
 using PlayerRoles;
 using PlayerRoles.PlayableScps.Scp079.Cameras;
@@ -37,10 +37,10 @@ using PlayerRoles.Ragdolls;
 using UnityEngine.SceneManagement;
 using Object = UnityEngine.Object;
 
-namespace Nebuli.Events
+namespace Nebula.Events
 {
     /// <summary>
-    ///     Nebulis custom event management class.
+    ///     Nebulas custom event management class.
     /// </summary>
     public static class EventManager
     {

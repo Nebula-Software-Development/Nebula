@@ -1,15 +1,15 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file=HazardPatch.cs company="NebuliTeam">
-// Copyright (c) NebuliTeam. All rights reserved.
+// <copyright file=HazardPatch.cs company="NebulaTeam">
+// Copyright (c) NebulaTeam. All rights reserved.
 // Licensed under the MIT license.
 // See LICENSE file in the project root for full license information.
 // -----------------------------------------------------------------------
 
 using HarmonyLib;
 using Hazards;
-using Nebuli.API.Features.Hazards;
+using Nebula.API.Features.Hazards;
 
-namespace Nebuli.Events.Patches.Game
+namespace Nebula.Events.Patches.Game
 {
     [HarmonyPatch(typeof(EnvironmentalHazard), nameof(EnvironmentalHazard.Start))]
     internal class HazardPatchStart

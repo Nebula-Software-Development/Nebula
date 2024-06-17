@@ -1,6 +1,6 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file=Scp0492PlayerRole.cs company="NebuliTeam">
-// Copyright (c) NebuliTeam. All rights reserved.
+// <copyright file=Scp0492PlayerRole.cs company="NebulaTeam">
+// Copyright (c) NebulaTeam. All rights reserved.
 // Licensed under the MIT license.
 // See LICENSE file in the project root for full license information.
 // -----------------------------------------------------------------------
@@ -13,7 +13,7 @@ using PlayerRoles.PlayableScps.HumeShield;
 using PlayerRoles.PlayableScps.Scp049.Zombies;
 using PlayerRoles.Subroutines;
 
-namespace Nebuli.API.Features.Roles
+namespace Nebula.API.Features.Roles
 {
     /// <summary>
     ///     Represents the <see cref="RoleTypeId.Scp0492" /> role in-game.

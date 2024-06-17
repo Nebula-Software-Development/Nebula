@@ -1,6 +1,6 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file=UpgradingItemPatch.cs company="NebuliTeam">
-// Copyright (c) NebuliTeam. All rights reserved.
+// <copyright file=UpgradingItemPatch.cs company="NebulaTeam">
+// Copyright (c) NebulaTeam. All rights reserved.
 // Licensed under the MIT license.
 // See LICENSE file in the project root for full license information.
 // -----------------------------------------------------------------------
@@ -8,13 +8,13 @@
 using System.Collections.Generic;
 using System.Reflection.Emit;
 using HarmonyLib;
-using Nebuli.Events.EventArguments.SCPs.Scp914;
-using Nebuli.Events.Handlers;
+using Nebula.Events.EventArguments.SCPs.Scp914;
+using Nebula.Events.Handlers;
 using NorthwoodLib.Pools;
 using Scp914;
 using static HarmonyLib.AccessTools;
 
-namespace Nebuli.Events.Patches.SCPs.Scp914
+namespace Nebula.Events.Patches.SCPs.Scp914
 {
     [HarmonyPatch(typeof(Scp914Upgrader), nameof(Scp914Upgrader.ProcessPickup))]
     internal class UpgradingItemPatch

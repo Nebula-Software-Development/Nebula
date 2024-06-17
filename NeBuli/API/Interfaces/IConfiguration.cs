@@ -1,13 +1,13 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file=IConfiguration.cs company="NebuliTeam">
-// Copyright (c) NebuliTeam. All rights reserved.
+// <copyright file=IConfiguration.cs company="NebulaTeam">
+// Copyright (c) NebulaTeam. All rights reserved.
 // Licensed under the MIT license.
 // See LICENSE file in the project root for full license information.
 // -----------------------------------------------------------------------
 
 using System.ComponentModel;
 
-namespace Nebuli.API.Interfaces
+namespace Nebula.API.Interfaces
 {
     /// <summary>
     ///     Default Interface for plugin configurations.

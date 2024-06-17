@@ -1,6 +1,6 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file=Item.cs company="NebuliTeam">
-// Copyright (c) NebuliTeam. All rights reserved.
+// <copyright file=Item.cs company="NebulaTeam">
+// Copyright (c) NebulaTeam. All rights reserved.
 // Licensed under the MIT license.
 // See LICENSE file in the project root for full license information.
 // -----------------------------------------------------------------------
@@ -26,16 +26,16 @@ using InventorySystem.Items.Usables;
 using InventorySystem.Items.Usables.Scp1576;
 using InventorySystem.Items.Usables.Scp244;
 using InventorySystem.Items.Usables.Scp330;
-using Nebuli.API.Extensions;
-using Nebuli.API.Features.Items.LightSources;
-using Nebuli.API.Features.Items.Pickups;
-using Nebuli.API.Features.Items.SCPs;
-using Nebuli.API.Features.Items.Throwables;
-using Nebuli.API.Features.Map;
+using Nebula.API.Extensions;
+using Nebula.API.Features.Items.LightSources;
+using Nebula.API.Features.Items.Pickups;
+using Nebula.API.Features.Items.SCPs;
+using Nebula.API.Features.Items.Throwables;
+using Nebula.API.Features.Map;
 using UnityEngine;
 using FlashbangGrenade = InventorySystem.Items.ThrowableProjectiles.FlashbangGrenade;
 
-namespace Nebuli.API.Features.Items
+namespace Nebula.API.Features.Items
 {
     public class Item
     {

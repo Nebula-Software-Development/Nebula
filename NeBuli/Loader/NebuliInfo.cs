@@ -1,24 +1,24 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file=NebuliInfo.cs company="NebuliTeam">
-// Copyright (c) NebuliTeam. All rights reserved.
+// <copyright file=NebulaInfo.cs company="NebulaTeam">
+// Copyright (c) NebulaTeam. All rights reserved.
 // Licensed under the MIT license.
 // See LICENSE file in the project root for full license information.
 // -----------------------------------------------------------------------
 
 using System;
 
-namespace Nebuli.Loader
+namespace Nebula.Loader
 {
     /// <summary>
-    ///     Class for Nebuli information, like version.
+    ///     Class for Nebula information, like version.
     /// </summary>
-    public static class NebuliInfo
+    public static class NebulaInfo
     {
-        internal const string NebuliVersionConst = "1.3.6";
+        internal const string NebulaVersionConst = "1.3.6";
 
         /// <summary>
-        ///     Gets a <see cref="Version" /> representing Nebuli's current build version.
+        ///     Gets a <see cref="Version" /> representing Nebula's current build version.
         /// </summary>
-        public static Version NebuliVersion { get; } = new(NebuliVersionConst);
+        public static Version NebulaVersion { get; } = new(NebulaVersionConst);
     }
 }

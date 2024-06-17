@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------
-// <copyright file=Generator.cs company="NebuliTeam">
-// Copyright (c) NebuliTeam. All rights reserved.
+// <copyright file=Generator.cs company="NebulaTeam">
+// Copyright (c) NebulaTeam. All rights reserved.
 // Licensed under the MIT license.
 // See LICENSE file in the project root for full license information.
 // -----------------------------------------------------------------------
@@ -9,10 +9,10 @@ using System.Collections.Generic;
 using System.Linq;
 using Interactables.Interobjects.DoorUtils;
 using MapGeneration.Distributors;
-using Nebuli.API.Features.Enum;
+using Nebula.API.Features.Enum;
 using UnityEngine;
 
-namespace Nebuli.API.Features.Map
+namespace Nebula.API.Features.Map
 {
     public class Generator
     {
@@ -133,7 +133,7 @@ namespace Nebuli.API.Features.Map
         public int RemainingTime => Base.RemainingTime;
 
         /// <summary>
-        ///     Gets a Nebuli <see cref="Generator" /> using <see cref="Scp079Generator" />.
+        ///     Gets a Nebula <see cref="Generator" /> using <see cref="Scp079Generator" />.
         /// </summary>
         /// <param name="generator"></param>
         /// <returns></returns>

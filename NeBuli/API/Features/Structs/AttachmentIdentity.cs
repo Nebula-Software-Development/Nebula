@@ -1,6 +1,6 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file=AttachmentIdentity.cs company="NebuliTeam">
-// Copyright (c) NebuliTeam. All rights reserved.
+// <copyright file=AttachmentIdentity.cs company="NebulaTeam">
+// Copyright (c) NebulaTeam. All rights reserved.
 // Licensed under the MIT license.
 // See LICENSE file in the project root for full license information.
 // -----------------------------------------------------------------------
@@ -8,10 +8,10 @@
 using System.Linq;
 using InventorySystem.Items.Firearms.Attachments;
 using InventorySystem.Items.Firearms.Attachments.Components;
-using Nebuli.API.Features.Enum;
-using Nebuli.API.Features.Items;
+using Nebula.API.Features.Enum;
+using Nebula.API.Features.Items;
 
-namespace Nebuli.API.Features.Structs
+namespace Nebula.API.Features.Structs
 {
     /// <summary>
     ///     Represents an identifier for firearm attachments.

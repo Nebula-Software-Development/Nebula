@@ -1,6 +1,6 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file=Elevator.cs company="NebuliTeam">
-// Copyright (c) NebuliTeam. All rights reserved.
+// <copyright file=Elevator.cs company="NebulaTeam">
+// Copyright (c) NebulaTeam. All rights reserved.
 // Licensed under the MIT license.
 // See LICENSE file in the project root for full license information.
 // -----------------------------------------------------------------------
@@ -11,7 +11,7 @@ using Interactables.Interobjects;
 using Interactables.Interobjects.DoorUtils;
 using UnityEngine;
 
-namespace Nebuli.API.Features.Map
+namespace Nebula.API.Features.Map
 {
     /// <summary>
     ///     Wrapper class for <see cref="ElevatorChamber" />.

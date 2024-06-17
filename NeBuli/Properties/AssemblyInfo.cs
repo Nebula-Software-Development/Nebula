@@ -1,22 +1,22 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file=AssemblyInfo.cs company="NebuliTeam">
-// Copyright (c) NebuliTeam. All rights reserved.
+// <copyright file=AssemblyInfo.cs company="NebulaTeam">
+// Copyright (c) NebulaTeam. All rights reserved.
 // Licensed under the MIT license.
 // See LICENSE file in the project root for full license information.
 // -----------------------------------------------------------------------
 
 using System.Reflection;
 using System.Runtime.InteropServices;
-using Nebuli.Loader;
+using Nebula.Loader;
 
-[assembly: AssemblyTitle("Nebuli")]
+[assembly: AssemblyTitle("Nebula")]
 [assembly: AssemblyDescription("A Powerful Plugin Framework for SCP : Secret Labratory servers.")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Nebuli Team")]
-[assembly: AssemblyProduct("Nebuli")]
+[assembly: AssemblyCompany("Nebula Team")]
+[assembly: AssemblyProduct("Nebula")]
 [assembly: AssemblyCopyright("Copyright © 2023")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 [assembly: ComVisible(false)]
-[assembly: AssemblyVersion(NebuliInfo.NebuliVersionConst)]
-[assembly: AssemblyFileVersion(NebuliInfo.NebuliVersionConst)]
+[assembly: AssemblyVersion(NebulaInfo.NebulaVersionConst)]
+[assembly: AssemblyFileVersion(NebulaInfo.NebulaVersionConst)]

@@ -1,6 +1,6 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file=Internal.cs company="NebuliTeam">
-// Copyright (c) NebuliTeam. All rights reserved.
+// <copyright file=Internal.cs company="NebulaTeam">
+// Copyright (c) NebulaTeam. All rights reserved.
 // Licensed under the MIT license.
 // See LICENSE file in the project root for full license information.
 // -----------------------------------------------------------------------
@@ -8,12 +8,12 @@
 using System;
 using MapGeneration.Distributors;
 using MEC;
-using Nebuli.API.Features;
-using Nebuli.API.Features.Map;
+using Nebula.API.Features;
+using Nebula.API.Features.Map;
 using Locker = MapGeneration.Distributors.Locker;
 using Object = UnityEngine.Object;
 
-namespace Nebuli.Events.Handlers
+namespace Nebula.Events.Handlers
 {
     internal class Internal
     {
@@ -38,7 +38,7 @@ namespace Nebuli.Events.Handlers
             }
             catch (Exception e)
             {
-                Log.Error("Error occured while handling internal Nebuli wrappers! Full error -->\n" + e);
+                Log.Error("Error occured while handling internal Nebula wrappers! Full error -->\n" + e);
             }
 
             try

@@ -1,13 +1,13 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file=ServerHandlers.cs company="NebuliTeam">
-// Copyright (c) NebuliTeam. All rights reserved.
+// <copyright file=ServerHandlers.cs company="NebulaTeam">
+// Copyright (c) NebulaTeam. All rights reserved.
 // Licensed under the MIT license.
 // See LICENSE file in the project root for full license information.
 // -----------------------------------------------------------------------
 
-using Nebuli.Events.EventArguments.Server;
+using Nebula.Events.EventArguments.Server;
 
-namespace Nebuli.Events.Handlers
+namespace Nebula.Events.Handlers
 {
     public static class ServerHandlers
     {

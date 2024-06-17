@@ -1,6 +1,6 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file=JailbirdPickup.cs company="NebuliTeam">
-// Copyright (c) NebuliTeam. All rights reserved.
+// <copyright file=JailbirdPickup.cs company="NebulaTeam">
+// Copyright (c) NebulaTeam. All rights reserved.
 // Licensed under the MIT license.
 // See LICENSE file in the project root for full license information.
 // -----------------------------------------------------------------------
@@ -8,7 +8,7 @@
 using InventorySystem.Items.Jailbird;
 using JailbirdPickupBase = InventorySystem.Items.Jailbird.JailbirdPickup;
 
-namespace Nebuli.API.Features.Items.Pickups.SCPs
+namespace Nebula.API.Features.Items.Pickups.SCPs
 {
     public class JailbirdPickup : Pickup
     {

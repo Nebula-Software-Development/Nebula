@@ -1,18 +1,18 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file=Scp079PingingEvent.cs company="NebuliTeam">
-// Copyright (c) NebuliTeam. All rights reserved.
+// <copyright file=Scp079PingingEvent.cs company="NebulaTeam">
+// Copyright (c) NebulaTeam. All rights reserved.
 // Licensed under the MIT license.
 // See LICENSE file in the project root for full license information.
 // -----------------------------------------------------------------------
 
 using System;
-using Nebuli.API.Features.Enum;
-using Nebuli.API.Features.Map;
-using Nebuli.Events.EventArguments.Interfaces;
+using Nebula.API.Features.Enum;
+using Nebula.API.Features.Map;
+using Nebula.Events.EventArguments.Interfaces;
 using RelativePositioning;
 using UnityEngine;
 
-namespace Nebuli.Events.EventArguments.SCPs.Scp079
+namespace Nebula.Events.EventArguments.SCPs.Scp079
 {
     /// <summary>
     ///     Triggered when SCP-079 is pings.

@@ -1,17 +1,17 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file=PlayerSpawningRagdollEvent.cs company="NebuliTeam">
-// Copyright (c) NebuliTeam. All rights reserved.
+// <copyright file=PlayerSpawningRagdollEvent.cs company="NebulaTeam">
+// Copyright (c) NebulaTeam. All rights reserved.
 // Licensed under the MIT license.
 // See LICENSE file in the project root for full license information.
 // -----------------------------------------------------------------------
 
 using System;
-using Nebuli.API.Features;
-using Nebuli.Events.EventArguments.Interfaces;
+using Nebula.API.Features;
+using Nebula.Events.EventArguments.Interfaces;
 using PlayerRoles.Ragdolls;
 using PlayerStatsSystem;
 
-namespace Nebuli.Events.EventArguments.Player
+namespace Nebula.Events.EventArguments.Player
 {
     /// <summary>
     ///     Triggered when a player spawns a ragdoll.

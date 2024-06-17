@@ -1,6 +1,6 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file=CoinSide.cs company="NebuliTeam">
-// Copyright (c) NebuliTeam. All rights reserved.
+// <copyright file=CoinSide.cs company="NebulaTeam">
+// Copyright (c) NebulaTeam. All rights reserved.
 // Licensed under the MIT license.
 // See LICENSE file in the project root for full license information.
 // -----------------------------------------------------------------------
@@ -8,7 +8,7 @@
 using System;
 using InventorySystem.Items.Coin;
 
-namespace Nebuli.API.Features.Enum
+namespace Nebula.API.Features.Enum
 {
     /// <summary>
     ///     Represents different sides of the <see cref="Coin" />.

@@ -1,6 +1,6 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file=SpawningPlayerPatch.cs company="NebuliTeam">
-// Copyright (c) NebuliTeam. All rights reserved.
+// <copyright file=SpawningPlayerPatch.cs company="NebulaTeam">
+// Copyright (c) NebulaTeam. All rights reserved.
 // Licensed under the MIT license.
 // See LICENSE file in the project root for full license information.
 // -----------------------------------------------------------------------
@@ -9,13 +9,13 @@ using System.Collections.Generic;
 using System.Reflection;
 using System.Reflection.Emit;
 using HarmonyLib;
-using Nebuli.Events.EventArguments.Player;
-using Nebuli.Events.Handlers;
+using Nebula.Events.EventArguments.Player;
+using Nebula.Events.Handlers;
 using NorthwoodLib.Pools;
 using PlayerRoles.FirstPersonControl.Spawnpoints;
 using static HarmonyLib.AccessTools;
 
-namespace Nebuli.Events.Patches.Player
+namespace Nebula.Events.Patches.Player
 {
     [HarmonyPatch]
     internal class SpawningPlayerPatch

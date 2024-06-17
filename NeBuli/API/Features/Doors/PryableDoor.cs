@@ -1,13 +1,13 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file=PryableDoor.cs company="NebuliTeam">
-// Copyright (c) NebuliTeam. All rights reserved.
+// <copyright file=PryableDoor.cs company="NebulaTeam">
+// Copyright (c) NebulaTeam. All rights reserved.
 // Licensed under the MIT license.
 // See LICENSE file in the project root for full license information.
 // -----------------------------------------------------------------------
 
 using PryableDoorBase = Interactables.Interobjects.PryableDoor;
 
-namespace Nebuli.API.Features.Doors
+namespace Nebula.API.Features.Doors
 {
     public class PryableDoor : Door
     {

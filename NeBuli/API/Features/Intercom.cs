@@ -1,6 +1,6 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file=Intercom.cs company="NebuliTeam">
-// Copyright (c) NebuliTeam. All rights reserved.
+// <copyright file=Intercom.cs company="NebulaTeam">
+// Copyright (c) NebulaTeam. All rights reserved.
 // Licensed under the MIT license.
 // See LICENSE file in the project root for full license information.
 // -----------------------------------------------------------------------
@@ -10,7 +10,7 @@ using PlayerRoles.Voice;
 using UnityEngine;
 using BaseIntercom = PlayerRoles.Voice.Intercom;
 
-namespace Nebuli.API.Features
+namespace Nebula.API.Features
 {
     /// <summary>
     ///     Wrapper class for making managing the intercom in-game easier.

@@ -1,13 +1,13 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file=RadioPickup.cs company="NebuliTeam">
-// Copyright (c) NebuliTeam. All rights reserved.
+// <copyright file=RadioPickup.cs company="NebulaTeam">
+// Copyright (c) NebulaTeam. All rights reserved.
 // Licensed under the MIT license.
 // See LICENSE file in the project root for full license information.
 // -----------------------------------------------------------------------
 
 using RadioPickupBase = InventorySystem.Items.Radio.RadioPickup;
 
-namespace Nebuli.API.Features.Items.Pickups
+namespace Nebula.API.Features.Items.Pickups
 {
     public class RadioPickup : Pickup
     {

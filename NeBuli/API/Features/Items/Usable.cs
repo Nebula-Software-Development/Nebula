@@ -1,13 +1,13 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file=Usable.cs company="NebuliTeam">
-// Copyright (c) NebuliTeam. All rights reserved.
+// <copyright file=Usable.cs company="NebulaTeam">
+// Copyright (c) NebulaTeam. All rights reserved.
 // Licensed under the MIT license.
 // See LICENSE file in the project root for full license information.
 // -----------------------------------------------------------------------
 
 using UsableBase = InventorySystem.Items.Usables.UsableItem;
 
-namespace Nebuli.API.Features.Items
+namespace Nebula.API.Features.Items
 {
     /// <summary>
     ///     Wrapper class for <see cref="UsableBase" />.

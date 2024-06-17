@@ -1,16 +1,16 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file=OverwatchPlayerRole.cs company="NebuliTeam">
-// Copyright (c) NebuliTeam. All rights reserved.
+// <copyright file=OverwatchPlayerRole.cs company="NebulaTeam">
+// Copyright (c) NebulaTeam. All rights reserved.
 // Licensed under the MIT license.
 // See LICENSE file in the project root for full license information.
 // -----------------------------------------------------------------------
 
-using Nebuli.API.Extensions;
+using Nebula.API.Extensions;
 using PlayerRoles;
 using PlayerRoles.Spectating;
 using RelativePositioning;
 
-namespace Nebuli.API.Features.Roles
+namespace Nebula.API.Features.Roles
 {
     /// <summary>
     ///     Represents the <see cref="RoleTypeId.Overwatch" /> role in-game.

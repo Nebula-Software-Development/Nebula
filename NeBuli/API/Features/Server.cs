@@ -1,6 +1,6 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file=Server.cs company="NebuliTeam">
-// Copyright (c) NebuliTeam. All rights reserved.
+// <copyright file=Server.cs company="NebulaTeam">
+// Copyright (c) NebulaTeam. All rights reserved.
 // Licensed under the MIT license.
 // See LICENSE file in the project root for full license information.
 // -----------------------------------------------------------------------
@@ -20,7 +20,7 @@ using static ServerStatic;
 using Console = GameCore.Console;
 using Version = GameCore.Version;
 
-namespace Nebuli.API.Features
+namespace Nebula.API.Features
 {
     /// <summary>
     ///     Makes accessing server variables easier.

@@ -1,11 +1,11 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file=Scp079PingType.cs company="NebuliTeam">
-// Copyright (c) NebuliTeam. All rights reserved.
+// <copyright file=Scp079PingType.cs company="NebulaTeam">
+// Copyright (c) NebulaTeam. All rights reserved.
 // Licensed under the MIT license.
 // See LICENSE file in the project root for full license information.
 // -----------------------------------------------------------------------
 
-namespace Nebuli.API.Features.Enum
+namespace Nebula.API.Features.Enum
 {
     /// <summary>
     ///     Enumerates the types of pings that SCP-079 can generate.

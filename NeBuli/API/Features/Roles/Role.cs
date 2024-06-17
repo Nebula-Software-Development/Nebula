@@ -1,6 +1,6 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file=Role.cs company="NebuliTeam">
-// Copyright (c) NebuliTeam. All rights reserved.
+// <copyright file=Role.cs company="NebulaTeam">
+// Copyright (c) NebulaTeam. All rights reserved.
 // Licensed under the MIT license.
 // See LICENSE file in the project root for full license information.
 // -----------------------------------------------------------------------
@@ -17,10 +17,10 @@ using PlayerRoles.PlayableScps.Scp939;
 using PlayerRoles.Spectating;
 using UnityEngine;
 
-namespace Nebuli.API.Features.Roles
+namespace Nebula.API.Features.Roles
 {
     /// <summary>
-    ///     Represents a base class for Nebuli game roles.
+    ///     Represents a base class for Nebula game roles.
     /// </summary>
     public abstract class Role
     {

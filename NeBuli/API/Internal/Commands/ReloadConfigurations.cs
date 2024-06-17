@@ -1,17 +1,17 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file=ReloadConfigurations.cs company="NebuliTeam">
-// Copyright (c) NebuliTeam. All rights reserved.
+// <copyright file=ReloadConfigurations.cs company="NebulaTeam">
+// Copyright (c) NebulaTeam. All rights reserved.
 // Licensed under the MIT license.
 // See LICENSE file in the project root for full license information.
 // -----------------------------------------------------------------------
 
 using System;
 using CommandSystem;
-using Nebuli.API.Features;
-using Nebuli.Loader;
-using Nebuli.Permissions;
+using Nebula.API.Features;
+using Nebula.Loader;
+using Nebula.Permissions;
 
-namespace Nebuli.API.Internal.Commands
+namespace Nebula.API.Internal.Commands
 {
     public class ReloadConfigurations : ICommand
     {
@@ -20,6 +20,8 @@ namespace Nebuli.API.Internal.Commands
         public string[] Aliases => Array.Empty<string>();
 
         public string Description => "Config reloading.";
+
+        public bool SanitizeResponse => false;
 
         public bool Execute(ArraySegment<string> arguments, ICommandSender sender, out string response)
         {

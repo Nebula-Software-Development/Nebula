@@ -1,18 +1,18 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file=PlayerInteractingDoorEvent.cs company="NebuliTeam">
-// Copyright (c) NebuliTeam. All rights reserved.
+// <copyright file=PlayerInteractingDoorEvent.cs company="NebulaTeam">
+// Copyright (c) NebulaTeam. All rights reserved.
 // Licensed under the MIT license.
 // See LICENSE file in the project root for full license information.
 // -----------------------------------------------------------------------
 
 using System;
 using Interactables.Interobjects.DoorUtils;
-using Nebuli.API.Features.Doors;
-using Nebuli.Events.EventArguments.Interfaces;
+using Nebula.API.Features.Doors;
+using Nebula.Events.EventArguments.Interfaces;
 using PlayerRoles;
 using PluginAPI.Events;
 
-namespace Nebuli.Events.EventArguments.Player
+namespace Nebula.Events.EventArguments.Player
 {
     /// <summary>
     ///     Triggered when a player interacts with a door.

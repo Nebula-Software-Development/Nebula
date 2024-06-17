@@ -1,16 +1,16 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file=Scp096PryingGateEvent.cs company="NebuliTeam">
-// Copyright (c) NebuliTeam. All rights reserved.
+// <copyright file=Scp096PryingGateEvent.cs company="NebulaTeam">
+// Copyright (c) NebulaTeam. All rights reserved.
 // Licensed under the MIT license.
 // See LICENSE file in the project root for full license information.
 // -----------------------------------------------------------------------
 
 using System;
-using Nebuli.API.Features.Doors;
-using Nebuli.Events.EventArguments.Interfaces;
+using Nebula.API.Features.Doors;
+using Nebula.Events.EventArguments.Interfaces;
 using PryableDoor = Interactables.Interobjects.PryableDoor;
 
-namespace Nebuli.Events.EventArguments.SCPs.Scp096
+namespace Nebula.Events.EventArguments.SCPs.Scp096
 {
     /// <summary>
     ///     Triggered when SCP-096 is trying to pry open a gate.

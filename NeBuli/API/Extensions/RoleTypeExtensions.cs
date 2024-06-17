@@ -1,19 +1,19 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file=RoleTypeExtensions.cs company="NebuliTeam">
-// Copyright (c) NebuliTeam. All rights reserved.
+// <copyright file=RoleTypeExtensions.cs company="NebulaTeam">
+// Copyright (c) NebulaTeam. All rights reserved.
 // Licensed under the MIT license.
 // See LICENSE file in the project root for full license information.
 // -----------------------------------------------------------------------
 
 using InventorySystem;
 using InventorySystem.Configs;
-using Nebuli.API.Features.Roles;
+using Nebula.API.Features.Roles;
 using PlayerRoles;
 using PlayerRoles.FirstPersonControl;
 using PlayerRoles.FirstPersonControl.Spawnpoints;
 using UnityEngine;
 
-namespace Nebuli.API.Extensions
+namespace Nebula.API.Extensions
 {
     /// <summary>
     ///     Extension for managing <see cref="Role" /> and <see cref="RoleTypeId" /> easier.

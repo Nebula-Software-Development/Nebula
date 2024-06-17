@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------
-// <copyright file=Room.cs company="NebuliTeam">
-// Copyright (c) NebuliTeam. All rights reserved.
+// <copyright file=Room.cs company="NebulaTeam">
+// Copyright (c) NebulaTeam. All rights reserved.
 // Licensed under the MIT license.
 // See LICENSE file in the project root for full license information.
 // -----------------------------------------------------------------------
@@ -8,14 +8,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using MapGeneration;
-using Nebuli.API.Extensions;
-using Nebuli.API.Features.Doors;
-using Nebuli.API.Features.Enum;
+using Nebula.API.Extensions;
+using Nebula.API.Features.Doors;
+using Nebula.API.Features.Enum;
 using PluginAPI.Core.Zones;
 using UnityEngine;
 using FacilityZone = MapGeneration.FacilityZone;
 
-namespace Nebuli.API.Features.Map
+namespace Nebula.API.Features.Map
 {
     /// <summary>
     ///     Wrapper class for handling rooms in-game easier.

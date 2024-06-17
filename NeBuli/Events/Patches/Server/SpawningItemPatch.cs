@@ -1,6 +1,6 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file=SpawningItemPatch.cs company="NebuliTeam">
-// Copyright (c) NebuliTeam. All rights reserved.
+// <copyright file=SpawningItemPatch.cs company="NebulaTeam">
+// Copyright (c) NebulaTeam. All rights reserved.
 // Licensed under the MIT license.
 // See LICENSE file in the project root for full license information.
 // -----------------------------------------------------------------------
@@ -9,12 +9,12 @@ using System.Collections.Generic;
 using System.Reflection.Emit;
 using HarmonyLib;
 using MapGeneration.Distributors;
-using Nebuli.Events.EventArguments.Server;
-using Nebuli.Events.Handlers;
+using Nebula.Events.EventArguments.Server;
+using Nebula.Events.Handlers;
 using NorthwoodLib.Pools;
 using static HarmonyLib.AccessTools;
 
-namespace Nebuli.Events.Patches.Server
+namespace Nebula.Events.Patches.Server
 {
     [HarmonyPatch(typeof(ItemDistributor), nameof(ItemDistributor.CreatePickup))]
     internal class SpawningItemPatch

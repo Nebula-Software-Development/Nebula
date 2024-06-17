@@ -1,13 +1,13 @@
 // -----------------------------------------------------------------------
-// <copyright file=IRadgollEvent.cs company="NebuliTeam">
-// Copyright (c) NebuliTeam. All rights reserved.
+// <copyright file=IRadgollEvent.cs company="NebulaTeam">
+// Copyright (c) NebulaTeam. All rights reserved.
 // Licensed under the MIT license.
 // See LICENSE file in the project root for full license information.
 // -----------------------------------------------------------------------
 
-using Nebuli.API.Features;
+using Nebula.API.Features;
 
-namespace Nebuli.Events.EventArguments.Interfaces
+namespace Nebula.Events.EventArguments.Interfaces
 {
     public interface IRadgollEvent
     {

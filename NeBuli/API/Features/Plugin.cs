@@ -1,6 +1,6 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file=Plugin.cs company="NebuliTeam">
-// Copyright (c) NebuliTeam. All rights reserved.
+// <copyright file=Plugin.cs company="NebulaTeam">
+// Copyright (c) NebulaTeam. All rights reserved.
 // Licensed under the MIT license.
 // See LICENSE file in the project root for full license information.
 // -----------------------------------------------------------------------
@@ -10,15 +10,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using CommandSystem;
-using Nebuli.API.Extensions;
-using Nebuli.API.Features.Enum;
-using Nebuli.API.Features.Pools;
-using Nebuli.API.Interfaces;
+using Nebula.API.Extensions;
+using Nebula.API.Features.Enum;
+using Nebula.API.Features.Pools;
+using Nebula.API.Interfaces;
 
-namespace Nebuli.API.Features
+namespace Nebula.API.Features
 {
     /// <summary>
-    ///     Represents a base class for plugins in the Nebuli framework.
+    ///     Represents a base class for plugins in the Nebula framework.
     /// </summary>
     /// <typeparam name="TConfig">The configuration type for the plugin.</typeparam>
     public abstract class Plugin<TConfig> : IPlugin<TConfig> where TConfig : IConfiguration, new()
@@ -52,9 +52,9 @@ namespace Nebuli.API.Features
         public virtual Version Version { get; } = new(0, 0, 0);
 
         /// <summary>
-        ///     Gets the plugins current Nebulis version.
+        ///     Gets the plugins current Nebulas version.
         /// </summary>
-        public virtual Version NebuliVersion { get; } = new(0, 0, 0);
+        public virtual Version NebulaVersion { get; } = new(0, 0, 0);
 
         /// <summary>
         ///     <inheritdoc />
@@ -62,7 +62,7 @@ namespace Nebuli.API.Features
         public virtual LoadOrderType LoadOrder { get; } = LoadOrderType.NormalLoad;
 
         /// <summary>
-        ///     If true, skips checking if the plugins current Nebulis version lines up with the Nebulis version loading the
+        ///     If true, skips checking if the plugins current Nebulas version lines up with the Nebulas version loading the
         ///     plugin.
         /// </summary>
         public virtual bool SkipVersionCheck { get; } = false;

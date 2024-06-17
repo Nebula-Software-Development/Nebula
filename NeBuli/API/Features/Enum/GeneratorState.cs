@@ -1,13 +1,13 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file=GeneratorState.cs company="NebuliTeam">
-// Copyright (c) NebuliTeam. All rights reserved.
+// <copyright file=GeneratorState.cs company="NebulaTeam">
+// Copyright (c) NebulaTeam. All rights reserved.
 // Licensed under the MIT license.
 // See LICENSE file in the project root for full license information.
 // -----------------------------------------------------------------------
 
 using MapGeneration.Distributors;
 
-namespace Nebuli.API.Features.Enum
+namespace Nebula.API.Features.Enum
 {
     public enum GeneratorState
     {

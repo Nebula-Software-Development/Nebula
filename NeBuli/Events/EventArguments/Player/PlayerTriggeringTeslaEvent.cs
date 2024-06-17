@@ -1,15 +1,15 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file=PlayerTriggeringTeslaEvent.cs company="NebuliTeam">
-// Copyright (c) NebuliTeam. All rights reserved.
+// <copyright file=PlayerTriggeringTeslaEvent.cs company="NebulaTeam">
+// Copyright (c) NebulaTeam. All rights reserved.
 // Licensed under the MIT license.
 // See LICENSE file in the project root for full license information.
 // -----------------------------------------------------------------------
 
 using System;
-using Nebuli.Events.EventArguments.Interfaces;
-using NebuliTeslaGate = Nebuli.API.Features.Map.TeslaGate;
+using Nebula.Events.EventArguments.Interfaces;
+using NebulaTeslaGate = Nebula.API.Features.Map.TeslaGate;
 
-namespace Nebuli.Events.EventArguments.Player
+namespace Nebula.Events.EventArguments.Player
 {
     /// <summary>
     ///     Triggered when a player triggers a Tesla gate.
@@ -19,7 +19,7 @@ namespace Nebuli.Events.EventArguments.Player
         public PlayerTriggeringTeslaEvent(API.Features.Player player, TeslaGate teslaGate)
         {
             Player = player;
-            TeslaGate = NebuliTeslaGate.Get(teslaGate);
+            TeslaGate = NebulaTeslaGate.Get(teslaGate);
             IsCancelled = false;
             IsInIdleRange =
                 true; // This is true because we already check if the player is in idle range when calling the event.
@@ -27,9 +27,9 @@ namespace Nebuli.Events.EventArguments.Player
         }
 
         /// <summary>
-        ///     Gets the <see cref="NebuliTeslaGate" /> being triggered.
+        ///     Gets the <see cref="NebulaTeslaGate" /> being triggered.
         /// </summary>
-        public NebuliTeslaGate TeslaGate { get; }
+        public NebulaTeslaGate TeslaGate { get; }
 
         /// <summary>
         ///     Gets or sets if the player is in idle range.

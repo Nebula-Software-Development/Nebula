@@ -1,17 +1,17 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file=Throwable.cs company="NebuliTeam">
-// Copyright (c) NebuliTeam. All rights reserved.
+// <copyright file=Throwable.cs company="NebulaTeam">
+// Copyright (c) NebulaTeam. All rights reserved.
 // Licensed under the MIT license.
 // See LICENSE file in the project root for full license information.
 // -----------------------------------------------------------------------
 
 using InventorySystem.Items.ThrowableProjectiles;
-using Nebuli.API.Features.Items.Pickups;
-using Nebuli.API.Features.Items.Projectiles;
+using Nebula.API.Features.Items.Pickups;
+using Nebula.API.Features.Items.Projectiles;
 using PlayerRoles.FirstPersonControl;
 using UnityEngine;
 
-namespace Nebuli.API.Features.Items.Throwables
+namespace Nebula.API.Features.Items.Throwables
 {
     public class Throwable : Item
     {

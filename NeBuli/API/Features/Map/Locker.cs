@@ -1,6 +1,6 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file=Locker.cs company="NebuliTeam">
-// Copyright (c) NebuliTeam. All rights reserved.
+// <copyright file=Locker.cs company="NebulaTeam">
+// Copyright (c) NebulaTeam. All rights reserved.
 // Licensed under the MIT license.
 // See LICENSE file in the project root for full license information.
 // -----------------------------------------------------------------------
@@ -12,7 +12,7 @@ using MapGeneration.Distributors;
 using UnityEngine;
 using LockerBase = MapGeneration.Distributors.Locker;
 
-namespace Nebuli.API.Features.Map
+namespace Nebula.API.Features.Map
 {
     public class Locker
     {

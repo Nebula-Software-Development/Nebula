@@ -1,6 +1,6 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file=ExplosiveGrenadeProjectile.cs company="NebuliTeam">
-// Copyright (c) NebuliTeam. All rights reserved.
+// <copyright file=ExplosiveGrenadeProjectile.cs company="NebulaTeam">
+// Copyright (c) NebulaTeam. All rights reserved.
 // Licensed under the MIT license.
 // See LICENSE file in the project root for full license information.
 // -----------------------------------------------------------------------
@@ -8,7 +8,7 @@
 using InventorySystem.Items.ThrowableProjectiles;
 using UnityEngine;
 
-namespace Nebuli.API.Features.Items.Projectiles
+namespace Nebula.API.Features.Items.Projectiles
 {
     public class ExplosiveGrenadeProjectile : GrenadeEffectProjectile
     {

@@ -1,6 +1,6 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file=Updater.cs company="NebuliTeam">
-// Copyright (c) NebuliTeam. All rights reserved.
+// <copyright file=Updater.cs company="NebulaTeam">
+// Copyright (c) NebulaTeam. All rights reserved.
 // Licensed under the MIT license.
 // See LICENSE file in the project root for full license information.
 // -----------------------------------------------------------------------
@@ -16,10 +16,10 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using PluginAPI.Core;
 using PluginAPI.Loader;
-using Log = Nebuli.API.Features.Log;
-using Server = Nebuli.API.Features.Server;
+using Log = Nebula.API.Features.Log;
+using Server = Nebula.API.Features.Server;
 
-namespace Nebuli.Loader
+namespace Nebula.Loader
 {
     internal class Updater
     {
@@ -30,10 +30,10 @@ namespace Nebuli.Loader
         public static void CheckForUpdates()
         {
             Log.Info("Checking for updates...", "Updater");
-            NeubliPath = FindNebuliPath();
+            NeubliPath = FindNebulaPath();
             if (string.IsNullOrEmpty(NeubliPath))
             {
-                Log.Error("Could not find the file path for Nebuli! Skipping updates...", "Updater");
+                Log.Error("Could not find the file path for Nebula! Skipping updates...", "Updater");
                 return;
             }
 
@@ -47,7 +47,7 @@ namespace Nebuli.Loader
                 Timeout = TimeSpan.FromSeconds(480)
             };
             client.DefaultRequestHeaders.Add("User-Agent",
-                $"NebuliUpdater (https://github.com/Nebuli-Team/Nebuli{NebuliInfo.NebuliVersion})");
+                $"NebulaUpdater (https://github.com/Nebula-Team/Nebula{NebulaInfo.NebulaVersion})");
             return client;
         }
 
@@ -56,7 +56,7 @@ namespace Nebuli.Loader
             try
             {
                 using HttpClient client = CreateHttpClient();
-                const string latestReleaseUrl = "https://api.github.com/repos/Nebuli-Team/Nebuli/releases/latest";
+                const string latestReleaseUrl = "https://api.github.com/repos/Nebula-Team/Nebula/releases/latest";
                 string responseBody = await client.GetStringAsync(latestReleaseUrl);
 
                 GitHubRelease latestRelease = JsonConvert.DeserializeObject<GitHubRelease>(responseBody);
@@ -75,16 +75,16 @@ namespace Nebuli.Loader
 
                 string latestVersion = latestRelease.TagName.Replace("-alpha", "");
 
-                if (Version.Parse(latestVersion) > NebuliInfo.NebuliVersion)
+                if (Version.Parse(latestVersion) > NebulaInfo.NebulaVersion)
                 {
                     Log.Info(
-                        $"A new Nebuli version, ({latestRelease.TagName}), is available on GitHub. Preparing download...",
+                        $"A new Nebula version, ({latestRelease.TagName}), is available on GitHub. Preparing download...",
                         "Updater");
                     Update(client, dllDownloadUrl);
                 }
                 else
                 {
-                    Log.Info("Nebuli is up-to-date!", "Updater");
+                    Log.Info("Nebula is up-to-date!", "Updater");
                 }
             }
             catch (Exception ex)
@@ -137,12 +137,12 @@ namespace Nebuli.Loader
             }
         }
 
-        internal static string FindNebuliPath()
+        internal static string FindNebulaPath()
         {
-            if (AssemblyLoader.Plugins.TryGetValue(LoaderClass.NebuliAssembly,
+            if (AssemblyLoader.Plugins.TryGetValue(LoaderClass.NebulaAssembly,
                     out Dictionary<Type, PluginHandler> plugin))
             {
-                return plugin.Values.Where(x => x.PluginName == "Nebuli Loader").FirstOrDefault()?.PluginFilePath;
+                return plugin.Values.Where(x => x.PluginName == "Nebula Loader").FirstOrDefault()?.PluginFilePath;
             }
 
             return string.Empty;
@@ -157,9 +157,9 @@ namespace Nebuli.Loader
                 return;
             }
 
-            Log.Info($"Force installing Nebuli from {url}...");
+            Log.Info($"Force installing Nebula from {url}...");
             using WebClient client = new();
-            string filePath = FindNebuliPath();
+            string filePath = FindNebulaPath();
 
             try
             {

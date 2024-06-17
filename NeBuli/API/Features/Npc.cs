@@ -1,6 +1,6 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file=Npc.cs company="NebuliTeam">
-// Copyright (c) NebuliTeam. All rights reserved.
+// <copyright file=Npc.cs company="NebulaTeam">
+// Copyright (c) NebulaTeam. All rights reserved.
 // Licensed under the MIT license.
 // See LICENSE file in the project root for full license information.
 // -----------------------------------------------------------------------
@@ -10,12 +10,12 @@ using System.Collections.Generic;
 using System.Linq;
 using MEC;
 using Mirror;
-using Nebuli.API.Extensions;
+using Nebula.API.Extensions;
 using PlayerRoles;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
-namespace Nebuli.API.Features
+namespace Nebula.API.Features
 {
     /// <summary>
     ///     Class for handling <see cref="Npc" /> easily in-game.

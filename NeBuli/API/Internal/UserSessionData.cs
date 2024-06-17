@@ -1,14 +1,14 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file=UserSessionData.cs company="NebuliTeam">
-// Copyright (c) NebuliTeam. All rights reserved.
+// <copyright file=UserSessionData.cs company="NebulaTeam">
+// Copyright (c) NebulaTeam. All rights reserved.
 // Licensed under the MIT license.
 // See LICENSE file in the project root for full license information.
 // -----------------------------------------------------------------------
 
 using System.Collections.Generic;
-using Nebuli.API.Features.Pools;
+using Nebula.API.Features.Pools;
 
-namespace Nebuli.API.Internal
+namespace Nebula.API.Internal
 {
     /// <summary>
     ///     Represents user session data storage.

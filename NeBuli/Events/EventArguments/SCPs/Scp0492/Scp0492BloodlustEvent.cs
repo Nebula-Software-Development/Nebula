@@ -1,14 +1,14 @@
 // -----------------------------------------------------------------------
-// <copyright file=Scp0492BloodlustEvent.cs company="NebuliTeam">
-// Copyright (c) NebuliTeam. All rights reserved.
+// <copyright file=Scp0492BloodlustEvent.cs company="NebulaTeam">
+// Copyright (c) NebulaTeam. All rights reserved.
 // Licensed under the MIT license.
 // See LICENSE file in the project root for full license information.
 // -----------------------------------------------------------------------
 
 using System;
-using Nebuli.Events.EventArguments.Interfaces;
+using Nebula.Events.EventArguments.Interfaces;
 
-namespace Nebuli.Events.EventArguments.SCPs.Scp0492
+namespace Nebula.Events.EventArguments.SCPs.Scp0492
 {
     /// <summary>
     ///     Triggered when SCP-049-2 goes into a bloodlust state.

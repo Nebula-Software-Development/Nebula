@@ -1,18 +1,18 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file=PlayerEscapingEvent.cs company="NebuliTeam">
-// Copyright (c) NebuliTeam. All rights reserved.
+// <copyright file=PlayerEscapingEvent.cs company="NebulaTeam">
+// Copyright (c) NebulaTeam. All rights reserved.
 // Licensed under the MIT license.
 // See LICENSE file in the project root for full license information.
 // -----------------------------------------------------------------------
 
 using System;
-using Nebuli.API.Features.Enum;
-using Nebuli.Events.EventArguments.Interfaces;
+using Nebula.API.Features.Enum;
+using Nebula.Events.EventArguments.Interfaces;
 using PlayerRoles;
 using Respawning;
 using static Escape;
 
-namespace Nebuli.Events.EventArguments.Player
+namespace Nebula.Events.EventArguments.Player
 {
     /// <summary>
     ///     Triggered when a player escapes from the facility.

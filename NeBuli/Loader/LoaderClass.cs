@@ -1,6 +1,6 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file=LoaderClass.cs company="NebuliTeam">
-// Copyright (c) NebuliTeam. All rights reserved.
+// <copyright file=LoaderClass.cs company="NebulaTeam">
+// Copyright (c) NebulaTeam. All rights reserved.
 // Licensed under the MIT license.
 // See LICENSE file in the project root for full license information.
 // -----------------------------------------------------------------------
@@ -12,11 +12,11 @@ using System.Linq;
 using System.Reflection;
 using CommandSystem.Commands.Shared;
 using HarmonyLib;
-using Nebuli.API.Features;
-using Nebuli.API.Features.Pools;
-using Nebuli.API.Interfaces;
-using Nebuli.Events;
-using Nebuli.Loader.CustomConverters;
+using Nebula.API.Features;
+using Nebula.API.Features.Pools;
+using Nebula.API.Interfaces;
+using Nebula.Events;
+using Nebula.Loader.CustomConverters;
 using PluginAPI.Core.Attributes;
 using PluginAPI.Enums;
 using Serialization;
@@ -24,10 +24,10 @@ using YamlDotNet.Core;
 using YamlDotNet.Serialization;
 using YamlDotNet.Serialization.NamingConventions;
 
-namespace Nebuli.Loader
+namespace Nebula.Loader
 {
     /// <summary>
-    ///     Nebuli's loader class for loading itself, plugins, and configuration files.
+    ///     Nebula's loader class for loading itself, plugins, and configuration files.
     /// </summary>
     public class LoaderClass
     {
@@ -48,9 +48,9 @@ namespace Nebuli.Loader
         public static Random Random { get; } = new();
 
         /// <summary>
-        ///     Gets a static instance of Nebuli's <see cref="Assembly" />.
+        ///     Gets a static instance of Nebula's <see cref="Assembly" />.
         /// </summary>
-        public static Assembly NebuliAssembly { get; } = typeof(LoaderClass).Assembly;
+        public static Assembly NebulaAssembly { get; } = typeof(LoaderClass).Assembly;
 
         /// <summary>
         ///     Gets the loaders <see cref="ISerializer" />.
@@ -88,7 +88,7 @@ namespace Nebuli.Loader
         /// </summary>
         public static List<IPlugin<IConfiguration>> EnabledPlugins { get; } = new();
 
-        [PluginEntryPoint("Nebuli Loader", NebuliInfo.NebuliVersionConst, "Nebuli Plugin Framework", "Nebuli Team")]
+        [PluginEntryPoint("Nebula Loader", NebulaInfo.NebulaVersionConst, "Nebula Plugin Framework", "Nebula Team")]
         [PluginPriority(LoadPriority.Highest)]
         internal void FrameworkLoader()
         {
@@ -96,7 +96,7 @@ namespace Nebuli.Loader
 
             if (!Configuration.LoaderEnabled)
             {
-                Log.Info("Nebuli Loader is disabled, Nebuli will not load.", consoleColor: ConsoleColor.Red,
+                Log.Info("Nebula Loader is disabled, Nebula will not load.", consoleColor: ConsoleColor.Red,
                     prefix: "Loader");
                 return;
             }
@@ -108,7 +108,7 @@ namespace Nebuli.Loader
 
             _loaded = true;
 
-            Log.Info($"Nebuli Version {NebuliInfo.NebuliVersion} loading...", consoleColor: ConsoleColor.Red,
+            Log.Info($"Nebula Version {NebulaInfo.NebulaVersion} loading...", consoleColor: ConsoleColor.Red,
                 prefix: "Loader");
 
             if (Configuration.ShouldCheckForUpdates)
@@ -126,8 +126,8 @@ namespace Nebuli.Loader
             {
                 if (Configuration.PatchEvents)
                 {
-                    _harmony = new Harmony("nebuli.patching.core");
-                    _harmony.PatchAll(NebuliAssembly);
+                    _harmony = new Harmony("Nebula.patching.core");
+                    _harmony.PatchAll(NebulaAssembly);
                 }
                 else
                 {
@@ -141,10 +141,10 @@ namespace Nebuli.Loader
 
             CustomNetworkManager.Modded = true;
             BuildInfoCommand.ModDescription =
-                $"Framework : Nebuli\nFramework Version : {NebuliInfo.NebuliVersion}\nCopyright : Copyright (c) 2023 Nebuli Team";
+                $"Framework : Nebula\nFramework Version : {NebulaInfo.NebulaVersion}\nCopyright : Copyright (c) 2023 Nebula Team";
 
             Log.Info(
-                "Welcome to... \r\n███╗░░██╗███████╗██████╗░██╗░░░██╗██╗░░░░░██╗\r\n████╗░██║██╔════╝██╔══██╗██║░░░██║██║░░░░░██║\r\n██╔██╗██║█████╗░░██████╦╝██║░░░██║██║░░░░░██║\r\n██║╚████║██╔══╝░░██╔══██╗██║░░░██║██║░░░░░██║\r\n██║░╚███║███████╗██████╦╝╚██████╔╝███████╗██║\r\n╚═╝░░╚══╝╚══════╝╚═════╝░░╚═════╝░╚══════╝╚═╝");
+                "Welcome to... \r\n███╗░░██╗███████╗██████╗░██╗░░░██╗██╗░░░░░░█████╗░\r\n████╗░██║██╔════╝██╔══██╗██║░░░██║██║░░░░░██╔══██╗\r\n██╔██╗██║█████╗░░██████╦╝██║░░░██║██║░░░░░███████║\r\n██║╚████║██╔══╝░░██╔══██╗██║░░░██║██║░░░░░██╔══██║\r\n██║░╚███║███████╗██████╦╝╚██████╔╝███████╗██║░░██║\r\n╚═╝░░╚══╝╚══════╝╚═════╝░░╚═════╝░╚══════╝╚═╝░░╚═╝");
         }
 
         [PluginUnload]
@@ -280,11 +280,11 @@ namespace Nebuli.Loader
         {
             if (!Configuration.LoadOutDatedPlugins && !plugin.SkipVersionCheck)
             {
-                switch (plugin.NebuliVersion.Major.CompareTo(NebuliInfo.NebuliVersion.Major))
+                switch (plugin.NebulaVersion.Major.CompareTo(NebulaInfo.NebulaVersion.Major))
                 {
                     case -1:
                         Log.Warning(
-                            $"{plugin.Name} is outdated and will not be loaded by Nebuli! (Plugin Version: {plugin.NebuliVersion} | Nebuli Version: {NebuliInfo.NebuliVersion})");
+                            $"{plugin.Name} is outdated and will not be loaded by Nebula! (Plugin Version: {plugin.NebulaVersion} | Nebula Version: {NebulaInfo.NebulaVersion})");
                         return true;
 
                     case 0:
@@ -292,7 +292,7 @@ namespace Nebuli.Loader
 
                     case 1:
                         Log.Warning(
-                            $"Nebuli is outdated! Please update Nebuli because it can cause plugin issues! ({plugin.Name} Version: {plugin.NebuliVersion} | Nebuli Version: {NebuliInfo.NebuliVersion})");
+                            $"Nebula is outdated! Please update Nebula because it can cause plugin issues! ({plugin.Name} Version: {plugin.NebulaVersion} | Nebula Version: {NebulaInfo.NebulaVersion})");
                         return false;
                 }
             }
@@ -320,7 +320,7 @@ namespace Nebuli.Loader
             else
             {
                 Log.Error(
-                    $"Nebuli will not load {type.Name}. No valid constructor or plugin property found for type: \n{type.Name}");
+                    $"Nebula will not load {type.Name}. No valid constructor or plugin property found for type: \n{type.Name}");
                 return null;
             }
 

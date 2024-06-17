@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------
-// <copyright file=DogAttack.cs company="NebuliTeam">
-// Copyright (c) NebuliTeam. All rights reserved.
+// <copyright file=DogAttack.cs company="NebulaTeam">
+// Copyright (c) NebulaTeam. All rights reserved.
 // Licensed under the MIT license.
 // See LICENSE file in the project root for full license information.
 // -----------------------------------------------------------------------
@@ -8,13 +8,13 @@
 using System.Collections.Generic;
 using System.Reflection.Emit;
 using HarmonyLib;
-using Nebuli.Events.EventArguments.SCPs.Scp939;
-using Nebuli.Events.Handlers;
+using Nebula.Events.EventArguments.SCPs.Scp939;
+using Nebula.Events.Handlers;
 using NorthwoodLib.Pools;
 using PlayerRoles.PlayableScps.Scp939;
 using static HarmonyLib.AccessTools;
 
-namespace Nebuli.Events.Patches.SCPs.Scp939
+namespace Nebula.Events.Patches.SCPs.Scp939
 {
     [HarmonyPatch(typeof(Scp939ClawAbility), nameof(Scp939ClawAbility.DamageDestructible))]
     internal class DogAttack

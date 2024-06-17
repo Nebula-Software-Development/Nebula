@@ -1,6 +1,6 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file=PluginList.cs company="NebuliTeam">
-// Copyright (c) NebuliTeam. All rights reserved.
+// <copyright file=PluginList.cs company="NebulaTeam">
+// Copyright (c) NebulaTeam. All rights reserved.
 // Licensed under the MIT license.
 // See LICENSE file in the project root for full license information.
 // -----------------------------------------------------------------------
@@ -8,12 +8,12 @@
 using System;
 using System.Text;
 using CommandSystem;
-using Nebuli.API.Features;
-using Nebuli.API.Interfaces;
-using Nebuli.Loader;
+using Nebula.API.Features;
+using Nebula.API.Interfaces;
+using Nebula.Loader;
 using NorthwoodLib.Pools;
 
-namespace Nebuli.API.Internal.Commands
+namespace Nebula.API.Internal.Commands
 {
     [CommandHandler(typeof(GameConsoleCommandHandler))]
     [CommandHandler(typeof(RemoteAdminCommandHandler))]
@@ -25,16 +25,18 @@ namespace Nebuli.API.Internal.Commands
 
         public string Description { get; } = "Prints a list of enabled plugins and their details.";
 
+        public bool SanitizeResponse => false;
+
         public bool Execute(ArraySegment<string> arguments, ICommandSender sender, out string response)
         {
             int maxCreatorWidth = 16;
             int maxNameWidth = 16;
             int maxVersionWidth = 8;
-            int maxNebuliVersionWidth = 8;
+            int maxNebulaVersionWidth = 8;
 
             string tableHeader = "\n| Creator".PadRight(maxCreatorWidth) + " | Name".PadRight(maxNameWidth) +
                                  " | Version".PadRight(maxVersionWidth) +
-                                 " | Req. Nebuli Version".PadRight(maxNebuliVersionWidth) + " | SkipsVersionCheck |\n";
+                                 " | Req. Nebula Version".PadRight(maxNebulaVersionWidth) + " | SkipsVersionCheck |\n";
 
             string separator = new string('-', tableHeader.Length - 1) + "\n";
 
@@ -51,13 +53,13 @@ namespace Nebuli.API.Internal.Commands
                 string version = plugin.Version.ToString().Length > maxVersionWidth
                     ? plugin.Version.ToString().Substring(0, maxVersionWidth - 3) + "..."
                     : plugin.Version.ToString();
-                string nebuliVersion = plugin.NebuliVersion.ToString().Length > maxNebuliVersionWidth
-                    ? plugin.NebuliVersion.ToString().Substring(0, maxNebuliVersionWidth - 3) + "..."
-                    : plugin.NebuliVersion.ToString();
+                string nebulaVersion = plugin.NebulaVersion.ToString().Length > maxNebulaVersionWidth
+                    ? plugin.NebulaVersion.ToString().Substring(0, maxNebulaVersionWidth - 3) + "..."
+                    : plugin.NebulaVersion.ToString();
 
                 string formattedRow = $"| {creator}".PadRight(maxCreatorWidth) + $" | {name}".PadRight(maxNameWidth) +
                                       $" | {version}".PadRight(maxVersionWidth) +
-                                      $" | {nebuliVersion}".PadRight(maxNebuliVersionWidth) +
+                                      $" | {nebulaVersion}".PadRight(maxNebulaVersionWidth) +
                                       $" | {plugin.SkipVersionCheck} |\n";
 
                 pluginList.Append(formattedRow);

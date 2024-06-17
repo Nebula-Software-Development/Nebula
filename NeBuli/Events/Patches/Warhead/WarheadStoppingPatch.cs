@@ -1,6 +1,6 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file=WarheadStoppingPatch.cs company="NebuliTeam">
-// Copyright (c) NebuliTeam. All rights reserved.
+// <copyright file=WarheadStoppingPatch.cs company="NebulaTeam">
+// Copyright (c) NebulaTeam. All rights reserved.
 // Licensed under the MIT license.
 // See LICENSE file in the project root for full license information.
 // -----------------------------------------------------------------------
@@ -8,12 +8,12 @@
 using System.Collections.Generic;
 using System.Reflection.Emit;
 using HarmonyLib;
-using Nebuli.Events.EventArguments.Server;
-using Nebuli.Events.Handlers;
+using Nebula.Events.EventArguments.Server;
+using Nebula.Events.Handlers;
 using NorthwoodLib.Pools;
 using static HarmonyLib.AccessTools;
 
-namespace Nebuli.Events.Patches.Warhead
+namespace Nebula.Events.Patches.Warhead
 {
     [HarmonyPatch(typeof(AlphaWarheadController), nameof(AlphaWarheadController.CancelDetonation),
         typeof(ReferenceHub))]

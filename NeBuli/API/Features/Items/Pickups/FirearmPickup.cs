@@ -1,6 +1,6 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file=FirearmPickup.cs company="NebuliTeam">
-// Copyright (c) NebuliTeam. All rights reserved.
+// <copyright file=FirearmPickup.cs company="NebulaTeam">
+// Copyright (c) NebulaTeam. All rights reserved.
 // Licensed under the MIT license.
 // See LICENSE file in the project root for full license information.
 // -----------------------------------------------------------------------
@@ -9,7 +9,7 @@ using InventorySystem.Items.Firearms;
 using InventorySystem.Items.Pickups;
 using FirearmPickupBase = InventorySystem.Items.Firearms.FirearmPickup;
 
-namespace Nebuli.API.Features.Items.Pickups
+namespace Nebula.API.Features.Items.Pickups
 {
     /// <summary>
     ///     Represents a wrapper class for FirearmPickupBase.

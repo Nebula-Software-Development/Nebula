@@ -1,6 +1,6 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file=Utilites.cs company="NebuliTeam">
-// Copyright (c) NebuliTeam. All rights reserved.
+// <copyright file=Utilites.cs company="NebulaTeam">
+// Copyright (c) NebulaTeam. All rights reserved.
 // Licensed under the MIT license.
 // See LICENSE file in the project root for full license information.
 // -----------------------------------------------------------------------
@@ -11,17 +11,17 @@ using Hazards;
 using InventorySystem.Items.Firearms.BasicMessages;
 using MapGeneration;
 using Mirror;
-using Nebuli.API.Extensions;
-using Nebuli.API.Features.AdminToys;
-using Nebuli.API.Features.Items;
-using Nebuli.API.Features.Items.Pickups;
+using Nebula.API.Extensions;
+using Nebula.API.Features.AdminToys;
+using Nebula.API.Features.Items;
+using Nebula.API.Features.Items.Pickups;
 using PlayerRoles;
 using PlayerRoles.PlayableScps.Scp173;
 using RelativePositioning;
 using UnityEngine;
 using Utils.Networking;
 
-namespace Nebuli.API.Features.Map
+namespace Nebula.API.Features.Map
 {
     public static class Utilites
     {

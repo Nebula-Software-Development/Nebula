@@ -1,18 +1,18 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file=Camera.cs company="NebuliTeam">
-// Copyright (c) NebuliTeam. All rights reserved.
+// <copyright file=Camera.cs company="NebulaTeam">
+// Copyright (c) NebulaTeam. All rights reserved.
 // Licensed under the MIT license.
 // See LICENSE file in the project root for full license information.
 // -----------------------------------------------------------------------
 
 using System.Collections.Generic;
 using System.Linq;
-using Nebuli.API.Features.Enum;
+using Nebula.API.Features.Enum;
 using UnityEngine;
 using CameraBase = PlayerRoles.PlayableScps.Scp079.Cameras.Scp079Camera;
-using CameraType = Nebuli.API.Features.Enum.CameraType;
+using CameraType = Nebula.API.Features.Enum.CameraType;
 
-namespace Nebuli.API.Features.Map
+namespace Nebula.API.Features.Map
 {
     /// <summary>
     ///     Provides a easy API interface to  <see cref="CameraBase" />.

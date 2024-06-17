@@ -1,16 +1,16 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file=ReloadPerms.cs company="NebuliTeam">
-// Copyright (c) NebuliTeam. All rights reserved.
+// <copyright file=ReloadPerms.cs company="NebulaTeam">
+// Copyright (c) NebulaTeam. All rights reserved.
 // Licensed under the MIT license.
 // See LICENSE file in the project root for full license information.
 // -----------------------------------------------------------------------
 
 using System;
 using CommandSystem;
-using Nebuli.API.Features;
-using Nebuli.Permissions;
+using Nebula.API.Features;
+using Nebula.Permissions;
 
-namespace Nebuli.API.Internal.Commands
+namespace Nebula.API.Internal.Commands
 {
     public class ReloadPerms : ICommand
     {
@@ -19,6 +19,8 @@ namespace Nebuli.API.Internal.Commands
         public string[] Aliases { get; } = { "perm", "Permissions", "permission" };
 
         public string Description { get; } = "Reloads permissions.";
+
+        public bool SanitizeResponse => false;
 
         public bool Execute(ArraySegment<string> arguments, ICommandSender sender, out string response)
         {

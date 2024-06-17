@@ -1,18 +1,18 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file=AdminToy.cs company="NebuliTeam">
-// Copyright (c) NebuliTeam. All rights reserved.
+// <copyright file=AdminToy.cs company="NebulaTeam">
+// Copyright (c) NebulaTeam. All rights reserved.
 // Licensed under the MIT license.
 // See LICENSE file in the project root for full license information.
 // -----------------------------------------------------------------------
 
 using System.Linq;
 using Mirror;
-using Nebuli.API.Features.Enum;
-using Nebuli.API.Features.Map;
+using Nebula.API.Features.Enum;
+using Nebula.API.Features.Map;
 using UnityEngine;
 using SLAdminToy = AdminToys.AdminToyBase;
 
-namespace Nebuli.API.Features.AdminToys
+namespace Nebula.API.Features.AdminToys
 {
     /// <summary>
     ///     Wrapper class for <see cref="global::AdminToys.AdminToyBase" />.

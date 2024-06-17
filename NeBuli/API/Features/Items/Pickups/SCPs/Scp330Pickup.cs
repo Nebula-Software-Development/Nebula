@@ -1,6 +1,6 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file=Scp330Pickup.cs company="NebuliTeam">
-// Copyright (c) NebuliTeam. All rights reserved.
+// <copyright file=Scp330Pickup.cs company="NebulaTeam">
+// Copyright (c) NebulaTeam. All rights reserved.
 // Licensed under the MIT license.
 // See LICENSE file in the project root for full license information.
 // -----------------------------------------------------------------------
@@ -9,7 +9,7 @@ using System.Collections.Generic;
 using InventorySystem.Items.Usables.Scp330;
 using Scp330Base = InventorySystem.Items.Usables.Scp330.Scp330Pickup;
 
-namespace Nebuli.API.Features.Items.Pickups.SCPs
+namespace Nebula.API.Features.Items.Pickups.SCPs
 {
     public class Scp330Pickup : Pickup
     {

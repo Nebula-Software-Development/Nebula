@@ -1,6 +1,6 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file=PlayerShot.cs company="NebuliTeam">
-// Copyright (c) NebuliTeam. All rights reserved.
+// <copyright file=PlayerShot.cs company="NebulaTeam">
+// Copyright (c) NebulaTeam. All rights reserved.
 // Licensed under the MIT license.
 // See LICENSE file in the project root for full license information.
 // -----------------------------------------------------------------------
@@ -9,12 +9,12 @@ using System.Collections.Generic;
 using System.Reflection.Emit;
 using HarmonyLib;
 using InventorySystem.Items.Firearms.Modules;
-using Nebuli.Events.EventArguments.Player;
-using Nebuli.Events.Handlers;
+using Nebula.Events.EventArguments.Player;
+using Nebula.Events.Handlers;
 using NorthwoodLib.Pools;
 using static HarmonyLib.AccessTools;
 
-namespace Nebuli.Events.Patches.Player
+namespace Nebula.Events.Patches.Player
 {
     [HarmonyPatch(typeof(SingleBulletHitreg), nameof(SingleBulletHitreg.ServerPerformShot))]
     internal class PlayerShot

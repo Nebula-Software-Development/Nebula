@@ -1,6 +1,6 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file=ItemTypeExtension.cs company="NebuliTeam">
-// Copyright (c) NebuliTeam. All rights reserved.
+// <copyright file=ItemTypeExtension.cs company="NebulaTeam">
+// Copyright (c) NebulaTeam. All rights reserved.
 // Licensed under the MIT license.
 // See LICENSE file in the project root for full license information.
 // -----------------------------------------------------------------------
@@ -12,13 +12,13 @@ using InventorySystem;
 using InventorySystem.Items;
 using InventorySystem.Items.Firearms;
 using InventorySystem.Items.Firearms.Attachments;
-using Nebuli.API.Features;
-using Nebuli.API.Features.Enum;
-using Nebuli.API.Features.Items;
-using Nebuli.API.Features.Structs;
-using Firearm = Nebuli.API.Features.Items.Firearm;
+using Nebula.API.Features;
+using Nebula.API.Features.Enum;
+using Nebula.API.Features.Items;
+using Nebula.API.Features.Structs;
+using Firearm = Nebula.API.Features.Items.Firearm;
 
-namespace Nebuli.API.Extensions
+namespace Nebula.API.Extensions
 {
     /// <summary>
     ///     Extension methods for <see cref="ItemType" /> enumeration.

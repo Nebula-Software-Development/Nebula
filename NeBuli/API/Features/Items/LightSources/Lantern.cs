@@ -1,13 +1,13 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file=Lantern.cs company="NebuliTeam">
-// Copyright (c) NebuliTeam. All rights reserved.
+// <copyright file=Lantern.cs company="NebulaTeam">
+// Copyright (c) NebulaTeam. All rights reserved.
 // Licensed under the MIT license.
 // See LICENSE file in the project root for full license information.
 // -----------------------------------------------------------------------
 
 using LanternBase = InventorySystem.Items.ToggleableLights.Lantern.LanternItem;
 
-namespace Nebuli.API.Features.Items.LightSources
+namespace Nebula.API.Features.Items.LightSources
 {
     public class Lantern : Item
     {

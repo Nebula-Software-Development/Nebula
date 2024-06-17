@@ -1,6 +1,6 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file=InteractingPatch.cs company="NebuliTeam">
-// Copyright (c) NebuliTeam. All rights reserved.
+// <copyright file=InteractingPatch.cs company="NebulaTeam">
+// Copyright (c) NebulaTeam. All rights reserved.
 // Licensed under the MIT license.
 // See LICENSE file in the project root for full license information.
 // -----------------------------------------------------------------------
@@ -11,12 +11,12 @@ using HarmonyLib;
 using Interactables.Interobjects;
 using InventorySystem;
 using InventorySystem.Items.Usables.Scp330;
-using Nebuli.Events.EventArguments.SCPs.Scp330;
-using Nebuli.Events.Handlers;
+using Nebula.Events.EventArguments.SCPs.Scp330;
+using Nebula.Events.Handlers;
 using NorthwoodLib.Pools;
 using static HarmonyLib.AccessTools;
 
-namespace Nebuli.Events.Patches.SCPs.Scp330
+namespace Nebula.Events.Patches.SCPs.Scp330
 {
     [HarmonyPatch(typeof(Scp330Interobject), nameof(Scp330Interobject.ServerInteract))]
     internal class InteractingPatch

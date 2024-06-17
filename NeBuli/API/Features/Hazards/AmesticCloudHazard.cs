@@ -1,13 +1,13 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file=AmesticCloudHazard.cs company="NebuliTeam">
-// Copyright (c) NebuliTeam. All rights reserved.
+// <copyright file=AmesticCloudHazard.cs company="NebulaTeam">
+// Copyright (c) NebulaTeam. All rights reserved.
 // Licensed under the MIT license.
 // See LICENSE file in the project root for full license information.
 // -----------------------------------------------------------------------
 
 using PlayerRoles.PlayableScps.Scp939;
 
-namespace Nebuli.API.Features.Hazards
+namespace Nebula.API.Features.Hazards
 {
     public class AmesticCloudHazard : TemporaryHazard
     {

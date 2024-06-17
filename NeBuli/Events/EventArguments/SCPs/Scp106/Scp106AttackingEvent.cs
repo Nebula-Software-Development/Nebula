@@ -1,14 +1,14 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file=Scp106AttackingEvent.cs company="NebuliTeam">
-// Copyright (c) NebuliTeam. All rights reserved.
+// <copyright file=Scp106AttackingEvent.cs company="NebulaTeam">
+// Copyright (c) NebulaTeam. All rights reserved.
 // Licensed under the MIT license.
 // See LICENSE file in the project root for full license information.
 // -----------------------------------------------------------------------
 
 using System;
-using Nebuli.Events.EventArguments.Interfaces;
+using Nebula.Events.EventArguments.Interfaces;
 
-namespace Nebuli.Events.EventArguments.SCPs.Scp106
+namespace Nebula.Events.EventArguments.SCPs.Scp106
 {
     /// <summary>
     ///     Triggered when SCP-106 is attacking a player.

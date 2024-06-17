@@ -1,6 +1,6 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file=Scp096PlayerRole.cs company="NebuliTeam">
-// Copyright (c) NebuliTeam. All rights reserved.
+// <copyright file=Scp096PlayerRole.cs company="NebulaTeam">
+// Copyright (c) NebulaTeam. All rights reserved.
 // Licensed under the MIT license.
 // See LICENSE file in the project root for full license information.
 // -----------------------------------------------------------------------
@@ -14,7 +14,7 @@ using PlayerRoles.PlayableScps.Scp096;
 using PlayerRoles.Subroutines;
 using UnityEngine;
 
-namespace Nebuli.API.Features.Roles
+namespace Nebula.API.Features.Roles
 {
     /// <summary>
     ///     Represents the <see cref="RoleTypeId.Scp096" /> role in-game.
@@ -230,7 +230,7 @@ namespace Nebuli.API.Features.Roles
         /// <param name="increaseAmount">The amount to increase the rage duration.</param>
         public void IncreaseRageDuration(float increaseAmount = 3)
         {
-            RageManager.ServerIncreaseDuration(increaseAmount);
+            RageManager.ServerIncreaseDuration(Owner.ReferenceHub, increaseAmount);
         }
 
         /// <summary>

@@ -1,6 +1,6 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file=TeslaGate.cs company="NebuliTeam">
-// Copyright (c) NebuliTeam. All rights reserved.
+// <copyright file=TeslaGate.cs company="NebulaTeam">
+// Copyright (c) NebulaTeam. All rights reserved.
 // Licensed under the MIT license.
 // See LICENSE file in the project root for full license information.
 // -----------------------------------------------------------------------
@@ -10,7 +10,7 @@ using System.Linq;
 using UnityEngine;
 using TeslaGateBase = TeslaGate;
 
-namespace Nebuli.API.Features.Map
+namespace Nebula.API.Features.Map
 {
     /// <summary>
     ///     Wrapper for managing <see cref="TeslaGateBase" /> easier.

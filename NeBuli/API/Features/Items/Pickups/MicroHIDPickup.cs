@@ -1,13 +1,13 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file=MicroHIDPickup.cs company="NebuliTeam">
-// Copyright (c) NebuliTeam. All rights reserved.
+// <copyright file=MicroHIDPickup.cs company="NebulaTeam">
+// Copyright (c) NebulaTeam. All rights reserved.
 // Licensed under the MIT license.
 // See LICENSE file in the project root for full license information.
 // -----------------------------------------------------------------------
 
 using MicroHIDPickupBase = InventorySystem.Items.MicroHID.MicroHIDPickup;
 
-namespace Nebuli.API.Features.Items.Pickups
+namespace Nebula.API.Features.Items.Pickups
 {
     public class MicroHIDPickup : Pickup
     {

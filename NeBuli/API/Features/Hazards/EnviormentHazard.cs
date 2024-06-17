@@ -1,6 +1,6 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file=EnviormentHazard.cs company="NebuliTeam">
-// Copyright (c) NebuliTeam. All rights reserved.
+// <copyright file=EnviormentHazard.cs company="NebulaTeam">
+// Copyright (c) NebulaTeam. All rights reserved.
 // Licensed under the MIT license.
 // See LICENSE file in the project root for full license information.
 // -----------------------------------------------------------------------
@@ -8,12 +8,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using Hazards;
-using Nebuli.API.Features.Map;
+using Nebula.API.Features.Map;
 using PlayerRoles.PlayableScps.Scp939;
 using UnityEngine;
 using EnviormentalHazardBase = Hazards.EnvironmentalHazard;
 
-namespace Nebuli.API.Features.Hazards
+namespace Nebula.API.Features.Hazards
 {
     public class EnviormentHazard
     {

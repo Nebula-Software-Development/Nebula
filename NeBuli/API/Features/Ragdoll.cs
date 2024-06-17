@@ -1,6 +1,6 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file=Ragdoll.cs company="NebuliTeam">
-// Copyright (c) NebuliTeam. All rights reserved.
+// <copyright file=Ragdoll.cs company="NebulaTeam">
+// Copyright (c) NebulaTeam. All rights reserved.
 // Licensed under the MIT license.
 // See LICENSE file in the project root for full license information.
 // -----------------------------------------------------------------------
@@ -10,14 +10,14 @@ using System.Collections.Generic;
 using System.Linq;
 using JetBrains.Annotations;
 using Mirror;
-using Nebuli.API.Extensions;
+using Nebula.API.Extensions;
 using PlayerRoles;
 using PlayerRoles.Ragdolls;
 using PlayerStatsSystem;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
-namespace Nebuli.API.Features
+namespace Nebula.API.Features
 {
     /// <summary>
     ///     Allows easier use of in-game ragdolls by wrapping the <see cref="BasicRagdoll" /> class.
