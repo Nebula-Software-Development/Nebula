@@ -141,7 +141,7 @@ namespace Nebula.Loader
 
             CustomNetworkManager.Modded = true;
             BuildInfoCommand.ModDescription =
-                $"Framework : Nebula\nFramework Version : {NebulaInfo.NebulaVersion}\nCopyright : Copyright (c) 2023 Nebula Team";
+                $"Framework : Nebula\nFramework Version : {NebulaInfo.NebulaVersion}\nCopyright : Copyright (c) 2024 Nebula Team";
 
             Log.Info(
                 "Welcome to... \r\n███╗░░██╗███████╗██████╗░██╗░░░██╗██╗░░░░░░█████╗░\r\n████╗░██║██╔════╝██╔══██╗██║░░░██║██║░░░░░██╔══██╗\r\n██╔██╗██║█████╗░░██████╦╝██║░░░██║██║░░░░░███████║\r\n██║╚████║██╔══╝░░██╔══██╗██║░░░██║██║░░░░░██╔══██║\r\n██║░╚███║███████╗██████╦╝╚██████╔╝███████╗██║░░██║\r\n╚═╝░░╚══╝╚══════╝╚═════╝░░╚═════╝░╚══════╝╚═╝░░╚═╝");
